@@ -74,6 +74,8 @@
   --accent-dollarcity: #f4c842;
   --accent-taxsynapse: #5fe6a0;
   --accent-personal: #8ba8c8;
+  --accent-linkedin: #0a66c2;
+  --accent-linkedin-dim: rgba(10,102,194,0.12);
 }
 
 /* --- Reduced Motion --- */

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Depure — Federico Monroy</title>
+  <title>Chek — Federico Monroy</title>
   <link rel="stylesheet" href="../assets/shared.css" />
   <style>
     :root {
-      --accent: var(--accent-personal);
-      --accent-dim: rgba(139,168,200,0.12);
-      --project-glow: rgba(139,168,200,0.08);
+      --accent: var(--accent-chek);
+      --accent-dim: rgba(155,108,255,0.12);
+      --project-glow: rgba(155,108,255,0.08);
     }
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
@@ -17,19 +17,19 @@
   </style>
 </head>
 <body>
-  <div id="progress-bar" role="progressbar" aria-label="Page reading progress" aria-valuemin="0" aria-valuemax="100"></div>
   <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="progress-bar" role="progressbar" aria-label="Page reading progress" aria-valuemin="0" aria-valuemax="100"></div>
 
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-logo">FM<span>.</span></a>
-      <div class="nav-links">
+      <a href="../index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
+      <div class="nav-links" role="menubar">
         <div class="nav-dropdown">
           <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
             Projects
             <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu">
+          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
             <div class="nav-dropdown-group">
               <div class="nav-dropdown-group-label">Relevant / Professional</div>
               <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
@@ -83,37 +83,39 @@
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
           <a href="../index.html">Home</a>
           <span class="project-breadcrumb-sep" aria-hidden="true">›</span>
-          <span>Depure</span>
+          <span>Chek</span>
         </nav>
         <div class="project-meta-row" data-anim>
-          <span class="project-role-badge">Independent Designer</span>
-          <span class="project-timeline">Personal Project</span>
+          <span class="project-role-badge">Lead UX Designer</span>
+          <span class="project-timeline">2021–2023 · Applaudo Studios</span>
         </div>
-        <div class="section-eyebrow" data-anim>Personal / Independent</div>
-        <h1 class="project-title" id="project-title" data-anim data-anim-delay="1"><em>Depure</em></h1>
-        <p class="project-hook-text" data-anim data-anim-delay="2">An independent personal project exploring product design and UX concepts outside of client work — a space for experimentation and craft.</p>
+        <div class="section-eyebrow" data-anim>Fintech · Digital Wallet · South America</div>
+        <h1 class="project-title" id="project-title" data-anim data-anim-delay="1"><em>Chek</em></h1>
+        <p class="project-hook-text" data-anim data-anim-delay="2">Led a 4-designer team to launch a virtual credit card for South America's digital wallet — increasing onboarding rates by 15% through streamlined, data-informed user flows.</p>
         <div class="tags" data-anim data-anim-delay="3">
-          <span class="tag tag-accent">Independent</span>
-          <span class="tag tag-accent">Personal</span>
-          <span class="tag">Exploration</span>
-          <span class="tag">Design</span>
+          <span class="tag tag-accent">Fintech</span>
+          <span class="tag tag-accent">Onboarding</span>
+          <span class="tag">Analytics</span>
+          <span class="tag">Design Systems</span>
+          <span class="tag">Team Leadership</span>
+          <span class="tag">Figma</span>
         </div>
         <div class="project-stat-row" data-anim data-anim-delay="4">
           <div class="project-stat">
-            <div class="project-stat-value">Independent</div>
-            <div class="project-stat-label">Personal project</div>
+            <div class="project-stat-value">+15%</div>
+            <div class="project-stat-label">Onboarding rate increase</div>
           </div>
           <div class="project-stat">
-            <div class="project-stat-value">Explorative</div>
-            <div class="project-stat-label">Design concepts</div>
+            <div class="project-stat-value">4</div>
+            <div class="project-stat-label">Designers led</div>
           </div>
           <div class="project-stat">
-            <div class="project-stat-value">Personal</div>
-            <div class="project-stat-label">Craft</div>
+            <div class="project-stat-value">10+</div>
+            <div class="project-stat-label">Features with DS coverage</div>
           </div>
           <div class="project-stat">
-            <div class="project-stat-value">Placeholder</div>
-            <div class="project-stat-label">Content TBD</div>
+            <div class="project-stat-value">Funnels</div>
+            <div class="project-stat-label">Event-tracking built</div>
           </div>
         </div>
       </div>
@@ -126,10 +128,11 @@
           <div class="project-section-label">What I Owned</div>
           <h2 class="project-section-title">Scope of ownership</h2>
           <div class="project-owned-list">
-            <div class="project-owned-item">Defined project scope and goals independently</div>
-            <div class="project-owned-item">Conducted self-directed research and exploration</div>
-            <div class="project-owned-item">Developed design artifacts and prototypes</div>
-            <div class="project-owned-item">Documented learnings and outcomes</div>
+            <div class="project-owned-item">Led a 4-designer team to design and launch a virtual credit card, increasing onboarding rates by 15% via streamlined flows</div>
+            <div class="project-owned-item">Built event-tracking funnels to measure feature adoption, informing post-launch iterations</div>
+            <div class="project-owned-item">Overhauled the app's design system, ensuring consistency across 10+ product features</div>
+            <div class="project-owned-item">Collaborated with engineering on feasibility of interaction patterns within the existing tech stack</div>
+            <div class="project-owned-item">Ran usability testing sessions for the onboarding flow, iterating based on observed friction points</div>
           </div>
         </div>
 
@@ -138,19 +141,19 @@
           <h2 class="project-section-title">How I worked</h2>
           <div class="approach-steps">
             <div class="approach-step">
-              <div class="approach-step-number">01 — Define</div>
-              <h3 class="approach-step-title">Set personal goals</h3>
-              <p class="approach-step-desc">Identified what to learn or build outside of client constraints.</p>
+              <div class="approach-step-number">01 — Funnel Diagnosis</div>
+              <h3 class="approach-step-title">Find where users dropped off</h3>
+              <p class="approach-step-desc">Mapped the existing onboarding funnel and identified 3 key drop-off points through analytics review and usability sessions.</p>
             </div>
             <div class="approach-step">
-              <div class="approach-step-number">02 — Explore</div>
-              <h3 class="approach-step-title">Experiment freely</h3>
-              <p class="approach-step-desc">Explored design directions without commercial pressure, focusing on craft and learning.</p>
+              <div class="approach-step-number">02 — DS Overhaul</div>
+              <h3 class="approach-step-title">Ensure system consistency</h3>
+              <p class="approach-step-desc">Audited and rebuilt the design system to cover 10+ product features with shared components, reducing design inconsistency and dev rework.</p>
             </div>
             <div class="approach-step">
-              <div class="approach-step-number">03 — Reflect</div>
-              <h3 class="approach-step-title">Document and learn</h3>
-              <p class="approach-step-desc">Synthesized learnings from the exploration to inform future work.</p>
+              <div class="approach-step-number">03 — Instrument & Iterate</div>
+              <h3 class="approach-step-title">Event-tracking funnels</h3>
+              <p class="approach-step-desc">Built behavioral funnels post-launch to measure actual feature adoption and inform the next iteration cycle.</p>
             </div>
           </div>
         </div>
@@ -179,19 +182,22 @@
           <div class="project-section-label">Tools Used</div>
           <div class="tools-row">
             <span class="tool-chip">Figma</span>
-            <span class="tool-chip">Personal Methods</span>
-            <span class="tool-chip">Exploration</span>
+            <span class="tool-chip">Product Analytics</span>
+            <span class="tool-chip">Event Tracking</span>
+            <span class="tool-chip">Useberry</span>
+            <span class="tool-chip">Design Systems</span>
+            <span class="tool-chip">Miro</span>
           </div>
         </div>
 
         <div class="project-nav" data-anim>
-          <a href="industrial-design-thesis.html" class="project-nav-card">
+          <a href="customs.html" class="project-nav-card">
             <div class="project-nav-card-label">← Previous</div>
-            <div class="project-nav-card-title">Industrial Design Thesis</div>
+            <div class="project-nav-card-title">Customs / Aduanas ES</div>
           </a>
-          <a href="layer-ey.html" class="project-nav-card next">
+          <a href="dollarcity.html" class="project-nav-card next">
             <div class="project-nav-card-label">Next →</div>
-            <div class="project-nav-card-title">LayerEY</div>
+            <div class="project-nav-card-title">DollarCity</div>
           </a>
         </div>
 
