@@ -13,14 +13,14 @@
 
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">FM<span>.</span></a>
-      <div class="nav-links">
+      <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
+      <div class="nav-links" role="menubar">
         <div class="nav-dropdown">
           <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
             Projects
             <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu">
+          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
             <div class="nav-dropdown-group">
               <div class="nav-dropdown-group-label">Relevant / Professional</div>
               <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
@@ -49,12 +49,18 @@
     <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Relevant / Professional</div>
-        <a href="projects/ey-fabric.html">EY Fabric</a>
+        <a href="projects/ey-fabric.html">EY Fabric (Globant)</a>
         <a href="projects/blockchain.html">Blockchain</a>
-        <a href="projects/customs.html">Customs ES</a>
+        <a href="projects/customs.html">Customs / Aduanas ES</a>
         <a href="projects/chek.html">Chek</a>
         <a href="projects/dollarcity.html">DollarCity</a>
         <a href="projects/taxsynapse.html">TaxSynapse</a>
+      </div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Personal / Independent</div>
+        <a href="projects/industrial-design-thesis.html">Industrial Design Thesis</a>
+        <a href="projects/depure.html">Depure</a>
+        <a href="projects/layer-ey.html">LayerEY</a>
       </div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Pages</div>
@@ -94,7 +100,7 @@
           rel="noopener noreferrer"
           class="contact-method"
           aria-label="LinkedIn profile (opens in new tab)"
-          style="--accent-dim:rgba(10,102,194,0.12);--accent:#0a66c2;"
+          style="--accent-dim:var(--accent-linkedin-dim);--accent:var(--accent-linkedin);"
         >
           <div class="contact-method-icon" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
