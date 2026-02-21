@@ -1,0 +1,61 @@
+{
+  "permissions": {
+    "allowedTools": [
+      "Read",
+      "Write",
+      "Bash(git *)",
+      "Bash(open *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(grep *)"
+    ],
+    "deny": [
+      "Read(.env*)"
+    ]
+  }
+}
+```
+
+---
+
+## 3. Paste this as your first Claude Code prompt
+```
+@CLAUDE.md @index.html @assets/shared.css @assets/main.js
+
+You are acting as a senior front-end engineer and UX systems thinker 
+working on my personal portfolio. Read CLAUDE.md first — it is the 
+single source of truth for this project.
+
+Here is the current repo state and what I need you to do:
+
+CONTEXT:
+- All 18 files are already in this repo (index.html, about.html, 
+  resume.html, contact.html, 9 project pages, shared.css, main.js, 
+  Federico_Monroy_CV.pdf, ASSETS_PLAN.md, README.md)
+- Stack: pure HTML + CSS + vanilla JS, no build step
+- Design system lives entirely in assets/shared.css
+- Nav behavior lives in assets/main.js
+
+YOUR FIRST TASK — Audit & Fix Pass:
+Run through this checklist on every HTML file:
+
+1. CONSISTENCY: Confirm nav markup is identical across all 13 pages 
+   (same dropdown groups, same IDs, same ARIA attributes)
+
+2. PATHS: Project pages use ../assets/ and ../index.html — 
+   root pages use assets/ and index.html — verify no broken paths
+
+3. ACCESSIBILITY:
+   - Every page has skip-link as first child of <body>
+   - Every <img> has alt text
+   - Nav has aria-expanded, aria-haspopup, role="menu", role="menuitem"
+   - No font-weight: 300 in shared.css or any inline style
+
+4. ACCENT SYSTEM: Every project page has a <style> block in <head> 
+   setting --accent, --accent-dim, --project-glow to its assigned color
+
+5. PDF: resume.html embeds assets/Federico_Monroy_CV.pdf via <object>
+   with a fallback download link
+
+After the audit, report what you fixed and what still needs real 
+content (images, case study text). Then ask me what to work on next.
