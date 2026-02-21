@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Federico Monroy — UX / Product Experience Analyst. Behavioral analytics, funnel design, and design system handoff." />
+  <title>Federico Monroy — UX & Behavioral Analytics</title>
+  <link rel="stylesheet" href="assets/shared.css" />
+  <style>
+    /* Home-specific tweaks */
+    .hero { padding-bottom: var(--space-80); }
+  </style>
+</head>
+<body>
+
+  <!-- Skip Link -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">
+        FM<span>.</span>
+      </a>
+
+      <div class="nav-links" role="menubar">
+        <!-- Projects Dropdown -->
+        <div class="nav-dropdown" role="none">
+          <button
+            id="nav-dropdown-toggle"
+            class="nav-dropdown-toggle"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="nav-dropdown-menu"
+          >
+            Projects
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
+            <div class="nav-dropdown-group">
+              <div class="nav-dropdown-group-label">Relevant / Professional</div>
+              <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
+              <a class="nav-dropdown-item" href="projects/blockchain.html" role="menuitem">Blockchain</a>
+              <a class="nav-dropdown-item" href="projects/customs.html" role="menuitem">Customs / Aduanas ES</a>
+              <a class="nav-dropdown-item" href="projects/chek.html" role="menuitem">Chek</a>
+              <a class="nav-dropdown-item" href="projects/dollarcity.html" role="menuitem">DollarCity</a>
+              <a class="nav-dropdown-item" href="projects/taxsynapse.html" role="menuitem">TaxSynapse</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <div class="nav-dropdown-group-label">Personal / Independent</div>
+              <a class="nav-dropdown-item" href="projects/industrial-design-thesis.html" role="menuitem">Industrial Design Thesis</a>
+              <a class="nav-dropdown-item" href="projects/depure.html" role="menuitem">Depure</a>
+              <a class="nav-dropdown-item" href="projects/layer-ey.html" role="menuitem">LayerEY</a>
+            </div>
+          </div>
+        </div>
+
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button
+        id="nav-hamburger"
+        class="nav-hamburger"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+        aria-label="Open navigation menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Relevant / Professional</div>
+        <a href="projects/ey-fabric.html">EY Fabric (Globant)</a>
+        <a href="projects/blockchain.html">Blockchain</a>
+        <a href="projects/customs.html">Customs / Aduanas ES</a>
+        <a href="projects/chek.html">Chek</a>
+        <a href="projects/dollarcity.html">DollarCity</a>
+        <a href="projects/taxsynapse.html">TaxSynapse</a>
+      </div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Personal / Independent</div>
+        <a href="projects/industrial-design-thesis.html">Industrial Design Thesis</a>
+        <a href="projects/depure.html">Depure</a>
+        <a href="projects/layer-ey.html">LayerEY</a>
+      </div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Pages</div>
+        <a href="resume.html">Resume</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+
+    <!-- ========================
+         SECTION 1: HERO
+         ======================== -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+
+        <p class="hero-kicker" data-anim>UX & Behavioral Analytics · Córdoba, Argentina</p>
+
+        <h1 class="hero-headline" id="hero-heading" data-anim data-anim-delay="1">
+          Product experiences, diagnosed with <em>data</em> and improved with intent.
+        </h1>
+
+        <p class="hero-sub" data-anim data-anim-delay="2">
+          <strong>UX / Product Experience Analyst</strong> (Behavioral Analytics).<br>
+          Turning behavioral signals into clear product decisions.
+        </p>
+
+        <div class="hero-ctas" data-anim data-anim-delay="3">
+          <a href="#projects" class="btn btn-primary">See Projects</a>
+          <a href="about.html" class="btn btn-outline">About Me</a>
+        </div>
+
+        <div class="hero-proof" data-anim data-anim-delay="4">
+          <span class="hero-proof-item">Behavioral analytics</span>
+          <span class="hero-proof-item">Funnel / Journey design</span>
+          <span class="hero-proof-item">Design System handoff</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================
+         SECTION 2: PROFESSIONAL PROJECTS GRID
+         ======================== -->
+    <section class="section" id="projects" aria-labelledby="projects-heading">
+      <div class="container">
+
+        <div class="section-header" data-anim>
+          <div class="section-eyebrow">Work</div>
+          <h2 class="section-title" id="projects-heading">Relevant & Professional</h2>
+          <p class="section-subtitle">Enterprise UX, product analytics, and behavioral diagnosis across fintech, retail, and government.</p>
+        </div>
+
+        <div class="projects-grid" role="list">
+
+          <!-- Card 1: EY Fabric -->
+          <a
+            href="projects/ey-fabric.html"
+            class="project-card"
+            role="listitem"
+            aria-label="EY Fabric project — Globant"
+            style="--card-accent: var(--accent-ey);"
+            data-anim data-anim-delay="1"
+          >
+            <div class="card-image">
+              <div class="card-image-placeholder placeholder-shimmer">
+                <span class="placeholder-icon">⬡</span>
+                <span class="placeholder-label">EY Fabric Screenshot</span>
+              </div>
+            </div>
+            <div class="card-accent-bar"></div>
+            <div class="card-body">
+              <h3 class="card-title">EY Fabric (Globant)</h3>
+              <p class="card-hook">Internal developer portal — turning 90+ asset reviews into actionable product insight via behavioral instrumentation.</p>
+              <div class="card-meta">
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Impact</span>
+                  <span class="card-meta-value">Feedback loop closed at scale with Pendo + Qualtrics</span>
+                </div>
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Owned</span>
+                  <span class="card-meta-value">End-to-end UX research, instrumentation, dashboard design</span>
+                </div>
+              </div>
+              <div class="card-tools">
+                <span class="card-tool">Figma</span>
+                <span class="card-tool">Pendo</span>
+                <span class="card-tool">Qualtrics</span>
+                <span class="card-tool">Dynamics</span>
+              </div>
+              <div class="card-tags">
+                <span class="card-tag">Enterprise</span>
+                <span class="card-tag">Analytics</span>
+                <span class="card-tag">Instrumentation</span>
+                <span class="card-tag">Research</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 2: Blockchain -->
+          <a
+            href="projects/blockchain.html"
+            class="project-card"
+            role="listitem"
+            aria-label="Blockchain 3D Immersive Experience project"
+            style="--card-accent: var(--accent-blockchain);"
+            data-anim data-anim-delay="2"
+          >
+            <div class="card-image">
+              <div class="card-image-placeholder placeholder-shimmer">
+                <span class="placeholder-icon">◈</span>
+                <span class="placeholder-label">Blockchain Platform Screenshot</span>
+              </div>
+            </div>
+            <div class="card-accent-bar"></div>
+            <div class="card-body">
+              <h3 class="card-title">Blockchain (3D Immersive)</h3>
+              <p class="card-hook">Spatial UI design for a 3D blockchain platform — bridging Figma prototypes with immersive 3D animation tooling.</p>
+              <div class="card-meta">
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Impact</span>
+                  <span class="card-meta-value">2D/3D map feature validated via client-led user testing</span>
+                </div>
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Owned</span>
+                  <span class="card-meta-value">Mobile-to-desktop translation, spatial UI patterns</span>
+                </div>
+              </div>
+              <div class="card-tools">
+                <span class="card-tool">Figma</span>
+                <span class="card-tool">3D Tools</span>
+                <span class="card-tool">Prototyping</span>
+              </div>
+              <div class="card-tags">
+                <span class="card-tag">Spatial UI</span>
+                <span class="card-tag">Startup</span>
+                <span class="card-tag">3D</span>
+                <span class="card-tag">Mobile→Desktop</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 3: Customs -->
+          <a
+            href="projects/customs.html"
+            class="project-card"
+            role="listitem"
+            aria-label="Customs El Salvador digital transformation project"
+            style="--card-accent: var(--accent-customs);"
+            data-anim data-anim-delay="3"
+          >
+            <div class="card-image">
+              <div class="card-image-placeholder placeholder-shimmer">
+                <span class="placeholder-icon">⬟</span>
+                <span class="placeholder-label">Customs Platform Screenshot</span>
+              </div>
+            </div>
+            <div class="card-accent-bar"></div>
+            <div class="card-body">
+              <h3 class="card-title">Customs / Aduanas ES</h3>
+              <p class="card-hook">Digital transformation of 5 analog government processes into an MVP — expanding to a $500K full-scale project.</p>
+              <div class="card-meta">
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Impact</span>
+                  <span class="card-meta-value">5 analog processes digitized; $500K scope expansion</span>
+                </div>
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Owned</span>
+                  <span class="card-meta-value">Led 5-designer team, PrimeNG DS adoption, developer handoff</span>
+                </div>
+              </div>
+              <div class="card-tools">
+                <span class="card-tool">Figma</span>
+                <span class="card-tool">PrimeNG</span>
+                <span class="card-tool">Miro</span>
+              </div>
+              <div class="card-tags">
+                <span class="card-tag">GovTech</span>
+                <span class="card-tag">Design Systems</span>
+                <span class="card-tag">MVP</span>
+                <span class="card-tag">Leadership</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 4: Chek -->
+          <a
+            href="projects/chek.html"
+            class="project-card"
+            role="listitem"
+            aria-label="Chek virtual credit card project"
+            style="--card-accent: var(--accent-chek);"
+            data-anim data-anim-delay="1"
+          >
+            <div class="card-image">
+              <div class="card-image-placeholder placeholder-shimmer">
+                <span class="placeholder-icon">◇</span>
+                <span class="placeholder-label">Chek App Screenshot</span>
+              </div>
+            </div>
+            <div class="card-accent-bar"></div>
+            <div class="card-body">
+              <h3 class="card-title">Chek</h3>
+              <p class="card-hook">Virtual credit card for South America's digital wallet — onboarding rates up 15% through streamlined user flows.</p>
+              <div class="card-meta">
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Impact</span>
+                  <span class="card-meta-value">+15% onboarding; event-tracking funnels built</span>
+                </div>
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Owned</span>
+                  <span class="card-meta-value">Led 4-designer team, design system overhaul, analytics</span>
+                </div>
+              </div>
+              <div class="card-tools">
+                <span class="card-tool">Figma</span>
+                <span class="card-tool">Analytics</span>
+                <span class="card-tool">Design Systems</span>
+              </div>
+              <div class="card-tags">
+                <span class="card-tag">Fintech</span>
+                <span class="card-tag">Onboarding</span>
+                <span class="card-tag">Analytics</span>
+                <span class="card-tag">Leadership</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 5: DollarCity -->
+          <a
+            href="projects/dollarcity.html"
+            class="project-card"
+            role="listitem"
+            aria-label="DollarCity Dollarama surveillance SaaS project"
+            style="--card-accent: var(--accent-dollarcity);"
+            data-anim data-anim-delay="2"
+          >
+            <div class="card-image">
+              <div class="card-image-placeholder placeholder-shimmer">
+                <span class="placeholder-icon">◉</span>
+                <span class="placeholder-label">DollarCity Platform Screenshot</span>
+              </div>
+            </div>
+            <div class="card-accent-bar"></div>
+            <div class="card-body">
+              <h3 class="card-title">DollarCity × Dollarama</h3>
+              <p class="card-hook">Fraud monitoring SaaS for retail chains across Canada and LATAM — 50% reduction in task completion time.</p>
+              <div class="card-meta">
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Impact</span>
+                  <span class="card-meta-value">50% task time reduced; 3 new user personas identified</span>
+                </div>
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Owned</span>
+                  <span class="card-meta-value">Full UX research, workflow redesign, user testing</span>
+                </div>
+              </div>
+              <div class="card-tools">
+                <span class="card-tool">Figma</span>
+                <span class="card-tool">Useberry</span>
+                <span class="card-tool">Research</span>
+              </div>
+              <div class="card-tags">
+                <span class="card-tag">SaaS</span>
+                <span class="card-tag">Retail</span>
+                <span class="card-tag">Research</span>
+                <span class="card-tag">Fraud</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 6: TaxSynapse -->
+          <a
+            href="projects/taxsynapse.html"
+            class="project-card"
+            role="listitem"
+            aria-label="TaxSynapse government SaaS project"
+            style="--card-accent: var(--accent-taxsynapse);"
+            data-anim data-anim-delay="3"
+          >
+            <div class="card-image">
+              <div class="card-image-placeholder placeholder-shimmer">
+                <span class="placeholder-icon">◆</span>
+                <span class="placeholder-label">TaxSynapse Platform Screenshot</span>
+              </div>
+            </div>
+            <div class="card-accent-bar"></div>
+            <div class="card-body">
+              <h3 class="card-title">TaxSynapse</h3>
+              <p class="card-hook">Three SaaS MVPs for public-sector tax clients — scalable design system reducing iteration time by 20%.</p>
+              <div class="card-meta">
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Impact</span>
+                  <span class="card-meta-value">20% iteration time reduction; 3 MVPs shipped</span>
+                </div>
+                <div class="card-meta-row">
+                  <span class="card-meta-label">Owned</span>
+                  <span class="card-meta-value">End-to-end SaaS design, design system, stakeholder alignment</span>
+                </div>
+              </div>
+              <div class="card-tools">
+                <span class="card-tool">Figma</span>
+                <span class="card-tool">Miro</span>
+                <span class="card-tool">Testing</span>
+              </div>
+              <div class="card-tags">
+                <span class="card-tag">GovTech</span>
+                <span class="card-tag">SaaS</span>
+                <span class="card-tag">Design Systems</span>
+                <span class="card-tag">MVPs</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+         SECTION 3: PERSONAL GRID
+         ======================== -->
+    <section class="section section-alt" aria-labelledby="personal-heading">
+      <div class="container">
+
+        <div class="section-header" data-anim>
+          <div class="section-eyebrow">Independent</div>
+          <h2 class="section-title" id="personal-heading">Personal Work</h2>
+          <p class="section-subtitle">Exploratory and independent projects rooted in industrial design and spatial UX.</p>
+        </div>
+
+        <div class="personal-grid" role="list">
+
+          <!-- Tile 1: Industrial Design Thesis -->
+          <a
+            href="projects/industrial-design-thesis.html"
+            class="personal-tile"
+            role="listitem"
+            aria-label="Industrial Design Thesis project"
+            data-anim data-anim-delay="1"
+            style="--card-accent: var(--accent-personal);"
+          >
+            <div class="personal-tile-placeholder">
+              <span style="font-size:2.5rem;opacity:0.3;">⬡</span>
+              <span style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.35;">Thesis Image Placeholder</span>
+            </div>
+            <div class="personal-tile-overlay">
+              <p style="font-size:0.875rem;color:rgba(255,255,255,0.75);margin-bottom:4px;">Industrial Design</p>
+            </div>
+            <div class="personal-tile-footer">
+              <div class="personal-tile-title">Industrial Design Thesis</div>
+              <div class="personal-tile-sub">Bachelor's degree capstone — Universidad Nacional de Córdoba</div>
+            </div>
+          </a>
+
+          <!-- Tile 2: Depure -->
+          <a
+            href="projects/depure.html"
+            class="personal-tile"
+            role="listitem"
+            aria-label="Depure personal project"
+            data-anim data-anim-delay="2"
+            style="--card-accent: var(--accent-personal);"
+          >
+            <div class="personal-tile-placeholder">
+              <span style="font-size:2.5rem;opacity:0.3;">◈</span>
+              <span style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.35;">Depure Image Placeholder</span>
+            </div>
+            <div class="personal-tile-overlay">
+              <p style="font-size:0.875rem;color:rgba(255,255,255,0.75);margin-bottom:4px;">Independent</p>
+            </div>
+            <div class="personal-tile-footer">
+              <div class="personal-tile-title">Depure</div>
+              <div class="personal-tile-sub">Independent personal project</div>
+            </div>
+          </a>
+
+          <!-- Tile 3: LayerEY -->
+          <a
+            href="projects/layer-ey.html"
+            class="personal-tile"
+            role="listitem"
+            aria-label="LayerEY personal project"
+            data-anim data-anim-delay="3"
+            style="--card-accent: var(--accent-personal);"
+          >
+            <div class="personal-tile-placeholder">
+              <span style="font-size:2.5rem;opacity:0.3;">◉</span>
+              <span style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.35;">LayerEY Image Placeholder</span>
+            </div>
+            <div class="personal-tile-overlay">
+              <p style="font-size:0.875rem;color:rgba(255,255,255,0.75);margin-bottom:4px;">Independent</p>
+            </div>
+            <div class="personal-tile-footer">
+              <div class="personal-tile-title">LayerEY</div>
+              <div class="personal-tile-sub">Independent personal project</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+         SECTION 4: RESUME BLOCK
+         ======================== -->
+    <section class="section" aria-labelledby="resume-heading">
+      <div class="container">
+        <div class="resume-block" data-anim>
+          <div>
+            <h2 class="resume-block-title" id="resume-heading">Resume</h2>
+            <p class="resume-block-copy">Preview or download my ATS-friendly resume — 5+ years of UX, product analytics, and cross-team leadership.</p>
+          </div>
+          <div class="resume-block-actions">
+            <a href="resume.html" class="btn btn-primary">Preview</a>
+            <a href="assets/Federico_Monroy_CV.pdf" download class="btn btn-outline">Download</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+         SECTION 5: ABOUT TEASER
+         ======================== -->
+    <section class="section section-alt" aria-labelledby="about-teaser-heading">
+      <div class="container">
+        <div class="about-teaser" data-anim>
+          <div>
+            <div class="section-eyebrow">About</div>
+            <h2 class="about-teaser-quote" id="about-teaser-heading">
+              Industrial Designer by degree —<br>
+              Behavioral analyst by practice.
+            </h2>
+            <p class="about-teaser-copy">
+              I started with form and function. Now I work with funnels and friction. Five years of senior UX across fintech, enterprise, and government — always data-informed, never data-driven blindly.
+            </p>
+            <a href="about.html" class="btn btn-outline">Read more</a>
+          </div>
+          <div>
+            <div style="background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-32);display:flex;flex-direction:column;gap:var(--space-20);">
+              <div>
+                <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Expertise</div>
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);">
+                  <span class="tag">Behavioral Analytics</span>
+                  <span class="tag">UX Diagnosis</span>
+                  <span class="tag">Instrumentation</span>
+                  <span class="tag">Design Systems</span>
+                  <span class="tag">Funnel/Journey Design</span>
+                </div>
+              </div>
+              <div class="divider" style="margin:0;"></div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Core Tools</div>
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);">
+                  <span class="tag">Figma</span>
+                  <span class="tag">Pendo</span>
+                  <span class="tag">Qualtrics</span>
+                  <span class="tag">Useberry</span>
+                  <span class="tag">Miro</span>
+                  <span class="tag">Jira</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+         SECTION 6: CONTACT CTA
+         ======================== -->
+    <section class="section contact-cta" aria-labelledby="contact-heading">
+      <div class="container">
+        <div data-anim>
+          <h2 class="contact-cta-title" id="contact-heading">Let's talk.</h2>
+          <div class="contact-cta-btns">
+            <a
+              href="https://linkedin.com/in/federicomonroy"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary"
+              aria-label="Visit LinkedIn profile (opens in new tab)"
+            >
+              LinkedIn
+            </a>
+            <a href="mailto:fedemon16i@gmail.com" class="btn btn-outline" aria-label="Send email to Federico">
+              Email
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">Federico Monroy</div>
+          <p class="footer-tagline">UX / Product Experience Analyst. Behavioral analytics &amp; intent-driven design.</p>
+        </div>
+        <div>
+          <div class="footer-nav-label">Projects</div>
+          <nav class="footer-nav-links" aria-label="Footer project links">
+            <a href="projects/ey-fabric.html">EY Fabric</a>
+            <a href="projects/blockchain.html">Blockchain</a>
+            <a href="projects/customs.html">Customs ES</a>
+            <a href="projects/chek.html">Chek</a>
+            <a href="projects/dollarcity.html">DollarCity</a>
+            <a href="projects/taxsynapse.html">TaxSynapse</a>
+          </nav>
+        </div>
+        <div>
+          <div class="footer-nav-label">Pages</div>
+          <nav class="footer-nav-links" aria-label="Footer page links">
+            <a href="resume.html">Resume</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="https://linkedin.com/in/federicomonroy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">LinkedIn ↗</a>
+            <a href="mailto:fedemon16i@gmail.com">Email</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Federico A. Monroy — Córdoba, Argentina</p>
+        <p class="footer-copy">Built with care. No dark green on dark backgrounds.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/main.js"></script>
+</body>
+</html>

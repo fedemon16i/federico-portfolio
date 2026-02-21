@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaxSynapse — Federico Monroy</title>
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <style>
+    :root {
+      --accent: var(--accent-taxsynapse);
+      --accent-dim: rgba(95,230,160,0.12);
+      --project-glow: rgba(95,230,160,0.08);
+    }
+    #progress-bar {
+      position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
+    }
+  </style>
+</head>
+<body>
+  <div id="progress-bar" role="progressbar" aria-label="Page reading progress" aria-valuemin="0" aria-valuemax="100"></div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">FM<span>.</span></a>
+      <div class="nav-links">
+        <div class="nav-dropdown">
+          <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
+            Projects
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu">
+            <div class="nav-dropdown-group">
+              <div class="nav-dropdown-group-label">Relevant / Professional</div>
+              <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
+              <a class="nav-dropdown-item" href="blockchain.html" role="menuitem">Blockchain</a>
+              <a class="nav-dropdown-item" href="customs.html" role="menuitem">Customs / Aduanas ES</a>
+              <a class="nav-dropdown-item" href="chek.html" role="menuitem">Chek</a>
+              <a class="nav-dropdown-item" href="dollarcity.html" role="menuitem">DollarCity</a>
+              <a class="nav-dropdown-item" href="taxsynapse.html" role="menuitem">TaxSynapse</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <div class="nav-dropdown-group-label">Personal / Independent</div>
+              <a class="nav-dropdown-item" href="industrial-design-thesis.html" role="menuitem">Industrial Design Thesis</a>
+              <a class="nav-dropdown-item" href="depure.html" role="menuitem">Depure</a>
+              <a class="nav-dropdown-item" href="layer-ey.html" role="menuitem">LayerEY</a>
+            </div>
+          </div>
+        </div>
+        <a href="../resume.html" class="nav-link">Resume</a>
+        <a href="../about.html" class="nav-link">About</a>
+        <a href="../contact.html" class="nav-link">Contact</a>
+      </div>
+      <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Projects</div>
+        <a href="ey-fabric.html">EY Fabric</a>
+        <a href="blockchain.html">Blockchain</a>
+        <a href="customs.html">Customs ES</a>
+        <a href="chek.html">Chek</a>
+        <a href="dollarcity.html">DollarCity</a>
+        <a href="taxsynapse.html">TaxSynapse</a>
+        <a href="industrial-design-thesis.html">ID Thesis</a>
+        <a href="depure.html">Depure</a>
+        <a href="layer-ey.html">LayerEY</a>
+      </div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Pages</div>
+        <a href="../resume.html">Resume</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="project-hero" aria-labelledby="project-title">
+      <div class="container">
+        <nav class="project-breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="project-breadcrumb-sep" aria-hidden="true">›</span>
+          <span>TaxSynapse</span>
+        </nav>
+        <div class="project-meta-row" data-anim>
+          <span class="project-role-badge">Lead UX Designer</span>
+          <span class="project-timeline">Mar 2021 – Oct 2022 · TaxSynapse</span>
+        </div>
+        <div class="section-eyebrow" data-anim>GovTech · SaaS MVPs</div>
+        <h1 class="project-title" id="project-title" data-anim data-anim-delay="1"><em>Tax</em>Synapse</h1>
+        <p class="project-hook-text" data-anim data-anim-delay="2">Led end-to-end design of 3 SaaS platform MVPs for government tax clients in Buenos Aires, Jujuy, and Misiones — shipping a scalable design system that reduced iteration time by 20%.</p>
+        <div class="tags" data-anim data-anim-delay="3">
+          <span class="tag tag-accent">GovTech</span>
+          <span class="tag tag-accent">SaaS</span>
+          <span class="tag">Design Systems</span>
+          <span class="tag">MVPs</span>
+          <span class="tag">Figma</span>
+          <span class="tag">User Testing</span>
+        </div>
+        <div class="project-stat-row" data-anim data-anim-delay="4">
+          <div class="project-stat">
+            <div class="project-stat-value">3</div>
+            <div class="project-stat-label">SaaS MVPs shipped</div>
+          </div>
+          <div class="project-stat">
+            <div class="project-stat-value">20%</div>
+            <div class="project-stat-label">Iteration time reduced</div>
+          </div>
+          <div class="project-stat">
+            <div class="project-stat-value">3</div>
+            <div class="project-stat-label">Government clients</div>
+          </div>
+          <div class="project-stat">
+            <div class="project-stat-value">Validated</div>
+            <div class="project-stat-label">Via user testing</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="project-content">
+      <div class="container" style="max-width:900px;">
+
+        <div class="project-section" data-anim>
+          <div class="project-section-label">What I Owned</div>
+          <h2 class="project-section-title">Scope of ownership</h2>
+          <div class="project-owned-list">
+            <div class="project-owned-item">Led end-to-end design of 3 SaaS platform MVPs for government clients (Buenos Aires, Jujuy, Misiones)</div>
+            <div class="project-owned-item">Aligned tech flows, user flows, and sitemaps with stakeholder validation across multiple public-sector clients</div>
+            <div class="project-owned-item">Shipped a scalable design system to accelerate development handoff, reducing iteration time by 20%</div>
+            <div class="project-owned-item">Validated prototypes via user testing, ensuring compliance with public-sector usability standards</div>
+            <div class="project-owned-item">Managed stakeholder communication and design review cycles with government representatives</div>
+          </div>
+        </div>
+
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Approach</div>
+          <h2 class="project-section-title">How I worked</h2>
+          <div class="approach-steps">
+            <div class="approach-step">
+              <div class="approach-step-number">01 — Stakeholder Alignment</div>
+              <h3 class="approach-step-title">Map requirements to flows</h3>
+              <p class="approach-step-desc">Ran structured workshops with each government client to align on scope, user flows, and technical constraints before wireframing.</p>
+            </div>
+            <div class="approach-step">
+              <div class="approach-step-number">02 — Scalable DS</div>
+              <h3 class="approach-step-title">Build once, deploy three times</h3>
+              <p class="approach-step-desc">Designed a single design system that could be themed and adapted for 3 separate government clients, reducing redundant work by ~20%.</p>
+            </div>
+            <div class="approach-step">
+              <div class="approach-step-number">03 — Test & Validate</div>
+              <h3 class="approach-step-title">Public-sector standards</h3>
+              <p class="approach-step-desc">Conducted usability testing with real government staff to ensure the platform met public-sector accessibility and usability requirements.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Evidence</div>
+          <h2 class="project-section-title">Screens & Documentation</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-24);">Screens, flows, and research artifacts available under NDA upon request.</p>
+          <div class="evidence-grid">
+            <div class="evidence-placeholder">
+              <span class="evidence-placeholder-icon">📱</span>
+              <span class="evidence-placeholder-label">Screenshot Placeholder</span>
+            </div>
+            <div class="evidence-placeholder">
+              <span class="evidence-placeholder-icon">🗺️</span>
+              <span class="evidence-placeholder-label">Flow / Journey Map</span>
+            </div>
+            <div class="evidence-placeholder">
+              <span class="evidence-placeholder-icon">🧩</span>
+              <span class="evidence-placeholder-label">Wireframe Placeholder</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Tools Used</div>
+          <div class="tools-row">
+            <span class="tool-chip">Figma</span>
+            <span class="tool-chip">Miro</span>
+            <span class="tool-chip">User Testing</span>
+            <span class="tool-chip">Design Systems</span>
+            <span class="tool-chip">Prototyping</span>
+            <span class="tool-chip">Jira</span>
+          </div>
+        </div>
+
+        <div class="project-nav" data-anim>
+          <a href="dollarcity.html" class="project-nav-card">
+            <div class="project-nav-card-label">← Previous</div>
+            <div class="project-nav-card-title">DollarCity</div>
+          </a>
+          <a href="industrial-design-thesis.html" class="project-nav-card next">
+            <div class="project-nav-card-label">Next →</div>
+            <div class="project-nav-card-title">Industrial Design Thesis</div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Federico A. Monroy</p>
+        <a href="../index.html" class="btn btn-outline" style="padding:var(--space-8) var(--space-16);font-size:0.75rem;">← Back to Home</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/main.js"></script>
+</body>
+</html>
