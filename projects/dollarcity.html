@@ -8,20 +8,508 @@
   <link rel="stylesheet" href="../assets/shared.css" />
   <style>
     :root {
-      --accent: var(--accent-dollarcity);
-      --accent-dim: rgba(244,200,66,0.12);
-      --project-glow: rgba(244,200,66,0.08);
+      --accent: #1a7a3c;
+      --accent-dim: rgba(26,122,60,0.12);
+      --project-glow: rgba(26,122,60,0.08);
+      --accent-border: rgba(26,122,60,0.28);
     }
-    /* Progress bar */
     #progress-bar {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       height: 3px;
       background: var(--accent);
       z-index: 9999;
       width: 0%;
       transition: width 100ms linear;
+    }
+
+    /* ── Research method cards ── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+      margin-top: var(--space-32);
+    }
+    @media (max-width: 600px) { .research-grid { grid-template-columns: 1fr; } }
+    .research-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-24) var(--space-28);
+    }
+    .research-card-type {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-12);
+    }
+    .research-card-title {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-12);
+    }
+    .research-card ul {
+      margin: 0; padding-left: var(--space-20);
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+    }
+
+    /* ── User type cards ── */
+    .user-types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: var(--space-16);
+      margin-top: var(--space-32);
+    }
+    .user-type-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+      position: relative;
+      overflow: hidden;
+    }
+    .user-type-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+    .user-type-icon {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-12);
+      display: block;
+    }
+    .user-type-name {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-8);
+    }
+    .user-type-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Problems found ── */
+    .problems-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+      margin-top: var(--space-28);
+    }
+    .problem-item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: var(--space-20);
+      align-items: start;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: var(--space-20) var(--space-24);
+    }
+    .problem-num {
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.55;
+      line-height: 1;
+      padding-top: 2px;
+    }
+    .problem-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-6);
+    }
+    .problem-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Solutions selected ── */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-16);
+      margin-top: var(--space-28);
+    }
+    .solution-card {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+    }
+    .solution-check {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--space-16);
+      flex-shrink: 0;
+    }
+    .solution-check svg { width: 14px; height: 14px; }
+    .solution-title {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-8);
+    }
+    .solution-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Interactive Prototype ── */
+    .proto-wrapper {
+      background: #111;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: var(--space-32);
+    }
+    .proto-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+    }
+    .proto-tab {
+      padding: var(--space-12) var(--space-24);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .proto-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .proto-tab:hover:not(.active) { color: var(--text-secondary); }
+
+    .proto-screen { display: none; }
+    .proto-screen.active { display: block; }
+
+    /* App shell */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      height: 480px;
+      font-size: 0.8125rem;
+    }
+    @media (max-width: 700px) {
+      .app-shell { grid-template-columns: 1fr; height: auto; }
+      .app-sidebar { display: none; }
+    }
+    .app-sidebar {
+      background: #0e1612;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      flex-direction: column;
+    }
+    .app-sidebar-head {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .app-sidebar-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.875rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .app-sidebar-logo span { color: var(--accent); }
+    .app-nav-section { padding: 12px 12px 4px; }
+    .app-nav-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 0 6px;
+      margin-bottom: 4px;
+    }
+    .app-nav-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: default;
+      transition: background 0.15s;
+    }
+    .app-nav-item.active {
+      background: rgba(26,122,60,0.18);
+      color: #fff;
+    }
+    .app-nav-item.active .nav-dot { background: var(--accent); }
+    .nav-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+    .app-main {
+      background: #0c0f0d;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .app-topbar {
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0e1612;
+    }
+    .app-topbar-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #fff;
+      flex: 1;
+    }
+    .app-topbar-badge {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: rgba(26,122,60,0.2);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+    .app-body {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-field {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      flex: 1;
+      min-width: 100px;
+    }
+    .filter-btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      padding: 6px 14px;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Results table */
+    .results-table { width: 100%; border-collapse: collapse; }
+    .results-table thead tr {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .results-table th {
+      text-align: left;
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 6px 10px 8px;
+    }
+    .results-table td {
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .results-table tr.selected td { background: rgba(26,122,60,0.12); color: #fff; }
+    .results-table tr.selected .row-check { color: var(--accent); }
+    .row-check { font-size: 0.875rem; }
+    .dl-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .dl-badge.none { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.35); }
+    .dl-badge.ready { background: rgba(26,122,60,0.2); color: #5fe6a0; border: 1px solid rgba(26,122,60,0.4); }
+    .dl-badge.loading { background: rgba(244,200,66,0.12); color: #f4c842; border: 1px solid rgba(244,200,66,0.3); }
+    .dl-badge.done { background: rgba(26,122,60,0.25); color: #fff; border: 1px solid rgba(26,122,60,0.5); }
+    .dl-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    /* State selector */
+    .state-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+    .state-btn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .state-btn.active {
+      background: rgba(26,122,60,0.2);
+      border-color: var(--accent-border);
+      color: #fff;
+    }
+
+    /* ── Video Request screen ── */
+    .req-list { display: flex; flex-direction: column; gap: 8px; }
+    .req-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .req-meta { font-size: 0.6875rem; color: rgba(255,255,255,0.35); margin-top: 2px; }
+    .req-title { font-size: 0.8125rem; font-weight: 600; color: #fff; }
+    .req-status {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .req-status.pending { background: rgba(244,200,66,0.1); color: #f4c842; }
+    .req-status.ready   { background: rgba(26,122,60,0.2); color: #5fe6a0; }
+    .req-status.review  { background: rgba(139,168,200,0.15); color: #8ba8c8; }
+    .req-dl-btn {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .req-dl-btn.disabled {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.3);
+      cursor: default;
+    }
+
+    /* new request form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-field {
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .form-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .form-input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .form-submit {
+      margin-top: 12px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 20px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Proto state switcher label */
+    .proto-state-label {
+      font-size: 0.6875rem;
+      color: rgba(255,255,255,0.3);
+      padding: 6px 16px 0;
+      font-weight: 500;
+    }
+
+    /* Learnings */
+    .learnings-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-16);
+      margin-top: var(--space-28);
+    }
+    .learning-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+    }
+    .learning-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.4;
+      line-height: 1;
+      margin-bottom: var(--space-8);
+    }
+    .learning-text {
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -107,7 +595,7 @@
         </h1>
 
         <p class="project-hook-text" data-anim data-anim-delay="2">
-          Re-thinking a fraud monitoring surveillance SaaS platform for retail chains across Canada and LATAM. End-to-end UX research, design system, and prototyping.
+          Redesigning a fraud surveillance SaaS for retail chains across Canada and LATAM — cutting task time in half through contextual research, persona definition, and validated interaction patterns.
         </p>
 
         <div class="tags" data-anim data-anim-delay="3">
@@ -118,7 +606,6 @@
           <span class="tag">SaaS · Retail</span>
         </div>
 
-        <!-- Stats -->
         <div class="project-stat-row" data-anim data-anim-delay="4">
           <div class="project-stat">
             <div class="project-stat-value">50%</div>
@@ -145,19 +632,19 @@
     <div class="project-content">
       <div class="container" style="max-width:900px;">
 
-        <!-- 1. Hook: Problem → Impact → Outcome -->
+        <!-- 1. Problem Statement -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Problem Statement</div>
-          <h2 class="project-section-title">Reimagining fraud detection for retail frontlines</h2>
+          <h2 class="project-section-title">The platform wasn't working for the people using it</h2>
           <p class="project-body-text">
-            The existing SaaS platform wasn't delivering the efficiency stakeholders needed. Employees at Dollarama (Canada) and Dollarcity (LATAM) stores were losing significant time on routine video-based transaction reviews — creating operational drag and leaving fraud risks undetected.
+            Dollarama (Canada) and DollarCity (LATAM) share a fraud monitoring SaaS to review transaction-linked security footage. On paper it covered the workflow. In practice, employees were spending an enormous amount of time on routine reviews, missing incidents, and struggling with a system that hadn't been designed around how they actually work.
           </p>
           <p class="project-body-text" style="margin-top:var(--space-16);">
-            A fraud monitoring + reporting feature had to be integrated while the platform was already in development — with real users, real constraints, and tight timelines.
+            A fraud monitoring + reporting feature had to be integrated while the platform was already in active development — with real users, real constraints, and tight timelines. The challenge was to diagnose, redesign, and validate without slowing delivery.
           </p>
         </div>
 
-        <!-- Roles/context -->
+        <!-- Context cards -->
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-16);margin-bottom:var(--space-64);" data-anim>
           <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-24);">
             <div class="project-section-label" style="margin-bottom:var(--space-12);">My Role</div>
@@ -168,12 +655,74 @@
             <p style="font-size:1rem;font-weight:500;color:var(--text-primary);line-height:1.5;">Sep 2021 – Jul 2025 · Applaudo Studios (ext. consultant)</p>
           </div>
           <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-24);">
-            <div class="project-section-label" style="margin-bottom:var(--space-12);">Problem Statement</div>
-            <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;">The current SaaS is not achieving results stakeholders need. A fraud monitoring + reporting feature had to be integrated while the platform was already in development — with real users, real constraints.</p>
+            <div class="project-section-label" style="margin-bottom:var(--space-12);">Platform</div>
+            <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;">Fraud surveillance SaaS — in-store POS transaction review, video request & download management</p>
           </div>
         </div>
 
-        <!-- 2. What I Owned -->
+        <!-- 2. Research Methodology -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Research Methodology</div>
+          <h2 class="project-section-title">Two-track research to understand the real gaps</h2>
+          <p class="project-body-text">
+            The existing system had been built around assumptions. Before touching any wireframe, I ran both primary and secondary research to ground every decision in observed behavior.
+          </p>
+          <div class="research-grid">
+            <div class="research-card">
+              <div class="research-card-type">Primary Research</div>
+              <div class="research-card-title">Contextual Inquiries</div>
+              <ul>
+                <li>Sessions with telemarketer users across Canada & LATAM stores</li>
+                <li>Observed real workflows in their native environment</li>
+                <li>Captured mental models of non-technical staff</li>
+                <li>Surfaced friction points invisible in analytics</li>
+              </ul>
+            </div>
+            <div class="research-card">
+              <div class="research-card-type">Secondary Research</div>
+              <div class="research-card-title">Competitive Benchmarking</div>
+              <ul>
+                <li>Surveyed comparable retail surveillance SaaS platforms</li>
+                <li>Identified interaction patterns for video request flows</li>
+                <li>Benchmarked download queue UX conventions</li>
+                <li>Validated our approach against industry standards</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. User Types -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">User Types</div>
+          <h2 class="project-section-title">Four distinct types — one system for all</h2>
+          <p class="project-body-text">
+            Research revealed that the original brief treated users as monolithic. In reality, four distinct user types interacted with the platform — each with different goals, technical comfort, and review patterns.
+          </p>
+          <div class="user-types-grid">
+            <div class="user-type-card">
+              <span class="user-type-icon" aria-hidden="true">🔍</span>
+              <div class="user-type-name">Loss Prevention Analyst</div>
+              <div class="user-type-desc">Reviews flagged transactions daily. Needs fast search and multi-clip download. High frequency, high stakes.</div>
+            </div>
+            <div class="user-type-card">
+              <span class="user-type-icon" aria-hidden="true">🏪</span>
+              <div class="user-type-name">Store Supervisor</div>
+              <div class="user-type-desc">Occasional reviewer. Submits video requests after incidents. Expects simple, guided flows — not power tools.</div>
+            </div>
+            <div class="user-type-card">
+              <span class="user-type-icon" aria-hidden="true">📋</span>
+              <div class="user-type-name">Regional Coordinator</div>
+              <div class="user-type-desc">Manages multiple locations. Reviews reports and escalations. Needs status visibility across the queue.</div>
+            </div>
+            <div class="user-type-card">
+              <span class="user-type-icon" aria-hidden="true">⚙️</span>
+              <div class="user-type-name">IT / Platform Admin</div>
+              <div class="user-type-desc">Configures access and system settings. Doesn't review footage but owns user permissions and integrations.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. What I Owned -->
         <div class="project-section" data-anim>
           <div class="project-section-label">What I Owned</div>
           <h2 class="project-section-title">Scope of ownership</h2>
@@ -187,7 +736,72 @@
           </div>
         </div>
 
-        <!-- 3. Approach -->
+        <!-- 5. Problems Found -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Problems Found</div>
+          <h2 class="project-section-title">What research surfaced</h2>
+          <div class="problems-list">
+            <div class="problem-item">
+              <div class="problem-num">01</div>
+              <div>
+                <div class="problem-title">Search was blind</div>
+                <div class="problem-desc">Users had to know exact transaction IDs or timestamps to find footage. There were no contextual filters for product, POS, or incident type — forcing manual cross-referencing with paper logs before even opening the tool.</div>
+              </div>
+            </div>
+            <div class="problem-item">
+              <div class="problem-num">02</div>
+              <div>
+                <div class="problem-title">Download state was invisible</div>
+                <div class="problem-desc">Once a video was requested, users had no reliable feedback on whether it was queued, processing, or ready. Many would re-request the same clip multiple times, causing server load and user frustration.</div>
+              </div>
+            </div>
+            <div class="problem-item">
+              <div class="problem-num">03</div>
+              <div>
+                <div class="problem-title">One flow, four incompatible mental models</div>
+                <div class="problem-desc">The interface was designed for a power-user analyst. Store supervisors — who triggered most video requests — were navigating a system built for someone with entirely different goals and technical confidence.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Solutions Selected -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Solutions Selected</div>
+          <h2 class="project-section-title">What we built — and why</h2>
+          <div class="solutions-grid">
+            <div class="solution-card">
+              <div class="solution-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="solution-title">Contextual POS Search</div>
+              <div class="solution-desc">Filter by store, POS terminal, date range, and product category. Reduces time-to-clip from minutes to seconds for daily analysts.</div>
+            </div>
+            <div class="solution-card">
+              <div class="solution-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="solution-title">4-State Download System</div>
+              <div class="solution-desc">Clear visual states: Empty → Selected → Downloading → Complete. Eliminates re-request behavior and gives users confidence the system is working.</div>
+            </div>
+            <div class="solution-card">
+              <div class="solution-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="solution-title">Guided Request Form</div>
+              <div class="solution-desc">Step-by-step video request flow for store supervisors. Removes ambiguity and guides non-technical users without overwhelming the analyst view.</div>
+            </div>
+            <div class="solution-card">
+              <div class="solution-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="solution-title">Queue Dashboard</div>
+              <div class="solution-desc">Centralized "My Video Requests" view with status tracking. Regional coordinators can oversee cross-store queues at a glance.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Approach -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Approach</div>
           <h2 class="project-section-title">Three questions that drove everything</h2>
@@ -210,36 +824,278 @@
           </div>
         </div>
 
-        <!-- 4. Evidence Placeholders -->
+        <!-- 8. Interactive Prototype -->
         <div class="project-section" data-anim>
-          <div class="project-section-label">Evidence</div>
-          <h2 class="project-section-title">Screens & Documentation</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-24);">Screens, flows, and research artifacts are available under NDA upon request.</p>
-          <div class="evidence-grid">
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">📱</span>
-              <span class="evidence-placeholder-label">Platform Overview Screenshot</span>
+          <div class="project-section-label">Interactive Prototype</div>
+          <h2 class="project-section-title">Key flows — POS Search & Video Requests</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-8);">
+            Two core flows came out of validation. Click through the states below to explore the redesigned interaction model.
+          </p>
+
+          <div class="proto-wrapper" role="region" aria-label="Interactive prototype">
+            <div class="proto-tabs" role="tablist" aria-label="Prototype flows">
+              <button class="proto-tab active" role="tab" aria-selected="true" aria-controls="screen-pos" data-tab="screen-pos">POS Search & Download</button>
+              <button class="proto-tab" role="tab" aria-selected="false" aria-controls="screen-req" data-tab="screen-req">My Video Requests</button>
+              <button class="proto-tab" role="tab" aria-selected="false" aria-controls="screen-form" data-tab="screen-form">New Request Form</button>
             </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">🗺️</span>
-              <span class="evidence-placeholder-label">User Journey Map</span>
+
+            <!-- SCREEN 1: POS Search + Download States -->
+            <div id="screen-pos" class="proto-screen active" role="tabpanel">
+              <div style="padding:10px 16px 6px;background:#0e1612;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span class="proto-state-label">Download state:</span>
+                <div class="state-selector" role="group" aria-label="Select download state">
+                  <button class="state-btn active" data-state="none">Sin selección</button>
+                  <button class="state-btn" data-state="ready">Seleccionado</button>
+                  <button class="state-btn" data-state="loading">Descargando</button>
+                  <button class="state-btn" data-state="done">Descarga completa</button>
+                </div>
+              </div>
+              <div class="app-shell">
+                <aside class="app-sidebar" aria-label="Navigation sidebar">
+                  <div class="app-sidebar-head">
+                    <div class="app-sidebar-logo">Dollar<span>City</span> Guard</div>
+                  </div>
+                  <div class="app-nav-section">
+                    <div class="app-nav-label">Surveillance</div>
+                    <div class="app-nav-item active" aria-current="page">
+                      <div class="nav-dot"></div>POS Video Search
+                    </div>
+                    <div class="app-nav-item">
+                      <div class="nav-dot"></div>My Requests
+                    </div>
+                    <div class="app-nav-item">
+                      <div class="nav-dot"></div>Incidents
+                    </div>
+                  </div>
+                  <div class="app-nav-section">
+                    <div class="app-nav-label">Admin</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>Users</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>Settings</div>
+                  </div>
+                </aside>
+                <div class="app-main">
+                  <div class="app-topbar">
+                    <div class="app-topbar-title">POS Video Search</div>
+                    <span class="app-topbar-badge" id="dl-badge-label">No selection</span>
+                  </div>
+                  <div class="app-body">
+                    <div class="filter-bar" aria-label="Search filters">
+                      <input class="filter-field" type="text" value="Store #CA-041" readonly aria-label="Store" />
+                      <input class="filter-field" type="text" value="POS-07" readonly aria-label="POS terminal" />
+                      <input class="filter-field" type="text" value="2025-01-14" readonly aria-label="Date" />
+                      <button class="filter-btn" type="button">Search</button>
+                    </div>
+                    <table class="results-table" aria-label="Search results">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Time</th>
+                          <th>Transaction</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="pos-table-body">
+                        <tr>
+                          <td><span class="row-check">○</span></td>
+                          <td>09:14:32</td><td>TXN-88821</td><td>$34.50</td>
+                          <td><span class="dl-badge none">—</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="row-check">○</span></td>
+                          <td>09:31:07</td><td>TXN-88834</td><td>$12.00</td>
+                          <td><span class="dl-badge none">—</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="row-check">○</span></td>
+                          <td>10:02:19</td><td>TXN-88851</td><td>$67.30</td>
+                          <td><span class="dl-badge none">—</span></td>
+                        </tr>
+                        <tr>
+                          <td><span class="row-check">○</span></td>
+                          <td>10:45:55</td><td>TXN-88879</td><td>$8.75</td>
+                          <td><span class="dl-badge none">—</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">🧩</span>
-              <span class="evidence-placeholder-label">Wireframe — Transaction Review Flow</span>
+
+            <!-- SCREEN 2: My Video Requests -->
+            <div id="screen-req" class="proto-screen" role="tabpanel">
+              <div class="app-shell">
+                <aside class="app-sidebar" aria-label="Navigation sidebar">
+                  <div class="app-sidebar-head">
+                    <div class="app-sidebar-logo">Dollar<span>City</span> Guard</div>
+                  </div>
+                  <div class="app-nav-section">
+                    <div class="app-nav-label">Surveillance</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>POS Video Search</div>
+                    <div class="app-nav-item active" aria-current="page"><div class="nav-dot"></div>My Requests</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>Incidents</div>
+                  </div>
+                  <div class="app-nav-section">
+                    <div class="app-nav-label">Admin</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>Users</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>Settings</div>
+                  </div>
+                </aside>
+                <div class="app-main">
+                  <div class="app-topbar">
+                    <div class="app-topbar-title">My Video Requests</div>
+                    <span class="app-topbar-badge">4 requests</span>
+                  </div>
+                  <div class="app-body">
+                    <div class="req-list" aria-label="Video requests">
+                      <div class="req-row">
+                        <div>
+                          <div class="req-title">Store #CA-041 · POS-07 · TXN-88851</div>
+                          <div class="req-meta">Requested Jan 14 · 10:02 AM · 67 seconds</div>
+                        </div>
+                        <span class="req-status ready" role="status">Ready</span>
+                        <button class="req-dl-btn" type="button" aria-label="Download video for TXN-88851">Download</button>
+                      </div>
+                      <div class="req-row">
+                        <div>
+                          <div class="req-title">Store #CA-041 · POS-03 · TXN-88712</div>
+                          <div class="req-meta">Requested Jan 14 · 08:45 AM · 34 seconds</div>
+                        </div>
+                        <span class="req-status pending" role="status">Processing</span>
+                        <button class="req-dl-btn disabled" type="button" aria-disabled="true">Pending</button>
+                      </div>
+                      <div class="req-row">
+                        <div>
+                          <div class="req-title">Store #MX-019 · POS-01 · TXN-77340</div>
+                          <div class="req-meta">Requested Jan 13 · 03:12 PM · 18 seconds</div>
+                        </div>
+                        <span class="req-status ready" role="status">Ready</span>
+                        <button class="req-dl-btn" type="button" aria-label="Download video for TXN-77340">Download</button>
+                      </div>
+                      <div class="req-row">
+                        <div>
+                          <div class="req-title">Store #CA-038 · POS-12 · TXN-76902</div>
+                          <div class="req-meta">Requested Jan 13 · 11:30 AM · 45 seconds</div>
+                        </div>
+                        <span class="req-status review" role="status">In Review</span>
+                        <button class="req-dl-btn disabled" type="button" aria-disabled="true">Pending</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">📊</span>
-              <span class="evidence-placeholder-label">Fraud Dashboard Prototype</span>
+
+            <!-- SCREEN 3: New Request Form -->
+            <div id="screen-form" class="proto-screen" role="tabpanel">
+              <div class="app-shell">
+                <aside class="app-sidebar" aria-label="Navigation sidebar">
+                  <div class="app-sidebar-head">
+                    <div class="app-sidebar-logo">Dollar<span>City</span> Guard</div>
+                  </div>
+                  <div class="app-nav-section">
+                    <div class="app-nav-label">Surveillance</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>POS Video Search</div>
+                    <div class="app-nav-item active" aria-current="page"><div class="nav-dot"></div>My Requests</div>
+                    <div class="app-nav-item"><div class="nav-dot"></div>Incidents</div>
+                  </div>
+                </aside>
+                <div class="app-main">
+                  <div class="app-topbar">
+                    <div class="app-topbar-title">New Video Request</div>
+                    <span class="app-topbar-badge">Guided Form</span>
+                  </div>
+                  <div class="app-body">
+                    <div style="font-size:0.8125rem;color:rgba(255,255,255,0.4);margin-bottom:4px;">Fill in the incident details to request footage from your store's camera system.</div>
+                    <div class="form-grid" aria-label="New request form">
+                      <div class="form-field">
+                        <label class="form-label">Store</label>
+                        <div class="form-input">CA-041 — Vancouver North</div>
+                      </div>
+                      <div class="form-field">
+                        <label class="form-label">POS Terminal</label>
+                        <div class="form-input">POS-07</div>
+                      </div>
+                      <div class="form-field">
+                        <label class="form-label">Date</label>
+                        <div class="form-input">2025-01-14</div>
+                      </div>
+                      <div class="form-field">
+                        <label class="form-label">Time Range</label>
+                        <div class="form-input">10:00 – 10:15</div>
+                      </div>
+                      <div class="form-field" style="grid-column:1/-1;">
+                        <label class="form-label">Incident Type</label>
+                        <div class="form-input">Suspected refund fraud</div>
+                      </div>
+                      <div class="form-field" style="grid-column:1/-1;">
+                        <label class="form-label">Notes</label>
+                        <div class="form-input" style="min-height:52px;">Customer returned item without receipt. Cashier override used twice.</div>
+                      </div>
+                    </div>
+                    <button class="form-submit" type="button">Submit Video Request</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- 5. Outcome -->
+        <!-- 9. Evidence -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Evidence</div>
+          <h2 class="project-section-title">Research & Design Artifacts</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-24);">Full screens, flows, and research documentation are available under NDA upon request.</p>
+          <div class="evidence-grid">
+            <div class="evidence-placeholder">
+              <span class="evidence-placeholder-icon" aria-hidden="true">📱</span>
+              <span class="evidence-placeholder-label">Platform Overview — POS Search</span>
+            </div>
+            <div class="evidence-placeholder">
+              <span class="evidence-placeholder-icon" aria-hidden="true">🗺️</span>
+              <span class="evidence-placeholder-label">User Journey Map (4 personas)</span>
+            </div>
+            <div class="evidence-placeholder">
+              <span class="evidence-placeholder-icon" aria-hidden="true">🧩</span>
+              <span class="evidence-placeholder-label">Wireframe — Download State Flow</span>
+            </div>
+            <div class="evidence-placeholder">
+              <span class="evidence-placeholder-icon" aria-hidden="true">📊</span>
+              <span class="evidence-placeholder-label">Useberry Test Results</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Key Learnings -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Key Learnings</div>
+          <h2 class="project-section-title">What this project taught me</h2>
+          <div class="learnings-list">
+            <div class="learning-card">
+              <div class="learning-num">01</div>
+              <div class="learning-text">Users don't describe their problems — they describe their workarounds. Contextual inquiry, not surveys, is how you find the real friction.</div>
+            </div>
+            <div class="learning-card">
+              <div class="learning-num">02</div>
+              <div class="learning-text">Designing for the average user means designing for nobody. The four personas required genuinely different interaction models, not just copy changes.</div>
+            </div>
+            <div class="learning-card">
+              <div class="learning-num">03</div>
+              <div class="learning-text">Feedback states aren't a nice-to-have. In async workflows like video download, invisible progress kills trust in the entire product.</div>
+            </div>
+            <div class="learning-card">
+              <div class="learning-num">04</div>
+              <div class="learning-text">Shipping mid-flight doesn't have to mean compromising quality — it means sequencing decisions carefully and earning trust incrementally.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. Outcome -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Outcome</div>
           <h2 class="project-section-title">Results & Impact</h2>
-          <div style="background:var(--accent-dim);border:1px solid rgba(244,200,66,0.25);border-radius:var(--radius-lg);padding:var(--space-40);">
+          <div style="background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:var(--radius-lg);padding:var(--space-40);">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-32);">
               <div>
                 <div style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;color:var(--accent);letter-spacing:-0.05em;line-height:1;">50%</div>
@@ -257,7 +1113,7 @@
           </div>
         </div>
 
-        <!-- 6. Tools -->
+        <!-- 12. Tools -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Tools Used</div>
           <div class="tools-row">
@@ -297,5 +1153,85 @@
   </footer>
 
   <script src="../assets/main.js"></script>
+  <script>
+    // ── Prototype: Tab switching ──
+    const tabs = document.querySelectorAll('.proto-tab');
+    const screens = document.querySelectorAll('.proto-screen');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        screens.forEach(s => s.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected','true');
+        const target = document.getElementById(tab.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // ── Prototype: Download state switcher ──
+    const stateConfig = {
+      none: {
+        badge: 'No selection',
+        rows: [
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+        ]
+      },
+      ready: {
+        badge: '2 clips selected',
+        rows: [
+          { check: '●', selected: true,  badge: '<span class="dl-badge ready"><span class="dl-dot"></span>Selected</span>' },
+          { check: '●', selected: true,  badge: '<span class="dl-badge ready"><span class="dl-dot"></span>Selected</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+        ]
+      },
+      loading: {
+        badge: 'Downloading…',
+        rows: [
+          { check: '●', selected: true,  badge: '<span class="dl-badge loading"><span class="dl-dot"></span>Downloading</span>' },
+          { check: '●', selected: true,  badge: '<span class="dl-badge loading"><span class="dl-dot"></span>Downloading</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+        ]
+      },
+      done: {
+        badge: '2 clips ready',
+        rows: [
+          { check: '●', selected: true,  badge: '<span class="dl-badge done">✓ Complete</span>' },
+          { check: '●', selected: true,  badge: '<span class="dl-badge done">✓ Complete</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+          { check: '○', selected: false, badge: '<span class="dl-badge none">—</span>' },
+        ]
+      }
+    };
+
+    const times = ['09:14:32','09:31:07','10:02:19','10:45:55'];
+    const txns  = ['TXN-88821','TXN-88834','TXN-88851','TXN-88879'];
+    const amts  = ['$34.50','$12.00','$67.30','$8.75'];
+
+    function applyState(key) {
+      const cfg = stateConfig[key];
+      if (!cfg) return;
+      document.getElementById('dl-badge-label').textContent = cfg.badge;
+      const tbody = document.getElementById('pos-table-body');
+      tbody.innerHTML = cfg.rows.map((r, i) => `
+        <tr${r.selected ? ' class="selected"' : ''}>
+          <td><span class="row-check">${r.check}</span></td>
+          <td>${times[i]}</td><td>${txns[i]}</td><td>${amts[i]}</td>
+          <td>${r.badge}</td>
+        </tr>`).join('');
+    }
+
+    document.querySelectorAll('.state-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.state-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyState(btn.dataset.state);
+      });
+    });
+  </script>
 </body>
 </html>
