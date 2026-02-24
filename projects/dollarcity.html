@@ -8,20 +8,367 @@
   <link rel="stylesheet" href="../assets/shared.css" />
   <style>
     :root {
-      --accent: var(--accent-dollarcity);
-      --accent-dim: rgba(244,200,66,0.12);
-      --project-glow: rgba(244,200,66,0.08);
+      --accent: #3d8b37;
+      --accent-dim: rgba(61,139,55,0.12);
+      --project-glow: rgba(61,139,55,0.08);
+      --accent-border: rgba(61,139,55,0.30);
     }
-    /* Progress bar */
     #progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: var(--accent);
-      z-index: 9999;
-      width: 0%;
+      position: fixed; top: 0; left: 0;
+      height: 3px; background: var(--accent);
+      z-index: 9999; width: 0%;
       transition: width 100ms linear;
+    }
+
+    /* ── UI Showcase ── */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: var(--space-32);
+    }
+    @media (max-width: 600px) { .showcase-grid { grid-template-columns: 1fr; } }
+    .showcase-cell { display: flex; flex-direction: column; gap: 10px; }
+    .showcase-trigger {
+      display: block; width: 100%;
+      background: none; border: none; padding: 0;
+      cursor: zoom-in;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+    }
+    .showcase-trigger:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .showcase-trigger img {
+      width: 100%; display: block;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      transition: opacity 200ms ease;
+    }
+    .showcase-trigger:hover img { opacity: 0.82; }
+    .showcase-placeholder {
+      width: 100%; aspect-ratio: 16/10;
+      border: 1px dashed var(--border-default);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-tertiary);
+      font-size: 0.8125rem;
+      font-style: italic;
+    }
+    .showcase-caption {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      font-variant: small-caps;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      text-align: center;
+    }
+
+    /* ── Lightbox ── */
+    #lightbox {
+      position: relative;
+      border: none;
+      background: #111;
+      border-radius: var(--radius-lg);
+      padding: var(--space-40) var(--space-24) var(--space-24);
+      max-width: min(90vw, 1000px);
+    }
+    #lightbox::backdrop { background: rgba(0,0,0,0.85); }
+    #lightbox img {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      margin: 0 auto;
+      border-radius: var(--radius-md);
+    }
+    #lightbox-close {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border-subtle);
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.125rem; cursor: pointer;
+      line-height: 1;
+    }
+    #lightbox-close:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ── Stepper ── */
+    .stepper {
+      margin-top: var(--space-28);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-surface);
+      outline: none;
+    }
+    .stepper:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .stepper-img-wrap {
+      background: var(--bg-raised);
+      min-height: 260px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .stepper-img-wrap img {
+      width: 100%; display: block;
+      transition: opacity 200ms ease;
+    }
+    .stepper-img-wrap img.fading { opacity: 0; }
+    .stepper-placeholder {
+      width: 100%; min-height: 260px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: var(--space-12);
+      color: var(--text-tertiary);
+      font-size: 0.875rem;
+      font-style: italic;
+      border: none;
+    }
+    .stepper-placeholder-icon { font-size: 2.25rem; opacity: 0.35; }
+    .stepper-footer {
+      display: flex; align-items: center;
+      gap: var(--space-16);
+      padding: var(--space-16) var(--space-20);
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+    }
+    .stepper-nav {
+      display: flex; align-items: center; gap: var(--space-12);
+      flex-shrink: 0;
+    }
+    .stepper-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-default);
+      background: var(--bg-raised);
+      color: var(--text-primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; cursor: pointer;
+      transition: background 150ms, border-color 150ms;
+    }
+    .stepper-btn:hover { background: var(--bg-hover); border-color: var(--border-strong); }
+    .stepper-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .stepper-counter {
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--text-tertiary); letter-spacing: 0.06em;
+      min-width: 36px; text-align: center;
+    }
+    .stepper-label { flex: 1; }
+    .stepper-step-label {
+      font-size: 0.8125rem; font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .stepper-step-tag {
+      display: inline-block;
+      font-size: 0.625rem; font-weight: 700;
+      font-variant: small-caps; letter-spacing: 0.1em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 20px;
+      padding: 2px 8px;
+      margin-bottom: var(--space-4);
+    }
+
+    /* ── Research Deep Dive ── */
+    .research-toggle-wrap { margin-top: var(--space-20); }
+    .research-toggle-btn {
+      display: inline-flex; align-items: center; gap: var(--space-8);
+      padding: 0.625rem var(--space-20);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-md);
+      background: var(--accent-dim);
+      color: var(--text-primary);
+      font-size: 0.875rem; font-weight: 600;
+      cursor: pointer;
+      transition: background 150ms, border-color 150ms;
+    }
+    .research-toggle-btn:hover {
+      background: rgba(61,139,55,0.2);
+      border-color: rgba(61,139,55,0.55);
+    }
+    .research-toggle-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .research-toggle-btn .chevron {
+      display: inline-block;
+      transition: transform 200ms ease;
+      font-style: normal; font-size: 0.75rem;
+    }
+    .research-toggle-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+    #research-panel {
+      margin-top: var(--space-16);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .research-tabs-bar {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      background: var(--bg-raised);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .research-tabs-bar::-webkit-scrollbar { display: none; }
+    .research-tab-btn {
+      padding: var(--space-12) var(--space-20);
+      font-size: 0.8125rem; font-weight: 600;
+      color: var(--text-tertiary);
+      background: none; border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer; white-space: nowrap;
+      transition: color 150ms, border-color 150ms;
+    }
+    .research-tab-btn[aria-selected="true"] {
+      color: var(--text-primary);
+      border-bottom-color: var(--accent);
+    }
+    .research-tab-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+    .research-tab-panel {
+      padding: var(--space-24) var(--space-28);
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .research-tab-panel ul {
+      padding-left: var(--space-20);
+      display: flex; flex-direction: column; gap: var(--space-6);
+    }
+    .research-tab-panel ul li { list-style: disc; }
+    .research-tab-panel strong { color: var(--text-primary); font-weight: 600; }
+    .persona-block { margin-bottom: var(--space-20); }
+    .persona-block:last-child { margin-bottom: 0; }
+    .persona-name {
+      font-size: 0.875rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: var(--space-4);
+    }
+
+    /* ── Design Decisions ── */
+    .decision-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.75rem var(--space-32);
+      margin-bottom: var(--space-16);
+    }
+    .decision-card:last-child { margin-bottom: 0; }
+    .decision-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem; font-weight: 800;
+      color: var(--accent); line-height: 1;
+      margin-bottom: var(--space-12);
+    }
+    .decision-title {
+      font-size: 0.75rem; font-weight: 700;
+      font-variant: small-caps; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-primary); margin-bottom: var(--space-12);
+    }
+    .decision-body {
+      font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.7;
+    }
+
+    /* ── System & Tooling ── */
+    .tooling-rows {
+      display: flex; flex-direction: column; gap: var(--space-16);
+      margin-top: 1.75rem;
+    }
+    .tooling-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: var(--space-16); align-items: start;
+    }
+    @media (max-width: 480px) { .tooling-row { grid-template-columns: 1fr; gap: var(--space-6); } }
+    .tooling-label {
+      font-size: 0.625rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-tertiary); padding-top: 5px;
+    }
+    .tooling-pills { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+    .tooling-note {
+      font-size: 0.875rem; font-style: italic;
+      color: var(--text-tertiary); line-height: 1.65;
+    }
+
+    /* ── Outcomes ── */
+    .outcomes-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-24);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-40);
+      margin-top: 1.75rem;
+    }
+    @media (max-width: 600px) { .outcomes-metrics { grid-template-columns: 1fr; gap: var(--space-32); } }
+    .outcome-metric-val {
+      font-family: var(--font-display);
+      font-size: 3.5rem; font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.05em; line-height: 1;
+    }
+    .outcome-metric-lbl {
+      font-size: 0.625rem; font-weight: 700;
+      letter-spacing: 0.12em;
+      font-variant: small-caps; text-transform: uppercase;
+      color: var(--text-tertiary); margin-top: var(--space-8);
+    }
+    .outcomes-list {
+      margin-top: var(--space-24);
+      display: flex; flex-direction: column; gap: 0.625rem;
+    }
+    .outcomes-list li {
+      font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.65;
+      padding-left: var(--space-20); position: relative;
+    }
+    .outcomes-list li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--accent); font-weight: 600;
+    }
+    .outcomes-list strong { color: var(--text-primary); font-weight: 700; }
+
+    /* ── Context Snapshot ── */
+    .context-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: var(--space-16); margin-top: 1.75rem;
+    }
+    .context-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-20) var(--space-24);
+    }
+    .context-card-label {
+      font-size: 0.625rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: var(--space-8);
+    }
+    .context-card-value {
+      font-size: 0.9375rem; font-weight: 500;
+      color: var(--text-primary); line-height: 1.5;
+    }
+    .nda-notice {
+      margin-top: var(--space-16);
+      font-size: 0.8125rem; color: var(--text-tertiary);
+      font-style: italic; line-height: 1.6;
     }
   </style>
 </head>
@@ -29,6 +376,7 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <div id="progress-bar" role="progressbar" aria-label="Page reading progress" aria-valuemin="0" aria-valuemax="100"></div>
 
+  <!-- NAV -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="../index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
@@ -85,7 +433,9 @@
 
   <main id="main">
 
-    <!-- PROJECT HERO -->
+    <!-- ══════════════════════════════════════════
+         § 1 — HERO
+    ══════════════════════════════════════════ -->
     <header class="project-hero" aria-labelledby="project-title">
       <div class="container">
 
@@ -97,17 +447,17 @@
 
         <div class="project-meta-row" data-anim>
           <span class="project-role-badge">Lead UX Designer</span>
-          <span class="project-timeline">Sep 2021 – Jul 2025 · Applaudo Studios (ext. consultant)</span>
+          <span class="project-timeline">Jul 2023 – Dec 2023 · Applaudo Studios (ext. consultant)</span>
         </div>
 
-        <div class="section-eyebrow" data-anim>Case Study · 2021–2025 · Applaudo Studios</div>
+        <div class="section-eyebrow" data-anim>Case Study · 2023 · Applaudo Studios</div>
 
         <h1 class="project-title" id="project-title" data-anim data-anim-delay="1">
           Dollar<em>City</em><br>× Dollara<em>ma</em>
         </h1>
 
         <p class="project-hook-text" data-anim data-anim-delay="2">
-          Re-thinking a fraud monitoring surveillance SaaS platform for retail chains across Canada and LATAM. End-to-end UX research, design system, and prototyping.
+          Redesigning a fraud surveillance SaaS for retail chains across Canada and LATAM — cutting task time in half through contextual research, persona definition, and validated interaction patterns.
         </p>
 
         <div class="tags" data-anim data-anim-delay="3">
@@ -118,23 +468,18 @@
           <span class="tag">SaaS · Retail</span>
         </div>
 
-        <!-- Stats -->
         <div class="project-stat-row" data-anim data-anim-delay="4">
           <div class="project-stat">
             <div class="project-stat-value">50%</div>
             <div class="project-stat-label">Task time reduced</div>
           </div>
           <div class="project-stat">
-            <div class="project-stat-value">3</div>
-            <div class="project-stat-label">New user personas identified</div>
-          </div>
-          <div class="project-stat">
             <div class="project-stat-value">4</div>
             <div class="project-stat-label">User types mapped end-to-end</div>
           </div>
           <div class="project-stat">
-            <div class="project-stat-value">2</div>
-            <div class="project-stat-label">Brands · Canada + LATAM</div>
+            <div class="project-stat-value">3</div>
+            <div class="project-stat-label">New personas identified</div>
           </div>
         </div>
 
@@ -145,132 +490,325 @@
     <div class="project-content">
       <div class="container" style="max-width:900px;">
 
-        <!-- 1. Hook: Problem → Impact → Outcome -->
+        <!-- ══════════════════════════════════════════
+             § 2 — CONTEXT SNAPSHOT
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Context Snapshot</div>
+          <div class="context-grid">
+            <div class="context-card">
+              <div class="context-card-label">Role</div>
+              <div class="context-card-value">Lead UX Designer — Research, Wireframing, Prototyping, User Testing</div>
+            </div>
+            <div class="context-card">
+              <div class="context-card-label">Timeline</div>
+              <div class="context-card-value">Jul 2023 – Dec 2023 (6 months of architectural negotiation and cross-functional alignment)</div>
+            </div>
+            <div class="context-card">
+              <div class="context-card-label">Company</div>
+              <div class="context-card-value">Applaudo Studios — external UX consultant embedded in client delivery team</div>
+            </div>
+          </div>
+          <p class="nda-notice">Detailed screens and research artifacts are covered under NDA and available upon request with appropriate context.</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3 — PROBLEM STATEMENT
+        ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Problem Statement</div>
-          <h2 class="project-section-title">Reimagining fraud detection for retail frontlines</h2>
           <p class="project-body-text">
-            The existing SaaS platform wasn't delivering the efficiency stakeholders needed. Employees at Dollarama (Canada) and Dollarcity (LATAM) stores were losing significant time on routine video-based transaction reviews — creating operational drag and leaving fraud risks undetected.
+            Employees at Dollarama (Canada) and DollarCity (LATAM) stores were losing significant time on routine video-based transaction reviews. The existing SaaS platform wasn't delivering the efficiency stakeholders needed — creating operational drag and leaving fraud risks undetected.
           </p>
           <p class="project-body-text" style="margin-top:var(--space-16);">
-            A fraud monitoring + reporting feature had to be integrated while the platform was already in development — with real users, real constraints, and tight timelines.
+            A fraud monitoring and reporting feature had to be integrated while the platform was already in active development, with real users and real constraints. The challenge was not to redesign from scratch but to fit a high-complexity workflow into a system already in motion.
           </p>
         </div>
 
-        <!-- Roles/context -->
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-16);margin-bottom:var(--space-64);" data-anim>
-          <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-24);">
-            <div class="project-section-label" style="margin-bottom:var(--space-12);">My Role</div>
-            <p style="font-size:1rem;font-weight:500;color:var(--text-primary);line-height:1.5;">Lead UX Designer — Research, Wireframing, Prototyping, User Testing</p>
-          </div>
-          <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-24);">
-            <div class="project-section-label" style="margin-bottom:var(--space-12);">Timeline</div>
-            <p style="font-size:1rem;font-weight:500;color:var(--text-primary);line-height:1.5;">Sep 2021 – Jul 2025 · Applaudo Studios (ext. consultant)</p>
-          </div>
-          <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-24);">
-            <div class="project-section-label" style="margin-bottom:var(--space-12);">Problem Statement</div>
-            <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;">The current SaaS is not achieving results stakeholders need. A fraud monitoring + reporting feature had to be integrated while the platform was already in development — with real users, real constraints.</p>
-          </div>
-        </div>
+        <!-- ══════════════════════════════════════════
+             § 4 — UI SHOWCASE
+        ══════════════════════════════════════════ -->
+        <div id="ui-showcase" class="project-section" data-anim>
+          <div class="project-section-label">UI Showcase</div>
+          <h2 class="project-section-title">Key screens from the redesign</h2>
 
-        <!-- 2. What I Owned -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">What I Owned</div>
-          <h2 class="project-section-title">Scope of ownership</h2>
-          <div class="project-owned-list">
-            <div class="project-owned-item">End-to-end UX research using contextual inquiries across telemarketer users in Canada and LATAM stores</div>
-            <div class="project-owned-item">Workflow redesign based on behavioral patterns and user mental models of non-technical staff</div>
-            <div class="project-owned-item">Identification and definition of 3 new user personas refining the existing journey</div>
-            <div class="project-owned-item">Prototype development and user testing coordination via Useberry</div>
-            <div class="project-owned-item">Stakeholder presentation of findings and design rationale</div>
-            <div class="project-owned-item">Figma handoff using the existing design system without introducing unsanctioned token changes</div>
-          </div>
-        </div>
+          <div class="showcase-grid">
+            <!-- Cell 1: POS Search -->
+            <div class="showcase-cell">
+              <button
+                class="showcase-trigger"
+                data-lightbox="../assets/img/dollarcity/pos-search-board.png"
+                aria-label="POS Search — redesigned transaction search screen showing filter panel and results grid"
+                type="button"
+              >
+                <img
+                  src="../assets/img/dollarcity/pos-search-board.png"
+                  alt="POS Search screen: filter sidebar with store, POS terminal and date fields, transaction results grid with download state badges"
+                />
+              </button>
+              <span class="showcase-caption">POS Search Board</span>
+            </div>
 
-        <!-- 3. Approach -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Approach</div>
-          <h2 class="project-section-title">Three questions that drove everything</h2>
-          <div class="approach-steps">
-            <div class="approach-step">
-              <div class="approach-step-number">01 — Diagnose the Friction</div>
-              <h3 class="approach-step-title">Find and solve why it was taking an enormous amount of time</h3>
-              <p class="approach-step-desc">Contextual inquiries with telemarketer users across both brands revealed the bottlenecks before touching any interface.</p>
+            <!-- Cell 2: Video Investigation -->
+            <div class="showcase-cell">
+              <button
+                class="showcase-trigger"
+                data-lightbox="../assets/img/dollarcity/video-investigation-board.png"
+                aria-label="Video Investigation — redesigned request queue and video playback screen"
+                type="button"
+              >
+                <img
+                  src="../assets/img/dollarcity/video-investigation-board.png"
+                  alt="Video Investigation screen: My Video Request queue listing requests with status badges, and video preview panel"
+                />
+              </button>
+              <span class="showcase-caption">Video Investigation Board</span>
             </div>
-            <div class="approach-step">
-              <div class="approach-step-number">02 — Know the Users</div>
-              <h3 class="approach-step-title">Map mental models of non-technical staff</h3>
-              <p class="approach-step-desc">Identified 3 new user personas that didn't exist in the original brief — each with distinct workflows and fraud review patterns.</p>
-            </div>
-            <div class="approach-step">
-              <div class="approach-step-number">03 — Validate & Ship</div>
-              <h3 class="approach-step-title">Test with real users, iterate fast</h3>
-              <p class="approach-step-desc">Useberry sessions with actual telemarketer users validated workflow changes before development handoff, reducing rework.</p>
+
+            <!-- Cell 3: Placeholder -->
+            <div class="showcase-cell">
+              <div class="showcase-placeholder" aria-label="Figma component screenshot — coming soon">
+                [ Figma screenshot ]
+              </div>
+              <span class="showcase-caption">Component Library (Figma)</span>
             </div>
           </div>
         </div>
 
-        <!-- 4. Evidence Placeholders -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Evidence</div>
-          <h2 class="project-section-title">Screens & Documentation</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-24);">Screens, flows, and research artifacts are available under NDA upon request.</p>
-          <div class="evidence-grid">
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">📱</span>
-              <span class="evidence-placeholder-label">Platform Overview Screenshot</span>
+        <!-- ══════════════════════════════════════════
+             § 5 — PROTOTYPE: VIDEO INVESTIGATION
+        ══════════════════════════════════════════ -->
+        <div id="proto-video" class="project-section" data-anim>
+          <div class="project-section-label">Prototype · Video Investigation</div>
+          <h2 class="project-section-title">Five states of the investigation flow</h2>
+          <p class="project-body-text">Use the arrows (or ← → keys) to step through the Video Investigation prototype states.</p>
+
+          <!-- TODO: replace with per-state images when available -->
+          <figure
+            class="stepper"
+            tabindex="0"
+            aria-label="Video Investigation prototype stepper"
+            data-stepper='[{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"My Video Request"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Filter: More Options"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Video at Hand \u2014 Preview"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Downloading \u2014 Queue Toast"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Video Replay \u2014 Full Player"}]'
+          >
+            <div class="stepper-img-wrap">
+              <img data-si src="" alt="" />
             </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">🗺️</span>
-              <span class="evidence-placeholder-label">User Journey Map</span>
+            <figcaption class="stepper-footer">
+              <nav class="stepper-nav" aria-label="Prototype steps">
+                <button class="stepper-btn" data-sp aria-label="Previous state" type="button">&#8592;</button>
+                <span class="stepper-counter" data-sk aria-live="polite" aria-atomic="true"></span>
+                <button class="stepper-btn" data-sn aria-label="Next state" type="button">&#8594;</button>
+              </nav>
+              <div class="stepper-label">
+                <div class="stepper-step-tag">State</div>
+                <div class="stepper-step-label" data-sc></div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <!-- Research Deep Dive (collapsible) -->
+          <div class="research-toggle-wrap">
+            <button
+              id="research-toggle"
+              class="research-toggle-btn"
+              type="button"
+              aria-expanded="false"
+              aria-controls="research-panel"
+            >
+              View Research Breakdown
+              <em class="chevron" aria-hidden="true">&#9660;</em>
+            </button>
+          </div>
+
+          <div id="research-panel" hidden>
+            <div class="research-tabs-bar" role="tablist" id="research-tablist" aria-label="Research breakdown tabs">
+              <button role="tab" id="rtab-methods" class="research-tab-btn" aria-selected="true" aria-controls="rpanel-methods">Research Methods</button>
+              <button role="tab" id="rtab-personas" class="research-tab-btn" aria-selected="false" aria-controls="rpanel-personas">Personas</button>
+              <button role="tab" id="rtab-pain" class="research-tab-btn" aria-selected="false" aria-controls="rpanel-pain">Pain Points</button>
+              <button role="tab" id="rtab-findings" class="research-tab-btn" aria-selected="false" aria-controls="rpanel-findings">Findings</button>
             </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">🧩</span>
-              <span class="evidence-placeholder-label">Wireframe — Transaction Review Flow</span>
+
+            <div id="rpanel-methods" role="tabpanel" aria-labelledby="rtab-methods" class="research-tab-panel">
+              <ul>
+                <li>Contextual inquiry with telemarketer users (on-site observation)</li>
+                <li>Useberry moderated and unmoderated usability testing</li>
+                <li>Heuristic audit of the existing SaaS platform</li>
+                <li>Stakeholder alignment workshops</li>
+              </ul>
             </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">📊</span>
-              <span class="evidence-placeholder-label">Fraud Dashboard Prototype</span>
+
+            <div id="rpanel-personas" role="tabpanel" aria-labelledby="rtab-personas" class="research-tab-panel" hidden>
+              <div class="persona-block">
+                <div class="persona-name">P1 — Telemarketer (Primary)</div>
+                <p>Non-technical store employee. Reviews video clips tied to POS transactions. Pain: too many tabs, no unified view, missed fraud signals.</p>
+              </div>
+              <div class="persona-block">
+                <div class="persona-name">P2 — Supervisor</div>
+                <p>Manages queues and escalations. Pain: no status visibility across team reviews.</p>
+              </div>
+              <div class="persona-block">
+                <div class="persona-name">P3 — IT Admin</div>
+                <p>Configures integrations. Pain: fragmented data sources.</p>
+              </div>
+              <div class="persona-block">
+                <div class="persona-name">P4 — Analyst</div>
+                <p>Exports and reports. Pain: manual steps to correlate video and transaction data.</p>
+              </div>
+            </div>
+
+            <div id="rpanel-pain" role="tabpanel" aria-labelledby="rtab-pain" class="research-tab-panel" hidden>
+              <ul>
+                <li>Users opened multiple browser tabs to cross-reference video and transaction data</li>
+                <li>No preview of video before committing to a download request</li>
+                <li>Scroll-heavy POS search forced users off-screen to reach video playback</li>
+                <li>No feedback state when videos were downloading or fully available</li>
+                <li>Filters were hidden behind secondary panels, causing missed refinements</li>
+              </ul>
+            </div>
+
+            <div id="rpanel-findings" role="tabpanel" aria-labelledby="rtab-findings" class="research-tab-panel" hidden>
+              <ul>
+                <li>Consolidating POS search and video playback into a single screen reduced cognitive load measurably in testing</li>
+                <li>Users needed clear download state feedback (pending → downloading → available) before they would trust the queue</li>
+                <li>Role-based views were necessary: what a telemarketer sees ≠ what a supervisor sees</li>
+                <li>The "My Video Request" tab was the most-used entry point — it needed to be the default</li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <!-- 5. Outcome -->
+        <!-- ══════════════════════════════════════════
+             § 6 — PROTOTYPE: POS SEARCH + VIDEO STATES
+        ══════════════════════════════════════════ -->
+        <div id="proto-pos" class="project-section" data-anim>
+          <div class="project-section-label">Prototype · POS Search + Video States</div>
+          <h2 class="project-section-title">Four download states — building trust in the queue</h2>
+          <p class="project-body-text">Step through the four download states that eliminated re-request behavior in validation sessions.</p>
+
+          <!-- TODO: replace with per-state images when available -->
+          <figure
+            class="stepper"
+            tabindex="0"
+            aria-label="POS Search download states prototype stepper"
+            data-stepper='[{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Sin selecci\u00f3n \u2014 No selection"},{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Selecci\u00f3n sin descarga \u2014 Selected, no download"},{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Descargando \u2014 Snackbar active"},{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Descarga completa \u2014 Download complete"}]'
+          >
+            <div class="stepper-img-wrap">
+              <img data-si src="" alt="" />
+            </div>
+            <figcaption class="stepper-footer">
+              <nav class="stepper-nav" aria-label="Prototype steps">
+                <button class="stepper-btn" data-sp aria-label="Previous state" type="button">&#8592;</button>
+                <span class="stepper-counter" data-sk aria-live="polite" aria-atomic="true"></span>
+                <button class="stepper-btn" data-sn aria-label="Next state" type="button">&#8594;</button>
+              </nav>
+              <div class="stepper-label">
+                <div class="stepper-step-tag">State</div>
+                <div class="stepper-step-label" data-sc></div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 7 — DESIGN DECISIONS
+        ══════════════════════════════════════════ -->
+        <div id="decisions" class="project-section" data-anim>
+          <div class="project-section-label">Design Decisions</div>
+          <h2 class="project-section-title">Three decisions that shaped the outcome</h2>
+
+          <div class="decision-card">
+            <div class="decision-num">01</div>
+            <div class="decision-title">One Screen Rule</div>
+            <p class="decision-body">Kept POS search, video filter, and playback on one scrollable panel. Eliminated tab-switching that caused 60%+ of task friction in baseline testing. Users went from 3–4 open tabs to a single unified view without losing any functionality.</p>
+          </div>
+
+          <div class="decision-card">
+            <div class="decision-num">02</div>
+            <div class="decision-title">Download State System</div>
+            <p class="decision-body">Introduced 4 explicit video states — Not Downloaded → Downloading → Downloaded → Playing — with visual badges and a toast confirmation. Users could now trust the queue without polling, reducing duplicate requests to near zero in testing.</p>
+          </div>
+
+          <div class="decision-card">
+            <div class="decision-num">03</div>
+            <div class="decision-title">My Video Request as Default View</div>
+            <p class="decision-body">Surfaced the user's own request queue as the landing state of Video Investigation. Supervisors accessed a secondary global view via role-based toggle. This single decision accounted for the largest drop in time-to-first-action across all user types.</p>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 8 — SYSTEM & TOOLING SNAPSHOT
+        ══════════════════════════════════════════ -->
+        <div id="tooling" class="project-section" data-anim>
+          <div class="project-section-label">System & Tooling Snapshot</div>
+          <h2 class="project-section-title">How the work was done</h2>
+
+          <div class="tooling-rows">
+            <div class="tooling-row">
+              <div class="tooling-label">Research</div>
+              <div class="tooling-pills">
+                <span class="tool-chip">Useberry</span>
+                <span class="tool-chip">Contextual Inquiry</span>
+                <span class="tool-chip">Heuristic Audit</span>
+              </div>
+            </div>
+            <div class="tooling-row">
+              <div class="tooling-label">Design</div>
+              <div class="tooling-pills">
+                <span class="tool-chip">Figma</span>
+                <span class="tool-chip">FigJam</span>
+                <span class="tool-chip">Component-based tokens</span>
+              </div>
+            </div>
+            <div class="tooling-row">
+              <div class="tooling-label">Handoff</div>
+              <div class="tooling-pills">
+                <span class="tool-chip">Figma Dev Mode</span>
+                <span class="tool-chip">Annotated specs</span>
+                <span class="tool-chip">Interaction notes</span>
+              </div>
+            </div>
+            <div class="tooling-row">
+              <div class="tooling-label">Note</div>
+              <div class="tooling-note">
+                Prototype flows rebuilt with AI-assisted scaffolding (Claude) for portfolio documentation. Original Figma file preserved.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 9 — OUTCOMES
+        ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
-          <div class="project-section-label">Outcome</div>
+          <div class="project-section-label">Outcomes</div>
           <h2 class="project-section-title">Results & Impact</h2>
-          <div style="background:var(--accent-dim);border:1px solid rgba(244,200,66,0.25);border-radius:var(--radius-lg);padding:var(--space-40);">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--space-32);">
-              <div>
-                <div style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;color:var(--accent);letter-spacing:-0.05em;line-height:1;">50%</div>
-                <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:var(--space-8);">Reduction in task completion time</div>
-              </div>
-              <div>
-                <div style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;color:var(--accent);letter-spacing:-0.05em;line-height:1;">3</div>
-                <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:var(--space-8);">New user personas identified</div>
-              </div>
-              <div>
-                <div style="font-family:var(--font-display);font-size:3.5rem;font-weight:800;color:var(--accent);letter-spacing:-0.05em;line-height:1;">4</div>
-                <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-top:var(--space-8);">User types mapped end-to-end</div>
-              </div>
+
+          <div class="outcomes-metrics" aria-label="Key metrics">
+            <div>
+              <div class="outcome-metric-val">50%</div>
+              <div class="outcome-metric-lbl">Reduction in task completion time</div>
+            </div>
+            <div>
+              <div class="outcome-metric-val">4</div>
+              <div class="outcome-metric-lbl">User types mapped end-to-end</div>
+            </div>
+            <div>
+              <div class="outcome-metric-val">3</div>
+              <div class="outcome-metric-lbl">New personas identified</div>
             </div>
           </div>
+
+          <ul class="outcomes-list" aria-label="Outcome details">
+            <li><strong>50%</strong> reduction in task completion time for telemarketer users</li>
+            <li><strong>4</strong> user types mapped end-to-end across Canada and LATAM operations</li>
+            <li><strong>3</strong> new personas identified, refining journey maps and role-based UI</li>
+            <li>Client scope expanded based on research deliverables</li>
+          </ul>
         </div>
 
-        <!-- 6. Tools -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Tools Used</div>
-          <div class="tools-row">
-            <span class="tool-chip">Figma</span>
-            <span class="tool-chip">Useberry</span>
-            <span class="tool-chip">Miro</span>
-            <span class="tool-chip">Contextual Inquiries</span>
-            <span class="tool-chip">User Personas</span>
-            <span class="tool-chip">Prototype Testing</span>
-          </div>
-        </div>
-
-        <!-- Prev / Next -->
+        <!-- ══════════════════════════════════════════
+             § 10 — NEXT PROJECT CTA
+        ══════════════════════════════════════════ -->
         <div class="project-nav" data-anim>
           <a href="chek.html" class="project-nav-card">
             <div class="project-nav-card-label">← Previous</div>
@@ -287,6 +825,12 @@
 
   </main>
 
+  <!-- LIGHTBOX -->
+  <dialog id="lightbox" aria-label="Image lightbox" aria-modal="true">
+    <button id="lightbox-close" type="button" aria-label="Close lightbox">&#x2715;</button>
+    <img id="lightbox-img" src="" alt="" />
+  </dialog>
+
   <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-bottom">
@@ -297,5 +841,69 @@
   </footer>
 
   <script src="../assets/main.js"></script>
+  <script>
+  (function () {
+    // ── Steppers ──────────────────────────────────────────────
+    document.querySelectorAll('[data-stepper]').forEach(function (root) {
+      var states = JSON.parse(root.dataset.stepper), i = 0;
+      var img = root.querySelector('[data-si]');
+      var cap = root.querySelector('[data-sc]');
+      var ctr = root.querySelector('[data-sk]');
+      var prv = root.querySelector('[data-sp]');
+      var nxt = root.querySelector('[data-sn]');
+      function go(n) {
+        i = ((n % states.length) + states.length) % states.length;
+        if (img) { img.classList.add('fading'); setTimeout(function () { img.src = states[i].img; img.alt = states[i].label; img.classList.remove('fading'); }, 160); }
+        if (cap) cap.textContent = states[i].label;
+        if (ctr) ctr.textContent = (i + 1) + ' / ' + states.length;
+      }
+      prv.addEventListener('click', function () { go(i - 1); });
+      nxt.addEventListener('click', function () { go(i + 1); });
+      root.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
+      });
+      go(0);
+    });
+
+    // ── Research collapse ─────────────────────────────────────
+    var rt = document.getElementById('research-toggle');
+    var rp = document.getElementById('research-panel');
+    if (rt && rp) {
+      rt.addEventListener('click', function () {
+        var open = rt.getAttribute('aria-expanded') === 'true';
+        rt.setAttribute('aria-expanded', String(!open));
+        rp.hidden = open;
+        if (open) rt.focus();
+      });
+    }
+
+    // ── Research tabs ─────────────────────────────────────────
+    var rtl = document.getElementById('research-tablist');
+    if (rtl) {
+      rtl.querySelectorAll('[role="tab"]').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          rtl.querySelectorAll('[role="tab"]').forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+          tab.setAttribute('aria-selected', 'true');
+          document.querySelectorAll('#research-panel [role="tabpanel"]').forEach(function (p) { p.hidden = true; });
+          document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+        });
+      });
+    }
+
+    // ── Lightbox ──────────────────────────────────────────────
+    var dlg = document.getElementById('lightbox');
+    if (dlg) {
+      var li = document.getElementById('lightbox-img');
+      var lc = document.getElementById('lightbox-close');
+      var lt;
+      document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+        el.addEventListener('click', function () { lt = el; li.src = el.dataset.lightbox; li.alt = el.getAttribute('aria-label') || ''; dlg.showModal(); });
+      });
+      lc.addEventListener('click', function () { dlg.close(); if (lt) lt.focus(); });
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); if (lt) lt.focus(); } });
+    }
+  }());
+  </script>
 </body>
 </html>
