@@ -14,6 +14,551 @@
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
     }
+
+    /* =============================================
+       NEW SECTIONS — CHEK PROJECT PAGE
+       ============================================= */
+
+    /* --- Section 1: Project Goals --- */
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-24);
+      margin-top: var(--space-32);
+    }
+    .goal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-32);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+    }
+    .goal-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .goal-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .goal-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+    .goal-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* --- Section 2: User Problems --- */
+    .problems-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-24);
+      margin-top: var(--space-32);
+      list-style: none;
+    }
+    .problem-item {
+      display: flex;
+      gap: var(--space-20);
+      align-items: flex-start;
+    }
+    .problem-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .problem-body { flex: 1; }
+    .problem-lead {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .problem-desc {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-top: var(--space-4);
+      line-height: 1.65;
+    }
+
+    /* --- Section 3: SERFINSA Friction Diagram --- */
+    .friction-diagram {
+      margin-top: var(--space-32);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-20);
+    }
+    .friction-row {
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+      background: var(--bg-surface);
+    }
+    .friction-row-before { border-left: 4px solid #dc2626; }
+    .friction-row-after  { border-left: 4px solid #16a34a; }
+    .friction-row-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: var(--space-4) var(--space-12);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-16);
+    }
+    .friction-row-badge-before {
+      background: rgba(220,38,38,.12);
+      color: #ef4444;
+      border: 1px solid rgba(220,38,38,.3);
+    }
+    .friction-row-badge-after {
+      background: rgba(22,163,74,.12);
+      color: #22c55e;
+      border: 1px solid rgba(22,163,74,.3);
+    }
+    .friction-steps {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-8);
+      overflow-x: auto;
+      padding-bottom: var(--space-8);
+    }
+    .friction-step {
+      flex: 1;
+      min-width: 112px;
+      background: var(--bg-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-16);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-8);
+      text-align: center;
+    }
+    .friction-step-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .friction-step-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .friction-step-icon.c-err svg { stroke: #ef4444; }
+    .friction-step-icon.c-ok  svg { stroke: #22c55e; }
+    .friction-step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .friction-step-sublabel {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+    .friction-arrow-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      padding-top: var(--space-16);
+      flex-shrink: 0;
+    }
+    .friction-arrow-sym {
+      font-size: 1.4rem;
+      color: var(--text-tertiary);
+      line-height: 1;
+    }
+    .friction-pill {
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .friction-pill-warn {
+      background: rgba(220,38,38,.15);
+      color: #ef4444;
+      border: 1px solid rgba(220,38,38,.3);
+    }
+    .friction-pill-ok {
+      background: rgba(22,163,74,.15);
+      color: #22c55e;
+      border: 1px solid rgba(22,163,74,.3);
+    }
+    .friction-note {
+      background: var(--bg-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-20) var(--space-24);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-style: italic;
+      line-height: 1.65;
+    }
+
+    /* --- Section 4: Benchmarking --- */
+    .competitor-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-12);
+      margin-top: var(--space-24);
+      margin-bottom: var(--space-32);
+    }
+    .competitor-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: 100px;
+      padding: var(--space-8) var(--space-20);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-20);
+      margin-bottom: var(--space-32);
+    }
+    .finding-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+    }
+    .finding-card-title {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--accent);
+      margin-bottom: var(--space-12);
+    }
+    .finding-card-body {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .project-image {
+      border-radius: var(--radius-md);
+      max-width: 100%;
+      display: block;
+    }
+    .img-caption {
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      margin-top: var(--space-8);
+      font-style: italic;
+    }
+
+    /* --- Section 5: Financial Education --- */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-40);
+      margin-top: var(--space-32);
+      align-items: start;
+    }
+    .col-body-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+    }
+    .callout-box {
+      background: var(--accent-dim);
+      border: 1px solid rgba(155,108,255,.35);
+      border-radius: var(--radius-lg);
+      padding: var(--space-32);
+    }
+    .callout-box-headline {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: var(--space-12);
+    }
+    .callout-box-body {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.65;
+      margin-bottom: var(--space-16);
+    }
+    .callout-box-link {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      display: inline-block;
+    }
+
+    /* --- Section 6: HEARTS Table --- */
+    .hearts-table-wrap {
+      overflow-x: auto;
+      margin-top: var(--space-32);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+    .hearts-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .hearts-table thead th {
+      background: rgba(155,108,255,.18);
+      color: var(--text-primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: 0.72rem;
+      padding: var(--space-12) var(--space-16);
+      text-align: left;
+      border-bottom: 1px solid var(--border-default);
+    }
+    .hearts-table td,
+    .hearts-table tbody th {
+      padding: var(--space-12) var(--space-16);
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      font-weight: 400;
+      text-align: left;
+    }
+    .hearts-table tbody tr:last-child td,
+    .hearts-table tbody tr:last-child th { border-bottom: none; }
+    .hearts-table tbody tr:hover { background: var(--bg-surface); }
+    .hearts-row-label {
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* --- Section 7: Event Tracking --- */
+    .tracking-layout {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--space-24);
+      margin-top: var(--space-32);
+      align-items: start;
+    }
+    .event-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+    .event-badge {
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-8) var(--space-16);
+    }
+    .event-badge-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(245,158,11,.15);
+      border: 1px solid rgba(245,158,11,.4);
+      color: #f59e0b;
+      font-weight: 700;
+      font-size: 0.68rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .event-badge-label {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      line-height: 1.3;
+    }
+    .phone-frame-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .phone-frame {
+      width: 260px;
+      min-height: 520px;
+      border-radius: 36px;
+      border: 3px solid var(--border-strong);
+      background: var(--bg-surface);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-status-bar {
+      background: var(--bg-raised);
+      padding: var(--space-12) var(--space-16);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: center;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .phone-card-visual {
+      margin: var(--space-16);
+      height: 130px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--accent) 0%, rgba(155,108,255,.45) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .phone-card-label {
+      position: absolute;
+      bottom: var(--space-12);
+      left: var(--space-16);
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.9);
+      font-family: var(--font-display);
+    }
+    .phone-balance-rows {
+      padding: 0 var(--space-16);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+    .phone-balance-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: var(--space-12);
+    }
+    .phone-balance-lbl {
+      font-size: 0.65rem;
+      color: var(--text-tertiary);
+    }
+    .phone-balance-val {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .tracking-footer-note {
+      margin-top: var(--space-24);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* --- Section 8: Hi-Fi Gallery --- */
+    .hifi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-24);
+      margin-top: var(--space-32);
+    }
+    .hifi-card img {
+      border-radius: var(--radius-md);
+      max-width: 100%;
+      display: block;
+      width: 100%;
+    }
+
+    /* --- Section 9: Key Learnings --- */
+    .learnings-section {
+      background: var(--bg-base);
+      border-top: 1px solid var(--border-default);
+      border-bottom: 1px solid var(--border-default);
+      padding: var(--space-64) var(--space-24);
+      margin: 0 calc(-1 * var(--space-24));
+    }
+    .learnings-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-32);
+      margin-top: var(--space-32);
+      margin-bottom: var(--space-40);
+      list-style: none;
+    }
+    .learning-item {
+      padding-left: var(--space-20);
+      border-left: 3px solid var(--accent);
+    }
+    .learning-lead {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .learning-body {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-top: var(--space-4);
+      line-height: 1.65;
+    }
+    .learnings-img-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    .learnings-img-wrap img {
+      border-radius: var(--radius-md);
+      max-width: 600px;
+      width: 100%;
+      display: block;
+    }
+
+    /* --- Reduced-motion transitions --- */
+    @media (prefers-reduced-motion: no-preference) {
+      .callout-box-link { transition: opacity var(--transition-fast); }
+      .goal-card { transition: border-color var(--transition-base); }
+      .goal-card:hover { border-color: var(--border-default); }
+      .competitor-pill { transition: border-color var(--transition-fast); }
+      .competitor-pill:hover { border-color: var(--accent); }
+    }
+
+    /* --- Mobile breakpoints --- */
+    @media (max-width: 600px) {
+      .goals-grid    { grid-template-columns: 1fr; }
+      .findings-grid { grid-template-columns: 1fr; }
+      .two-col       { grid-template-columns: 1fr; }
+      .hifi-grid     { grid-template-columns: 1fr; }
+      .learnings-section { padding-inline: var(--space-16); margin-inline: calc(-1 * var(--space-16)); }
+    }
+    @media (max-width: 720px) {
+      .tracking-layout { grid-template-columns: 1fr; }
+      .phone-frame-wrap { order: -1; margin: 0 auto; }
+    }
   </style>
 </head>
 <body>
@@ -158,6 +703,498 @@
           </div>
         </div>
 
+        <!-- ==============================
+             SECTION 1 — Project Goals
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Project Goals</div>
+          <h2 class="project-section-title">What we set out to achieve</h2>
+          <div class="goals-grid">
+
+            <div class="goal-card">
+              <div class="goal-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+              </div>
+              <div class="goal-title">Performance across iOS &amp; Android</div>
+              <p class="goal-desc">Ensure exceptional performance and user-friendliness across both platforms.</p>
+            </div>
+
+            <div class="goal-card">
+              <div class="goal-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div class="goal-title">Encourage users to take action</div>
+              <p class="goal-desc">Motivate users through clear CTAs, financial nudges, and contextual education.</p>
+            </div>
+
+            <div class="goal-card">
+              <div class="goal-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                  <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div class="goal-title">Clarity, consistency, accessibility</div>
+              <p class="goal-desc">Meet WCAG standards. Reduce cognitive load. Build a shared design system.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==============================
+             SECTION 2 — User Problems
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">User Research</div>
+          <h2 class="project-section-title">What users were struggling with</h2>
+          <ol class="problems-list" role="list">
+
+            <li class="problem-item">
+              <div class="problem-number" aria-hidden="true">1</div>
+              <div class="problem-body">
+                <div class="problem-lead">Onboarding friction</div>
+                <p class="problem-desc">Users found integrating the credit card into the wallet complex and time-consuming, leading to abandonment during setup.</p>
+              </div>
+            </li>
+
+            <li class="problem-item">
+              <div class="problem-number" aria-hidden="true">2</div>
+              <div class="problem-body">
+                <div class="problem-lead">Usability &amp; accessibility gaps</div>
+                <p class="problem-desc">The UI lacked clarity and consistency, making navigation difficult and excluding users with disabilities.</p>
+              </div>
+            </li>
+
+            <li class="problem-item">
+              <div class="problem-number" aria-hidden="true">3</div>
+              <div class="problem-body">
+                <div class="problem-lead">Security &amp; privacy concerns</div>
+                <p class="problem-desc">Users expressed anxiety about their financial data, requiring transparent security communication.</p>
+              </div>
+            </li>
+
+            <li class="problem-item">
+              <div class="problem-number" aria-hidden="true">4</div>
+              <div class="problem-body">
+                <div class="problem-lead">Financial illiteracy</div>
+                <p class="problem-desc">Early adopters didn't understand payment dates, minimum payments, or how balances worked.</p>
+              </div>
+            </li>
+
+            <li class="problem-item">
+              <div class="problem-number" aria-hidden="true">5</div>
+              <div class="problem-body">
+                <div class="problem-lead">No post-launch measurement plan</div>
+                <p class="problem-desc">Without tracking, identifying new friction points after launch was impossible.</p>
+              </div>
+            </li>
+
+          </ol>
+        </div>
+
+        <!-- ==============================
+             SECTION 3 — SERFINSA Friction
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Onboarding Analysis</div>
+          <h2 class="project-section-title">Identifying the Critical Drop-off</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-24);">Identity verification during onboarding — the friction that caused most abandonments</p>
+
+          <div class="friction-diagram">
+
+            <!-- ROW 1: BEFORE -->
+            <div class="friction-row friction-row-before">
+              <div class="friction-row-badge friction-row-badge-before">BEFORE</div>
+              <div class="friction-steps">
+
+                <div class="friction-step">
+                  <div class="friction-step-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="friction-step-label">User starts onboarding in Chek app</div>
+                </div>
+
+                <div class="friction-arrow-wrap" aria-hidden="true">
+                  <span class="friction-arrow-sym">→</span>
+                </div>
+
+                <div class="friction-step">
+                  <div class="friction-step-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                  </div>
+                  <div class="friction-step-label">App opens SERFINSA website in WebView</div>
+                  <div class="friction-step-sublabel">User leaves app context</div>
+                </div>
+
+                <div class="friction-arrow-wrap" aria-hidden="true">
+                  <span class="friction-arrow-sym">→</span>
+                  <span class="friction-pill friction-pill-warn">⚠ Context switch</span>
+                </div>
+
+                <div class="friction-step">
+                  <div class="friction-step-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <div class="friction-step-label">User sees external government site</div>
+                  <div class="friction-step-sublabel">Confusion, distrust</div>
+                </div>
+
+                <div class="friction-arrow-wrap" aria-hidden="true">
+                  <span class="friction-arrow-sym">→</span>
+                </div>
+
+                <div class="friction-step">
+                  <div class="friction-step-icon c-err">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <div class="friction-step-label">Drop-off</div>
+                  <div class="friction-step-sublabel">Abandonment</div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ROW 2: AFTER -->
+            <div class="friction-row friction-row-after">
+              <div class="friction-row-badge friction-row-badge-after">AFTER</div>
+              <div class="friction-steps">
+
+                <div class="friction-step">
+                  <div class="friction-step-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div class="friction-step-label">User starts onboarding in Chek app</div>
+                </div>
+
+                <div class="friction-arrow-wrap" aria-hidden="true">
+                  <span class="friction-arrow-sym">→</span>
+                </div>
+
+                <div class="friction-step">
+                  <div class="friction-step-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                  </div>
+                  <div class="friction-step-label">SERFINSA API called silently in background</div>
+                  <div class="friction-step-sublabel">User stays in app</div>
+                </div>
+
+                <div class="friction-arrow-wrap" aria-hidden="true">
+                  <span class="friction-arrow-sym">→</span>
+                  <span class="friction-pill friction-pill-ok">✓ Seamless</span>
+                </div>
+
+                <div class="friction-step">
+                  <div class="friction-step-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                  </div>
+                  <div class="friction-step-label">Loading indicator shown</div>
+                  <div class="friction-step-sublabel">Slightly longer wait, same context</div>
+                </div>
+
+                <div class="friction-arrow-wrap" aria-hidden="true">
+                  <span class="friction-arrow-sym">→</span>
+                </div>
+
+                <div class="friction-step">
+                  <div class="friction-step-icon c-ok">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  </div>
+                  <div class="friction-step-label">Verification complete</div>
+                  <div class="friction-step-sublabel">Flow continues uninterrupted</div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Note -->
+            <p class="friction-note">Removing the WebView required backend API integration with SERFINSA — a cross-functional effort involving engineering, legal, and product. The UX solution was invisible to the user by design.</p>
+
+          </div>
+        </div>
+
+        <!-- ==============================
+             SECTION 4 — Benchmarking
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Competitive Research</div>
+          <h2 class="project-section-title">Benchmarking</h2>
+          <p class="project-body-text">Evaluated 9 competitors across Chile and LATAM to identify the state of the art — legally, experientially, and technically.</p>
+
+          <div class="competitor-grid" role="list" aria-label="Competitors analyzed">
+            <span class="competitor-pill" role="listitem">C6 Bank</span>
+            <span class="competitor-pill" role="listitem">Mercado Pago</span>
+            <span class="competitor-pill" role="listitem">Santander</span>
+            <span class="competitor-pill" role="listitem">Nu Bank</span>
+            <span class="competitor-pill" role="listitem">Rappi</span>
+            <span class="competitor-pill" role="listitem">Banco Ripley</span>
+            <span class="competitor-pill" role="listitem">BCI</span>
+            <span class="competitor-pill" role="listitem">MACH</span>
+            <span class="competitor-pill" role="listitem">Tenpo</span>
+          </div>
+
+          <div class="findings-grid">
+            <div class="finding-card">
+              <div class="finding-card-title">Onboarding Abandonments</div>
+              <p class="finding-card-body">Use of external government verification services breaks the app flow, misleading users and causing drop-off during setup.</p>
+            </div>
+            <div class="finding-card">
+              <div class="finding-card-title">Financial Education Gap</div>
+              <p class="finding-card-body">Users get lost in payment options and dates. The repercussions of choosing minimum vs. total payment are not clearly communicated.</p>
+            </div>
+            <div class="finding-card">
+              <div class="finding-card-title">Awareness &amp; Navigation Issues</div>
+              <p class="finding-card-body">Confusing navigation patterns make paying or getting help feel unnecessarily complex.</p>
+            </div>
+          </div>
+
+          <img src="../chek/IMG_3769.jpeg" alt="Benchmarking analysis screenshot" class="project-image" loading="lazy">
+          <p class="img-caption">Competitor analysis — original research documentation</p>
+        </div>
+
+        <!-- ==============================
+             SECTION 5 — Financial Education
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Design Strategy</div>
+          <h2 class="project-section-title">Financial Education That Outlived the Product</h2>
+          <div class="two-col">
+
+            <div class="col-body-text">
+              <p>One of the core bets in this project was embedding financial education directly into the product — not as a help section, but as contextual nudges throughout every key flow.</p>
+              <p>We designed in-app explanations for: minimum payment vs. total balance, billing date vs. due date, credit line vs. available balance, and what happens if you only pay the minimum.</p>
+              <p>The goal was to reduce debt-related abandonment and build user trust by making complex financial concepts scannable and actionable at the moment of decision.</p>
+            </div>
+
+            <div class="callout-box">
+              <div class="callout-box-headline">This work continued after acquisition.</div>
+              <p class="callout-box-body">Banco Ripley acquired Chek and kept the financial education framework alive under the name Corta y Clara — a dedicated section explaining financial concepts through videos and interactive content. Concepts like Pago Mínimo, Fecha de Facturación, and Estado de Cuenta were built on the groundwork established in this project.</p>
+              <a class="callout-box-link" href="https://www.bancoripley.cl/corta-y-clara" target="_blank" rel="noopener">View Corta y Clara →</a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==============================
+             SECTION 6 — HEARTS Framework
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Analytics</div>
+          <h2 class="project-section-title">Measuring Success: Google HEARTS Framework</h2>
+          <p class="project-body-text">Built a full measurement plan before launch — every feature has observable signals and actionable metrics.</p>
+
+          <div class="hearts-table-wrap">
+            <table class="hearts-table">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Goal</th>
+                  <th scope="col">Signals</th>
+                  <th scope="col">Metrics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="hearts-row-label">Happiness</th>
+                  <td>User satisfaction with the process</td>
+                  <td>Positive feedback from surveys, social media, NPS</td>
+                  <td>NPS · Perceived ease of use · CSAT</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="hearts-row-label">Engagement</th>
+                  <td>Users interact frequently: add-ons, purchases, logins</td>
+                  <td>Purchases · New users · User registration · Users logged in</td>
+                  <td>User registration · Login · Session length · Profile customization · Cart Abandonment</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="hearts-row-label">Adoption</th>
+                  <td>Increase registrations and premium memberships per month</td>
+                  <td>More accounts created · More memberships</td>
+                  <td>Account upgrades · Login sessions/day · Registered users/month · Cart Abandonment</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="hearts-row-label">Retention</th>
+                  <td>Users continue using the platform: deposits, purchases, credit card use</td>
+                  <td>Return customers from MKT DB · Loyalty programs</td>
+                  <td>Active Users · Renewal Rate · Repeated Purchases · Memberships/month</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="hearts-row-label">Task Success</th>
+                  <td>Users complete key flows without errors or abandonment</td>
+                  <td>Flow completion rates · Support tickets · Error events</td>
+                  <td>Funnel completion · Drop-off by step · Error rate</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <img src="../chek/IMG_3771.jpeg" alt="HEARTS framework and wireframing documentation" class="project-image" loading="lazy" style="margin-top:var(--space-24);">
+          <p class="img-caption">Wireframing and measurement planning — original documentation</p>
+        </div>
+
+        <!-- ==============================
+             SECTION 7 — Event Tracking Funnel
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Instrumentation</div>
+          <h2 class="project-section-title">Instrumenting the Product for Analytics</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-32);">Designed a complete event taxonomy for the credit card hub — 11 trackable interactions mapped before launch to enable funnel analysis and drop-off detection.</p>
+
+          <div class="tracking-layout">
+
+            <!-- Left column -->
+            <div class="event-col" aria-label="Events 2.1 through 2.5">
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.1</span>
+                <span class="event-badge-label">Pagina Hub TDC</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.2</span>
+                <span class="event-badge-label">Botón atrás</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.3</span>
+                <span class="event-badge-label">Botón Mostrar datos</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.4</span>
+                <span class="event-badge-label">Botón Pagar tarjeta</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.5</span>
+                <span class="event-badge-label">Botón Bloquear tarjeta</span>
+              </div>
+            </div>
+
+            <!-- Phone frame -->
+            <div class="phone-frame-wrap">
+              <div class="phone-frame" role="img" aria-label="Credit card hub screen mockup — Tarjeta de crédito Chek">
+                <div class="phone-status-bar">Tarjeta de crédito Chek</div>
+                <div class="phone-card-visual">
+                  <span class="phone-card-label">CHEK</span>
+                </div>
+                <div class="phone-balance-rows">
+                  <div class="phone-balance-row">
+                    <span class="phone-balance-lbl">Cupo total</span>
+                    <span class="phone-balance-val">$500.000</span>
+                  </div>
+                  <div class="phone-balance-row">
+                    <span class="phone-balance-lbl">Cupo disponible</span>
+                    <span class="phone-balance-val">$320.000</span>
+                  </div>
+                  <div class="phone-balance-row">
+                    <span class="phone-balance-lbl">Próx. facturación</span>
+                    <span class="phone-balance-val">15 Mar</span>
+                  </div>
+                  <div class="phone-balance-row">
+                    <span class="phone-balance-lbl">Vencimiento</span>
+                    <span class="phone-balance-val">30 Mar</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right column -->
+            <div class="event-col" aria-label="Events 2.6 through 2.11">
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.6</span>
+                <span class="event-badge-label">Botón Más acciones</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.7</span>
+                <span class="event-badge-label">Botón Cupo y disponible</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.8</span>
+                <span class="event-badge-label">Botón Ver todos los movimientos</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.9</span>
+                <span class="event-badge-label">Botón Próx. Facturación</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.10</span>
+                <span class="event-badge-label">Botón Vencimiento</span>
+              </div>
+              <div class="event-badge">
+                <span class="event-badge-num" aria-hidden="true">2.11</span>
+                <span class="event-badge-label">Botón Ver próximos vencimientos</span>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="tracking-footer-note">Each event maps to a GTM tag — enabling funnel analysis, drop-off detection, and feature adoption tracking post-launch.</p>
+
+          <img src="../chek/IMG_3772.jpeg" alt="Event tracking funnel documentation" class="project-image" loading="lazy" style="margin-top:var(--space-24);">
+          <p class="img-caption">Event tracking map — original documentation</p>
+        </div>
+
+        <!-- ==============================
+             SECTION 8 — Hi-Fi Screens Gallery
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Design Output</div>
+          <h2 class="project-section-title">Selected Hi-Fidelity Screens</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-8);">Key screens from the final design, annotated to highlight design decisions.</p>
+
+          <div class="hifi-grid">
+            <div class="hifi-card">
+              <img src="../chek/IMG_3773.jpeg" alt="Hi-Fi annotated screens — Home and Upcoming Due Dates" loading="lazy">
+              <p class="img-caption">Home screen &amp; upcoming due dates — annotated</p>
+            </div>
+            <div class="hifi-card">
+              <img src="../chek/IMG_3774.jpeg" alt="Hi-Fi screens — NFC, transaction detail, statements" loading="lazy">
+              <p class="img-caption">NFC payment, transaction detail, monthly statements</p>
+            </div>
+            <div class="hifi-card">
+              <img src="../chek/IMG_3775.jpeg" alt="Design System — brand assets, buttons, typography" loading="lazy">
+              <p class="img-caption">Design system — built collaboratively with the Chek team</p>
+            </div>
+            <div class="hifi-card">
+              <img src="../chek/IMG_0159.jpeg" alt="Wireframe grid — full credit card flow" loading="lazy">
+              <p class="img-caption">Wireframe grid — full credit card flow</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================
+             SECTION 9 — Key Learnings
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="learnings-section">
+            <div class="project-section-label">Reflections</div>
+            <h2 class="project-section-title">Key Learnings</h2>
+            <ul class="learnings-list" role="list">
+
+              <li class="learning-item">
+                <span class="learning-lead">Seamless onboarding requires invisible complexity.</span>
+                <p class="learning-body">Removing the SERFINSA WebView required backend API work — but the UX win was worth the engineering investment. Legal, tech, and business alignment must come before the design solution.</p>
+              </li>
+
+              <li class="learning-item">
+                <span class="learning-lead">User testing must generate metric-oriented evidence.</span>
+                <p class="learning-body">Testing with Useberry allowed us to bring quantitative data to dev and business conversations — not just opinions. This changed how decisions were made post-launch.</p>
+              </li>
+
+              <li class="learning-item">
+                <span class="learning-lead">Build the measurement plan before you ship.</span>
+                <p class="learning-body">Defining the event taxonomy and HEARTS framework pre-launch meant we could detect abandonment, success rates, and friction immediately after release — not months later.</p>
+              </li>
+
+            </ul>
+            <div class="learnings-img-wrap">
+              <img src="../chek/IMG_3776.jpeg" alt="Key learnings final documentation" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <!-- ==============================
+             SECTION 10 — Evidence (original)
+             ============================== -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Evidence</div>
           <h2 class="project-section-title">Screens & Documentation</h2>
