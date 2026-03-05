@@ -1,10 +1,11 @@
-## CRITICAL — Git rules
-Always push directly to main. Never create a branch. Never create a PR.
-Use: git add -A && git commit -m "..." && git push origin main
-
 Federico Monroy — Portfolio
 Stack
 Pure HTML + CSS + Vanilla JS. No frameworks. No build step.
+
+
+## CRITICAL — Git rules
+Always push directly to main. Never create a branch. Never create a PR.
+Use: git add -A && git commit -m "..." && git push origin main
 
 assets/shared.css — design system (CSS variables, all components)
 assets/main.js — nav dropdown, keyboard nav, mobile menu, scroll animations
