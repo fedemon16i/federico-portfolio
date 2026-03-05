@@ -559,6 +559,302 @@
       .tracking-layout { grid-template-columns: 1fr; }
       .phone-frame-wrap { order: -1; margin: 0 auto; }
     }
+
+    /* =============================================
+       WIREFRAME FLOWS
+       ============================================= */
+    .wf-flow-block {
+      margin-top: var(--space-48);
+      padding-top: var(--space-40);
+      border-top: 1px solid var(--border-subtle);
+    }
+    .wf-flow-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      margin-bottom: var(--space-8);
+    }
+    .wf-flow-desc {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.65;
+      margin-bottom: var(--space-32);
+      max-width: 640px;
+    }
+    .wf-flow-canvas {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-16);
+      overflow-x: auto;
+      padding-bottom: var(--space-16);
+    }
+    .wf-phone-wrap {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Light interior for wireframe phones */
+    .wf-phone {
+      background: #f5f5f5;
+      color: #111;
+    }
+    /* Screen top bar */
+    .wf-screen-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      padding: var(--space-12) var(--space-16);
+      background: #ebebeb;
+      border-bottom: 1px solid #d4d4d4;
+      flex-shrink: 0;
+    }
+    .wf-back-btn {
+      font-size: 1rem;
+      color: #333;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .wf-screen-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #111;
+      flex: 1;
+      text-align: center;
+    }
+    /* Card block */
+    .wf-card-block {
+      margin: var(--space-12);
+      height: 96px;
+      border-radius: var(--radius-md);
+      background: var(--accent);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-12);
+      flex-shrink: 0;
+    }
+    .wf-card-name {
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.9);
+      font-family: var(--font-display);
+    }
+    .wf-card-number {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,.65);
+      letter-spacing: .04em;
+    }
+    /* Action buttons row */
+    .wf-actions-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+      padding: var(--space-8) var(--space-12);
+      border-bottom: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+    .wf-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .wf-action-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e2e2e2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wf-action-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: #444;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .wf-action-label {
+      font-size: 0.56rem;
+      color: #555;
+      text-align: center;
+      line-height: 1.2;
+    }
+    /* Info rows */
+    .wf-info-rows {
+      padding: 0 var(--space-12);
+      display: flex;
+      flex-direction: column;
+    }
+    .wf-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-8) 0;
+      border-bottom: 1px solid #eee;
+    }
+    .wf-info-row-label { font-size: 0.62rem; color: #555; }
+    .wf-info-row-value { font-size: 0.65rem; font-weight: 700; color: #111; }
+    .wf-info-row-chip {
+      font-size: 0.62rem;
+      font-weight: 600;
+      color: #111;
+      background: #e0e0e0;
+      border-radius: 12px;
+      padding: 2px 8px;
+    }
+    /* Link rows */
+    .wf-link-row {
+      padding: var(--space-8) var(--space-12);
+      font-size: 0.62rem;
+      color: #7c3aed;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      border-bottom: 1px solid #eee;
+      flex-shrink: 0;
+    }
+    /* Dates row */
+    .wf-dates-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: var(--space-8) var(--space-12);
+      border-bottom: 1px solid #eee;
+      flex-shrink: 0;
+    }
+    .wf-date-cell { display: flex; flex-direction: column; gap: 2px; }
+    .wf-date-cell:first-child { padding-right: var(--space-8); border-right: 1px solid #ddd; }
+    .wf-date-cell:last-child  { padding-left: var(--space-8); }
+    .wf-date-label { font-size: 0.54rem; color: #777; text-transform: uppercase; letter-spacing: .04em; }
+    .wf-date-value { font-size: 0.65rem; font-weight: 700; color: #111; }
+    /* Flow arrows between screens */
+    .wf-arrow-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 140px;
+      flex-shrink: 0;
+      gap: var(--space-4);
+    }
+    .wf-arrow-sym { font-size: 1.6rem; color: var(--text-tertiary); line-height: 1; }
+    .wf-arrow-label { font-size: 0.6rem; color: var(--text-tertiary); text-align: center; max-width: 64px; line-height: 1.3; }
+    /* Annotations list — hidden on mobile */
+    .wf-annotations-list {
+      margin-top: var(--space-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+    .wf-annot-item { display: flex; gap: var(--space-8); align-items: flex-start; font-size: 0.8rem; color: var(--text-secondary); }
+    .wf-annot-arrow { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .wf-annot-bold  { font-weight: 700; color: var(--text-primary); }
+    /* Radio options */
+    .wf-radio-group {
+      padding: var(--space-8) var(--space-12);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      flex: 1;
+    }
+    .wf-radio-option {
+      display: flex;
+      gap: var(--space-8);
+      align-items: flex-start;
+      padding: var(--space-6) var(--space-8);
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .wf-radio-circle {
+      width: 13px; height: 13px; border-radius: 50%;
+      border: 2px solid #aaa; flex-shrink: 0; margin-top: 2px;
+    }
+    .wf-radio-texts { flex: 1; }
+    .wf-radio-label    { font-size: 0.62rem; font-weight: 700; color: #111; }
+    .wf-radio-sublabel { font-size: 0.56rem; color: #777; font-style: italic; }
+    /* CTA button */
+    .wf-btn {
+      margin: var(--space-8) var(--space-12);
+      background: #111; color: #fff;
+      font-size: 0.65rem; font-weight: 700;
+      text-align: center; padding: var(--space-12);
+      border-radius: 8px; letter-spacing: .06em; flex-shrink: 0;
+    }
+    /* Callout education boxes */
+    .wf-callout {
+      margin: var(--space-8) var(--space-12);
+      border-radius: 6px;
+      padding: var(--space-8) var(--space-10);
+      font-size: 0.58rem;
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+    .wf-callout-green  { background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
+    .wf-callout-yellow { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; }
+    .wf-callout-red    { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+    .wf-callout-blue   { background: #eff6ff; border: 1px solid #93c5fd; color: #1e40af; }
+    .wf-callout-purple { background: rgba(155,108,255,.08); border: 1px solid rgba(155,108,255,.25); color: #5b21b6; }
+    .wf-callout-title  { font-weight: 700; margin-bottom: 3px; font-size: 0.62rem; }
+    .wf-callout-bullets { list-style: none; padding-left: 0; display: flex; flex-direction: column; gap: 2px; }
+    .wf-callout-bullets li::before { content: "• "; }
+    /* Amount display */
+    .wf-amount-display { padding: var(--space-12) var(--space-12) var(--space-4); flex-shrink: 0; }
+    .wf-amount-label { font-size: 0.6rem; color: #777; margin-bottom: 2px; }
+    .wf-amount-value { font-size: 1.4rem; font-weight: 800; color: #111; line-height: 1.1; font-family: var(--font-display); }
+    /* Account chip */
+    .wf-account-chip {
+      display: inline-flex; align-items: center;
+      background: #e8e8e8; border-radius: 12px;
+      padding: 3px 10px; font-size: 0.6rem; font-weight: 600; color: #333;
+      margin-left: var(--space-12); margin-bottom: var(--space-8); flex-shrink: 0;
+    }
+    /* Numpad */
+    .wf-numpad {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: #ccc;
+      margin: 0 var(--space-12) var(--space-8);
+      border-radius: 6px; overflow: hidden; flex-shrink: 0;
+    }
+    .wf-numpad-key { background: #f0f0f0; text-align: center; padding: var(--space-8) 0; font-size: 0.8rem; font-weight: 600; color: #111; }
+    /* Info icon rows */
+    .wf-info-icon-row { display: flex; align-items: center; padding: var(--space-8) var(--space-12); border-bottom: 1px solid #eee; gap: var(--space-4); }
+    .wf-info-icon       { font-size: 0.65rem; color: #7c3aed; flex-shrink: 0; }
+    .wf-info-icon-label { font-size: 0.6rem; color: #555; flex: 1; }
+    .wf-info-icon-value { font-size: 0.62rem; font-weight: 700; color: #111; }
+    /* Help / security list */
+    .wf-help-list { padding: 0 var(--space-12); display: flex; flex-direction: column; }
+    .wf-help-option { display: flex; justify-content: space-between; align-items: center; padding: var(--space-8) 0; border-bottom: 1px solid #eee; }
+    .wf-help-option-text { font-size: 0.6rem; color: #111; line-height: 1.3; flex: 1; padding-right: var(--space-8); }
+    .wf-help-chevron { color: #aaa; font-size: 0.75rem; flex-shrink: 0; }
+    /* Toggle row */
+    .wf-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: var(--space-12); border-bottom: 1px solid #eee; }
+    .wf-toggle-left { display: flex; align-items: center; gap: var(--space-8); }
+    .wf-toggle-label { font-size: 0.62rem; font-weight: 600; color: #111; }
+    .wf-toggle { width: 34px; height: 18px; border-radius: 9px; background: #d0d0d0; border: 1px solid #bbb; flex-shrink: 0; }
+    /* Generic text block */
+    .wf-screen-body-text { padding: var(--space-8) var(--space-12); font-size: 0.6rem; color: #555; line-height: 1.5; flex-shrink: 0; }
+    /* Section labels/dividers inside screens */
+    .wf-section-divider  { height: 1px; background: #e0e0e0; margin: var(--space-4) 0; flex-shrink: 0; }
+    .wf-section-heading  { padding: var(--space-6) var(--space-12) var(--space-4); font-size: 0.56rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; }
+    .wf-link-row-center  { padding: var(--space-8) var(--space-12); font-size: 0.6rem; color: #aaa; text-align: center; margin-top: auto; }
+    /* Mobile: stack screens vertically, rotate arrow */
+    @media (max-width: 600px) {
+      .wf-flow-canvas   { flex-direction: column; align-items: center; }
+      .wf-arrow-col     { flex-direction: row; padding-top: 0; padding: var(--space-8) var(--space-24); justify-content: center; }
+      .wf-arrow-sym     { display: inline-block; transform: rotate(90deg); }
+    }
+    @media (max-width: 768px) {
+      .wf-annotations-list { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -917,6 +1213,476 @@
         </div>
 
         <!-- ==============================
+             SECTION 3.5 — Wireframes
+             ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Wireframes</div>
+          <h2 class="project-section-title">Key Flows — Wireframe Documentation</h2>
+          <p class="project-body-text">Low-fidelity flows built to validate structure before high-fidelity production. All wireframes were tested via Useberry.</p>
+
+          <!-- ── FLOW 1: Hub TDC ── -->
+          <div class="wf-flow-block">
+            <h3 class="wf-flow-title">1. Hub TDC — Credit Card Home</h3>
+            <p class="wf-flow-desc">The main hub screen. Designed to surface the most critical information without overwhelming the user.</p>
+            <div class="wf-flow-canvas">
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Credit Card Hub screen">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Tarjeta de Crédito CHEK</span>
+                  </div>
+                  <div class="wf-card-block">
+                    <div class="wf-card-name">CHEK</div>
+                    <div class="wf-card-number">•••• •••• •••• 7355</div>
+                  </div>
+                  <div class="wf-actions-row">
+                    <div class="wf-action-btn">
+                      <div class="wf-action-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      </div>
+                      <div class="wf-action-label">Mostrar datos</div>
+                    </div>
+                    <div class="wf-action-btn">
+                      <div class="wf-action-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                      </div>
+                      <div class="wf-action-label">Pagar tarjeta</div>
+                    </div>
+                    <div class="wf-action-btn">
+                      <div class="wf-action-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      </div>
+                      <div class="wf-action-label">Bloquear tarjeta</div>
+                    </div>
+                    <div class="wf-action-btn">
+                      <div class="wf-action-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                      </div>
+                      <div class="wf-action-label">Más acciones</div>
+                    </div>
+                  </div>
+                  <div class="wf-info-rows">
+                    <div class="wf-info-row">
+                      <span class="wf-info-row-label">Disponible para usar</span>
+                      <span class="wf-info-row-chip">$1,000,000 ›</span>
+                    </div>
+                    <div class="wf-info-row">
+                      <span class="wf-info-row-label">Utilizado</span>
+                      <span class="wf-info-row-value">$1,500</span>
+                    </div>
+                  </div>
+                  <div class="wf-link-row">Ver todos los movimientos ›</div>
+                  <div class="wf-dates-row">
+                    <div class="wf-date-cell">
+                      <span class="wf-date-label">Próx. facturación</span>
+                      <span class="wf-date-value">05 Sept</span>
+                    </div>
+                    <div class="wf-date-cell">
+                      <span class="wf-date-label">Vencimiento</span>
+                      <span class="wf-date-value">25 Sept</span>
+                    </div>
+                  </div>
+                  <div class="wf-link-row">Ver próximos vencimientos</div>
+                </div>
+              </div>
+            </div>
+            <div class="wf-annotations-list">
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Card area:</span> Quick view card data — copy/paste enabled</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Action buttons:</span> Accessibility — most used features surfaced first</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Balance row:</span> Balance — used and available with movements link</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Dates row:</span> Financial Education — billing vs due date explained on tap</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── FLOW 2: Payment Flow (3 screens) ── -->
+          <div class="wf-flow-block">
+            <h3 class="wf-flow-title">2.2 → 2.2.1 → 2.2.2 — Pagar Tarjeta Flow</h3>
+            <p class="wf-flow-desc">Full payment flow. Three paths depending on user's payment choice, with financial education nudges at decision points.</p>
+            <div class="wf-flow-canvas">
+
+              <!-- Screen 2.2 — payment selection -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Payment selection screen">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Consultar y Pagar</span>
+                  </div>
+                  <div class="wf-screen-body-text">Selección de pago: buenos al 25/09/2023</div>
+                  <div class="wf-radio-group">
+                    <div class="wf-radio-option">
+                      <div class="wf-radio-circle"></div>
+                      <div class="wf-radio-texts">
+                        <div class="wf-radio-label">Saldo total $1,000,000</div>
+                        <div class="wf-radio-sublabel">Cubre el 100% de tu saldo</div>
+                      </div>
+                    </div>
+                    <div class="wf-radio-option">
+                      <div class="wf-radio-circle"></div>
+                      <div class="wf-radio-texts">
+                        <div class="wf-radio-label">Pago mínimo $50,000</div>
+                        <div class="wf-radio-sublabel">Solo cubre el pago mínimo</div>
+                      </div>
+                    </div>
+                    <div class="wf-radio-option">
+                      <div class="wf-radio-circle"></div>
+                      <div class="wf-radio-texts">
+                        <div class="wf-radio-label">Seleccionar monto</div>
+                      </div>
+                    </div>
+                    <div class="wf-radio-option">
+                      <div class="wf-radio-circle"></div>
+                      <div class="wf-radio-texts">
+                        <div class="wf-radio-label">📅 Reordenar Deuda</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="wf-btn">CONTINUAR</div>
+                </div>
+              </div>
+
+              <div class="wf-arrow-col" aria-hidden="true">
+                <span class="wf-arrow-sym">→</span>
+                <span class="wf-arrow-label">Select: Saldo Total</span>
+              </div>
+
+              <!-- Screen 2.2.1.2 — total payment confirm -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Confirm total payment">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Confirmar Pago</span>
+                  </div>
+                  <div class="wf-amount-display">
+                    <div class="wf-amount-label">Se va a cobrar: Saldo Total</div>
+                    <div class="wf-amount-value">$1,000,000</div>
+                  </div>
+                  <div class="wf-account-chip">••••7535 Ahorro</div>
+                  <div class="wf-callout wf-callout-green">
+                    <div class="wf-callout-title">⭐ Beneficios de pagar el total</div>
+                    <ul class="wf-callout-bullets">
+                      <li>Sin intereses por el próximo ciclo</li>
+                      <li>Mejoras tu historial crediticio</li>
+                      <li>Liberas cupo disponible</li>
+                    </ul>
+                  </div>
+                  <div class="wf-btn">PAGAR SALDO TOTAL</div>
+                </div>
+              </div>
+
+              <div class="wf-arrow-col" aria-hidden="true">
+                <span class="wf-arrow-sym">→</span>
+                <span class="wf-arrow-label">Select: Pago Mínimo</span>
+              </div>
+
+              <!-- Screen 2.2.2.3 — minimum payment confirm -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Confirm minimum payment">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Confirmar Pago</span>
+                  </div>
+                  <div class="wf-amount-display">
+                    <div class="wf-amount-label">Se va a cobrar: Pago Mínimo</div>
+                    <div class="wf-amount-value">$50,000</div>
+                  </div>
+                  <div class="wf-account-chip">••••7535 Ahorro</div>
+                  <div class="wf-callout wf-callout-yellow">
+                    <div class="wf-callout-title">⚠ Pagando el mínimo</div>
+                    <ul class="wf-callout-bullets">
+                      <li>Cubrimos solo 25% de tus consumos</li>
+                      <li>Cuotas pendientes: $950,000</li>
+                      <li>Se cubren intereses y el próximo pago será más alto</li>
+                    </ul>
+                  </div>
+                  <div class="wf-btn">REALIZAR PAGO MÍNIMO</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="wf-annotations-list">
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Radio options:</span> Financial Education — clear labels explain consequences before choosing</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Green callout:</span> Positive reinforcement for full payment</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Yellow callout:</span> Transparent consequence warning — reduces future debt complaints</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── FLOW 3: Custom Amount (3 screens) ── -->
+          <div class="wf-flow-block">
+            <h3 class="wf-flow-title">2.2.3.1 → 2.2.3.1.1 → 2.2.3.1.2 — Custom Amount Flow</h3>
+            <p class="wf-flow-desc">Users who choose a custom amount see real-time validation and contextual education based on their input.</p>
+            <div class="wf-flow-canvas">
+
+              <!-- Screen A: below minimum -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Custom amount — below minimum warning">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Seleccionar monto</span>
+                  </div>
+                  <div class="wf-amount-display">
+                    <div class="wf-amount-value">$20,000</div>
+                  </div>
+                  <div class="wf-callout wf-callout-red">
+                    <div class="wf-callout-title">⚠ Podría estar en mora</div>
+                    <ul class="wf-callout-bullets">
+                      <li>Este monto es inferior al pago mínimo recomendado</li>
+                    </ul>
+                  </div>
+                  <div class="wf-numpad">
+                    <div class="wf-numpad-key">1</div><div class="wf-numpad-key">2</div><div class="wf-numpad-key">3</div>
+                    <div class="wf-numpad-key">4</div><div class="wf-numpad-key">5</div><div class="wf-numpad-key">6</div>
+                    <div class="wf-numpad-key">7</div><div class="wf-numpad-key">8</div><div class="wf-numpad-key">9</div>
+                    <div class="wf-numpad-key"></div><div class="wf-numpad-key">0</div><div class="wf-numpad-key">⌫</div>
+                  </div>
+                  <div class="wf-btn">CONTINUAR PARA PAGAR</div>
+                </div>
+              </div>
+
+              <div class="wf-arrow-col" aria-hidden="true">
+                <span class="wf-arrow-sym">→</span>
+              </div>
+
+              <!-- Screen B: above minimum -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Custom amount — above minimum">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Seleccionar monto</span>
+                  </div>
+                  <div class="wf-amount-display">
+                    <div class="wf-amount-value">$60,000</div>
+                  </div>
+                  <div class="wf-callout wf-callout-green">
+                    <div class="wf-callout-title">✓ Pago mayor al mínimo</div>
+                    <ul class="wf-callout-bullets">
+                      <li>Te recomendamos pagar el máximo posible</li>
+                    </ul>
+                  </div>
+                  <div class="wf-numpad">
+                    <div class="wf-numpad-key">1</div><div class="wf-numpad-key">2</div><div class="wf-numpad-key">3</div>
+                    <div class="wf-numpad-key">4</div><div class="wf-numpad-key">5</div><div class="wf-numpad-key">6</div>
+                    <div class="wf-numpad-key">7</div><div class="wf-numpad-key">8</div><div class="wf-numpad-key">9</div>
+                    <div class="wf-numpad-key"></div><div class="wf-numpad-key">0</div><div class="wf-numpad-key">⌫</div>
+                  </div>
+                  <div class="wf-btn">CONTINUAR PARA PAGAR</div>
+                </div>
+              </div>
+
+              <div class="wf-arrow-col" aria-hidden="true">
+                <span class="wf-arrow-sym">→</span>
+              </div>
+
+              <!-- Screen C: near total -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Custom amount — near total balance">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Seleccionar monto</span>
+                  </div>
+                  <div class="wf-amount-display">
+                    <div class="wf-amount-value">$900,000</div>
+                  </div>
+                  <div class="wf-callout wf-callout-blue">
+                    <div class="wf-callout-title">💡 Podrías ir a 0</div>
+                    <ul class="wf-callout-bullets">
+                      <li>También podrías ajustarlo a $1,000,000</li>
+                      <li>o seleccionar saldo total</li>
+                    </ul>
+                  </div>
+                  <div class="wf-numpad">
+                    <div class="wf-numpad-key">1</div><div class="wf-numpad-key">2</div><div class="wf-numpad-key">3</div>
+                    <div class="wf-numpad-key">4</div><div class="wf-numpad-key">5</div><div class="wf-numpad-key">6</div>
+                    <div class="wf-numpad-key">7</div><div class="wf-numpad-key">8</div><div class="wf-numpad-key">9</div>
+                    <div class="wf-numpad-key"></div><div class="wf-numpad-key">0</div><div class="wf-numpad-key">⌫</div>
+                  </div>
+                  <div class="wf-btn">CONTINUAR PARA PAGAR</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="wf-annotations-list">
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Info boxes:</span> Real-time financial education — message changes based on amount entered</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Numpad:</span> Native numpad — no keyboard switch friction</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── FLOW 4: Cupo y Disponibles ── -->
+          <div class="wf-flow-block">
+            <h3 class="wf-flow-title">2.5 — Cupo y Disponibles</h3>
+            <p class="wf-flow-desc">Financial education screen — demystifies credit card balance concepts that users consistently misunderstood.</p>
+            <div class="wf-flow-canvas">
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Credit line and available balance detail screen">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Cupo y Disponibles para tu tarjeta</span>
+                  </div>
+                  <div class="wf-screen-body-text" style="color:#999;">Tarjeta de Crédito Mastercard Chek</div>
+                  <div class="wf-info-icon-row">
+                    <span class="wf-info-icon">ⓘ</span>
+                    <span class="wf-info-icon-label">Cupo otorgado</span>
+                    <span class="wf-info-icon-value">$1,800,000</span>
+                  </div>
+                  <div class="wf-info-icon-row">
+                    <span class="wf-info-icon">ⓘ</span>
+                    <span class="wf-info-icon-label">Total Consumos</span>
+                    <span class="wf-info-icon-value">$1,800,000</span>
+                  </div>
+                  <div class="wf-info-icon-row">
+                    <span class="wf-info-icon">ⓘ</span>
+                    <span class="wf-info-icon-label">Disponible para compras</span>
+                    <span class="wf-info-icon-value">$908,900</span>
+                  </div>
+                  <div class="wf-info-icon-row">
+                    <span class="wf-info-icon">ⓘ</span>
+                    <span class="wf-info-icon-label">AV / SAV</span>
+                    <span class="wf-info-icon-value">$500,000</span>
+                  </div>
+                  <div class="wf-section-divider"></div>
+                  <div class="wf-info-icon-row">
+                    <span class="wf-info-icon-label" style="font-weight:700;font-size:0.58rem;text-transform:uppercase;letter-spacing:.04em;">FECHA DE FACTURACIÓN: 26 de cada mes</span>
+                  </div>
+                  <div class="wf-callout wf-callout-purple">
+                    <div class="wf-callout-title">💡 Pro Tip Chek: Máximo pago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="wf-annotations-list">
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Each ⓘ icon:</span> Tap to expand — explains what each concept means in plain language</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Pro Tip box:</span> Contextual financial nudge at the right moment</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── FLOW 5: Ayuda por Seguridad (2 screens) ── -->
+          <div class="wf-flow-block">
+            <h3 class="wf-flow-title">2.4.1 — Ayuda por Seguridad</h3>
+            <p class="wf-flow-desc">Empathetic security flow — designed to reduce anxiety and surface the right action fast.</p>
+            <div class="wf-flow-canvas">
+
+              <!-- Screen A -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Security help options list">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Ayuda por seguridad</span>
+                  </div>
+                  <div class="wf-screen-body-text">Para poder ayudarte, quisiéramos saber cuál de estas situaciones se relaciona más con tu situación.</div>
+                  <div class="wf-help-list">
+                    <div class="wf-help-option">
+                      <span class="wf-help-option-text">Creo que mis datos han sido comprometidos</span>
+                      <span class="wf-help-chevron">›</span>
+                    </div>
+                    <div class="wf-help-option">
+                      <span class="wf-help-option-text">Tengo cargos no reconocidos. Mis datos han sido comprometidos</span>
+                      <span class="wf-help-chevron">›</span>
+                    </div>
+                    <div class="wf-help-option">
+                      <span class="wf-help-option-text">Mi tarjeta ya no está segura, necesito reemplazarla</span>
+                      <span class="wf-help-chevron">›</span>
+                    </div>
+                    <div class="wf-help-option">
+                      <span class="wf-help-option-text">Quiero cambiar mi clave</span>
+                      <span class="wf-help-chevron">›</span>
+                    </div>
+                    <div class="wf-help-option">
+                      <span class="wf-help-option-text">Contáctanos por Whatsapp</span>
+                      <span class="wf-help-chevron">›</span>
+                    </div>
+                  </div>
+                  <div class="wf-link-row-center">Olvidé mi Clave</div>
+                </div>
+              </div>
+
+              <div class="wf-arrow-col" aria-hidden="true">
+                <span class="wf-arrow-sym">→</span>
+                <span class="wf-arrow-label">Select: datos comprometidos</span>
+              </div>
+
+              <!-- Screen B -->
+              <div class="wf-phone-wrap">
+                <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Block card screen">
+                  <div class="wf-screen-header">
+                    <span class="wf-back-btn" aria-hidden="true">←</span>
+                    <span class="wf-screen-title">Bloquear tarjeta</span>
+                  </div>
+                  <div class="wf-screen-body-text" style="font-weight:700;color:#111;">¿Crees que tus datos han sido comprometidos?</div>
+                  <div class="wf-toggle-row">
+                    <div class="wf-toggle-left">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      <span class="wf-toggle-label">Bloqueo de tarjeta</span>
+                    </div>
+                    <div class="wf-toggle" role="img" aria-label="Toggle off"></div>
+                  </div>
+                  <div class="wf-screen-body-text">Puedes bloquearlo y desbloquearlo cuando desees...</div>
+                  <div class="wf-section-divider"></div>
+                  <div class="wf-section-heading">Puede interesarte:</div>
+                  <div class="wf-help-list">
+                    <div class="wf-help-option">
+                      <span class="wf-help-option-text">Estafas cibernéticas y cómo evitarlas</span>
+                      <span class="wf-help-chevron">›</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="wf-annotations-list">
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Empathetic intro:</span> Shows user section goal — reduces anxiety before action</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">List options:</span> Block Card — Fraud / Steal / Other</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Toggle:</span> Instant reversible action — no confirmation friction</span>
+              </div>
+              <div class="wf-annot-item">
+                <span class="wf-annot-arrow" aria-hidden="true">→</span>
+                <span><span class="wf-annot-bold">Awareness link:</span> Deep link to Help / Chatbot / Fraud prevention content</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ==============================
              SECTION 4 — Benchmarking
              ============================== -->
         <div class="project-section" data-anim>
@@ -951,8 +1717,6 @@
             </div>
           </div>
 
-          <img src="../chek/IMG_3769.jpeg" alt="Benchmarking analysis screenshot" class="project-image" loading="lazy">
-          <p class="img-caption">Competitor analysis — original research documentation</p>
         </div>
 
         <!-- ==============================
@@ -1031,8 +1795,6 @@
             </table>
           </div>
 
-          <img src="../chek/IMG_3771.jpeg" alt="HEARTS framework and wireframing documentation" class="project-image" loading="lazy" style="margin-top:var(--space-24);">
-          <p class="img-caption">Wireframing and measurement planning — original documentation</p>
         </div>
 
         <!-- ==============================
@@ -1129,8 +1891,6 @@
 
           <p class="tracking-footer-note">Each event maps to a GTM tag — enabling funnel analysis, drop-off detection, and feature adoption tracking post-launch.</p>
 
-          <img src="../chek/IMG_3772.jpeg" alt="Event tracking funnel documentation" class="project-image" loading="lazy" style="margin-top:var(--space-24);">
-          <p class="img-caption">Event tracking map — original documentation</p>
         </div>
 
         <!-- ==============================
@@ -1186,9 +1946,6 @@
               </li>
 
             </ul>
-            <div class="learnings-img-wrap">
-              <img src="../chek/IMG_3776.jpeg" alt="Key learnings final documentation" loading="lazy">
-            </div>
           </div>
         </div>
 
