@@ -344,6 +344,247 @@
     }
     .outcomes-list strong { color: var(--text-primary); font-weight: 700; }
 
+    /* ── Problem Panel ── */
+    .dc-problem-panel {
+      background: var(--bg-surface);
+      border-left: 4px solid #f4c842;
+      padding: var(--space-48) 0;
+    }
+    .dc-problem-eyebrow {
+      font-size: 0.625rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: #f4c842;
+      margin-bottom: var(--space-16);
+    }
+    .dc-problem-headline {
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+      max-width: 720px;
+    }
+    @media (max-width: 640px) { .dc-problem-headline { font-size: 1.5rem; } }
+
+    /* ── Impact Strip ── */
+    .dc-impact-strip {
+      background: var(--bg-base);
+      padding: var(--space-48) 0 var(--space-64);
+    }
+    .dc-impact-intro {
+      font-size: 0.9375rem;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-32);
+      font-style: italic;
+    }
+    .dc-impact-transition {
+      font-size: 0.9375rem;
+      color: var(--text-tertiary);
+      margin-top: var(--space-32);
+      text-align: center;
+      font-style: italic;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Research Goals Grid ── */
+    .dc-goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-16);
+      margin-top: var(--space-24);
+    }
+    .dc-goal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+    }
+    .dc-goal-icon { font-size: 1.5rem; margin-bottom: var(--space-12); }
+    .dc-goal-title {
+      font-size: 0.875rem; font-weight: 700;
+      color: #f4c842;
+      margin-bottom: var(--space-8);
+    }
+    .dc-goal-desc {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Tabbed Research Section ── */
+    .dc-tabs-wrap {
+      margin-top: var(--space-24);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .dc-tabs-bar {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      background: var(--bg-raised);
+      border-bottom: 1px solid var(--border-subtle);
+      gap: var(--space-4);
+      padding: var(--space-12) var(--space-16);
+    }
+    .dc-tabs-bar::-webkit-scrollbar { display: none; }
+    .dc-tab-btn {
+      padding: var(--space-8) var(--space-16);
+      font-size: 0.8125rem; font-weight: 600;
+      color: var(--text-tertiary);
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      cursor: pointer; white-space: nowrap;
+      transition: color 150ms, background 150ms, border-color 150ms;
+    }
+    .dc-tab-btn[aria-selected="true"] {
+      color: #fff;
+      background: rgba(21,128,61,0.2);
+      border-color: rgba(21,128,61,0.5);
+    }
+    .dc-tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .dc-tab-panel {
+      padding: var(--space-28) var(--space-32);
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .dc-tab-panel[hidden] { display: none; }
+    .dc-tab-panel ul { padding-left: var(--space-20); display: flex; flex-direction: column; gap: var(--space-8); }
+    .dc-tab-panel ul li { list-style: disc; }
+    .dc-tab-panel strong { color: var(--text-primary); font-weight: 600; }
+    .dc-user-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: var(--space-16);
+    }
+    .dc-user-table th {
+      text-align: left; padding: var(--space-12) var(--space-16);
+      background: var(--bg-raised);
+      font-size: 0.6875rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-tertiary);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .dc-user-table td {
+      padding: var(--space-12) var(--space-16);
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+    }
+    .dc-user-table tr:last-child td { border-bottom: none; }
+    .dc-check { color: #22c55e; font-weight: 700; text-align: center; }
+    .dc-journey-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-20);
+      margin-top: var(--space-16);
+    }
+    @media (max-width: 600px) { .dc-journey-grid { grid-template-columns: 1fr; } }
+    .dc-journey-card {
+      background: var(--bg-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-20) var(--space-24);
+    }
+    .dc-journey-title {
+      font-size: 0.8125rem; font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-12);
+    }
+    .dc-journey-steps { display: flex; flex-direction: column; gap: var(--space-8); }
+    .dc-journey-step {
+      font-size: 0.8125rem; color: var(--text-secondary);
+      padding-left: var(--space-16); position: relative;
+    }
+    .dc-journey-step::before { content: '→'; position: absolute; left: 0; color: #f4c842; }
+
+    /* ── Best Improvements ── */
+    .dc-improvements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-20);
+      margin-top: var(--space-24);
+    }
+    .dc-improvement-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(21,128,61,0.3);
+      border-radius: var(--radius-md);
+      padding: var(--space-24);
+    }
+    .dc-improvement-title {
+      font-size: 0.875rem; font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-12);
+    }
+    .dc-improvement-desc { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.65; }
+
+    /* ── Prototype Cards ── */
+    .dc-proto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-24);
+      margin-top: var(--space-24);
+    }
+    @media (max-width: 640px) { .dc-proto-grid { grid-template-columns: 1fr; } }
+    .dc-proto-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
+    .dc-proto-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+    .dc-proto-card-img-wrap {
+      position: relative; height: 220px;
+      background: var(--bg-raised);
+      overflow: hidden;
+    }
+    .dc-proto-card-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 400ms ease;
+    }
+    .dc-proto-card:hover .dc-proto-card-img-wrap img { transform: scale(1.04); }
+    .dc-proto-card-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(21,128,61,0.85);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 200ms ease, background 200ms;
+      pointer-events: none;
+    }
+    .dc-proto-card:hover .dc-proto-card-play {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: rgba(21,128,61,1);
+    }
+    .dc-proto-card-play svg { width: 20px; height: 20px; fill: #fff; margin-left: 3px; }
+    .dc-proto-card-body { padding: var(--space-20) var(--space-24); }
+    .dc-proto-card-title {
+      font-size: 0.9375rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: var(--space-8);
+    }
+    .dc-proto-card-desc {
+      font-size: 0.8125rem; color: var(--text-secondary);
+      line-height: 1.6; margin-bottom: var(--space-16);
+    }
+    .dc-proto-card-link {
+      display: inline-flex; align-items: center; gap: var(--space-6);
+      font-size: 0.8125rem; font-weight: 600;
+      color: #15803d; text-decoration: none;
+      transition: color 150ms;
+    }
+    .dc-proto-card-link svg { width: 14px; height: 14px; }
+
     /* ── Context Snapshot ── */
     .context-grid {
       display: grid;
@@ -436,7 +677,7 @@
     <!-- ══════════════════════════════════════════
          § 1 — HERO
     ══════════════════════════════════════════ -->
-    <header class="project-hero" aria-labelledby="project-title">
+    <header class="project-hero" aria-labelledby="project-title" style="background-image: linear-gradient(to right, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.85) 45%, rgba(10,10,10,0.4) 100%), linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, #0c0c0c 90%), url('../dollarcity/IMG_0218.jpeg'); background-size: cover; background-position: right center; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);">
       <div class="container">
 
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
@@ -486,6 +727,36 @@
       </div>
     </header>
 
+    <!-- PROBLEM PANEL -->
+    <div class="dc-problem-panel">
+      <div class="container" style="max-width:900px;">
+        <div class="dc-problem-eyebrow">The Problem</div>
+        <p class="dc-problem-headline">Employees were losing hours to a fragmented fraud review workflow — no unified screen, no download state feedback, no role clarity across Canada and LATAM.</p>
+      </div>
+    </div>
+
+    <!-- IMPACT STRIP -->
+    <div class="dc-impact-strip">
+      <div class="container" style="max-width:900px;">
+        <p class="dc-impact-intro">Before diving into the process — here's what the work achieved:</p>
+        <div class="outcomes-metrics" aria-label="Key metrics">
+          <div>
+            <div class="outcome-metric-val" style="color:#f4c842">50%</div>
+            <div class="outcome-metric-lbl">Reduction in task completion time</div>
+          </div>
+          <div>
+            <div class="outcome-metric-val" style="color:#f4c842">4</div>
+            <div class="outcome-metric-lbl">User types mapped end-to-end</div>
+          </div>
+          <div>
+            <div class="outcome-metric-val" style="color:#f4c842">3</div>
+            <div class="outcome-metric-lbl">New personas identified</div>
+          </div>
+        </div>
+        <p class="dc-impact-transition">Here's how we got there.</p>
+      </div>
+    </div>
+
     <!-- PROJECT CONTENT -->
     <div class="project-content">
       <div class="container" style="max-width:900px;">
@@ -526,187 +797,228 @@
         </div>
 
         <!-- ══════════════════════════════════════════
-             § 4 — UI SHOWCASE
+             § 3b — RESEARCH GOALS
         ══════════════════════════════════════════ -->
-        <div id="ui-showcase" class="project-section" data-anim>
-          <div class="project-section-label">UI Showcase</div>
-          <h2 class="project-section-title">Key screens from the redesign</h2>
-
-          <div class="showcase-grid">
-            <!-- Cell 1: POS Search -->
-            <div class="showcase-cell">
-              <button
-                class="showcase-trigger"
-                data-lightbox="../assets/img/dollarcity/pos-search-board.png"
-                aria-label="POS Search — redesigned transaction search screen showing filter panel and results grid"
-                type="button"
-              >
-                <img
-                  src="../assets/img/dollarcity/pos-search-board.png"
-                  alt="POS Search screen: filter sidebar with store, POS terminal and date fields, transaction results grid with download state badges"
-                />
-              </button>
-              <span class="showcase-caption">POS Search Board</span>
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Research Goals</div>
+          <h2 class="project-section-title">What we needed to understand</h2>
+          <div class="dc-goals-grid">
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">🎯</div>
+              <div class="dc-goal-title">Understand the workflow</div>
+              <div class="dc-goal-desc">Map how employees move through fraud review from start to finish across roles.</div>
             </div>
-
-            <!-- Cell 2: Video Investigation -->
-            <div class="showcase-cell">
-              <button
-                class="showcase-trigger"
-                data-lightbox="../assets/img/dollarcity/video-investigation-board.png"
-                aria-label="Video Investigation — redesigned request queue and video playback screen"
-                type="button"
-              >
-                <img
-                  src="../assets/img/dollarcity/video-investigation-board.png"
-                  alt="Video Investigation screen: My Video Request queue listing requests with status badges, and video preview panel"
-                />
-              </button>
-              <span class="showcase-caption">Video Investigation Board</span>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">👥</div>
+              <div class="dc-goal-title">Define user types</div>
+              <div class="dc-goal-desc">Identify all actors — telemarketers, supervisors, IT admins, analysts — and their distinct needs.</div>
             </div>
-
-            <!-- Cell 3: Placeholder -->
-            <div class="showcase-cell">
-              <div class="showcase-placeholder" aria-label="Figma component screenshot — coming soon">
-                [ Figma screenshot ]
-              </div>
-              <span class="showcase-caption">Component Library (Figma)</span>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">🔍</div>
+              <div class="dc-goal-title">Surface friction points</div>
+              <div class="dc-goal-desc">Pinpoint where the existing SaaS caused drop-offs, re-work, or missed fraud signals.</div>
+            </div>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">⚡</div>
+              <div class="dc-goal-title">Validate quickly</div>
+              <div class="dc-goal-desc">Use Useberry to test interaction patterns before committing to Figma-level fidelity.</div>
+            </div>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">🏗️</div>
+              <div class="dc-goal-title">Fit existing architecture</div>
+              <div class="dc-goal-desc">Integrate new flows into a live platform without breaking active user workflows.</div>
             </div>
           </div>
         </div>
 
         <!-- ══════════════════════════════════════════
-             § 5 — PROTOTYPE: VIDEO INVESTIGATION
+             § 3c — TABBED RESEARCH
         ══════════════════════════════════════════ -->
-        <div id="proto-video" class="project-section" data-anim>
-          <div class="project-section-label">Prototype · Video Investigation</div>
-          <h2 class="project-section-title">Five states of the investigation flow</h2>
-          <p class="project-body-text">Use the arrows (or ← → keys) to step through the Video Investigation prototype states.</p>
-
-          <!-- TODO: replace with per-state images when available -->
-          <figure
-            class="stepper"
-            tabindex="0"
-            aria-label="Video Investigation prototype stepper"
-            data-stepper='[{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"My Video Request"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Filter: More Options"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Video at Hand \u2014 Preview"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Downloading \u2014 Queue Toast"},{"img":"../assets/img/dollarcity/video-investigation-board.png","label":"Video Replay \u2014 Full Player"}]'
-          >
-            <div class="stepper-img-wrap">
-              <img data-si src="" alt="" />
-            </div>
-            <figcaption class="stepper-footer">
-              <nav class="stepper-nav" aria-label="Prototype steps">
-                <button class="stepper-btn" data-sp aria-label="Previous state" type="button">&#8592;</button>
-                <span class="stepper-counter" data-sk aria-live="polite" aria-atomic="true"></span>
-                <button class="stepper-btn" data-sn aria-label="Next state" type="button">&#8594;</button>
-              </nav>
-              <div class="stepper-label">
-                <div class="stepper-step-tag">State</div>
-                <div class="stepper-step-label" data-sc></div>
-              </div>
-            </figcaption>
-          </figure>
-
-          <!-- Research Deep Dive (collapsible) -->
-          <div class="research-toggle-wrap">
-            <button
-              id="research-toggle"
-              class="research-toggle-btn"
-              type="button"
-              aria-expanded="false"
-              aria-controls="research-panel"
-            >
-              View Research Breakdown
-              <em class="chevron" aria-hidden="true">&#9660;</em>
-            </button>
-          </div>
-
-          <div id="research-panel" hidden>
-            <div class="research-tabs-bar" role="tablist" id="research-tablist" aria-label="Research breakdown tabs">
-              <button role="tab" id="rtab-methods" class="research-tab-btn" aria-selected="true" aria-controls="rpanel-methods">Research Methods</button>
-              <button role="tab" id="rtab-personas" class="research-tab-btn" aria-selected="false" aria-controls="rpanel-personas">Personas</button>
-              <button role="tab" id="rtab-pain" class="research-tab-btn" aria-selected="false" aria-controls="rpanel-pain">Pain Points</button>
-              <button role="tab" id="rtab-findings" class="research-tab-btn" aria-selected="false" aria-controls="rpanel-findings">Findings</button>
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Research Breakdown</div>
+          <h2 class="project-section-title">Methodology, users, and findings</h2>
+          <div class="dc-tabs-wrap">
+            <div class="dc-tabs-bar" role="tablist" id="dc-tablist" aria-label="Research breakdown tabs">
+              <button role="tab" id="dctab-users" class="dc-tab-btn" aria-selected="true" aria-controls="dcpanel-users">User Types</button>
+              <button role="tab" id="dctab-persona" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-persona">Persona</button>
+              <button role="tab" id="dctab-journey" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-journey">Journey Maps</button>
+              <button role="tab" id="dctab-findings" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-findings">Findings</button>
+              <button role="tab" id="dctab-proposal" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-proposal">Proposal</button>
             </div>
 
-            <div id="rpanel-methods" role="tabpanel" aria-labelledby="rtab-methods" class="research-tab-panel">
-              <ul>
-                <li>Contextual inquiry with telemarketer users (on-site observation)</li>
-                <li>Useberry moderated and unmoderated usability testing</li>
-                <li>Heuristic audit of the existing SaaS platform</li>
-                <li>Stakeholder alignment workshops</li>
+            <!-- User Types Panel -->
+            <div id="dcpanel-users" role="tabpanel" aria-labelledby="dctab-users" class="dc-tab-panel">
+              <p>Four distinct user types emerged from research, each with different goals and friction patterns:</p>
+              <table class="dc-user-table" aria-label="User types summary">
+                <thead>
+                  <tr>
+                    <th>User Type</th>
+                    <th>Primary Task</th>
+                    <th>Key Pain</th>
+                    <th>Video</th>
+                    <th>POS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Telemarketer</strong></td>
+                    <td>Review video clips tied to transactions</td>
+                    <td>Too many tabs, no unified view</td>
+                    <td class="dc-check">✓</td>
+                    <td class="dc-check">✓</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Supervisor</strong></td>
+                    <td>Manage queues and escalations</td>
+                    <td>No status visibility across team</td>
+                    <td class="dc-check">✓</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><strong>IT Admin</strong></td>
+                    <td>Configure integrations</td>
+                    <td>Fragmented data sources</td>
+                    <td></td>
+                    <td class="dc-check">✓</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Analyst</strong></td>
+                    <td>Export and report on fraud data</td>
+                    <td>Manual correlation of video + transaction</td>
+                    <td class="dc-check">✓</td>
+                    <td class="dc-check">✓</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Persona Panel -->
+            <div id="dcpanel-persona" role="tabpanel" aria-labelledby="dctab-persona" class="dc-tab-panel" hidden>
+              <p><strong>Primary Persona — The Telemarketer</strong></p>
+              <p style="margin-top:var(--space-12);">A non-technical store employee responsible for reviewing video clips tied to POS transactions to flag potential fraud. Works across multiple tabs with no unified interface, often losing context between the video player and transaction list.</p>
+              <ul style="margin-top:var(--space-16);">
+                <li><strong>Goal:</strong> Complete daily video review quota without missing flagged transactions</li>
+                <li><strong>Frustration:</strong> Has to open 3–4 browser tabs to cross-reference data</li>
+                <li><strong>Need:</strong> Single-screen view combining POS search, video preview, and download state</li>
+                <li><strong>Trust barrier:</strong> No feedback on whether a video is downloading or available without refreshing</li>
               </ul>
             </div>
 
-            <div id="rpanel-personas" role="tabpanel" aria-labelledby="rtab-personas" class="research-tab-panel" hidden>
-              <div class="persona-block">
-                <div class="persona-name">P1 — Telemarketer (Primary)</div>
-                <p>Non-technical store employee. Reviews video clips tied to POS transactions. Pain: too many tabs, no unified view, missed fraud signals.</p>
-              </div>
-              <div class="persona-block">
-                <div class="persona-name">P2 — Supervisor</div>
-                <p>Manages queues and escalations. Pain: no status visibility across team reviews.</p>
-              </div>
-              <div class="persona-block">
-                <div class="persona-name">P3 — IT Admin</div>
-                <p>Configures integrations. Pain: fragmented data sources.</p>
-              </div>
-              <div class="persona-block">
-                <div class="persona-name">P4 — Analyst</div>
-                <p>Exports and reports. Pain: manual steps to correlate video and transaction data.</p>
+            <!-- Journey Maps Panel -->
+            <div id="dcpanel-journey" role="tabpanel" aria-labelledby="dctab-journey" class="dc-tab-panel" hidden>
+              <p>Journey maps revealed where friction concentrated across the two main flows:</p>
+              <div class="dc-journey-grid">
+                <div class="dc-journey-card">
+                  <div class="dc-journey-title">Flow A — POS → Video Review</div>
+                  <div class="dc-journey-steps">
+                    <div class="dc-journey-step">Search POS terminal &amp; date</div>
+                    <div class="dc-journey-step">Find transaction in results list</div>
+                    <div class="dc-journey-step">Open new tab for video player <em style="color:var(--text-tertiary)">[friction]</em></div>
+                    <div class="dc-journey-step">Request video download</div>
+                    <div class="dc-journey-step">Refresh tab to check status <em style="color:var(--text-tertiary)">[friction]</em></div>
+                    <div class="dc-journey-step">Play and review clip</div>
+                  </div>
+                </div>
+                <div class="dc-journey-card">
+                  <div class="dc-journey-title">Flow B — My Video Requests</div>
+                  <div class="dc-journey-steps">
+                    <div class="dc-journey-step">Land on platform (no clear entry)</div>
+                    <div class="dc-journey-step">Navigate to request queue <em style="color:var(--text-tertiary)">[buried]</em></div>
+                    <div class="dc-journey-step">Filter by status — no filter available <em style="color:var(--text-tertiary)">[friction]</em></div>
+                    <div class="dc-journey-step">Open video — re-downloads if status unclear</div>
+                    <div class="dc-journey-step">Supervisor cannot see team queue</div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div id="rpanel-pain" role="tabpanel" aria-labelledby="rtab-pain" class="research-tab-panel" hidden>
+            <!-- Findings Panel -->
+            <div id="dcpanel-findings" role="tabpanel" aria-labelledby="dctab-findings" class="dc-tab-panel" hidden>
               <ul>
-                <li>Users opened multiple browser tabs to cross-reference video and transaction data</li>
-                <li>No preview of video before committing to a download request</li>
+                <li>Users opened <strong>3–4 browser tabs</strong> to cross-reference video and transaction data</li>
+                <li><strong>No preview</strong> of video before committing to a download request</li>
                 <li>Scroll-heavy POS search forced users off-screen to reach video playback</li>
-                <li>No feedback state when videos were downloading or fully available</li>
-                <li>Filters were hidden behind secondary panels, causing missed refinements</li>
+                <li><strong>No feedback state</strong> when videos were downloading or fully available</li>
+                <li>Filters were <strong>hidden behind secondary panels</strong>, causing missed refinements</li>
+                <li>Role-based views were <strong>not enforced</strong> — supervisors saw the same UI as telemarketers</li>
+                <li>"My Video Request" was the most-used entry point — yet it wasn't the default landing state</li>
               </ul>
             </div>
 
-            <div id="rpanel-findings" role="tabpanel" aria-labelledby="rtab-findings" class="research-tab-panel" hidden>
-              <ul>
-                <li>Consolidating POS search and video playback into a single screen reduced cognitive load measurably in testing</li>
-                <li>Users needed clear download state feedback (pending → downloading → available) before they would trust the queue</li>
-                <li>Role-based views were necessary: what a telemarketer sees ≠ what a supervisor sees</li>
-                <li>The "My Video Request" tab was the most-used entry point — it needed to be the default</li>
+            <!-- Proposal Panel -->
+            <div id="dcpanel-proposal" role="tabpanel" aria-labelledby="dctab-proposal" class="dc-tab-panel" hidden>
+              <p>Based on research, we proposed three structural changes:</p>
+              <ul style="margin-top:var(--space-16);">
+                <li><strong>One Screen Rule</strong> — Consolidate POS search, video filter, and playback into a single scrollable panel. Eliminate all tab-switching.</li>
+                <li><strong>Download State System</strong> — Introduce 4 explicit states (Not Downloaded → Downloading → Downloaded → Playing) with visual badges and toast notifications.</li>
+                <li><strong>Role-Based Default Views</strong> — "My Video Requests" as default for telemarketers; global queue accessible by supervisors via role toggle.</li>
               </ul>
             </div>
           </div>
         </div>
 
         <!-- ══════════════════════════════════════════
-             § 6 — PROTOTYPE: POS SEARCH + VIDEO STATES
+             § 3d — BEST IMPROVEMENTS
         ══════════════════════════════════════════ -->
-        <div id="proto-pos" class="project-section" data-anim>
-          <div class="project-section-label">Prototype · POS Search + Video States</div>
-          <h2 class="project-section-title">Four download states — building trust in the queue</h2>
-          <p class="project-body-text">Step through the four download states that eliminated re-request behavior in validation sessions.</p>
-
-          <!-- TODO: replace with per-state images when available -->
-          <figure
-            class="stepper"
-            tabindex="0"
-            aria-label="POS Search download states prototype stepper"
-            data-stepper='[{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Sin selecci\u00f3n \u2014 No selection"},{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Selecci\u00f3n sin descarga \u2014 Selected, no download"},{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Descargando \u2014 Snackbar active"},{"img":"../assets/img/dollarcity/pos-search-board.png","label":"Descarga completa \u2014 Download complete"}]'
-          >
-            <div class="stepper-img-wrap">
-              <img data-si src="" alt="" />
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Best Improvements</div>
+          <h2 class="project-section-title">Top design decisions that moved the needle</h2>
+          <div class="dc-improvements-grid">
+            <div class="dc-improvement-card">
+              <div class="dc-improvement-title">Unified POS + Video Screen</div>
+              <div class="dc-improvement-desc">Eliminated tab-switching by combining transaction search and video playback in one panel. Users went from 3–4 open tabs to zero context switches.</div>
             </div>
-            <figcaption class="stepper-footer">
-              <nav class="stepper-nav" aria-label="Prototype steps">
-                <button class="stepper-btn" data-sp aria-label="Previous state" type="button">&#8592;</button>
-                <span class="stepper-counter" data-sk aria-live="polite" aria-atomic="true"></span>
-                <button class="stepper-btn" data-sn aria-label="Next state" type="button">&#8594;</button>
-              </nav>
-              <div class="stepper-label">
-                <div class="stepper-step-tag">State</div>
-                <div class="stepper-step-label" data-sc></div>
+            <div class="dc-improvement-card">
+              <div class="dc-improvement-title">4-State Download System</div>
+              <div class="dc-improvement-desc">Introduced clear visual feedback: Not Downloaded → Downloading → Downloaded → Playing. Duplicate download requests dropped to near zero in testing.</div>
+            </div>
+            <div class="dc-improvement-card">
+              <div class="dc-improvement-title">My Requests as Default</div>
+              <div class="dc-improvement-desc">Surfaced each user's personal request queue as the landing state. Single biggest contributor to time-to-first-action reduction across all user types.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3e — INTERACTIVE PROTOTYPES
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Interactive Prototypes</div>
+          <h2 class="project-section-title">Explore the redesigned flows</h2>
+          <div class="dc-proto-grid">
+            <a class="dc-proto-card" href="https://www.figma.com/proto/" target="_blank" rel="noopener noreferrer" aria-label="Open Video Investigation prototype in Figma">
+              <div class="dc-proto-card-img-wrap">
+                <img src="../dollarcity/IMG_0216.jpeg" alt="Video Investigation prototype — request queue and video playback screen" />
+                <div class="dc-proto-card-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
               </div>
-            </figcaption>
-          </figure>
+              <div class="dc-proto-card-body">
+                <div class="dc-proto-card-title">Video Investigation</div>
+                <div class="dc-proto-card-desc">Five states of the investigation flow — request queue, preview, download progression, and full playback.</div>
+                <span class="dc-proto-card-link">
+                  Open in Figma
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </span>
+              </div>
+            </a>
+            <a class="dc-proto-card" href="https://www.figma.com/proto/" target="_blank" rel="noopener noreferrer" aria-label="Open POS Search prototype in Figma">
+              <div class="dc-proto-card-img-wrap">
+                <img src="../dollarcity/IMG_0218.jpeg" alt="POS Search prototype — four download states eliminating re-request behavior" />
+                <div class="dc-proto-card-play" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="dc-proto-card-body">
+                <div class="dc-proto-card-title">POS Search + Download States</div>
+                <div class="dc-proto-card-desc">Four download states that eliminated re-request behavior — from no selection to full video replay.</div>
+                <span class="dc-proto-card-link">
+                  Open in Figma
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </span>
+              </div>
+            </a>
+          </div>
         </div>
 
         <!-- ══════════════════════════════════════════
@@ -783,21 +1095,6 @@
           <div class="project-section-label">Outcomes</div>
           <h2 class="project-section-title">Results & Impact</h2>
 
-          <div class="outcomes-metrics" aria-label="Key metrics">
-            <div>
-              <div class="outcome-metric-val">50%</div>
-              <div class="outcome-metric-lbl">Reduction in task completion time</div>
-            </div>
-            <div>
-              <div class="outcome-metric-val">4</div>
-              <div class="outcome-metric-lbl">User types mapped end-to-end</div>
-            </div>
-            <div>
-              <div class="outcome-metric-val">3</div>
-              <div class="outcome-metric-lbl">New personas identified</div>
-            </div>
-          </div>
-
           <ul class="outcomes-list" aria-label="Outcome details">
             <li><strong>50%</strong> reduction in task completion time for telemarketer users</li>
             <li><strong>4</strong> user types mapped end-to-end across Canada and LATAM operations</li>
@@ -843,62 +1140,28 @@
   <script src="../assets/main.js"></script>
   <script>
   (function () {
-    // ── Steppers ──────────────────────────────────────────────
-    document.querySelectorAll('[data-stepper]').forEach(function (root) {
-      var states = JSON.parse(root.dataset.stepper), i = 0;
-      var img = root.querySelector('[data-si]');
-      var cap = root.querySelector('[data-sc]');
-      var ctr = root.querySelector('[data-sk]');
-      var prv = root.querySelector('[data-sp]');
-      var nxt = root.querySelector('[data-sn]');
-      function go(n) {
-        i = ((n % states.length) + states.length) % states.length;
-        if (img) { img.classList.add('fading'); setTimeout(function () { img.src = states[i].img; img.alt = states[i].label; img.classList.remove('fading'); }, 160); }
-        if (cap) cap.textContent = states[i].label;
-        if (ctr) ctr.textContent = (i + 1) + ' / ' + states.length;
-      }
-      prv.addEventListener('click', function () { go(i - 1); });
-      nxt.addEventListener('click', function () { go(i + 1); });
-      root.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft')  { e.preventDefault(); go(i - 1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); go(i + 1); }
-      });
-      go(0);
-    });
-
-    // ── Research collapse ─────────────────────────────────────
-    var rt = document.getElementById('research-toggle');
-    var rp = document.getElementById('research-panel');
-    if (rt && rp) {
-      rt.addEventListener('click', function () {
-        var open = rt.getAttribute('aria-expanded') === 'true';
-        rt.setAttribute('aria-expanded', String(!open));
-        rp.hidden = open;
-        if (open) rt.focus();
-      });
-    }
-
-    // ── Research tabs ─────────────────────────────────────────
-    var rtl = document.getElementById('research-tablist');
-    if (rtl) {
-      rtl.querySelectorAll('[role="tab"]').forEach(function (tab) {
+    // ── DC Research tabs ──────────────────────────────────────
+    var dctl = document.getElementById('dc-tablist');
+    if (dctl) {
+      dctl.querySelectorAll('[role="tab"]').forEach(function (tab) {
         tab.addEventListener('click', function () {
-          rtl.querySelectorAll('[role="tab"]').forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+          dctl.querySelectorAll('[role="tab"]').forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
           tab.setAttribute('aria-selected', 'true');
-          document.querySelectorAll('#research-panel [role="tabpanel"]').forEach(function (p) { p.hidden = true; });
+          document.querySelectorAll('.dc-tab-panel').forEach(function (p) { p.hidden = true; });
           document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
         });
       });
     }
 
-    // ── Lightbox ──────────────────────────────────────────────
+    // ── Lightbox (event delegation) ───────────────────────────
     var dlg = document.getElementById('lightbox');
     if (dlg) {
       var li = document.getElementById('lightbox-img');
       var lc = document.getElementById('lightbox-close');
       var lt;
-      document.querySelectorAll('[data-lightbox]').forEach(function (el) {
-        el.addEventListener('click', function () { lt = el; li.src = el.dataset.lightbox; li.alt = el.getAttribute('aria-label') || ''; dlg.showModal(); });
+      document.addEventListener('click', function (e) {
+        var trigger = e.target.closest('[data-lightbox]');
+        if (trigger) { lt = trigger; li.src = trigger.dataset.lightbox; li.alt = trigger.getAttribute('aria-label') || ''; dlg.showModal(); }
       });
       lc.addEventListener('click', function () { dlg.close(); if (lt) lt.focus(); });
       dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); if (lt) lt.focus(); } });
