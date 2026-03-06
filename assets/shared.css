@@ -718,7 +718,7 @@ button {
   border-radius: var(--radius-lg);
   overflow: hidden;
   text-decoration: none;
-  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
 }
@@ -726,7 +726,7 @@ button {
 .project-card:hover {
   transform: translateY(-4px);
   border-color: var(--card-accent, var(--accent));
-  box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
 
 .project-card:focus-visible {
@@ -774,11 +774,23 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.project-card:hover .card-image img {
-  transform: scale(1.04);
+/* Gradient overlay slides up on hover */
+.card-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.project-card:hover .card-image::before {
+  transform: translateY(0);
 }
 
 .card-accent-bar {
@@ -987,8 +999,8 @@ button {
   content: '';
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   opacity: 0;
@@ -1023,6 +1035,62 @@ button {
 
 .carousel-dot.active {
   background: rgba(255,255,255,0.9);
+}
+
+/* ---- Carousel arrows ---- */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: rgba(0,0,0,0.55);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 200ms ease, background 200ms ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+.carousel-arrow-prev { left: 10px; }
+.carousel-arrow-next { right: 10px; }
+.project-card:hover .carousel-arrow { opacity: 1; }
+.carousel-arrow:hover { background: rgba(0,0,0,0.78); }
+.carousel-arrow svg {
+  width: 14px;
+  height: 14px;
+  stroke: rgba(255,255,255,0.9);
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---- Image gallery (masonry, reusable) ---- */
+.image-gallery {
+  columns: 2;
+  column-gap: var(--space-24);
+  margin-top: var(--space-32);
+}
+.image-gallery-item {
+  break-inside: avoid;
+  margin-bottom: var(--space-24);
+  display: inline-block;
+  width: 100%;
+}
+.image-gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-md);
+}
+@media (max-width: 600px) {
+  .image-gallery { columns: 1; }
 }
 
 /* =========================================================
