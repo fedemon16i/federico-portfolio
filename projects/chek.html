@@ -485,19 +485,21 @@
 
     /* --- Section 8: Hi-Fi Gallery --- */
     .hifi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-24);
+      columns: 2;
+      column-gap: var(--space-24);
       margin-top: var(--space-32);
+    }
+    .hifi-card {
+      break-inside: avoid;
+      margin-bottom: var(--space-24);
+      display: inline-block;
+      width: 100%;
     }
     .hifi-card img {
       border-radius: var(--radius-md);
-      max-width: 100%;
-      display: block;
       width: 100%;
-      height: 420px;
-      object-fit: cover;
-      object-position: top;
+      height: auto;
+      display: block;
       cursor: zoom-in;
     }
 
@@ -556,7 +558,7 @@
       .goals-grid    { grid-template-columns: 1fr; }
       .findings-grid { grid-template-columns: 1fr; }
       .two-col       { grid-template-columns: 1fr; }
-      .hifi-grid     { grid-template-columns: 1fr; }
+      .hifi-grid     { columns: 1; }
       .learnings-section { padding-inline: var(--space-16); margin-inline: calc(-1 * var(--space-16)); }
     }
     @media (max-width: 720px) {
@@ -1906,24 +1908,24 @@
           <p class="project-body-text" style="margin-bottom:var(--space-8);">Key screens from the final design, annotated to highlight design decisions.</p>
 
           <div class="hifi-grid">
-            <div>
-              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" loading="lazy">
               <p class="img-caption">Home Screen &amp; Upcoming Due Dates</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0189.jpeg" alt="NFC for Ripley Stores and No Plastic Needed" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0189.jpeg" alt="NFC for Ripley Stores and No Plastic Needed" loading="lazy">
               <p class="img-caption">NFC for Ripley Stores &amp; No Plastic Needed</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0190.jpeg" alt="Transaction Detail, Monthly Statements, Movements" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0190.jpeg" alt="Transaction Detail, Monthly Statements, Movements" loading="lazy">
               <p class="img-caption">Transaction Detail, Monthly Statements, Movements</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0191.jpeg" alt="Cupo y Disponibles — Credit Details" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0191.jpeg" alt="Cupo y Disponibles — Credit Details" loading="lazy">
               <p class="img-caption">Cupo y Disponibles — Credit Details</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0192.jpeg" alt="Ayuda por Seguridad — Security Help Flow" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0192.jpeg" alt="Ayuda por Seguridad — Security Help Flow" loading="lazy">
               <p class="img-caption">Ayuda por Seguridad — Security Help Flow</p>
             </div>
           </div>
@@ -1937,12 +1939,12 @@
           <h2 class="project-section-title">Built from Scratch</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-32);">Collaborated with 2 UI Designers to build Chek's design system from the ground up — brand assets, component library, iconography, and typography scale.</p>
           <div class="hifi-grid">
-            <div>
-              <img src="../chek/IMG_0193.jpeg" alt="Brand assets, logo variants, color palette and button components" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0193.jpeg" alt="Brand assets, logo variants, color palette and button components" loading="lazy">
               <p class="img-caption">Brand assets, logo variants, color palette &amp; button components</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0194.jpeg" alt="Iconography system and typography scale — Overpass" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0194.jpeg" alt="Iconography system and typography scale — Overpass" loading="lazy">
               <p class="img-caption">Iconography system &amp; typography scale (Overpass)</p>
             </div>
           </div>

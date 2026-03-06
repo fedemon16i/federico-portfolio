@@ -231,7 +231,6 @@
     if (!img) return;
 
     let current = 0;
-    let timer = null;
 
     // Build dots indicator
     const dotsWrap = document.createElement('div');
@@ -260,19 +259,53 @@
       });
     });
 
-    // Desktop hover cycling (pointer: fine = mouse/trackpad)
-    const card = cardImage.closest('.project-card');
-    if (card && window.matchMedia('(pointer: fine)').matches) {
-      card.addEventListener('mouseenter', () => {
-        goTo(0);
-        timer = setInterval(() => goTo(current + 1), 1800);
+    // Arrow buttons
+    function makeArrow(dir) {
+      const btn = document.createElement('button');
+      btn.className = 'carousel-arrow carousel-arrow-' + (dir === -1 ? 'prev' : 'next');
+      btn.setAttribute('aria-label', dir === -1 ? 'Previous image' : 'Next image');
+      btn.innerHTML = dir === -1
+        ? '<svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>'
+        : '<svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>';
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(current + dir);
       });
-      card.addEventListener('mouseleave', () => {
-        clearInterval(timer);
-        timer = null;
-        goTo(0);
-      });
+      return btn;
     }
+    cardImage.appendChild(makeArrow(-1));
+    cardImage.appendChild(makeArrow(1));
+
+    // Mouse drag-to-scroll
+    let dragStartX = 0;
+    let isDragging = false;
+    let dragDelta = 0;
+
+    cardImage.addEventListener('mousedown', e => {
+      dragStartX = e.clientX;
+      isDragging = true;
+      dragDelta = 0;
+      e.preventDefault();
+    });
+
+    cardImage.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      dragDelta = e.clientX - dragStartX;
+      img.style.transform = 'translateX(' + Math.max(-40, Math.min(40, dragDelta)) + 'px)';
+    });
+
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      img.style.transform = '';
+      if (Math.abs(dragDelta) >= 30) {
+        goTo(dragDelta < 0 ? current + 1 : current - 1);
+      }
+    }
+
+    cardImage.addEventListener('mouseup', endDrag);
+    cardImage.addEventListener('mouseleave', endDrag);
 
     // Mobile swipe (touch)
     let touchStartX = 0;
