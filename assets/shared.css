@@ -388,6 +388,22 @@ button {
   display: block;
 }
 
+.nav-mobile-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  line-height: 1;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition-fast);
+}
+.nav-mobile-close:hover { opacity: 0.7; }
+
 .nav-mobile .nav-mobile-section {
   margin-bottom: var(--space-24);
 }
@@ -865,6 +881,41 @@ button {
   color: var(--text-tertiary);
 }
 
+/* ---- Tool overflow +N chip (row 2, below image) ---- */
+.card-tool-more {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  background: var(--bg-raised);
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-sm);
+  position: relative;
+  cursor: default;
+  user-select: none;
+}
+
+.card-tool-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  z-index: 100;
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1.8;
+}
+
+.card-tool-more:hover .card-tool-tooltip,
+.card-tool-more.tooltip-open .card-tool-tooltip {
+  display: block;
+}
+
 /* ---- Tags overlaid on card image ---- */
 .card-image .card-tags {
   position: absolute;
@@ -929,6 +980,24 @@ button {
 .card-tag-more:hover .card-tag-tooltip,
 .card-tag-more.tooltip-open .card-tag-tooltip {
   display: block;
+}
+
+/* ---- Carousel: frosted glass overlay on hover ---- */
+.card-image[data-carousel]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  z-index: 1;
+  pointer-events: none;
+}
+.project-card:hover .card-image[data-carousel]::after {
+  opacity: 1;
 }
 
 /* ---- Carousel dots ---- */
