@@ -522,6 +522,43 @@ button {
   color: var(--accent);
 }
 
+/* ---- Hero tag chip system ---- */
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: var(--space-4) var(--space-12);
+  border-radius: 100px;
+  line-height: 1.4;
+}
+
+.tag-thematic {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.tag-tool {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.tag-chip svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 /* =========================================================
    PAGE HEADER (shared by all pages)
    ========================================================= */
