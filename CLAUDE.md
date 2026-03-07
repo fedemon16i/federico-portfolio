@@ -161,3 +161,16 @@ Remove ARIA attributes from nav
 Break the --accent override pattern in project pages
 Replace sections from scratch — always update in place
 Re-add images that have been replaced by coded HTML sections
+
+## Tag / Chip System — Global
+
+Two types, always in one unified row. Never a separate "TOOLS" label.
+
+- `.tag-thematic` — dark, no icon. Describes what the project is (UX Research, SaaS, etc.)
+- `.tag-tool` — lighter, WITH 16px brand/thematic icon. Describes tools and methods used.
+
+Both use base class `.tag-chip`. Defined in `shared.css`.
+
+Icon set (inline SVG, always embedded): Figma, FigJam=Figma SVG, Useberry=play circle, Maze=grid+cross, Miro=yellow M, Pendo=pink P, Qualtrics=blue Q, Dynamics=MS squares, Google Analytics=bar chart, AI Tools=sparkle, Contextual Inquiry=users, Heuristic Audit=search+plus.
+
+Apply to: hero of every project page + cards in `index.html`. Never use plain text-only chips for tools. Never separate tool chips into their own row or label.
