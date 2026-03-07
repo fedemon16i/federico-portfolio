@@ -68,27 +68,28 @@
 
     /* ── Lightbox ── */
     #lightbox {
-      position: relative;
-      border: none;
-      background: #111;
-      border-radius: var(--radius-lg);
-      padding: var(--space-40) var(--space-24) var(--space-24);
-      max-width: min(90vw, 1000px);
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
     }
-    #lightbox::backdrop { background: rgba(0,0,0,0.85); }
     #lightbox img {
-      max-width: 100%;
-      max-height: 80vh;
-      display: block;
-      margin: 0 auto;
-      border-radius: var(--radius-md);
+      max-height: 90vh;
+      max-width: 90vw;
+      border-radius: 8px;
+      object-fit: contain;
+      cursor: default;
     }
     #lightbox-close {
-      position: absolute; top: 12px; right: 12px;
+      position: absolute; top: 16px; right: 16px;
       background: rgba(255,255,255,0.08);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid rgba(255,255,255,0.18);
       border-radius: 50%;
-      width: 32px; height: 32px;
+      width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
       color: #fff; font-size: 1.125rem; cursor: pointer;
       line-height: 1;
@@ -443,14 +444,17 @@
     @media (max-width: 480px) { .dc-findings-top { grid-template-columns: 1fr 1fr; } }
     .dc-finding-compact {
       background: var(--bg-surface); border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md); padding: var(--space-14);
-      display: flex; flex-direction: column; align-items: center; gap: var(--space-6); text-align: center;
+      border-radius: var(--radius-md); padding: var(--space-14) var(--space-14) var(--space-14) var(--space-16);
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 140px; text-align: center;
     }
-    .dc-finding-compact-icon { font-size: 1.4rem; }
+    .dc-finding-compact-icon { font-size: 1.4rem; display: flex; justify-content: center; }
     .dc-finding-compact-label {
-      font-size: 0.6875rem; font-weight: 700; color: var(--text-primary);
-      letter-spacing: 0.02em; line-height: 1.4;
+      font-size: 0.875rem; font-weight: 700; color: var(--text-primary);
+      margin: var(--space-12) 0 var(--space-8); line-height: 1.3;
     }
+    .dc-finding-compact-desc { font-size: 0.8rem; color: var(--text-tertiary); line-height: 1.5; padding: 0; }
+    .dc-finding-extended { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; min-height: 180px; display: flex; flex-direction: column; }
     .dc-findings-group { margin-top: var(--space-28); }
     .dc-findings-group-title {
       font-size: 0.875rem; font-weight: 700; color: var(--text-primary);
@@ -719,8 +723,10 @@
     }
 
     /* ── Tools inline (hero) ── */
-    .dc-tools-inline { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--space-16); }
-    .dc-tool-chip { font-size: 0.72rem; color: var(--text-tertiary); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 3px 10px; }
+    .dc-tools-inline { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dc-tools-row { padding: var(--space-16) 0; display: flex; align-items: center; gap: var(--space-12); background: var(--bg-base); }
+    .dc-tools-row-label { font-size: 0.7rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+    .dc-tool-chip { font-size: 0.72rem; color: var(--text-tertiary); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 5px; }
 
     /* ── Problem Panel ── */
     .dc-problem-panel { background: var(--bg-surface); border: 1px solid rgba(244,200,66,0.35); border-left: 4px solid #f4c842; border-radius: var(--radius-md); padding: var(--space-32); margin-top: var(--space-20); }
@@ -778,9 +784,8 @@
     /* ── Finding Extended (2 wider cards) ── */
     .dc-finding-extended-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); margin-top: var(--space-20); }
     @media (max-width: 640px) { .dc-finding-extended-grid { grid-template-columns: 1fr; } }
-    .dc-finding-extended { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; }
     .dc-finding-extended-header { background: #15803d; color: white; padding: var(--space-12) var(--space-20); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-    .dc-finding-extended-body { background: var(--bg-surface); padding: var(--space-20); }
+    .dc-finding-extended-body { background: var(--bg-surface); padding: var(--space-20); flex: 1; }
     .dc-finding-extended-body ul { list-style: disc; padding-left: var(--space-16); display: flex; flex-direction: column; gap: var(--space-6); }
     .dc-finding-extended-body ul li { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; }
 
@@ -862,6 +867,35 @@
 
   <main id="main">
 
+    <!-- Tools row — outside hero -->
+    <div class="container">
+      <div class="dc-tools-row">
+        <span class="dc-tools-row-label">Tools</span>
+        <div class="dc-tools-inline">
+          <span class="dc-tool-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+            Figma
+          </span>
+          <span class="dc-tool-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>
+            Useberry
+          </span>
+          <span class="dc-tool-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Contextual Inquiry
+          </span>
+          <span class="dc-tool-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Heuristic Audit
+          </span>
+          <span class="dc-tool-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            FigJam
+          </span>
+        </div>
+      </div>
+    </div>
+
     <!-- ══════════════════════════════════════════
          § 1 — HERO
     ══════════════════════════════════════════ -->
@@ -895,14 +929,6 @@
           <span class="tag">Figma</span>
           <span class="tag">Useberry</span>
           <span class="tag">SaaS · Retail</span>
-        </div>
-
-        <div class="dc-tools-inline" data-anim data-anim-delay="3">
-          <span class="dc-tool-chip">Figma</span>
-          <span class="dc-tool-chip">Useberry</span>
-          <span class="dc-tool-chip">Contextual Inquiry</span>
-          <span class="dc-tool-chip">Heuristic Audit</span>
-          <span class="dc-tool-chip">FigJam</span>
         </div>
 
         <div class="project-stat-row" data-anim data-anim-delay="4">
@@ -1263,35 +1289,35 @@
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
               </div>
               <div class="dc-finding-compact-label">Excessive Time</div>
-              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">Reviews took 2× longer than necessary</div>
+              <div class="dc-finding-compact-desc">Reviews took 2× longer than necessary</div>
             </div>
             <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
               <div class="dc-finding-compact-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><rect x="15" y="14" width="7" height="7" rx="1"/></svg>
               </div>
               <div class="dc-finding-compact-label">Multiple Tabs</div>
-              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">3–4 windows open simultaneously</div>
+              <div class="dc-finding-compact-desc">3–4 windows open simultaneously</div>
             </div>
             <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
               <div class="dc-finding-compact-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.07"/></svg>
               </div>
               <div class="dc-finding-compact-label">Re-requesting Downloads</div>
-              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">No state = duplicate requests</div>
+              <div class="dc-finding-compact-desc">No state = duplicate requests</div>
             </div>
             <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
               <div class="dc-finding-compact-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
               </div>
               <div class="dc-finding-compact-label">Filters Missed</div>
-              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">Buried behind secondary panels</div>
+              <div class="dc-finding-compact-desc">Buried behind secondary panels</div>
             </div>
             <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
               <div class="dc-finding-compact-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
               </div>
               <div class="dc-finding-compact-label">No Download Feedback</div>
-              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">Queue status invisible to user</div>
+              <div class="dc-finding-compact-desc">Queue status invisible to user</div>
             </div>
           </div>
           <div class="dc-finding-extended-grid">
@@ -1460,10 +1486,10 @@
   </main>
 
   <!-- LIGHTBOX -->
-  <dialog id="lightbox" aria-label="Image lightbox" aria-modal="true">
+  <div id="lightbox" role="dialog" aria-label="Image lightbox" aria-modal="true">
     <button id="lightbox-close" type="button" aria-label="Close lightbox">&#x2715;</button>
     <img id="lightbox-img" src="" alt="" />
-  </dialog>
+  </div>
 
   <footer class="footer" role="contentinfo">
     <div class="container">
@@ -1510,21 +1536,29 @@
 
   // ── Lightbox (event delegation) ──────────────────────────
   (function () {
-    var dlg = document.getElementById('lightbox');
-    if (!dlg) return;
-    var li = document.getElementById('lightbox-img');
-    var lc = document.getElementById('lightbox-close');
     var lt;
-    function openLightbox(src, alt) { li.src = src; li.alt = alt || ''; dlg.showModal(); }
+    function openLightbox(src, alt) {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      if (!lb || !lbImg) return;
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      if (!lb) return;
+      lb.style.display = 'none';
+      document.body.style.overflow = '';
+      try { if (lt) lt.focus(); } catch (e) {}
+    }
     document.addEventListener('click', function (e) {
       var el = e.target.closest('.rp-panel img, .wf-img, .hifi-card img, [data-lightbox]');
-      if (!el) return;
-      lt = el;
-      var src = el.dataset.lightbox || el.src;
-      openLightbox(src, el.alt || '');
+      if (el) { lt = el; openLightbox(el.dataset.lightbox || el.src, el.alt || ''); return; }
+      if (e.target.id === 'lightbox' || e.target.id === 'lightbox-close') closeLightbox();
     });
-    lc.addEventListener('click', function () { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} });
-    dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} } });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
   }());
   </script>
 </body>
