@@ -717,6 +717,88 @@
       font-size: 0.8125rem; color: var(--text-tertiary);
       font-style: italic; line-height: 1.6;
     }
+
+    /* ── Tools inline (hero) ── */
+    .dc-tools-inline { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: var(--space-16); }
+    .dc-tool-chip { font-size: 0.72rem; color: var(--text-tertiary); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 3px 10px; }
+
+    /* ── Problem Panel ── */
+    .dc-problem-panel { background: var(--bg-surface); border: 1px solid rgba(244,200,66,0.35); border-left: 4px solid #f4c842; border-radius: var(--radius-md); padding: var(--space-32); margin-top: var(--space-20); }
+    .dc-problem-title { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f4c842; margin-bottom: var(--space-12); }
+    .dc-problem-body { font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.7; }
+
+    /* ── Friction Diagram (chek pattern adapted) ── */
+    .friction-diagram { margin-top: var(--space-32); display: flex; flex-direction: column; gap: var(--space-20); }
+    .friction-row { border-radius: var(--radius-md); padding: var(--space-24); background: var(--bg-surface); }
+    .friction-row-before { border-left: 4px solid #dc2626; }
+    .friction-row-after  { border-left: 4px solid #15803d; }
+    .friction-row-badge { display: inline-flex; align-items: center; font-size: 0.72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: var(--space-4) var(--space-12); border-radius: var(--radius-sm); margin-bottom: var(--space-16); }
+    .friction-row-badge-before { background: rgba(220,38,38,.12); color: #ef4444; border: 1px solid rgba(220,38,38,.3); }
+    .friction-row-badge-after  { background: rgba(21,128,61,.12); color: #22c55e; border: 1px solid rgba(21,128,61,.3); }
+    .friction-steps { display: flex; align-items: flex-start; gap: var(--space-8); overflow-x: auto; padding-bottom: var(--space-8); }
+    .friction-step { flex: 1; min-width: 112px; background: var(--bg-raised); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-16); display: flex; flex-direction: column; align-items: center; gap: var(--space-8); text-align: center; }
+    .friction-step-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+    .friction-step-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .friction-step-icon.c-err svg { stroke: #ef4444; }
+    .friction-step-icon.c-ok  svg { stroke: #22c55e; }
+    .friction-step-label { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+    .friction-step-sublabel { font-size: 0.7rem; color: var(--text-secondary); line-height: 1.3; }
+    .friction-arrow-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); padding-top: var(--space-16); flex-shrink: 0; }
+    .friction-arrow-sym { font-size: 1.4rem; color: var(--text-tertiary); line-height: 1; }
+
+    /* ── Impact Strip ── */
+    .dc-impact-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-subtle); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; margin-top: var(--space-20); }
+    @media (max-width: 640px) { .dc-impact-strip { grid-template-columns: 1fr 1fr; } }
+    .dc-impact-cell { background: var(--bg-surface); padding: var(--space-24); text-align: center; }
+    .dc-impact-val { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; line-height: 1; }
+    .dc-impact-lbl { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-top: var(--space-8); }
+
+    /* ── CSS Persona ── */
+    .dc-persona-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-16); margin-top: var(--space-8); }
+    @media (max-width: 700px) { .dc-persona-top { grid-template-columns: 1fr; } }
+    .dc-persona-card { background: var(--bg-raised); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-20); }
+    .dc-persona-card-label { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #15803d; margin-bottom: var(--space-12); }
+    .dc-persona-name { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-8); }
+    .dc-persona-field { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6; display: flex; gap: var(--space-8); margin-bottom: var(--space-4); }
+    .dc-persona-field-key { font-weight: 600; color: var(--text-tertiary); min-width: 88px; flex-shrink: 0; }
+    .dc-persona-bio-list { list-style: disc; padding-left: var(--space-16); display: flex; flex-direction: column; gap: var(--space-6); margin-top: var(--space-4); }
+    .dc-persona-bio-list li { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; }
+    .dc-slider-wrap { display: flex; flex-direction: column; gap: var(--space-14); }
+    .dc-slider-row { display: flex; flex-direction: column; gap: 5px; }
+    .dc-slider-labels { display: flex; justify-content: space-between; font-size: 0.5625rem; color: var(--text-tertiary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .dc-slider-track { height: 4px; background: var(--border-subtle); border-radius: 2px; position: relative; }
+    .dc-slider-thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; border-radius: 50%; background: #15803d; }
+    .dc-persona-bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-16); margin-top: var(--space-16); }
+    @media (max-width: 700px) { .dc-persona-bottom { grid-template-columns: 1fr; } }
+    .dc-persona-info-card { background: var(--bg-raised); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-20); }
+    .dc-persona-info-title { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #15803d; margin-bottom: var(--space-10); }
+    .dc-persona-info-list { list-style: disc; padding-left: var(--space-16); display: flex; flex-direction: column; gap: var(--space-4); }
+    .dc-persona-info-list li { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ── Finding Extended (2 wider cards) ── */
+    .dc-finding-extended-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); margin-top: var(--space-20); }
+    @media (max-width: 640px) { .dc-finding-extended-grid { grid-template-columns: 1fr; } }
+    .dc-finding-extended { border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; }
+    .dc-finding-extended-header { background: #15803d; color: white; padding: var(--space-12) var(--space-20); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .dc-finding-extended-body { background: var(--bg-surface); padding: var(--space-20); }
+    .dc-finding-extended-body ul { list-style: disc; padding-left: var(--space-16); display: flex; flex-direction: column; gap: var(--space-6); }
+    .dc-finding-extended-body ul li { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ── Proposal 3-pillar ── */
+    .dc-proposal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-20); margin-top: var(--space-20); }
+    @media (max-width: 700px) { .dc-proposal-grid { grid-template-columns: 1fr; } }
+    .dc-proposal-card { background: var(--bg-surface); border: 1px solid #15803d; border-radius: var(--radius-md); padding: var(--space-24); display: flex; flex-direction: column; gap: var(--space-16); }
+    .dc-proposal-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(21,128,61,0.12); display: flex; align-items: center; justify-content: center; }
+    .dc-proposal-icon svg { width: 22px; height: 22px; fill: none; stroke: #15803d; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .dc-proposal-title { font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-primary); }
+    .dc-proposal-list { list-style: disc; padding-left: var(--space-16); display: flex; flex-direction: column; gap: var(--space-4); }
+    .dc-proposal-list li { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ── Wireframes ── */
+    .dc-wf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-20); margin-top: var(--space-20); }
+    @media (max-width: 640px) { .dc-wf-grid { grid-template-columns: 1fr; } }
+    .dc-wf-cell { display: flex; flex-direction: column; gap: var(--space-8); }
+    .dc-wf-caption { font-size: 0.6875rem; font-weight: 600; font-variant: small-caps; letter-spacing: 0.08em; color: var(--text-tertiary); text-align: center; }
   </style>
 </head>
 <body>
@@ -815,6 +897,14 @@
           <span class="tag">SaaS · Retail</span>
         </div>
 
+        <div class="dc-tools-inline" data-anim data-anim-delay="3">
+          <span class="dc-tool-chip">Figma</span>
+          <span class="dc-tool-chip">Useberry</span>
+          <span class="dc-tool-chip">Contextual Inquiry</span>
+          <span class="dc-tool-chip">Heuristic Audit</span>
+          <span class="dc-tool-chip">FigJam</span>
+        </div>
+
         <div class="project-stat-row" data-anim data-anim-delay="4">
           <div class="project-stat">
             <div class="project-stat-value">50%</div>
@@ -838,29 +928,144 @@
       <div class="container" style="max-width:900px;">
 
         <!-- ══════════════════════════════════════════
-             CONTEXT SNAPSHOT
+             (b) PROBLEM PANEL
         ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
-          <div class="project-section-label">Context Snapshot</div>
-          <div class="context-grid">
-            <div class="context-card">
-              <div class="context-card-label">Role</div>
-              <div class="context-card-value">Lead UX Designer — Research, Wireframing, Prototyping, User Testing</div>
-            </div>
-            <div class="context-card">
-              <div class="context-card-label">Timeline</div>
-              <div class="context-card-value">Jul 2023 – Dec 2023 (6 months of architectural negotiation and cross-functional alignment)</div>
-            </div>
-            <div class="context-card">
-              <div class="context-card-label">Company</div>
-              <div class="context-card-value">Applaudo Studios — external UX consultant embedded in client delivery team</div>
-            </div>
+          <div class="project-section-label">Problem</div>
+          <h2 class="project-section-title">The system they were handed</h2>
+          <div class="dc-problem-panel">
+            <div class="dc-problem-title">The Status Quo</div>
+            <p class="dc-problem-body">Reviewers at DollarCity and Dollarama were navigating a fraud surveillance SaaS that required 3–4 browser tabs simultaneously to cross-reference video footage with POS transaction data — with no download state feedback, no role differentiation, and critical filters buried behind secondary panels.</p>
           </div>
-          <p class="nda-notice">Detailed screens and research artifacts are covered under NDA and available upon request with appropriate context.</p>
         </div>
 
         <!-- ══════════════════════════════════════════
-             UNIFIED RESEARCH SECTION (prev/next nav)
+             (c) PROBLEM FLOW DIAGRAM
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Before vs. After</div>
+          <h2 class="project-section-title">What changed</h2>
+          <div class="friction-diagram">
+            <div class="friction-row friction-row-before">
+              <div class="friction-row-badge friction-row-badge-before">BEFORE</div>
+              <div class="friction-steps">
+                <div class="friction-step">
+                  <div class="friction-step-icon c-err"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><rect x="15" y="14" width="7" height="7" rx="1"/></svg></div>
+                  <div class="friction-step-label">Fragmented tabs</div>
+                  <div class="friction-step-sublabel">3–4 windows open</div>
+                </div>
+                <div class="friction-arrow-wrap" aria-hidden="true"><span class="friction-arrow-sym">→</span></div>
+                <div class="friction-step">
+                  <div class="friction-step-icon c-err"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="#ef4444"/></svg></div>
+                  <div class="friction-step-label">No download state</div>
+                  <div class="friction-step-sublabel">Re-requests pile up</div>
+                </div>
+                <div class="friction-arrow-wrap" aria-hidden="true"><span class="friction-arrow-sym">→</span></div>
+                <div class="friction-step">
+                  <div class="friction-step-icon c-err"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                  <div class="friction-step-label">No role clarity</div>
+                  <div class="friction-step-sublabel">Same UI for all</div>
+                </div>
+                <div class="friction-arrow-wrap" aria-hidden="true"><span class="friction-arrow-sym">→</span></div>
+                <div class="friction-step">
+                  <div class="friction-step-icon c-err"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
+                  <div class="friction-step-label">Lost time / re-work</div>
+                  <div class="friction-step-sublabel">2× task duration</div>
+                </div>
+              </div>
+            </div>
+            <div class="friction-row friction-row-after">
+              <div class="friction-row-badge friction-row-badge-after">AFTER</div>
+              <div class="friction-steps">
+                <div class="friction-step">
+                  <div class="friction-step-icon c-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+                  <div class="friction-step-label">Unified screen</div>
+                  <div class="friction-step-sublabel">POS + video in one view</div>
+                </div>
+                <div class="friction-arrow-wrap" aria-hidden="true"><span class="friction-arrow-sym">→</span></div>
+                <div class="friction-step">
+                  <div class="friction-step-icon c-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div class="friction-step-label">4 download states</div>
+                  <div class="friction-step-sublabel">Clear queue feedback</div>
+                </div>
+                <div class="friction-arrow-wrap" aria-hidden="true"><span class="friction-arrow-sym">→</span></div>
+                <div class="friction-step">
+                  <div class="friction-step-icon c-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+                  <div class="friction-step-label">Role-based views</div>
+                  <div class="friction-step-sublabel">Supervisor toggle</div>
+                </div>
+                <div class="friction-arrow-wrap" aria-hidden="true"><span class="friction-arrow-sym">→</span></div>
+                <div class="friction-step">
+                  <div class="friction-step-icon c-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                  <div class="friction-step-label">50% faster</div>
+                  <div class="friction-step-sublabel">Validated in testing</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             (d) IMPACT STRIP
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="dc-impact-strip">
+            <div class="dc-impact-cell">
+              <div class="dc-impact-val">50%</div>
+              <div class="dc-impact-lbl">Task time reduced</div>
+            </div>
+            <div class="dc-impact-cell">
+              <div class="dc-impact-val">4</div>
+              <div class="dc-impact-lbl">User types mapped</div>
+            </div>
+            <div class="dc-impact-cell">
+              <div class="dc-impact-val">3</div>
+              <div class="dc-impact-lbl">Personas identified</div>
+            </div>
+            <div class="dc-impact-cell">
+              <div class="dc-impact-val">18</div>
+              <div class="dc-impact-lbl">Friction points found</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             (e) RESEARCH GOALS
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Research Goals</div>
+          <h2 class="project-section-title">What we set out to learn</h2>
+          <div class="dc-goals-grid">
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+              <div class="dc-goal-title">Map user types</div>
+              <div class="dc-goal-desc">Identify all distinct roles interacting with the platform and their workflows.</div>
+            </div>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="#f4c842"/></svg></div>
+              <div class="dc-goal-title">Surface friction</div>
+              <div class="dc-goal-desc">Find the top recurring pain points through contextual observation.</div>
+            </div>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+              <div class="dc-goal-title">Validate unified screen</div>
+              <div class="dc-goal-desc">Test the hypothesis that one screen could replace 3–4 tab workflows.</div>
+            </div>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="dc-goal-title">Define download states</div>
+              <div class="dc-goal-desc">Design a clear system for video request progression feedback.</div>
+            </div>
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+              <div class="dc-goal-title">Role-based UI model</div>
+              <div class="dc-goal-desc">Create differentiated views for reviewers vs. supervisors.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             (f) RESEARCH NAVIGATOR
         ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Research</div>
@@ -886,121 +1091,299 @@
               <p>Heuristic audit of the existing SaaS against Nielsen's 10 heuristics, surfacing 18 friction points and informing stakeholder scope alignment.</p>
             </div>
 
-            <!-- Panel 2: User Types + Persona -->
-            <div class="rp-panel" id="rpanel-2" data-label="User Types + Persona">
-              <div class="rp-user-persona-grid">
-                <div>
-                  <table class="dc-user-table" aria-label="User types summary">
-                    <thead>
-                      <tr>
-                        <th>User Type</th>
-                        <th>Primary Task</th>
-                        <th>Key Pain</th>
-                        <th>Video</th>
-                        <th>POS</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><strong>Telemarketer</strong></td>
-                        <td>Review video clips tied to transactions</td>
-                        <td>Too many tabs, no unified view</td>
-                        <td class="dc-check">✓</td>
-                        <td class="dc-check">✓</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Supervisor</strong></td>
-                        <td>Manage queues and escalations</td>
-                        <td>No status visibility across team</td>
-                        <td class="dc-check">✓</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td><strong>IT Admin</strong></td>
-                        <td>Configure integrations</td>
-                        <td>Fragmented data sources</td>
-                        <td></td>
-                        <td class="dc-check">✓</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Analyst</strong></td>
-                        <td>Export and report on fraud data</td>
-                        <td>Manual correlation of video + transaction</td>
-                        <td class="dc-check">✓</td>
-                        <td class="dc-check">✓</td>
-                      </tr>
-                    </tbody>
-                  </table>
+            <!-- Panel 2: User Types -->
+            <div class="rp-panel" id="rpanel-2" data-label="User Types">
+              <table class="dc-user-table" aria-label="User types summary">
+                <thead>
+                  <tr>
+                    <th>User Type</th>
+                    <th>Primary Task</th>
+                    <th>Key Pain</th>
+                    <th>Video</th>
+                    <th>POS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Telemarketer</strong></td>
+                    <td>Review video clips tied to transactions</td>
+                    <td>Too many tabs, no unified view</td>
+                    <td class="dc-check">✓</td>
+                    <td class="dc-check">✓</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Supervisor</strong></td>
+                    <td>Manage queues and escalations</td>
+                    <td>No status visibility across team</td>
+                    <td class="dc-check">✓</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><strong>IT Admin</strong></td>
+                    <td>Configure integrations</td>
+                    <td>Fragmented data sources</td>
+                    <td></td>
+                    <td class="dc-check">✓</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Analyst</strong></td>
+                    <td>Export and report on fraud data</td>
+                    <td>Manual correlation of video + transaction</td>
+                    <td class="dc-check">✓</td>
+                    <td class="dc-check">✓</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Panel 3: User Persona (CSS) -->
+            <div class="rp-panel" id="rpanel-3" data-label="User Persona">
+              <div class="dc-persona-top">
+                <div class="dc-persona-card">
+                  <div class="dc-persona-card-label">Profile</div>
+                  <div class="dc-persona-name">Elisa Fernandez</div>
+                  <div class="dc-persona-field"><span class="dc-persona-field-key">Age</span><span>25</span></div>
+                  <div class="dc-persona-field"><span class="dc-persona-field-key">Occupation</span><span>Reviewer</span></div>
+                  <div class="dc-persona-field"><span class="dc-persona-field-key">Location</span><span>El Salvador</span></div>
+                  <div class="dc-persona-field"><span class="dc-persona-field-key">Education</span><span>University</span></div>
+                  <div class="dc-persona-field"><span class="dc-persona-field-key">Status</span><span>In progress, 2nd year</span></div>
                 </div>
-                <div>
-                  <img src="../dollarcity/User_Persona.png" alt="Elisa Fernandez Reviewer Persona" style="width:100%;height:auto;border-radius:12px;cursor:zoom-in;" data-lightbox="../dollarcity/User_Persona.png" />
+                <div class="dc-persona-card">
+                  <div class="dc-persona-card-label">Bio</div>
+                  <ul class="dc-persona-bio-list">
+                    <li>Detail-oriented — notices inconsistencies others miss in video footage</li>
+                    <li>Routine-driven — relies on predictable workflows to stay efficient</li>
+                    <li>Not comfortable with new technology unless it's clearly intuitive</li>
+                  </ul>
+                </div>
+                <div class="dc-persona-card">
+                  <div class="dc-persona-card-label">Personality</div>
+                  <div class="dc-slider-wrap">
+                    <div class="dc-slider-row">
+                      <div class="dc-slider-labels"><span>Introvert</span><span>Extrovert</span></div>
+                      <div class="dc-slider-track"><div class="dc-slider-thumb" style="left:35%"></div></div>
+                    </div>
+                    <div class="dc-slider-row">
+                      <div class="dc-slider-labels"><span>Analytical</span><span>Creative</span></div>
+                      <div class="dc-slider-track"><div class="dc-slider-thumb" style="left:70%"></div></div>
+                    </div>
+                    <div class="dc-slider-row">
+                      <div class="dc-slider-labels"><span>Busy</span><span>Time rich</span></div>
+                      <div class="dc-slider-track"><div class="dc-slider-thumb" style="left:30%"></div></div>
+                    </div>
+                    <div class="dc-slider-row">
+                      <div class="dc-slider-labels"><span>Messy</span><span>Organized</span></div>
+                      <div class="dc-slider-track"><div class="dc-slider-thumb" style="left:75%"></div></div>
+                    </div>
+                    <div class="dc-slider-row">
+                      <div class="dc-slider-labels"><span>Independent</span><span>Team player</span></div>
+                      <div class="dc-slider-track"><div class="dc-slider-thumb" style="left:60%"></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dc-persona-bottom">
+                <div class="dc-persona-info-card">
+                  <div class="dc-persona-info-title">Interests</div>
+                  <ul class="dc-persona-info-list">
+                    <li>Daily routines and schedules</li>
+                    <li>Social media (Instagram, TikTok)</li>
+                    <li>Spending time with family</li>
+                  </ul>
+                </div>
+                <div class="dc-persona-info-card">
+                  <div class="dc-persona-info-title">Influences</div>
+                  <ul class="dc-persona-info-list">
+                    <li>Coworkers and team leads</li>
+                    <li>Direct supervisor feedback</li>
+                    <li>Brand loyalty and familiarity</li>
+                  </ul>
+                </div>
+                <div class="dc-persona-info-card">
+                  <div class="dc-persona-info-title">Goals</div>
+                  <ul class="dc-persona-info-list">
+                    <li>Complete daily tasks without errors</li>
+                    <li>Avoid re-work and corrections</li>
+                    <li>Get recognition from supervisor</li>
+                  </ul>
+                </div>
+                <div class="dc-persona-info-card">
+                  <div class="dc-persona-info-title">Needs &amp; Expectations</div>
+                  <ul class="dc-persona-info-list">
+                    <li>Clear, predictable interface</li>
+                    <li>Fast page loads between tasks</li>
+                    <li>Minimal clicks per review</li>
+                  </ul>
+                </div>
+                <div class="dc-persona-info-card">
+                  <div class="dc-persona-info-title">Motivations</div>
+                  <ul class="dc-persona-info-list">
+                    <li>Job security and stability</li>
+                    <li>Praise from supervisor</li>
+                    <li>Finishing tasks ahead of schedule</li>
+                  </ul>
+                </div>
+                <div class="dc-persona-info-card">
+                  <div class="dc-persona-info-title">Pain Points</div>
+                  <ul class="dc-persona-info-list">
+                    <li>Confusing multi-tab workflow</li>
+                    <li>No feedback on video download status</li>
+                    <li>Filters hidden — too many missed reviews</li>
+                  </ul>
                 </div>
               </div>
             </div>
 
-            <!-- Panel 3: Journey Maps -->
-            <div class="rp-panel" id="rpanel-3" data-label="Journey Maps">
+            <!-- Panel 4: Journey Maps -->
+            <div class="rp-panel" id="rpanel-4" data-label="Journey Maps">
               <div class="dc-journey-grid" style="margin-top:0;gap:var(--space-16);">
                 <div class="dc-journey-cell">
-                  <p style="font-size:0.75rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;">Reviewer</p>
-                  <img src="../dollarcity/REVIEWER.png" alt="Reviewer user journey map — fraud video review flow from POS search to playback" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" data-lightbox="../dollarcity/REVIEWER.png" />
+                  <p style="font-size:0.75rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-8);">Reviewer</p>
+                  <img src="../dollarcity/REVIEWER.png" alt="Reviewer user journey map — fraud video review flow from POS search to playback" class="wf-img" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" />
                 </div>
                 <div class="dc-journey-cell">
-                  <p style="font-size:0.75rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;">Senior Reviewer</p>
-                  <img src="../dollarcity/SENIOR.png" alt="Senior reviewer user journey map — supervisor fraud queue and escalation flow" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" data-lightbox="../dollarcity/SENIOR.png" />
+                  <p style="font-size:0.75rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-8);">Senior Reviewer</p>
+                  <img src="../dollarcity/SENIOR.png" alt="Senior reviewer user journey map — supervisor fraud queue and escalation flow" class="wf-img" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" />
                 </div>
               </div>
-            </div>
-
-            <!-- Panel 4: Proposal -->
-            <div class="rp-panel" id="rpanel-4" data-label="Proposal">
-              <img src="../dollarcity/Proposal.png" alt="Video Investigation proposal — filter options, navigation improvements, and tag additions" style="width:100%;height:auto;border-radius:12px;cursor:zoom-in;display:block;" />
             </div>
           </div>
         </div>
 
         <!-- ══════════════════════════════════════════
-             DESIGN DECISIONS
+             (g) WHAT WE FOUND
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">What We Found</div>
+          <h2 class="project-section-title">5 Friction Patterns</h2>
+          <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.7;margin-bottom:var(--space-20);">Contextual inquiry revealed consistent breakdowns across all user types.</p>
+          <div class="dc-findings-top" style="margin-top:0;">
+            <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
+              <div class="dc-finding-compact-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+              </div>
+              <div class="dc-finding-compact-label">Excessive Time</div>
+              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">Reviews took 2× longer than necessary</div>
+            </div>
+            <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
+              <div class="dc-finding-compact-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><rect x="15" y="14" width="7" height="7" rx="1"/></svg>
+              </div>
+              <div class="dc-finding-compact-label">Multiple Tabs</div>
+              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">3–4 windows open simultaneously</div>
+            </div>
+            <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
+              <div class="dc-finding-compact-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.07"/></svg>
+              </div>
+              <div class="dc-finding-compact-label">Re-requesting Downloads</div>
+              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">No state = duplicate requests</div>
+            </div>
+            <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
+              <div class="dc-finding-compact-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              </div>
+              <div class="dc-finding-compact-label">Filters Missed</div>
+              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">Buried behind secondary panels</div>
+            </div>
+            <div class="dc-finding-compact" style="border-left:3px solid #dc2626;">
+              <div class="dc-finding-compact-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </div>
+              <div class="dc-finding-compact-label">No Download Feedback</div>
+              <div style="font-size:0.6875rem;color:var(--text-tertiary);line-height:1.4;margin-top:2px;">Queue status invisible to user</div>
+            </div>
+          </div>
+          <div class="dc-finding-extended-grid">
+            <div class="dc-finding-extended">
+              <div class="dc-finding-extended-header">Search NEW Videos</div>
+              <div class="dc-finding-extended-body">
+                <ul>
+                  <li>No date range filter visible — users scrolled through hundreds of rows</li>
+                  <li>POS terminal ID required manual entry with no autocomplete</li>
+                  <li>"My Requests" was not the default view, forcing extra navigation every session</li>
+                </ul>
+              </div>
+            </div>
+            <div class="dc-finding-extended">
+              <div class="dc-finding-extended-header">Search DOWNLOADED Videos</div>
+              <div class="dc-finding-extended-body">
+                <ul>
+                  <li>No way to filter by download completion status — all states mixed together</li>
+                  <li>Videos could not be sorted by review date or assignee</li>
+                  <li>Expanding a video to full player required multiple clicks across screens</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             (h) PROPOSAL
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Proposal</div>
+          <h2 class="project-section-title">Three-Pillar Solution Framework</h2>
+          <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.7;margin-bottom:var(--space-4);">Validated through Useberry sessions before committing to high-fidelity.</p>
+          <div class="dc-proposal-grid">
+            <div class="dc-proposal-card">
+              <div class="dc-proposal-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              </div>
+              <div class="dc-proposal-title">Add More Filter Options</div>
+              <ul class="dc-proposal-list">
+                <li>Store/branch, POS terminal, date range, transaction amount filters surfaced at top level</li>
+                <li>Sticky filter panel on scroll — never buried again</li>
+              </ul>
+            </div>
+            <div class="dc-proposal-card">
+              <div class="dc-proposal-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+              <div class="dc-proposal-title">Improve Navigation</div>
+              <ul class="dc-proposal-list">
+                <li>"My Video Requests" set as default landing view for reviewers</li>
+                <li>Breadcrumb trail + supervisor global toggle via role-based switch</li>
+              </ul>
+            </div>
+            <div class="dc-proposal-card">
+              <div class="dc-proposal-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <div class="dc-proposal-title">Add More Tags</div>
+              <ul class="dc-proposal-list">
+                <li>Flag as reviewed, suspicious, or priority — with bulk tag selection</li>
+                <li>Tags export automatically with fraud reports</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             (i) WIREFRAMES
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Wireframes</div>
+          <h2 class="project-section-title">Key Flows</h2>
+          <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.7;margin-bottom:var(--space-4);">Low-fidelity flows validated before high-fidelity production.</p>
+          <div class="dc-wf-grid">
+            <div class="dc-wf-cell">
+              <img src="../dollarcity/IMG_0231.jpeg" alt="POS Search wireframe flow" class="wf-img" style="width:100%;height:320px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;border:1px solid var(--border-subtle);" />
+              <div class="dc-wf-caption">POS Search Flow</div>
+            </div>
+            <div class="dc-wf-cell">
+              <img src="../dollarcity/IMG_0232.jpeg" alt="Video Investigation wireframe flow" class="wf-img" style="width:100%;height:320px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;border:1px solid var(--border-subtle);" />
+              <div class="dc-wf-caption">Video Investigation Flow</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             (j) DESIGN DECISIONS
         ══════════════════════════════════════════ -->
         <div id="decisions" class="project-section" data-anim>
           <div class="project-section-label">Design Decisions</div>
           <h2 class="project-section-title">Three decisions that shaped the outcome</h2>
-
-          <!-- WHAT WE FOUND — findings before decision 01 -->
-          <div style="margin-bottom:var(--space-32);">
-            <div class="section-eyebrow" style="margin-bottom:var(--space-8);">WHAT WE FOUND</div>
-            <p class="decision-body" style="margin-bottom:var(--space-20);">Research surfaced 5 recurring friction patterns.</p>
-            <div class="dc-findings-top">
-              <div class="dc-finding-compact">
-                <div class="dc-finding-compact-icon">⏱</div>
-                <div class="dc-finding-compact-label">Excessive Time</div>
-              </div>
-              <div class="dc-finding-compact">
-                <div class="dc-finding-compact-icon">🗂</div>
-                <div class="dc-finding-compact-label">Multiple Tabs</div>
-              </div>
-              <div class="dc-finding-compact">
-                <div class="dc-finding-compact-icon">🔄</div>
-                <div class="dc-finding-compact-label">Re-requesting</div>
-              </div>
-              <div class="dc-finding-compact">
-                <div class="dc-finding-compact-icon">🔍</div>
-                <div class="dc-finding-compact-label">Filters Missed</div>
-              </div>
-              <div class="dc-finding-compact">
-                <div class="dc-finding-compact-icon">🔔</div>
-                <div class="dc-finding-compact-label">No Feedback</div>
-              </div>
-              <div class="dc-finding-compact">
-                <div class="dc-finding-compact-icon">📹</div>
-                <div class="dc-finding-compact-label">Search NEW Videos</div>
-              </div>
-              <div class="dc-finding-compact">
-                <div class="dc-finding-compact-icon">💾</div>
-                <div class="dc-finding-compact-label">Search DOWNLOADED Videos</div>
-              </div>
-            </div>
-          </div>
 
           <div class="decision-card">
             <div class="decision-num">01</div>
@@ -1022,7 +1405,7 @@
         </div>
 
         <!-- ══════════════════════════════════════════
-             INTERACTIVE PROTOTYPES
+             (k) INTERACTIVE PROTOTYPES
         ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Interactive Prototypes</div>
@@ -1052,47 +1435,6 @@
                 <div class="proto-title">POS Search + Download States</div>
                 <div class="proto-desc">Four download states that eliminated re-request behavior — from no selection to full video replay.</div>
                 <a href="https://www.figma.com/make/mzkWR6NCwOdKu8PaGwsc2l/POS-Search-Prototype?fullscreen=1" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size:0.8rem">Open Prototype →</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ══════════════════════════════════════════
-             SYSTEM & TOOLING SNAPSHOT
-        ══════════════════════════════════════════ -->
-        <div id="tooling" class="project-section" data-anim>
-          <div class="project-section-label">System & Tooling Snapshot</div>
-          <h2 class="project-section-title">How the work was done</h2>
-
-          <div class="tooling-rows">
-            <div class="tooling-row">
-              <div class="tooling-label">Research</div>
-              <div class="tooling-pills">
-                <span class="tool-chip">Useberry</span>
-                <span class="tool-chip">Contextual Inquiry</span>
-                <span class="tool-chip">Heuristic Audit</span>
-              </div>
-            </div>
-            <div class="tooling-row">
-              <div class="tooling-label">Design</div>
-              <div class="tooling-pills">
-                <span class="tool-chip">Figma</span>
-                <span class="tool-chip">FigJam</span>
-                <span class="tool-chip">Component-based tokens</span>
-              </div>
-            </div>
-            <div class="tooling-row">
-              <div class="tooling-label">Handoff</div>
-              <div class="tooling-pills">
-                <span class="tool-chip">Figma Dev Mode</span>
-                <span class="tool-chip">Annotated specs</span>
-                <span class="tool-chip">Interaction notes</span>
-              </div>
-            </div>
-            <div class="tooling-row">
-              <div class="tooling-label">Note</div>
-              <div class="tooling-note">
-                Prototype flows rebuilt with AI-assisted scaffolding (Claude) for portfolio documentation. Original Figma file preserved.
               </div>
             </div>
           </div>
@@ -1166,23 +1508,23 @@
     });
   });
 
-  // ── Lightbox (event delegation — works inside hidden panels) ──
+  // ── Lightbox (event delegation) ──────────────────────────
   (function () {
     var dlg = document.getElementById('lightbox');
-    if (dlg) {
-      var li = document.getElementById('lightbox-img');
-      var lc = document.getElementById('lightbox-close');
-      var lt;
-      function openLightbox(src, alt) { li.src = src; li.alt = alt || ''; dlg.showModal(); }
-      document.addEventListener('click', function (e) {
-        var byAttr = e.target.closest('[data-lightbox]');
-        if (byAttr) { lt = byAttr; openLightbox(byAttr.dataset.lightbox, byAttr.getAttribute('aria-label') || ''); return; }
-        var byImg = e.target.closest('.rp-panel img:not(.no-lightbox), .hifi-card img:not(.no-lightbox)');
-        if (byImg) { lt = byImg; openLightbox(byImg.src, byImg.alt); }
-      });
-      lc.addEventListener('click', function () { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} });
-      dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} } });
-    }
+    if (!dlg) return;
+    var li = document.getElementById('lightbox-img');
+    var lc = document.getElementById('lightbox-close');
+    var lt;
+    function openLightbox(src, alt) { li.src = src; li.alt = alt || ''; dlg.showModal(); }
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('.rp-panel img, .wf-img, .hifi-card img, [data-lightbox]');
+      if (!el) return;
+      lt = el;
+      var src = el.dataset.lightbox || el.src;
+      openLightbox(src, el.alt || '');
+    });
+    lc.addEventListener('click', function () { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} } });
   }());
   </script>
 </body>
