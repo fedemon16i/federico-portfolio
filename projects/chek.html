@@ -485,19 +485,21 @@
 
     /* --- Section 8: Hi-Fi Gallery --- */
     .hifi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-24);
+      columns: 2;
+      column-gap: var(--space-24);
       margin-top: var(--space-32);
+    }
+    .hifi-card {
+      break-inside: avoid;
+      margin-bottom: var(--space-24);
+      display: inline-block;
+      width: 100%;
     }
     .hifi-card img {
       border-radius: var(--radius-md);
-      max-width: 100%;
-      display: block;
       width: 100%;
-      height: 420px;
-      object-fit: cover;
-      object-position: top;
+      height: auto;
+      display: block;
       cursor: zoom-in;
     }
 
@@ -556,7 +558,7 @@
       .goals-grid    { grid-template-columns: 1fr; }
       .findings-grid { grid-template-columns: 1fr; }
       .two-col       { grid-template-columns: 1fr; }
-      .hifi-grid     { grid-template-columns: 1fr; }
+      .hifi-grid     { columns: 1; }
       .learnings-section { padding-inline: var(--space-16); margin-inline: calc(-1 * var(--space-16)); }
     }
     @media (max-width: 720px) {
@@ -1233,7 +1235,7 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Credit Card Hub screen">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Tarjeta de Crédito CHEK</span>
+                    <span class="wf-screen-title">Chek Credit Card</span>
                   </div>
                   <div class="wf-card-block">
                     <div class="wf-card-name">CHEK</div>
@@ -1244,49 +1246,49 @@
                       <div class="wf-action-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                       </div>
-                      <div class="wf-action-label">Mostrar datos</div>
+                      <div class="wf-action-label">Show details</div>
                     </div>
                     <div class="wf-action-btn">
                       <div class="wf-action-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                       </div>
-                      <div class="wf-action-label">Pagar tarjeta</div>
+                      <div class="wf-action-label">Pay card</div>
                     </div>
                     <div class="wf-action-btn">
                       <div class="wf-action-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                       </div>
-                      <div class="wf-action-label">Bloquear tarjeta</div>
+                      <div class="wf-action-label">Block card</div>
                     </div>
                     <div class="wf-action-btn">
                       <div class="wf-action-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                       </div>
-                      <div class="wf-action-label">Más acciones</div>
+                      <div class="wf-action-label">More actions</div>
                     </div>
                   </div>
                   <div class="wf-info-rows">
                     <div class="wf-info-row">
-                      <span class="wf-info-row-label">Disponible para usar</span>
+                      <span class="wf-info-row-label">Available to use</span>
                       <span class="wf-info-row-chip">$1,000,000 ›</span>
                     </div>
                     <div class="wf-info-row">
-                      <span class="wf-info-row-label">Utilizado</span>
+                      <span class="wf-info-row-label">Used</span>
                       <span class="wf-info-row-value">$1,500</span>
                     </div>
                   </div>
-                  <div class="wf-link-row">Ver todos los movimientos ›</div>
+                  <div class="wf-link-row">View all transactions ›</div>
                   <div class="wf-dates-row">
                     <div class="wf-date-cell">
-                      <span class="wf-date-label">Próx. facturación</span>
+                      <span class="wf-date-label">Next billing</span>
                       <span class="wf-date-value">05 Sept</span>
                     </div>
                     <div class="wf-date-cell">
-                      <span class="wf-date-label">Vencimiento</span>
+                      <span class="wf-date-label">Due date</span>
                       <span class="wf-date-value">25 Sept</span>
                     </div>
                   </div>
-                  <div class="wf-link-row">Ver próximos vencimientos</div>
+                  <div class="wf-link-row">View upcoming due dates</div>
                 </div>
               </div>
             </div>
@@ -1312,7 +1314,7 @@
 
           <!-- ── FLOW 2: Payment Flow (3 screens) ── -->
           <div class="wf-flow-block">
-            <h3 class="wf-flow-title">2.2 → 2.2.1 → 2.2.2 — Pagar Tarjeta Flow</h3>
+            <h3 class="wf-flow-title">2.2 → 2.2.1 → 2.2.2 — Pay Card Flow</h3>
             <p class="wf-flow-desc">Full payment flow. Three paths depending on user's payment choice, with financial education nudges at decision points.</p>
             <div class="wf-flow-canvas">
 
@@ -1321,44 +1323,44 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Payment selection screen">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Consultar y Pagar</span>
+                    <span class="wf-screen-title">View &amp; Pay</span>
                   </div>
-                  <div class="wf-screen-body-text">Selección de pago: buenos al 25/09/2023</div>
+                  <div class="wf-screen-body-text">Payment selection: valid until 09/25/2023</div>
                   <div class="wf-radio-group">
                     <div class="wf-radio-option">
                       <div class="wf-radio-circle"></div>
                       <div class="wf-radio-texts">
-                        <div class="wf-radio-label">Saldo total $1,000,000</div>
-                        <div class="wf-radio-sublabel">Cubre el 100% de tu saldo</div>
+                        <div class="wf-radio-label">Total balance $1,000,000</div>
+                        <div class="wf-radio-sublabel">Covers 100% of your balance</div>
                       </div>
                     </div>
                     <div class="wf-radio-option">
                       <div class="wf-radio-circle"></div>
                       <div class="wf-radio-texts">
-                        <div class="wf-radio-label">Pago mínimo $50,000</div>
-                        <div class="wf-radio-sublabel">Solo cubre el pago mínimo</div>
+                        <div class="wf-radio-label">Minimum payment $50,000</div>
+                        <div class="wf-radio-sublabel">Covers minimum payment only</div>
                       </div>
                     </div>
                     <div class="wf-radio-option">
                       <div class="wf-radio-circle"></div>
                       <div class="wf-radio-texts">
-                        <div class="wf-radio-label">Seleccionar monto</div>
+                        <div class="wf-radio-label">Select custom amount</div>
                       </div>
                     </div>
                     <div class="wf-radio-option">
                       <div class="wf-radio-circle"></div>
                       <div class="wf-radio-texts">
-                        <div class="wf-radio-label">📅 Reordenar Deuda</div>
+                        <div class="wf-radio-label">📅 Restructure Debt</div>
                       </div>
                     </div>
                   </div>
-                  <div class="wf-btn">CONTINUAR</div>
+                  <div class="wf-btn">CONTINUE</div>
                 </div>
               </div>
 
               <div class="wf-arrow-col" aria-hidden="true">
                 <span class="wf-arrow-sym">→</span>
-                <span class="wf-arrow-label">Select: Saldo Total</span>
+                <span class="wf-arrow-label">Select: Total Balance</span>
               </div>
 
               <!-- Screen 2.2.1.2 — total payment confirm -->
@@ -1366,28 +1368,28 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Confirm total payment">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Confirmar Pago</span>
+                    <span class="wf-screen-title">Confirm Payment</span>
                   </div>
                   <div class="wf-amount-display">
-                    <div class="wf-amount-label">Se va a cobrar: Saldo Total</div>
+                    <div class="wf-amount-label">You will be charged: Total Balance</div>
                     <div class="wf-amount-value">$1,000,000</div>
                   </div>
-                  <div class="wf-account-chip">••••7535 Ahorro</div>
+                  <div class="wf-account-chip">••••7535 Savings</div>
                   <div class="wf-callout wf-callout-green">
-                    <div class="wf-callout-title">⭐ Beneficios de pagar el total</div>
+                    <div class="wf-callout-title">⭐ Benefits of paying in full</div>
                     <ul class="wf-callout-bullets">
-                      <li>Sin intereses por el próximo ciclo</li>
-                      <li>Mejoras tu historial crediticio</li>
-                      <li>Liberas cupo disponible</li>
+                      <li>No interest for the next billing cycle</li>
+                      <li>Improves your credit history</li>
+                      <li>Frees up available credit</li>
                     </ul>
                   </div>
-                  <div class="wf-btn">PAGAR SALDO TOTAL</div>
+                  <div class="wf-btn">PAY TOTAL BALANCE</div>
                 </div>
               </div>
 
               <div class="wf-arrow-col" aria-hidden="true">
                 <span class="wf-arrow-sym">→</span>
-                <span class="wf-arrow-label">Select: Pago Mínimo</span>
+                <span class="wf-arrow-label">Select: Minimum Payment</span>
               </div>
 
               <!-- Screen 2.2.2.3 — minimum payment confirm -->
@@ -1395,22 +1397,22 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Confirm minimum payment">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Confirmar Pago</span>
+                    <span class="wf-screen-title">Confirm Payment</span>
                   </div>
                   <div class="wf-amount-display">
-                    <div class="wf-amount-label">Se va a cobrar: Pago Mínimo</div>
+                    <div class="wf-amount-label">You will be charged: Minimum Payment</div>
                     <div class="wf-amount-value">$50,000</div>
                   </div>
-                  <div class="wf-account-chip">••••7535 Ahorro</div>
+                  <div class="wf-account-chip">••••7535 Savings</div>
                   <div class="wf-callout wf-callout-yellow">
-                    <div class="wf-callout-title">⚠ Pagando el mínimo</div>
+                    <div class="wf-callout-title">⚠ Paying the minimum</div>
                     <ul class="wf-callout-bullets">
-                      <li>Cubrimos solo 25% de tus consumos</li>
-                      <li>Cuotas pendientes: $950,000</li>
-                      <li>Se cubren intereses y el próximo pago será más alto</li>
+                      <li>Covers only 25% of your charges</li>
+                      <li>Pending balance: $950,000</li>
+                      <li>Interest is covered — your next payment will be higher</li>
                     </ul>
                   </div>
-                  <div class="wf-btn">REALIZAR PAGO MÍNIMO</div>
+                  <div class="wf-btn">MAKE MINIMUM PAYMENT</div>
                 </div>
               </div>
 
@@ -1442,15 +1444,15 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Custom amount — below minimum warning">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Seleccionar monto</span>
+                    <span class="wf-screen-title">Select amount</span>
                   </div>
                   <div class="wf-amount-display">
                     <div class="wf-amount-value">$20,000</div>
                   </div>
                   <div class="wf-callout wf-callout-red">
-                    <div class="wf-callout-title">⚠ Podría estar en mora</div>
+                    <div class="wf-callout-title">⚠ You may fall behind</div>
                     <ul class="wf-callout-bullets">
-                      <li>Este monto es inferior al pago mínimo recomendado</li>
+                      <li>This amount is below the recommended minimum payment</li>
                     </ul>
                   </div>
                   <div class="wf-numpad">
@@ -1459,7 +1461,7 @@
                     <div class="wf-numpad-key">7</div><div class="wf-numpad-key">8</div><div class="wf-numpad-key">9</div>
                     <div class="wf-numpad-key"></div><div class="wf-numpad-key">0</div><div class="wf-numpad-key">⌫</div>
                   </div>
-                  <div class="wf-btn">CONTINUAR PARA PAGAR</div>
+                  <div class="wf-btn">CONTINUE TO PAY</div>
                 </div>
               </div>
 
@@ -1472,15 +1474,15 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Custom amount — above minimum">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Seleccionar monto</span>
+                    <span class="wf-screen-title">Select amount</span>
                   </div>
                   <div class="wf-amount-display">
                     <div class="wf-amount-value">$60,000</div>
                   </div>
                   <div class="wf-callout wf-callout-green">
-                    <div class="wf-callout-title">✓ Pago mayor al mínimo</div>
+                    <div class="wf-callout-title">✓ Payment above minimum</div>
                     <ul class="wf-callout-bullets">
-                      <li>Te recomendamos pagar el máximo posible</li>
+                      <li>We recommend paying as much as possible</li>
                     </ul>
                   </div>
                   <div class="wf-numpad">
@@ -1489,7 +1491,7 @@
                     <div class="wf-numpad-key">7</div><div class="wf-numpad-key">8</div><div class="wf-numpad-key">9</div>
                     <div class="wf-numpad-key"></div><div class="wf-numpad-key">0</div><div class="wf-numpad-key">⌫</div>
                   </div>
-                  <div class="wf-btn">CONTINUAR PARA PAGAR</div>
+                  <div class="wf-btn">CONTINUE TO PAY</div>
                 </div>
               </div>
 
@@ -1502,16 +1504,16 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Custom amount — near total balance">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Seleccionar monto</span>
+                    <span class="wf-screen-title">Select amount</span>
                   </div>
                   <div class="wf-amount-display">
                     <div class="wf-amount-value">$900,000</div>
                   </div>
                   <div class="wf-callout wf-callout-blue">
-                    <div class="wf-callout-title">💡 Podrías ir a 0</div>
+                    <div class="wf-callout-title">💡 You could reach $0</div>
                     <ul class="wf-callout-bullets">
-                      <li>También podrías ajustarlo a $1,000,000</li>
-                      <li>o seleccionar saldo total</li>
+                      <li>You could also adjust to $1,000,000</li>
+                      <li>or select total balance</li>
                     </ul>
                   </div>
                   <div class="wf-numpad">
@@ -1520,7 +1522,7 @@
                     <div class="wf-numpad-key">7</div><div class="wf-numpad-key">8</div><div class="wf-numpad-key">9</div>
                     <div class="wf-numpad-key"></div><div class="wf-numpad-key">0</div><div class="wf-numpad-key">⌫</div>
                   </div>
-                  <div class="wf-btn">CONTINUAR PARA PAGAR</div>
+                  <div class="wf-btn">CONTINUE TO PAY</div>
                 </div>
               </div>
 
@@ -1539,29 +1541,29 @@
 
           <!-- ── FLOW 4: Cupo y Disponibles ── -->
           <div class="wf-flow-block">
-            <h3 class="wf-flow-title">2.5 — Cupo y Disponibles</h3>
+            <h3 class="wf-flow-title">2.5 — Credit Limit &amp; Available Balance</h3>
             <p class="wf-flow-desc">Financial education screen — demystifies credit card balance concepts that users consistently misunderstood.</p>
             <div class="wf-flow-canvas">
               <div class="wf-phone-wrap">
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Credit line and available balance detail screen">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Cupo y Disponibles para tu tarjeta</span>
+                    <span class="wf-screen-title">Credit Limit &amp; Available Balance</span>
                   </div>
-                  <div class="wf-screen-body-text" style="color:#999;">Tarjeta de Crédito Mastercard Chek</div>
+                  <div class="wf-screen-body-text" style="color:#999;">Chek Mastercard Credit Card</div>
                   <div class="wf-info-icon-row">
                     <span class="wf-info-icon">ⓘ</span>
-                    <span class="wf-info-icon-label">Cupo otorgado</span>
+                    <span class="wf-info-icon-label">Granted credit limit</span>
                     <span class="wf-info-icon-value">$1,800,000</span>
                   </div>
                   <div class="wf-info-icon-row">
                     <span class="wf-info-icon">ⓘ</span>
-                    <span class="wf-info-icon-label">Total Consumos</span>
+                    <span class="wf-info-icon-label">Total Charges</span>
                     <span class="wf-info-icon-value">$1,800,000</span>
                   </div>
                   <div class="wf-info-icon-row">
                     <span class="wf-info-icon">ⓘ</span>
-                    <span class="wf-info-icon-label">Disponible para compras</span>
+                    <span class="wf-info-icon-label">Available for purchases</span>
                     <span class="wf-info-icon-value">$908,900</span>
                   </div>
                   <div class="wf-info-icon-row">
@@ -1571,10 +1573,10 @@
                   </div>
                   <div class="wf-section-divider"></div>
                   <div class="wf-info-icon-row">
-                    <span class="wf-info-icon-label" style="font-weight:700;font-size:0.58rem;text-transform:uppercase;letter-spacing:.04em;">FECHA DE FACTURACIÓN: 26 de cada mes</span>
+                    <span class="wf-info-icon-label" style="font-weight:700;font-size:0.58rem;text-transform:uppercase;letter-spacing:.04em;">BILLING DATE: 26th of each month</span>
                   </div>
                   <div class="wf-callout wf-callout-purple">
-                    <div class="wf-callout-title">💡 Pro Tip Chek: Máximo pago</div>
+                    <div class="wf-callout-title">💡 Chek Pro Tip: Pay the maximum</div>
                   </div>
                 </div>
               </div>
@@ -1593,7 +1595,7 @@
 
           <!-- ── FLOW 5: Ayuda por Seguridad (2 screens) ── -->
           <div class="wf-flow-block">
-            <h3 class="wf-flow-title">2.4.1 — Ayuda por Seguridad</h3>
+            <h3 class="wf-flow-title">2.4.1 — Security Help</h3>
             <p class="wf-flow-desc">Empathetic security flow — designed to reduce anxiety and surface the right action fast.</p>
             <div class="wf-flow-canvas">
 
@@ -1602,38 +1604,38 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Security help options list">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Ayuda por seguridad</span>
+                    <span class="wf-screen-title">Security Help</span>
                   </div>
-                  <div class="wf-screen-body-text">Para poder ayudarte, quisiéramos saber cuál de estas situaciones se relaciona más con tu situación.</div>
+                  <div class="wf-screen-body-text">To help you, please tell us which of these situations best applies to you.</div>
                   <div class="wf-help-list">
                     <div class="wf-help-option">
-                      <span class="wf-help-option-text">Creo que mis datos han sido comprometidos</span>
+                      <span class="wf-help-option-text">I think my data has been compromised</span>
                       <span class="wf-help-chevron">›</span>
                     </div>
                     <div class="wf-help-option">
-                      <span class="wf-help-option-text">Tengo cargos no reconocidos. Mis datos han sido comprometidos</span>
+                      <span class="wf-help-option-text">I have unrecognized charges. My data has been compromised</span>
                       <span class="wf-help-chevron">›</span>
                     </div>
                     <div class="wf-help-option">
-                      <span class="wf-help-option-text">Mi tarjeta ya no está segura, necesito reemplazarla</span>
+                      <span class="wf-help-option-text">My card is no longer safe, I need to replace it</span>
                       <span class="wf-help-chevron">›</span>
                     </div>
                     <div class="wf-help-option">
-                      <span class="wf-help-option-text">Quiero cambiar mi clave</span>
+                      <span class="wf-help-option-text">I want to change my PIN</span>
                       <span class="wf-help-chevron">›</span>
                     </div>
                     <div class="wf-help-option">
-                      <span class="wf-help-option-text">Contáctanos por Whatsapp</span>
+                      <span class="wf-help-option-text">Contact us via WhatsApp</span>
                       <span class="wf-help-chevron">›</span>
                     </div>
                   </div>
-                  <div class="wf-link-row-center">Olvidé mi Clave</div>
+                  <div class="wf-link-row-center">I forgot my PIN</div>
                 </div>
               </div>
 
               <div class="wf-arrow-col" aria-hidden="true">
                 <span class="wf-arrow-sym">→</span>
-                <span class="wf-arrow-label">Select: datos comprometidos</span>
+                <span class="wf-arrow-label">Select: compromised data</span>
               </div>
 
               <!-- Screen B -->
@@ -1641,22 +1643,22 @@
                 <div class="phone-frame wf-phone" role="img" aria-label="Wireframe: Block card screen">
                   <div class="wf-screen-header">
                     <span class="wf-back-btn" aria-hidden="true">←</span>
-                    <span class="wf-screen-title">Bloquear tarjeta</span>
+                    <span class="wf-screen-title">Block card</span>
                   </div>
-                  <div class="wf-screen-body-text" style="font-weight:700;color:#111;">¿Crees que tus datos han sido comprometidos?</div>
+                  <div class="wf-screen-body-text" style="font-weight:700;color:#111;">Do you think your data has been compromised?</div>
                   <div class="wf-toggle-row">
                     <div class="wf-toggle-left">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                      <span class="wf-toggle-label">Bloqueo de tarjeta</span>
+                      <span class="wf-toggle-label">Card block</span>
                     </div>
                     <div class="wf-toggle" role="img" aria-label="Toggle off"></div>
                   </div>
-                  <div class="wf-screen-body-text">Puedes bloquearlo y desbloquearlo cuando desees...</div>
+                  <div class="wf-screen-body-text">You can block and unblock it whenever you want...</div>
                   <div class="wf-section-divider"></div>
-                  <div class="wf-section-heading">Puede interesarte:</div>
+                  <div class="wf-section-heading">You might also find helpful:</div>
                   <div class="wf-help-list">
                     <div class="wf-help-option">
-                      <span class="wf-help-option-text">Estafas cibernéticas y cómo evitarlas</span>
+                      <span class="wf-help-option-text">Cyber fraud and how to prevent it</span>
                       <span class="wf-help-chevron">›</span>
                     </div>
                   </div>
@@ -1815,48 +1817,48 @@
             <div class="event-col" aria-label="Events 2.1 through 2.5">
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.1</span>
-                <span class="event-badge-label">Pagina Hub TDC</span>
+                <span class="event-badge-label">Hub TDC Page</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.2</span>
-                <span class="event-badge-label">Botón atrás</span>
+                <span class="event-badge-label">Back button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.3</span>
-                <span class="event-badge-label">Botón Mostrar datos</span>
+                <span class="event-badge-label">Show details button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.4</span>
-                <span class="event-badge-label">Botón Pagar tarjeta</span>
+                <span class="event-badge-label">Pay card button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.5</span>
-                <span class="event-badge-label">Botón Bloquear tarjeta</span>
+                <span class="event-badge-label">Block card button</span>
               </div>
             </div>
 
             <!-- Phone frame -->
             <div class="phone-frame-wrap">
-              <div class="phone-frame" role="img" aria-label="Credit card hub screen mockup — Tarjeta de crédito Chek">
-                <div class="phone-status-bar">Tarjeta de crédito Chek</div>
+              <div class="phone-frame" role="img" aria-label="Credit card hub screen mockup — Chek Credit Card">
+                <div class="phone-status-bar">Chek Credit Card</div>
                 <div class="phone-card-visual">
                   <span class="phone-card-label">CHEK</span>
                 </div>
                 <div class="phone-balance-rows">
                   <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Cupo total</span>
+                    <span class="phone-balance-lbl">Total limit</span>
                     <span class="phone-balance-val">$500.000</span>
                   </div>
                   <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Cupo disponible</span>
+                    <span class="phone-balance-lbl">Available credit</span>
                     <span class="phone-balance-val">$320.000</span>
                   </div>
                   <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Próx. facturación</span>
+                    <span class="phone-balance-lbl">Next billing</span>
                     <span class="phone-balance-val">15 Mar</span>
                   </div>
                   <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Vencimiento</span>
+                    <span class="phone-balance-lbl">Due date</span>
                     <span class="phone-balance-val">30 Mar</span>
                   </div>
                 </div>
@@ -1867,27 +1869,27 @@
             <div class="event-col" aria-label="Events 2.6 through 2.11">
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.6</span>
-                <span class="event-badge-label">Botón Más acciones</span>
+                <span class="event-badge-label">More actions button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.7</span>
-                <span class="event-badge-label">Botón Cupo y disponible</span>
+                <span class="event-badge-label">Credit limit &amp; available button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.8</span>
-                <span class="event-badge-label">Botón Ver todos los movimientos</span>
+                <span class="event-badge-label">View all transactions button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.9</span>
-                <span class="event-badge-label">Botón Próx. Facturación</span>
+                <span class="event-badge-label">Next billing button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.10</span>
-                <span class="event-badge-label">Botón Vencimiento</span>
+                <span class="event-badge-label">Due date button</span>
               </div>
               <div class="event-badge">
                 <span class="event-badge-num" aria-hidden="true">2.11</span>
-                <span class="event-badge-label">Botón Ver próximos vencimientos</span>
+                <span class="event-badge-label">View upcoming due dates button</span>
               </div>
             </div>
 
@@ -1906,24 +1908,24 @@
           <p class="project-body-text" style="margin-bottom:var(--space-8);">Key screens from the final design, annotated to highlight design decisions.</p>
 
           <div class="hifi-grid">
-            <div>
-              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" loading="lazy">
               <p class="img-caption">Home Screen &amp; Upcoming Due Dates</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0189.jpeg" alt="NFC for Ripley Stores and No Plastic Needed" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0189.jpeg" alt="NFC for Ripley Stores and No Plastic Needed" loading="lazy">
               <p class="img-caption">NFC for Ripley Stores &amp; No Plastic Needed</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0190.jpeg" alt="Transaction Detail, Monthly Statements, Movements" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0190.jpeg" alt="Transaction Detail, Monthly Statements, Movements" loading="lazy">
               <p class="img-caption">Transaction Detail, Monthly Statements, Movements</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0191.jpeg" alt="Cupo y Disponibles — Credit Details" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0191.jpeg" alt="Cupo y Disponibles — Credit Details" loading="lazy">
               <p class="img-caption">Cupo y Disponibles — Credit Details</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0192.jpeg" alt="Ayuda por Seguridad — Security Help Flow" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0192.jpeg" alt="Ayuda por Seguridad — Security Help Flow" loading="lazy">
               <p class="img-caption">Ayuda por Seguridad — Security Help Flow</p>
             </div>
           </div>
@@ -1937,12 +1939,12 @@
           <h2 class="project-section-title">Built from Scratch</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-32);">Collaborated with 2 UI Designers to build Chek's design system from the ground up — brand assets, component library, iconography, and typography scale.</p>
           <div class="hifi-grid">
-            <div>
-              <img src="../chek/IMG_0193.jpeg" alt="Brand assets, logo variants, color palette and button components" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0193.jpeg" alt="Brand assets, logo variants, color palette and button components" loading="lazy">
               <p class="img-caption">Brand assets, logo variants, color palette &amp; button components</p>
             </div>
-            <div>
-              <img src="../chek/IMG_0194.jpeg" alt="Iconography system and typography scale — Overpass" style="width:100%;border-radius:8px;display:block;" loading="lazy">
+            <div class="hifi-card">
+              <img src="../chek/IMG_0194.jpeg" alt="Iconography system and typography scale — Overpass" loading="lazy">
               <p class="img-caption">Iconography system &amp; typography scale (Overpass)</p>
             </div>
           </div>

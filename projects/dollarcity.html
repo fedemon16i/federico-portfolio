@@ -344,248 +344,177 @@
     }
     .outcomes-list strong { color: var(--text-primary); font-weight: 700; }
 
-    /* ── Problem Panel ── */
-    .dc-problem-panel {
-      background: var(--bg-surface);
-      border-left: 4px solid #f4c842;
-      padding: var(--space-48) var(--space-40);
-    }
-    .dc-problem-eyebrow {
-      font-size: 0.625rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: #f4c842;
-      margin-bottom: var(--space-16);
-    }
-    .dc-problem-headline {
-      font-size: 2.2rem; font-weight: 700;
-      color: var(--text-primary);
-      line-height: 1.25;
-      max-width: 720px;
-    }
-    @media (max-width: 640px) { .dc-problem-headline { font-size: 1.5rem; } }
-
-    /* ── Impact Strip ── */
-    .dc-impact-strip {
-      background: var(--bg-base);
-      padding: var(--space-48) 0 var(--space-64);
-    }
-    .dc-impact-intro {
-      font-size: 0.9375rem;
-      color: var(--text-tertiary);
-      margin-bottom: var(--space-32);
-      font-style: italic;
-    }
-    .dc-impact-transition {
-      font-size: 0.9375rem;
-      color: var(--text-tertiary);
-      margin-top: var(--space-32);
-      text-align: center;
-      font-style: italic;
-      letter-spacing: 0.03em;
-    }
-
     /* ── Research Goals Grid ── */
     .dc-goals-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(5, 1fr);
       gap: var(--space-16);
-      margin-top: var(--space-24);
+      margin-top: var(--space-32);
     }
+    @media (max-width: 900px) { .dc-goals-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .dc-goals-grid { grid-template-columns: 1fr; } }
     .dc-goal-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: var(--space-28);
+      padding: var(--space-20);
+      display: flex; flex-direction: column; gap: var(--space-12);
     }
-    .dc-goal-icon { font-size: 1.5rem; margin-bottom: var(--space-12); }
+    .dc-goal-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(244,200,66,0.1);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .dc-goal-icon svg {
+      width: 22px; height: 22px; fill: none; stroke: #f4c842;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+    }
     .dc-goal-title {
-      font-size: 0.875rem; font-weight: 700;
-      color: #f4c842;
-      margin-bottom: var(--space-8);
+      font-size: 0.6875rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase; color: #f4c842;
     }
     .dc-goal-desc {
-      font-size: 0.8125rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
+      font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6; flex: 1;
     }
+    .dc-goal-sub {
+      background: rgba(244,200,66,0.07);
+      border: 1px solid rgba(244,200,66,0.18);
+      border-radius: var(--radius-sm);
+      padding: var(--space-10) var(--space-12);
+    }
+    .dc-goal-sub-label {
+      font-weight: 700; font-size: 0.5625rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #f4c842; margin-bottom: var(--space-6);
+    }
+    .dc-goal-sub ul { padding-left: var(--space-14); display: flex; flex-direction: column; gap: 3px; }
+    .dc-goal-sub ul li { list-style: disc; font-size: 0.6875rem; color: var(--text-secondary); line-height: 1.5; }
 
-    /* ── Tabbed Research Section ── */
-    .dc-tabs-wrap {
-      margin-top: var(--space-24);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .dc-tabs-bar {
-      display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
-      background: var(--bg-raised);
-      border-bottom: 1px solid var(--border-subtle);
-      gap: var(--space-4);
-      padding: var(--space-12) var(--space-16);
-    }
-    .dc-tabs-bar::-webkit-scrollbar { display: none; }
-    .dc-tab-btn {
-      padding: var(--space-8) var(--space-16);
-      font-size: 0.8125rem; font-weight: 600;
-      color: var(--text-tertiary);
-      background: none;
-      border: 1px solid transparent;
-      border-radius: 20px;
-      cursor: pointer; white-space: nowrap;
-      transition: color 150ms, background 150ms, border-color 150ms;
-    }
-    .dc-tab-btn[aria-selected="true"] {
-      color: #fff;
-      background: rgba(21,128,61,0.2);
-      border-color: rgba(21,128,61,0.5);
-    }
-    .dc-tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .dc-tab-panel {
-      padding: var(--space-28) var(--space-32);
-      font-size: 0.9375rem;
-      color: var(--text-secondary);
-      line-height: 1.75;
-    }
-    .dc-tab-panel[hidden] { display: none; }
-    .dc-tab-panel ul { padding-left: var(--space-20); display: flex; flex-direction: column; gap: var(--space-8); }
-    .dc-tab-panel ul li { list-style: disc; }
-    .dc-tab-panel strong { color: var(--text-primary); font-weight: 600; }
+    /* ── User Types Table ── */
+    .dc-user-table-wrap { margin-top: var(--space-32); overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); }
     .dc-user-table {
       width: 100%; border-collapse: collapse;
-      font-size: 0.875rem;
-      margin-top: var(--space-16);
+      font-size: 0.8rem; min-width: 540px;
     }
     .dc-user-table th {
-      text-align: left; padding: var(--space-12) var(--space-20);
-      background: var(--bg-raised);
-      font-size: 0.6875rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--text-tertiary);
-      border-bottom: 1px solid var(--border-subtle);
-      line-height: 1.6;
+      background: #15803d; color: #fff; font-weight: 700;
+      font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: var(--space-12) var(--space-16); text-align: center;
     }
+    .dc-user-table th:first-child { text-align: left; }
     .dc-user-table td {
-      padding: var(--space-12) var(--space-20);
-      color: var(--text-secondary);
+      padding: var(--space-10) var(--space-16);
       border-bottom: 1px solid var(--border-subtle);
-      vertical-align: top;
-      line-height: 1.6;
+      color: var(--text-tertiary); text-align: center; vertical-align: middle;
     }
+    .dc-user-table td:first-child { text-align: left; color: var(--text-primary); font-weight: 600; font-size: 0.8125rem; }
     .dc-user-table tr:last-child td { border-bottom: none; }
-    .dc-check { color: #22c55e; font-weight: 700; text-align: center; }
+    .dc-user-table tbody tr:nth-child(even) td { background: rgba(255,255,255,0.025); }
+    .dc-check { color: #15803d; font-size: 1rem; font-weight: 800; }
+
+    /* ── Full-width image trigger ── */
+    .dc-img-trigger {
+      display: block; width: 100%; background: none; border: none;
+      padding: 0; cursor: zoom-in; border-radius: 12px; overflow: hidden;
+      margin-top: var(--space-32);
+    }
+    .dc-img-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .dc-img-trigger img { width: 100%; height: auto; display: block; border-radius: 12px; border: 1px solid var(--border-subtle); }
+    .dc-img-caption {
+      font-size: 0.6875rem; font-weight: 600; font-variant: small-caps;
+      letter-spacing: 0.08em; color: var(--text-tertiary);
+      text-align: center; margin-top: var(--space-10);
+    }
+
+    /* ── Journey maps 2-col grid ── */
     .dc-journey-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-20);
-      margin-top: var(--space-16);
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-20);
+      margin-top: var(--space-32);
     }
-    @media (max-width: 600px) { .dc-journey-grid { grid-template-columns: 1fr; } }
-    .dc-journey-card {
-      background: var(--bg-raised);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: var(--space-20) var(--space-24);
+    @media (max-width: 640px) { .dc-journey-grid { grid-template-columns: 1fr; } }
+    .dc-journey-cell { display: flex; flex-direction: column; gap: var(--space-8); }
+
+    /* ── Findings ── */
+    .dc-findings-top {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: var(--space-12); margin-top: var(--space-32);
     }
-    .dc-journey-title {
-      font-size: 0.8125rem; font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: var(--space-12);
+    @media (max-width: 900px) { .dc-findings-top { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 480px) { .dc-findings-top { grid-template-columns: 1fr 1fr; } }
+    .dc-finding-compact {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); padding: var(--space-14);
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-6); text-align: center;
     }
-    .dc-journey-steps { display: flex; flex-direction: column; gap: var(--space-8); }
-    .dc-journey-step {
-      font-size: 0.8125rem; color: var(--text-secondary);
-      padding-left: var(--space-16); position: relative;
+    .dc-finding-compact-icon { font-size: 1.4rem; }
+    .dc-finding-compact-label {
+      font-size: 0.6875rem; font-weight: 700; color: var(--text-primary);
+      letter-spacing: 0.02em; line-height: 1.4;
     }
-    .dc-journey-step::before { content: '→'; position: absolute; left: 0; color: #f4c842; }
+    .dc-findings-group { margin-top: var(--space-28); }
+    .dc-findings-group-title {
+      font-size: 0.875rem; font-weight: 700; color: var(--text-primary);
+      margin-bottom: var(--space-16); padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .dc-findings-group-title span { color: #f4c842; }
+    .dc-findings-cards { display: flex; flex-direction: column; gap: var(--space-12); }
+    .dc-finding-card {
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-left: 3px solid #e05c4a; border-radius: var(--radius-md);
+      padding: var(--space-16) var(--space-20);
+    }
+    .dc-finding-time {
+      display: inline-block; font-size: 0.5625rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(224,92,74,0.12); border: 1px solid rgba(224,92,74,0.25);
+      color: #e05c4a; border-radius: 20px; padding: 2px 8px; margin-bottom: var(--space-6);
+    }
+    .dc-finding-pain {
+      font-size: 0.625rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #e05c4a; margin-bottom: var(--space-8);
+    }
+    .dc-finding-card ul { padding-left: var(--space-16); display: flex; flex-direction: column; gap: var(--space-4); }
+    .dc-finding-card ul li { list-style: disc; font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.55; }
 
     /* ── Best Improvements ── */
     .dc-improvements-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: var(--space-20);
-      margin-top: var(--space-24);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-24); margin-top: var(--space-32);
     }
+    @media (max-width: 700px) { .dc-improvements-grid { grid-template-columns: 1fr; } }
     .dc-improvement-card {
-      background: var(--bg-surface);
-      border: 1px solid rgba(21,128,61,0.3);
-      border-radius: var(--radius-md);
-      padding: var(--space-24);
+      background: var(--bg-surface); border: 1px solid #15803d;
+      border-radius: var(--radius-lg); padding: var(--space-32) var(--space-24);
+      display: flex; flex-direction: column; gap: var(--space-16);
+    }
+    .dc-improvement-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(21,128,61,0.12);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dc-improvement-icon svg {
+      width: 26px; height: 26px; fill: none; stroke: #15803d;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
     }
     .dc-improvement-title {
-      font-size: 0.875rem; font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: var(--space-12);
+      font-size: 0.6875rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #f4c842;
     }
-    .dc-improvement-desc { font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.65; }
+    .dc-improvement-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
 
-    /* ── Prototype Cards ── */
+    /* ── Figma Make Prototypes ── */
     .dc-proto-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-24);
-      margin-top: var(--space-24);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-24); margin-top: var(--space-32);
     }
-    @media (max-width: 640px) { .dc-proto-grid { grid-template-columns: 1fr; } }
-    .dc-proto-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      text-decoration: none;
-      display: block;
-      transition: transform 300ms ease, box-shadow 300ms ease;
+    @media (max-width: 700px) { .dc-proto-grid { grid-template-columns: 1fr; } }
+    .dc-proto-cell { display: flex; flex-direction: column; gap: var(--space-10); }
+    .dc-proto-label { font-size: 0.8125rem; font-weight: 600; color: var(--text-secondary); }
+    .dc-proto-note {
+      margin-top: var(--space-16); font-size: 0.8125rem;
+      color: var(--text-tertiary); font-style: italic; text-align: center;
     }
-    .dc-proto-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
-    }
-    .dc-proto-card-img-wrap {
-      position: relative; height: 220px;
-      background: var(--bg-raised);
-      overflow: hidden;
-    }
-    .dc-proto-card-img-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 400ms ease;
-    }
-    .dc-proto-card:hover .dc-proto-card-img-wrap img { transform: scale(1.04); }
-    .dc-proto-card-play {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: rgba(21,128,61,0.85);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: 2px solid rgba(255,255,255,0.2);
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 200ms ease, background 200ms;
-      pointer-events: none;
-    }
-    .dc-proto-card:hover .dc-proto-card-play {
-      transform: translate(-50%, -50%) scale(1.1);
-      background: rgba(21,128,61,1);
-    }
-    .dc-proto-card-play svg { width: 20px; height: 20px; fill: #fff; margin-left: 3px; }
-    .dc-proto-card-body { padding: var(--space-20) var(--space-24); }
-    .dc-proto-card-title {
-      font-size: 0.9375rem; font-weight: 700;
-      color: var(--text-primary); margin-bottom: var(--space-8);
-    }
-    .dc-proto-card-desc {
-      font-size: 0.8125rem; color: var(--text-secondary);
-      line-height: 1.6; margin-bottom: var(--space-16);
-    }
-    .dc-proto-card-link {
-      display: inline-flex; align-items: center; gap: var(--space-6);
-      font-size: 0.8125rem; font-weight: 600;
-      color: #15803d; text-decoration: none;
-      transition: color 150ms;
-    }
-    .dc-proto-card-link svg { width: 14px; height: 14px; }
 
     /* ── Research Panel Prev/Next Navigation ── */
     .rp-wrap {
@@ -924,6 +853,412 @@
 
         <!-- ══════════════════════════════════════════
              RESEARCH GOALS
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Research Goals</div>
+          <h2 class="project-section-title">What We Needed to Achieve</h2>
+          <p class="project-body-text">Five design goals drove every research and design decision throughout the project.</p>
+
+          <div class="dc-goals-grid">
+            <!-- TIME -->
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="dc-goal-title">TIME</div>
+              <p class="dc-goal-desc">Make the surveillance process faster for every user type.</p>
+              <div class="dc-goal-sub">
+                <div class="dc-goal-sub-label">In order to:</div>
+                <ul>
+                  <li>Enable faster fraud detection</li>
+                  <li>Reduce manual review cycles</li>
+                </ul>
+              </div>
+            </div>
+            <!-- AWARENESS -->
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">
+                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+              <div class="dc-goal-title">AWARENESS</div>
+              <p class="dc-goal-desc">Let users know about exceptions and status changes in real time.</p>
+              <div class="dc-goal-sub">
+                <div class="dc-goal-sub-label">In order to:</div>
+                <ul>
+                  <li>Prevent missed exceptions</li>
+                  <li>Improve response times</li>
+                </ul>
+              </div>
+            </div>
+            <!-- EFFICIENT -->
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="dc-goal-title">EFFICIENT</div>
+              <p class="dc-goal-desc">Reduce repetitive steps and streamline task flows end-to-end.</p>
+              <div class="dc-goal-sub">
+                <div class="dc-goal-sub-label">In order to:</div>
+                <ul>
+                  <li>Free up time for higher-value decisions</li>
+                  <li>Reduce training overhead</li>
+                </ul>
+              </div>
+            </div>
+            <!-- USER FRIENDLY -->
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">
+                <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+              </div>
+              <div class="dc-goal-title">USER FRIENDLY</div>
+              <p class="dc-goal-desc">Design for non-technical users across all roles and locations.</p>
+              <div class="dc-goal-sub">
+                <div class="dc-goal-sub-label">In order to:</div>
+                <ul>
+                  <li>Minimize errors in the flow</li>
+                  <li>Enable self-sufficiency</li>
+                </ul>
+              </div>
+            </div>
+            <!-- EMPATHETIC -->
+            <div class="dc-goal-card">
+              <div class="dc-goal-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div class="dc-goal-title">EMPATHETIC</div>
+              <p class="dc-goal-desc">Reduce frustration by surfacing the right information at the right moment.</p>
+              <div class="dc-goal-sub">
+                <div class="dc-goal-sub-label">In order to:</div>
+                <ul>
+                  <li>Build trust in the system</li>
+                  <li>Improve adoption rates</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3c — TYPES OF USERS
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">User Research</div>
+          <h2 class="project-section-title">Types of Users</h2>
+          <p class="project-body-text">Four distinct user types were identified through contextual inquiry, each with unique permissions and task patterns.</p>
+
+          <div class="dc-user-table-wrap">
+            <table class="dc-user-table" aria-label="User types and capabilities">
+              <thead>
+                <tr>
+                  <th scope="col">Capability</th>
+                  <th scope="col">Reviewer</th>
+                  <th scope="col">Auditor</th>
+                  <th scope="col">Senior</th>
+                  <th scope="col">Directive</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Quick Description</td>
+                  <td>Watches &amp; classifies video exceptions</td>
+                  <td>Audits classified exceptions</td>
+                  <td>Oversees team + exceptions</td>
+                  <td>Views reports &amp; metrics</td>
+                </tr>
+                <tr>
+                  <td>Search Exceptions</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>View Exceptions</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                </tr>
+                <tr>
+                  <td>Start Exceptions</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td>—</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Forward Exceptions</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Search Videos</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Ask Specific Videos</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Navigate Videos</td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td><span class="dc-check" aria-label="Yes">✓</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Main Tools</td>
+                  <td>Video player, POS search</td>
+                  <td>Exception queue, audit log</td>
+                  <td>Team dashboard, overrides</td>
+                  <td>Reports, metrics</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3d — USER PERSONA
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">User Persona</div>
+          <h2 class="project-section-title">Primary Persona</h2>
+          <p class="project-body-text">The primary persona anchored every design decision — a Reviewer navigating a high-volume, time-pressured workflow with limited technical support.</p>
+
+          <button
+            class="dc-img-trigger"
+            data-lightbox="../dollarcity/User_Persona.png"
+            aria-label="Elisa Fernandez — Reviewer Persona"
+            type="button"
+          >
+            <img src="../dollarcity/User_Persona.png" alt="Elisa Fernandez — Reviewer Persona — UX research persona document" loading="lazy" />
+          </button>
+          <p class="dc-img-caption">Elisa Fernandez — Reviewer Persona</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3e — USER JOURNEY MAPS
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Journey Mapping</div>
+          <h2 class="project-section-title">User Journey Maps</h2>
+          <p class="project-body-text">Journey maps show emotional highs and lows across 5 phases: Start Machine → Resume Transactions → Review Transactions → Investigate → Classify.</p>
+
+          <div class="dc-journey-grid">
+            <div class="dc-journey-cell">
+              <button
+                class="dc-img-trigger"
+                style="margin-top:0;"
+                data-lightbox="../dollarcity/REVIEWER.png"
+                aria-label="Reviewer journey map — emotional arc across 5 phases"
+                type="button"
+              >
+                <img src="../dollarcity/REVIEWER.png" alt="Reviewer user journey map showing emotional highs and lows across 5 workflow phases" loading="lazy" />
+              </button>
+              <p class="dc-img-caption">Reviewer Journey</p>
+            </div>
+            <div class="dc-journey-cell">
+              <button
+                class="dc-img-trigger"
+                style="margin-top:0;"
+                data-lightbox="../dollarcity/SENIOR.png"
+                aria-label="Senior journey map — emotional arc across 5 phases"
+                type="button"
+              >
+                <img src="../dollarcity/SENIOR.png" alt="Senior user journey map showing oversight and escalation emotional arc across 5 phases" loading="lazy" />
+              </button>
+              <p class="dc-img-caption">Senior Journey</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3f — EARLY FINDINGS
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Research Findings</div>
+          <h2 class="project-section-title">Early Findings</h2>
+          <p class="project-body-text">Contextual inquiry and task observation surfaced consistent patterns of friction across both Reviewer and Senior user types.</p>
+
+          <!-- Top 5 compact insight cards -->
+          <div class="dc-findings-top">
+            <div class="dc-finding-compact">
+              <div class="dc-finding-compact-icon">⏱</div>
+              <div class="dc-finding-compact-label">Excessive time on video search</div>
+            </div>
+            <div class="dc-finding-compact">
+              <div class="dc-finding-compact-icon">🗂</div>
+              <div class="dc-finding-compact-label">Multiple tabs open simultaneously</div>
+            </div>
+            <div class="dc-finding-compact">
+              <div class="dc-finding-compact-icon">🔁</div>
+              <div class="dc-finding-compact-label">Re-requesting already downloaded videos</div>
+            </div>
+            <div class="dc-finding-compact">
+              <div class="dc-finding-compact-icon">🔍</div>
+              <div class="dc-finding-compact-label">Filters missed due to poor discoverability</div>
+            </div>
+            <div class="dc-finding-compact">
+              <div class="dc-finding-compact-icon">😤</div>
+              <div class="dc-finding-compact-label">No feedback when downloads were in progress</div>
+            </div>
+          </div>
+
+          <!-- Search NEW Videos -->
+          <div class="dc-findings-group">
+            <div class="dc-findings-group-title">Search <span>NEW</span> Videos</div>
+            <div class="dc-findings-cards">
+              <div class="dc-finding-card">
+                <div class="dc-finding-time">+8 min / session</div>
+                <div class="dc-finding-pain">THEY LOSE TIME</div>
+                <ul>
+                  <li>Navigate to Video Investigation module from home screen</li>
+                  <li>Set store, POS terminal, and date range filters from scratch</li>
+                  <li>Wait for video list to load with no progress indicator</li>
+                  <li>Open each video in a new tab to assess relevance</li>
+                </ul>
+              </div>
+              <div class="dc-finding-card">
+                <div class="dc-finding-time">No status awareness</div>
+                <div class="dc-finding-pain">THEY LOSE TIME</div>
+                <ul>
+                  <li>Cannot tell if a video was already reviewed by a colleague</li>
+                  <li>No "my queue" vs. "global queue" distinction</li>
+                  <li>Duplicated effort across Reviewer and Senior roles</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search DOWNLOADED Videos -->
+          <div class="dc-findings-group">
+            <div class="dc-findings-group-title">Search <span>DOWNLOADED</span> Videos</div>
+            <div class="dc-findings-cards">
+              <div class="dc-finding-card">
+                <div class="dc-finding-time">+5 min / session</div>
+                <div class="dc-finding-pain">THEY LOSE TIME</div>
+                <ul>
+                  <li>No clear visual distinction between downloaded and non-downloaded videos</li>
+                  <li>Re-request downloads that were already available locally</li>
+                  <li>Scroll through the full list to find previously requested items</li>
+                </ul>
+              </div>
+              <div class="dc-finding-card">
+                <div class="dc-finding-time">Playback friction</div>
+                <div class="dc-finding-pain">THEY LOSE TIME</div>
+                <ul>
+                  <li>Clicking a downloaded video opens a new browser window</li>
+                  <li>Controls are inconsistent across video player instances</li>
+                  <li>No way to annotate or timestamp relevant moments during review</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3g — PROPOSAL
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Design Proposal</div>
+          <h2 class="project-section-title">Proposal — Video Investigation</h2>
+          <p class="project-body-text">The proposal consolidated the research into a three-pillar framework addressing the root causes of task friction.</p>
+
+          <button
+            class="dc-img-trigger"
+            data-lightbox="../dollarcity/Proposal.png"
+            aria-label="Proposal — 3-pillar improvement framework: Filter Options, Navigation, Tagging"
+            type="button"
+          >
+            <img src="../dollarcity/Proposal.png" alt="Design proposal document showing 3-pillar improvement framework: Filter Options, Navigation, Tagging" loading="lazy" />
+          </button>
+          <p class="dc-img-caption">3-pillar improvement framework: Filter Options, Navigation, Tagging</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3h — BEST IMPROVEMENTS
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Key Improvements</div>
+          <h2 class="project-section-title">Best Improvements</h2>
+          <p class="project-body-text">Three targeted improvements with the highest impact-to-effort ratio — validated through Useberry testing sessions.</p>
+
+          <div class="dc-improvements-grid">
+            <!-- Filter Options -->
+            <div class="dc-improvement-card">
+              <div class="dc-improvement-icon">
+                <svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              </div>
+              <div class="dc-improvement-title">ADD MORE FILTER OPTIONS</div>
+              <p class="dc-improvement-desc">Expose advanced filter controls — date range, store, POS terminal, and exception type — inline on the main screen, eliminating hidden secondary panels that users consistently missed.</p>
+            </div>
+            <!-- Navigation -->
+            <div class="dc-improvement-card">
+              <div class="dc-improvement-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              </div>
+              <div class="dc-improvement-title">IMPROVE NAVIGATION</div>
+              <p class="dc-improvement-desc">Introduce a "My Video Request" personal queue as the default landing view. Users jump directly to their active work — no hunting, no duplicated requests, no context switching between tabs.</p>
+            </div>
+            <!-- Tagging -->
+            <div class="dc-improvement-card">
+              <div class="dc-improvement-icon">
+                <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <div class="dc-improvement-title">ADD MORE TAGS</div>
+              <p class="dc-improvement-desc">Extend the video tagging system to include download state, review status, and priority flags. Reviewers can now scan a list and instantly understand where each video stands without opening it.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 3i — INTERACTIVE PROTOTYPES (Figma Make)
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Interactive Prototypes</div>
+          <h2 class="project-section-title">Interactive Prototypes</h2>
+          <p class="project-body-text">Two fully interactive prototypes built in Figma Make — click to explore the flows directly in your browser.</p>
+
+          <div class="dc-proto-grid">
+            <div class="dc-proto-cell">
+              <div class="dc-proto-label">Video Investigation Prototype</div>
+              <iframe
+                src="https://www.figma.com/make/uzX7hk96o4Atu63S6UUj7O/Video-Investigation-Prototype?fullscreen=1"
+                width="100%"
+                height="600px"
+                style="border:1px solid var(--border-subtle);border-radius:12px;"
+                allowfullscreen
+                loading="lazy"
+                title="Video Investigation Prototype"
+              ></iframe>
+            </div>
+            <div class="dc-proto-cell">
+              <div class="dc-proto-label">POS Search Prototype</div>
+              <iframe
+                src="https://www.figma.com/make/mzkWR6NCwOdKu8PaGwsc2l/POS-Search-Prototype?fullscreen=1"
+                width="100%"
+                height="600px"
+                style="border:1px solid var(--border-subtle);border-radius:12px;"
+                allowfullscreen
+                loading="lazy"
+                title="POS Search Prototype"
+              ></iframe>
+            </div>
+          </div>
+          <p class="dc-proto-note">Built with Figma Make — click to interact</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             § 4 — UI SHOWCASE
         ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Research Goals</div>
