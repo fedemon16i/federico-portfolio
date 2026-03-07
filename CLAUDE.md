@@ -190,3 +190,54 @@ Break the --accent override pattern in project pages
 - Before finishing any edit, scan for: text touching borders, unequal sibling heights, missing padding, images without consistent height. Fix all before committing.
 Replace sections from scratch — always update in place
 Re-add images that have been replaced by coded HTML sections
+
+## Universal Layout & Symmetry System
+
+### Core principle
+Every component must breathe equally at every size.
+If content grows, the container grows. If siblings share a row, they share the same height.
+Never clip, never crowd, never orphan.
+
+### Card & box grids — always auto-fit
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(var(--col-min, 200px), 1fr));
+gap: var(--space-24);
+align-items: stretch;
+This handles 2, 3, 4, 5, N cards automatically. Last row fills. Never use fixed column counts.
+
+### Card internal structure — always flex column
+display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-20);
+Icon/label: flex-shrink:0. Body text: flex-grow:1. Footer/CTA: margin-top:auto.
+
+### Tables
+Every th, td: padding: 14px 20px; line-height: 1.6; vertical-align: top;
+No cell content should start at the cell edge. Min-width on columns with short labels.
+Alternating rows or clear borders — never ambiguous row separation.
+
+### Images in grids
+Siblings: same height via height:Xpx; object-fit:cover; object-position:top;
+Never mix fixed-height and auto-height siblings in the same row.
+Solo images: max-width:100%; height:auto; display:block;
+
+### Typography spacing
+h2 inside section: margin-bottom: var(--space-24)
+Eyebrow label: margin-bottom: var(--space-8)
+Body paragraph after heading: margin-top: 0
+Last element inside any box: no bottom margin (let padding handle it)
+
+### Section spacing
+Every .project-section: margin-bottom: var(--space-64)
+Nested subsections: margin-bottom: var(--space-40)
+
+### Text never touches borders
+All boxes: padding minimum var(--space-20) all sides
+Left-border accent: padding-left: var(--space-20) on inner content
+Bullet lists: padding-left: var(--space-16); line-height: 1.6
+
+### Responsive breakpoints
+Below 768px: single column for all grids. Font sizes scale down max 2 steps.
+Below 480px: padding reduces to var(--space-16) on cards and sections.
+No horizontal scroll at any viewport.
+
+### Pre-commit scan — mandatory
+1. Text touching a border → fix
