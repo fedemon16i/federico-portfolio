@@ -817,36 +817,6 @@
       </div>
     </header>
 
-    <!-- PROBLEM PANEL -->
-    <div class="dc-problem-panel">
-      <div class="container" style="max-width:900px;">
-        <div class="dc-problem-eyebrow">The Problem</div>
-        <p class="dc-problem-headline">Employees were losing hours to a fragmented fraud review workflow — no unified screen, no download state feedback, no role clarity across Canada and LATAM.</p>
-      </div>
-    </div>
-
-    <!-- IMPACT STRIP -->
-    <div class="dc-impact-strip">
-      <div class="container" style="max-width:900px;">
-        <p class="dc-impact-intro">Before diving into the process — here's what the work achieved:</p>
-        <div class="outcomes-metrics" aria-label="Key metrics">
-          <div>
-            <div class="outcome-metric-val" style="color:#f4c842">50%</div>
-            <div class="outcome-metric-lbl">Reduction in task completion time</div>
-          </div>
-          <div>
-            <div class="outcome-metric-val" style="color:#f4c842">4</div>
-            <div class="outcome-metric-lbl">User types mapped end-to-end</div>
-          </div>
-          <div>
-            <div class="outcome-metric-val" style="color:#f4c842">3</div>
-            <div class="outcome-metric-lbl">New personas identified</div>
-          </div>
-        </div>
-        <p class="dc-impact-transition">Here's how we got there.</p>
-      </div>
-    </div>
-
     <!-- PROJECT CONTENT -->
     <div class="project-content">
       <div class="container" style="max-width:900px;">
@@ -1323,18 +1293,18 @@
 
           <div class="rp-wrap" id="rp-wrap" tabindex="-1">
             <div class="rp-nav-bar">
-              <button class="rp-arrow" id="rp-prev" type="button" aria-label="Previous panel">
+              <button class="rp-arrow rp-prev" id="rp-prev" type="button" aria-label="Previous panel">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="10,3 5,8 10,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
               <span class="rp-counter" id="rp-counter" aria-live="polite" aria-atomic="true">1 / 5</span>
-              <button class="rp-arrow" id="rp-next" type="button" aria-label="Next panel">
+              <button class="rp-arrow rp-next" id="rp-next" type="button" aria-label="Next panel">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="6,3 11,8 6,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
             </div>
-            <div class="rp-label-bar" id="rp-label" aria-live="polite">Research Breakdown</div>
+            <div class="rp-label-bar rp-label" id="rp-label" aria-live="polite">Research Breakdown</div>
 
             <!-- Panel 1: Research Breakdown -->
-            <div class="rp-panel rp-active" id="rpanel-1">
+            <div class="rp-panel rp-active" id="rpanel-1" data-label="Research Breakdown">
               <p>Research was conducted in-context, embedded with users in active fraud review workflows:</p>
               <ul style="margin-top:var(--space-16);">
                 <li><strong>Contextual inquiry</strong> — on-site observation of telemarketer users during live fraud review sessions across LATAM and Canada operations</li>
@@ -1345,7 +1315,7 @@
             </div>
 
             <!-- Panel 2: User Types -->
-            <div class="rp-panel" id="rpanel-2">
+            <div class="rp-panel" id="rpanel-2" data-label="User Types">
               <p>Four distinct user types emerged from research, each with different goals and friction patterns:</p>
               <table class="dc-user-table" aria-label="User types summary">
                 <thead>
@@ -1391,12 +1361,12 @@
             </div>
 
             <!-- Panel 3: User Persona -->
-            <div class="rp-panel" id="rpanel-3">
+            <div class="rp-panel" id="rpanel-3" data-label="User Persona">
               <img src="../dollarcity/User_Persona.png" style="width:100%;height:auto;border-radius:12px;cursor:zoom-in" alt="Elisa Fernandez — Reviewer Persona" data-lightbox="../dollarcity/User_Persona.png" />
             </div>
 
             <!-- Panel 4: Journey Maps -->
-            <div class="rp-panel" id="rpanel-4">
+            <div class="rp-panel" id="rpanel-4" data-label="Journey Maps">
               <p>Journey maps revealed where friction concentrated across user types and roles:</p>
               <div style="display:flex;flex-direction:column;gap:var(--space-24);margin-top:var(--space-20);">
                 <div>
@@ -1411,7 +1381,7 @@
             </div>
 
             <!-- Panel 5: Findings & Proposal -->
-            <div class="rp-panel" id="rpanel-5">
+            <div class="rp-panel" id="rpanel-5" data-label="Findings &amp; Proposal">
               <h3 style="font-size:0.9375rem;font-weight:700;color:var(--text-primary);margin-bottom:var(--space-16);">Key Findings</h3>
               <ul>
                 <li>Users opened <strong>3–4 browser tabs</strong> to cross-reference video and transaction data</li>
@@ -1646,63 +1616,40 @@
 
   <script src="../assets/main.js"></script>
   <script>
+  // ── Research Panel Prev/Next Navigation ──────────────────
+  document.addEventListener('DOMContentLoaded', function() {
+    const panels = Array.from(document.querySelectorAll('.rp-panel'));
+    const counter = document.querySelector('.rp-counter');
+    const label = document.querySelector('.rp-label');
+    if (!panels.length) return;
+    let current = 0;
+    panels.forEach((p, i) => p.style.display = i === 0 ? 'block' : 'none');
+    function show(n) {
+      panels[current].style.display = 'none';
+      current = (n + panels.length) % panels.length;
+      panels[current].style.display = 'block';
+      if (counter) counter.textContent = (current + 1) + ' / ' + panels.length;
+      if (label) label.textContent = panels[current].dataset.label || '';
+    }
+    document.querySelector('.rp-prev')?.addEventListener('click', () => show(current - 1));
+    document.querySelector('.rp-next')?.addEventListener('click', () => show(current + 1));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });
+    if (counter) counter.textContent = '1 / ' + panels.length;
+    if (label) label.textContent = panels[0].dataset.label || '';
+  });
+
+  // ── Proto play buttons → open link ────────────────────────
+  document.querySelectorAll('[data-proto-href]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      window.open(btn.dataset.protoHref, '_blank', 'noopener,noreferrer');
+    });
+  });
+
+  // ── Lightbox (event delegation — works inside hidden panels) ──
   (function () {
-    // ── Research Panel Prev/Next Navigation ──────────────────
-    var panels = Array.from(document.querySelectorAll('.rp-panel'));
-    var counter = document.getElementById('rp-counter');
-    var labelEl = document.getElementById('rp-label');
-    var panelLabels = ['Research Breakdown', 'User Types', 'User Persona', 'Journey Maps', 'Findings & Proposal'];
-    var current = 0;
-
-    function showPanel(n) {
-      var next = ((n % panels.length) + panels.length) % panels.length;
-      var outgoing = panels[current];
-      var incoming = panels[next];
-      outgoing.style.opacity = '0';
-      setTimeout(function () {
-        outgoing.classList.remove('rp-active');
-        outgoing.style.display = 'none';
-        outgoing.style.opacity = '';
-        current = next;
-        incoming.style.display = 'block';
-        incoming.style.opacity = '0';
-        incoming.classList.add('rp-active');
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () { incoming.style.opacity = '1'; });
-        });
-        if (counter) counter.textContent = (current + 1) + ' / ' + panels.length;
-        if (labelEl) labelEl.textContent = panelLabels[current] || '';
-      }, 250);
-    }
-
-    // init — hide all except first
-    panels.forEach(function (p, i) {
-      p.style.transition = 'opacity 0.25s ease';
-      if (i === 0) { p.style.display = 'block'; p.style.opacity = '1'; }
-      else { p.style.display = 'none'; p.style.opacity = '0'; }
-    });
-
-    var prevBtn = document.getElementById('rp-prev');
-    var nextBtn = document.getElementById('rp-next');
-    if (prevBtn) prevBtn.addEventListener('click', function () { showPanel(current - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { showPanel(current + 1); });
-
-    var wrap = document.getElementById('rp-wrap');
-    if (wrap) {
-      wrap.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft')  { e.preventDefault(); showPanel(current - 1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); showPanel(current + 1); }
-      });
-    }
-
-    // ── Proto play buttons → open link ────────────────────────
-    document.querySelectorAll('[data-proto-href]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        window.open(btn.dataset.protoHref, '_blank', 'noopener,noreferrer');
-      });
-    });
-
-    // ── Lightbox (event delegation — works inside hidden panels) ──
     var dlg = document.getElementById('lightbox');
     if (dlg) {
       var li = document.getElementById('lightbox-img');
