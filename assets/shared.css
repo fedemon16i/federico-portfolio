@@ -95,6 +95,58 @@
   padding: 0;
 }
 
+/* =========================================================
+   GLOBAL SAFETY
+   ========================================================= */
+
+/* No component clips its content */
+[class*="card"], [class*="-panel"], [class*="-cell"],
+[class*="-box"], [class*="-chip"], [class*="section"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Icon containers never clip */
+[class*="icon"], [class*="-icon"], .tag-chip svg {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+/* Text in constrained containers: scroll with teaser */
+.scrollable-content {
+  overflow-y: auto;
+  max-height: var(--scroll-max, 320px);
+  padding-bottom: var(--space-16);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+/* Minimum padding all sides — no exceptions */
+[class*="card"], [class*="-panel"], [class*="-box"] {
+  padding: var(--space-20);
+}
+
+/* Tables never crowd */
+td, th {
+  padding: 14px 20px;
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+/* No horizontal scroll ever */
+body, main, section, .container {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Mobile: reduce padding gracefully, never to 0 */
+@media (max-width: 480px) {
+  [class*="card"], [class*="-panel"], [class*="-box"] {
+    padding: var(--space-16);
+  }
+  td, th { padding: 10px 14px; }
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
