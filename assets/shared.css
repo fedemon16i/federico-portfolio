@@ -542,15 +542,15 @@ button {
 }
 
 .tag-thematic {
-  background: var(--bg-surface);
+  background: rgba(255,255,255,0.06);
   color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
 .tag-tool {
-  background: var(--bg-raised);
-  color: var(--text-primary);
-  border: 1px solid var(--border-subtle);
+  background: rgba(255,255,255,0.10);
+  color: var(--text-tertiary);
+  border: 1px solid rgba(255,255,255,0.16);
 }
 
 .tag-chip svg {
