@@ -99,6 +99,10 @@
       isOpen ? closeMobileNav() : openMobileNav();
     });
 
+    // X close button inside mobile nav
+    const mobileClose = document.getElementById('nav-mobile-close');
+    if (mobileClose) mobileClose.addEventListener('click', closeMobileNav);
+
     // Close mobile nav on link click
     mobileNav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', closeMobileNav);
@@ -220,14 +224,13 @@
 
   /* ---- Card Image Carousel ---- */
   document.querySelectorAll('.card-image[data-carousel]').forEach(cardImage => {
-    const srcs = cardImage.dataset.carousel.split(',').map(s => s.trim());
+    const srcs = cardImage.dataset.carousel.split(',').map(s => s.trim()).filter(Boolean);
     if (srcs.length < 2) return;
 
     const img = cardImage.querySelector('img');
     if (!img) return;
 
     let current = 0;
-    let timer = null;
 
     // Build dots indicator
     const dotsWrap = document.createElement('div');
@@ -247,19 +250,62 @@
       dots.forEach((d, i) => d.classList.toggle('active', i === current));
     }
 
-    // Desktop hover cycling (pointer: fine = mouse/trackpad)
-    const card = cardImage.closest('.project-card');
-    if (card && window.matchMedia('(pointer: fine)').matches) {
-      card.addEventListener('mouseenter', () => {
-        goTo(0);
-        timer = setInterval(() => goTo(current + 1), 1500);
+    // Dot click: jump to slide
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(i);
       });
-      card.addEventListener('mouseleave', () => {
-        clearInterval(timer);
-        timer = null;
-        goTo(0);
+    });
+
+    // Arrow buttons
+    function makeArrow(dir) {
+      const btn = document.createElement('button');
+      btn.className = 'carousel-arrow carousel-arrow-' + (dir === -1 ? 'prev' : 'next');
+      btn.setAttribute('aria-label', dir === -1 ? 'Previous image' : 'Next image');
+      btn.innerHTML = dir === -1
+        ? '<svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>'
+        : '<svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>';
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(current + dir);
       });
+      return btn;
     }
+    cardImage.appendChild(makeArrow(-1));
+    cardImage.appendChild(makeArrow(1));
+
+    // Mouse drag-to-scroll
+    let dragStartX = 0;
+    let isDragging = false;
+    let dragDelta = 0;
+
+    cardImage.addEventListener('mousedown', e => {
+      dragStartX = e.clientX;
+      isDragging = true;
+      dragDelta = 0;
+      e.preventDefault();
+    });
+
+    cardImage.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      dragDelta = e.clientX - dragStartX;
+      img.style.transform = 'translateX(' + Math.max(-40, Math.min(40, dragDelta)) + 'px)';
+    });
+
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      img.style.transform = '';
+      if (Math.abs(dragDelta) >= 30) {
+        goTo(dragDelta < 0 ? current + 1 : current - 1);
+      }
+    }
+
+    cardImage.addEventListener('mouseup', endDrag);
+    cardImage.addEventListener('mouseleave', endDrag);
 
     // Mobile swipe (touch)
     let touchStartX = 0;
@@ -271,6 +317,36 @@
       if (Math.abs(dx) < 30) return;
       goTo(dx < 0 ? current + 1 : current - 1);
     }, { passive: true });
+  });
+
+  /* ---- Card Tool Overflow: max 3 visible, +N chip with tooltip ---- */
+  document.querySelectorAll('.card-tools').forEach(toolsEl => {
+    const tools = [...toolsEl.querySelectorAll('.card-tool')];
+    const MAX = 3;
+    if (tools.length <= MAX) return;
+
+    const hidden = tools.slice(MAX);
+    hidden.forEach(t => { t.style.display = 'none'; });
+
+    const chip = document.createElement('span');
+    chip.className = 'card-tool-more';
+    chip.textContent = '+' + hidden.length;
+
+    const tip = document.createElement('span');
+    tip.className = 'card-tool-tooltip';
+    tip.textContent = hidden.map(t => t.textContent.trim()).join(', ');
+    chip.appendChild(tip);
+    toolsEl.appendChild(chip);
+
+    // Touch: toggle tooltip; click outside closes
+    chip.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      chip.classList.toggle('tooltip-open');
+    });
+    document.addEventListener('click', e => {
+      if (!chip.contains(e.target)) chip.classList.remove('tooltip-open');
+    });
   });
 
 })();
