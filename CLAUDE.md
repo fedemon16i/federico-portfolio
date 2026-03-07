@@ -159,5 +159,34 @@ Add font-weight: 300
 Hardcode colors outside CSS variables
 Remove ARIA attributes from nav
 Break the --accent override pattern in project pages
+
+## UI Symmetry Rules — Apply to ALL components
+
+### Cards & boxes
+- min-height on sibling cards: always equal. Use `align-items:stretch` on grid/flex parent.
+- padding: minimum var(--space-20) all sides. Text must never touch a border.
+- If cards have icons + title + body: use `display:flex; flex-direction:column; gap:var(--space-12)`
+- Multi-col card grids: `align-items:stretch` so all cards in a row match height.
+
+### Text inside boxes
+- If text risks touching a border: add `padding-left: var(--space-16)` minimum.
+- Bullet lists inside cards: `padding-left: var(--space-16); line-height:1.6`
+- If a card has fewer bullets than its sibling, add a filler rule or set `justify-content:space-between`
+
+### Tables
+- All td/th: `padding: 14px 20px; line-height:1.6`
+- No text should start at the cell edge.
+
+### Images in grids
+- Sibling images: same height via `height:Xpx; object-fit:cover`
+- Never mix fixed-height and auto-height siblings in the same row.
+
+### Spacing between sections
+- Every .project-section: `margin-bottom: var(--space-64)`
+- Every h2 inside a section: `margin-bottom: var(--space-24)`
+- Every eyebrow label: `margin-bottom: var(--space-8)`
+
+### Global rule
+- Before finishing any edit, scan for: text touching borders, unequal sibling heights, missing padding, images without consistent height. Fix all before committing.
 Replace sections from scratch — always update in place
 Re-add images that have been replaced by coded HTML sections
