@@ -159,18 +159,85 @@ Add font-weight: 300
 Hardcode colors outside CSS variables
 Remove ARIA attributes from nav
 Break the --accent override pattern in project pages
+
+## UI Symmetry Rules — Apply to ALL components
+
+### Cards & boxes
+- min-height on sibling cards: always equal. Use `align-items:stretch` on grid/flex parent.
+- padding: minimum var(--space-20) all sides. Text must never touch a border.
+- If cards have icons + title + body: use `display:flex; flex-direction:column; gap:var(--space-12)`
+- Multi-col card grids: `align-items:stretch` so all cards in a row match height.
+
+### Text inside boxes
+- If text risks touching a border: add `padding-left: var(--space-16)` minimum.
+- Bullet lists inside cards: `padding-left: var(--space-16); line-height:1.6`
+- If a card has fewer bullets than its sibling, add a filler rule or set `justify-content:space-between`
+
+### Tables
+- All td/th: `padding: 14px 20px; line-height:1.6`
+- No text should start at the cell edge.
+
+### Images in grids
+- Sibling images: same height via `height:Xpx; object-fit:cover`
+- Never mix fixed-height and auto-height siblings in the same row.
+
+### Spacing between sections
+- Every .project-section: `margin-bottom: var(--space-64)`
+- Every h2 inside a section: `margin-bottom: var(--space-24)`
+- Every eyebrow label: `margin-bottom: var(--space-8)`
+
+### Global rule
+- Before finishing any edit, scan for: text touching borders, unequal sibling heights, missing padding, images without consistent height. Fix all before committing.
 Replace sections from scratch — always update in place
 Re-add images that have been replaced by coded HTML sections
 
-## Tag / Chip System — Global
+## Universal Layout & Symmetry System
 
-Two types, always in one unified row. Never a separate "TOOLS" label.
+### Core principle
+Every component must breathe equally at every size.
+If content grows, the container grows. If siblings share a row, they share the same height.
+Never clip, never crowd, never orphan.
 
-- `.tag-thematic` — dark, no icon. Describes what the project is (UX Research, SaaS, etc.)
-- `.tag-tool` — lighter, WITH 16px brand/thematic icon. Describes tools and methods used.
+### Card & box grids — always auto-fit
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(var(--col-min, 200px), 1fr));
+gap: var(--space-24);
+align-items: stretch;
+This handles 2, 3, 4, 5, N cards automatically. Last row fills. Never use fixed column counts.
 
-Both use base class `.tag-chip`. Defined in `shared.css`.
+### Card internal structure — always flex column
+display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-20);
+Icon/label: flex-shrink:0. Body text: flex-grow:1. Footer/CTA: margin-top:auto.
 
-Icon set (inline SVG, always embedded): Figma, FigJam=Figma SVG, Useberry=play circle, Maze=grid+cross, Miro=yellow M, Pendo=pink P, Qualtrics=blue Q, Dynamics=MS squares, Google Analytics=bar chart, AI Tools=sparkle, Contextual Inquiry=users, Heuristic Audit=search+plus.
+### Tables
+Every th, td: padding: 14px 20px; line-height: 1.6; vertical-align: top;
+No cell content should start at the cell edge. Min-width on columns with short labels.
+Alternating rows or clear borders — never ambiguous row separation.
 
-Apply to: hero of every project page + cards in `index.html`. Never use plain text-only chips for tools. Never separate tool chips into their own row or label.
+### Images in grids
+Siblings: same height via height:Xpx; object-fit:cover; object-position:top;
+Never mix fixed-height and auto-height siblings in the same row.
+Solo images: max-width:100%; height:auto; display:block;
+
+### Typography spacing
+h2 inside section: margin-bottom: var(--space-24)
+Eyebrow label: margin-bottom: var(--space-8)
+Body paragraph after heading: margin-top: 0
+Last element inside any box: no bottom margin (let padding handle it)
+
+### Section spacing
+Every .project-section: margin-bottom: var(--space-64)
+Nested subsections: margin-bottom: var(--space-40)
+
+### Text never touches borders
+All boxes: padding minimum var(--space-20) all sides
+Left-border accent: padding-left: var(--space-20) on inner content
+Bullet lists: padding-left: var(--space-16); line-height: 1.6
+
+### Responsive breakpoints
+Below 768px: single column for all grids. Font sizes scale down max 2 steps.
+Below 480px: padding reduces to var(--space-16) on cards and sections.
+No horizontal scroll at any viewport.
+
+### Pre-commit scan — mandatory
+1. Text touching a border → fix
