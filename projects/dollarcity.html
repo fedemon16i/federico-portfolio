@@ -348,7 +348,7 @@
     .dc-problem-panel {
       background: var(--bg-surface);
       border-left: 4px solid #f4c842;
-      padding: var(--space-48) 0;
+      padding: var(--space-48) var(--space-40);
     }
     .dc-problem-eyebrow {
       font-size: 0.625rem; font-weight: 700;
@@ -395,7 +395,7 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: var(--space-24);
+      padding: var(--space-28);
     }
     .dc-goal-icon { font-size: 1.5rem; margin-bottom: var(--space-12); }
     .dc-goal-title {
@@ -458,18 +458,20 @@
       margin-top: var(--space-16);
     }
     .dc-user-table th {
-      text-align: left; padding: var(--space-12) var(--space-16);
+      text-align: left; padding: var(--space-12) var(--space-20);
       background: var(--bg-raised);
       font-size: 0.6875rem; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: var(--text-tertiary);
       border-bottom: 1px solid var(--border-subtle);
+      line-height: 1.6;
     }
     .dc-user-table td {
-      padding: var(--space-12) var(--space-16);
+      padding: var(--space-12) var(--space-20);
       color: var(--text-secondary);
       border-bottom: 1px solid var(--border-subtle);
       vertical-align: top;
+      line-height: 1.6;
     }
     .dc-user-table tr:last-child td { border-bottom: none; }
     .dc-check { color: #22c55e; font-weight: 700; text-align: center; }
@@ -584,6 +586,165 @@
       transition: color 150ms;
     }
     .dc-proto-card-link svg { width: 14px; height: 14px; }
+
+    /* ── Research Panel Prev/Next Navigation ── */
+    .rp-wrap {
+      margin-top: var(--space-24);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .rp-nav-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: var(--space-16);
+      padding: var(--space-16) var(--space-24);
+      background: var(--bg-raised);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .rp-arrow {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 150ms, border-color 150ms;
+      flex-shrink: 0;
+    }
+    .rp-arrow:hover { background: var(--bg-hover); border-color: var(--border-strong); }
+    .rp-arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .rp-counter {
+      font-size: 0.875rem; font-weight: 600;
+      color: var(--text-tertiary);
+      min-width: 48px; text-align: center;
+    }
+    .rp-label-bar {
+      text-align: center;
+      padding: var(--space-12) var(--space-24);
+      font-size: 0.8125rem; font-weight: 700;
+      color: var(--text-secondary);
+      background: var(--bg-raised);
+      border-bottom: 1px solid var(--border-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .rp-panel {
+      padding: var(--space-28) var(--space-32);
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      display: none;
+      transition: opacity 0.25s ease;
+    }
+    .rp-panel.rp-active { display: block; }
+    @media (max-width: 600px) { .rp-panel { padding: var(--space-20); } }
+    .rp-panel ul { padding-left: var(--space-20); display: flex; flex-direction: column; gap: var(--space-8); }
+    .rp-panel ul li { list-style: disc; line-height: 1.6; }
+    .rp-panel strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ── Proposal Table (CSS grid) ── */
+    .rp-proposal-table {
+      margin-top: var(--space-24);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      font-size: 0.8125rem;
+      background: var(--bg-surface);
+    }
+    .rp-proposal-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      background: rgba(21,128,61,0.15);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .rp-proposal-col-hdr {
+      padding: var(--space-12) var(--space-20);
+      font-size: 0.6875rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #15803d;
+      border-right: 1px solid var(--border-subtle);
+    }
+    .rp-proposal-col-hdr:last-child { border-right: none; }
+    .rp-proposal-section-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      background: rgba(21,128,61,0.08);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .rp-proposal-section-cell {
+      padding: var(--space-8) var(--space-20);
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--text-primary);
+      border-right: 1px solid var(--border-subtle);
+    }
+    .rp-proposal-section-cell:last-child { border-right: none; }
+    .rp-proposal-data-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .rp-proposal-data-row:last-child { border-bottom: none; }
+    .rp-proposal-cell {
+      padding: var(--space-16) var(--space-20);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      border-right: 1px solid var(--border-subtle);
+      vertical-align: top;
+    }
+    .rp-proposal-cell:last-child { border-right: none; }
+    .rp-proposal-cell ul { padding-left: var(--space-16); display: flex; flex-direction: column; gap: var(--space-4); }
+    .rp-proposal-cell ul li { list-style: disc; }
+    @media (max-width: 640px) {
+      .rp-proposal-header, .rp-proposal-section-row, .rp-proposal-data-row { grid-template-columns: 1fr; }
+      .rp-proposal-col-hdr, .rp-proposal-section-cell, .rp-proposal-cell { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+      .rp-proposal-col-hdr:last-child, .rp-proposal-section-cell:last-child, .rp-proposal-cell:last-child { border-bottom: none; }
+    }
+
+    /* ── Prototype Cards (glass) ── */
+    .proto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-24);
+      margin-top: var(--space-24);
+    }
+    @media (max-width: 640px) { .proto-grid { grid-template-columns: 1fr; } }
+    .proto-card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
+    .proto-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .proto-img-wrap { position: relative; }
+    .proto-img-wrap img {
+      width: 100%; height: 260px;
+      object-fit: cover; object-position: top;
+      display: block;
+    }
+    .proto-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(21,128,61,0.9);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: transform 200ms ease, background 200ms;
+    }
+    .proto-play:hover { background: rgba(21,128,61,1); transform: translate(-50%,-50%) scale(1.1); }
+    .proto-play:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .proto-play svg { display: block; }
+    .proto-body { padding: var(--space-24); }
+    .proto-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+    .proto-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin: var(--space-12) 0; }
 
     /* ── Context Snapshot ── */
     .context-grid {
@@ -762,42 +923,7 @@
       <div class="container" style="max-width:900px;">
 
         <!-- ══════════════════════════════════════════
-             § 2 — CONTEXT SNAPSHOT
-        ══════════════════════════════════════════ -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Context Snapshot</div>
-          <div class="context-grid">
-            <div class="context-card">
-              <div class="context-card-label">Role</div>
-              <div class="context-card-value">Lead UX Designer — Research, Wireframing, Prototyping, User Testing</div>
-            </div>
-            <div class="context-card">
-              <div class="context-card-label">Timeline</div>
-              <div class="context-card-value">Jul 2023 – Dec 2023 (6 months of architectural negotiation and cross-functional alignment)</div>
-            </div>
-            <div class="context-card">
-              <div class="context-card-label">Company</div>
-              <div class="context-card-value">Applaudo Studios — external UX consultant embedded in client delivery team</div>
-            </div>
-          </div>
-          <p class="nda-notice">Detailed screens and research artifacts are covered under NDA and available upon request with appropriate context.</p>
-        </div>
-
-        <!-- ══════════════════════════════════════════
-             § 3 — PROBLEM STATEMENT
-        ══════════════════════════════════════════ -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Problem Statement</div>
-          <p class="project-body-text">
-            Employees at Dollarama (Canada) and DollarCity (LATAM) stores were losing significant time on routine video-based transaction reviews. The existing SaaS platform wasn't delivering the efficiency stakeholders needed — creating operational drag and leaving fraud risks undetected.
-          </p>
-          <p class="project-body-text" style="margin-top:var(--space-16);">
-            A fraud monitoring and reporting feature had to be integrated while the platform was already in active development, with real users and real constraints. The challenge was not to redesign from scratch but to fit a high-complexity workflow into a system already in motion.
-          </p>
-        </div>
-
-        <!-- ══════════════════════════════════════════
-             § 3b — RESEARCH GOALS
+             RESEARCH GOALS
         ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
           <div class="project-section-label">Research Goals</div>
@@ -832,22 +958,59 @@
         </div>
 
         <!-- ══════════════════════════════════════════
-             § 3c — TABBED RESEARCH
+             CONTEXT SNAPSHOT
         ══════════════════════════════════════════ -->
         <div class="project-section" data-anim>
-          <div class="project-section-label">Research Breakdown</div>
+          <div class="project-section-label">Context Snapshot</div>
+          <div class="context-grid">
+            <div class="context-card">
+              <div class="context-card-label">Role</div>
+              <div class="context-card-value">Lead UX Designer — Research, Wireframing, Prototyping, User Testing</div>
+            </div>
+            <div class="context-card">
+              <div class="context-card-label">Timeline</div>
+              <div class="context-card-value">Jul 2023 – Dec 2023 (6 months of architectural negotiation and cross-functional alignment)</div>
+            </div>
+            <div class="context-card">
+              <div class="context-card-label">Company</div>
+              <div class="context-card-value">Applaudo Studios — external UX consultant embedded in client delivery team</div>
+            </div>
+          </div>
+          <p class="nda-notice">Detailed screens and research artifacts are covered under NDA and available upon request with appropriate context.</p>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             UNIFIED RESEARCH SECTION (prev/next nav)
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Research</div>
           <h2 class="project-section-title">Methodology, users, and findings</h2>
-          <div class="dc-tabs-wrap">
-            <div class="dc-tabs-bar" role="tablist" id="dc-tablist" aria-label="Research breakdown tabs">
-              <button role="tab" id="dctab-users" class="dc-tab-btn" aria-selected="true" aria-controls="dcpanel-users">User Types</button>
-              <button role="tab" id="dctab-persona" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-persona">Persona</button>
-              <button role="tab" id="dctab-journey" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-journey">Journey Maps</button>
-              <button role="tab" id="dctab-findings" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-findings">Findings</button>
-              <button role="tab" id="dctab-proposal" class="dc-tab-btn" aria-selected="false" aria-controls="dcpanel-proposal">Proposal</button>
+
+          <div class="rp-wrap" id="rp-wrap" tabindex="-1">
+            <div class="rp-nav-bar">
+              <button class="rp-arrow" id="rp-prev" type="button" aria-label="Previous panel">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="10,3 5,8 10,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <span class="rp-counter" id="rp-counter" aria-live="polite" aria-atomic="true">1 / 5</span>
+              <button class="rp-arrow" id="rp-next" type="button" aria-label="Next panel">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="6,3 11,8 6,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="rp-label-bar" id="rp-label" aria-live="polite">Research Breakdown</div>
+
+            <!-- Panel 1: Research Breakdown -->
+            <div class="rp-panel rp-active" id="rpanel-1">
+              <p>Research was conducted in-context, embedded with users in active fraud review workflows:</p>
+              <ul style="margin-top:var(--space-16);">
+                <li><strong>Contextual inquiry</strong> — on-site observation of telemarketer users during live fraud review sessions across LATAM and Canada operations</li>
+                <li><strong>Useberry testing</strong> — both moderated and unmoderated usability testing of key interaction flows before committing to high-fidelity</li>
+                <li><strong>Heuristic audit</strong> — systematic evaluation of the existing SaaS platform against Nielsen's 10 usability heuristics, surfacing 18 friction points</li>
+                <li><strong>Stakeholder workshops</strong> — alignment sessions with product, engineering, and client leads to negotiate scope against delivery timeline</li>
+              </ul>
             </div>
 
-            <!-- User Types Panel -->
-            <div id="dcpanel-users" role="tabpanel" aria-labelledby="dctab-users" class="dc-tab-panel">
+            <!-- Panel 2: User Types -->
+            <div class="rp-panel" id="rpanel-2">
               <p>Four distinct user types emerged from research, each with different goals and friction patterns:</p>
               <table class="dc-user-table" aria-label="User types summary">
                 <thead>
@@ -892,48 +1055,29 @@
               </table>
             </div>
 
-            <!-- Persona Panel -->
-            <div id="dcpanel-persona" role="tabpanel" aria-labelledby="dctab-persona" class="dc-tab-panel" hidden>
-              <p><strong>Primary Persona — The Telemarketer</strong></p>
-              <p style="margin-top:var(--space-12);">A non-technical store employee responsible for reviewing video clips tied to POS transactions to flag potential fraud. Works across multiple tabs with no unified interface, often losing context between the video player and transaction list.</p>
-              <ul style="margin-top:var(--space-16);">
-                <li><strong>Goal:</strong> Complete daily video review quota without missing flagged transactions</li>
-                <li><strong>Frustration:</strong> Has to open 3–4 browser tabs to cross-reference data</li>
-                <li><strong>Need:</strong> Single-screen view combining POS search, video preview, and download state</li>
-                <li><strong>Trust barrier:</strong> No feedback on whether a video is downloading or available without refreshing</li>
-              </ul>
+            <!-- Panel 3: User Persona -->
+            <div class="rp-panel" id="rpanel-3">
+              <img src="../dollarcity/User_Persona.png" style="width:100%;height:auto;border-radius:12px;cursor:zoom-in" alt="Elisa Fernandez — Reviewer Persona" data-lightbox="../dollarcity/User_Persona.png" />
             </div>
 
-            <!-- Journey Maps Panel -->
-            <div id="dcpanel-journey" role="tabpanel" aria-labelledby="dctab-journey" class="dc-tab-panel" hidden>
-              <p>Journey maps revealed where friction concentrated across the two main flows:</p>
-              <div class="dc-journey-grid">
-                <div class="dc-journey-card">
-                  <div class="dc-journey-title">Flow A — POS → Video Review</div>
-                  <div class="dc-journey-steps">
-                    <div class="dc-journey-step">Search POS terminal &amp; date</div>
-                    <div class="dc-journey-step">Find transaction in results list</div>
-                    <div class="dc-journey-step">Open new tab for video player <em style="color:var(--text-tertiary)">[friction]</em></div>
-                    <div class="dc-journey-step">Request video download</div>
-                    <div class="dc-journey-step">Refresh tab to check status <em style="color:var(--text-tertiary)">[friction]</em></div>
-                    <div class="dc-journey-step">Play and review clip</div>
-                  </div>
+            <!-- Panel 4: Journey Maps -->
+            <div class="rp-panel" id="rpanel-4">
+              <p>Journey maps revealed where friction concentrated across user types and roles:</p>
+              <div style="display:flex;flex-direction:column;gap:var(--space-24);margin-top:var(--space-20);">
+                <div>
+                  <p style="font-size:0.8125rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-12);">Reviewer Journey</p>
+                  <img src="../dollarcity/REVIEWER.png" style="width:100%;height:auto;border-radius:12px;cursor:zoom-in;display:block" alt="Reviewer user journey map — fraud video review flow from POS search to playback" data-lightbox="../dollarcity/REVIEWER.png" />
                 </div>
-                <div class="dc-journey-card">
-                  <div class="dc-journey-title">Flow B — My Video Requests</div>
-                  <div class="dc-journey-steps">
-                    <div class="dc-journey-step">Land on platform (no clear entry)</div>
-                    <div class="dc-journey-step">Navigate to request queue <em style="color:var(--text-tertiary)">[buried]</em></div>
-                    <div class="dc-journey-step">Filter by status — no filter available <em style="color:var(--text-tertiary)">[friction]</em></div>
-                    <div class="dc-journey-step">Open video — re-downloads if status unclear</div>
-                    <div class="dc-journey-step">Supervisor cannot see team queue</div>
-                  </div>
+                <div>
+                  <p style="font-size:0.8125rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-12);">Senior Reviewer Journey</p>
+                  <img src="../dollarcity/SENIOR.png" style="width:100%;height:auto;border-radius:12px;cursor:zoom-in;display:block" alt="Senior reviewer user journey map — supervisor fraud queue and escalation flow" data-lightbox="../dollarcity/SENIOR.png" />
                 </div>
               </div>
             </div>
 
-            <!-- Findings Panel -->
-            <div id="dcpanel-findings" role="tabpanel" aria-labelledby="dctab-findings" class="dc-tab-panel" hidden>
+            <!-- Panel 5: Findings & Proposal -->
+            <div class="rp-panel" id="rpanel-5">
+              <h3 style="font-size:0.9375rem;font-weight:700;color:var(--text-primary);margin-bottom:var(--space-16);">Key Findings</h3>
               <ul>
                 <li>Users opened <strong>3–4 browser tabs</strong> to cross-reference video and transaction data</li>
                 <li><strong>No preview</strong> of video before committing to a download request</li>
@@ -943,86 +1087,78 @@
                 <li>Role-based views were <strong>not enforced</strong> — supervisors saw the same UI as telemarketers</li>
                 <li>"My Video Request" was the most-used entry point — yet it wasn't the default landing state</li>
               </ul>
-            </div>
 
-            <!-- Proposal Panel -->
-            <div id="dcpanel-proposal" role="tabpanel" aria-labelledby="dctab-proposal" class="dc-tab-panel" hidden>
-              <p>Based on research, we proposed three structural changes:</p>
-              <ul style="margin-top:var(--space-16);">
-                <li><strong>One Screen Rule</strong> — Consolidate POS search, video filter, and playback into a single scrollable panel. Eliminate all tab-switching.</li>
-                <li><strong>Download State System</strong> — Introduce 4 explicit states (Not Downloaded → Downloading → Downloaded → Playing) with visual badges and toast notifications.</li>
-                <li><strong>Role-Based Default Views</strong> — "My Video Requests" as default for telemarketers; global queue accessible by supervisors via role toggle.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- ══════════════════════════════════════════
-             § 3d — BEST IMPROVEMENTS
-        ══════════════════════════════════════════ -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Best Improvements</div>
-          <h2 class="project-section-title">Top design decisions that moved the needle</h2>
-          <div class="dc-improvements-grid">
-            <div class="dc-improvement-card">
-              <div class="dc-improvement-title">Unified POS + Video Screen</div>
-              <div class="dc-improvement-desc">Eliminated tab-switching by combining transaction search and video playback in one panel. Users went from 3–4 open tabs to zero context switches.</div>
-            </div>
-            <div class="dc-improvement-card">
-              <div class="dc-improvement-title">4-State Download System</div>
-              <div class="dc-improvement-desc">Introduced clear visual feedback: Not Downloaded → Downloading → Downloaded → Playing. Duplicate download requests dropped to near zero in testing.</div>
-            </div>
-            <div class="dc-improvement-card">
-              <div class="dc-improvement-title">My Requests as Default</div>
-              <div class="dc-improvement-desc">Surfaced each user's personal request queue as the landing state. Single biggest contributor to time-to-first-action reduction across all user types.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ══════════════════════════════════════════
-             § 3e — INTERACTIVE PROTOTYPES
-        ══════════════════════════════════════════ -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Interactive Prototypes</div>
-          <h2 class="project-section-title">Explore the redesigned flows</h2>
-          <div class="dc-proto-grid">
-            <a class="dc-proto-card" href="https://www.figma.com/proto/" target="_blank" rel="noopener noreferrer" aria-label="Open Video Investigation prototype in Figma">
-              <div class="dc-proto-card-img-wrap">
-                <img src="../dollarcity/IMG_0216.jpeg" alt="Video Investigation prototype — request queue and video playback screen" />
-                <div class="dc-proto-card-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <h3 style="font-size:0.9375rem;font-weight:700;color:var(--text-primary);margin-top:var(--space-32);margin-bottom:var(--space-16);">Proposal — Video Investigation</h3>
+              <div class="rp-proposal-table" role="table" aria-label="Video Investigation design proposal">
+                <div class="rp-proposal-header" role="row">
+                  <div class="rp-proposal-col-hdr" role="columnheader">Add More Filter Options</div>
+                  <div class="rp-proposal-col-hdr" role="columnheader">Improve Navigation</div>
+                  <div class="rp-proposal-col-hdr" role="columnheader">Add More Tags</div>
+                </div>
+                <div class="rp-proposal-section-row" role="row">
+                  <div class="rp-proposal-section-cell" role="cell">Search New Videos</div>
+                  <div class="rp-proposal-section-cell" role="cell">Search New Videos</div>
+                  <div class="rp-proposal-section-cell" role="cell">Search New Videos</div>
+                </div>
+                <div class="rp-proposal-data-row" role="row">
+                  <div class="rp-proposal-cell" role="cell">
+                    <ul>
+                      <li>Filter by store / branch</li>
+                      <li>Filter by POS terminal ID</li>
+                      <li>Date range picker</li>
+                      <li>Transaction amount range</li>
+                    </ul>
+                  </div>
+                  <div class="rp-proposal-cell" role="cell">
+                    <ul>
+                      <li>Default landing on My Requests</li>
+                      <li>Breadcrumb trail for context</li>
+                      <li>Sticky filter panel on scroll</li>
+                    </ul>
+                  </div>
+                  <div class="rp-proposal-cell" role="cell">
+                    <ul>
+                      <li>Flag as reviewed</li>
+                      <li>Flag as suspicious</li>
+                      <li>Priority tag</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="rp-proposal-section-row" role="row">
+                  <div class="rp-proposal-section-cell" role="cell">Downloaded Videos</div>
+                  <div class="rp-proposal-section-cell" role="cell">Downloaded Videos</div>
+                  <div class="rp-proposal-section-cell" role="cell">Downloaded Videos</div>
+                </div>
+                <div class="rp-proposal-data-row" role="row">
+                  <div class="rp-proposal-cell" role="cell">
+                    <ul>
+                      <li>Filter by download status</li>
+                      <li>Filter by review date</li>
+                      <li>Filter by assignee</li>
+                    </ul>
+                  </div>
+                  <div class="rp-proposal-cell" role="cell">
+                    <ul>
+                      <li>Sort by download date</li>
+                      <li>Expand to full player in one click</li>
+                      <li>Quick access to queue</li>
+                    </ul>
+                  </div>
+                  <div class="rp-proposal-cell" role="cell">
+                    <ul>
+                      <li>Tag by fraud category</li>
+                      <li>Export with tags to report</li>
+                      <li>Bulk tag selection</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <div class="dc-proto-card-body">
-                <div class="dc-proto-card-title">Video Investigation</div>
-                <div class="dc-proto-card-desc">Five states of the investigation flow — request queue, preview, download progression, and full playback.</div>
-                <span class="dc-proto-card-link">
-                  Open in Figma
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </span>
-              </div>
-            </a>
-            <a class="dc-proto-card" href="https://www.figma.com/proto/" target="_blank" rel="noopener noreferrer" aria-label="Open POS Search prototype in Figma">
-              <div class="dc-proto-card-img-wrap">
-                <img src="../dollarcity/IMG_0218.jpeg" alt="POS Search prototype — four download states eliminating re-request behavior" />
-                <div class="dc-proto-card-play" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-              </div>
-              <div class="dc-proto-card-body">
-                <div class="dc-proto-card-title">POS Search + Download States</div>
-                <div class="dc-proto-card-desc">Four download states that eliminated re-request behavior — from no selection to full video replay.</div>
-                <span class="dc-proto-card-link">
-                  Open in Figma
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                </span>
-              </div>
-            </a>
+            </div>
           </div>
         </div>
 
         <!-- ══════════════════════════════════════════
-             § 7 — DESIGN DECISIONS
+             DESIGN DECISIONS
         ══════════════════════════════════════════ -->
         <div id="decisions" class="project-section" data-anim>
           <div class="project-section-label">Design Decisions</div>
@@ -1048,7 +1184,43 @@
         </div>
 
         <!-- ══════════════════════════════════════════
-             § 8 — SYSTEM & TOOLING SNAPSHOT
+             INTERACTIVE PROTOTYPES
+        ══════════════════════════════════════════ -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">Interactive Prototypes</div>
+          <h2 class="project-section-title">Explore the redesigned flows</h2>
+          <div class="proto-grid">
+            <div class="proto-card">
+              <div class="proto-img-wrap">
+                <img src="../dollarcity/IMG_0216.jpeg" alt="Video Investigation prototype — request queue and video playback screen" />
+                <button class="proto-play" type="button" aria-label="Open Video Investigation prototype in Figma" data-proto-href="https://www.figma.com/make/uzX7hk96o4Atu63S6UUj7O/Video-Investigation-Prototype?fullscreen=1">
+                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l8 5-8 5V3z" fill="white"/></svg>
+                </button>
+              </div>
+              <div class="proto-body">
+                <div class="proto-title">Video Investigation</div>
+                <div class="proto-desc">Five states of the investigation flow — request queue, preview, download progression, and full playback.</div>
+                <a href="https://www.figma.com/make/uzX7hk96o4Atu63S6UUj7O/Video-Investigation-Prototype?fullscreen=1" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size:0.8rem">Open Prototype →</a>
+              </div>
+            </div>
+            <div class="proto-card">
+              <div class="proto-img-wrap">
+                <img src="../dollarcity/IMG_0218.jpeg" alt="POS Search prototype — four download states eliminating re-request behavior" />
+                <button class="proto-play" type="button" aria-label="Open POS Search prototype in Figma" data-proto-href="https://www.figma.com/make/mzkWR6NCwOdKu8PaGwsc2l/POS-Search-Prototype?fullscreen=1">
+                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l8 5-8 5V3z" fill="white"/></svg>
+                </button>
+              </div>
+              <div class="proto-body">
+                <div class="proto-title">POS Search + Download States</div>
+                <div class="proto-desc">Four download states that eliminated re-request behavior — from no selection to full video replay.</div>
+                <a href="https://www.figma.com/make/mzkWR6NCwOdKu8PaGwsc2l/POS-Search-Prototype?fullscreen=1" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size:0.8rem">Open Prototype →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             SYSTEM & TOOLING SNAPSHOT
         ══════════════════════════════════════════ -->
         <div id="tooling" class="project-section" data-anim>
           <div class="project-section-label">System & Tooling Snapshot</div>
@@ -1140,31 +1312,76 @@
   <script src="../assets/main.js"></script>
   <script>
   (function () {
-    // ── DC Research tabs ──────────────────────────────────────
-    var dctl = document.getElementById('dc-tablist');
-    if (dctl) {
-      dctl.querySelectorAll('[role="tab"]').forEach(function (tab) {
-        tab.addEventListener('click', function () {
-          dctl.querySelectorAll('[role="tab"]').forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
-          tab.setAttribute('aria-selected', 'true');
-          document.querySelectorAll('.dc-tab-panel').forEach(function (p) { p.hidden = true; });
-          document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+    // ── Research Panel Prev/Next Navigation ──────────────────
+    var panels = Array.from(document.querySelectorAll('.rp-panel'));
+    var counter = document.getElementById('rp-counter');
+    var labelEl = document.getElementById('rp-label');
+    var panelLabels = ['Research Breakdown', 'User Types', 'User Persona', 'Journey Maps', 'Findings & Proposal'];
+    var current = 0;
+
+    function showPanel(n) {
+      var next = ((n % panels.length) + panels.length) % panels.length;
+      var outgoing = panels[current];
+      var incoming = panels[next];
+      outgoing.style.opacity = '0';
+      setTimeout(function () {
+        outgoing.classList.remove('rp-active');
+        outgoing.style.display = 'none';
+        outgoing.style.opacity = '';
+        current = next;
+        incoming.style.display = 'block';
+        incoming.style.opacity = '0';
+        incoming.classList.add('rp-active');
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { incoming.style.opacity = '1'; });
         });
+        if (counter) counter.textContent = (current + 1) + ' / ' + panels.length;
+        if (labelEl) labelEl.textContent = panelLabels[current] || '';
+      }, 250);
+    }
+
+    // init — hide all except first
+    panels.forEach(function (p, i) {
+      p.style.transition = 'opacity 0.25s ease';
+      if (i === 0) { p.style.display = 'block'; p.style.opacity = '1'; }
+      else { p.style.display = 'none'; p.style.opacity = '0'; }
+    });
+
+    var prevBtn = document.getElementById('rp-prev');
+    var nextBtn = document.getElementById('rp-next');
+    if (prevBtn) prevBtn.addEventListener('click', function () { showPanel(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { showPanel(current + 1); });
+
+    var wrap = document.getElementById('rp-wrap');
+    if (wrap) {
+      wrap.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); showPanel(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); showPanel(current + 1); }
       });
     }
 
-    // ── Lightbox (event delegation) ───────────────────────────
+    // ── Proto play buttons → open link ────────────────────────
+    document.querySelectorAll('[data-proto-href]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        window.open(btn.dataset.protoHref, '_blank', 'noopener,noreferrer');
+      });
+    });
+
+    // ── Lightbox (event delegation — works inside hidden panels) ──
     var dlg = document.getElementById('lightbox');
     if (dlg) {
       var li = document.getElementById('lightbox-img');
       var lc = document.getElementById('lightbox-close');
       var lt;
+      function openLightbox(src, alt) { li.src = src; li.alt = alt || ''; dlg.showModal(); }
       document.addEventListener('click', function (e) {
-        var trigger = e.target.closest('[data-lightbox]');
-        if (trigger) { lt = trigger; li.src = trigger.dataset.lightbox; li.alt = trigger.getAttribute('aria-label') || ''; dlg.showModal(); }
+        var byAttr = e.target.closest('[data-lightbox]');
+        if (byAttr) { lt = byAttr; openLightbox(byAttr.dataset.lightbox, byAttr.getAttribute('aria-label') || ''); return; }
+        var byImg = e.target.closest('.rp-panel img:not(.no-lightbox), .hifi-card img:not(.no-lightbox)');
+        if (byImg) { lt = byImg; openLightbox(byImg.src, byImg.alt); }
       });
-      lc.addEventListener('click', function () { dlg.close(); if (lt) lt.focus(); });
-      dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); if (lt) lt.focus(); } });
+      lc.addEventListener('click', function () { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} });
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); try { if (lt) lt.focus(); } catch (e) {} } });
     }
   }());
   </script>
