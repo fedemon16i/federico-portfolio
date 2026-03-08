@@ -831,6 +831,7 @@ button {
   overflow: hidden;
   background: var(--bg-raised);
   position: relative;
+  padding: 0; /* override global safety — image containers must not be padded */
 }
 
 .card-image-placeholder {
@@ -1180,6 +1181,65 @@ button {
 }
 @media (max-width: 600px) {
   .image-gallery { columns: 1; }
+}
+
+/* =========================================================
+   PROJECT CARD — MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    max-height: none;
+    overflow: hidden;
+  }
+
+  .card-image-wrap, .card-cover, [class*="card-img"], [class*="card-image"] {
+    height: 200px !important;
+    width: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    flex-shrink: 0;
+    padding: 0 !important; /* never pad image containers */
+  }
+
+  .card-body, [class*="card-content"], [class*="card-info"] {
+    padding: var(--space-16);
+    flex: 1;
+  }
+
+  .card-title, [class*="card-title"] {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-8);
+  }
+
+  .card-desc, [class*="card-desc"], [class*="card-summary"] {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-tags, [class*="tag-row"], [class*="chips"] {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--space-12);
+  }
+
+  .tag-chip {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+
+  /* Carousel dots compact */
+  [class*="carousel-dots"], [class*="dot-nav"] {
+    gap: 4px;
+    margin-top: var(--space-8);
+  }
 }
 
 /* =========================================================
