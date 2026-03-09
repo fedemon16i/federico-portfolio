@@ -99,6 +99,12 @@
    GLOBAL SAFETY
    ========================================================= */
 
+/* ⚠️ DANGER — ATTRIBUTE SELECTOR SAFETY
+   [class*="card"] matches ALL elements whose class contains "card":
+   card-title, card-hook, card-meta, card-tags, card-tool, card-tag, etc.
+   NEVER apply padding, margin, height, or min-height using [class*="card"].
+   Always use .project-card explicitly for structural card rules. */
+
 /* No component clips its content */
 .project-card, [class*="-panel"], [class*="-cell"],
 [class*="-box"], [class*="-chip"], [class*="section"] {
