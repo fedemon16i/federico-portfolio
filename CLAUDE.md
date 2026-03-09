@@ -86,6 +86,19 @@ CSS Conventions
 .btn .btn-primary .btn-outline .btn-accent
 .tag .tag-accent
 
+## CSS Safety Rules
+
+- **NEVER** use `[class*="card"]` for padding, margin, height, or min-height.
+  This selector matches every element whose class contains the word "card" —
+  including `.card-title`, `.card-hook`, `.card-meta`, `.card-tags`, `.card-tool`.
+  Result: all child elements get inflated padding and cards break.
+  Always use `.project-card` explicitly for structural rules.
+
+- Before editing `css/shared.css`, list every selector the change will affect.
+
+- After any `shared.css` edit, verify card heights in `index.html` are uniform
+  and no child element has inherited unexpected padding or margin.
+
 Nav — Consistent on Every Page
 Desktop: logo | Projects (dropdown) | Resume | About | Contact
 Dropdown group 1 "Relevant / Professional": EY Fabric, Blockchain, Customs, Chek, DollarCity, TaxSynapse
