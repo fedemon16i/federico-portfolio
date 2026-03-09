@@ -100,7 +100,7 @@
    ========================================================= */
 
 /* No component clips its content */
-[class*="card"], [class*="-panel"], [class*="-cell"],
+.project-card, [class*="-panel"], [class*="-cell"],
 [class*="-box"], [class*="-chip"], [class*="section"] {
   min-height: 0;
   overflow: visible;
@@ -122,9 +122,10 @@
 }
 
 /* Minimum padding all sides — no exceptions */
-[class*="card"], [class*="-panel"], [class*="-box"] {
+.project-card, [class*="-panel"], [class*="-box"] {
   padding: var(--space-20);
 }
+.project-card { padding: 0; }
 
 /* Tables never crowd */
 td, th {
