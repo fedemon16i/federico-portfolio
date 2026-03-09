@@ -785,6 +785,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-20);
+  align-items: stretch;
 }
 
 @media (max-width: 1024px) {
@@ -801,7 +802,9 @@ button {
 
 /* Project Card */
 .project-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
@@ -827,7 +830,8 @@ button {
 
 .card-image {
   width: 100%;
-  height: 260px;
+  height: 220px;
+  flex-shrink: 0;
   overflow: hidden;
   background: var(--bg-raised);
   position: relative;
@@ -895,7 +899,12 @@ button {
 }
 
 .card-body {
-  padding: var(--space-20) var(--space-20) var(--space-20);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-16);
 }
 
 .card-title {
@@ -906,6 +915,10 @@ button {
   margin-bottom: var(--space-6);
   letter-spacing: -0.01em;
   line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card-hook {
@@ -914,6 +927,10 @@ button {
   line-height: 1.55;
   margin-bottom: var(--space-16);
   font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .card-meta {
@@ -951,7 +968,7 @@ button {
 .card-tools {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: 6px;
   margin-top: var(--space-12);
 }
 
