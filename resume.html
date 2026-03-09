@@ -1,19 +1,385 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Federico Monroy's resume — Senior UX Designer, 5+ years, Globant, Applaudo Studios, TaxSynapse." />
-  <title>Resume — Federico Monroy</title>
+  <meta name="description" content="Federico A. Monroy — Sr. UX Strategist & Product Designer · Behavioral Analytics. Resume." />
+  <title>Resume — Federico A. Monroy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" />
   <link rel="stylesheet" href="assets/shared.css" />
+  <style>
+    /* ── Light/Dark theme overrides for this page ── */
+    [data-theme="light"] {
+      --bg-base:    #f5f5f2;
+      --bg-surface: #ffffff;
+      --bg-raised:  #ebebе7;
+      --bg-hover:   #e0e0dc;
+      --border-subtle:  rgba(0,0,0,0.07);
+      --border-default: rgba(0,0,0,0.13);
+      --border-strong:  rgba(0,0,0,0.22);
+      --text-primary:   #111110;
+      --text-secondary: #44443e;
+      --text-tertiary:  #88887e;
+      --accent: #15803d;
+    }
+    [data-theme="dark"] {
+      --accent: #22c55e;
+    }
+
+    /* ── Nav light-mode override (hardcoded bg in shared.css) ── */
+    [data-theme="light"] .nav {
+      background: rgba(245,245,242,0.92);
+      border-bottom-color: rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .nav-dropdown-menu {
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-default);
+      background: var(--bg-raised);
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-left: var(--space-8);
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+    .theme-toggle:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .theme-toggle svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .icon-sun  { display: none; }
+    .icon-moon { display: block; }
+    [data-theme="dark"] .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun  { display: block; }
+
+    /* ── Page layout ── */
+    body { background: var(--bg-base); }
+
+    .resume-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + var(--space-64)) var(--space-24) var(--space-96);
+    }
+
+    /* ── Header ── */
+    .r-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-24);
+      margin-bottom: var(--space-40);
+      flex-wrap: wrap;
+    }
+    .r-name {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin: 0;
+    }
+    .r-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-top: var(--space-8);
+      line-height: 1.4;
+    }
+    .r-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4) var(--space-16);
+      margin-top: var(--space-12);
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+    }
+    .r-meta a {
+      color: #15803d;
+      text-decoration: none;
+    }
+    [data-theme="dark"] .r-meta a { color: #22c55e; }
+    .r-meta a:hover { text-decoration: underline; }
+
+    .r-dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-8);
+      background: #15803d;
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: var(--space-12) var(--space-20);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background var(--transition-fast);
+    }
+    .r-dl-btn:hover { background: #166534; }
+    .r-dl-btn svg { flex-shrink: 0; }
+
+    /* ── Section ── */
+    .r-section { margin-bottom: var(--space-48); }
+
+    .r-section-title {
+      font-family: var(--font-display);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #15803d;
+      margin-bottom: var(--space-16);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    [data-theme="dark"] .r-section-title { color: #22c55e; }
+
+    /* ── About ── */
+    .r-about p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: var(--space-16);
+    }
+    .r-about p:last-child { margin-bottom: 0; }
+
+    /* ── Skills grid ── */
+    .r-skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-16);
+      align-items: stretch;
+    }
+    .r-skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-10);
+    }
+    .r-skill-label {
+      font-family: var(--font-display);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .r-skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-6);
+    }
+
+    /* ── Tool chip ── */
+    .r-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+    .r-chip svg { width: 14px; height: 14px; flex-shrink: 0; overflow: visible; }
+
+    /* ── Experience ── */
+    .r-exp-item { margin-bottom: var(--space-36, 2.25rem); }
+    .r-exp-item:last-child { margin-bottom: 0; }
+
+    .r-exp-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-16);
+      margin-bottom: var(--space-12);
+      flex-wrap: wrap;
+    }
+    .r-company {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .r-company-period {
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .r-subroles {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-20);
+      padding-left: var(--space-20);
+      border-left: 2px solid var(--border-subtle);
+      margin-top: var(--space-4);
+    }
+    .r-subrole {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .r-subrole-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .r-subrole-period {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-6);
+    }
+
+    .r-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      padding: 0;
+      margin: 0;
+    }
+    .r-bullets li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: var(--space-16);
+      position: relative;
+    }
+    .r-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Metric pill ── */
+    .r-metric {
+      display: inline-block;
+      background: rgba(21,128,61,0.1);
+      border: 1px solid rgba(21,128,61,0.22);
+      color: #15803d;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      border-radius: 100px;
+      padding: 1px 8px;
+      margin: 0 2px;
+      vertical-align: middle;
+    }
+    [data-theme="dark"] .r-metric {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.28);
+      color: #22c55e;
+    }
+
+    /* ── Education ── */
+    .r-edu-highlight {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid #15803d;
+      border-radius: var(--radius-md);
+      padding: var(--space-20) var(--space-24);
+      margin-bottom: var(--space-16);
+    }
+    .r-edu-degree {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-4);
+    }
+    .r-edu-institution { font-size: 0.8125rem; color: var(--text-secondary); }
+
+    .r-certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: var(--space-12);
+      align-items: stretch;
+    }
+    .r-cert-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-16);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .r-cert-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .r-cert-issuer { font-size: 0.75rem; color: var(--text-tertiary); }
+
+    /* ── Languages ── */
+    .r-langs {
+      display: flex;
+      gap: var(--space-24);
+      flex-wrap: wrap;
+    }
+    .r-lang-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-10);
+    }
+    .r-lang-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .r-lang-level {
+      font-size: 0.75rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      padding: 2px 10px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .r-header { gap: var(--space-20); }
+      .r-name   { font-size: 2rem; }
+      .r-skills-grid { grid-template-columns: 1fr 1fr; }
+      .r-exp-header  { flex-direction: column; gap: var(--space-4); }
+      .resume-wrap   { padding-top: calc(var(--nav-h) + var(--space-40)); }
+    }
+    @media (max-width: 420px) {
+      .r-skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
   <a class="skip-link" href="#main">Skip to main content</a>
 
+  <!-- NAV -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
+
       <div class="nav-links" role="menubar">
         <div class="nav-dropdown">
           <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
@@ -42,10 +408,24 @@
         <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </div>
+
+      <!-- Dark/Light toggle -->
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+
       <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
         <span></span><span></span><span></span>
       </button>
     </div>
+
+    <!-- Mobile panel -->
     <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Relevant / Professional</div>
@@ -71,80 +451,306 @@
     </div>
   </nav>
 
-  <main id="main" class="resume-page">
-    <div class="container" style="max-width:900px;">
+  <!-- MAIN -->
+  <main id="main">
+    <div class="resume-wrap">
 
-      <div class="resume-page-header" data-anim>
+      <!-- ── HEADER ── -->
+      <header class="r-header">
         <div>
-          <div class="section-eyebrow">Resume</div>
-          <h1 style="font-family:var(--font-display);font-size:2.25rem;font-weight:800;letter-spacing:-0.03em;color:var(--text-primary);">Federico A. Monroy</h1>
-          <p style="color:var(--text-secondary);margin-top:var(--space-4);">Sr UX Designer · Córdoba, Argentina</p>
-        </div>
-        <a
-          href="assets/Federico_Monroy_CV.pdf"
-          download
-          class="btn btn-primary"
-          aria-label="Download resume PDF"
-        >
-          ↓ Download PDF
-        </a>
-      </div>
-
-      <!-- PDF Embed -->
-      <div class="resume-embed-wrapper" data-anim data-anim-delay="1">
-        <object
-          data="assets/Federico_Monroy_CV.pdf"
-          type="application/pdf"
-          style="width:100%;height:100%;"
-          aria-label="Federico Monroy resume PDF document"
-        >
-          <div class="resume-fallback">
-            <p style="font-family:var(--font-display);font-size:1.125rem;font-weight:700;color:var(--text-primary);">PDF Preview</p>
-            <p style="font-size:0.9375rem;color:var(--text-secondary);max-width:320px;">Your browser doesn't support embedded PDFs. Download the resume to view it.</p>
-            <a href="assets/Federico_Monroy_CV.pdf" download class="btn btn-primary" style="margin-top:var(--space-16);">↓ Download Resume</a>
+          <h1 class="r-name">Federico A. Monroy</h1>
+          <p class="r-title">Sr. UX Strategist &amp; Product Designer · Behavioral Analytics</p>
+          <div class="r-meta">
+            <span>Córdoba, Argentina</span>
+            <a href="mailto:fedemonroy@gmail.com">fedemonroy@gmail.com</a>
+            <a href="index.html">federicoportfolio.com</a>
+            <span>ES · EN C2</span>
           </div>
-        </object>
-      </div>
+        </div>
+        <a href="assets/CV_Federico_Monroy_UX_Strategist.pdf" download class="r-dl-btn" aria-label="Download CV PDF">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download CV
+        </a>
+      </header>
 
-      <!-- Quick facts below -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-16);margin-top:var(--space-32);" data-anim data-anim-delay="2">
-        <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-20);">
-          <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Experience</div>
-          <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--accent);letter-spacing:-0.03em;">5+</div>
-          <div style="font-size:0.875rem;color:var(--text-secondary);">Years in UX</div>
+      <!-- ── ABOUT ── -->
+      <section class="r-section" aria-labelledby="about-h">
+        <h2 class="r-section-title" id="about-h">About</h2>
+        <div class="r-about">
+          <p>UX Strategist who builds research and analytics frameworks adapted to each team's stack. I bridge design, engineering, and product: I instrument interfaces with custom event tracking (Pendo, GA4), synthesize behavioral data with qualitative research, and translate findings into prioritized developer-ready decisions.</p>
+          <p>I build research, analytics, and testing frameworks tailored to each company's stack — so the team can ship UI faster and with evidence. That means I'm constantly doing both: research and design, in parallel, with or without AI. The frameworks just make it scalable. And I'm deeply involved in product — shaping what gets prioritized and why.</p>
         </div>
-        <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-20);">
-          <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Current Role</div>
-          <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text-primary);line-height:1.3;">Sr UX / Product Strategist</div>
-          <div style="font-size:0.875rem;color:var(--text-secondary);">Globant (Oct 2023–)</div>
-        </div>
-        <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-20);">
-          <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Location</div>
-          <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text-primary);">Córdoba</div>
-          <div style="font-size:0.875rem;color:var(--text-secondary);">Argentina · Remote OK</div>
-        </div>
-        <div style="background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:var(--space-20);">
-          <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Contact</div>
-          <div style="font-size:0.9375rem;color:var(--text-primary);font-weight:500;">fedemon16i@gmail.com</div>
-        </div>
-      </div>
+      </section>
 
-    </div>
+      <!-- ── SKILLS ── -->
+      <section class="r-section" aria-labelledby="skills-h">
+        <h2 class="r-section-title" id="skills-h">Skills</h2>
+        <div class="r-skills-grid">
+
+          <div class="r-skill-card">
+            <div class="r-skill-label">Design &amp; Prototyping</div>
+            <div class="r-skill-items">
+              <span class="r-chip">
+                <svg viewBox="0 0 38 57" fill="none" aria-hidden="true"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+                Figma + AI + Make
+              </span>
+              <span class="r-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FFD02F"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="#050038" font-family="sans-serif">M</text></svg>
+                Miro
+              </span>
+            </div>
+          </div>
+
+          <div class="r-skill-card">
+            <div class="r-skill-label">Behavioral Analytics</div>
+            <div class="r-skill-items">
+              <span class="r-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#CC3A99"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="sans-serif">P</text></svg>
+                Pendo
+              </span>
+              <span class="r-chip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 20h18M7 14v6M12 10v10M17 6v14"/></svg>
+                GA4
+              </span>
+              <span class="r-chip">Event Tracking</span>
+              <span class="r-chip">Funnels</span>
+              <span class="r-chip">Session Replay</span>
+              <span class="r-chip">HEARTS</span>
+            </div>
+          </div>
+
+          <div class="r-skill-card">
+            <div class="r-skill-label">UX Research</div>
+            <div class="r-skill-items">
+              <span class="r-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg>
+                Qualtrics
+              </span>
+              <span class="r-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1A1A2E" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><polygon points="9,7 9,17 18,12" fill="white"/></svg>
+                Useberry
+              </span>
+              <span class="r-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#6B48FF"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+                Maze
+              </span>
+              <span class="r-chip">Contextual Inquiry</span>
+              <span class="r-chip">Heuristic Audit</span>
+            </div>
+          </div>
+
+          <div class="r-skill-card">
+            <div class="r-skill-label">AI Workflow</div>
+            <div class="r-skill-items">
+              <span class="r-chip">Claude</span>
+              <span class="r-chip">Copilot Studio</span>
+              <span class="r-chip">ChatGPT</span>
+              <span class="r-chip">v0</span>
+              <span class="r-chip">Bolt</span>
+              <span class="r-chip">Figma AI</span>
+            </div>
+          </div>
+
+          <div class="r-skill-card">
+            <div class="r-skill-label">Data &amp; Feedback</div>
+            <div class="r-skill-items">
+              <span class="r-chip">
+                <svg viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
+                MS Dynamics
+              </span>
+              <span class="r-chip">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg>
+                Qualtrics
+              </span>
+              <span class="r-chip">Airtable</span>
+            </div>
+          </div>
+
+          <div class="r-skill-card">
+            <div class="r-skill-label">PM &amp; Handoff</div>
+            <div class="r-skill-items">
+              <span class="r-chip">Jira</span>
+              <span class="r-chip">Confluence</span>
+              <span class="r-chip">Stakeholder Comms</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── EXPERIENCE ── -->
+      <section class="r-section" aria-labelledby="exp-h">
+        <h2 class="r-section-title" id="exp-h">Experience</h2>
+
+        <!-- Globant / EY -->
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-company">Globant — EY (Ernst &amp; Young)</span>
+            <span class="r-company-period">Oct 2023 – Present</span>
+          </div>
+          <div class="r-subroles">
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">Sr. UX Strategist — EY Internal Developer Portal</div>
+              <div class="r-subrole-period">Behavioral Analytics Lead · Remote</div>
+              <ul class="r-bullets">
+                <li>Owned behavioral analytics end-to-end: Pendo custom events, session replay, and funnel instrumentation across 90+ asset types</li>
+                <li>Built HEARTS-framework dashboards bridging production behavioral data with design decisions — <span class="r-metric">closed feedback loop at scale</span></li>
+                <li>Designed and shipped Qualtrics survey integration — in-product NPS and contextual micro-surveys tied to feature usage</li>
+                <li>Served as bridge between engineering and design: translated data into scoped, developer-ready UX improvements</li>
+                <li>Accelerated iteration with Figma AI — AI-assisted component exploration and content generation</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Designer — Blockchains Inc.</div>
+              <div class="r-subrole-period">3D Spatial UI · Remote</div>
+              <ul class="r-bullets">
+                <li>Designed spatial UI for a 3D blockchain platform, bridging Figma prototypes with immersive 3D animation tooling</li>
+                <li>Translated mobile interaction patterns to desktop — validated 2D/3D map feature through client-led user testing</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Applaudo Studios -->
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-company">Applaudo Studios</span>
+            <span class="r-company-period">Sep 2021 – Jul 2025</span>
+          </div>
+          <div class="r-subroles">
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">Sr. UX Designer — DollarCity × Dollarama</div>
+              <div class="r-subrole-period">Fraud Surveillance SaaS · Canada &amp; LATAM</div>
+              <ul class="r-bullets">
+                <li>Redesigned fraud monitoring SaaS for retail chains across Canada and LATAM — reduced task completion time by <span class="r-metric">50%</span></li>
+                <li>Ran contextual inquiry and heuristic audits; defined <span class="r-metric">3 new personas</span> from research sessions</li>
+                <li>Validated POS search and video review workflows via Useberry unmoderated testing</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Lead — Chek (Digital Wallet)</div>
+              <div class="r-subrole-period">Fintech · South America</div>
+              <ul class="r-bullets">
+                <li>Led a 4-designer team to launch a virtual credit card — onboarding rates up <span class="r-metric">+15%</span></li>
+                <li>Instrumented Pendo event funnels tracking onboarding drop-off; findings fed directly into sprint backlog</li>
+                <li>Delivered design system overhaul — <span class="r-metric">10+ new components</span> shipped across iOS and Android</li>
+                <li>Orchestrated SERFINSA payment flow redesign from contextual research through developer hand-off</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Lead — Customs / Aduanas El Salvador</div>
+              <div class="r-subrole-period">GovTech · MVP · End-to-End</div>
+              <ul class="r-bullets">
+                <li>Designed 5 government analog processes from zero — MVP expanded to a <span class="r-metric">$500K</span> full-scale engagement</li>
+                <li>Led a team of 5 designers; drove PrimeNG design system adoption and developer hand-off</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Designer — Gospeltruth</div>
+              <ul class="r-bullets">
+                <li>Designed core product UI for a faith-based content platform — end-to-end from discovery through prototype</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TaxSynapse -->
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-company">TaxSynapse</span>
+            <span class="r-company-period">Mar 2021 – Oct 2022</span>
+          </div>
+          <div class="r-subroles">
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Designer — SaaS Platform Design</div>
+              <div class="r-subrole-period">GovTech · 3 SaaS MVPs</div>
+              <ul class="r-bullets">
+                <li>Designed 3 SaaS MVPs for public-sector tax clients — scalable design system reduced iteration time by <span class="r-metric">20%</span></li>
+                <li>End-to-end ownership: discovery, information architecture, component design, and stakeholder alignment</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── EDUCATION ── -->
+      <section class="r-section" aria-labelledby="edu-h">
+        <h2 class="r-section-title" id="edu-h">Education</h2>
+
+        <div class="r-edu-highlight">
+          <div class="r-edu-degree">Bachelor in Industrial Design</div>
+          <div class="r-edu-institution">Universidad Nacional de Córdoba · Argentina · 2016 – 2022</div>
+        </div>
+
+        <div class="r-certs-grid">
+          <div class="r-cert-item">
+            <div class="r-cert-title">UX Design Certification</div>
+            <div class="r-cert-issuer">Interaction Design Foundation (IDF)</div>
+          </div>
+          <div class="r-cert-item">
+            <div class="r-cert-title">UX Research &amp; Strategy</div>
+            <div class="r-cert-issuer">HAZ!</div>
+          </div>
+          <div class="r-cert-item">
+            <div class="r-cert-title">UX &amp; UI Courses</div>
+            <div class="r-cert-issuer">Uxcel</div>
+          </div>
+          <div class="r-cert-item">
+            <div class="r-cert-title">Product Design Program</div>
+            <div class="r-cert-issuer">Design Labs</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── LANGUAGES ── -->
+      <section class="r-section" aria-labelledby="lang-h">
+        <h2 class="r-section-title" id="lang-h">Languages</h2>
+        <div class="r-langs">
+          <div class="r-lang-item">
+            <span class="r-lang-name">Spanish</span>
+            <span class="r-lang-level">Native</span>
+          </div>
+          <div class="r-lang-item">
+            <span class="r-lang-name">English</span>
+            <span class="r-lang-level">C2 — Proficient</span>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /resume-wrap -->
   </main>
 
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2025 Federico A. Monroy</p>
-        <div style="display:flex;gap:var(--space-16);">
-          <a href="index.html" style="font-size:0.8125rem;color:var(--text-tertiary);">Home</a>
-          <a href="about.html" style="font-size:0.8125rem;color:var(--text-tertiary);">About</a>
-          <a href="contact.html" style="font-size:0.8125rem;color:var(--text-tertiary);">Contact</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
   <script src="assets/main.js"></script>
+  <script>
+    // ── Theme toggle ──
+    (function () {
+      var html   = document.documentElement;
+      var toggle = document.getElementById('theme-toggle');
+      // Restore saved preference
+      var saved = localStorage.getItem('resume-theme');
+      if (saved === 'dark') html.dataset.theme = 'dark';
+      toggle.addEventListener('click', function () {
+        var next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+        html.dataset.theme = next;
+        localStorage.setItem('resume-theme', next);
+      });
+    })();
+  </script>
+
 </body>
 </html>
