@@ -1,11 +1,17 @@
+## Skills — always load before any CSS, JS, or HTML change
+- https://raw.githubusercontent.com/fedemon16i/federico-skills/main/design-system-discipline.md
+- https://raw.githubusercontent.com/fedemon16i/federico-skills/main/accessibility-standards.md
+- https://raw.githubusercontent.com/fedemon16i/federico-skills/main/mobile-first-resilience.md
+
 Federico Monroy — Portfolio
 Stack
 Pure HTML + CSS + Vanilla JS. No frameworks. No build step.
 
 
-## CRITICAL — Git rules
-Always push directly to main. Never create a branch. Never create a PR.
-Use: git add -A && git commit -m "..." && git push origin main
+## Git Rules
+- Always push to a new branch with a unique name. Never reuse existing branches.
+- Never push directly to main.
+- After committing always run: git push origin HEAD
 
 assets/shared.css — design system (CSS variables, all components)
 assets/main.js — nav dropdown, keyboard nav, mobile menu, scroll animations
@@ -73,6 +79,13 @@ Nav dropdown: aria-expanded, aria-haspopup, role="menu", role="menuitem"
 prefers-reduced-motion handled in shared.css — no inline animations
 No overflow-x on body
 
+## Accessibility Rules
+- All text must meet WCAG AA contrast: 4.5:1 for body text, 3:1 for large text and UI components.
+- This applies in BOTH dark and light themes — always verify light mode contrast, not just dark.
+- All interactive elements must have :focus-visible styles.
+- No horizontal overflow on any viewport.
+- Always include @media (prefers-reduced-motion: reduce) in shared.css.
+
 
 CSS Conventions
 .container            max-width wrapper
@@ -87,17 +100,18 @@ CSS Conventions
 .tag .tag-accent
 
 ## CSS Safety Rules
+- NEVER use `[class*="X"]`, `[class^="X"]`, or `[class$="X"]` selectors for padding, margin, height, or min-height. Always use explicit class names like `.project-card`.
+- NEVER control the same CSS property (e.g. display) from both a stylesheet rule AND inline JS on the same element. Pick one source of truth.
+- NEVER hardcode `--bg-base`, `--text-primary`, `--border`, or `--shadow` as hex values. Always use CSS variables.
+- Always use 4-value padding (top right bottom left) — never shorthand that collapses vertical spacing.
+- Use min-height as floor on cards, never fixed height.
+- Before editing `assets/shared.css`, list every selector the change will affect.
+- After any `shared.css` edit, verify card heights in `index.html` are uniform and no child element has inherited unexpected padding or margin.
 
-- **NEVER** use `[class*="card"]` for padding, margin, height, or min-height.
-  This selector matches every element whose class contains the word "card" —
-  including `.card-title`, `.card-hook`, `.card-meta`, `.card-tags`, `.card-tool`.
-  Result: all child elements get inflated padding and cards break.
-  Always use `.project-card` explicitly for structural rules.
-
-- Before editing `css/shared.css`, list every selector the change will affect.
-
-- After any `shared.css` edit, verify card heights in `index.html` are uniform
-  and no child element has inherited unexpected padding or margin.
+## JS Safety Rules
+- Theme toggle: `js/theme.js` is the ONLY place that controls theme state and icon visibility. No inline script blocks in HTML files should reference theme or toggle.
+- Always use root-relative paths for shared scripts: `/js/theme.js`, `/css/shared.css` — never relative paths like `../js/` in project subpages.
+- Always check `document.readyState` before attaching DOMContentLoaded listeners.
 
 Nav — Consistent on Every Page
 Desktop: logo | Projects (dropdown) | Resume | About | Contact
