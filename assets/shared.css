@@ -148,7 +148,7 @@ body, main, section, .container {
 
 /* Mobile: reduce padding gracefully, never to 0 */
 @media (max-width: 480px) {
-  [class*="card"], [class*="-panel"], [class*="-box"] {
+  .project-card, [class*="-panel"], [class*="-box"] {
     padding: var(--space-16);
   }
   td, th { padding: 10px 14px; }
@@ -795,18 +795,39 @@ button {
   align-items: stretch;
 }
 
+/* Card grid — no horizontal overflow */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--col-min, 280px), 1fr));
+  gap: var(--space-24);
+  align-items: stretch;
+  overflow-x: hidden;
+}
+
 @media (max-width: 1024px) {
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* Force single column below 600px */
 @media (max-width: 600px) {
   .projects-grid {
     grid-template-columns: 1fr;
   }
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-card {
+    padding: var(--space-16);
+  }
 }
 
+/*
+  SAFETY RULE: Never use [class*="card"] for padding/margin/height.
+  It matches card-title, card-hook, card-meta, card-tags, etc.
+  Always use .project-card explicitly.
+*/
 /* Project Card */
 .project-card {
   display: flex;
