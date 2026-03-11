@@ -2325,8 +2325,3 @@ button {
   pointer-events: none;
 }
 
-/* Hide/show icons based on theme */
-[data-theme="dark"]  .theme-toggle .icon-sun  { display: block; }
-[data-theme="dark"]  .theme-toggle .icon-moon { display: none; }
-[data-theme="light"] .theme-toggle .icon-sun  { display: none; }
-[data-theme="light"] .theme-toggle .icon-moon { display: block; }
