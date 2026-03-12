@@ -1674,6 +1674,7 @@ button {
   border-bottom: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
+  min-height: 420px;
 }
 
 .project-hero::before {
@@ -1682,6 +1683,48 @@ button {
   inset: 0;
   background: radial-gradient(ellipse 50% 80% at 80% 50%, var(--project-glow, rgba(200,168,75,0.08)) 0%, transparent 70%);
   pointer-events: none;
+}
+
+/* ── CLS: reserve image space before load ────────────────── */
+.case-image,
+.mockup-img,
+.screen-img {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-img {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Skeleton loaders ────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    var(--bg-raised, #222) 50%,
+    var(--bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--bg-surface);
+  }
 }
 
 .project-breadcrumb {
@@ -1800,6 +1843,14 @@ button {
 
 .project-section {
   margin-bottom: var(--space-80);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+.case-section,
+.module-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 .project-section-label {
