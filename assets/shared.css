@@ -628,6 +628,24 @@ button {
   transform: translateY(-1px);
 }
 
+/* Light-mode button contrast overrides (WCAG AA) */
+[data-theme="light"] .btn-primary {
+  background: #15803d;
+  color: #ffffff;
+}
+[data-theme="light"] .btn-primary:hover {
+  background: #166534;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+[data-theme="light"] .btn-outline {
+  border-color: #15803d;
+  color: #15803d;
+}
+[data-theme="light"] .btn-outline:hover {
+  background: rgba(21,128,61,0.08);
+  border-color: #166534;
+}
+
 /* =========================================================
    TAGS / CHIPS
    ========================================================= */
