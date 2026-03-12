@@ -1679,13 +1679,11 @@ button {
   min-height: 420px;
 }
 
-.hero,
 .project-hero {
   min-height: 100svh;
 }
 
 @supports not (min-height: 100svh) {
-  .hero,
   .project-hero {
     min-height: 100vh;
   }
