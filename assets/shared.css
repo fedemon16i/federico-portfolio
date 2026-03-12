@@ -233,6 +233,7 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -1676,6 +1677,18 @@ button {
   position: relative;
   overflow: visible;
   min-height: 420px;
+}
+
+.hero,
+.project-hero {
+  min-height: 100svh;
+}
+
+@supports not (min-height: 100svh) {
+  .hero,
+  .project-hero {
+    min-height: 100vh;
+  }
 }
 
 .project-hero::before {
