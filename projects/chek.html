@@ -862,6 +862,14 @@
     @media (max-width: 768px) {
       .wf-annotations-list { display: none; }
     }
+    @media (max-width: 767px) {
+      .hearts-table { display: block; }
+      .hearts-table thead { display: none; }
+      .hearts-table tr { display: block; margin-bottom: 16px; background: var(--bg-card); border-radius: 8px; padding: 12px 16px; border: 1px solid var(--border); }
+      .hearts-table td { display: flex; flex-direction: column; padding: 8px 0; border: none; border-bottom: 1px solid var(--border-subtle, rgba(0,0,0,0.06)); }
+      .hearts-table td:last-child { border-bottom: none; }
+      .hearts-table td::before { content: attr(data-label); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: 4px; }
+    }
   </style>
 </head>
 <body>
@@ -1794,33 +1802,33 @@
               <tbody>
                 <tr>
                   <th scope="row" class="hearts-row-label">Happiness</th>
-                  <td>User satisfaction with the process</td>
-                  <td>Positive feedback from surveys, social media, NPS</td>
-                  <td>NPS · Perceived ease of use · CSAT</td>
+                  <td data-label="Goal">User satisfaction with the process</td>
+                  <td data-label="Signals">Positive feedback from surveys, social media, NPS</td>
+                  <td data-label="Metrics">NPS · Perceived ease of use · CSAT</td>
                 </tr>
                 <tr>
                   <th scope="row" class="hearts-row-label">Engagement</th>
-                  <td>Users interact frequently: add-ons, purchases, logins</td>
-                  <td>Purchases · New users · User registration · Users logged in</td>
-                  <td>User registration · Login · Session length · Profile customization · Cart Abandonment</td>
+                  <td data-label="Goal">Users interact frequently: add-ons, purchases, logins</td>
+                  <td data-label="Signals">Purchases · New users · User registration · Users logged in</td>
+                  <td data-label="Metrics">User registration · Login · Session length · Profile customization · Cart Abandonment</td>
                 </tr>
                 <tr>
                   <th scope="row" class="hearts-row-label">Adoption</th>
-                  <td>Increase registrations and premium memberships per month</td>
-                  <td>More accounts created · More memberships</td>
-                  <td>Account upgrades · Login sessions/day · Registered users/month · Cart Abandonment</td>
+                  <td data-label="Goal">Increase registrations and premium memberships per month</td>
+                  <td data-label="Signals">More accounts created · More memberships</td>
+                  <td data-label="Metrics">Account upgrades · Login sessions/day · Registered users/month · Cart Abandonment</td>
                 </tr>
                 <tr>
                   <th scope="row" class="hearts-row-label">Retention</th>
-                  <td>Users continue using the platform: deposits, purchases, credit card use</td>
-                  <td>Return customers from MKT DB · Loyalty programs</td>
-                  <td>Active Users · Renewal Rate · Repeated Purchases · Memberships/month</td>
+                  <td data-label="Goal">Users continue using the platform: deposits, purchases, credit card use</td>
+                  <td data-label="Signals">Return customers from MKT DB · Loyalty programs</td>
+                  <td data-label="Metrics">Active Users · Renewal Rate · Repeated Purchases · Memberships/month</td>
                 </tr>
                 <tr>
                   <th scope="row" class="hearts-row-label">Task Success</th>
-                  <td>Users complete key flows without errors or abandonment</td>
-                  <td>Flow completion rates · Support tickets · Error events</td>
-                  <td>Funnel completion · Drop-off by step · Error rate</td>
+                  <td data-label="Goal">Users complete key flows without errors or abandonment</td>
+                  <td data-label="Signals">Flow completion rates · Support tickets · Error events</td>
+                  <td data-label="Metrics">Funnel completion · Drop-off by step · Error rate</td>
                 </tr>
               </tbody>
             </table>
@@ -1934,7 +1942,7 @@
 
           <div class="hifi-grid">
             <div class="hifi-card">
-              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" loading="lazy">
+              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" loading="eager">
               <p class="img-caption">Home Screen &amp; Upcoming Due Dates</p>
             </div>
             <div class="hifi-card">

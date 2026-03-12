@@ -801,6 +801,14 @@
     @media (max-width: 640px) { .dc-wf-grid { grid-template-columns: 1fr; } }
     .dc-wf-cell { display: flex; flex-direction: column; gap: var(--space-8); }
     .dc-wf-caption { font-size: 0.6875rem; font-weight: 600; font-variant: small-caps; letter-spacing: 0.08em; color: var(--text-tertiary); text-align: center; }
+    @media (max-width: 767px) {
+      .dc-user-table { display: block; }
+      .dc-user-table thead { display: none; }
+      .dc-user-table tr { display: block; margin-bottom: 16px; background: var(--bg-card); border-radius: 8px; padding: 12px 16px; border: 1px solid var(--border); }
+      .dc-user-table td { display: flex; flex-direction: column; padding: 8px 0; border: none; border-bottom: 1px solid var(--border-subtle, rgba(0,0,0,0.06)); }
+      .dc-user-table td:last-child { border-bottom: none; }
+      .dc-user-table td::before { content: attr(data-label); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: 4px; }
+    }
   </style>
 </head>
 <body>
@@ -1122,32 +1130,32 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>Telemarketer</strong></td>
-                    <td>Review video clips tied to transactions</td>
-                    <td>Too many tabs, no unified view</td>
-                    <td class="dc-check">✓</td>
-                    <td class="dc-check">✓</td>
+                    <td data-label="User Type"><strong>Telemarketer</strong></td>
+                    <td data-label="Primary Task">Review video clips tied to transactions</td>
+                    <td data-label="Key Pain">Too many tabs, no unified view</td>
+                    <td data-label="Video" class="dc-check">✓</td>
+                    <td data-label="POS" class="dc-check">✓</td>
                   </tr>
                   <tr>
-                    <td><strong>Supervisor</strong></td>
-                    <td>Manage queues and escalations</td>
-                    <td>No status visibility across team</td>
-                    <td class="dc-check">✓</td>
-                    <td></td>
+                    <td data-label="User Type"><strong>Supervisor</strong></td>
+                    <td data-label="Primary Task">Manage queues and escalations</td>
+                    <td data-label="Key Pain">No status visibility across team</td>
+                    <td data-label="Video" class="dc-check">✓</td>
+                    <td data-label="POS"></td>
                   </tr>
                   <tr>
-                    <td><strong>IT Admin</strong></td>
-                    <td>Configure integrations</td>
-                    <td>Fragmented data sources</td>
-                    <td></td>
-                    <td class="dc-check">✓</td>
+                    <td data-label="User Type"><strong>IT Admin</strong></td>
+                    <td data-label="Primary Task">Configure integrations</td>
+                    <td data-label="Key Pain">Fragmented data sources</td>
+                    <td data-label="Video"></td>
+                    <td data-label="POS" class="dc-check">✓</td>
                   </tr>
                   <tr>
-                    <td><strong>Analyst</strong></td>
-                    <td>Export and report on fraud data</td>
-                    <td>Manual correlation of video + transaction</td>
-                    <td class="dc-check">✓</td>
-                    <td class="dc-check">✓</td>
+                    <td data-label="User Type"><strong>Analyst</strong></td>
+                    <td data-label="Primary Task">Export and report on fraud data</td>
+                    <td data-label="Key Pain">Manual correlation of video + transaction</td>
+                    <td data-label="Video" class="dc-check">✓</td>
+                    <td data-label="POS" class="dc-check">✓</td>
                   </tr>
                 </tbody>
               </table>
@@ -1256,11 +1264,11 @@
               <div class="dc-journey-grid" style="margin-top:0;gap:var(--space-16);">
                 <div class="dc-journey-cell">
                   <p style="font-size:0.75rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-8);">Reviewer</p>
-                  <img src="../dollarcity/REVIEWER.png" alt="Reviewer user journey map — fraud video review flow from POS search to playback" class="wf-img" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" />
+                  <img src="../dollarcity/REVIEWER.png" alt="Reviewer user journey map — fraud video review flow from POS search to playback" class="wf-img" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" loading="eager" />
                 </div>
                 <div class="dc-journey-cell">
                   <p style="font-size:0.75rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-8);">Senior Reviewer</p>
-                  <img src="../dollarcity/SENIOR.png" alt="Senior reviewer user journey map — supervisor fraud queue and escalation flow" class="wf-img" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" />
+                  <img src="../dollarcity/SENIOR.png" alt="Senior reviewer user journey map — supervisor fraud queue and escalation flow" class="wf-img" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -1385,11 +1393,11 @@
           <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.7;margin-bottom:var(--space-4);">Low-fidelity flows validated before high-fidelity production.</p>
           <div class="dc-wf-grid">
             <div class="dc-wf-cell">
-              <img src="../dollarcity/IMG_0231.jpeg" alt="POS Search wireframe flow" class="wf-img" style="width:100%;height:320px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;border:1px solid var(--border-subtle);" />
+              <img src="../dollarcity/IMG_0231.jpeg" alt="POS Search wireframe flow" class="wf-img" style="width:100%;height:320px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;border:1px solid var(--border-subtle);" loading="lazy" />
               <div class="dc-wf-caption">POS Search Flow</div>
             </div>
             <div class="dc-wf-cell">
-              <img src="../dollarcity/IMG_0230.jpeg" alt="Video Investigation wireframe flow" class="wf-img" style="width:100%;height:320px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;border:1px solid var(--border-subtle);" />
+              <img src="../dollarcity/IMG_0230.jpeg" alt="Video Investigation wireframe flow" class="wf-img" style="width:100%;height:320px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;border:1px solid var(--border-subtle);" loading="lazy" />
               <div class="dc-wf-caption">Video Investigation Flow</div>
             </div>
           </div>
@@ -1430,7 +1438,7 @@
           <div class="proto-grid">
             <div class="proto-card">
               <div class="proto-img-wrap">
-                <img src="../dollarcity/IMG_0216.jpeg" alt="Video Investigation prototype — request queue and video playback screen" />
+                <img src="../dollarcity/IMG_0216.jpeg" alt="Video Investigation prototype — request queue and video playback screen" loading="lazy" />
                 <button class="proto-play" type="button" aria-label="Open Video Investigation prototype in Figma" data-proto-href="https://www.figma.com/make/uzX7hk96o4Atu63S6UUj7O/Video-Investigation-Prototype?fullscreen=1">
                   <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l8 5-8 5V3z" fill="white"/></svg>
                 </button>
@@ -1443,7 +1451,7 @@
             </div>
             <div class="proto-card">
               <div class="proto-img-wrap">
-                <img src="../dollarcity/IMG_0218.jpeg" alt="POS Search prototype — four download states eliminating re-request behavior" />
+                <img src="../dollarcity/IMG_0218.jpeg" alt="POS Search prototype — four download states eliminating re-request behavior" loading="lazy" />
                 <button class="proto-play" type="button" aria-label="Open POS Search prototype in Figma" data-proto-href="https://www.figma.com/make/mzkWR6NCwOdKu8PaGwsc2l/POS-Search-Prototype?fullscreen=1">
                   <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3l8 5-8 5V3z" fill="white"/></svg>
                 </button>
