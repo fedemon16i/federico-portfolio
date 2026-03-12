@@ -628,22 +628,24 @@ button {
   transform: translateY(-1px);
 }
 
-/* Light-mode button contrast overrides (WCAG AA) */
+/* Light-mode button overrides — neutral palette, no green (WCAG AA) */
 [data-theme="light"] .btn-primary {
-  background: #15803d;
+  background: #111111;
   color: #ffffff;
+  border: none;
 }
 [data-theme="light"] .btn-primary:hover {
-  background: #166534;
+  background: #000000;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 [data-theme="light"] .btn-outline {
-  border-color: #15803d;
-  color: #15803d;
+  background: transparent;
+  color: #111111;
+  border: 1.5px solid rgba(0,0,0,0.30);
 }
 [data-theme="light"] .btn-outline:hover {
-  background: rgba(21,128,61,0.08);
-  border-color: #166534;
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.50);
 }
 
 /* =========================================================
