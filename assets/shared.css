@@ -216,8 +216,12 @@ td, th {
 }
 
 /* No horizontal scroll ever */
-body, main, section, .container {
+html, body {
   overflow-x: hidden;
+  max-width: 100%;
+}
+
+main, section, .container {
   max-width: 100%;
 }
 
