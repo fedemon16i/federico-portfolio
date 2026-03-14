@@ -19,14 +19,98 @@
     /* ── EY Workflow System ── */
     .wy-section { margin-bottom: var(--space-64); }
 
-    .wy-tabs { display: flex; gap: var(--space-8); margin-bottom: var(--space-32); flex-wrap: wrap; }
-    .wy-tab {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 8px 16px; border-radius: 100px; border: 1px solid var(--border-default);
-      color: var(--text-tertiary); background: transparent; cursor: pointer; transition: all 0.2s;
+    .wy-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: var(--space-24);
+      border-bottom: 1px solid var(--border-subtle);
     }
+    .wy-tab {
+      flex: 1;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      color: var(--text-tertiary);
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      text-align: center;
+    }
+    .wy-tab:hover { color: var(--text-secondary); }
     .wy-tab.active {
-      background: var(--accent-dim); border-color: var(--accent); color: var(--accent);
+      color: var(--text-primary);
+      border-bottom-color: var(--text-primary);
+      font-weight: 600;
+    }
+    .wy-tab.active.tab-auto {
+      color: #4aa3d4;
+      border-bottom-color: #4aa3d4;
+    }
+    .wy-tab-badge {
+      display: inline-block;
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 1px 5px;
+      border-radius: 100px;
+      margin-left: 5px;
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+    .badge-live {
+      background: rgba(21,128,61,0.15);
+      color: #22c55e;
+      border: 1px solid rgba(21,128,61,0.3);
+    }
+    .badge-wip {
+      background: rgba(29,111,164,0.15);
+      color: #4aa3d4;
+      border: 1px solid rgba(29,111,164,0.3);
+    }
+    .wy-frameworks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      margin-bottom: var(--space-24);
+    }
+    .wy-fw-block {
+      padding: var(--space-12) var(--space-16);
+      border-radius: 10px;
+      border: 1px dashed var(--border-default);
+      background: var(--bg-surface);
+    }
+    .wy-fw-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+    .wy-fw-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .wy-fw-metric {
+      font-size: 0.65rem;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+    @media (max-width: 768px) {
+      .wy-frameworks { grid-template-columns: 1fr; }
+      .wy-tabs { flex-direction: row; }
+      .wy-tab { flex: 1; font-size: 0.65rem; padding: 8px 10px; }
     }
     .wy-panel { display: none; }
     .wy-panel.active { display: block; }
@@ -310,10 +394,42 @@
           <h2 class="project-section-title">A system where every design decision has a behavioral evidence trail</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-32);">Analytics and research don't happen in sequence — they run in parallel, on-demand and proactively, triggered by what the platform surfaces. The output is always one of two things: a design proposal or a prioritized ticket.</p>
 
+          <!-- Framework reference block -->
+          <div class="wy-frameworks">
+            <div class="wy-fw-block">
+              <div class="wy-fw-label">HEART — reference framework</div>
+              <div class="wy-fw-metrics">
+                <span class="wy-fw-metric">Happiness</span>
+                <span class="wy-fw-metric">Engagement</span>
+                <span class="wy-fw-metric">Adoption</span>
+                <span class="wy-fw-metric">Retention</span>
+                <span class="wy-fw-metric">Task success</span>
+              </div>
+            </div>
+            <div class="wy-fw-block">
+              <div class="wy-fw-label">Pendo — UX &amp; product metrics</div>
+              <div class="wy-fw-metrics">
+                <span class="wy-fw-metric">Feature adoption</span>
+                <span class="wy-fw-metric">Retention</span>
+                <span class="wy-fw-metric">NPS in-app</span>
+                <span class="wy-fw-metric">Path analysis</span>
+                <span class="wy-fw-metric">Funnel drop-off</span>
+                <span class="wy-fw-metric">Guide engagement</span>
+                <span class="wy-fw-metric">Segment behavior</span>
+              </div>
+            </div>
+          </div>
+
           <!-- Tab switcher -->
           <div class="wy-tabs" role="tablist" aria-label="Workflow version">
-            <button class="wy-tab active" role="tab" aria-selected="true" onclick="wyShowTab('manual', this)">Current — manual</button>
-            <button class="wy-tab" role="tab" aria-selected="false" onclick="wyShowTab('auto', this)">Automated — Copilot Studio + agents</button>
+            <button class="wy-tab active" role="tab" aria-selected="true" onclick="wyShowTab('manual', this)">
+              Current workflow
+              <span class="wy-tab-badge badge-live">Live</span>
+            </button>
+            <button class="wy-tab tab-auto" role="tab" aria-selected="false" onclick="wyShowTab('auto', this)">
+              Automated pipeline
+              <span class="wy-tab-badge badge-wip">In progress</span>
+            </button>
           </div>
 
           <!-- PANEL: MANUAL -->
