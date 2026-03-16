@@ -10,6 +10,60 @@
   <style>
     /* Home-specific tweaks */
     .hero { padding-bottom: var(--space-80); }
+
+    /* Who you're hiring strip */
+    .who-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-48);
+      align-items: center;
+    }
+    .who-strip-headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin: var(--space-12) 0 var(--space-16);
+    }
+    .who-strip-copy {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-24);
+    }
+    .who-strip-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+    .who-strip-card {
+      padding: var(--space-16) var(--space-20);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+    .who-strip-card--accent {
+      border-left: 3px solid var(--accent);
+    }
+    .who-strip-card-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-6);
+    }
+    .who-strip-card-copy {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .who-strip-card-copy strong { color: var(--text-primary); }
+    @media (max-width: 768px) {
+      .who-strip { grid-template-columns: 1fr; gap: var(--space-32); }
+    }
   </style>
 </head>
 <body>
@@ -25,6 +79,7 @@
       </a>
 
       <div class="nav-links" role="menubar">
+        <a href="index.html" class="nav-link" aria-label="Home">Home</a>
         <!-- Projects Dropdown -->
         <div class="nav-dropdown" role="none">
           <button
@@ -136,26 +191,25 @@
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container">
 
-        <p class="hero-kicker" data-anim>UX & Behavioral Analytics · Córdoba, Argentina</p>
+        <p class="hero-kicker" data-anim>Sr. Product Designer · Behavioral Analytics & Research · Córdoba, Argentina</p>
 
         <h1 class="hero-headline" id="hero-heading" data-anim data-anim-delay="1">
-          Product experiences, diagnosed with <em>data</em> and improved with intent.
+          I find where products break,<br>explain why, and help teams <em>fix it.</em>
         </h1>
 
         <p class="hero-sub" data-anim data-anim-delay="2">
-          <strong>UX / Product Experience Analyst</strong> (Behavioral Analytics).<br>
-          Turning behavioral signals into clear product decisions.
+          I instrument products with behavioral analytics, research the people behind the signals,<br>and ship design decisions grounded in evidence — not assumptions.
         </p>
 
         <div class="hero-ctas" data-anim data-anim-delay="3">
-          <a href="#projects" class="btn btn-primary">See Projects</a>
-          <a href="about.html" class="btn btn-outline">About Me</a>
+          <a href="#projects" class="btn btn-primary">See Work</a>
+          <a href="resume.html" class="btn btn-outline">Resume</a>
         </div>
 
         <div class="hero-proof" data-anim data-anim-delay="4">
-          <span class="hero-proof-item">Behavioral analytics</span>
-          <span class="hero-proof-item">Funnel / Journey design</span>
-          <span class="hero-proof-item">Design System handoff</span>
+          <span class="hero-proof-item">5+ years enterprise UX</span>
+          <span class="hero-proof-item">6 companies · 3 industries</span>
+          <span class="hero-proof-item">$500K+ scope secured</span>
         </div>
 
       </div>
@@ -185,10 +239,10 @@
             style="--card-accent: var(--accent-ey);"
             data-anim data-anim-delay="1"
           >
-            <div class="card-image">
-              <div class="card-image-placeholder placeholder-shimmer">
-                <span class="placeholder-icon">⬡</span>
-                <span class="placeholder-label">EY Fabric Screenshot</span>
+            <div class="card-image" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#1a1200 0%,#2d2000 100%);">
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-8);padding:var(--space-20);">
+                <span style="font-family:var(--font-display);font-size:1.75rem;font-weight:800;letter-spacing:-0.03em;color:rgba(200,168,75,0.12);text-align:center;">EY FABRIC</span>
+                <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);color:rgba(200,168,75,0.65);">Case study in progress</span>
               </div>
               <div class="card-tags">
                 <span class="card-tag tag-chip tag-thematic">Behavioral Analytics</span>
@@ -224,16 +278,15 @@
             style="--card-accent: var(--accent-blockchain);"
             data-anim data-anim-delay="2"
           >
-            <div class="card-image">
-              <div class="card-image-placeholder placeholder-shimmer">
-                <span class="placeholder-icon">◈</span>
-                <span class="placeholder-label">Blockchain Platform Screenshot</span>
+            <div class="card-image" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#001818 0%,#002828 100%);">
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-8);padding:var(--space-20);">
+                <span style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;color:rgba(34,212,200,0.12);text-align:center;">BLOCKCHAIN 3D</span>
+                <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(34,212,200,0.08);border:1px solid rgba(34,212,200,0.2);color:rgba(34,212,200,0.55);">Case study in progress</span>
               </div>
               <div class="card-tags">
                 <span class="card-tag tag-chip tag-thematic">Spatial UI</span>
                 <span class="card-tag tag-chip tag-thematic">Startup</span>
                 <span class="card-tag tag-chip tag-thematic">3D</span>
-                <span class="card-tag tag-chip tag-thematic">Mobile→Desktop</span>
               </div>
             </div>
             <div class="card-accent-bar"></div>
@@ -263,16 +316,15 @@
             style="--card-accent: var(--accent-customs);"
             data-anim data-anim-delay="3"
           >
-            <div class="card-image">
-              <div class="card-image-placeholder placeholder-shimmer">
-                <span class="placeholder-icon">⬟</span>
-                <span class="placeholder-label">Customs Platform Screenshot</span>
+            <div class="card-image" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#1a0800 0%,#2a1200 100%);">
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-8);padding:var(--space-20);">
+                <span style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;color:rgba(224,92,74,0.12);text-align:center;">CUSTOMS ES</span>
+                <span style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(224,92,74,0.08);border:1px solid rgba(224,92,74,0.2);color:rgba(224,92,74,0.55);">Case study in progress</span>
               </div>
               <div class="card-tags">
                 <span class="card-tag tag-chip tag-thematic">GovTech</span>
                 <span class="card-tag tag-chip tag-thematic">Design Systems</span>
                 <span class="card-tag tag-chip tag-thematic">MVP</span>
-                <span class="card-tag tag-chip tag-thematic">Leadership</span>
               </div>
             </div>
             <div class="card-accent-bar"></div>
@@ -405,149 +457,28 @@
       </div>
     </section>
 
-    <!-- ========================
-         SECTION 3: PERSONAL GRID
-         ======================== -->
-    <section class="section section-alt" aria-labelledby="personal-heading">
+    <!-- Who you're hiring strip -->
+    <section class="section" aria-label="About Federico">
       <div class="container">
-
-        <div class="section-header" data-anim>
-          <div class="section-eyebrow">Independent</div>
-          <h2 class="section-title" id="personal-heading">Personal Work</h2>
-          <p class="section-subtitle">Exploratory and independent projects rooted in industrial design and spatial UX.</p>
-        </div>
-
-        <div class="personal-grid" role="list">
-
-          <!-- Tile 1: Industrial Design Thesis -->
-          <a
-            href="projects/industrial-design-thesis.html"
-            class="personal-tile"
-            role="listitem"
-            aria-label="Industrial Design Thesis project"
-            data-anim data-anim-delay="1"
-            style="--card-accent: var(--accent-personal);"
-          >
-            <div class="personal-tile-placeholder">
-              <span style="font-size:2.5rem;opacity:0.3;">⬡</span>
-              <span style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.35;">Thesis Image Placeholder</span>
-            </div>
-            <div class="personal-tile-overlay">
-              <p style="font-size:0.875rem;color:rgba(255,255,255,0.75);margin-bottom:4px;">Industrial Design</p>
-            </div>
-            <div class="personal-tile-footer">
-              <div class="personal-tile-title">Industrial Design Thesis</div>
-              <div class="personal-tile-sub">Bachelor's degree capstone — Universidad Nacional de Córdoba</div>
-            </div>
-          </a>
-
-          <!-- Tile 2: Depure -->
-          <a
-            href="projects/depure.html"
-            class="personal-tile"
-            role="listitem"
-            aria-label="Depure personal project"
-            data-anim data-anim-delay="2"
-            style="--card-accent: var(--accent-personal);"
-          >
-            <div class="personal-tile-placeholder">
-              <span style="font-size:2.5rem;opacity:0.3;">◈</span>
-              <span style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.35;">Depure Image Placeholder</span>
-            </div>
-            <div class="personal-tile-overlay">
-              <p style="font-size:0.875rem;color:rgba(255,255,255,0.75);margin-bottom:4px;">Independent</p>
-            </div>
-            <div class="personal-tile-footer">
-              <div class="personal-tile-title">Depure</div>
-              <div class="personal-tile-sub">Independent personal project</div>
-            </div>
-          </a>
-
-          <!-- Tile 3: LayerEY -->
-          <a
-            href="projects/layer-ey.html"
-            class="personal-tile"
-            role="listitem"
-            aria-label="LayerEY personal project"
-            data-anim data-anim-delay="3"
-            style="--card-accent: var(--accent-personal);"
-          >
-            <div class="personal-tile-placeholder">
-              <span style="font-size:2.5rem;opacity:0.3;">◉</span>
-              <span style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.35;">LayerEY Image Placeholder</span>
-            </div>
-            <div class="personal-tile-overlay">
-              <p style="font-size:0.875rem;color:rgba(255,255,255,0.75);margin-bottom:4px;">Independent</p>
-            </div>
-            <div class="personal-tile-footer">
-              <div class="personal-tile-title">LayerEY</div>
-              <div class="personal-tile-sub">Independent personal project</div>
-            </div>
-          </a>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================
-         SECTION 4: RESUME BLOCK
-         ======================== -->
-    <section class="section" aria-labelledby="resume-heading">
-      <div class="container">
-        <div class="resume-block" data-anim>
-          <div>
-            <h2 class="resume-block-title" id="resume-heading">Resume</h2>
-            <p class="resume-block-copy">Preview or download my ATS-friendly resume — +7 years of UX, product analytics, and cross-team leadership.</p>
-          </div>
-          <div class="resume-block-actions">
-            <a href="resume.html" class="btn btn-primary">Preview</a>
-            <a href="assets/Federico_Monroy_CV.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Download</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================
-         SECTION 5: ABOUT TEASER
-         ======================== -->
-    <section class="section section-alt" aria-labelledby="about-teaser-heading">
-      <div class="container">
-        <div class="about-teaser" data-anim>
-          <div>
-            <div class="section-eyebrow">About</div>
-            <h2 class="about-teaser-quote" id="about-teaser-heading">
-              Industrial Designer by degree —<br>
-              Behavioral analyst by practice.
+        <div class="who-strip" data-anim>
+          <div class="who-strip-text">
+            <div class="section-eyebrow">Who you're hiring</div>
+            <h2 class="who-strip-headline">
+              Industrial Designer by training.<br>Product strategist by practice.
             </h2>
-            <p class="about-teaser-copy">
-              I started with form and function. Now I work with funnels and friction. Seven years of senior UX across fintech, enterprise, and government — always data-informed, never data-driven blindly.
+            <p class="who-strip-copy">
+              I started with form, function, and materials. Now I work with funnels, drop-offs, and behavioral signals. Seven years across fintech, enterprise, and government — always at the edge of design, research, and product.
             </p>
-            <a href="about.html" class="btn btn-outline">Read more</a>
+            <a href="about.html" class="btn btn-outline">More about me</a>
           </div>
-          <div>
-            <div style="background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-32);display:flex;flex-direction:column;gap:var(--space-20);">
-              <div>
-                <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Expertise</div>
-                <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);">
-                  <span class="tag">Behavioral Analytics</span>
-                  <span class="tag">UX Diagnosis</span>
-                  <span class="tag">Instrumentation</span>
-                  <span class="tag">Design Systems</span>
-                  <span class="tag">Funnel/Journey Design</span>
-                </div>
-              </div>
-              <div class="divider" style="margin:0;"></div>
-              <div>
-                <div style="font-family:var(--font-display);font-size:0.625rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);">Core Tools</div>
-                <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);">
-                  <span class="tag">Figma</span>
-                  <span class="tag">Pendo</span>
-                  <span class="tag">Qualtrics</span>
-                  <span class="tag">Useberry</span>
-                  <span class="tag">Miro</span>
-                  <span class="tag">Jira</span>
-                </div>
-              </div>
+          <div class="who-strip-cards">
+            <div class="who-strip-card who-strip-card--accent">
+              <p class="who-strip-card-label">What makes me different</p>
+              <p class="who-strip-card-copy">I'm the only person on the team who can instrument the platform, research the users behind the signals, and hand off a Figma-ready design — in one cycle.</p>
+            </div>
+            <div class="who-strip-card">
+              <p class="who-strip-card-label">Currently</p>
+              <p class="who-strip-card-copy">Sr. UX Strategist & Behavioral Analytics Lead at <strong>Globant</strong> — embedded in EY's XDA team as sole Pendo practitioner.</p>
             </div>
           </div>
         </div>
@@ -555,7 +486,7 @@
     </section>
 
     <!-- ========================
-         SECTION 6: CONTACT CTA
+         CONTACT CTA
          ======================== -->
     <section class="section contact-cta" aria-labelledby="contact-heading">
       <div class="container">
