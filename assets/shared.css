@@ -695,9 +695,10 @@ button {
   gap: 5px;
   font-size: 0.6875rem;
   font-weight: 500;
-  padding: var(--space-4) var(--space-12);
+  padding: var(--space-6) var(--space-12);
   border-radius: 100px;
   line-height: 1.4;
+  white-space: nowrap;
 }
 
 .tag-thematic {
@@ -716,8 +717,8 @@ button {
 }
 
 .tag-chip svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
 }
 
@@ -1117,10 +1118,14 @@ button {
   font-weight: 500;
   color: var(--text-secondary);
   background: transparent;
-  padding: 4px var(--space-10);
+  padding: var(--space-6) var(--space-12);
   border-radius: 100px;
   border: 1px solid rgba(255,255,255,0.20);
   line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
 }
 
 .card-tags {
@@ -1136,10 +1141,11 @@ button {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 3px var(--space-8);
+  padding: var(--space-6) var(--space-12);
   border: 1px solid var(--border-subtle);
   border-radius: 100px;
   color: var(--text-tertiary);
+  white-space: nowrap;
 }
 
 /* ---- Tool overflow +N chip (row 2, below image) ---- */
@@ -1148,13 +1154,15 @@ button {
   font-weight: 500;
   color: var(--text-tertiary);
   background: transparent;
-  padding: 4px var(--space-10);
+  padding: var(--space-6) var(--space-12);
   border-radius: 100px;
   border: 1px solid rgba(255,255,255,0.12);
   position: relative;
   cursor: default;
   user-select: none;
   line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
 }
 
 .card-tool-tooltip {

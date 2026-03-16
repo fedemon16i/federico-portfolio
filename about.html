@@ -7,6 +7,202 @@
   <title>About — Federico Monroy</title>
   <link rel="stylesheet" href="assets/shared.css" />
   <script src="js/theme.js"></script>
+  <style>
+    /* ── About page design system ── */
+    .about-snapshot {
+      display: flex; flex-wrap: wrap; gap: var(--space-8);
+      margin: var(--space-20) 0 var(--space-32);
+    }
+    .about-snapshot-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: var(--space-6) var(--space-16);
+      background: var(--bg-surface); border: 1px solid var(--border-subtle);
+      border-radius: 100px; font-size: 0.8rem; color: var(--text-secondary);
+    }
+    .about-snapshot-pill .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .about-pull-quote {
+      padding: var(--space-40) 0;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      margin: var(--space-48) 0;
+    }
+    .about-pull-quote-text {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 2.25rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      max-width: 680px;
+    }
+    .about-pull-quote-text em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .about-photo-slot {
+      width: 100%;
+      min-height: 260px;
+      background: var(--bg-surface);
+      border: 2px dashed var(--border-subtle);
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-tertiary);
+      font-size: 0.72rem;
+      font-family: var(--font-display);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin: var(--space-40) 0;
+    }
+    .about-philosophy {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-16);
+      margin: var(--space-32) 0;
+    }
+    .about-philosophy-card {
+      padding: var(--space-20);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex; flex-direction: column; gap: var(--space-8);
+    }
+    .about-philosophy-num {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .about-philosophy-title {
+      font-size: 0.9rem; font-weight: 700; color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .about-philosophy-desc {
+      font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;
+    }
+    .about-wf {
+      margin: var(--space-32) 0;
+    }
+    .about-wf-phases {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      margin-bottom: 8px;
+    }
+    .about-wf-phase {
+      padding: 8px 12px;
+      border-top: 2px solid var(--border-subtle);
+    }
+    .about-wf-phase-num {
+      font-size: 0.55rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 3px;
+    }
+    .about-wf-phase-name {
+      font-size: 0.8rem; font-weight: 700; color: var(--text-primary);
+    }
+    .about-wf-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-8); align-items: start;
+    }
+    .about-wf-col { display: flex; flex-direction: column; gap: 6px; }
+    .about-wf-node {
+      border-radius: 8px; padding: var(--space-12);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+    }
+    .about-wf-node.sense { background: rgba(204,58,153,0.06); border-color: rgba(204,58,153,0.2); }
+    .about-wf-node.think { background: rgba(127,119,221,0.06); border-color: rgba(127,119,221,0.2); }
+    .about-wf-node.make  { background: rgba(212,83,126,0.06); border-color: rgba(212,83,126,0.2); }
+    .about-wf-node.ship  { background: rgba(99,153,34,0.06); border-color: rgba(99,153,34,0.2); }
+    .about-wf-node-title { font-size: 0.78rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+    .about-wf-node-sub { font-size: 0.7rem; color: var(--text-secondary); margin-top: 3px; line-height: 1.4; }
+    .about-wf-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 5px; }
+    .about-wf-tag {
+      font-size: 0.58rem; font-weight: 500; padding: 1px 6px;
+      border-radius: 100px; background: var(--bg-raised);
+      border: 1px solid var(--border-subtle); color: var(--text-tertiary);
+    }
+    .about-wf-outputs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-8); margin-top: var(--space-8);
+    }
+    .about-wf-output {
+      border-radius: 8px; padding: var(--space-12) var(--space-16);
+      border: 1px solid var(--border-subtle); background: var(--bg-surface);
+    }
+    .about-wf-output.design { border-color: rgba(212,83,126,0.35); }
+    .about-wf-output.ticket { border-color: rgba(99,153,34,0.35); }
+    .about-wf-output-label {
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .about-wf-output.design .about-wf-output-label { color: #D4537E; }
+    .about-wf-output.ticket .about-wf-output-label { color: var(--accent); }
+    .about-wf-chips { display: flex; flex-wrap: wrap; gap: 3px; }
+    .about-wf-chip {
+      font-size: 0.62rem; font-weight: 500; padding: 2px 7px;
+      border-radius: 100px; background: var(--bg-raised);
+      border: 1px solid var(--border-subtle); color: var(--text-secondary);
+    }
+    .about-koj-card {
+      padding: var(--space-24);
+      background: var(--accent-dim);
+      border: 1.5px solid var(--accent);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-16);
+    }
+    .about-koj-eyebrow {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-8);
+    }
+    .about-koj-title {
+      font-size: 1.25rem; font-weight: 700; color: var(--text-primary);
+      letter-spacing: -0.01em; margin-bottom: var(--space-12);
+    }
+    .about-koj-desc {
+      font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65;
+    }
+    .about-koj-sub { margin-top: var(--space-16); }
+    .about-koj-sub-item {
+      padding: var(--space-12) 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .about-koj-sub-title {
+      font-size: 0.85rem; font-weight: 700; color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .about-koj-sub-desc {
+      font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55;
+    }
+    .about-side-projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-12);
+      margin-top: var(--space-16);
+    }
+    .about-side-card {
+      padding: var(--space-16) var(--space-20);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex; flex-direction: column; gap: var(--space-6);
+    }
+    .about-side-eyebrow {
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-tertiary);
+    }
+    .about-side-title {
+      font-size: 0.95rem; font-weight: 700; color: var(--text-primary);
+    }
+    .about-side-desc {
+      font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55;
+    }
+    @media (max-width: 768px) {
+      .about-wf-phases { grid-template-columns: repeat(2,1fr); }
+      .about-wf-steps  { grid-template-columns: 1fr 1fr; }
+      .about-wf-outputs { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .about-wf-steps { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -107,99 +303,258 @@
 
         <div class="section-eyebrow" data-anim>About</div>
         <h1 class="about-headline" id="about-heading" data-anim data-anim-delay="1">
-          Industrial Designer by degree —<br>
-          <em>behavioral analyst</em> by practice.
+          Industrial Designer by training —<br>
+          <em>product strategist</em> by practice.
         </h1>
 
+        <div class="about-snapshot" data-anim data-anim-delay="2">
+          <span class="about-snapshot-pill"><span class="dot"></span>Córdoba, Argentina</span>
+          <span class="about-snapshot-pill"><span class="dot"></span>Behavioral analytics & UX research</span>
+          <span class="about-snapshot-pill"><span class="dot"></span>Design that learns from behavior</span>
+        </div>
+
         <div class="about-body">
-          <div class="about-text" data-anim data-anim-delay="2">
-            <p>
-              I'm <strong>Federico A. Monroy</strong>, a Senior UX and Product Designer based in Córdoba, Argentina, with +7 years of experience delivering user-centered digital products across fintech, real estate, e-commerce, and enterprise platforms.
-            </p>
-            <p>
-              I combine UX strategy with AI-driven tools — ChatGPT, Bolt, v0, Copilot — to accelerate research, prototyping, and delivery. My background in Industrial Design taught me to think about systems, constraints, and human context before touching any interface.
-            </p>
-            <p>
-              Today, I work at the intersection of product analytics and experience design. I turn behavioral signals into clear product decisions. I don't just diagnose — I explain why, and I help teams fix it.
-            </p>
-            <p>
-              I'm currently evolving into a hybrid Product Designer–Product Manager profile, focused on scalable systems, user insight, and cross-team collaboration.
-            </p>
+          <div class="about-text" data-anim data-anim-delay="3">
+
+            <!-- INTRO -->
+            <p>I'm <strong>Federico A. Monroy</strong> — a product designer and behavioral analytics practitioner. My background is in Industrial Design, which trained me to think about constraints, systems, and human context long before I ever opened Figma. That foundation still shapes how I work: understand the system first, then design within it.</p>
+            <p>Over seven years across fintech, enterprise, government, and e-commerce — sometimes leading teams, sometimes embedded solo — I've always worked at the edge of design, research, and product. Not entirely any one of them. All three at once.</p>
 
             <div class="divider"></div>
 
-            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-12);">Design System Philosophy</h2>
-            <p style="font-size:1rem;background:var(--bg-raised);border:1px solid var(--border-subtle);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:var(--space-20) var(--space-24);line-height:1.7;">
-              "I deliver Figma handoffs using your existing DS; I don't typically change core tokens/variables or create new variants unless governance is aligned with the DS maintainer."
-            </p>
+            <!-- PULL QUOTE 1 -->
+            <div class="about-pull-quote">
+              <p class="about-pull-quote-text">
+                I don't think of analytics as a separate discipline from design.<br>
+                They're <em>the same loop</em>, just at different speeds.
+              </p>
+            </div>
+
+            <!-- MY APPROACH -->
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">My approach</h2>
+            <p>I'm interested in products that learn from their users. Not in a vague sense — but concretely: does the team actually know where users drop off? Which features get adopted and which get ignored? Most of the time when I join a team, the answer is "we don't really know." So I build the framework to find out.</p>
+
+            <!-- DESIGN PHILOSOPHY CARDS -->
+            <div class="about-philosophy">
+              <div class="about-philosophy-card">
+                <div class="about-philosophy-num">01</div>
+                <div class="about-philosophy-title">Behavior before pixels</div>
+                <div class="about-philosophy-desc">Understanding what users actually do — not what they say — shapes every design decision I make.</div>
+              </div>
+              <div class="about-philosophy-card">
+                <div class="about-philosophy-num">02</div>
+                <div class="about-philosophy-title">Evidence, not assumptions</div>
+                <div class="about-philosophy-desc">Every frame I hand off has a reason that traces back to something a real user did, or didn't do.</div>
+              </div>
+              <div class="about-philosophy-card">
+                <div class="about-philosophy-num">03</div>
+                <div class="about-philosophy-title">Systems over screens</div>
+                <div class="about-philosophy-desc">I design the framework that produces the screens — not just the screens themselves.</div>
+              </div>
+              <div class="about-philosophy-card">
+                <div class="about-philosophy-num">04</div>
+                <div class="about-philosophy-title">Clean handoff is design</div>
+                <div class="about-philosophy-desc">I work inside existing design systems. No new variants without engineering alignment. The dev experience is part of the UX.</div>
+              </div>
+            </div>
 
             <div class="divider"></div>
 
+            <!-- HOW I DESIGN TODAY -->
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">How I design today</h2>
+            <p>My workflow has changed significantly in the last two years. I use AI tools actively — Claude for research synthesis, Copilot Studio for connecting data sources, Figma Make for translating insights into first-pass proposals. Not as shortcuts, but to close the gap between insight and output faster.</p>
+
+            <!-- WORKFLOW DIAGRAM -->
+            <div class="about-wf">
+              <div class="about-wf-phases">
+                <div class="about-wf-phase"><div class="about-wf-phase-num">01</div><div class="about-wf-phase-name">Sense</div></div>
+                <div class="about-wf-phase"><div class="about-wf-phase-num">02</div><div class="about-wf-phase-name">Synthesize</div></div>
+                <div class="about-wf-phase"><div class="about-wf-phase-num">03</div><div class="about-wf-phase-name">Make</div></div>
+                <div class="about-wf-phase"><div class="about-wf-phase-num">04</div><div class="about-wf-phase-name">Ship</div></div>
+              </div>
+              <div class="about-wf-steps">
+                <div class="about-wf-col">
+                  <div class="about-wf-node sense">
+                    <div class="about-wf-node-title">Behavioral signals</div>
+                    <div class="about-wf-node-sub">Live instrumentation</div>
+                    <div class="about-wf-tags"><span class="about-wf-tag">Pendo</span><span class="about-wf-tag">GA4</span></div>
+                  </div>
+                  <div class="about-wf-node sense">
+                    <div class="about-wf-node-title">User research</div>
+                    <div class="about-wf-node-sub">On signal, not schedule</div>
+                    <div class="about-wf-tags"><span class="about-wf-tag">1:1</span><span class="about-wf-tag">Maze</span></div>
+                  </div>
+                </div>
+                <div class="about-wf-col">
+                  <div class="about-wf-node think">
+                    <div class="about-wf-node-title">AI synthesis</div>
+                    <div class="about-wf-node-sub">Analytics + research → insights</div>
+                    <div class="about-wf-tags"><span class="about-wf-tag">Claude</span><span class="about-wf-tag">Copilot</span></div>
+                  </div>
+                  <div class="about-wf-node think">
+                    <div class="about-wf-node-title">Human review</div>
+                    <div class="about-wf-node-sub">Every output reviewed by Federico</div>
+                  </div>
+                </div>
+                <div class="about-wf-col">
+                  <div class="about-wf-node make">
+                    <div class="about-wf-node-title">Figma Make</div>
+                    <div class="about-wf-node-sub">First-pass proposal</div>
+                    <div class="about-wf-tags"><span class="about-wf-tag">DS connected</span></div>
+                  </div>
+                  <div class="about-wf-node make">
+                    <div class="about-wf-node-title">UI audit + specs</div>
+                    <div class="about-wf-node-sub">Annotated, dev-ready</div>
+                  </div>
+                </div>
+                <div class="about-wf-col">
+                  <div class="about-wf-node ship">
+                    <div class="about-wf-node-title">Measure post-ship</div>
+                    <div class="about-wf-node-sub">Same Pendo tracks outcome</div>
+                  </div>
+                  <div class="about-wf-node ship">
+                    <div class="about-wf-node-title">Loop restarts</div>
+                    <div class="about-wf-node-sub">New signals → new decisions</div>
+                  </div>
+                </div>
+              </div>
+              <p style="text-align:center;font-size:0.7rem;color:var(--text-tertiary);padding:var(--space-8) 0;">Every insight routes to one of two outputs</p>
+              <div class="about-wf-outputs">
+                <div class="about-wf-output design">
+                  <div class="about-wf-output-label">Design output</div>
+                  <div class="about-wf-chips"><span class="about-wf-chip">Figma proposal</span><span class="about-wf-chip">UI audit</span><span class="about-wf-chip">Ship</span></div>
+                </div>
+                <div class="about-wf-output ticket">
+                  <div class="about-wf-output-label">Product / dev</div>
+                  <div class="about-wf-chips"><span class="about-wf-chip">Ticket</span><span class="about-wf-chip">Evidence</span><span class="about-wf-chip">Jira / ADO</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PHOTO SLOT -->
+            <div class="about-photo-slot" aria-label="Add personal photo here">[ photo ]</div>
+
+            <!-- PULL QUOTE 2 -->
+            <div class="about-pull-quote">
+              <p class="about-pull-quote-text">
+                Products shape habits.<br>
+                Design influences behavior.<br>
+                <em>Systems improve over time.</em>
+              </p>
+            </div>
+
+            <!-- WHAT COLLEAGUES SAY -->
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">What colleagues say</h2>
+            <p>The most consistent feedback I get from product managers and engineers is that I make the invisible visible. I surface patterns they didn't know existed, frame them in a way that's actionable, and show up with something concrete — not just insights, but a direction.</p>
+            <p>I also ask questions that aren't strictly "UX questions." What does this cost to build? What's the edge case if the user does X? What metric would tell us this worked? I think that's just part of taking the work seriously.</p>
+
+            <div class="divider"></div>
+
+            <!-- OUTSIDE WORK -->
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">Outside of work</h2>
+            <p>I'm genuinely curious about behavioral psychology — how habits form, how decisions compound, how small system changes produce large behavior shifts. That curiosity isn't separate from my work; it's basically the same problem at a different scale.</p>
+            <p>I think a lot about personal systems: how to work with more clarity and intention, how to make good defaults automatic. I'm currently working on improving habits around health, focus, and learning. And I'm quietly building things on the side — some are consulting projects, some are experiments.</p>
+
+            <!-- PULL QUOTE 3 -->
+            <div class="about-pull-quote">
+              <p class="about-pull-quote-text">
+                I'm not just curious about <em>what</em> users do.<br>
+                I want to know why — and what it means for what we build next.
+              </p>
+            </div>
+
+            <!-- TEAMS -->
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">Teams I work well with</h2>
+            <p>Teams that want to understand their users and are willing to act on what they find. Where "we don't have data on that" is the start of a conversation, not the end of one. I'm comfortable being the only person doing what I do — I've operated that way at EY. But I also genuinely enjoy collaborating with strong engineers and product managers who push the quality of the thinking.</p>
+
+            <div class="divider"></div>
+
+            <!-- KÖJ -->
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-8);">Independent practice</h2>
+            <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:var(--space-24);">Things I build and consult on outside of my main role.</p>
+
+            <div class="about-koj-card">
+              <div class="about-koj-eyebrow">KÖJ · 2019 – Present · Guatemala & LATAM</div>
+              <div class="about-koj-title">Product strategy & digital consulting</div>
+              <div class="about-koj-desc">An independent consulting practice where I apply product thinking, UX strategy, and AI-assisted workflows to help businesses build and improve digital products. The work ranges from greenfield platform design to adoption strategy for existing products.</div>
+              <div class="about-koj-sub">
+                <div class="about-koj-sub-item">
+                  <div class="about-koj-sub-title">QuéOferton — Centralized deals platform</div>
+                  <div class="about-koj-sub-desc">Product strategy and UX for a deals aggregator for the Guatemalan market. Mapped user journeys, defined information architecture, and validated adoption flows.</div>
+                </div>
+                <div class="about-koj-sub-item">
+                  <div class="about-koj-sub-title">QuéOfermall — Multivendor eCommerce</div>
+                  <div class="about-koj-sub-desc">Built from scratch a multivendor platform with payment gateway integration, self-service vendor storefronts, and full product catalog management.</div>
+                </div>
+                <div class="about-koj-sub-item">
+                  <div class="about-koj-sub-title">SERENA Spa & Wellness</div>
+                  <div class="about-koj-sub-desc">Service design and adoption strategy — mapping service touchpoints, identifying drop-off moments, and defining client retention frameworks.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIDE PROJECTS -->
+            <div class="about-side-projects">
+              <div class="about-side-card">
+                <div class="about-side-eyebrow">Academic · UNC</div>
+                <div class="about-side-title">Industrial Design Thesis</div>
+                <div class="about-side-desc">Bachelor's capstone — designing a product system from material research to final prototype. The foundation that taught me to think in systems.</div>
+              </div>
+              <div class="about-side-card">
+                <div class="about-side-eyebrow">Independent</div>
+                <div class="about-side-title">Depure</div>
+                <div class="about-side-desc">A personal project exploring product thinking outside client constraints — a space to experiment with ideas and tools without a brief.</div>
+              </div>
+              <div class="about-side-card">
+                <div class="about-side-eyebrow">Independent · Built alongside EY</div>
+                <div class="about-side-title">LayerEY</div>
+                <div class="about-side-desc">An exploration of ideas that emerged from working inside a large enterprise design system and behavioral analytics context.</div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- EDUCATION -->
             <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">Education</h2>
             <p><strong>Bachelor in Industrial Design</strong><br>Universidad Nacional de Córdoba, Argentina</p>
             <br>
-            <p><strong>Certifications & Courses</strong></p>
-            <p>Interaction Design Foundation · HAZ! Product Design Program · Uxcel: UX/UI Foundations · Design Labs: Advanced UX Course</p>
+            <p><strong>Certifications</strong><br>Interaction Design Foundation · HAZ! Product Design · Uxcel: UX/UI Foundations · Design Labs: Advanced UX</p>
 
             <div class="divider"></div>
 
             <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-12);">Languages</h2>
             <p>Spanish — Native &nbsp;·&nbsp; English — C2 Proficient</p>
+
           </div>
 
           <aside class="about-sidebar" data-anim data-anim-delay="3">
-
+            <div class="about-sidebar-card">
+              <div class="about-sidebar-label">Currently</div>
+              <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;">Sr. UX Strategist & Behavioral Analytics Lead at <strong style="color:var(--text-primary);">Globant</strong> — embedded in EY's XDA team.</p>
+            </div>
             <div class="about-sidebar-card">
               <div class="about-sidebar-label">Core Expertise</div>
               <div class="about-skills-list">
                 <span class="about-skill">Behavioral Analytics</span>
-                <span class="about-skill">UX Diagnosis</span>
+                <span class="about-skill">UX Research</span>
                 <span class="about-skill">Instrumentation</span>
                 <span class="about-skill">Design Systems</span>
-                <span class="about-skill">Funnel/Journey Design</span>
-                <span class="about-skill">UX Research</span>
-                <span class="about-skill">Product Analytics</span>
+                <span class="about-skill">Funnel Design</span>
+                <span class="about-skill">Product Strategy</span>
               </div>
             </div>
-
-            <div class="about-sidebar-card">
-              <div class="about-sidebar-label">Core Tools</div>
-              <div class="about-skills-list">
-                <span class="about-skill">Figma</span>
-                <span class="about-skill">Miro</span>
-                <span class="about-skill">Pendo</span>
-                <span class="about-skill">Qualtrics</span>
-                <span class="about-skill">Useberry</span>
-                <span class="about-skill">Maze</span>
-                <span class="about-skill">Dynamics</span>
-                <span class="about-skill">Jira</span>
-                <span class="about-skill">Confluence</span>
-                <span class="about-skill">Airtable</span>
-              </div>
-            </div>
-
             <div class="about-sidebar-card">
               <div class="about-sidebar-label">AI Workflow</div>
               <div class="about-skills-list">
-                <span class="about-skill">ChatGPT</span>
                 <span class="about-skill">Claude</span>
-                <span class="about-skill">Copilot</span>
-                <span class="about-skill">Bolt</span>
-                <span class="about-skill">v0</span>
-                <span class="about-skill">Lovable</span>
+                <span class="about-skill">Copilot Studio</span>
+                <span class="about-skill">Figma Make</span>
+                <span class="about-skill">ChatGPT</span>
+                <span class="about-skill">v0 · Bolt</span>
               </div>
             </div>
-
-            <div class="about-sidebar-card">
-              <div class="about-sidebar-label">Currently</div>
-              <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;">
-                Sr UX / Product Strategist at <strong style="color:var(--text-primary);">Globant</strong> — working on EY's internal developer portal (Fabric).
-              </p>
-            </div>
-
             <a href="resume.html" class="btn btn-primary" style="width:100%;justify-content:center;">View Resume</a>
-            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;">Get in touch</a>
-
+            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:var(--space-8);">Get in touch</a>
           </aside>
         </div>
 
