@@ -202,6 +202,61 @@
     @media (max-width: 480px) {
       .about-wf-steps { grid-template-columns: 1fr; }
     }
+    /* About subhead */
+    .about-subhead {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 0 var(--space-40) 0;
+    }
+    /* Photo strip */
+    .about-photo-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-12);
+      margin-bottom: var(--space-64);
+      align-items: end;
+    }
+    .about-photo-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .about-photo-card--tall { height: 320px; }
+    .about-photo-card--short { height: 240px; }
+    .about-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .about-photo-card--empty img { display: none; }
+    .about-photo-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--space-8) var(--space-12);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: linear-gradient(to top, rgba(12,12,12,0.85) 0%, transparent 100%);
+      line-height: 1.4;
+    }
+    .about-photo-card--empty .about-photo-label { display: none; }
+    @media (max-width: 768px) {
+      .about-photo-strip { grid-template-columns: 1fr 1fr; }
+      .about-photo-strip .about-photo-card:last-child { display: none; }
+    }
+    @media (max-width: 480px) {
+      .about-photo-strip { grid-template-columns: 1fr; }
+      .about-photo-card--tall, .about-photo-card--short { height: 220px; }
+      .about-photo-strip .about-photo-card:last-child { display: block; }
+    }
   </style>
 </head>
 <body>
@@ -299,18 +354,30 @@
     <section class="about-hero" aria-labelledby="about-heading">
       <div class="container">
 
-        <div class="about-photo-placeholder" aria-label="Photo placeholder" role="img">👤</div>
-
         <div class="section-eyebrow" data-anim>About</div>
         <h1 class="about-headline" id="about-heading" data-anim data-anim-delay="1">
-          Industrial Designer by training —<br>
-          <em>product strategist</em> by practice.
+          Your users are already showing you what to build next.<br>
+          <em>Most teams just can't see it yet.</em>
         </h1>
 
-        <div class="about-snapshot" data-anim data-anim-delay="2">
-          <span class="about-snapshot-pill"><span class="dot"></span>Córdoba, Argentina</span>
-          <span class="about-snapshot-pill"><span class="dot"></span>Behavioral analytics & UX research</span>
-          <span class="about-snapshot-pill"><span class="dot"></span>Design that learns from behavior</span>
+        <p class="about-subhead" data-anim data-anim-delay="2">
+          I'm Federico — a product designer and behavioral analytics practitioner based in Córdoba, Argentina.
+          I help teams instrument their products, read the signals, and design the next move.
+        </p>
+
+        <div class="about-photo-strip" data-anim data-anim-delay="3" aria-label="Personal photos">
+          <div class="about-photo-card about-photo-card--tall">
+            <img src="../assets/images/about-1.jpg" alt="Federico at work" onerror="this.closest('.about-photo-card').classList.add('about-photo-card--empty')">
+            <span class="about-photo-label">Designing in Córdoba</span>
+          </div>
+          <div class="about-photo-card about-photo-card--short">
+            <img src="../assets/images/about-2.jpg" alt="Federico presenting to team" onerror="this.closest('.about-photo-card').classList.add('about-photo-card--empty')">
+            <span class="about-photo-label">Presenting to stakeholders</span>
+          </div>
+          <div class="about-photo-card about-photo-card--tall">
+            <img src="../assets/images/about-3.jpg" alt="Federico at design workshop" onerror="this.closest('.about-photo-card').classList.add('about-photo-card--empty')">
+            <span class="about-photo-label">Workshop, 2023</span>
+          </div>
         </div>
 
         <div class="about-body">
@@ -430,9 +497,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- PHOTO SLOT -->
-            <div class="about-photo-slot" aria-label="Add personal photo here">[ photo ]</div>
 
             <!-- PULL QUOTE 2 -->
             <div class="about-pull-quote">
