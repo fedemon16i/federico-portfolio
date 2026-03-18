@@ -8,9 +8,20 @@
   <script src="../js/theme.js"></script>
   <style>
     :root {
-      --accent: var(--accent-ey);
-      --accent-dim: rgba(200,168,75,0.12);
-      --project-glow: rgba(200,168,75,0.08);
+      --accent: #4aa3d4;
+      --accent-dim: rgba(74,163,212,0.12);
+      --project-glow: rgba(74,163,212,0.08);
+    }
+    [data-theme="light"] {
+      --accent: #1d6fa4;
+      --accent-dim: rgba(29,111,164,0.12);
+      --project-glow: rgba(29,111,164,0.06);
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme]) {
+        --accent: #1d6fa4;
+        --accent-dim: rgba(29,111,164,0.12);
+      }
     }
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
@@ -559,6 +570,8 @@
     @media (prefers-reduced-motion: reduce) {
       .ey-mock-hint-dot { animation: none; }
     }
+    /* Override global 100svh — EY has no full-screen image hero */
+    .project-hero { min-height: auto !important; }
   </style>
 </head>
 <body>
