@@ -400,4 +400,22 @@ document.addEventListener('DOMContentLoaded', function() {
       h.classList.add('enc-hint--hidden');
     });
   }, 6000);
+
+  // Light mode: swap dark placeholder card backgrounds
+  function applyLightCardBgs() {
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light' ||
+      (!document.documentElement.getAttribute('data-theme') &&
+       window.matchMedia('(prefers-color-scheme: light)').matches);
+    document.querySelectorAll('[data-light-bg]').forEach(function(el) {
+      var orig = el.getAttribute('data-orig-bg');
+      if (!orig) {
+        el.setAttribute('data-orig-bg', el.style.background);
+        orig = el.style.background;
+      }
+      el.style.background = isLight ? el.getAttribute('data-light-bg') : orig;
+    });
+  }
+  applyLightCardBgs();
+  new MutationObserver(applyLightCardBgs)
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 });
