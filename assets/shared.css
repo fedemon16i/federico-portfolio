@@ -2157,16 +2157,8 @@ img {
 }
 
 .about-body {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: var(--space-80);
-  align-items: start;
-}
-
-@media (max-width: 900px) {
-  .about-body {
-    grid-template-columns: 1fr;
-  }
+  display: block;
+  max-width: 720px;
 }
 
 .about-text {
