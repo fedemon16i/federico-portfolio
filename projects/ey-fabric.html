@@ -508,6 +508,57 @@
     .project-hero {
       min-height: auto !important;
     }
+
+    /* ── In-mock interaction hint ── */
+    .ey-mock-hint {
+      display: flex;
+      align-items: center;
+      gap: var(--space-10);
+      padding: var(--space-10) var(--space-16);
+      background: var(--accent-dim);
+      border: 1.5px solid var(--accent);
+      border-radius: 8px;
+      margin-bottom: var(--space-16);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .ey-mock-hint.ey-mock-hint--hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+    }
+    .ey-mock-hint-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: ey-dot-pulse 1.5s ease-in-out infinite;
+    }
+    .ey-mock-hint-text {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      flex: 1;
+      line-height: 1.4;
+    }
+    .ey-mock-hint-badge {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--accent);
+      color: var(--bg-base);
+      flex-shrink: 0;
+    }
+    @keyframes ey-dot-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.6); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ey-mock-hint-dot { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -639,21 +690,31 @@
     </header>
 
     <div class="project-content" style="padding-top: var(--space-48);">
-      <div class="container" style="max-width:900px;">
+      <div class="container">
 
-        <!-- Interaction hint -->
-        <div class="enc-hint" id="ey-enc-hint">
-          <span class="enc-hint-cursor">↑</span>
-          Try the sections — click each tab to explore
+        <!-- ── THE ROLE — outside the navigator ── -->
+        <div class="project-section" id="ey-role" data-anim style="margin-bottom:var(--space-64);">
+          <div class="project-section-label">The Role</div>
+          <h2 class="project-section-title" style="font-size:clamp(1.75rem,3.5vw,2.75rem);line-height:1.15;letter-spacing:-0.03em;max-width:700px;">
+            The only practitioner on the team closing the full loop — from behavioral signal to Figma.
+          </h2>
+          <p class="project-body-text" style="max-width:640px;margin:var(--space-20) 0 var(--space-32);">
+            At EY Fabric I'm embedded as the sole Pendo practitioner on the XDA team — the link between what the platform does, what users experience, and what product and engineering prioritize next. No handoffs between disciplines. One person, one loop.
+          </p>
+          <div class="project-owned-list">
+            <div class="project-owned-item">Sole Pendo practitioner on the XDA team — I own all instrumentation, funnels, journeys, paths, segments, and reports across 90+ marketplace assets.</div>
+            <div class="project-owned-item">UXR on-demand: 1:1 interviews, Maze tests, Optimal Workshop sessions, and Pendo in-app surveys and walkthroughs — triggered by behavioral signals, not scheduled sprints.</div>
+            <div class="project-owned-item">Synthesize analytics + research using Copilot connected to EY's SharePoint source of truth, then deliver actionable design proposals via Figma Make with the design system already connected.</div>
+            <div class="project-owned-item">When findings reveal bugs or critical friction — output prioritized tickets to product and development via ADO, with behavioral evidence attached.</div>
+            <div class="project-owned-item">When design is needed, I'm part of that loop too — Figma proposals following the existing design system, auto layout, and component guidelines. Code-ready, behavioral evidence on every frame.</div>
+          </div>
         </div>
-
-        <div class="enc-nav" role="tablist" aria-label="EY Fabric sections">
+        <!-- ── WHAT I DO — navigator ── -->
+        <div class="project-section-label" style="margin-bottom:var(--space-8);">What I do</div>
+        <h2 class="project-section-title" style="max-width:640px;margin-bottom:var(--space-8);">See each layer of the workflow in action</h2>
+        <p class="project-body-text" style="max-width:640px;margin-bottom:var(--space-24);">Each tab shows a real layer — from instrumenting the platform to closing the feedback loop.</p>
+        <div class="enc-nav" role="tablist" aria-label="EY Fabric workflow layers">
           <button class="enc-tab enc-tab--active" role="tab" aria-selected="true"
-            aria-controls="ey-panel-role" id="ey-tab-role"
-            onclick="encShow(this,'ey-panel-role','ey-enc-panels')">
-            The Role
-          </button>
-          <button class="enc-tab" role="tab" aria-selected="false"
             aria-controls="ey-panel-instrument" id="ey-tab-instrument"
             onclick="encShow(this,'ey-panel-instrument','ey-enc-panels')">
             Instrument
@@ -674,32 +735,21 @@
             Evidence
           </button>
         </div>
-
         <div class="enc-panels" id="ey-enc-panels">
 
-        <!-- ── WHAT I OWN ── -->
-        <div class="enc-panel enc-panel--active" role="tabpanel" id="ey-panel-role" aria-labelledby="ey-tab-role">
-        <div class="project-section" id="ey-role" data-anim>
-          <div class="project-section-label">The Role</div>
-          <h2 class="project-section-title">The only role at the intersection of behavior, research, and design</h2>
-          <div class="project-owned-list">
-            <div class="project-owned-item">Sole Pendo practitioner on the XDA team — I own all instrumentation, funnels, journeys, paths, segments, and reports across 100+ marketplace assets.</div>
-            <div class="project-owned-item">Run UXR on-demand and proactively: 1:1 interviews, Maze tests, Optimal Workshop sessions, and Pendo in-app surveys and walkthroughs — triggered by behavioral signals, not scheduled sprints.</div>
-            <div class="project-owned-item">Synthesize analytics + research using Copilot connected to EY's SharePoint source of truth, then deliver actionable design proposals via Figma Make with the design system already connected.</div>
-            <div class="project-owned-item">When findings reveal bugs, performance issues, or critical friction — output prioritized tickets to product and development via ADO, with behavioral evidence attached.</div>
-            <div class="project-owned-item">Collaborate with UI and visual designers who audit and refine Figma Make proposals — I provide the evidence trail and the first proposal; they bring the visual craft.</div>
-            <div class="project-owned-item">When design is required, I'm part of that loop too — delivering Figma proposals following the existing design system, auto layout, and component guidelines. Code-ready, with behavioral evidence attached to every frame.</div>
-          </div>
-        </div>
-
-        </div><!-- close enc-panel role -->
-        <div class="enc-panel" role="tabpanel" id="ey-panel-instrument" aria-labelledby="ey-tab-instrument" hidden>
+        <div class="enc-panel enc-panel--active" role="tabpanel" id="ey-panel-instrument" aria-labelledby="ey-tab-instrument">
         <!-- ── INSTRUMENT ── -->
         <div class="project-section" id="ey-instrument" data-anim>
           <div class="project-section-label">Instrument</div>
           <h2 class="project-section-title">I work with UI and devs to define what to track — and why</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-24);">Before any analytics exist, someone has to define the events. I coordinate with UI designers and engineers to tag existing components, name events consistently, and map them to user stories — so the data means something when it arrives.</p>
           <div class="ey-instrument-demo">
+            <!-- ── In-mock interaction hint ── -->
+            <div class="ey-mock-hint" id="ey-mock-hint" aria-label="This demo is interactive">
+              <span class="ey-mock-hint-dot" aria-hidden="true"></span>
+              <span class="ey-mock-hint-text">Interactive — click each step to walk through the flow</span>
+              <span class="ey-mock-hint-badge">Try it</span>
+            </div>
             <!-- Step bar -->
             <div class="ey-stepbar" id="ey-stepbar" role="tablist" aria-label="Instrumentation flow steps">
               <div class="ey-step-item">
@@ -1482,6 +1532,20 @@ function eyGoStep(n) {
     else { btn.className = 'ey-step-btn'; btn.querySelector('.ey-step-num').textContent = i; }
   }
 }
+// Hide in-mock hint after first step interaction
+(function() {
+  var hinted = false;
+  var btns = document.querySelectorAll('.ey-step-btn');
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (!hinted) {
+        hinted = true;
+        var hint = document.getElementById('ey-mock-hint');
+        if (hint) hint.classList.add('ey-mock-hint--hidden');
+      }
+    });
+  });
+})();
 /* ── Walkthrough ── */
 var eyWTStep = 0;
 var eyWTSteps = [
