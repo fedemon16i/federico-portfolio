@@ -100,12 +100,14 @@
   --border: rgba(0, 0, 0, 0.08);
   --text-primary: #111111;
   --text-secondary: #555555;
-  --text-tertiary: #888888;
+  --text-tertiary: #737373;
   --shadow: rgba(0, 0, 0, 0.10);
   --nav-bg: rgba(245, 245, 240, 0.88);
   --toggle-bg: rgba(0, 0, 0, 0.06);
   --toggle-icon: #555555;
   --toggle-hover-bg: rgba(0, 0, 0, 0.12);
+  --accent: #7a6020;
+  --accent-dim: rgba(122, 96, 32, 0.12);
 }
 
 /* Fallback for no-JS: respect system */
@@ -144,12 +146,14 @@
     --border: rgba(0, 0, 0, 0.08);
     --text-primary: #111111;
     --text-secondary: #555555;
-    --text-tertiary: #888888;
+    --text-tertiary: #737373;
     --shadow: rgba(0, 0, 0, 0.10);
     --nav-bg: rgba(245, 245, 240, 0.88);
     --toggle-bg: rgba(0, 0, 0, 0.06);
     --toggle-icon: #555555;
     --toggle-hover-bg: rgba(0, 0, 0, 0.12);
+    --accent: #7a6020;
+    --accent-dim: rgba(122, 96, 32, 0.12);
   }
 }
 
@@ -1710,6 +1714,34 @@ button {
 @supports not (min-height: 100svh) {
   .project-hero {
     min-height: 100vh;
+  }
+}
+
+/* ── Project hero: force readable text in light mode ─────── */
+[data-theme="light"] .project-hero,
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .project-hero {
+    color: var(--text-primary);
+  }
+}
+[data-theme="light"] .project-hero .breadcrumb,
+[data-theme="light"] .project-hero .hero-hook,
+[data-theme="light"] .project-hero .project-sub {
+  color: var(--text-secondary);
+}
+[data-theme="light"] .project-hero .project-title,
+[data-theme="light"] .project-hero h1 {
+  color: var(--text-primary);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .project-hero .breadcrumb,
+  :root:not([data-theme]) .project-hero .hero-hook,
+  :root:not([data-theme]) .project-hero .project-sub {
+    color: var(--text-secondary);
+  }
+  :root:not([data-theme]) .project-hero .project-title,
+  :root:not([data-theme]) .project-hero h1 {
+    color: var(--text-primary);
   }
 }
 

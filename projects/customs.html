@@ -12,6 +12,10 @@
       --accent-dim: rgba(224,92,74,0.12);
       --project-glow: rgba(224,92,74,0.08);
     }
+    [data-theme="light"] { --accent: #8f2d1e; --accent-dim: rgba(143,45,30,0.12); }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme]) { --accent: #8f2d1e; --accent-dim: rgba(143,45,30,0.12); }
+    }
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
     }
