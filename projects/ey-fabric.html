@@ -243,6 +243,312 @@
       .wy-grid { grid-template-columns: 1fr; }
       .wy-node.platform, .wy-node.synthesis, .wy-arrow { grid-column: 1; }
     }
+
+    /* ── Sticky section nav ── */
+    .ey-snav {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: var(--bg-base);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: var(--space-8) 0;
+      margin-bottom: var(--space-48);
+    }
+    .ey-snav-inner {
+      display: flex;
+      gap: var(--space-6);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--space-24);
+    }
+    .ey-snav-inner::-webkit-scrollbar { display: none; }
+    .ey-snav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: var(--space-6) var(--space-16);
+      border-radius: 100px;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .ey-snav-pill:hover { color: var(--text-secondary); border-color: var(--border-subtle); }
+    .ey-snav-pill.active {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .ey-snav-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    /* ── Instrument demo wrapper ── */
+    .ey-instrument-demo { margin-top: var(--space-32); }
+    /* ── Step bar ── */
+    .ey-stepbar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: var(--space-16);
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 2px 0;
+    }
+    .ey-stepbar::-webkit-scrollbar { display: none; }
+    .ey-step-item { display: flex; align-items: center; flex-shrink: 0; }
+    .ey-step-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 6px;
+    }
+    .ey-step-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ey-step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+    }
+    .ey-step-btn.active .ey-step-num { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+    .ey-step-btn.done .ey-step-num { border-color: #22c55e; color: #22c55e; background: rgba(34,197,94,0.1); }
+    .ey-step-label { font-size: 0.72rem; font-weight: 500; color: var(--text-tertiary); white-space: nowrap; }
+    .ey-step-btn.active .ey-step-label { color: var(--text-primary); font-weight: 700; }
+    .ey-step-sep { width: 16px; height: 1px; background: var(--border-subtle); margin: 0 var(--space-6); flex-shrink: 0; }
+    /* ── Event tags ── */
+    .ey-tag-legend {
+      display: flex;
+      gap: var(--space-12);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-16);
+    }
+    .ey-tleg {
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-tertiary);
+    }
+    .ey-etag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.55rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+    .ey-etag-nav  { background: rgba(29,111,164,0.15); color: #4aa3d4; }
+    .ey-etag-disc { background: rgba(200,168,75,0.15); color: var(--accent); }
+    .ey-etag-act  { background: rgba(34,197,94,0.12); color: #22c55e; }
+    .ey-etag-conv { background: rgba(139,92,246,0.12); color: #a07ae0; }
+    /* ── Screen panels ── */
+    .ey-screen { display: none; }
+    .ey-screen.active { display: block; }
+    /* ── Mock shell ── */
+    .ey-mock-shell {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg, 12px);
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+    .ey-mock-bar {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: var(--space-8) var(--space-12);
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+    .ey-mdot { width: 7px; height: 7px; border-radius: 50%; background: var(--border-subtle); flex-shrink: 0; }
+    .ey-mock-url { flex: 1; font-size: 0.65rem; color: var(--text-tertiary); background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 4px; padding: 3px var(--space-8); }
+    .ey-mock-body { padding: var(--space-16); }
+    /* ── Catalog screen ── */
+    .ey-search-row { margin-bottom: var(--space-12); }
+    .ey-search-input {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      height: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 0 var(--space-12);
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      flex-wrap: wrap;
+    }
+    .ey-filter-row { display: flex; gap: var(--space-6); flex-wrap: wrap; margin-bottom: var(--space-12); }
+    .ey-fc { font-size: 0.65rem; padding: 3px var(--space-8); border-radius: 100px; border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    .ey-fc--sel { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+    .ey-cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+    .ey-cat-card {
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: var(--space-12);
+      background: var(--bg-card);
+    }
+    .ey-cat-card--selected { border-color: var(--accent); background: var(--accent-dim); }
+    .ey-cat-type { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 3px; }
+    .ey-cat-title { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+    .ey-cat-desc { font-size: 0.7rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: var(--space-8); }
+    .ey-cat-footer { display: flex; justify-content: space-between; align-items: center; }
+    .ey-cat-cta { font-size: 0.65rem; font-weight: 600; color: var(--accent); }
+    .ey-cat-cta--selected { color: var(--accent); }
+    .ey-cat-price { font-size: 0.65rem; color: var(--text-tertiary); }
+    /* ── Configure screen ── */
+    .ey-config-layout { display: grid; grid-template-columns: 1fr 140px; gap: var(--space-12); }
+    .ey-cfg-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+    .ey-cfg-sub { font-size: 0.72rem; color: var(--text-secondary); margin-bottom: var(--space-12); }
+    .ey-form-grp { margin-bottom: var(--space-8); }
+    .ey-form-lbl { font-size: 0.65rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 3px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .ey-form-sel { width: 100%; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 5px; padding: 5px var(--space-8); font-size: 0.72rem; color: var(--text-secondary); }
+    .ey-toggle-row { display: flex; justify-content: space-between; align-items: center; padding: var(--space-6) 0; border-bottom: 1px solid var(--border-subtle); }
+    .ey-toggle-lbl { font-size: 0.72rem; color: var(--text-primary); display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .ey-tgl { width: 26px; height: 15px; border-radius: 8px; background: var(--border-subtle); position: relative; flex-shrink: 0; }
+    .ey-tgl--on { background: var(--accent); }
+    .ey-tgl-knob { width: 11px; height: 11px; border-radius: 50%; background: white; position: absolute; top: 2px; left: 2px; }
+    .ey-tgl--on .ey-tgl-knob { left: 13px; }
+    .ey-price-panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: var(--space-12); }
+    .ey-price-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: var(--space-8); }
+    .ey-price-row { display: flex; justify-content: space-between; font-size: 0.65rem; padding: 4px 0; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    .ey-price-total { display: flex; justify-content: space-between; padding: var(--space-6) 0 0; font-size: 0.8rem; font-weight: 700; color: var(--text-primary); }
+    .ey-price-total-num { color: var(--accent); }
+    /* ── Summary screen ── */
+    .ey-summary-card { border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; }
+    .ey-summary-head { background: var(--bg-card); padding: var(--space-8) var(--space-12); font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+    .ey-summary-body { padding: var(--space-12); display: flex; flex-direction: column; gap: var(--space-6); }
+    .ey-sum-row { display: flex; justify-content: space-between; font-size: 0.75rem; }
+    .ey-sum-lbl { color: var(--text-secondary); }
+    .ey-sum-val { color: var(--text-primary); font-weight: 500; }
+    .ey-sum-val--ok { color: #22c55e; }
+    .ey-sum-val--muted { color: var(--text-tertiary); }
+    .ey-sum-total { display: flex; justify-content: space-between; padding: var(--space-8) var(--space-12); border-top: 1px solid var(--border-subtle); font-weight: 700; font-size: 0.85rem; color: var(--text-primary); }
+    /* ── Walkthrough screen ── */
+    .ey-wt-base { position: relative; background: var(--bg-card); border-radius: 8px; padding: var(--space-12); margin-bottom: var(--space-8); min-height: 140px; }
+    .ey-wt-ui-row { display: flex; gap: var(--space-6); margin-bottom: var(--space-8); flex-wrap: wrap; }
+    .ey-wt-pill { font-size: 0.65rem; padding: 3px var(--space-8); border-radius: 100px; border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    .ey-wt-pill--hl { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+    .ey-wt-placeholder { height: 40px; background: var(--bg-surface); border-radius: 6px; border: 1px solid var(--border-subtle); margin-bottom: var(--space-6); }
+    .ey-wt-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-6); }
+    .ey-wt-cell { height: 28px; background: var(--bg-surface); border-radius: 6px; border: 1px solid var(--border-subtle); }
+    .ey-wt-tooltip {
+      position: absolute;
+      top: var(--space-8);
+      right: var(--space-8);
+      width: 48%;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--accent);
+      border-radius: 8px;
+      padding: var(--space-12);
+    }
+    .ey-wt-badge { font-size: 0.6rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .ey-wt-text { font-size: 0.72rem; font-weight: 500; color: var(--text-primary); line-height: 1.4; margin-bottom: var(--space-8); }
+    .ey-wt-foot { display: flex; justify-content: space-between; align-items: center; }
+    .ey-wt-skip { font-size: 0.6rem; color: var(--text-tertiary); cursor: pointer; }
+    .ey-wt-next { font-size: 0.65rem; font-weight: 700; padding: 3px var(--space-8); background: var(--accent); border-radius: 4px; color: var(--bg-base); border: none; cursor: pointer; }
+    .ey-wt-next:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ey-wt-dots { display: flex; gap: 4px; justify-content: center; margin-top: var(--space-6); }
+    .ey-wt-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border-subtle); }
+    .ey-wt-dot--active { background: var(--accent); }
+    .ey-wt-metric { font-size: 0.6rem; color: var(--text-tertiary); text-align: center; margin-top: var(--space-6); display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; }
+    /* ── Feedback screen ── */
+    .ey-fb-bg { height: 40px; background: var(--bg-card); border-radius: 6px; margin-bottom: var(--space-12); opacity: 0.5; }
+    .ey-fb-shell { background: var(--bg-card); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-subtle); margin-bottom: var(--space-8); }
+    .ey-fb-bar { background: var(--accent-dim); border-bottom: 1px solid rgba(200,168,75,0.3); padding: var(--space-6) var(--space-12); display: flex; justify-content: space-between; align-items: center; }
+    .ey-fb-label { font-size: 0.65rem; font-weight: 700; color: var(--accent); }
+    .ey-fb-close { font-size: 0.9rem; color: var(--text-tertiary); cursor: pointer; }
+    .ey-fb-body { padding: var(--space-12); }
+    .ey-fb-q { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-12); }
+    .ey-fb-scale { display: flex; gap: var(--space-6); margin-bottom: var(--space-12); }
+    .ey-fb-num { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; background: transparent; }
+    .ey-fb-num--sel { background: var(--accent); color: var(--bg-base); border-color: transparent; font-weight: 700; }
+    .ey-fb-num:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ey-fb-q2 { font-size: 0.72rem; color: var(--text-secondary); margin-bottom: var(--space-6); }
+    .ey-fb-textarea { width: 100%; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 6px; padding: var(--space-6) var(--space-8); font-size: 0.72rem; color: var(--text-primary); height: 52px; resize: none; font-family: inherit; }
+    .ey-fb-submit { margin-top: var(--space-8); width: 100%; padding: var(--space-8); background: var(--accent); border-radius: 6px; font-size: 0.82rem; font-weight: 700; color: var(--bg-base); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: var(--space-6); }
+    .ey-fb-submit:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ey-fb-trigger { font-size: 0.6rem; color: var(--text-tertiary); text-align: center; margin-top: var(--space-6); }
+    /* ── Nav buttons ── */
+    .ey-nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-12); gap: var(--space-8); }
+    .ey-nav-note { font-size: 0.65rem; color: var(--text-tertiary); }
+    .ey-btn-back { font-size: 0.72rem; padding: var(--space-6) var(--space-12); border-radius: 6px; border: 1px solid var(--border-subtle); background: transparent; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .ey-btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .ey-btn-next { font-size: 0.72rem; font-weight: 600; padding: var(--space-6) var(--space-16); border-radius: 6px; background: var(--accent); color: var(--bg-base); border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; flex: 1; justify-content: center; max-width: 280px; }
+    .ey-btn-next:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    /* ── Analytics grid ── */
+    .ey-analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-bottom: var(--space-24); }
+    .ey-an-card { border: 1px solid var(--border-subtle); border-radius: 8px; overflow: hidden; }
+    .ey-an-head { background: var(--bg-card); padding: var(--space-8) var(--space-12); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); }
+    .ey-an-body { padding: var(--space-12); }
+    .ey-an-note { font-size: 0.6rem; color: #e05c4a; margin-top: var(--space-6); padding: 4px var(--space-8); background: rgba(224,92,74,0.08); border-left: 2px solid #e05c4a; border-radius: 0 4px 4px 0; }
+    .ey-funnel-row { display: flex; align-items: center; gap: var(--space-6); margin-bottom: 4px; font-size: 0.65rem; color: var(--text-tertiary); }
+    .ey-fbar-wrap { flex: 1; height: 10px; background: var(--bg-card); border-radius: 2px; overflow: hidden; }
+    .ey-fbar { height: 100%; border-radius: 2px; }
+    .ey-journey { display: flex; }
+    .ey-jcol { flex: 1; }
+    .ey-jcol-head { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px var(--space-6); border-bottom: 1.5px solid var(--border-subtle); color: var(--text-tertiary); text-align: center; }
+    .ey-jcol-head--hot { border-color: #e05c4a; color: #e05c4a; }
+    .ey-jcol-body { padding: 4px; display: flex; flex-direction: column; gap: 3px; }
+    .ey-jtag { font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; border-left: 2px solid; }
+    .ey-jtag--pain { border-color: #e05c4a; background: rgba(224,92,74,0.08); color: #e05c4a; }
+    .ey-jtag--ok { border-color: #22c55e; background: rgba(34,197,94,0.08); color: #22c55e; }
+    .ey-jtag--neu { border-color: var(--border-subtle); background: var(--bg-card); color: var(--text-secondary); }
+    .ey-survey-mock { background: var(--bg-card); border-radius: 6px; padding: var(--space-8); border: 1px solid var(--border-subtle); }
+    .ey-survey-q { font-size: 0.72rem; font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-8); }
+    .ey-survey-scale { display: flex; gap: 4px; margin-bottom: var(--space-6); }
+    .ey-survey-num { width: 24px; height: 24px; border-radius: 4px; border: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--text-secondary); }
+    .ey-survey-num--sel { background: var(--accent); color: var(--bg-base); border-color: transparent; }
+    .ey-survey-trigger { font-size: 0.6rem; color: var(--text-tertiary); }
+    .ey-guide-mock { background: var(--bg-surface); border: 1.5px solid var(--accent); border-radius: 6px; padding: var(--space-8); }
+    .ey-guide-step { font-size: 0.6rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .ey-guide-text { font-size: 0.72rem; font-weight: 500; color: var(--text-primary); line-height: 1.4; margin-bottom: var(--space-8); }
+    .ey-guide-foot { display: flex; justify-content: space-between; align-items: center; }
+    .ey-guide-skip { font-size: 0.6rem; color: var(--text-tertiary); }
+    .ey-guide-next { font-size: 0.65rem; font-weight: 700; padding: 3px var(--space-8); background: var(--accent); border-radius: 4px; color: var(--bg-base); }
+    .ey-guide-note { font-size: 0.6rem; color: var(--text-tertiary); margin-top: var(--space-6); }
+    /* ── Output strip ── */
+    .ey-output-strip {
+      padding: var(--space-12) var(--space-16);
+      background: var(--accent-dim);
+      border: 1px solid rgba(200,168,75,0.25);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .ey-output-strip strong { color: var(--text-primary); }
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .ey-wt-pill--hl { animation: none; }
+    }
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .ey-config-layout { grid-template-columns: 1fr; }
+      .ey-cat-grid { grid-template-columns: 1fr; }
+      .ey-analytics-grid { grid-template-columns: 1fr; }
+      .ey-wt-tooltip { position: static; width: 100%; margin-top: var(--space-8); }
+      .ey-wt-base { min-height: auto; }
+      .ey-btn-next { max-width: none; }
+    }
   </style>
 </head>
 <body>
@@ -358,7 +664,7 @@
         </div>
         <div class="project-stat-row" data-anim data-anim-delay="4">
           <div class="project-stat">
-            <div class="project-stat-value">100+</div>
+            <div class="project-stat-value">90+</div>
             <div class="project-stat-label">Assets instrumented</div>
           </div>
           <div class="project-stat">
@@ -374,10 +680,19 @@
     </header>
 
     <div class="project-content">
+      <nav class="ey-snav" aria-label="Page sections">
+        <div class="ey-snav-inner">
+          <button class="ey-snav-pill active" onclick="eySnavGo('ey-role', this)">The Role</button>
+          <button class="ey-snav-pill" onclick="eySnavGo('ey-instrument', this)">Instrument</button>
+          <button class="ey-snav-pill" onclick="eySnavGo('ey-analytics', this)">Analytics & Guides</button>
+          <button class="ey-snav-pill" onclick="eySnavGo('ey-workflow', this)">How I Work</button>
+          <button class="ey-snav-pill" onclick="eySnavGo('ey-evidence', this)">Evidence</button>
+        </div>
+      </nav>
       <div class="container" style="max-width:900px;">
 
         <!-- ── WHAT I OWN ── -->
-        <div class="project-section" data-anim>
+        <div class="project-section" id="ey-role" data-anim>
           <div class="project-section-label">The Role</div>
           <h2 class="project-section-title">The only role at the intersection of behavior, research, and design</h2>
           <div class="project-owned-list">
@@ -386,11 +701,323 @@
             <div class="project-owned-item">Synthesize analytics + research using Copilot connected to EY's SharePoint source of truth, then deliver actionable design proposals via Figma Make with the design system already connected.</div>
             <div class="project-owned-item">When findings reveal bugs, performance issues, or critical friction — output prioritized tickets to product and development via ADO, with behavioral evidence attached.</div>
             <div class="project-owned-item">Collaborate with UI and visual designers who audit and refine Figma Make proposals — I provide the evidence trail and the first proposal; they bring the visual craft.</div>
+            <div class="project-owned-item">When design is required, I'm part of that loop too — delivering Figma proposals following the existing design system, auto layout, and component guidelines. Code-ready, with behavioral evidence attached to every frame.</div>
+          </div>
+        </div>
+
+        <!-- ── INSTRUMENT ── -->
+        <div class="project-section" id="ey-instrument" data-anim>
+          <div class="project-section-label">Instrument</div>
+          <h2 class="project-section-title">I work with UI and devs to define what to track — and why</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-24);">Before any analytics exist, someone has to define the events. I coordinate with UI designers and engineers to tag existing components, name events consistently, and map them to user stories — so the data means something when it arrives.</p>
+          <div class="ey-instrument-demo">
+            <!-- Step bar -->
+            <div class="ey-stepbar" id="ey-stepbar" role="tablist" aria-label="Instrumentation flow steps">
+              <div class="ey-step-item">
+                <button class="ey-step-btn active" id="esn1" role="tab" aria-selected="true" aria-controls="esc1" onclick="eyGoStep(1)">
+                  <span class="ey-step-num">1</span><span class="ey-step-label">Catalog</span>
+                </button>
+              </div>
+              <div class="ey-step-sep" aria-hidden="true"></div>
+              <div class="ey-step-item">
+                <button class="ey-step-btn" id="esn2" role="tab" aria-selected="false" aria-controls="esc2" onclick="eyGoStep(2)">
+                  <span class="ey-step-num">2</span><span class="ey-step-label">Configure</span>
+                </button>
+              </div>
+              <div class="ey-step-sep" aria-hidden="true"></div>
+              <div class="ey-step-item">
+                <button class="ey-step-btn" id="esn3" role="tab" aria-selected="false" aria-controls="esc3" onclick="eyGoStep(3)">
+                  <span class="ey-step-num">3</span><span class="ey-step-label">Confirm</span>
+                </button>
+              </div>
+              <div class="ey-step-sep" aria-hidden="true"></div>
+              <div class="ey-step-item">
+                <button class="ey-step-btn" id="esn4" role="tab" aria-selected="false" aria-controls="esc4" onclick="eyGoStep(4)">
+                  <span class="ey-step-num">4</span><span class="ey-step-label">Walkthrough</span>
+                </button>
+              </div>
+              <div class="ey-step-sep" aria-hidden="true"></div>
+              <div class="ey-step-item">
+                <button class="ey-step-btn" id="esn5" role="tab" aria-selected="false" aria-controls="esc5" onclick="eyGoStep(5)">
+                  <span class="ey-step-num">5</span><span class="ey-step-label">Feedback</span>
+                </button>
+              </div>
+            </div>
+            <!-- Tag legend -->
+            <div class="ey-tag-legend" aria-label="Tracking event types legend">
+              <span class="ey-tleg"><span class="ey-etag ey-etag-nav">NAV</span> Navigation</span>
+              <span class="ey-tleg"><span class="ey-etag ey-etag-disc">DISC</span> Discovery</span>
+              <span class="ey-tleg"><span class="ey-etag ey-etag-act">ACT</span> Action</span>
+              <span class="ey-tleg"><span class="ey-etag ey-etag-conv">CONV</span> Conversion</span>
+            </div>
+            <!-- SCREEN 1: CATALOG -->
+            <div class="ey-screen active" id="esc1" role="tabpanel" aria-labelledby="esn1">
+              <div class="ey-mock-shell">
+                <div class="ey-mock-bar">
+                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
+                  <span class="ey-mock-url">fabric.ey.com/catalog</span>
+                </div>
+                <div class="ey-mock-body">
+                  <div class="ey-search-row">
+                    <div class="ey-search-input">⌕ Search services... <span class="ey-etag ey-etag-disc">DISC · search_query</span></div>
+                  </div>
+                  <div class="ey-filter-row">
+                    <span class="ey-fc ey-fc--sel">All <span class="ey-etag ey-etag-nav">NAV · filter_all</span></span>
+                    <span class="ey-fc">APIs <span class="ey-etag ey-etag-nav">NAV · filter_api</span></span>
+                    <span class="ey-fc">Data</span>
+                    <span class="ey-fc">Security</span>
+                  </div>
+                  <div class="ey-cat-grid">
+                    <div class="ey-cat-card">
+                      <div class="ey-cat-type">API</div>
+                      <div class="ey-cat-title">Tax Compliance Engine</div>
+                      <div class="ey-cat-desc">Automated multi-jurisdiction validation.</div>
+                      <div class="ey-cat-footer"><span class="ey-cat-cta">View details <span class="ey-etag ey-etag-disc">DISC · info_click</span></span><span class="ey-cat-price">$200/mo</span></div>
+                    </div>
+                    <div class="ey-cat-card ey-cat-card--selected">
+                      <div class="ey-cat-type">Data</div>
+                      <div class="ey-cat-title">Risk Analytics Feed</div>
+                      <div class="ey-cat-desc">Real-time risk scoring with configurable thresholds.</div>
+                      <div class="ey-cat-footer"><span class="ey-cat-cta ey-cat-cta--selected">Selected ✓</span><span class="ey-cat-price">$450/mo</span></div>
+                    </div>
+                    <div class="ey-cat-card">
+                      <div class="ey-cat-type">Security</div>
+                      <div class="ey-cat-title">Auth & Identity Layer</div>
+                      <div class="ey-cat-desc">SSO + MFA with enterprise stack.</div>
+                      <div class="ey-cat-footer"><span class="ey-cat-cta">View details <span class="ey-etag ey-etag-disc">DISC · info_click</span></span><span class="ey-cat-price">$80/mo</span></div>
+                    </div>
+                    <div class="ey-cat-card">
+                      <div class="ey-cat-type">API</div>
+                      <div class="ey-cat-title">Document Processing</div>
+                      <div class="ey-cat-desc">OCR + extraction pipeline.</div>
+                      <div class="ey-cat-footer"><span class="ey-cat-cta">View details <span class="ey-etag ey-etag-disc">DISC · info_click</span></span><span class="ey-cat-price">$120/mo</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ey-nav-btns">
+                <span class="ey-nav-note">Risk Analytics Feed selected</span>
+                <button class="ey-btn-next" onclick="eyGoStep(2)">Configure → <span class="ey-etag ey-etag-act">ACT · cta_start</span></button>
+              </div>
+            </div>
+            <!-- SCREEN 2: CONFIGURE -->
+            <div class="ey-screen" id="esc2" role="tabpanel" aria-labelledby="esn2">
+              <div class="ey-mock-shell">
+                <div class="ey-mock-bar">
+                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
+                  <span class="ey-mock-url">fabric.ey.com/configure</span>
+                </div>
+                <div class="ey-mock-body">
+                  <div class="ey-config-layout">
+                    <div class="ey-config-main">
+                      <div class="ey-cfg-title">Risk Analytics Feed</div>
+                      <div class="ey-cfg-sub">Pricing updates as you configure.</div>
+                      <div class="ey-form-grp">
+                        <div class="ey-form-lbl">Environment <span class="ey-etag ey-etag-act">ACT · field_env</span></div>
+                        <div class="ey-form-sel">Production</div>
+                      </div>
+                      <div class="ey-form-grp">
+                        <div class="ey-form-lbl">Volume / month <span class="ey-etag ey-etag-act">ACT · field_volume</span></div>
+                        <div class="ey-form-sel">Up to 10,000 calls — $450</div>
+                      </div>
+                      <div class="ey-form-grp">
+                        <div class="ey-form-lbl">Region</div>
+                        <div class="ey-form-sel">US East</div>
+                      </div>
+                      <div class="ey-toggle-row"><span class="ey-toggle-lbl">SLA monitoring <span class="ey-etag ey-etag-act">ACT · toggle_sla</span></span><div class="ey-tgl ey-tgl--on"><div class="ey-tgl-knob"></div></div></div>
+                      <div class="ey-toggle-row"><span class="ey-toggle-lbl">Custom alerting <span class="ey-etag ey-etag-act">ACT · toggle_alert</span></span><div class="ey-tgl"><div class="ey-tgl-knob"></div></div></div>
+                    </div>
+                    <div class="ey-price-panel">
+                      <div class="ey-price-title">Estimated cost</div>
+                      <div class="ey-price-row"><span>Base plan</span><span>$450</span></div>
+                      <div class="ey-price-row"><span>SLA</span><span>$50</span></div>
+                      <div class="ey-price-row"><span>Alerting</span><span>—</span></div>
+                      <div class="ey-price-total"><span>Total/mo</span><span class="ey-price-total-num">$500</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="ey-nav-btns">
+                <button class="ey-btn-back" onclick="eyGoStep(1)">← Back <span class="ey-etag ey-etag-nav">NAV · back_catalog</span></button>
+                <button class="ey-btn-next" onclick="eyGoStep(3)">Review order → <span class="ey-etag ey-etag-conv">CONV · checkout_start</span></button>
+              </div>
+            </div>
+            <!-- SCREEN 3: CONFIRM -->
+            <div class="ey-screen" id="esc3" role="tabpanel" aria-labelledby="esn3">
+              <div class="ey-mock-shell">
+                <div class="ey-mock-bar">
+                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
+                  <span class="ey-mock-url">fabric.ey.com/confirm</span>
+                </div>
+                <div class="ey-mock-body">
+                  <div class="ey-summary-card">
+                    <div class="ey-summary-head">Order summary</div>
+                    <div class="ey-summary-body">
+                      <div class="ey-sum-row"><span class="ey-sum-lbl">Service</span><span class="ey-sum-val">Risk Analytics Feed</span></div>
+                      <div class="ey-sum-row"><span class="ey-sum-lbl">Volume</span><span class="ey-sum-val">Up to 10,000 calls/mo</span></div>
+                      <div class="ey-sum-row"><span class="ey-sum-lbl">Environment</span><span class="ey-sum-val">Production · US East</span></div>
+                      <div class="ey-sum-row"><span class="ey-sum-lbl">SLA monitoring</span><span class="ey-sum-val ey-sum-val--ok">Enabled</span></div>
+                      <div class="ey-sum-row"><span class="ey-sum-lbl">Custom alerting</span><span class="ey-sum-val ey-sum-val--muted">Disabled</span></div>
+                    </div>
+                    <div class="ey-sum-total"><span>Total / month</span><span class="ey-price-total-num">$500</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="ey-nav-btns">
+                <button class="ey-btn-back" onclick="eyGoStep(2)">← Edit <span class="ey-etag ey-etag-nav">NAV · back_configure</span></button>
+                <button class="ey-btn-next" onclick="eyGoStep(4)" id="ey-submit-btn">Confirm & activate <span class="ey-etag ey-etag-conv">CONV · order_submit</span></button>
+              </div>
+            </div>
+            <!-- SCREEN 4: WALKTHROUGH -->
+            <div class="ey-screen" id="esc4" role="tabpanel" aria-labelledby="esn4">
+              <div class="ey-mock-shell">
+                <div class="ey-mock-bar">
+                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
+                  <span class="ey-mock-url">fabric.ey.com/dashboard</span>
+                </div>
+                <div class="ey-mock-body">
+                  <div class="ey-wt-base">
+                    <div class="ey-wt-ui-row">
+                      <span class="ey-wt-pill">Overview</span>
+                      <span class="ey-wt-pill ey-wt-pill--hl">Risk Feed ←</span>
+                      <span class="ey-wt-pill">Reports</span>
+                      <span class="ey-wt-pill">Settings</span>
+                    </div>
+                    <div class="ey-wt-placeholder"></div>
+                    <div class="ey-wt-grid">
+                      <div class="ey-wt-cell"></div>
+                      <div class="ey-wt-cell"></div>
+                      <div class="ey-wt-cell"></div>
+                    </div>
+                    <div class="ey-wt-tooltip" id="ey-wt-tooltip">
+                      <div class="ey-wt-badge" id="ey-wt-badge">Step 1 of 4 · Getting started</div>
+                      <div class="ey-wt-text" id="ey-wt-text">This is your Risk Feed dashboard. Here you'll find real-time scoring for every transaction.</div>
+                      <div class="ey-wt-foot">
+                        <span class="ey-wt-skip">Skip tour</span>
+                        <button class="ey-wt-next" onclick="eyNextWT()">Next →</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ey-wt-dots" aria-hidden="true">
+                    <span class="ey-wt-dot ey-wt-dot--active" id="eyd1"></span>
+                    <span class="ey-wt-dot" id="eyd2"></span>
+                    <span class="ey-wt-dot" id="eyd3"></span>
+                    <span class="ey-wt-dot" id="eyd4"></span>
+                  </div>
+                  <p class="ey-wt-metric">Deployed via Pendo — no code · <span class="ey-etag ey-etag-act">ACT · guide_step_view</span> <span class="ey-etag ey-etag-act">ACT · guide_next_click</span></p>
+                </div>
+              </div>
+              <div class="ey-nav-btns">
+                <button class="ey-btn-back" onclick="eyGoStep(3)">← Back</button>
+                <button class="ey-btn-next" onclick="eyGoStep(5)">See feedback → <span class="ey-etag ey-etag-conv">CONV · guide_completed</span></button>
+              </div>
+            </div>
+            <!-- SCREEN 5: FEEDBACK -->
+            <div class="ey-screen" id="esc5" role="tabpanel" aria-labelledby="esn5">
+              <div class="ey-mock-shell">
+                <div class="ey-mock-bar">
+                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
+                  <span class="ey-mock-url">fabric.ey.com/dashboard</span>
+                </div>
+                <div class="ey-mock-body">
+                  <div class="ey-fb-bg"></div>
+                  <div class="ey-fb-shell">
+                    <div class="ey-fb-bar">
+                      <span class="ey-fb-label">Quick feedback · Pendo</span>
+                      <span class="ey-fb-close" aria-label="Close feedback">×</span>
+                    </div>
+                    <div class="ey-fb-body">
+                      <div class="ey-fb-q">How easy was it to set up Risk Analytics Feed?</div>
+                      <div class="ey-fb-scale" role="group" aria-label="Rating 1 to 5">
+                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 1">1</button>
+                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 2">2</button>
+                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 3">3</button>
+                        <button class="ey-fb-num ey-fb-num--sel" onclick="eySelFB(this)" aria-label="Rating 4" aria-pressed="true">4</button>
+                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 5">5</button>
+                      </div>
+                      <div class="ey-fb-q2">Anything we can improve?</div>
+                      <textarea class="ey-fb-textarea" placeholder="Optional..." aria-label="Open feedback"></textarea>
+                      <button class="ey-fb-submit" onclick="eyFbSubmit(this)">Submit <span class="ey-etag ey-etag-conv">CONV · survey_submit</span></button>
+                    </div>
+                  </div>
+                  <p class="ey-fb-trigger">Triggered after <strong>guide_completed</strong> event · Score → Qualtrics dashboard</p>
+                </div>
+              </div>
+              <div class="ey-nav-btns">
+                <button class="ey-btn-back" onclick="eyGoStep(4)">← Back</button>
+                <span class="ey-nav-note">Loop complete — findings → Figma / ADO / campaign</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ANALYTICS & GUIDES ── -->
+        <div class="project-section" id="ey-analytics" data-anim>
+          <div class="project-section-label">Analytics & Guides</div>
+          <h2 class="project-section-title">From events to decisions — funnels, journeys, feedback, walkthroughs</h2>
+          <p class="project-body-text" style="margin-bottom:var(--space-24);">Once instrumented, Pendo turns events into behavioral intelligence. I build funnels to identify drop-offs, journey maps to understand the full experience, in-app surveys to capture sentiment at the right moment, and guided walkthroughs to onboard users to new features — all without touching code.</p>
+          <div class="ey-analytics-grid">
+            <div class="ey-an-card">
+              <div class="ey-an-head">Pendo — Funnel Report</div>
+              <div class="ey-an-body">
+                <div class="ey-funnel-row">Landing <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:100%;background:var(--accent)"></div></div> 100%</div>
+                <div class="ey-funnel-row">Preview <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:72%;background:var(--accent)"></div></div> 72%</div>
+                <div class="ey-funnel-row">Docs <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:48%;background:var(--accent)"></div></div> 48%</div>
+                <div class="ey-funnel-row" style="color:#e05c4a;">Install <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:22%;background:#e05c4a"></div></div> 22% ⚠</div>
+                <div class="ey-an-note">Drop-off between Docs → Install flagged for UXR</div>
+              </div>
+            </div>
+            <div class="ey-an-card">
+              <div class="ey-an-head">Journey Map — Developer</div>
+              <div class="ey-an-body">
+                <div class="ey-journey">
+                  <div class="ey-jcol"><div class="ey-jcol-head">Discover</div><div class="ey-jcol-body"><div class="ey-jtag ey-jtag--ok">Finds asset</div></div></div>
+                  <div class="ey-jcol"><div class="ey-jcol-head ey-jcol-head--hot">Try</div><div class="ey-jcol-body"><div class="ey-jtag ey-jtag--pain">Confused docs</div><div class="ey-jtag ey-jtag--pain">Drops off</div></div></div>
+                  <div class="ey-jcol"><div class="ey-jcol-head">Adopt</div><div class="ey-jcol-body"><div class="ey-jtag ey-jtag--neu">Returns</div><div class="ey-jtag ey-jtag--ok">Installs</div></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="ey-an-card">
+              <div class="ey-an-head">Pendo — In-App Survey</div>
+              <div class="ey-an-body">
+                <div class="ey-survey-mock">
+                  <div class="ey-survey-q">How easy was it to find this asset?</div>
+                  <div class="ey-survey-scale">
+                    <div class="ey-survey-num ey-survey-num--sel">1</div>
+                    <div class="ey-survey-num">2</div>
+                    <div class="ey-survey-num">3</div>
+                    <div class="ey-survey-num">4</div>
+                    <div class="ey-survey-num">5</div>
+                  </div>
+                  <div class="ey-survey-trigger">Triggered after asset_detail pageview</div>
+                </div>
+              </div>
+            </div>
+            <div class="ey-an-card">
+              <div class="ey-an-head">Pendo — Walkthrough Guide</div>
+              <div class="ey-an-body">
+                <div class="ey-guide-mock">
+                  <div class="ey-guide-step">Step 2 of 4 · Getting started</div>
+                  <div class="ey-guide-text">Click "Install" to add this API to your project</div>
+                  <div class="ey-guide-foot">
+                    <span class="ey-guide-skip">Skip tour</span>
+                    <span class="ey-guide-next">Next →</span>
+                  </div>
+                </div>
+                <div class="ey-guide-note">No code — deployed via Pendo</div>
+              </div>
+            </div>
+          </div>
+          <div class="ey-output-strip">
+            Every finding routes to one of three outputs:
+            <strong>Figma design proposal</strong> ·
+            <strong>ADO / Jira ticket with evidence</strong> ·
+            <strong>Marketing or onboarding campaign</strong>
           </div>
         </div>
 
         <!-- ── WORKFLOW SYSTEM ── -->
-        <div class="project-section wy-section" data-anim>
+        <div class="project-section wy-section" id="ey-workflow" data-anim>
           <div class="project-section-label">How I Work</div>
           <h2 class="project-section-title">A system where every design decision has a behavioral evidence trail</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-32);">Analytics and research don't happen in sequence — they run in parallel, on-demand and proactively, triggered by what the platform surfaces. The output is always one of two things: a design proposal or a prioritized ticket.</p>
@@ -662,7 +1289,7 @@
         </div>
 
         <!-- ── CODED WIREFRAMES ── -->
-        <div class="project-section" data-anim>
+        <div class="project-section" id="ey-evidence" data-anim>
           <div class="project-section-label">Evidence</div>
           <h2 class="project-section-title">What the work looks like</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-24);">Screens contain confidential platform data — wireframe representations below. Real screenshots (data blurred) available on request.</p>
@@ -842,6 +1469,82 @@
   </footer>
 
   <script src="../assets/main.js"></script>
+  <script>
+/* ── Section nav ── */
+function eySnavGo(id, btn) {
+  document.querySelectorAll('.ey-snav-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+(function() {
+  const sectionIds = ['ey-role','ey-instrument','ey-analytics','ey-workflow','ey-evidence'];
+  const pills = document.querySelectorAll('.ey-snav-pill');
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const idx = sectionIds.indexOf(entry.target.id);
+        if (idx >= 0) {
+          pills.forEach(p => p.classList.remove('active'));
+          if (pills[idx]) pills[idx].classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  sectionIds.forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+})();
+/* ── Instrument flow steps ── */
+function eyGoStep(n) {
+  document.querySelectorAll('.ey-screen').forEach(s => s.classList.remove('active'));
+  const sc = document.getElementById('esc' + n);
+  if (sc) sc.classList.add('active');
+  for (var i = 1; i <= 5; i++) {
+    var btn = document.getElementById('esn' + i);
+    if (!btn) continue;
+    btn.setAttribute('aria-selected', i === n ? 'true' : 'false');
+    if (i < n) { btn.className = 'ey-step-btn done'; btn.querySelector('.ey-step-num').textContent = '✓'; btn.querySelector('.ey-step-label').style.color = ''; }
+    else if (i === n) { btn.className = 'ey-step-btn active'; btn.querySelector('.ey-step-num').textContent = i; }
+    else { btn.className = 'ey-step-btn'; btn.querySelector('.ey-step-num').textContent = i; }
+  }
+}
+/* ── Walkthrough ── */
+var eyWTStep = 0;
+var eyWTSteps = [
+  { text: "This is your Risk Feed dashboard. Here you'll find real-time scoring for every transaction.", label: "Getting started" },
+  { text: "The Alerts panel shows anomalies above your configured threshold. Click to investigate.", label: "Alerts" },
+  { text: "Export any report directly to your team's ADO board with one click.", label: "Reporting" },
+  { text: "You're all set. Check our docs for advanced configuration.", label: "Done ✓" }
+];
+function eyNextWT() {
+  eyWTStep = (eyWTStep + 1) % eyWTSteps.length;
+  var s = eyWTSteps[eyWTStep];
+  var badge = document.getElementById('ey-wt-badge');
+  var text = document.getElementById('ey-wt-text');
+  if (badge) badge.textContent = 'Step ' + (eyWTStep + 1) + ' of 4 · ' + s.label;
+  if (text) text.textContent = s.text;
+  for (var i = 0; i < 4; i++) {
+    var d = document.getElementById('eyd' + (i + 1));
+    if (d) d.className = 'ey-wt-dot' + (i === eyWTStep ? ' ey-wt-dot--active' : '');
+  }
+}
+/* ── Feedback ── */
+function eySelFB(el) {
+  document.querySelectorAll('.ey-fb-num').forEach(function(n) {
+    n.classList.remove('ey-fb-num--sel');
+    n.setAttribute('aria-pressed', 'false');
+  });
+  el.classList.add('ey-fb-num--sel');
+  el.setAttribute('aria-pressed', 'true');
+}
+function eyFbSubmit(btn) {
+  btn.textContent = '✓ Submitted — thank you!';
+  btn.style.background = '#22c55e';
+  btn.disabled = true;
+}
+  </script>
 
 </body>
 </html>

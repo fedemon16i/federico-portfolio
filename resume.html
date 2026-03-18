@@ -343,6 +343,67 @@
     @media (max-width: 420px) {
       .r-skills-grid { grid-template-columns: 1fr; }
     }
+    .r-expand-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font-display);
+      font-size: inherit;
+      font-weight: 700;
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+    }
+    .r-expand-icon {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      transition: transform 0.2s;
+    }
+    .r-expand-btn[aria-expanded="true"] .r-expand-icon {
+      transform: rotate(45deg);
+    }
+    .r-hiw-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: var(--space-16);
+    }
+    .r-hiw-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: var(--space-16);
+      padding: 12px var(--space-20);
+      border-bottom: 1px solid var(--border-subtle);
+      align-items: baseline;
+    }
+    .r-hiw-row:last-child { border-bottom: none; }
+    .r-hiw-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .r-hiw-value {
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    .r-hiw-alt {
+      color: var(--text-tertiary);
+      font-size: 0.8rem;
+    }
+    @media (max-width: 600px) {
+      .r-hiw-row { grid-template-columns: 1fr; gap: var(--space-4); }
+    }
   </style>
 </head>
 <body>
@@ -571,6 +632,50 @@
         </div>
       </section>
 
+      <!-- ── HOW I WORK ── -->
+      <section class="r-section" aria-labelledby="hiw-h">
+        <h2 class="r-section-title" id="hiw-h">
+          <button
+            class="r-expand-btn"
+            aria-expanded="false"
+            aria-controls="hiw-panel"
+            onclick="toggleHIW(this)"
+          >
+            How I work
+            <span class="r-expand-icon" aria-hidden="true">+</span>
+          </button>
+        </h2>
+        <div id="hiw-panel" hidden>
+          <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.65;margin-bottom:var(--space-20);">Stack-agnostic methodology — tools adapt, the loop stays constant.</p>
+          <div class="r-hiw-list">
+            <div class="r-hiw-row">
+              <span class="r-hiw-label">Behavioral Analytics</span>
+              <span class="r-hiw-value">Pendo <span class="r-hiw-alt">· or Mixpanel, Amplitude, Heap, GA4</span></span>
+            </div>
+            <div class="r-hiw-row">
+              <span class="r-hiw-label">Design</span>
+              <span class="r-hiw-value">Figma + AI, Make, Auto Layout, DS-connected <span class="r-hiw-alt">· code-ready output</span></span>
+            </div>
+            <div class="r-hiw-row">
+              <span class="r-hiw-label">Rapid prototyping</span>
+              <span class="r-hiw-value">Claude Code · v0 · Bolt · Lovable <span class="r-hiw-alt">· GitHub, Codespaces</span></span>
+            </div>
+            <div class="r-hiw-row">
+              <span class="r-hiw-label">Orchestration</span>
+              <span class="r-hiw-value">MCP connections · Copilot Studio <span class="r-hiw-alt">· or equivalent AI orchestrators</span></span>
+            </div>
+            <div class="r-hiw-row">
+              <span class="r-hiw-label">Tickets & collab</span>
+              <span class="r-hiw-value">Jira · Linear · ADO <span class="r-hiw-alt">· whatever the team uses</span></span>
+            </div>
+            <div class="r-hiw-row">
+              <span class="r-hiw-label">Full stack example</span>
+              <span class="r-hiw-value">EY Fabric case study — Pendo + Copilot Studio + Figma MCP + ADO in production</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ── EXPERIENCE ── -->
       <section class="r-section" aria-labelledby="exp-h">
         <h2 class="r-section-title" id="exp-h">Experience</h2>
@@ -764,6 +869,14 @@
   </main>
 
   <script src="assets/main.js"></script>
+  <script>
+function toggleHIW(btn) {
+  const panel = document.getElementById('hiw-panel');
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !expanded);
+  panel.hidden = expanded;
+}
+  </script>
 
 </body>
 </html>

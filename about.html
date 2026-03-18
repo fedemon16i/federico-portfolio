@@ -257,6 +257,100 @@
       .about-photo-card--tall, .about-photo-card--short { height: 220px; }
       .about-photo-strip .about-photo-card:last-child { display: block; }
     }
+    .about-inline-strip {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+      margin-bottom: var(--space-40);
+      max-width: 720px;
+    }
+    .about-inline-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+    }
+    .about-inline-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .about-inline-pill strong {
+      color: var(--text-primary);
+      margin: 0 2px;
+    }
+    .about-inline-ctas {
+      display: flex;
+      gap: var(--space-12);
+      flex-wrap: wrap;
+    }
+    @media (max-width: 480px) {
+      .about-inline-ctas .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    .how-i-work-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-12);
+      margin: var(--space-24) 0 var(--space-32);
+    }
+    .hiw-card {
+      padding: var(--space-20);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    .hiw-card--accent {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .hiw-eyebrow {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .hiw-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+    .hiw-equiv {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+    .hiw-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .hiw-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: var(--space-8);
+    }
+    .hiw-link:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      .how-i-work-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -357,13 +451,11 @@
 
         <div class="section-eyebrow" data-anim>About</div>
         <h1 class="about-headline" id="about-heading" data-anim data-anim-delay="1">
-          Your users are already showing you what to build next.<br>
-          <em>Most teams just can't see it yet.</em>
+          I close the loop.<br><em>From what users do to what teams ship.</em>
         </h1>
 
         <p class="about-subhead" data-anim data-anim-delay="2">
-          I'm Federico — a product designer and behavioral analytics practitioner based in Córdoba, Argentina.
-          I help teams instrument their products, read the signals, and design the next move.
+          Behavioral analytics, UX research, and code-ready design — orchestrating the full cycle across design, product, and engineering. Stack-agnostic, signal-driven. I get my hands dirty when needed.
         </p>
 
         <div class="about-photo-strip" data-anim data-anim-delay="3" aria-label="Personal photos">
@@ -378,6 +470,18 @@
           <div class="about-photo-card about-photo-card--tall">
             <img src="../assets/images/about-3.jpg" alt="Federico at design workshop" onerror="this.closest('.about-photo-card').classList.add('about-photo-card--empty')">
             <span class="about-photo-label">Workshop, 2023</span>
+          </div>
+        </div>
+
+        <div class="about-inline-strip" data-anim>
+          <div class="about-inline-meta">
+            <span class="about-inline-pill">Currently at <strong>Globant</strong> — embedded in EY's XDA team</span>
+            <span class="about-inline-pill">Behavioral Analytics · UX Research · Design Systems</span>
+            <span class="about-inline-pill">Claude · Copilot Studio · Figma Make · v0 · Bolt</span>
+          </div>
+          <div class="about-inline-ctas">
+            <a href="resume.html" class="btn btn-primary">View Resume</a>
+            <a href="contact.html" class="btn btn-outline">Get in touch</a>
           </div>
         </div>
 
@@ -429,8 +533,41 @@
             <div class="divider"></div>
 
             <!-- HOW I DESIGN TODAY -->
-            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">How I design today</h2>
-            <p>My workflow has changed significantly in the last two years. I use AI tools actively — Claude for research synthesis, Copilot Studio for connecting data sources, Figma Make for translating insights into first-pass proposals. Not as shortcuts, but to close the gap between insight and output faster.</p>
+            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">How I work</h2>
+            <p>I orchestrate the full loop — and get my hands dirty when needed. The framework adapts to any stack: the tools change, the method doesn't.</p>
+            <div class="how-i-work-grid">
+              <div class="hiw-card">
+                <div class="hiw-eyebrow">Behavioral Analytics</div>
+                <div class="hiw-title">Pendo <span class="hiw-equiv">or Mixpanel, Amplitude, Heap, GA4</span></div>
+                <div class="hiw-desc">Custom event tracking, funnels, journey maps, session replay, in-app guides and surveys — instrumented with UI and dev teams.</div>
+              </div>
+              <div class="hiw-card">
+                <div class="hiw-eyebrow">Design</div>
+                <div class="hiw-title">Figma + AI <span class="hiw-equiv">Auto Layout · Variables · DS connected</span></div>
+                <div class="hiw-desc">Code-ready design following existing design system guidelines. No new variants without engineering sign-off.</div>
+              </div>
+              <div class="hiw-card">
+                <div class="hiw-eyebrow">Rapid prototyping & vibe coding</div>
+                <div class="hiw-title">Claude Code · v0 · Bolt · Lovable <span class="hiw-equiv">+ GitHub, Codespaces</span></div>
+                <div class="hiw-desc">From insight to working prototype fast — using AI-assisted code when the design system needs a proof of concept before a single Figma frame.</div>
+              </div>
+              <div class="hiw-card">
+                <div class="hiw-eyebrow">Orchestration & automation</div>
+                <div class="hiw-title">MCP connections · Copilot Studio <span class="hiw-equiv">or equivalent AI orchestrators</span></div>
+                <div class="hiw-desc">Connecting analytics APIs, design tools, and ticket systems to reduce manual steps — so the loop between signal and decision is as short as possible.</div>
+              </div>
+              <div class="hiw-card">
+                <div class="hiw-eyebrow">Tickets & collaboration</div>
+                <div class="hiw-title">Jira · Linear · ADO <span class="hiw-equiv">whatever the team uses</span></div>
+                <div class="hiw-desc">I collaborate on user stories and tickets with behavioral evidence attached — not just hand off a Figma file and disappear.</div>
+              </div>
+              <div class="hiw-card hiw-card--accent">
+                <div class="hiw-eyebrow">Project-specific</div>
+                <div class="hiw-title">EY Fabric — full stack documented</div>
+                <div class="hiw-desc">The EY case study shows this exact framework running in production — with Pendo, Copilot Studio, Power Automate, Figma MCP, and ADO.</div>
+                <a href="ey-fabric.html" class="hiw-link">See the full workflow →</a>
+              </div>
+            </div>
 
             <!-- WORKFLOW DIAGRAM -->
             <div class="about-wf">
@@ -591,36 +728,6 @@
             <p>Spanish — Native &nbsp;·&nbsp; English — C2 Proficient</p>
 
           </div>
-
-          <aside class="about-sidebar" data-anim data-anim-delay="3">
-            <div class="about-sidebar-card">
-              <div class="about-sidebar-label">Currently</div>
-              <p style="font-size:0.9375rem;color:var(--text-secondary);line-height:1.6;">Sr. UX Strategist & Behavioral Analytics Lead at <strong style="color:var(--text-primary);">Globant</strong> — embedded in EY's XDA team.</p>
-            </div>
-            <div class="about-sidebar-card">
-              <div class="about-sidebar-label">Core Expertise</div>
-              <div class="about-skills-list">
-                <span class="about-skill">Behavioral Analytics</span>
-                <span class="about-skill">UX Research</span>
-                <span class="about-skill">Instrumentation</span>
-                <span class="about-skill">Design Systems</span>
-                <span class="about-skill">Funnel Design</span>
-                <span class="about-skill">Product Strategy</span>
-              </div>
-            </div>
-            <div class="about-sidebar-card">
-              <div class="about-sidebar-label">AI Workflow</div>
-              <div class="about-skills-list">
-                <span class="about-skill">Claude</span>
-                <span class="about-skill">Copilot Studio</span>
-                <span class="about-skill">Figma Make</span>
-                <span class="about-skill">ChatGPT</span>
-                <span class="about-skill">v0 · Bolt</span>
-              </div>
-            </div>
-            <a href="resume.html" class="btn btn-primary" style="width:100%;justify-content:center;">View Resume</a>
-            <a href="contact.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:var(--space-8);">Get in touch</a>
-          </aside>
         </div>
 
       </div>
