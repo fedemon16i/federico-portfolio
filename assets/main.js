@@ -350,3 +350,54 @@
   });
 
 })();
+
+/* ── Encapsulated Tab Navigator ── */
+function encShow(tabEl, panelId, groupId) {
+  const wrap = document.getElementById(groupId);
+  if (!wrap) return;
+
+  // Hide all panels in this group
+  wrap.querySelectorAll('.enc-panel').forEach(p => {
+    p.classList.remove('enc-panel--active');
+    p.hidden = true;
+  });
+
+  // Deactivate all tabs in this group's nav
+  const nav = wrap.previousElementSibling;
+  if (nav && nav.classList.contains('enc-nav')) {
+    nav.querySelectorAll('.enc-tab').forEach(t => {
+      t.classList.remove('enc-tab--active');
+      t.setAttribute('aria-selected', 'false');
+    });
+  }
+
+  // Activate selected
+  const panel = document.getElementById(panelId);
+  if (panel) { panel.classList.add('enc-panel--active'); panel.hidden = false; }
+  tabEl.classList.add('enc-tab--active');
+  tabEl.setAttribute('aria-selected', 'true');
+
+  // Hide hint
+  const hint = wrap.querySelector('.enc-hint');
+  if (hint) hint.classList.add('enc-hint--hidden');
+}
+
+// Keyboard nav for enc-nav
+document.addEventListener('keydown', function(e) {
+  if (!e.target.classList.contains('enc-tab')) return;
+  const nav = e.target.closest('.enc-nav');
+  if (!nav) return;
+  const tabs = Array.from(nav.querySelectorAll('.enc-tab'));
+  const idx = tabs.indexOf(e.target);
+  if (e.key === 'ArrowRight' && idx < tabs.length - 1) { tabs[idx+1].focus(); tabs[idx+1].click(); }
+  if (e.key === 'ArrowLeft' && idx > 0) { tabs[idx-1].focus(); tabs[idx-1].click(); }
+});
+
+// Auto-hide enc hints after 6s
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    document.querySelectorAll('.enc-hint').forEach(function(h) {
+      h.classList.add('enc-hint--hidden');
+    });
+  }, 6000);
+});
