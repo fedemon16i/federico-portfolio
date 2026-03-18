@@ -1000,6 +1000,21 @@ button {
   opacity: 0.5;
 }
 
+[data-theme="light"] .card-image-placeholder {
+  background: var(--bg-surface);
+}
+[data-theme="light"] .card-image-placeholder .placeholder-icon {
+  opacity: 0.2;
+}
+[data-theme="light"] .card-image-placeholder .placeholder-label {
+  color: var(--text-tertiary);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .card-image-placeholder {
+    background: var(--bg-surface);
+  }
+}
+
 .card-image img {
   aspect-ratio: 4 / 3;
   width: 100%;
@@ -2190,7 +2205,7 @@ img {
 
 .about-body {
   display: block;
-  max-width: 720px;
+  max-width: 100%;
 }
 
 .about-text {

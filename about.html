@@ -257,33 +257,6 @@
       .about-photo-card--tall, .about-photo-card--short { height: 220px; }
       .about-photo-strip .about-photo-card:last-child { display: block; }
     }
-    .about-inline-strip {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-16);
-      margin-bottom: var(--space-40);
-      max-width: 720px;
-    }
-    .about-inline-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-8);
-    }
-    .about-inline-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 14px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 100px;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      line-height: 1.4;
-    }
-    .about-inline-pill strong {
-      color: var(--text-primary);
-      margin: 0 2px;
-    }
     .about-inline-ctas {
       display: flex;
       gap: var(--space-12);
@@ -473,16 +446,9 @@
           </div>
         </div>
 
-        <div class="about-inline-strip" data-anim>
-          <div class="about-inline-meta">
-            <span class="about-inline-pill">Currently at <strong>Globant</strong> — embedded in EY's XDA team</span>
-            <span class="about-inline-pill">Behavioral Analytics · UX Research · Design Systems</span>
-            <span class="about-inline-pill">Claude · Copilot Studio · Figma Make · v0 · Bolt</span>
-          </div>
-          <div class="about-inline-ctas">
-            <a href="resume.html" class="btn btn-primary">View Resume</a>
-            <a href="contact.html" class="btn btn-outline">Get in touch</a>
-          </div>
+        <div class="about-inline-ctas" data-anim style="margin-bottom:var(--space-40);display:flex;gap:var(--space-12);flex-wrap:wrap;">
+          <a href="resume.html" class="btn btn-primary">View Resume</a>
+          <a href="contact.html" class="btn btn-outline">Get in touch</a>
         </div>
 
         <div class="about-body">
