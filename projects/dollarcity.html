@@ -1107,28 +1107,45 @@
           <div class="project-section-label">Research</div>
           <h2 class="project-section-title">Methodology, users, and findings</h2>
 
-          <div class="rp-wrap" id="rp-wrap" tabindex="-1">
-            <div class="rp-nav-bar">
-              <button class="rp-arrow rp-prev" id="rp-prev" type="button" aria-label="Previous panel">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="10,3 5,8 10,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <span class="rp-counter" id="rp-counter" aria-live="polite" aria-atomic="true">1 / 4</span>
-              <button class="rp-arrow rp-next" id="rp-next" type="button" aria-label="Next panel">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="6,3 11,8 6,13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-            <div class="rp-label-bar rp-label" id="rp-label" aria-live="polite">Methodology</div>
+          <div class="enc-hint" id="dc-enc-hint">
+            <span class="enc-hint-cursor">↑</span>
+            Explore research phases — click each tab
+          </div>
+          <div class="enc-nav" role="tablist" aria-label="Research phases">
+            <button class="enc-tab enc-tab--active" role="tab" aria-selected="true"
+              aria-controls="dc-panel-1" id="dc-tab-1"
+              onclick="encShow(this,'dc-panel-1','dc-enc-panels')">
+              Methodology
+            </button>
+            <button class="enc-tab" role="tab" aria-selected="false"
+              aria-controls="dc-panel-2" id="dc-tab-2"
+              onclick="encShow(this,'dc-panel-2','dc-enc-panels')">
+              User Types
+            </button>
+            <button class="enc-tab" role="tab" aria-selected="false"
+              aria-controls="dc-panel-3" id="dc-tab-3"
+              onclick="encShow(this,'dc-panel-3','dc-enc-panels')">
+              User Persona
+            </button>
+            <button class="enc-tab" role="tab" aria-selected="false"
+              aria-controls="dc-panel-4" id="dc-tab-4"
+              onclick="encShow(this,'dc-panel-4','dc-enc-panels')">
+              Journey Maps
+            </button>
+          </div>
+          <div class="enc-panels" id="dc-enc-panels">
 
             <!-- Panel 1: Methodology -->
-            <div class="rp-panel rp-active" id="rpanel-1" data-label="Methodology">
+            <div class="enc-panel enc-panel--active" role="tabpanel" id="dc-panel-1" aria-labelledby="dc-tab-1">
               <h3 style="font-size:0.875rem;font-weight:700;color:#15803d;margin-bottom:var(--space-8);">Primary Research</h3>
               <p>Contextual inquiry and moderated Useberry testing embedded with telemarketer users during live fraud review sessions across LATAM and Canada.</p>
               <h3 style="font-size:0.875rem;font-weight:700;color:#15803d;margin-top:var(--space-20);margin-bottom:var(--space-8);">Secondary Research</h3>
               <p>Heuristic audit of the existing SaaS against Nielsen's 10 heuristics, surfacing 18 friction points and informing stakeholder scope alignment.</p>
             </div>
 
+            </div>
+            <div class="enc-panel" role="tabpanel" id="dc-panel-2" aria-labelledby="dc-tab-2" hidden>
             <!-- Panel 2: User Types -->
-            <div class="rp-panel" id="rpanel-2" data-label="User Types">
               <table class="dc-user-table" aria-label="User types summary">
                 <thead>
                   <tr>
@@ -1172,8 +1189,9 @@
               </table>
             </div>
 
+            </div>
+            <div class="enc-panel" role="tabpanel" id="dc-panel-3" aria-labelledby="dc-tab-3" hidden>
             <!-- Panel 3: User Persona (CSS) -->
-            <div class="rp-panel" id="rpanel-3" data-label="User Persona">
               <div class="dc-persona-top">
                 <div class="dc-persona-card">
                   <div class="dc-persona-card-label">Profile</div>
@@ -1270,8 +1288,9 @@
               </div>
             </div>
 
+            </div>
+            <div class="enc-panel" role="tabpanel" id="dc-panel-4" aria-labelledby="dc-tab-4" hidden>
             <!-- Panel 4: Journey Maps -->
-            <div class="rp-panel" id="rpanel-4" data-label="Journey Maps">
               <div class="dc-journey-grid" style="margin-top:0;gap:var(--space-16);">
                 <div class="dc-journey-cell">
                   <p style="font-size:0.75rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:var(--space-8);">Reviewer</p>
@@ -1282,8 +1301,8 @@
                   <img src="../dollarcity/SENIOR.png" alt="Senior reviewer user journey map — supervisor fraud queue and escalation flow" class="wf-img" style="width:100%;height:280px;object-fit:cover;object-position:top;border-radius:12px;cursor:zoom-in;" loading="lazy" />
                 </div>
               </div>
-            </div>
-          </div>
+            </div><!-- close enc-panel-4 -->
+          </div><!-- close enc-panels -->
         </div>
 
         <!-- ══════════════════════════════════════════
@@ -1512,31 +1531,6 @@
 
   <script src="../assets/main.js"></script>
   <script>
-  // ── Research Panel Prev/Next Navigation ──────────────────
-  document.addEventListener('DOMContentLoaded', function() {
-    const panels = Array.from(document.querySelectorAll('.rp-panel'));
-    const counter = document.querySelector('.rp-counter');
-    const label = document.querySelector('.rp-label');
-    if (!panels.length) return;
-    let current = 0;
-    panels.forEach((p, i) => p.style.display = i === 0 ? 'block' : 'none');
-    function show(n) {
-      panels[current].style.display = 'none';
-      current = (n + panels.length) % panels.length;
-      panels[current].style.display = 'block';
-      if (counter) counter.textContent = (current + 1) + ' / ' + panels.length;
-      if (label) label.textContent = panels[current].dataset.label || '';
-    }
-    document.querySelector('.rp-prev')?.addEventListener('click', () => show(current - 1));
-    document.querySelector('.rp-next')?.addEventListener('click', () => show(current + 1));
-    document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft') show(current - 1);
-      if (e.key === 'ArrowRight') show(current + 1);
-    });
-    if (counter) counter.textContent = '1 / ' + panels.length;
-    if (label) label.textContent = panels[0].dataset.label || '';
-  });
-
   // ── Proto play buttons → open link ────────────────────────
   document.querySelectorAll('[data-proto-href]').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -1564,7 +1558,7 @@
       try { if (lt) lt.focus(); } catch (e) {}
     }
     document.addEventListener('click', function (e) {
-      var el = e.target.closest('.rp-panel img, .wf-img, .hifi-card img, [data-lightbox]');
+      var el = e.target.closest('.enc-panel img, .wf-img, .hifi-card img, [data-lightbox]');
       if (el) { lt = el; openLightbox(el.dataset.lightbox || el.src, el.alt || ''); return; }
       if (e.target.id === 'lightbox' || e.target.id === 'lightbox-close') closeLightbox();
     });

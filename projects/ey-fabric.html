@@ -244,51 +244,6 @@
       .wy-node.platform, .wy-node.synthesis, .wy-arrow { grid-column: 1; }
     }
 
-    /* ── Sticky section nav ── */
-    .ey-snav {
-      position: sticky;
-      top: 0;
-      z-index: 90;
-      background: var(--bg-base);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: var(--space-8) 0;
-      margin-bottom: var(--space-48);
-    }
-    .ey-snav-inner {
-      display: flex;
-      gap: var(--space-6);
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 var(--space-24);
-    }
-    .ey-snav-inner::-webkit-scrollbar { display: none; }
-    .ey-snav-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: var(--space-6) var(--space-16);
-      border-radius: 100px;
-      border: 1px solid var(--border-subtle);
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: var(--text-tertiary);
-      white-space: nowrap;
-      cursor: pointer;
-      background: transparent;
-      transition: all 0.15s;
-      flex-shrink: 0;
-    }
-    .ey-snav-pill:hover { color: var(--text-secondary); border-color: var(--border-subtle); }
-    .ey-snav-pill.active {
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      color: var(--accent);
-      font-weight: 700;
-    }
-    .ey-snav-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
     /* ── Instrument demo wrapper ── */
     .ey-instrument-demo { margin-top: var(--space-32); }
     /* ── Step bar ── */
@@ -679,19 +634,47 @@
       </div>
     </header>
 
-    <div class="project-content">
-      <nav class="ey-snav" aria-label="Page sections">
-        <div class="ey-snav-inner">
-          <button class="ey-snav-pill active" onclick="eySnavGo('ey-role', this)">The Role</button>
-          <button class="ey-snav-pill" onclick="eySnavGo('ey-instrument', this)">Instrument</button>
-          <button class="ey-snav-pill" onclick="eySnavGo('ey-analytics', this)">Analytics & Guides</button>
-          <button class="ey-snav-pill" onclick="eySnavGo('ey-workflow', this)">How I Work</button>
-          <button class="ey-snav-pill" onclick="eySnavGo('ey-evidence', this)">Evidence</button>
-        </div>
-      </nav>
+    <div class="project-content" style="padding-top: var(--space-48);">
       <div class="container" style="max-width:900px;">
 
+        <!-- Interaction hint -->
+        <div class="enc-hint" id="ey-enc-hint">
+          <span class="enc-hint-cursor">↑</span>
+          Try the sections — click each tab to explore
+        </div>
+
+        <div class="enc-nav" role="tablist" aria-label="EY Fabric sections">
+          <button class="enc-tab enc-tab--active" role="tab" aria-selected="true"
+            aria-controls="ey-panel-role" id="ey-tab-role"
+            onclick="encShow(this,'ey-panel-role','ey-enc-panels')">
+            The Role
+          </button>
+          <button class="enc-tab" role="tab" aria-selected="false"
+            aria-controls="ey-panel-instrument" id="ey-tab-instrument"
+            onclick="encShow(this,'ey-panel-instrument','ey-enc-panels')">
+            Instrument
+          </button>
+          <button class="enc-tab" role="tab" aria-selected="false"
+            aria-controls="ey-panel-analytics" id="ey-tab-analytics"
+            onclick="encShow(this,'ey-panel-analytics','ey-enc-panels')">
+            Analytics &amp; Guides
+          </button>
+          <button class="enc-tab" role="tab" aria-selected="false"
+            aria-controls="ey-panel-workflow" id="ey-tab-workflow"
+            onclick="encShow(this,'ey-panel-workflow','ey-enc-panels')">
+            How I Work
+          </button>
+          <button class="enc-tab" role="tab" aria-selected="false"
+            aria-controls="ey-panel-evidence" id="ey-tab-evidence"
+            onclick="encShow(this,'ey-panel-evidence','ey-enc-panels')">
+            Evidence
+          </button>
+        </div>
+
+        <div class="enc-panels" id="ey-enc-panels">
+
         <!-- ── WHAT I OWN ── -->
+        <div class="enc-panel enc-panel--active" role="tabpanel" id="ey-panel-role" aria-labelledby="ey-tab-role">
         <div class="project-section" id="ey-role" data-anim>
           <div class="project-section-label">The Role</div>
           <h2 class="project-section-title">The only role at the intersection of behavior, research, and design</h2>
@@ -705,6 +688,8 @@
           </div>
         </div>
 
+        </div><!-- close enc-panel role -->
+        <div class="enc-panel" role="tabpanel" id="ey-panel-instrument" aria-labelledby="ey-tab-instrument" hidden>
         <!-- ── INSTRUMENT ── -->
         <div class="project-section" id="ey-instrument" data-anim>
           <div class="project-section-label">Instrument</div>
@@ -951,6 +936,8 @@
           </div>
         </div>
 
+        </div><!-- close enc-panel instrument -->
+        <div class="enc-panel" role="tabpanel" id="ey-panel-analytics" aria-labelledby="ey-tab-analytics" hidden>
         <!-- ── ANALYTICS & GUIDES ── -->
         <div class="project-section" id="ey-analytics" data-anim>
           <div class="project-section-label">Analytics & Guides</div>
@@ -1016,6 +1003,8 @@
           </div>
         </div>
 
+        </div><!-- close enc-panel analytics -->
+        <div class="enc-panel" role="tabpanel" id="ey-panel-workflow" aria-labelledby="ey-tab-workflow" hidden>
         <!-- ── WORKFLOW SYSTEM ── -->
         <div class="project-section wy-section" id="ey-workflow" data-anim>
           <div class="project-section-label">How I Work</div>
@@ -1288,6 +1277,8 @@
           </script>
         </div>
 
+        </div><!-- close enc-panel workflow -->
+        <div class="enc-panel" role="tabpanel" id="ey-panel-evidence" aria-labelledby="ey-tab-evidence" hidden>
         <!-- ── CODED WIREFRAMES ── -->
         <div class="project-section" id="ey-evidence" data-anim>
           <div class="project-section-label">Evidence</div>
@@ -1444,6 +1435,9 @@
           </div>
         </div>
 
+        </div><!-- close enc-panel evidence -->
+        </div><!-- close enc-panels -->
+
         <div class="project-nav" data-anim>
           <a href="layer-ey.html" class="project-nav-card">
             <div class="project-nav-card-label">← Previous</div>
@@ -1470,32 +1464,6 @@
 
   <script src="../assets/main.js"></script>
   <script>
-/* ── Section nav ── */
-function eySnavGo(id, btn) {
-  document.querySelectorAll('.ey-snav-pill').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-(function() {
-  const sectionIds = ['ey-role','ey-instrument','ey-analytics','ey-workflow','ey-evidence'];
-  const pills = document.querySelectorAll('.ey-snav-pill');
-  const obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        const idx = sectionIds.indexOf(entry.target.id);
-        if (idx >= 0) {
-          pills.forEach(p => p.classList.remove('active'));
-          if (pills[idx]) pills[idx].classList.add('active');
-        }
-      }
-    });
-  }, { threshold: 0.3 });
-  sectionIds.forEach(function(id) {
-    const el = document.getElementById(id);
-    if (el) obs.observe(el);
-  });
-})();
 /* ── Instrument flow steps ── */
 function eyGoStep(n) {
   document.querySelectorAll('.ey-screen').forEach(s => s.classList.remove('active'));

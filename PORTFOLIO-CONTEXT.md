@@ -263,6 +263,48 @@ Used in dollarcity.html. Use for ANY project with multiple research phases.
 
 ---
 
+## 8B. ENCAPSULATED TAB NAVIGATOR — Standard Component
+
+Replaces: pill nav + scroll, arrow prev/next nav, any multi-panel pattern.
+Use when: a project section has 3–6 sub-sections that benefit from contained navigation.
+
+### HTML structure
+```html
+<div class="enc-nav" role="tablist" aria-label="[Section name]">
+  <button class="enc-tab enc-tab--active" role="tab" aria-selected="true"
+     aria-controls="enc-panel-1" id="enc-tab-1" onclick="encShow(this,'enc-panel-1','enc-[id]')">
+    Tab Label
+  </button>
+  <!-- repeat for each tab -->
+</div>
+<div class="enc-panels" id="enc-[id]">
+  <div class="enc-panel enc-panel--active" role="tabpanel"
+     id="enc-panel-1" aria-labelledby="enc-tab-1">
+    <!-- content -->
+  </div>
+  <!-- repeat for each panel -->
+</div>
+```
+
+### CSS classes (add to shared.css, used globally)
+- `.enc-nav` — tab row
+- `.enc-tab` — individual tab button
+- `.enc-tab--active` — active state
+- `.enc-panels` — container for all panels
+- `.enc-panel` — individual panel (hidden by default)
+- `.enc-panel--active` — visible panel
+
+### JS (one shared function, add to main.js)
+```javascript
+function encShow(tabEl, panelId, groupId) { ... }
+```
+
+### Keyboard: ArrowLeft/ArrowRight navigate tabs, Enter/Space activates.
+### Mobile: tabs scroll horizontally, panels stack.
+### Interaction hint: `.enc-hint` appears on load, hides after first tab click.
+
+---
+
 ## 9. UNIVERSAL LAYOUT & SYMMETRY RULES
 
 ### Card grids (ALWAYS auto-fit — never fixed columns)
