@@ -130,7 +130,7 @@ window.V2Counter = function(el, target, suffix, prefix, duration){
 };
 
 /* ── INIT ALL ── */
-document.addEventListener('DOMContentLoaded', function(){
+(function(){
   initReveal();
   initKwSection();
   initCardTilt();
@@ -141,6 +141,6 @@ document.addEventListener('DOMContentLoaded', function(){
       speed:   parseFloat(c.dataset.speed   || '0.5')
     });
   });
-});
+})();
 
 })();
