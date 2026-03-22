@@ -198,6 +198,64 @@ body::before {
     grid-template-columns: 1fr !important;
   }
 }
+/* Card tilt 3D más pronunciado */
+.project-card {
+  transition: transform 400ms cubic-bezier(0.16,1,0.3,1),
+              box-shadow 400ms ease,
+              border-color 300ms ease !important;
+}
+.project-card:hover {
+  box-shadow: 0 28px 56px rgba(0,0,0,0.5),
+              0 0 0 1px rgba(255,255,255,0.06) !important;
+}
+/* Tag chips — glow en hover */
+.tag-chip,
+.card-tool,
+.tag {
+  transition: border-color 300ms ease,
+              color 300ms ease,
+              box-shadow 300ms ease !important;
+}
+.tag-chip:hover,
+.card-tool:hover {
+  border-color: rgba(255,255,255,0.2) !important;
+  box-shadow: 0 0 12px rgba(200,168,75,0.08) !important;
+  color: var(--text-primary) !important;
+}
+/* Tool icon spring bounce */
+.tag-tool svg,
+.card-tool svg {
+  transition: transform 350ms cubic-bezier(0.34,1.56,0.64,1),
+              filter 300ms ease;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.tag-tool:hover svg,
+.card-tool:hover svg {
+  transform: rotate(-8deg) scale(1.2);
+  filter: drop-shadow(0 0 6px rgba(200,168,75,0.5));
+}
+/* Card accent bar animada */
+.card-accent-bar,
+[class*="accent-bar"] {
+  transition: opacity 300ms ease, height 300ms ease;
+}
+.project-card:hover .card-accent-bar,
+.project-card:hover [class*="accent-bar"] {
+  opacity: 1;
+  height: 3px;
+}
+/* Scroll reveal para cards */
+.project-card[data-v2-reveal] {
+  opacity: 0;
+  transform: perspective(900px) rotateX(4deg) translateY(16px);
+  transition: opacity 600ms ease,
+              transform 600ms cubic-bezier(0.16,1,0.3,1) !important;
+}
+.project-card[data-v2-reveal].v2-in {
+  opacity: 1;
+  transform: perspective(900px) rotateX(0deg) translateY(0px);
+}
   </style>
 </head>
 <body>
@@ -210,12 +268,12 @@ body::before {
   <!-- Navigation -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">
+      <a href="index-v2.html" class="nav-logo" aria-label="Federico Monroy Home">
         FM<span>.</span>
       </a>
 
       <div class="nav-links" role="menubar">
-        <a href="index.html" class="nav-link" aria-label="Home">Home</a>
+        <a href="index-v2.html" class="nav-link" aria-label="Home">Home</a>
         <!-- Projects Dropdown -->
         <div class="nav-dropdown" role="none">
           <button
@@ -250,9 +308,9 @@ body::before {
           </div>
         </div>
 
-        <a href="resume.html" class="nav-link">Resume</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="resume-v2.html" class="nav-link">Resume</a>
+        <a href="about-v2.html" class="nav-link">About</a>
+        <a href="contact-v2.html" class="nav-link">Contact</a>
       </div>
 
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
@@ -296,10 +354,10 @@ body::before {
       </button>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Navigation</div>
-        <a href="index.html">Home</a>
-        <a href="resume.html">Resume</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="index-v2.html">Home</a>
+        <a href="resume-v2.html">Resume</a>
+        <a href="about-v2.html">About</a>
+        <a href="contact-v2.html">Contact</a>
       </div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Relevant / Professional</div>
