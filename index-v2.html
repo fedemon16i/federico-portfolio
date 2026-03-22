@@ -65,314 +65,11 @@
       .who-strip { grid-template-columns: 1fr; gap: var(--space-32); }
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-/* ── V2 OVERHAUL PREVIEW ── */
-/* Override font display → Space Grotesk */
-:root {
-  --font-display: 'Space Grotesk', sans-serif;
-}
-/* Hero headline más grande */
-.hero-headline {
-  font-size: clamp(3.2rem, 6.5vw, 5.6rem) !important;
-  line-height: 0.96 !important;
-  letter-spacing: -0.04em !important;
-}
-/* Noise texture */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
-  opacity: 0.032;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 0;
-}
-/* Keyword highlight — Glow Breathe */
-.kw {
-  display: inline-block;
-  position: relative;
-  color: var(--accent);
-  animation: kwGlow 3.5s ease-in-out infinite;
-}
-.kw.kw-d2 { animation-delay: 1.75s; }
-@media (prefers-reduced-motion: reduce) {
-  .kw { animation: none; }
-}
-@keyframes kwGlow {
-  0%, 100% {
-    text-shadow: none;
-    opacity: 0.82;
-  }
-  50% {
-    text-shadow: 0 0 22px rgba(200,168,75,0.55), 0 0 48px rgba(200,168,75,0.1);
-    opacity: 1;
-  }
-}
-/* Section titles — underline on scroll */
-.kw-section {
-  display: inline-block;
-  position: relative;
-  color: var(--accent);
-}
-.kw-section::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), rgba(200,168,75,0.15));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.kw-section.kw-visible::after {
-  transform: scaleX(1);
-}
-/* Card 3D hover */
-.project-card {
-  transition: transform 400ms cubic-bezier(0.16,1,0.3,1),
-              box-shadow 400ms ease,
-              border-color 300ms ease !important;
-  transform-style: preserve-3d;
-}
-.project-card:hover {
-  transform: perspective(900px) rotateX(-2deg) translateY(-6px) !important;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.45) !important;
-}
-/* Scroll reveal */
-[data-v2-reveal] {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.16,1,0.3,1);
-}
-[data-v2-reveal].v2-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* Mesh canvas */
-#v2-mesh {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-.hero { position: relative; overflow: hidden; }
-.hero .container { position: relative; z-index: 1; }
-/* Preview banner */
-.v2-banner {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  background: rgba(200,168,75,0.12);
-  border: 1px solid rgba(200,168,75,0.3);
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.68rem;
-  color: #c8a84b;
-  z-index: 9999;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-family: 'Space Grotesk', sans-serif;
-}
-.v2-banner a {
-  color: #c8a84b;
-  text-decoration: underline;
-  margin-left: 8px;
-  opacity: 0.7;
-}
-.projects-grid {
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: var(--space-32) !important;
-}
-@media (max-width: 640px) {
-  .projects-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-/* Card tilt 3D más pronunciado */
-.project-card {
-  transition: transform 400ms cubic-bezier(0.16,1,0.3,1),
-              box-shadow 400ms ease,
-              border-color 300ms ease !important;
-}
-.project-card:hover {
-  box-shadow: 0 28px 56px rgba(0,0,0,0.5),
-              0 0 0 1px rgba(255,255,255,0.06) !important;
-}
-/* Tag chips — glow en hover */
-.tag-chip,
-.card-tool,
-.tag {
-  transition: border-color 300ms ease,
-              color 300ms ease,
-              box-shadow 300ms ease !important;
-}
-.tag-chip:hover,
-.card-tool:hover {
-  border-color: rgba(255,255,255,0.2) !important;
-  box-shadow: 0 0 12px rgba(200,168,75,0.08) !important;
-  color: var(--text-primary) !important;
-}
-/* Tool icon spring bounce */
-.tag-tool svg,
-.card-tool svg {
-  transition: transform 350ms cubic-bezier(0.34,1.56,0.64,1),
-              filter 300ms ease;
-  display: inline-flex;
-  flex-shrink: 0;
-}
-.tag-tool:hover svg,
-.card-tool:hover svg {
-  transform: rotate(-8deg) scale(1.2);
-  filter: drop-shadow(0 0 6px rgba(200,168,75,0.5));
-}
-/* Card accent bar animada */
-.card-accent-bar,
-[class*="accent-bar"] {
-  transition: opacity 300ms ease, height 300ms ease;
-}
-.project-card:hover .card-accent-bar,
-.project-card:hover [class*="accent-bar"] {
-  opacity: 1;
-  height: 3px;
-}
-/* Scroll reveal para cards */
-.project-card[data-v2-reveal] {
-  opacity: 0;
-  transform: perspective(900px) rotateX(4deg) translateY(16px);
-  transition: opacity 600ms ease,
-              transform 600ms cubic-bezier(0.16,1,0.3,1) !important;
-}
-.project-card[data-v2-reveal].v2-in {
-  opacity: 1;
-  transform: perspective(900px) rotateX(0deg) translateY(0px);
-}
-/* Section mesh canvas */
-.v2-section-mesh {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.6;
-}
-.who-strip,
-.hero-proof,
-[class*="proof"],
-[class*="who-strip"] {
-  position: relative;
-  overflow: hidden;
-}
-.who-strip .container,
-.hero-proof .container,
-[class*="proof"] .container,
-[class*="who-strip"] .container {
-  position: relative;
-  z-index: 1;
-}
-/* Cards — tilt 3D en hover */
-.project-card {
-  transition: transform 400ms cubic-bezier(0.16,1,0.3,1),
-              box-shadow 400ms ease,
-              border-color 300ms ease !important;
-  will-change: transform;
-}
-.project-card:hover {
-  box-shadow: 0 28px 56px rgba(0,0,0,0.5),
-              0 0 0 1px rgba(255,255,255,0.06) !important;
-}
-/* Tags temáticos — glow sutil en hover */
-.tag,
-.tag-chip,
-.card-tag {
-  transition: border-color 300ms ease,
-              color 300ms ease,
-              box-shadow 300ms ease !important;
-}
-.tag:hover,
-.tag-chip:hover,
-.card-tag:hover {
-  border-color: rgba(255,255,255,0.18) !important;
-  box-shadow: 0 0 10px rgba(200,168,75,0.07) !important;
-  color: var(--text-primary) !important;
-}
-/* Tool chips — icon spring + glow */
-.card-tool,
-.tag-tool {
-  transition: border-color 300ms ease,
-              color 300ms ease !important;
-}
-.card-tool:hover,
-.tag-tool:hover {
-  border-color: rgba(255,255,255,0.2) !important;
-  color: var(--text-primary) !important;
-}
-.card-tool svg,
-.tag-tool svg {
-  transition: transform 350ms cubic-bezier(0.34,1.56,0.64,1),
-              filter 300ms ease;
-  display: inline-flex;
-  flex-shrink: 0;
-}
-.card-tool:hover svg,
-.tag-tool:hover svg {
-  transform: rotate(-8deg) scale(1.2);
-  filter: drop-shadow(0 0 6px rgba(200,168,75,0.45));
-}
-/* Scroll reveal — cards entran con perspectiva */
-.project-card {
-  opacity: 0;
-  transform: perspective(900px) rotateX(5deg) translateY(20px);
-}
-.project-card.v2-in {
-  opacity: 1;
-  transform: perspective(900px) rotateX(0deg) translateY(0px);
-  transition: opacity 600ms ease,
-              transform 600ms cubic-bezier(0.16,1,0.3,1) !important;
-}
-/* Secciones con mesh de fondo */
-.section-mesh-wrap {
-  position: relative;
-  overflow: hidden;
-}
-.section-mesh-wrap > .container,
-.section-mesh-wrap > .who-strip,
-.section-mesh-wrap > * {
-  position: relative;
-  z-index: 1;
-}
-.v2-bg-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-}
-/* Subtle gradient separators entre secciones */
-.section-mesh-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent,
-    rgba(200,168,75,0.12) 30%,
-    rgba(200,168,75,0.12) 70%,
-    transparent);
-  z-index: 2;
-}
-  </style>
+  <link rel="stylesheet" href="assets/shared-v2.css">
+  <script src="assets/main-v2.js" defer></script>
 </head>
 <body>
 <div class="v2-banner">V2 Preview <a href="index.html">← Ver original</a></div>
-<canvas id="v2-mesh"></canvas>
 
   <!-- Skip Link -->
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -495,13 +192,14 @@ body::before {
     <!-- ========================
          SECTION 1: HERO
          ======================== -->
-    <section class="hero section-mesh-wrap" aria-labelledby="hero-heading">
+    <section class="hero v2-mesh-section" style="position:relative;overflow:hidden;" aria-labelledby="hero-heading">
+      <canvas data-mesh data-opacity="1" data-speed="0.9" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0" aria-hidden="true"></canvas>
       <div class="container">
 
         <p class="hero-kicker" data-anim>Sr. UX Designer &amp; Strategist · Behavioral Analytics · CRO · AI · Córdoba, Argentina</p>
 
         <h1 class="hero-headline" id="hero-heading" data-anim data-anim-delay="1">
-          I turn <span class="kw">behavioral</span> signals into <span class="kw kw-d2">product</span> decisions.
+          I turn <span class="kw">behavioral</span> signals into <span class="kw d2">product</span> decisions.
         </h1>
 
         <p class="hero-sub" data-anim data-anim-delay="2">
@@ -527,13 +225,13 @@ body::before {
     <!-- ========================
          SECTION 2: PROFESSIONAL PROJECTS GRID
          ======================== -->
-    <section class="section section-mesh-wrap" id="projects" aria-labelledby="projects-heading">
-      <canvas class="v2-bg-canvas" aria-hidden="true"></canvas>
+    <section class="section v2-mesh-section" id="projects" aria-labelledby="projects-heading">
+      <canvas class="v2-mesh-canvas" data-mesh data-opacity="0.45" data-speed="0.4" aria-hidden="true"></canvas>
       <div class="container">
 
         <div class="section-header" data-anim>
           <div class="section-eyebrow">Work</div>
-          <h2 class="section-title" id="projects-heading">Relevant & <span class="kw-section">Professional</span></h2>
+          <h2 class="section-title" id="projects-heading">Relevant & <span class="kw-s">Professional</span></h2>
           <p class="section-subtitle">Enterprise UX, product analytics, and behavioral diagnosis across fintech, retail, and government.</p>
         </div>
 
@@ -543,7 +241,7 @@ body::before {
           <!-- carousel: add image paths to data-carousel as project assets are created -->
           <a
             href="projects/ey-fabric.html"
-            class="project-card" data-v2-reveal
+            class="project-card" data-v2
             role="listitem"
             aria-label="EY Fabric project — Globant"
             style="--card-accent: var(--accent-ey);"
@@ -581,7 +279,7 @@ body::before {
           <!-- carousel: add image paths to data-carousel as project assets are created -->
           <a
             href="projects/blockchain.html"
-            class="project-card" data-v2-reveal
+            class="project-card" data-v2
             role="listitem"
             aria-label="Blockchain 3D Immersive Experience project"
             style="--card-accent: var(--accent-blockchain);"
@@ -618,7 +316,7 @@ body::before {
           <!-- carousel: add image paths to data-carousel as project assets are created -->
           <a
             href="projects/customs.html"
-            class="project-card" data-v2-reveal
+            class="project-card" data-v2
             role="listitem"
             aria-label="Customs El Salvador digital transformation project"
             style="--card-accent: var(--accent-customs);"
@@ -655,7 +353,7 @@ body::before {
           <!-- carousel: chek/IMG_0187.jpeg,chek/IMG_0188.jpeg,chek/IMG_0189.jpeg,chek/IMG_0190.jpeg,chek/IMG_0191.jpeg,chek/IMG_0192.jpeg,chek/IMG_0193.jpeg,chek/IMG_0194.jpeg -->
           <a
             href="projects/chek.html"
-            class="project-card" data-v2-reveal
+            class="project-card" data-v2
             role="listitem"
             aria-label="Chek virtual credit card project"
             style="--card-accent: var(--accent-chek);"
@@ -693,7 +391,7 @@ body::before {
           <!-- carousel: add image paths to data-carousel as project assets are created -->
           <a
             href="projects/dollarcity.html"
-            class="project-card" data-v2-reveal
+            class="project-card" data-v2
             role="listitem"
             aria-label="DollarCity Dollarama surveillance SaaS project"
             style="--card-accent: var(--accent-dollarcity);"
@@ -728,7 +426,7 @@ body::before {
           <!-- Card 6: Applaudo Forecast -->
           <a
             href="projects/forecast.html"
-            class="project-card" data-v2-reveal
+            class="project-card" data-v2
             role="listitem"
             aria-label="Applaudo Forecast workforce management project"
             style="--card-accent: #1d6fa4;"
@@ -765,8 +463,8 @@ body::before {
     </section>
 
     <!-- Who you're hiring strip -->
-    <section class="section section-mesh-wrap" aria-label="About Federico">
-      <canvas class="v2-bg-canvas" aria-hidden="true"></canvas>
+    <section class="section v2-mesh-section" aria-label="About Federico">
+      <canvas class="v2-mesh-canvas" data-mesh data-opacity="0.35" data-speed="0.35" aria-hidden="true"></canvas>
       <div class="container">
         <div class="who-strip" data-anim>
           <div class="who-strip-text">
@@ -859,129 +557,6 @@ body::before {
 
   <script src="assets/main.js"></script>
 
-<script>
-(function(){
-/* ── MESH HELPER ── */
-function initMesh(canvas, opacity, speed){
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var t = 0, W, H;
-  var mouse = {x: 0.6, y: 0.45};
-  function resize(){
-    W = canvas.width = canvas.offsetWidth || canvas.parentElement.offsetWidth;
-    H = canvas.height = canvas.offsetHeight || canvas.parentElement.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  var parent = canvas.parentElement;
-  parent.addEventListener('mousemove', function(e){
-    var r = canvas.getBoundingClientRect();
-    mouse.x = (e.clientX - r.left) / W;
-    mouse.y = (e.clientY - r.top) / H;
-  });
-  var COLS = 16, ROWS = 12, CELL = 52;
-  var CA = Math.cos(Math.PI/6), SA = Math.sin(Math.PI/6);
-  function iso(x,y,z){ return {x:(x-y)*CA, y:(x+y)*SA-z}; }
-  function ht(c,r,t){
-    var nx=c/COLS, ny=r/ROWS;
-    var dx=nx-mouse.x, dy=ny-mouse.y;
-    var d=Math.sqrt(dx*dx+dy*dy);
-    return (Math.sin(nx*7+t*speed)*Math.cos(ny*5+t*speed*0.8)+
-            Math.sin(d*9-t*speed*2)*0.4+
-            Math.cos(nx*4-ny*3+t*speed*0.6)*0.25)*24;
-  }
-  function frame(){
-    ctx.clearRect(0,0,W,H);
-    var ox=W*0.7, oy=H*0.52;
-    var sc=Math.min(W,H)/440;
-    var pts=[];
-    for(var r=0;r<=ROWS;r++){
-      pts[r]=[];
-      for(var c=0;c<=COLS;c++){
-        var wx=(c-COLS/2)*CELL, wy=(r-ROWS/2)*CELL;
-        var z=ht(c,r,t);
-        var p=iso(wx,wy,z*sc*1.3);
-        pts[r][c]={sx:ox+p.x*sc, sy:oy+p.y*sc, z:z};
-      }
-    }
-    for(var r=0;r<ROWS;r++){
-      for(var c=0;c<COLS;c++){
-        var p00=pts[r][c],p10=pts[r][c+1],p01=pts[r+1][c],p11=pts[r+1][c+1];
-        var az=(p00.z+p10.z+p01.z+p11.z)/4;
-        var n=(az+24)/48;
-        ctx.beginPath();
-        ctx.moveTo(p00.sx,p00.sy); ctx.lineTo(p10.sx,p10.sy);
-        ctx.lineTo(p11.sx,p11.sy); ctx.lineTo(p01.sx,p01.sy);
-        ctx.closePath();
-        ctx.fillStyle='rgba('+Math.floor(n*140+10)+','+Math.floor(n*90+6)+','+Math.floor(n*12)+','+(0.02+n*0.035)*opacity+')';
-        ctx.fill();
-        ctx.strokeStyle='rgba(200,168,75,'+(0.04+n*0.16)*opacity+')';
-        ctx.lineWidth=0.3; ctx.stroke();
-      }
-    }
-    for(var r=0;r<=ROWS;r++){
-      for(var c=0;c<=COLS;c++){
-        var p=pts[r][c], n=(p.z+24)/48;
-        if(n>0.68){
-          var i=(n-0.68)/0.32;
-          ctx.beginPath(); ctx.arc(p.sx,p.sy,i*2.2,0,Math.PI*2);
-          ctx.fillStyle='rgba(200,168,75,'+(i*0.75)*opacity+')'; ctx.fill();
-        }
-      }
-    }
-    t+=0.011; requestAnimationFrame(frame);
-  }
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) frame();
-}
-/* ── INIT MESHES ── */
-/* Hero mesh */
-initMesh(document.getElementById('v2-mesh'), 1, 1);
-/* Section meshes — más sutiles, más lentos */
-document.querySelectorAll('.v2-bg-canvas').forEach(function(c, i){
-  initMesh(c, 0.45, 0.4 + i * 0.1);
-});
-/* ── SCROLL REVEAL ── */
-var cards = document.querySelectorAll('.project-card');
-if('IntersectionObserver' in window){
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        var all = Array.from(document.querySelectorAll('.project-card:not(.v2-in)'));
-        var idx = all.indexOf(e.target);
-        setTimeout(function(){ e.target.classList.add('v2-in'); }, idx*100);
-        io.unobserve(e.target);
-      }
-    });
-  },{threshold:0.1});
-  cards.forEach(function(c){ io.observe(c); });
-} else {
-  cards.forEach(function(c){ c.classList.add('v2-in'); });
-}
-/* ── SECTION KEYWORDS underline ── */
-var kws = document.querySelectorAll('.kw-section');
-if('IntersectionObserver' in window && kws.length){
-  var io2 = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('kw-visible'); io2.unobserve(e.target); }
-    });
-  },{threshold:0.5});
-  kws.forEach(function(k){ io2.observe(k); });
-}
-/* ── CARD 3D TILT ── */
-document.querySelectorAll('.project-card').forEach(function(card){
-  card.addEventListener('mousemove', function(e){
-    var r = card.getBoundingClientRect();
-    var x = (e.clientX-r.left)/r.width - 0.5;
-    var y = (e.clientY-r.top)/r.height - 0.5;
-    card.style.transform =
-      'perspective(900px) rotateX('+(-y*5)+'deg) rotateY('+(x*3)+'deg) translateY(-6px)';
-  });
-  card.addEventListener('mouseleave', function(){
-    card.style.transform = '';
-  });
-});
-})();
-</script>
 
 </body>
 </html>
