@@ -69,13 +69,8 @@
   <style>
 /* ── V2 OVERHAUL PREVIEW ── */
 /* Override font display → Space Grotesk */
-.hero-headline,
-.section-title,
-.project-section-title,
-.nav-logo,
-.project-title,
-.who-strip-headline {
-  font-family: 'Space Grotesk', sans-serif !important;
+:root {
+  --font-display: 'Space Grotesk', sans-serif;
 }
 /* Hero headline más grande */
 .hero-headline {
@@ -256,6 +251,90 @@ body::before {
   opacity: 1;
   transform: perspective(900px) rotateX(0deg) translateY(0px);
 }
+/* Section mesh canvas */
+.v2-section-mesh {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+.who-strip,
+.hero-proof,
+[class*="proof"],
+[class*="who-strip"] {
+  position: relative;
+  overflow: hidden;
+}
+.who-strip .container,
+.hero-proof .container,
+[class*="proof"] .container,
+[class*="who-strip"] .container {
+  position: relative;
+  z-index: 1;
+}
+/* Cards — tilt 3D en hover */
+.project-card {
+  transition: transform 400ms cubic-bezier(0.16,1,0.3,1),
+              box-shadow 400ms ease,
+              border-color 300ms ease !important;
+  will-change: transform;
+}
+.project-card:hover {
+  box-shadow: 0 28px 56px rgba(0,0,0,0.5),
+              0 0 0 1px rgba(255,255,255,0.06) !important;
+}
+/* Tags temáticos — glow sutil en hover */
+.tag,
+.tag-chip,
+.card-tag {
+  transition: border-color 300ms ease,
+              color 300ms ease,
+              box-shadow 300ms ease !important;
+}
+.tag:hover,
+.tag-chip:hover,
+.card-tag:hover {
+  border-color: rgba(255,255,255,0.18) !important;
+  box-shadow: 0 0 10px rgba(200,168,75,0.07) !important;
+  color: var(--text-primary) !important;
+}
+/* Tool chips — icon spring + glow */
+.card-tool,
+.tag-tool {
+  transition: border-color 300ms ease,
+              color 300ms ease !important;
+}
+.card-tool:hover,
+.tag-tool:hover {
+  border-color: rgba(255,255,255,0.2) !important;
+  color: var(--text-primary) !important;
+}
+.card-tool svg,
+.tag-tool svg {
+  transition: transform 350ms cubic-bezier(0.34,1.56,0.64,1),
+              filter 300ms ease;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.card-tool:hover svg,
+.tag-tool:hover svg {
+  transform: rotate(-8deg) scale(1.2);
+  filter: drop-shadow(0 0 6px rgba(200,168,75,0.45));
+}
+/* Scroll reveal — cards entran con perspectiva */
+.project-card {
+  opacity: 0;
+  transform: perspective(900px) rotateX(5deg) translateY(20px);
+}
+.project-card.v2-in {
+  opacity: 1;
+  transform: perspective(900px) rotateX(0deg) translateY(0px);
+  transition: opacity 600ms ease,
+              transform 600ms cubic-bezier(0.16,1,0.3,1) !important;
+}
   </style>
 </head>
 <body>
@@ -402,6 +481,7 @@ body::before {
         </div>
 
         <div class="hero-proof" data-anim data-anim-delay="4">
+          <canvas class="v2-section-mesh" data-mesh-accent="rgba(200,168,75,0.08)"></canvas>
           <span class="hero-proof-item">50% task time reduced</span>
           <span class="hero-proof-item">15% onboarding increase</span>
           <span class="hero-proof-item">100+ assets instrumented</span>
@@ -652,6 +732,7 @@ body::before {
 
     <!-- Who you're hiring strip -->
     <section class="section" aria-label="About Federico">
+      <canvas class="v2-section-mesh" data-mesh-accent="rgba(200,168,75,0.12)"></canvas>
       <div class="container">
         <div class="who-strip" data-anim>
           <div class="who-strip-text">
@@ -746,140 +827,123 @@ body::before {
 
 <script>
 (function(){
-  // MESH ISOMÉTRICO
-  var canvas = document.getElementById('v2-mesh');
+/* ── MESH HELPER ── */
+function initMesh(canvas, opacity, speed){
   if(!canvas) return;
   var ctx = canvas.getContext('2d');
   var t = 0, W, H;
-  var mouse = {x: 0.65, y: 0.45};
+  var mouse = {x: 0.6, y: 0.45};
   function resize(){
-    W = canvas.width = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
+    W = canvas.width = canvas.offsetWidth || canvas.parentElement.offsetWidth;
+    H = canvas.height = canvas.offsetHeight || canvas.parentElement.offsetHeight;
   }
   resize();
   window.addEventListener('resize', resize);
-
-  var hero = canvas.closest('.hero') || canvas.parentElement;
-  hero.addEventListener('mousemove', function(e){
+  var parent = canvas.parentElement;
+  parent.addEventListener('mousemove', function(e){
     var r = canvas.getBoundingClientRect();
     mouse.x = (e.clientX - r.left) / W;
     mouse.y = (e.clientY - r.top) / H;
   });
-  var COLS = 18, ROWS = 14, CELL = 48;
+  var COLS = 16, ROWS = 12, CELL = 52;
   var CA = Math.cos(Math.PI/6), SA = Math.sin(Math.PI/6);
-  function iso(x, y, z){
-    return { x: (x - y) * CA, y: (x + y) * SA - z };
-  }
-  function ht(c, r, t){
-    var nx = c/COLS, ny = r/ROWS;
-    var dx = nx - mouse.x, dy = ny - mouse.y;
-    var d = Math.sqrt(dx*dx + dy*dy);
-    return (
-      Math.sin(nx*7 + t*0.6) * Math.cos(ny*5 + t*0.5) +
-      Math.sin(d*9 - t*1.2) * 0.4 +
-      Math.cos(nx*4 - ny*3 + t*0.35) * 0.25
-    ) * 26;
+  function iso(x,y,z){ return {x:(x-y)*CA, y:(x+y)*SA-z}; }
+  function ht(c,r,t){
+    var nx=c/COLS, ny=r/ROWS;
+    var dx=nx-mouse.x, dy=ny-mouse.y;
+    var d=Math.sqrt(dx*dx+dy*dy);
+    return (Math.sin(nx*7+t*speed)*Math.cos(ny*5+t*speed*0.8)+
+            Math.sin(d*9-t*speed*2)*0.4+
+            Math.cos(nx*4-ny*3+t*speed*0.6)*0.25)*24;
   }
   function frame(){
     ctx.clearRect(0,0,W,H);
-    var ox = W*0.72, oy = H*0.52;
-    var sc = Math.min(W,H) / 460;
-    var pts = [];
-    for(var r=0; r<=ROWS; r++){
-      pts[r] = [];
-      for(var c=0; c<=COLS; c++){
-        var wx = (c - COLS/2)*CELL, wy = (r - ROWS/2)*CELL;
-        var z = ht(c,r,t);
-        var p = iso(wx,wy,z*sc*1.4);
-        pts[r][c] = { sx: ox+p.x*sc, sy: oy+p.y*sc, z: z };
+    var ox=W*0.7, oy=H*0.52;
+    var sc=Math.min(W,H)/440;
+    var pts=[];
+    for(var r=0;r<=ROWS;r++){
+      pts[r]=[];
+      for(var c=0;c<=COLS;c++){
+        var wx=(c-COLS/2)*CELL, wy=(r-ROWS/2)*CELL;
+        var z=ht(c,r,t);
+        var p=iso(wx,wy,z*sc*1.3);
+        pts[r][c]={sx:ox+p.x*sc, sy:oy+p.y*sc, z:z};
       }
     }
-    for(var r=0; r<ROWS; r++){
-      for(var c=0; c<COLS; c++){
-        var p00=pts[r][c], p10=pts[r][c+1], p01=pts[r+1][c], p11=pts[r+1][c+1];
-        var az = (p00.z+p10.z+p01.z+p11.z)/4;
-        var n = (az+26)/52;
+    for(var r=0;r<ROWS;r++){
+      for(var c=0;c<COLS;c++){
+        var p00=pts[r][c],p10=pts[r][c+1],p01=pts[r+1][c],p11=pts[r+1][c+1];
+        var az=(p00.z+p10.z+p01.z+p11.z)/4;
+        var n=(az+24)/48;
         ctx.beginPath();
         ctx.moveTo(p00.sx,p00.sy); ctx.lineTo(p10.sx,p10.sy);
         ctx.lineTo(p11.sx,p11.sy); ctx.lineTo(p01.sx,p01.sy);
         ctx.closePath();
-        ctx.fillStyle = 'rgba('+Math.floor(n*160+15)+','+Math.floor(n*105+8)+','+Math.floor(n*15)+','+(0.025+n*0.04)+')';
+        ctx.fillStyle='rgba('+Math.floor(n*140+10)+','+Math.floor(n*90+6)+','+Math.floor(n*12)+','+(0.02+n*0.035)*opacity+')';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(200,168,75,'+(0.04+n*0.18)+')';
-        ctx.lineWidth = 0.35;
-        ctx.stroke();
+        ctx.strokeStyle='rgba(200,168,75,'+(0.04+n*0.16)*opacity+')';
+        ctx.lineWidth=0.3; ctx.stroke();
       }
     }
-    for(var r=0; r<=ROWS; r++){
-      for(var c=0; c<=COLS; c++){
-        var p = pts[r][c];
-        var n = (p.z+26)/52;
-        if(n > 0.70){
-          var i = (n-0.70)/0.30;
-          ctx.beginPath();
-          ctx.arc(p.sx,p.sy,i*2.5,0,Math.PI*2);
-          ctx.fillStyle = 'rgba(200,168,75,'+(i*0.8)+')';
-          ctx.fill();
-          if(i > 0.5){
-            var g = ctx.createRadialGradient(p.sx,p.sy,0,p.sx,p.sy,i*14);
-            g.addColorStop(0,'rgba(200,168,75,'+(i*0.1)+')');
-            g.addColorStop(1,'rgba(200,168,75,0)');
-            ctx.beginPath(); ctx.arc(p.sx,p.sy,i*14,0,Math.PI*2);
-            ctx.fillStyle = g; ctx.fill();
-          }
+    for(var r=0;r<=ROWS;r++){
+      for(var c=0;c<=COLS;c++){
+        var p=pts[r][c], n=(p.z+24)/48;
+        if(n>0.68){
+          var i=(n-0.68)/0.32;
+          ctx.beginPath(); ctx.arc(p.sx,p.sy,i*2.2,0,Math.PI*2);
+          ctx.fillStyle='rgba(200,168,75,'+(i*0.75)*opacity+')'; ctx.fill();
         }
       }
     }
-    t += 0.013;
-    requestAnimationFrame(frame);
+    t+=0.011; requestAnimationFrame(frame);
   }
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    frame();
-  }
-  // SCROLL REVEAL
-  var reveals = document.querySelectorAll('[data-v2-reveal]');
-  if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          var siblings = Array.from(
-            e.target.parentElement.querySelectorAll('[data-v2-reveal]:not(.v2-in)')
-          );
-          var idx = siblings.indexOf(e.target);
-          setTimeout(function(){ e.target.classList.add('v2-in'); }, idx * 100);
-          io.unobserve(e.target);
-        }
-      });
-    }, {threshold: 0.1});
-    reveals.forEach(function(el){ io.observe(el); });
-  } else {
-    reveals.forEach(function(el){ el.classList.add('v2-in'); });
-  }
-  // SECTION TITLE KEYWORDS — underline on scroll
-  var kwSections = document.querySelectorAll('.kw-section');
-  if('IntersectionObserver' in window && kwSections.length){
-    var io2 = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){
-          e.target.classList.add('kw-visible');
-          io2.unobserve(e.target);
-        }
-      });
-    }, {threshold: 0.5});
-    kwSections.forEach(function(el){ io2.observe(el); });
-  }
-  // CARD 3D TILT on mousemove
-  document.querySelectorAll('.project-card').forEach(function(card){
-    card.addEventListener('mousemove', function(e){
-      var rect = card.getBoundingClientRect();
-      var x = (e.clientX - rect.left) / rect.width - 0.5;
-      var y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = 'perspective(900px) rotateX('+(-y*5)+'deg) rotateY('+(x*3)+'deg) translateY(-6px)';
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) frame();
+}
+/* ── INIT MESHES ── */
+initMesh(document.getElementById('v2-mesh'), 1, 1);
+document.querySelectorAll('.v2-section-mesh').forEach(function(c){
+  initMesh(c, 0.5, 0.6);
+});
+/* ── SCROLL REVEAL ── */
+var cards = document.querySelectorAll('.project-card');
+if('IntersectionObserver' in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var all = Array.from(document.querySelectorAll('.project-card:not(.v2-in)'));
+        var idx = all.indexOf(e.target);
+        setTimeout(function(){ e.target.classList.add('v2-in'); }, idx*100);
+        io.unobserve(e.target);
+      }
     });
-    card.addEventListener('mouseleave', function(){
-      card.style.transform = '';
+  },{threshold:0.1});
+  cards.forEach(function(c){ io.observe(c); });
+} else {
+  cards.forEach(function(c){ c.classList.add('v2-in'); });
+}
+/* ── SECTION KEYWORDS underline ── */
+var kws = document.querySelectorAll('.kw-section');
+if('IntersectionObserver' in window && kws.length){
+  var io2 = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('kw-visible'); io2.unobserve(e.target); }
     });
+  },{threshold:0.5});
+  kws.forEach(function(k){ io2.observe(k); });
+}
+/* ── CARD 3D TILT ── */
+document.querySelectorAll('.project-card').forEach(function(card){
+  card.addEventListener('mousemove', function(e){
+    var r = card.getBoundingClientRect();
+    var x = (e.clientX-r.left)/r.width - 0.5;
+    var y = (e.clientY-r.top)/r.height - 0.5;
+    card.style.transform =
+      'perspective(900px) rotateX('+(-y*5)+'deg) rotateY('+(x*3)+'deg) translateY(-6px)';
   });
+  card.addEventListener('mouseleave', function(){
+    card.style.transform = '';
+  });
+});
 })();
 </script>
 
