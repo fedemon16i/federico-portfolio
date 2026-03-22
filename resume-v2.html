@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -455,6 +455,37 @@ body::before {
 }
 :root {
   --font-display: 'Space Grotesk', sans-serif;
+}
+/* Force dark mode en resume-v2 */
+[data-theme="light"] {
+  --bg-base: #0c0c0c !important;
+  --bg-surface: #141414 !important;
+  --bg-raised: #1a1a1a !important;
+  --bg-card: #1c1c1c !important;
+  --bg-hover: #222222 !important;
+  --text-primary: #f0f0f0 !important;
+  --text-secondary: #a0a0a0 !important;
+  --text-tertiary: #606060 !important;
+  --border-subtle: rgba(255,255,255,0.07) !important;
+  --border-default: rgba(255,255,255,0.12) !important;
+  --border-strong: rgba(255,255,255,0.22) !important;
+  --shadow: rgba(0,0,0,0.4) !important;
+}
+/* También forzar en :root por si acaso */
+:root {
+  --bg-base: #0c0c0c;
+  --bg-surface: #141414;
+  --bg-raised: #1a1a1a;
+  --bg-card: #1c1c1c;
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #606060;
+  --border-subtle: rgba(255,255,255,0.07);
+}
+/* El download button y stat-pill que funcionan en dark */
+.stat-pill {
+  background: var(--accent) !important;
+  color: #0c0c0c !important;
 }
 .kw {
   display: inline-block;

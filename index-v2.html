@@ -335,6 +335,39 @@ body::before {
   transition: opacity 600ms ease,
               transform 600ms cubic-bezier(0.16,1,0.3,1) !important;
 }
+/* Secciones con mesh de fondo */
+.section-mesh-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.section-mesh-wrap > .container,
+.section-mesh-wrap > .who-strip,
+.section-mesh-wrap > * {
+  position: relative;
+  z-index: 1;
+}
+.v2-bg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+/* Subtle gradient separators entre secciones */
+.section-mesh-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(200,168,75,0.12) 30%,
+    rgba(200,168,75,0.12) 70%,
+    transparent);
+  z-index: 2;
+}
   </style>
 </head>
 <body>
@@ -462,7 +495,7 @@ body::before {
     <!-- ========================
          SECTION 1: HERO
          ======================== -->
-    <section class="hero" aria-labelledby="hero-heading">
+    <section class="hero section-mesh-wrap" aria-labelledby="hero-heading">
       <div class="container">
 
         <p class="hero-kicker" data-anim>Sr. UX Designer &amp; Strategist · Behavioral Analytics · CRO · AI · Córdoba, Argentina</p>
@@ -494,7 +527,8 @@ body::before {
     <!-- ========================
          SECTION 2: PROFESSIONAL PROJECTS GRID
          ======================== -->
-    <section class="section" id="projects" aria-labelledby="projects-heading">
+    <section class="section section-mesh-wrap" id="projects" aria-labelledby="projects-heading">
+      <canvas class="v2-bg-canvas" aria-hidden="true"></canvas>
       <div class="container">
 
         <div class="section-header" data-anim>
@@ -731,8 +765,8 @@ body::before {
     </section>
 
     <!-- Who you're hiring strip -->
-    <section class="section" aria-label="About Federico">
-      <canvas class="v2-section-mesh" data-mesh-accent="rgba(200,168,75,0.12)"></canvas>
+    <section class="section section-mesh-wrap" aria-label="About Federico">
+      <canvas class="v2-bg-canvas" aria-hidden="true"></canvas>
       <div class="container">
         <div class="who-strip" data-anim>
           <div class="who-strip-text">
@@ -900,9 +934,11 @@ function initMesh(canvas, opacity, speed){
   if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) frame();
 }
 /* ── INIT MESHES ── */
+/* Hero mesh */
 initMesh(document.getElementById('v2-mesh'), 1, 1);
-document.querySelectorAll('.v2-section-mesh').forEach(function(c){
-  initMesh(c, 0.5, 0.6);
+/* Section meshes — más sutiles, más lentos */
+document.querySelectorAll('.v2-bg-canvas').forEach(function(c, i){
+  initMesh(c, 0.45, 0.4 + i * 0.1);
 });
 /* ── SCROLL REVEAL ── */
 var cards = document.querySelectorAll('.project-card');
