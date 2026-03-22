@@ -10,8 +10,10 @@ window.V2Mesh = function(canvas, opts){
   var ctx = canvas.getContext('2d');
   var t=0, W, H, mx=0.65, my=0.45;
   function resize(){
-    W = canvas.width  = canvas.offsetWidth  || canvas.parentElement.offsetWidth  || 600;
-    H = canvas.height = canvas.offsetHeight || canvas.parentElement.offsetHeight || 400;
+    var parent = canvas.parentElement;
+    W = canvas.width  = parent.offsetWidth  || window.innerWidth  || 800;
+    H = canvas.height = parent.offsetHeight || window.innerHeight || 500;
+    if(H < 100) H = canvas.height = window.innerHeight || 500;
   }
   resize();
   window.addEventListener('resize', resize);
