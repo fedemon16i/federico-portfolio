@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Federico A. Monroy — Sr. UX Designer &amp; Strategist · Behavioral Analytics · CRO · AI. Resume." />
+  <title>Resume — Federico A. Monroy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" />
+  <link rel="stylesheet" href="assets/shared.css" />
+  <script src="js/theme.js"></script>
+  <style>
+    /* ── Light/Dark theme overrides for this page ── */
+    [data-theme="light"] {
+      --bg-base:    #f5f5f2;
+      --bg-surface: #ffffff;
+      --bg-raised:  #ebebе7;
+      --bg-hover:   #e0e0dc;
+      --border-subtle:  rgba(0,0,0,0.07);
+      --border-default: rgba(0,0,0,0.13);
+      --border-strong:  rgba(0,0,0,0.22);
+      --text-primary:   #111110;
+      --text-secondary: #44443e;
+      --text-tertiary:  #88887e;
+      --accent: #15803d;
+    }
+    [data-theme="dark"] {
+      --accent: #22c55e;
+    }
+
+    /* ── Nav light-mode override (hardcoded bg in shared.css) ── */
+    [data-theme="light"] .nav {
+      background: rgba(245,245,242,0.92);
+      border-bottom-color: rgba(0,0,0,0.08);
+    }
+    [data-theme="light"] .nav-dropdown-menu {
+      box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    /* ── Page layout ── */
+    body { background: var(--bg-base); }
+
+    .resume-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + var(--space-64)) var(--space-24) var(--space-96);
+    }
+
+    /* ── Header ── */
+    .r-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-24);
+      margin-bottom: var(--space-40);
+      flex-wrap: wrap;
+    }
+    .r-name {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin: 0;
+    }
+    .r-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-top: var(--space-8);
+      line-height: 1.4;
+    }
+    .r-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4) var(--space-16);
+      margin-top: var(--space-12);
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+    }
+    .r-meta a {
+      color: #15803d;
+      text-decoration: none;
+    }
+    [data-theme="dark"] .r-meta a { color: #22c55e; }
+    .r-meta a:hover { text-decoration: underline; }
+
+    .r-dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-8);
+      background: #15803d;
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: var(--space-12) var(--space-20);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background var(--transition-fast);
+    }
+    .r-dl-btn:hover { background: #166534; }
+    .r-dl-btn svg { flex-shrink: 0; }
+
+    /* ── Section ── */
+    .r-section { margin-bottom: var(--space-48); }
+
+    .r-section-title {
+      font-family: var(--font-display);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #15803d;
+      margin-bottom: var(--space-16);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    [data-theme="dark"] .r-section-title { color: #22c55e; }
+
+    /* ── About ── */
+    .r-about p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: var(--space-16);
+    }
+    .r-about p:last-child { margin-bottom: 0; }
+
+    /* ── Skills grid ── */
+    .r-skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-16);
+      align-items: stretch;
+    }
+    .r-skill-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-10);
+    }
+    .r-skill-label {
+      font-family: var(--font-display);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .r-skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-6);
+    }
+
+    /* ── Tool chip ── */
+    .r-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--bg-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+    .r-chip svg { width: 14px; height: 14px; flex-shrink: 0; overflow: visible; }
+
+    /* ── Experience ── */
+    .r-exp-item { margin-bottom: var(--space-36, 2.25rem); }
+    .r-exp-item:last-child { margin-bottom: 0; }
+
+    .r-exp-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-16);
+      margin-bottom: var(--space-12);
+      flex-wrap: wrap;
+    }
+    .r-company {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .r-company-period {
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .r-subroles {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-20);
+      padding-left: var(--space-20);
+      border-left: 2px solid var(--border-subtle);
+      margin-top: var(--space-4);
+    }
+    .r-subrole {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .r-subrole-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .r-subrole-period {
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-6);
+    }
+
+    .r-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      padding: 0;
+      margin: 0;
+    }
+    .r-bullets li {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: var(--space-16);
+      position: relative;
+    }
+    .r-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Metric pill ── */
+    .r-metric {
+      display: inline-block;
+      background: rgba(21,128,61,0.1);
+      border: 1px solid rgba(21,128,61,0.22);
+      color: #15803d;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      border-radius: 100px;
+      padding: 1px 8px;
+      margin: 0 2px;
+      vertical-align: middle;
+    }
+    [data-theme="dark"] .r-metric {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.28);
+      color: #22c55e;
+    }
+
+    /* ── Education ── */
+    .r-edu-highlight {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid #15803d;
+      border-radius: var(--radius-md);
+      padding: var(--space-20) var(--space-24);
+      margin-bottom: var(--space-16);
+    }
+    .r-edu-degree {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-4);
+    }
+    .r-edu-institution { font-size: 0.8125rem; color: var(--text-secondary); }
+
+    .r-certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: var(--space-12);
+      align-items: stretch;
+    }
+    .r-cert-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-16);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .r-cert-title {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .r-cert-issuer { font-size: 0.75rem; color: var(--text-tertiary); }
+
+    /* ── Languages ── */
+    .r-langs {
+      display: flex;
+      gap: var(--space-24);
+      flex-wrap: wrap;
+    }
+    .r-lang-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-10);
+    }
+    .r-lang-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .r-lang-level {
+      font-size: 0.75rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      padding: 2px 10px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .r-header { gap: var(--space-20); }
+      .r-name   { font-size: 2rem; }
+      .r-skills-grid { grid-template-columns: 1fr 1fr; }
+      .r-exp-header  { flex-direction: column; gap: var(--space-4); }
+      .resume-wrap   { padding-top: calc(var(--nav-h) + var(--space-40)); }
+    }
+    @media (max-width: 420px) {
+      .r-skills-grid { grid-template-columns: 1fr; }
+    }
+    .r-expand-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font-display);
+      font-size: inherit;
+      font-weight: 700;
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+    }
+    .r-expand-icon {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--text-tertiary);
+      transition: transform 0.2s;
+    }
+    .r-expand-btn[aria-expanded="true"] .r-expand-icon {
+      transform: rotate(45deg);
+    }
+    .r-hiw-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: var(--space-16);
+    }
+    .r-hiw-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: var(--space-16);
+      padding: 12px var(--space-20);
+      border-bottom: 1px solid var(--border-subtle);
+      align-items: baseline;
+    }
+    .r-hiw-row:last-child { border-bottom: none; }
+    .r-hiw-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .r-hiw-value {
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    .r-hiw-alt {
+      color: var(--text-tertiary);
+      font-size: 0.8rem;
+    }
+    @media (max-width: 600px) {
+      .r-hiw-row { grid-template-columns: 1fr; gap: var(--space-4); }
+    }
+    /* ── Skills Framework ── */
+    .rsf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-16); }
+    .rsf-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-20); display: flex; flex-direction: column; gap: var(--space-12); }
+    .rsf-card--wide { grid-column: 1 / -1; }
+    .rsf-card-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+    .rsf-eyebrow { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .rsf-tools { display: flex; flex-wrap: wrap; gap: var(--space-6); align-items: center; }
+    .rsf-tool { display: inline-flex; align-items: center; gap: 5px; font-size: 0.75rem; font-weight: 500; padding: 4px 10px; border-radius: 100px; border: 1px solid var(--border-subtle); color: var(--text-secondary); background: var(--bg-card); }
+    .rsf-tool--primary { border-color: var(--border-default); color: var(--text-primary); }
+    .rsf-tool--muted { font-size: 0.68rem; color: var(--text-tertiary); border-style: dashed; }
+    .rsf-icon { width: 14px; height: 14px; flex-shrink: 0; }
+    .rsf-ai-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-16); }
+    .rsf-ai-col { display: flex; flex-direction: column; gap: var(--space-10); }
+    .rsf-ai-label { display: flex; align-items: center; gap: 5px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
+    /* ── How I Work loop ── */
+    .rsf-loop { display: flex; align-items: flex-start; gap: 0; margin-bottom: var(--space-16); overflow-x: auto; scrollbar-width: none; }
+    .rsf-loop::-webkit-scrollbar { display: none; }
+    .rsf-loop-step { flex: 1; min-width: 120px; padding: var(--space-16); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); display: flex; flex-direction: column; gap: var(--space-6); }
+    .rsf-loop-step--accent { border-color: var(--accent); background: var(--accent-dim); }
+    .rsf-loop-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-tertiary); }
+    .rsf-loop-step--accent .rsf-loop-num { color: var(--accent); }
+    .rsf-loop-name { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+    .rsf-loop-tools { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+    .rsf-loop-tool { display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; color: var(--text-secondary); }
+    .rsf-loop-arrow { padding: var(--space-20) var(--space-8); color: var(--text-tertiary); font-size: 0.9rem; flex-shrink: 0; align-self: center; }
+    .rsf-loop-outputs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-top: var(--space-8); }
+    .rsf-loop-output { padding: var(--space-12) var(--space-16); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); }
+    .rsf-loop-output--dev { border-color: var(--accent); }
+    .rsf-loop-output-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: var(--space-8); }
+    .rsf-loop-output--dev .rsf-loop-output-label { color: var(--accent); }
+    .rsf-loop-output-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+    .rsf-loop-output-chips span { font-size: 0.72rem; padding: 2px 8px; border-radius: 100px; background: var(--bg-raised); border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    @media (max-width: 900px) { .rsf-grid { grid-template-columns: 1fr 1fr; } .rsf-ai-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .rsf-grid { grid-template-columns: 1fr; } .rsf-ai-grid { grid-template-columns: 1fr; } .rsf-loop-outputs { grid-template-columns: 1fr; } }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+/* ── V2 RESUME PREVIEW ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: 0.032;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+.r-name,
+.r-section-label,
+.rsf-title {
+  font-family: 'Space Grotesk', sans-serif !important;
+}
+.kw {
+  display: inline-block;
+  color: var(--accent);
+  animation: kwGlow 3.5s ease-in-out infinite;
+}
+.kw.kw-d2 { animation-delay: 1.75s; }
+@media (prefers-reduced-motion: reduce) { .kw { animation: none; } }
+@keyframes kwGlow {
+  0%,100% { text-shadow: none; opacity: 0.82; }
+  50% { text-shadow: 0 0 22px rgba(200,168,75,0.55), 0 0 48px rgba(200,168,75,0.1); opacity: 1; }
+}
+.kw-section {
+  display: inline-block;
+  position: relative;
+  color: var(--accent);
+}
+.kw-section::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(200,168,75,0.15));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 800ms cubic-bezier(0.16,1,0.3,1);
+}
+.kw-section.kw-visible::after { transform: scaleX(1); }
+[data-v2-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.16,1,0.3,1);
+}
+[data-v2-reveal].v2-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.v2-banner {
+  position: fixed;
+  bottom: 16px; right: 16px;
+  background: rgba(200,168,75,0.12);
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.68rem;
+  color: #c8a84b;
+  z-index: 9999;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.v2-banner a { color: #c8a84b; text-decoration: underline; margin-left: 8px; opacity: 0.7; }
+  </style>
+</head>
+<body>
+<div class="v2-banner">V2 Preview <a href="resume.html">← Ver original</a></div>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
+
+      <div class="nav-links" role="menubar">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-dropdown">
+          <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
+            Projects
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
+            <div class="nav-dropdown-group">
+              <div class="nav-dropdown-group-label">Relevant / Professional</div>
+              <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
+              <a class="nav-dropdown-item" href="projects/blockchain.html" role="menuitem">Blockchain</a>
+              <a class="nav-dropdown-item" href="projects/customs.html" role="menuitem">Customs / Aduanas ES</a>
+              <a class="nav-dropdown-item" href="projects/chek.html" role="menuitem">Chek</a>
+              <a class="nav-dropdown-item" href="projects/dollarcity.html" role="menuitem">DollarCity</a>
+              <a class="nav-dropdown-item" href="projects/forecast.html" role="menuitem">Forecast</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <div class="nav-dropdown-group-label">Personal / Independent</div>
+              <a class="nav-dropdown-item" href="projects/industrial-design-thesis.html" role="menuitem">Industrial Design Thesis</a>
+              <a class="nav-dropdown-item" href="projects/depure.html" role="menuitem">Depure</a>
+              <a class="nav-dropdown-item" href="projects/layer-ey.html" role="menuitem">LayerEY</a>
+            </div>
+          </div>
+        </div>
+        <a href="resume.html" class="nav-link active" aria-current="page">Resume</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+        <!-- Sun icon (shown in dark mode) -->
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile panel -->
+    <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
+      <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Navigation</div>
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Relevant / Professional</div>
+        <a href="projects/ey-fabric.html">EY Fabric (Globant)</a>
+        <a href="projects/blockchain.html">Blockchain</a>
+        <a href="projects/customs.html">Customs / Aduanas ES</a>
+        <a href="projects/chek.html">Chek</a>
+        <a href="projects/dollarcity.html">DollarCity</a>
+        <a href="projects/forecast.html">Forecast</a>
+      </div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Personal / Independent</div>
+        <a href="projects/industrial-design-thesis.html">Industrial Design Thesis</a>
+        <a href="projects/depure.html">Depure</a>
+        <a href="projects/layer-ey.html">LayerEY</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main id="main">
+    <div class="resume-wrap">
+
+      <!-- ── HEADER ── -->
+      <header class="r-header">
+        <div>
+          <h1 class="r-name"><span class="kw">Federico</span> A. Monroy</h1>
+          <p class="r-title">Sr. UX Designer &amp; Strategist · Behavioral Analytics · CRO · AI</p>
+          <div class="r-meta">
+            <span>Córdoba, Argentina</span>
+            <a href="mailto:fedemon16i@gmail.com">fedemon16i@gmail.com</a>
+            <a href="index.html">federicoportfolio.com</a>
+            <span>ES · EN C2</span>
+          </div>
+        </div>
+        <a href="assets/Federico_Monroy_CV.pdf" target="_blank" rel="noopener noreferrer" class="r-dl-btn" aria-label="View CV PDF">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download CV
+        </a>
+      </header>
+
+      <!-- ── ABOUT ── -->
+      <section class="r-section" aria-labelledby="about-h">
+        <h2 class="r-section-title" id="about-h"><span class="kw-section">About</span></h2>
+        <div class="r-about">
+          <p>UX Designer &amp; Strategist with 7+ years closing the loop between what users do and what teams ship. I instrument platforms with Pendo, synthesize behavioral and qualitative data, and deliver Figma-ready decisions — orchestrating across research, design, and engineering.</p>
+          <p>Stack-agnostic. The approach stays constant, the tools adapt.</p>
+        </div>
+      </section>
+
+      <section class="r-section" aria-labelledby="skills-h">
+        <h2 class="r-section-title" id="skills-h"><span class="kw-section">Skills</span> &amp; Tools</h2>
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-24);line-height:1.6;">Stack-agnostic — I adapt to what the team uses. The tools below are what I know best; equivalents always welcome.</p>
+        <div class="rsf-grid">
+          <div class="rsf-card">
+            <div class="rsf-eyebrow">Design & Prototyping</div>
+            <div class="rsf-tools">
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 38 57" fill="none" aria-hidden="true"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+                Figma
+              </span>
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FFD02F"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="#050038" font-family="sans-serif">M</text></svg>
+                Miro
+              </span>
+              <span class="rsf-tool">Auto Layout</span>
+              <span class="rsf-tool">Design Systems</span>
+              <span class="rsf-tool">Hi-Fi Prototyping</span>
+            </div>
+          </div>
+          <div class="rsf-card">
+            <div class="rsf-eyebrow">Behavioral Analytics</div>
+            <div class="rsf-tools">
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#CC3A99"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="sans-serif">P</text></svg>
+                Pendo
+              </span>
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 20h18M7 14v6M12 10v10M17 6v14"/></svg>
+                GA4
+              </span>
+              <span class="rsf-tool rsf-tool--muted">or Mixpanel · Amplitude · Heap</span>
+              <span class="rsf-tool">Event Tracking</span>
+              <span class="rsf-tool">Funnels</span>
+              <span class="rsf-tool">Session Replay</span>
+              <span class="rsf-tool">In-App Guides</span>
+              <span class="rsf-tool">HEARTS</span>
+            </div>
+          </div>
+          <div class="rsf-card">
+            <div class="rsf-eyebrow">UX Research</div>
+            <div class="rsf-tools">
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg>
+                Qualtrics
+              </span>
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1A1A2E" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><polygon points="9,7 9,17 18,12" fill="white"/></svg>
+                Useberry
+              </span>
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#6B48FF"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+                Maze
+              </span>
+              <span class="rsf-tool">Contextual Inquiry</span>
+              <span class="rsf-tool">Heuristic Audit</span>
+              <span class="rsf-tool">Usability Testing</span>
+            </div>
+          </div>
+          <div class="rsf-card rsf-card--wide">
+            <div class="rsf-eyebrow">AI Workflow</div>
+            <p class="rsf-card-desc">I use AI across the full loop — reasoning, building, and automating. Stack adapts to what the team already has.</p>
+            <div class="rsf-ai-grid">
+              <div class="rsf-ai-col">
+                <div class="rsf-ai-label">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                  LLM & Reasoning
+                </div>
+                <div class="rsf-tools">
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#D97706"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="sans-serif">C</text></svg>
+                    Claude
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#10A37F"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="bold" fill="white" font-family="sans-serif">GP</text></svg>
+                    ChatGPT
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#4285F4"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="bold" fill="white" font-family="sans-serif">G</text></svg>
+                    Gemini
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
+                    Copilot
+                  </span>
+                </div>
+              </div>
+              <div class="rsf-ai-col">
+                <div class="rsf-ai-label">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Rapid Build
+                </div>
+                <div class="rsf-tools">
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#D97706"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="bold" fill="white" font-family="sans-serif">CC</text></svg>
+                    Claude Code
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#111"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="sans-serif">v0</text></svg>
+                    v0
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#7C3AED"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="bold" fill="white" font-family="sans-serif">Bt</text></svg>
+                    Bolt
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 38 57" fill="none" aria-hidden="true"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+                    Figma Make
+                  </span>
+                  <span class="rsf-tool">+ GitHub · Codespaces</span>
+                </div>
+              </div>
+              <div class="rsf-ai-col">
+                <div class="rsf-ai-label">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  Automation & MCP
+                </div>
+                <div class="rsf-tools">
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
+                    Copilot Studio
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FF6B35"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="bold" fill="white" font-family="sans-serif">Mk</text></svg>
+                    Make
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#FF4A00"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="bold" fill="white" font-family="sans-serif">Zp</text></svg>
+                    Zapier
+                  </span>
+                  <span class="rsf-tool rsf-tool--primary">
+                    <svg class="rsf-icon" viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
+                    Power Automate
+                  </span>
+                  <span class="rsf-tool rsf-tool--muted">MCP: Pendo · Claude · Figma · GitHub</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rsf-card">
+            <div class="rsf-eyebrow">Data & Feedback</div>
+            <div class="rsf-tools">
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
+                MS Dynamics
+              </span>
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg>
+                Qualtrics
+              </span>
+              <span class="rsf-tool">Airtable</span>
+              <span class="rsf-tool">Excel</span>
+              <span class="rsf-tool">Behavioral Reporting</span>
+            </div>
+          </div>
+          <div class="rsf-card">
+            <div class="rsf-eyebrow">PM & Handoff</div>
+            <div class="rsf-tools">
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0052CC"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="bold" fill="white" font-family="sans-serif">Ji</text></svg>
+                Jira
+              </span>
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#172B4D"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="bold" fill="white" font-family="sans-serif">Cf</text></svg>
+                Confluence
+              </span>
+              <span class="rsf-tool rsf-tool--primary">
+                <svg class="rsf-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1A1A1A"/><path d="M5 5h5.5v6H5zM13.5 5H19v6h-5.5zM5 13h5.5v6H5zM13.5 13H19v6h-5.5z" fill="#888"/></svg>
+                Linear
+              </span>
+              <span class="rsf-tool">ADO</span>
+              <span class="rsf-tool">Stakeholder Comms</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── HOW I WORK ── -->
+      <section class="r-section" aria-labelledby="hiw-h">
+        <h2 class="r-section-title" id="hiw-h">How I <span class="kw-section">work</span></h2>
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-24);line-height:1.6;">I orchestrate the full loop — and get my hands dirty when needed. The method stays constant; the tools adapt to the team's stack.</p>
+        <div class="rsf-loop">
+          <div class="rsf-loop-step">
+            <div class="rsf-loop-num">01</div>
+            <div class="rsf-loop-name">Sense</div>
+            <div class="rsf-loop-tools">
+              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#CC3A99"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="sans-serif">P</text></svg>Pendo</span>
+              <span class="rsf-loop-tool">GA4</span>
+              <span class="rsf-loop-tool">Session replay</span>
+            </div>
+          </div>
+          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
+          <div class="rsf-loop-step">
+            <div class="rsf-loop-num">02</div>
+            <div class="rsf-loop-name">Research</div>
+            <div class="rsf-loop-tools">
+              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#6B48FF"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>Maze</span>
+              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg>Qualtrics</span>
+              <span class="rsf-loop-tool">1:1 interviews</span>
+            </div>
+          </div>
+          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
+          <div class="rsf-loop-step">
+            <div class="rsf-loop-num">03</div>
+            <div class="rsf-loop-name">Synthesize</div>
+            <div class="rsf-loop-tools">
+              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#D97706"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="sans-serif">C</text></svg>Claude</span>
+              <span class="rsf-loop-tool">Copilot</span>
+              <span class="rsf-loop-tool">Human review</span>
+            </div>
+          </div>
+          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
+          <div class="rsf-loop-step">
+            <div class="rsf-loop-num">04</div>
+            <div class="rsf-loop-name">Design</div>
+            <div class="rsf-loop-tools">
+              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 38 57" fill="none" aria-hidden="true"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>Figma</span>
+              <span class="rsf-loop-tool">v0 · Bolt</span>
+              <span class="rsf-loop-tool">DS-connected</span>
+            </div>
+          </div>
+          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
+          <div class="rsf-loop-step rsf-loop-step--accent">
+            <div class="rsf-loop-num">05</div>
+            <div class="rsf-loop-name">Measure</div>
+            <div class="rsf-loop-tools">
+              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#CC3A99"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="sans-serif">P</text></svg>Pendo</span>
+              <span class="rsf-loop-tool">Post-ship</span>
+              <span class="rsf-loop-tool">Loop restarts</span>
+            </div>
+          </div>
+        </div>
+        <div class="rsf-loop-outputs">
+          <div class="rsf-loop-output">
+            <div class="rsf-loop-output-label">Design output</div>
+            <div class="rsf-loop-output-chips">
+              <span>Figma proposal</span><span>UI audit</span><span>Ship</span>
+            </div>
+          </div>
+          <div class="rsf-loop-output rsf-loop-output--dev">
+            <div class="rsf-loop-output-label">Product & dev</div>
+            <div class="rsf-loop-output-chips">
+              <span>Ticket</span><span>Evidence</span><span>Jira · ADO · Linear</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── EXPERIENCE ── -->
+      <section class="r-section" aria-labelledby="exp-h">
+        <h2 class="r-section-title" id="exp-h"><span class="kw-section">Experience</span></h2>
+
+        <!-- Globant / EY -->
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-company">Globant — EY (Ernst &amp; Young)</span>
+            <span class="r-company-period">Oct 2023 – Present</span>
+          </div>
+          <div class="r-subroles">
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">Sr. UX Strategist — EY Internal Developer Portal</div>
+              <div class="r-subrole-period">Behavioral Analytics Lead · Remote</div>
+              <ul class="r-bullets">
+                <li>Sole Pendo practitioner on the XDA team — instrumented <span class="r-metric">100+ marketplace assets</span>, built conversion funnels, path analysis, and in-app guides that closed the loop between behavioral signals and product decisions.</li>
+                <li>Audited UI flows across key consumption journeys and proposed UX improvements to increase usability and adoption.</li>
+                <li>Designed feedback dashboards with <span class="r-metric">Qualtrics</span> and integrated <span class="r-metric">Pendo</span> to monitor usage and close the feedback loop at scale.</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Designer — Blockchains Inc.</div>
+              <div class="r-subrole-period">3D Spatial UI · Remote</div>
+              <ul class="r-bullets">
+                <li>Translated mobile-first designs to desktop for a 3D blockchain platform, applying <span class="r-metric">spatial UI</span> best practices from benchmarked immersive apps.</li>
+                <li>Pioneered a <span class="r-metric">2D/3D map feature</span> validated via client-led user testing, bridging Figma prototypes with 3D animation tools.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Applaudo Studios -->
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-company">Applaudo Studios</span>
+            <span class="r-company-period">Sep 2021 – Jul 2025</span>
+          </div>
+          <div class="r-subroles">
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Lead — Customs / Aduanas El Salvador</div>
+              <div class="r-subrole-period">GovTech · MVP · End-to-End</div>
+              <ul class="r-bullets">
+                <li>Digitized 5 analog processes into an MVP, securing client trust to expand into a <span class="r-metric">$500K</span> full-scale project.</li>
+                <li>Managed 5 designers to convert user flows and sitemaps into developer-ready prototypes.</li>
+                <li>Directed PrimeNG design system adoption and customization in Figma with a UI team, applying brand guidelines across all screens.</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">Applaudo Forecast — Workforce Management Platform (Internal · Global)</div>
+              <div class="r-subrole-period">UX architecture · Modular system design · Agile collaboration</div>
+              <ul class="r-bullets">
+                <li>Designed <span class="r-metric">UX architecture</span> for a <span class="r-metric">modular workforce management platform</span> used across Applaudo Studios globally — mapping 5 core capabilities into coherent user flows before a single frame was built.</li>
+                <li>Worked embedded in Agile sprints alongside Product Managers, Engineers, and Solution Architects — joining ticket refinement sessions to resolve technical constraints upstream, eliminating late-stage redirects.</li>
+                <li>Applied Applaudo's existing <span class="r-metric">design system</span> throughout 4 interdependent modules — no new component variants without engineering sign-off, keeping handoff clean and implementation friction low.</li>
+                <li>Designed explicit confirmation flows, validation logic, and state transitions for irreversible destructive actions — preventing data loss for operations teams managing real headcount across projects and regions.</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Lead — Chek (Digital Wallet)</div>
+              <div class="r-subrole-period">Fintech · South America</div>
+              <ul class="r-bullets">
+                <li>Led a 4-designer team to launch a virtual credit card, increasing onboarding rates by <span class="r-metric">15%</span> via streamlined flows.</li>
+                <li>Built event-tracking funnels to measure feature adoption, informing post-launch iterations.</li>
+                <li>Overhauled the app's design system, ensuring consistency across <span class="r-metric">10+</span> product features.</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">Sr. UX Designer — DollarCity × Dollarama</div>
+              <div class="r-subrole-period">Fraud Surveillance SaaS · Canada &amp; LATAM</div>
+              <ul class="r-bullets">
+                <li>Reduced task completion time by <span class="r-metric">50%</span> for telemarketer users by redesigning workflows based on contextual inquiries and user testing.</li>
+                <li>Identified <span class="r-metric">3 new user personas</span>, refining user journeys to align with mental models of non-technical users.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TaxSynapse -->
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-company">TaxSynapse</span>
+            <span class="r-company-period">Mar 2021 – Oct 2022</span>
+          </div>
+          <div class="r-subroles">
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX Designer — SaaS Platform Design</div>
+              <div class="r-subrole-period">GovTech · 3 SaaS MVPs</div>
+              <ul class="r-bullets">
+                <li>Led end-to-end design of 3 SaaS platform MVPs for government clients (Buenos Aires, Jujuy, Misiones), aligning tech flows, user flows, and sitemaps with stakeholder validation.</li>
+                <li>Shipped scalable design system to accelerate development handoff, reducing iteration time by <span class="r-metric">20%</span>.</li>
+                <li>Validated prototypes via user testing, ensuring compliance with public-sector usability standards.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- KÖJ -->
+        <div class="r-exp-item">
+          <div class="r-exp-header">
+            <span class="r-company">KÖJ</span>
+            <span class="r-company-period">2019 – Present</span>
+          </div>
+          <div class="r-subroles">
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX &amp; Product Consultant — QuéOferton (Centralized Deals Platform)</div>
+              <div class="r-subrole-period">Product strategy · UX design · Marketing platform · Guatemala / Remote</div>
+              <ul class="r-bullets">
+                <li>Defined product strategy and UX for a centralized deals aggregator for the Guatemalan market — mapping user journeys, defining information architecture, and validating adoption flows.</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX &amp; Product Consultant — QuéOfermall (Multivendor eCommerce Platform)</div>
+              <div class="r-subrole-period">End-to-end build · WordPress · WooCommerce · Dokan · Elementor · Guatemala / Remote</div>
+              <ul class="r-bullets">
+                <li>Built from scratch a multivendor eCommerce platform with payment gateway integration, self-service vendor storefronts, and product catalog management (WordPress, WooCommerce, Dokan, Elementor, custom CSS).</li>
+                <li>Owned full UX, product, and adoption strategy — from vendor onboarding flows to buyer retention mechanics.</li>
+              </ul>
+            </div>
+
+            <div class="r-subrole">
+              <div class="r-subrole-title">UX &amp; Product Consultant — SERENA Spa &amp; Wellness (Adoption &amp; Retention Strategy)</div>
+              <div class="r-subrole-period">Service design · Client journey · Spa &amp; wellness sector · Guatemala / Remote</div>
+              <ul class="r-bullets">
+                <li>Designing client adoption and retention frameworks for spa and wellness centers — mapping service touchpoints, identifying drop-off moments, and defining loyalty and re-engagement strategies.</li>
+                <li>Currently working with SERENA (Guatemala) — applying service design and process optimization to improve client journey and business performance.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── EDUCATION ── -->
+      <section class="r-section" aria-labelledby="edu-h">
+        <h2 class="r-section-title" id="edu-h">Education</h2>
+
+        <div class="r-edu-highlight">
+          <div class="r-edu-degree">Bachelor in Industrial Design</div>
+          <div class="r-edu-institution">Universidad Nacional de Córdoba · Argentina · 2016 – 2022</div>
+        </div>
+
+        <div class="r-certs-grid">
+          <div class="r-cert-item">
+            <div class="r-cert-title">UX Design Certification</div>
+            <div class="r-cert-issuer">Interaction Design Foundation (IDF)</div>
+          </div>
+          <div class="r-cert-item">
+            <div class="r-cert-title">UX Research &amp; Strategy</div>
+            <div class="r-cert-issuer">HAZ!</div>
+          </div>
+          <div class="r-cert-item">
+            <div class="r-cert-title">UX &amp; UI Courses</div>
+            <div class="r-cert-issuer">Uxcel</div>
+          </div>
+          <div class="r-cert-item">
+            <div class="r-cert-title">Product Design Program</div>
+            <div class="r-cert-issuer">Design Labs</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── LANGUAGES ── -->
+      <section class="r-section" aria-labelledby="lang-h">
+        <h2 class="r-section-title" id="lang-h">Languages</h2>
+        <div class="r-langs">
+          <div class="r-lang-item">
+            <span class="r-lang-name">Spanish</span>
+            <span class="r-lang-level">Native</span>
+          </div>
+          <div class="r-lang-item">
+            <span class="r-lang-name">English</span>
+            <span class="r-lang-level">C2 — Proficient</span>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /resume-wrap -->
+  </main>
+
+  <script src="assets/main.js"></script>
+  <script>
+function toggleHIW(btn) {
+  const panel = document.getElementById('hiw-panel');
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !expanded);
+  panel.hidden = expanded;
+}
+  </script>
+
+<script>
+(function(){
+  var reveals = document.querySelectorAll('[data-v2-reveal]');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var idx = Array.from(e.target.parentElement.querySelectorAll('[data-v2-reveal]:not(.v2-in)')).indexOf(e.target);
+          setTimeout(function(){ e.target.classList.add('v2-in'); }, idx * 100);
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.1});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('v2-in'); });
+  }
+  var kws = document.querySelectorAll('.kw-section');
+  if('IntersectionObserver' in window && kws.length){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('kw-visible'); io2.unobserve(e.target); }
+      });
+    }, {threshold: 0.5});
+    kws.forEach(function(el){ io2.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>
