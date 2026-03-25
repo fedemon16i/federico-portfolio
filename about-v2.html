@@ -24,10 +24,16 @@
       background: var(--accent); flex-shrink: 0;
     }
     .about-pull-quote {
-      padding: var(--space-40) var(--space-24);
+      padding: var(--space-48) var(--space-24);
       border-top: 1px solid var(--border-subtle);
       border-bottom: 1px solid var(--border-subtle);
-      margin: var(--space-48) calc(-1 * var(--space-24));
+      margin: var(--space-48) 0;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
     }
     .about-pull-quote-text {
       font-family: var(--font-display);
@@ -400,11 +406,8 @@ body::before {
   display: flex !important;
   align-items: center;
   gap: 32px;
-  /* full bleed — escape container */
-  margin-left: calc(-1 * var(--space-24));
-  margin-right: calc(-1 * var(--space-24));
-  padding-left: var(--space-24);
-  padding-right: var(--space-24);
+  padding-left: calc(50vw - min(var(--max-w, 1200px), 100vw) / 2 + var(--space-24));
+  padding-right: calc(50vw - min(var(--max-w, 1200px), 100vw) / 2 + var(--space-24));
 }
 .about-pull-quote > * { position: relative; z-index: 1; }
 .pq-mesh-canvas {
@@ -677,6 +680,53 @@ body::before {
 .proc-pendo-panel .proc-funnel { flex: 1; }
 /* === Act outputs === */
 .proc-act-outputs { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+/* Outside-of-work photo placeholders */
+.about-outside-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-16);
+  margin: var(--space-24) 0 var(--space-32);
+}
+.aop-card {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 20px 6px 20px 6px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  cursor: default;
+  transition: border-color 400ms;
+}
+.aop-card:hover { border-color: rgba(200,168,75,0.3); }
+.aop-bg {
+  position: absolute; inset: 0; z-index: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.aop-initials {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: rgba(200,168,75,0.1);
+  letter-spacing: -0.04em;
+  transition: color 400ms;
+}
+.aop-card:hover .aop-initials { color: rgba(200,168,75,0.16); }
+.aop-grain {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 2;
+}
+.aop-label {
+  position: absolute; bottom: 10px;
+  left: 0; right: 0; text-align: center;
+  font-size: 0.58rem; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary); z-index: 3;
+}
+@media (max-width: 600px) {
+  .about-outside-photos { grid-template-columns: 1fr 1fr; }
+  .about-outside-photos .aop-card:last-child { display: none; }
+}
 .proc-stack-note { text-align: center; font-size: 0.76rem; color: var(--text-tertiary); font-style: italic; margin-top: var(--space-24); padding: 10px 20px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); max-width: 480px; margin-left: auto; margin-right: auto; }
 @media (max-width: 768px) {
   /* Nav — timeline compacto mobile */
@@ -876,7 +926,7 @@ body::before {
     </section>
     <div class="about-body">
       <div class="container">
-        <div class="about-text" data-anim data-anim-delay="3">
+        <div class="about-text" data-anim data-anim-delay="1">
 
             <!-- INTRO -->
             <p>I'm <strong>Federico A. Monroy</strong> — a <strong>UX Designer &amp; Strategist</strong> and behavioral analytics practitioner. My degree is in <strong>Industrial Design</strong>, which isn't a fun fact — it's how I think. Proyectual reasoning, systems constraints, and human context came before Figma. That foundation still shapes how I instrument a product, read a session replay, and decide what to build next. Comfortable across any tech stack and any AI toolset. The approach stays constant; the tools adapt to what the team already uses.</p>
@@ -1390,6 +1440,23 @@ body::before {
             <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">Outside of work</h2>
             <p>I'm genuinely curious about behavioral psychology — how habits form, how decisions compound, how small system changes produce large behavior shifts. That curiosity isn't separate from my work; it's basically the same problem at a different scale.</p>
             <p>I think a lot about personal systems: how to work with more clarity and intention, how to make good defaults automatic. I'm currently working on improving habits around health, focus, and learning. And I'm quietly building things on the side — some are consulting projects, some are experiments.</p>
+            <div class="about-outside-photos">
+              <div class="aop-card" id="aop-0">
+                <canvas class="aop-grain" id="aop-grain-0" aria-hidden="true"></canvas>
+                <div class="aop-bg"><div class="aop-initials">FM</div></div>
+                <div class="aop-label">Córdoba, Argentina</div>
+              </div>
+              <div class="aop-card" id="aop-1">
+                <canvas class="aop-grain" id="aop-grain-1" aria-hidden="true"></canvas>
+                <div class="aop-bg"><div class="aop-initials">FM</div></div>
+                <div class="aop-label">Building on the side</div>
+              </div>
+              <div class="aop-card" id="aop-2">
+                <canvas class="aop-grain" id="aop-grain-2" aria-hidden="true"></canvas>
+                <div class="aop-bg"><div class="aop-initials">FM</div></div>
+                <div class="aop-label">Curious by default</div>
+              </div>
+            </div>
 
             <!-- PULL QUOTE 3 -->
             <div class="about-pull-quote">
@@ -1455,16 +1522,6 @@ body::before {
               </div>
             </div>
 
-            <div class="divider"></div>
-
-            <!-- EDUCATION -->
-            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-16);">Education</h2>
-            <p><strong>Bachelor in Industrial Design</strong><br>Universidad Nacional de Córdoba, Argentina</p>
-            <br>
-            <p><strong>Certifications</strong><br>Interaction Design Foundation · HAZ! Product Design · Uxcel: UX/UI Foundations · Design Labs: Advanced UX</p>
-
-            <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-12);">Languages</h2>
-            <p>Spanish — Native &nbsp;·&nbsp; English — C2 Proficient</p>
 
           </div>
         </div>
@@ -1593,6 +1650,62 @@ body::before {
     }
     window.addEventListener('resize', start);
     requestAnimationFrame(start);
+  })();
+  /* Outside-of-work photo grain — same fine grain effect */
+  (function(){
+    var DARK = window.matchMedia('(prefers-color-scheme:dark)').matches;
+    var BG = DARK ? 'rgba(12,12,12,' : 'rgba(248,248,246,';
+    var AC = DARK ? 'rgba(200,168,75,' : 'rgba(122,96,32,';
+    var SZ = 3;
+    function initAopGrain(cardId, canvasId){
+      var frame = document.getElementById(cardId);
+      var c = document.getElementById(canvasId);
+      if(!c || !frame) return;
+      var ctx = c.getContext('2d');
+      var W, H, grains = [], prog = 1, hovering = false, raf;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function init(){
+        var r = frame.getBoundingClientRect();
+        W = r.width || 160; H = r.height || 200;
+        c.width = W * 2; c.height = H * 2;
+        c.style.width = W + 'px'; c.style.height = H + 'px';
+        ctx.scale(2, 2);
+        grains = [];
+        var cols = Math.ceil(W / SZ), rows = Math.ceil(H / SZ);
+        for(var row = 0; row < rows; row++){
+          for(var col = 0; col < cols; col++){
+            grains.push({
+              x: col * SZ, y: row * SZ,
+              a: 0.25 + Math.random() * 0.45,
+              isAccent: Math.random() < 0.04,
+              delay: Math.random() * 0.5
+            });
+          }
+        }
+      }
+      function draw(){
+        ctx.clearRect(0, 0, W, H);
+        if(reduced) return;
+        var target = hovering ? 0 : 1;
+        prog += (target - prog) * 0.045;
+        grains.forEach(function(p){
+          var t = Math.max(0, (prog - p.delay * 0.3) / (1 - p.delay * 0.3 + 0.01));
+          t = Math.min(1, t);
+          if(t < 0.01) return;
+          ctx.fillStyle = p.isAccent ? AC + (0.18 * t) + ')' : BG + (p.a * t) + ')';
+          ctx.fillRect(p.x, p.y, SZ, SZ);
+        });
+        raf = requestAnimationFrame(draw);
+      }
+      frame.addEventListener('mouseenter', function(){ hovering = true; });
+      frame.addEventListener('mouseleave', function(){ hovering = false; });
+      function start(){ init(); if(raf) cancelAnimationFrame(raf); draw(); }
+      window.addEventListener('resize', start);
+      requestAnimationFrame(start);
+    }
+    initAopGrain('aop-0', 'aop-grain-0');
+    initAopGrain('aop-1', 'aop-grain-1');
+    initAopGrain('aop-2', 'aop-grain-2');
   })();
   /* Typewriter en card 03 */
   var typeEl = document.getElementById('hiw-typetext');
