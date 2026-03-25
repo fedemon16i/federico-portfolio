@@ -548,6 +548,31 @@ body::before {
 .proc-sys-sub { font-size: 0.6rem; color: var(--text-tertiary); }
 .proc-sys-arrow { text-align: center; font-size: 0.8rem; color: var(--text-tertiary); margin: 2px 0; }
 .proc-adapt-note { padding: 6px 10px; margin-top: 4px; background: var(--bg-surface); border: 0.5px solid var(--border-subtle); border-radius: var(--radius-md); font-size: 0.68rem; color: var(--text-tertiary); font-style: italic; text-align: center; }
+/* === Progress bar nav === */
+.proc-nav { flex-direction: column; gap: 0; padding: 0; }
+.proc-progress-bar { height: 2px; background: var(--border-subtle); width: 100%; overflow: hidden; border-radius: 0; }
+.proc-progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width linear; }
+.proc-steps-row { display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; padding: var(--space-4) var(--space-8); }
+.proc-steps-row::-webkit-scrollbar { display: none; }
+/* === Signal app layout === */
+.proc-right--signal { display: flex; flex-direction: column; gap: 6px; }
+.proc-signal-app { background: var(--bg-raised); border: 1px solid var(--border-subtle); border-radius: 6px; overflow: visible; position: relative; }
+.proc-signal-bar { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-bottom: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); border-radius: 6px 6px 0 0; }
+.proc-sb-dots { display: flex; gap: 3px; flex-shrink: 0; }
+.proc-sb-dots span { width: 5px; height: 5px; border-radius: 50%; background: var(--border-subtle); display: block; }
+.proc-signal-screen { padding: 7px; position: relative; overflow: visible; min-height: 120px; }
+.proc-app-nav { display: flex; gap: 8px; margin-bottom: 6px; font-size: 7px; color: var(--text-tertiary); }
+.proc-app-nav span { cursor: default; }
+/* === Cursor sizing === */
+.proc-demo-cursor { position: absolute; pointer-events: none; z-index: 30; transition: left 480ms cubic-bezier(0.34,1,0.64,1), top 480ms cubic-bezier(0.34,1,0.64,1); left: 20%; top: 25%; }
+.proc-cursor-emoji { font-size: 16px; line-height: 1; margin-top: 2px; opacity: 0; transition: opacity 250ms; }
+.proc-cursor-emoji.show { opacity: 1; }
+/* === Pendo panel === */
+.proc-pendo-panel { background: rgba(255,71,133,0.04); border: 1px solid rgba(255,71,133,0.15); border-radius: 6px; padding: 8px; display: flex; gap: 8px; }
+.proc-pendo-panel .proc-event-stream { flex: 1; }
+.proc-pendo-panel .proc-funnel { flex: 1; }
+/* === Act outputs === */
+.proc-act-outputs { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
 .proc-stack-note { text-align: center; font-size: 0.76rem; color: var(--text-tertiary); font-style: italic; margin-top: var(--space-24); padding: 10px 20px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); max-width: 480px; margin-left: auto; margin-right: auto; }
 @media (max-width: 768px) {
   .proc-content-split { grid-template-columns: 1fr; }
@@ -735,30 +760,33 @@ body::before {
     From signal to shipped — <em>one loop.</em>
   </h2>
   <div class="proc-nav" role="tablist" aria-label="Process steps">
-    <button class="proc-step proc-step--active" role="tab" aria-selected="true" aria-controls="proc-p0" onclick="procGo(0,this)">
-      <div class="proc-step-num">01</div>
-      <div class="proc-step-label">Signal</div>
-    </button>
-    <div class="proc-sep" aria-hidden="true"></div>
-    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p1" onclick="procGo(1,this)">
-      <div class="proc-step-num">02</div>
-      <div class="proc-step-label">Understand</div>
-    </button>
-    <div class="proc-sep" aria-hidden="true"></div>
-    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p2" onclick="procGo(2,this)">
-      <div class="proc-step-num">03</div>
-      <div class="proc-step-label">Synthesize</div>
-    </button>
-    <div class="proc-sep" aria-hidden="true"></div>
-    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p3" onclick="procGo(3,this)">
-      <div class="proc-step-num">04</div>
-      <div class="proc-step-label">Act</div>
-    </button>
-    <div class="proc-sep" aria-hidden="true"></div>
-    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p4" onclick="procGo(4,this)">
-      <div class="proc-step-num">05</div>
-      <div class="proc-step-label">Connect</div>
-    </button>
+    <div class="proc-progress-bar"><div class="proc-progress-fill" id="proc-progress"></div></div>
+    <div class="proc-steps-row">
+      <button class="proc-step proc-step--active" id="pst-0" role="tab" aria-selected="true" aria-controls="proc-p0" onclick="procJump(0)">
+        <div class="proc-step-num">01</div>
+        <div class="proc-step-label">Signal</div>
+      </button>
+      <div class="proc-sep" aria-hidden="true"></div>
+      <button class="proc-step" id="pst-1" role="tab" aria-selected="false" aria-controls="proc-p1" onclick="procJump(1)">
+        <div class="proc-step-num">02</div>
+        <div class="proc-step-label">Understand</div>
+      </button>
+      <div class="proc-sep" aria-hidden="true"></div>
+      <button class="proc-step" id="pst-2" role="tab" aria-selected="false" aria-controls="proc-p2" onclick="procJump(2)">
+        <div class="proc-step-num">03</div>
+        <div class="proc-step-label">Synthesize</div>
+      </button>
+      <div class="proc-sep" aria-hidden="true"></div>
+      <button class="proc-step" id="pst-3" role="tab" aria-selected="false" aria-controls="proc-p3" onclick="procJump(3)">
+        <div class="proc-step-num">04</div>
+        <div class="proc-step-label">Act</div>
+      </button>
+      <div class="proc-sep" aria-hidden="true"></div>
+      <button class="proc-step" id="pst-4" role="tab" aria-selected="false" aria-controls="proc-p4" onclick="procJump(4)">
+        <div class="proc-step-num">05</div>
+        <div class="proc-step-label">Connect</div>
+      </button>
+    </div>
   </div>
   <div class="proc-panels">
     <!-- 01 SIGNAL -->
@@ -782,15 +810,16 @@ body::before {
             <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>In-app feedback · NPS · walkthroughs</div>
           </div>
         </div>
-        <div class="proc-right" id="proc-vis-0">
-          <div class="proc-vis-label">Live capture — user session</div>
-          <div class="proc-mini-chrome">
-            <div class="proc-chrome-bar">
-              <div class="proc-chrome-dot"></div><div class="proc-chrome-dot"></div><div class="proc-chrome-dot"></div>
+        <div class="proc-right proc-right--signal" id="proc-vis-0">
+          <div class="proc-vis-label"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> User — using a web app</div>
+          <div class="proc-signal-app">
+            <div class="proc-signal-bar">
+              <div class="proc-sb-dots"><span></span><span></span><span></span></div>
               <div class="proc-chrome-url">platform.app / features</div>
+              <div class="proc-user-tag"><div class="proc-user-dot"></div>user-243</div>
             </div>
-            <div class="proc-chrome-body">
-              <div class="proc-user-tag"><div class="proc-user-dot"></div>user — web app</div>
+            <div class="proc-signal-screen" id="sig-screen">
+              <div class="proc-app-nav"><span>Dashboard</span><span style="color:var(--accent)">Features</span><span>Billing</span></div>
               <div class="proc-wf-grid">
                 <div class="proc-wf-card" id="sig-c0"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:70%"></div></div>
                 <div class="proc-wf-card proc-wf-card--sel" id="sig-c1"><div class="proc-wf-row proc-wf-row--acc"></div><div class="proc-wf-row proc-wf-row--acc" style="width:65%"></div></div>
@@ -805,16 +834,19 @@ body::before {
               </div>
             </div>
           </div>
-          <div class="proc-event-stream">
-            <div class="proc-es-row" id="sig-ev0"><div class="proc-es-dot" style="background:#378ADD"></div><div class="proc-es-name">page_view</div><div class="proc-es-tag" style="color:#378ADD">NAV</div></div>
-            <div class="proc-es-row" id="sig-ev1"><div class="proc-es-dot" style="background:#639922"></div><div class="proc-es-name">feature_configure_click</div><div class="proc-es-tag" style="color:#639922">ACT</div></div>
-            <div class="proc-es-row proc-es-row--hot" id="sig-ev2"><div class="proc-es-dot" style="background:#e05c4a"></div><div class="proc-es-name">setup_abandoned</div><div class="proc-es-tag" style="color:#e05c4a">DROP</div></div>
-          </div>
-          <div class="proc-funnel" id="sig-funnel">
-            <div class="proc-fn-row"><div class="proc-fn-name">Visit</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb0" style="background:#639922"></div></div><div class="proc-fn-pct" id="sig-fp0">—</div></div>
-            <div class="proc-fn-row"><div class="proc-fn-name">Config</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb1" style="background:#BA7517"></div></div><div class="proc-fn-pct" id="sig-fp1">—</div></div>
-            <div class="proc-fn-row"><div class="proc-fn-name">Done</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb2" style="background:#e05c4a"></div></div><div class="proc-fn-pct proc-fn-pct--drop" id="sig-fp2">—</div></div>
-            <div class="proc-drop-note" id="sig-drop">68% drop-off at config → research triggered</div>
+          <div class="proc-vis-label" style="margin-top:8px"><svg width="10" height="10" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg> Pendo · live capture</div>
+          <div class="proc-pendo-panel">
+            <div class="proc-event-stream">
+              <div class="proc-es-row" id="sig-ev0"><div class="proc-es-dot" style="background:#378ADD"></div><div class="proc-es-name">page_view</div><div class="proc-es-tag" style="color:#378ADD">NAV</div></div>
+              <div class="proc-es-row" id="sig-ev1"><div class="proc-es-dot" style="background:#639922"></div><div class="proc-es-name">feature_configure_click</div><div class="proc-es-tag" style="color:#639922">ACT</div></div>
+              <div class="proc-es-row proc-es-row--hot" id="sig-ev2"><div class="proc-es-dot" style="background:#e05c4a"></div><div class="proc-es-name">setup_abandoned</div><div class="proc-es-tag" style="color:#e05c4a">DROP</div></div>
+            </div>
+            <div class="proc-funnel" id="sig-funnel">
+              <div class="proc-fn-row"><div class="proc-fn-name">Visit</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb0" style="background:#639922"></div></div><div class="proc-fn-pct" id="sig-fp0">—</div></div>
+              <div class="proc-fn-row"><div class="proc-fn-name">Config</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb1" style="background:#BA7517"></div></div><div class="proc-fn-pct" id="sig-fp1">—</div></div>
+              <div class="proc-fn-row"><div class="proc-fn-name">Done</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb2" style="background:#e05c4a"></div></div><div class="proc-fn-pct proc-fn-pct--drop" id="sig-fp2">—</div></div>
+              <div class="proc-drop-note" id="sig-drop">68% drop-off at config → research triggered</div>
+            </div>
           </div>
         </div>
       </div>
@@ -931,8 +963,24 @@ body::before {
           </div>
         </div>
         <div class="proc-right">
-          <div class="proc-vis-label">Delivery — evidence attached</div>
-          <div class="proc-out-paths">
+          <div class="proc-vis-label">Same screen — improved</div>
+          <div class="proc-signal-app">
+            <div class="proc-signal-bar">
+              <div class="proc-sb-dots"><span></span><span></span><span></span></div>
+              <div class="proc-chrome-url">platform.app / features</div>
+              <div class="proc-user-tag" style="background:rgba(34,197,94,0.1);color:#22c55e"><div class="proc-user-dot" style="background:#22c55e"></div>improved</div>
+            </div>
+            <div class="proc-signal-screen">
+              <div class="proc-app-nav"><span>Dashboard</span><span style="color:var(--accent)">Features</span><span>Billing</span></div>
+              <div class="proc-wf-grid">
+                <div class="proc-wf-card" id="act-c0"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:70%"></div></div>
+                <div class="proc-wf-card" style="border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.06)" id="act-c1"><div class="proc-wf-row" style="background:#22c55e;opacity:0.6"></div><div class="proc-wf-row" style="width:65%;background:#22c55e;opacity:0.4"></div><div style="font-size:7px;color:#22c55e;margin-top:2px">✓ configured</div></div>
+                <div class="proc-wf-card" id="act-c2"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:60%"></div></div>
+                <div class="proc-wf-card" id="act-c3"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:55%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="proc-act-outputs" id="proc-act-outputs">
             <div class="proc-out-path" style="--pc:rgba(155,108,255,0.2)">
               <div class="proc-out-path-head"><span class="proc-out-path-label" style="color:#9b6cff">Figma</span><svg width="12" height="12" viewBox="0 0 38 57" fill="none"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg></div>
               <div class="proc-out-path-body">config-form-v2 · DS-connected · evidence on every frame</div>
@@ -1374,12 +1422,15 @@ initPQCanvas('pq-mesh-2','pq-loop-2');
 (function(){
 'use strict';
 var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var procAnimated=[false,false,false,false,false];
 var procTimers=[];
+var autoTimer=null;
+var current=0;
+var DURATIONS=[6000,5000,5500,5000,5000];
 function qt(f,d){procTimers.push(setTimeout(f,d));}
-function clrTimers(){procTimers.forEach(clearTimeout);procTimers=[];}
-window.procGo=function(n,btn){
-  clrTimers();
+function clrT(){procTimers.forEach(clearTimeout);procTimers=[];}
+function procActivate(n){
+  current=n;
+  clrT();
   document.querySelectorAll('.proc-step').forEach(function(b){
     b.classList.remove('proc-step--active');
     b.setAttribute('aria-selected','false');
@@ -1387,20 +1438,36 @@ window.procGo=function(n,btn){
   document.querySelectorAll('.proc-panel').forEach(function(p){
     p.classList.remove('proc-panel--active');
   });
-  btn.classList.add('proc-step--active');
-  btn.setAttribute('aria-selected','true');
+  var btn=document.getElementById('pst-'+n);
+  if(btn){btn.classList.add('proc-step--active');btn.setAttribute('aria-selected','true');}
   var panel=document.getElementById('proc-p'+n);
-  if(panel) panel.classList.add('proc-panel--active');
-  if(!procAnimated[n]){
-    procAnimated[n]=true;
-    var fns=[animSignal,animUnderstand,animSynth,animAct,animConnect];
-    setTimeout(fns[n],80);
-  }
+  if(panel)panel.classList.add('proc-panel--active');
+  startProgress(DURATIONS[n]);
+  var fns=[animSignal,animUnderstand,animSynth,animAct,animConnect];
+  setTimeout(fns[n],80);
+}
+window.procJump=function(n){
+  clearInterval(autoTimer);autoTimer=null;
+  procActivate(n);
 };
+function startProgress(dur){
+  var bar=document.getElementById('proc-progress');
+  if(!bar)return;
+  bar.style.transition='none';bar.style.width='0%';
+  void bar.offsetWidth;
+  bar.style.transition='width '+dur+'ms linear';
+  bar.style.width='100%';
+}
+function startAuto(){
+  clearInterval(autoTimer);
+  autoTimer=setInterval(function(){
+    procActivate((current+1)%5);
+  },DURATIONS[current]);
+}
 function animSignal(){
   if(reduced) return;
   var cur=document.getElementById('proc-cursor');
-  var screen=document.querySelector('#proc-p0 .proc-chrome-body');
+  var screen=document.getElementById('sig-screen');
   ['sig-ev0','sig-ev1','sig-ev2'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('in');});
   ['sig-fb0','sig-fb1','sig-fb2'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.width='0%';});
   ['sig-fp0','sig-fp1','sig-fp2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='—';});
@@ -1492,7 +1559,7 @@ style.textContent=
   '.proc-wf-card--hov{border-color:rgba(74,163,212,0.4)!important;background:rgba(74,163,212,0.05)!important;}'+
   '.proc-wf-card--clicked{border-color:rgba(74,163,212,0.6)!important;background:rgba(74,163,212,0.1)!important;}';
 document.head.appendChild(style);
-setTimeout(function(){animSignal();procAnimated[0]=true;},150);
+setTimeout(function(){procActivate(0);startAuto();},150);
 })();
 </script>
 
