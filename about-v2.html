@@ -969,7 +969,7 @@ body::before {
     </section>
     <div class="about-body">
       <div class="container">
-        <div class="about-text" data-anim data-anim-delay="1">
+        <div class="about-text">
 
             <!-- INTRO -->
             <p>I'm <strong>Federico A. Monroy</strong> — a <strong>UX Designer &amp; Strategist</strong> and behavioral analytics practitioner. My degree is in <strong>Industrial Design</strong>, which isn't a fun fact — it's how I think. Proyectual reasoning, systems constraints, and human context came before Figma. That foundation still shapes how I instrument a product, read a session replay, and decide what to build next. Comfortable across any tech stack and any AI toolset. The approach stays constant; the tools adapt to what the team already uses.</p>
@@ -982,9 +982,6 @@ body::before {
                 I don't think of analytics as a separate discipline from design.<br>
                 They're <em>the same loop</em>, just at different speeds.
               </p>
-              <div class="pq-mini-anim">
-                <canvas class="pq-mini-canvas" id="pq-loop-0" aria-hidden="true"></canvas>
-              </div>
             </div>
 
             <!-- MY APPROACH -->
@@ -1497,9 +1494,6 @@ body::before {
                 Design influences behavior.<br>
                 <em>Systems improve over time.</em>
               </p>
-              <div class="pq-mini-anim">
-                <canvas class="pq-mini-canvas" id="pq-loop-1" aria-hidden="true"></canvas>
-              </div>
             </div>
 
             <!-- WHAT COLLEAGUES SAY -->
@@ -1538,9 +1532,6 @@ body::before {
                 I'm not just curious about <em>what</em> users do.<br>
                 I want to know why — and what it means for what we build next.
               </p>
-              <div class="pq-mini-anim">
-                <canvas class="pq-mini-canvas" id="pq-loop-2" aria-hidden="true"></canvas>
-              </div>
             </div>
 
             <!-- TEAMS -->
@@ -1599,7 +1590,7 @@ body::before {
           </div>
         </div>
     </div>
-
+    <div style="height:var(--space-96,96px);min-height:80px"></div>
   </main>
 
   <footer class="footer" role="contentinfo">
@@ -1653,6 +1644,10 @@ body::before {
   } else {
     reveals.forEach(function(el){ el.classList.add('v2-in'); });
   }
+  /* fallback: force all reveals after 1s in case observer misses them */
+  setTimeout(function(){
+    reveals.forEach(function(el){ el.classList.add('v2-in'); });
+  }, 1000);
   var kws = document.querySelectorAll('.kw-section');
   if('IntersectionObserver' in window && kws.length){
     var io2 = new IntersectionObserver(function(entries){
@@ -1803,44 +1798,78 @@ body::before {
 </script>
 
 <script>
-/* Wave A — flowing lines, mouse distortion */
+/* Hero mesh — low-poly triangulated, opacity 0.7 */
 (function(){
+  var wrap=document.querySelector('.about-hero');
   var c=document.getElementById('hero-mesh-canvas');
-  if(!c)return;
+  if(!c||!wrap)return;
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ctx=c.getContext('2d'),t=0,W,H,raf;
-  var mx=-9999,my=-9999;
   var DARK=window.matchMedia('(prefers-color-scheme:dark)').matches;
-  var COL=DARK?'rgba(200,168,75,':'rgba(122,96,32,';
-  var LINES=32;
+  var ctx=c.getContext('2d'),t=0,W,H,raf;
+  var mx=0.5,my=0.5;
+  var pts=[],tris=[];
+  var COLS=14,ROWS=8;
+  function buildMesh(){
+    pts=[];tris=[];
+    for(var row=0;row<=ROWS;row++){
+      for(var col=0;col<=COLS;col++){
+        var x=(col/COLS)*W+(Math.random()-0.5)*(W/COLS)*0.65;
+        var y=(row/ROWS)*H+(Math.random()-0.5)*(H/ROWS)*0.65;
+        x=Math.max(0,Math.min(W,x));
+        y=Math.max(0,Math.min(H,y));
+        pts.push({ox:x,oy:y,x:x,y:y,
+          vx:(Math.random()-0.5)*0.18,
+          vy:(Math.random()-0.5)*0.18});
+      }
+    }
+    var c1=COLS+1;
+    for(var row=0;row<ROWS;row++){
+      for(var col=0;col<COLS;col++){
+        var a=row*c1+col,b=a+1,d=(row+1)*c1+col,e=d+1;
+        tris.push([a,b,e]);
+        tris.push([a,e,d]);
+      }
+    }
+  }
   function resize(){
-    var r=c.parentElement.getBoundingClientRect();
-    W=c.width=r.width||800;
-    H=c.height=r.height||400;
+    var r=wrap.getBoundingClientRect();
+    W=c.width=r.width||window.innerWidth;
+    H=c.height=r.height||window.innerHeight;
+    buildMesh();
   }
   function draw(){
     ctx.clearRect(0,0,W,H);
-    if(!reduced)t+=0.008;
-    for(var i=0;i<LINES;i++){
-      var baseY=(i+0.5)/LINES*H;
-      var amp=8+(i%3)*5;
-      var freq=0.007+(i%4)*0.002;
-      var spd=0.9+(i%5)*0.25;
-      var alpha=0.09+(i%4)*0.04;
-      ctx.beginPath();
-      ctx.strokeStyle=COL+alpha+')';
-      ctx.lineWidth=0.65;
-      for(var x=0;x<=W;x+=3){
-        var y=baseY+Math.sin(x*freq+t*spd)*amp;
-        if(!reduced){
-          var dx=x-mx,dy=baseY-my;
-          var infl=Math.exp(-(dx*dx+dy*dy)/20000);
-          y+=infl*(my-baseY)*0.5;
-        }
-        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    if(!reduced)t+=0.005;
+    pts.forEach(function(p,i){
+      if(!reduced){
+        var tx=p.ox+Math.sin(t*0.8+i*0.3)*8;
+        var ty=p.oy+Math.cos(t*0.6+i*0.4)*6;
+        var dxm=(mx*W-p.x),dym=(my*H-p.y);
+        var dist=Math.sqrt(dxm*dxm+dym*dym);
+        if(dist<200){var f=(1-dist/200)*0.018;tx+=dxm*f;ty+=dym*f;}
+        p.x+=(tx-p.x)*0.025;
+        p.y+=(ty-p.y)*0.025;
       }
-      ctx.stroke();
-    }
+    });
+    tris.forEach(function(tri){
+      var a=pts[tri[0]],b=pts[tri[1]],e=pts[tri[2]];
+      if(!a||!b||!e)return;
+      var cy=(a.y+b.y+e.y)/3,n=cy/H;
+      if(n<0)n=0;if(n>1)n=1;
+      var OPC=0.7;
+      if(DARK){
+        ctx.fillStyle='rgba('+Math.floor(n*80+8)+','+Math.floor(n*50+5)+','+Math.floor(n*8)+','+(0.012+n*0.035)*OPC+')';
+        ctx.strokeStyle='rgba(200,168,75,'+(0.04+n*0.14)*OPC+')';
+      } else {
+        ctx.fillStyle='rgba('+Math.floor((1-n)*30+200)+','+Math.floor((1-n)*20+185)+','+Math.floor((1-n)*15+170)+','+(0.012+n*0.032)*OPC+')';
+        ctx.strokeStyle='rgba(122,96,32,'+(0.04+n*0.14)*OPC+')';
+      }
+      ctx.lineWidth=0.4;
+      ctx.beginPath();
+      ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineTo(e.x,e.y);
+      ctx.closePath();
+      ctx.fill();ctx.stroke();
+    });
     raf=requestAnimationFrame(draw);
   }
   function start(){
@@ -1848,11 +1877,12 @@ body::before {
     if(raf)cancelAnimationFrame(raf);
     draw();
   }
-  c.parentElement.addEventListener('mousemove',function(e){
-    var r=c.getBoundingClientRect();
-    mx=e.clientX-r.left;my=e.clientY-r.top;
+  wrap.addEventListener('mousemove',function(e){
+    var r=wrap.getBoundingClientRect();
+    mx=(e.clientX-r.left)/(r.width||1);
+    my=(e.clientY-r.top)/(r.height||1);
   });
-  c.parentElement.addEventListener('mouseleave',function(){mx=-9999;my=-9999;});
+  wrap.addEventListener('mouseleave',function(){mx=0.5;my=0.5;});
   window.addEventListener('resize',start);
   requestAnimationFrame(start);
 })();
@@ -1910,155 +1940,6 @@ function initMeshC(meshId){
 }
 ['pq-mesh-0','pq-mesh-1','pq-mesh-2'].forEach(initMeshC);
 
-/* ── initLoop0 — spinning 4-node loop with arrowheads (pq-loop-0) ── */
-function initLoop0(){
-  var lc = document.getElementById('pq-loop-0');
-  if(!lc) return;
-  var ctx = lc.getContext('2d'), t = 0;
-  lc.width = lc.height = 120;
-  var CX = 60, CY = 60, R = 36;
-  var LABELS = ['Signal','Insight','Design','Ship'];
-  function arrowHead(x1,y1,x2,y2){
-    var ang = Math.atan2(y2-y1, x2-x1);
-    var sz  = 5;
-    ctx.beginPath();
-    ctx.moveTo(x2, y2);
-    ctx.lineTo(x2 - sz*Math.cos(ang-0.45), y2 - sz*Math.sin(ang-0.45));
-    ctx.lineTo(x2 - sz*Math.cos(ang+0.45), y2 - sz*Math.sin(ang+0.45));
-    ctx.closePath();
-    ctx.fill();
-  }
-  function draw(){
-    ctx.clearRect(0, 0, 120, 120);
-    for(var i = 0; i < 4; i++){
-      var a0 = (i / 4) * Math.PI * 2 + t;
-      var a1 = ((i+1) / 4) * Math.PI * 2 + t;
-      var x0 = CX + Math.cos(a0) * R, y0 = CY + Math.sin(a0) * R;
-      var x1 = CX + Math.cos(a1) * R, y1 = CY + Math.sin(a1) * R;
-      /* mid-arc arrow position */
-      var am = a0 + (a1 - a0) * 0.55;
-      var xm = CX + Math.cos(am) * R, ym = CY + Math.sin(am) * R;
-      var xm2= CX + Math.cos(am+0.01)*R, ym2=CY+Math.sin(am+0.01)*R;
-      ctx.strokeStyle = AC + '0.2)';
-      ctx.lineWidth   = 0.8;
-      ctx.beginPath();
-      ctx.arc(CX, CY, R, a0, a1);
-      ctx.stroke();
-      ctx.fillStyle   = AC + '0.35)';
-      arrowHead(xm, ym, xm2, ym2);
-      /* node dot */
-      var pulse = 0.5 + 0.5 * Math.sin(t * 3 + i * 1.57);
-      ctx.beginPath();
-      ctx.arc(x0, y0, 2.5 + pulse * 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = AC + (0.3 + pulse * 0.6) + ')';
-      ctx.fill();
-    }
-    t += 0.018;
-    if(!reduced) requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
-}
-initLoop0();
-
-/* ── initLoop1 — rising bar chart with reveal (pq-loop-1) ── */
-function initLoop1(){
-  var lc = document.getElementById('pq-loop-1');
-  if(!lc) return;
-  var ctx = lc.getContext('2d'), phase = 0;
-  lc.width = lc.height = 120;
-  var BARS = 5;
-  var TARGETS = [0.45, 0.70, 0.55, 0.85, 0.65];
-  var heights = [0, 0, 0, 0, 0];
-  var PERIOD = 200; /* frames for one rise+pause+fade cycle */
-  function draw(){
-    ctx.clearRect(0, 0, 120, 120);
-    var BW = 14, GAP = 6, OX = 18, OY = 100;
-    /* global reveal 0→1→1→0 */
-    var prog = phase / PERIOD;
-    var reveal = prog < 0.4 ? prog / 0.4 : prog < 0.8 ? 1 : 1 - (prog - 0.8) / 0.2;
-    for(var i = 0; i < BARS; i++){
-      var target = TARGETS[i] * 80 * Math.min(1, reveal * 1.4);
-      heights[i] += (target - heights[i]) * 0.12;
-      var h  = heights[i];
-      var x  = OX + i * (BW + GAP);
-      var alpha = 0.12 + (i / BARS) * 0.2;
-      ctx.fillStyle = AC + alpha + ')';
-      ctx.fillRect(x, OY - h, BW, h);
-      /* top accent line */
-      ctx.fillStyle = AC + (alpha + 0.3) + ')';
-      ctx.fillRect(x, OY - h, BW, 1.5);
-    }
-    /* baseline */
-    ctx.strokeStyle = AC + '0.12)';
-    ctx.lineWidth = 0.6;
-    ctx.beginPath(); ctx.moveTo(14, OY); ctx.lineTo(106, OY); ctx.stroke();
-    phase = (phase + 1) % PERIOD;
-    if(!reduced) requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
-}
-initLoop1();
-
-/* ── initLoop2 — cursor + captured event dots (pq-loop-2) ── */
-function initLoop2(){
-  var lc = document.getElementById('pq-loop-2');
-  if(!lc) return;
-  var ctx = lc.getContext('2d'), t = 0;
-  lc.width = lc.height = 120;
-  var TRAIL = [
-    {x:30,y:80},{x:45,y:60},{x:62,y:72},{x:78,y:45},{x:90,y:55}
-  ];
-  var dots = [];
-  function spawnDot(i){
-    var p = TRAIL[i];
-    dots.push({x:p.x, y:p.y, life:1, idx:i});
-  }
-  var spawnFrames = [0, 40, 80, 120, 160];
-  function draw(){
-    ctx.clearRect(0, 0, 120, 120);
-    /* cursor path */
-    ctx.strokeStyle = AC + '0.12)';
-    ctx.lineWidth = 0.8;
-    ctx.beginPath();
-    TRAIL.forEach(function(p, i){ i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); });
-    ctx.stroke();
-    /* spawn dots on schedule */
-    spawnFrames.forEach(function(f, i){ if(t % 200 === f) spawnDot(i); });
-    /* draw + age dots */
-    dots = dots.filter(function(d){ return d.life > 0; });
-    dots.forEach(function(d){
-      var r = 3 + (1 - d.life) * 8;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
-      ctx.strokeStyle = AC + (d.life * 0.5) + ')';
-      ctx.lineWidth = 0.8;
-      ctx.stroke();
-      /* solid inner dot */
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = AC + (d.life * 0.8) + ')';
-      ctx.fill();
-      d.life -= 0.012;
-    });
-    /* animated cursor triangle at current trail position */
-    var cp = Math.floor((t % 200) / 200 * TRAIL.length);
-    cp = Math.min(cp, TRAIL.length - 1);
-    var cx = TRAIL[cp].x, cy = TRAIL[cp].y;
-    ctx.fillStyle = AC + '0.7)';
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + 8,  cy + 5);
-    ctx.lineTo(cx + 3,  cy + 5);
-    ctx.lineTo(cx + 3,  cy + 12);
-    ctx.lineTo(cx,      cy + 10);
-    ctx.closePath();
-    ctx.fill();
-    t++;
-    if(!reduced) requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
-}
-initLoop2();
 /* ── Philosophy cards: canvas icons + 3D tilt ── */
 (function(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
