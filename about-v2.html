@@ -24,10 +24,10 @@
       background: var(--accent); flex-shrink: 0;
     }
     .about-pull-quote {
-      padding: var(--space-40) 0;
+      padding: var(--space-40) var(--space-24);
       border-top: 1px solid var(--border-subtle);
       border-bottom: 1px solid var(--border-subtle);
-      margin: var(--space-48) 0;
+      margin: var(--space-48) calc(-1 * var(--space-24));
     }
     .about-pull-quote-text {
       font-family: var(--font-display);
@@ -301,6 +301,10 @@ body::before {
 .about-hero {
   position: relative;
   overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  padding: var(--space-64) 0;
 }
 .about-hero-mesh {
   position: absolute;
@@ -396,6 +400,11 @@ body::before {
   display: flex !important;
   align-items: center;
   gap: 32px;
+  /* full bleed — escape container */
+  margin-left: calc(-1 * var(--space-24));
+  margin-right: calc(-1 * var(--space-24));
+  padding-left: var(--space-24);
+  padding-right: var(--space-24);
 }
 .about-pull-quote > * { position: relative; z-index: 1; }
 .pq-mesh-canvas {
@@ -863,9 +872,11 @@ body::before {
             </div>
           </div>
         </div>
-
-        <div class="about-body">
-          <div class="about-text" data-anim data-anim-delay="3">
+      </div>
+    </section>
+    <div class="about-body">
+      <div class="container">
+        <div class="about-text" data-anim data-anim-delay="3">
 
             <!-- INTRO -->
             <p>I'm <strong>Federico A. Monroy</strong> — a <strong>UX Designer &amp; Strategist</strong> and behavioral analytics practitioner. My degree is in <strong>Industrial Design</strong>, which isn't a fun fact — it's how I think. Proyectual reasoning, systems constraints, and human context came before Figma. That foundation still shapes how I instrument a product, read a session replay, and decide what to build next. Comfortable across any tech stack and any AI toolset. The approach stays constant; the tools adapt to what the team already uses.</p>
@@ -1457,9 +1468,7 @@ body::before {
 
           </div>
         </div>
-
-      </div>
-    </section>
+    </div>
 
   </main>
 
