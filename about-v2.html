@@ -297,39 +297,82 @@ body::before {
   font-family: 'Space Grotesk', sans-serif;
 }
 .v2-banner a { color: #c8a84b; text-decoration: underline; margin-left: 8px; opacity: 0.7; }
+/* Hero split layout */
+.about-hero {
+  position: relative;
+  overflow: hidden;
+}
+.about-hero-mesh {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+.about-hero-split {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: var(--space-48);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.about-hero-left {
+  display: flex;
+  flex-direction: column;
+}
+.about-hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .about-hero-split {
+    grid-template-columns: 1fr;
+  }
+  .about-hero-right {
+    display: none;
+  }
+}
 /* Photo placeholder v2 */
 .about-photo-v2 {
   width: 100%;
   aspect-ratio: 4/5;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: 24px 8px 24px 8px;
+  border-radius: 24px 6px 24px 6px;
   position: relative;
   overflow: hidden;
   transition: border-color 400ms ease;
 }
 .about-photo-v2:hover {
-  border-color: rgba(200,168,75,0.25);
+  border-color: rgba(200,168,75,0.3);
 }
+.about-photo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* grain canvas sits on top of bg, below label */
 .about-photo-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 2;
 }
 .about-photo-initials {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(3rem, 8vw, 5rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 700;
   color: rgba(200,168,75,0.12);
   letter-spacing: -0.04em;
-  z-index: 1;
   transition: color 400ms;
 }
 .about-photo-v2:hover .about-photo-initials {
@@ -337,14 +380,14 @@ body::before {
 }
 .about-photo-label {
   position: absolute;
-  bottom: 16px;
+  bottom: 12px;
   left: 0; right: 0;
   text-align: center;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  z-index: 1;
+  z-index: 3;
 }
 /* Pull quote mesh + mini loop *//* Pull quote mesh + mini loop */
 .about-pull-quote {
@@ -358,7 +401,7 @@ body::before {
 .pq-mesh-canvas {
   position: absolute;
   inset: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 0; opacity: 0.6;
+  pointer-events: none; z-index: 0; opacity: 0.18;
 }
 .pq-mini-anim {
   width: 120px; height: 120px;
@@ -794,26 +837,31 @@ body::before {
   <main id="main">
 
     <section class="about-hero" aria-labelledby="about-heading">
+      <canvas class="about-hero-mesh" id="hero-mesh-canvas" aria-hidden="true"></canvas>
       <div class="container">
-
-        <div class="section-eyebrow" data-anim>About</div>
-        <h1 class="about-headline" id="about-heading" data-anim data-anim-delay="1">
-          I close the <span class="kw">loop</span>.<br><em>From what users do to what teams ship.</em>
-        </h1>
-
-        <p class="about-subhead" data-anim data-anim-delay="2">
-          Behavioral analytics, rapid research, and AI-assisted synthesis — I turn what users actually do into something your team can ship. Designs, improvements, or prioritized tickets. Always with evidence.
-        </p>
-
-        <div class="about-photo-v2" aria-label="Photo placeholder">
-          <canvas class="about-photo-canvas" id="photo-canvas" aria-hidden="true"></canvas>
-          <div class="about-photo-initials" aria-hidden="true">FM</div>
-          <div class="about-photo-label">Córdoba, Argentina</div>
-        </div>
-
-        <div class="about-inline-ctas" data-anim style="margin-bottom:var(--space-40);display:flex;gap:var(--space-12);flex-wrap:wrap;">
-          <a href="resume.html" class="btn btn-primary">View Resume</a>
-          <a href="contact.html" class="btn btn-outline">Get in touch</a>
+        <div class="about-hero-split">
+          <div class="about-hero-left">
+            <div class="section-eyebrow" data-anim>About</div>
+            <h1 class="about-headline" id="about-heading" data-anim data-anim-delay="1">
+              I close the <span class="kw">loop</span>.<br><em>From what users do to what teams ship.</em>
+            </h1>
+            <p class="about-subhead" data-anim data-anim-delay="2">
+              Behavioral analytics, rapid research, and AI-assisted synthesis — I turn what users actually do into something your team can ship. Designs, improvements, or prioritized tickets. Always with evidence.
+            </p>
+            <div class="about-inline-ctas" data-anim style="margin-bottom:var(--space-40);display:flex;gap:var(--space-12);flex-wrap:wrap;">
+              <a href="resume.html" class="btn btn-primary">View Resume</a>
+              <a href="contact.html" class="btn btn-outline">Get in touch</a>
+            </div>
+          </div>
+          <div class="about-hero-right">
+            <div class="about-photo-v2" aria-label="Photo placeholder">
+              <div class="about-photo-bg">
+                <div class="about-photo-initials" aria-hidden="true">FM</div>
+              </div>
+              <canvas class="about-photo-canvas" id="photo-canvas" aria-hidden="true"></canvas>
+              <div class="about-photo-label">Córdoba, Argentina</div>
+            </div>
+          </div>
         </div>
 
         <div class="about-body">
@@ -1484,36 +1532,63 @@ body::before {
 
 <script>
 (function(){
-  /* Photo canvas — mesh liviano */
-  var c = document.getElementById('photo-canvas');
-  if(c && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    var ctx = c.getContext('2d'), t = 0, W, H;
-    function rsz(){
-      var r = c.parentElement.getBoundingClientRect();
-      W = c.width = r.width || 300;
-      H = c.height = r.height || 375;
-    }
-    rsz(); window.addEventListener('resize', rsz);
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      var cx = W/2, cy = H/2;
-      for(var i=0;i<6;i++){
-        var angle = (i/6)*Math.PI*2 + t*0.3;
-        var r = 60 + Math.sin(t*0.7 + i)*20;
-        var x = cx + Math.cos(angle)*r;
-        var y = cy + Math.sin(angle)*r;
-        var alpha = 0.04 + Math.sin(t + i)*0.02;
-        ctx.beginPath();
-        ctx.arc(x, y, 40 + Math.sin(t*0.5+i)*10, 0, Math.PI*2);
-        ctx.strokeStyle = 'rgba(200,168,75,'+Math.max(0.02,alpha)+')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
+  /* Photo canvas — fine grain noise effect */
+  (function(){
+    var frame = document.querySelector('.about-photo-v2');
+    var c = document.getElementById('photo-canvas');
+    if(!c || !frame) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ctx = c.getContext('2d');
+    var W, H, grains = [], prog = 1, hovering = false, raf;
+    var SZ = 3;
+    var DARK = window.matchMedia('(prefers-color-scheme:dark)').matches;
+    var BG = DARK ? 'rgba(12,12,12,' : 'rgba(248,248,246,';
+    var AC = DARK ? 'rgba(200,168,75,' : 'rgba(122,96,32,';
+    function init(){
+      var r = frame.getBoundingClientRect();
+      W = r.width || 200; H = r.height || 250;
+      c.width = W * 2; c.height = H * 2;
+      c.style.width = W + 'px'; c.style.height = H + 'px';
+      ctx.scale(2, 2);
+      grains = [];
+      var cols = Math.ceil(W / SZ), rows = Math.ceil(H / SZ);
+      for(var row = 0; row < rows; row++){
+        for(var col = 0; col < cols; col++){
+          grains.push({
+            x: col * SZ, y: row * SZ,
+            a: 0.25 + Math.random() * 0.45,
+            isAccent: Math.random() < 0.04,
+            delay: Math.random() * 0.5
+          });
+        }
       }
-      t += 0.008;
-      requestAnimationFrame(draw);
     }
-    requestAnimationFrame(function(){ rsz(); requestAnimationFrame(draw); });
-  }
+    function draw(){
+      ctx.clearRect(0, 0, W, H);
+      if(reduced){ return; }
+      var target = hovering ? 0 : 1;
+      prog += (target - prog) * 0.045;
+      grains.forEach(function(p){
+        var t = Math.max(0, (prog - p.delay * 0.3) / (1 - p.delay * 0.3 + 0.01));
+        t = Math.min(1, t);
+        if(t < 0.01) return;
+        ctx.fillStyle = p.isAccent
+          ? AC + (0.18 * t) + ')'
+          : BG + (p.a * t) + ')';
+        ctx.fillRect(p.x, p.y, SZ, SZ);
+      });
+      raf = requestAnimationFrame(draw);
+    }
+    frame.addEventListener('mouseenter', function(){ hovering = true; });
+    frame.addEventListener('mouseleave', function(){ hovering = false; });
+    function start(){
+      init();
+      if(raf) cancelAnimationFrame(raf);
+      draw();
+    }
+    window.addEventListener('resize', start);
+    requestAnimationFrame(start);
+  })();
   /* Typewriter en card 03 */
   var typeEl = document.getElementById('hiw-typetext');
   if(typeEl){
@@ -1533,6 +1608,74 @@ body::before {
     setTimeout(typeLoop, 800);
   }
 
+})();
+</script>
+
+<script>
+(function(){
+  var c = document.getElementById('hero-mesh-canvas');
+  if(!c) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ctx = c.getContext('2d');
+  var W, H, pts, raf;
+  var DARK = window.matchMedia('(prefers-color-scheme:dark)').matches;
+  var DOT = DARK ? 'rgba(200,168,75,0.3)' : 'rgba(122,96,32,0.22)';
+  var LINE = DARK ? 'rgba(200,168,75,' : 'rgba(122,96,32,';
+  var COUNT = 16;
+  function init(){
+    var r = c.parentElement.getBoundingClientRect();
+    W = r.width || 800; H = r.height || 400;
+    c.width = W; c.height = H;
+    pts = [];
+    for(var i = 0; i < COUNT; i++){
+      pts.push({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0, 0, W, H);
+    if(!reduced){
+      pts.forEach(function(p){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < 0 || p.x > W) p.vx *= -1;
+        if(p.y < 0 || p.y > H) p.vy *= -1;
+      });
+    }
+    /* lines */
+    for(var i = 0; i < pts.length; i++){
+      for(var j = i+1; j < pts.length; j++){
+        var dx = pts[i].x - pts[j].x;
+        var dy = pts[i].y - pts[j].y;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 160){
+          ctx.strokeStyle = LINE + (0.12 * (1 - dist/160)) + ')';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    /* dots */
+    pts.forEach(function(p){
+      ctx.fillStyle = DOT;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    raf = requestAnimationFrame(draw);
+  }
+  function start(){
+    init();
+    if(raf) cancelAnimationFrame(raf);
+    draw();
+  }
+  window.addEventListener('resize', start);
+  requestAnimationFrame(start);
 })();
 </script>
 
