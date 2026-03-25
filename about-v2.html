@@ -1454,8 +1454,6 @@ body::before {
             <br>
             <p><strong>Certifications</strong><br>Interaction Design Foundation · HAZ! Product Design · Uxcel: UX/UI Foundations · Design Labs: Advanced UX</p>
 
-            <div class="divider"></div>
-
             <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--text-primary);letter-spacing:-0.02em;margin-bottom:var(--space-12);">Languages</h2>
             <p>Spanish — Native &nbsp;·&nbsp; English — C2 Proficient</p>
 
@@ -1612,68 +1610,67 @@ body::before {
 </script>
 
 <script>
+/* Wave A — parallel flowing sinusoidal lines with mouse-influence distortion */
 (function(){
   var c = document.getElementById('hero-mesh-canvas');
   if(!c) return;
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ctx = c.getContext('2d');
-  var W, H, pts, raf;
-  var DARK = window.matchMedia('(prefers-color-scheme:dark)').matches;
-  var DOT = DARK ? 'rgba(200,168,75,0.3)' : 'rgba(122,96,32,0.22)';
-  var LINE = DARK ? 'rgba(200,168,75,' : 'rgba(122,96,32,';
-  var COUNT = 16;
-  function init(){
+  var W, H, raf, t = 0;
+  var mx = -9999, my = -9999;
+  var LINES = 20;
+  var COL = 'rgba(200,168,75,';
+
+  function resize(){
     var r = c.parentElement.getBoundingClientRect();
-    W = r.width || 800; H = r.height || 400;
-    c.width = W; c.height = H;
-    pts = [];
-    for(var i = 0; i < COUNT; i++){
-      pts.push({
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25
-      });
-    }
+    W = c.width  = r.width  || 800;
+    H = c.height = r.height || 400;
   }
+
   function draw(){
     ctx.clearRect(0, 0, W, H);
-    if(!reduced){
-      pts.forEach(function(p){
-        p.x += p.vx; p.y += p.vy;
-        if(p.x < 0 || p.x > W) p.vx *= -1;
-        if(p.y < 0 || p.y > H) p.vy *= -1;
-      });
-    }
-    /* lines */
-    for(var i = 0; i < pts.length; i++){
-      for(var j = i+1; j < pts.length; j++){
-        var dx = pts[i].x - pts[j].x;
-        var dy = pts[i].y - pts[j].y;
-        var dist = Math.sqrt(dx*dx + dy*dy);
-        if(dist < 160){
-          ctx.strokeStyle = LINE + (0.12 * (1 - dist/160)) + ')';
-          ctx.lineWidth = 0.5;
-          ctx.beginPath();
-          ctx.moveTo(pts[i].x, pts[i].y);
-          ctx.lineTo(pts[j].x, pts[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    /* dots */
-    pts.forEach(function(p){
-      ctx.fillStyle = DOT;
+    if(!reduced) t += 0.008;
+    for(var i = 0; i < LINES; i++){
+      var baseY = (i + 0.5) / LINES * H;
+      var amp   = 10 + (i % 3) * 6;
+      var freq  = 0.008 + (i % 4) * 0.002;
+      var speed = 1 + (i % 5) * 0.3;
+      var alpha = 0.04 + (i % 4) * 0.025;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
-      ctx.fill();
-    });
+      ctx.strokeStyle = COL + alpha + ')';
+      ctx.lineWidth   = 0.7;
+      for(var x = 0; x <= W; x += 3){
+        /* base sine */
+        var y = baseY + Math.sin(x * freq + t * speed) * amp;
+        /* mouse Gaussian distortion */
+        var dx = x - mx, dy = baseY - my;
+        var dist2 = dx*dx + dy*dy;
+        var infl = Math.exp(-dist2 / (18000));
+        y += infl * (my - baseY) * 0.55;
+        if(x === 0) ctx.moveTo(x, y);
+        else         ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
     raf = requestAnimationFrame(draw);
   }
+
   function start(){
-    init();
+    resize();
     if(raf) cancelAnimationFrame(raf);
     draw();
   }
+
+  /* track mouse relative to canvas */
+  c.parentElement.addEventListener('mousemove', function(e){
+    var r = c.getBoundingClientRect();
+    mx = e.clientX - r.left;
+    my = e.clientY - r.top;
+  });
+  c.parentElement.addEventListener('mouseleave', function(){
+    mx = -9999; my = -9999;
+  });
+
   window.addEventListener('resize', start);
   requestAnimationFrame(start);
 })();
@@ -1681,55 +1678,217 @@ body::before {
 
 <script>
 (function(){
-/* ── Pull quote: mesh canvas + mini loop ── */
-function initPQCanvas(meshId, loopId) {
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var AC = 'rgba(200,168,75,';
+
+/* ── Wave B — contour / topographic field for all 3 pull-quote mesh backgrounds ── */
+function initMeshB(meshId){
   var mc = document.getElementById(meshId);
-  if(mc) {
-    var ctx = mc.getContext('2d'), t=0, W, H;
-    function rsz(){ var r=mc.parentElement.getBoundingClientRect(); W=mc.width=r.width||600; H=mc.height=r.height||120; if(H<60) H=mc.height=120; }
-    rsz(); window.addEventListener('resize', rsz);
-    function draw(){
-      ctx.clearRect(0,0,W,H);
-      for(var i=0;i<12;i++){
-        var x=(i/12)*W+Math.sin(t*0.5+i)*20, y=H/2+Math.sin(t*0.8+i*0.7)*18;
-        var n=Math.max(0,Math.sin(t*0.6+i)*0.5+0.5);
-        ctx.beginPath(); ctx.arc(x,y,n*3,0,Math.PI*2);
-        ctx.fillStyle='rgba(200,168,75,'+(n*0.18)+')'; ctx.fill();
-        if(i>0){
-          ctx.beginPath(); ctx.moveTo((i-1)/12*W+Math.sin(t*0.5+i-1)*20, H/2+Math.sin(t*0.8+(i-1)*0.7)*18);
-          ctx.lineTo(x,y); ctx.strokeStyle='rgba(200,168,75,'+(n*0.06)+')'; ctx.lineWidth=0.5; ctx.stroke();
+  if(!mc) return;
+  var ctx = mc.getContext('2d'), t = 0, W, H;
+  var STEP = 8, LEVELS = 8;
+  function rsz(){
+    var r = mc.parentElement.getBoundingClientRect();
+    W = mc.width  = r.width  || 600;
+    H = mc.height = r.height || 120;
+    if(H < 60) H = mc.height = 120;
+  }
+  rsz(); window.addEventListener('resize', rsz);
+  /* simple 2-D noise via sum of sines */
+  function field(x, y){
+    return Math.sin(x * 0.04 + t * 0.4) * Math.cos(y * 0.07 - t * 0.3)
+         + Math.sin(x * 0.07 - t * 0.2) * Math.sin(y * 0.05 + t * 0.5) * 0.5;
+  }
+  /* marching-squares — one edge per cell side */
+  function drawContours(){
+    ctx.clearRect(0, 0, W, H);
+    for(var lv = 0; lv < LEVELS; lv++){
+      var thresh = -1 + lv * (2 / LEVELS);
+      var alpha  = 0.025 + lv * 0.01;
+      ctx.strokeStyle = AC + alpha + ')';
+      ctx.lineWidth   = 0.6;
+      ctx.beginPath();
+      for(var gy = 0; gy < H - STEP; gy += STEP){
+        for(var gx = 0; gx < W - STEP; gx += STEP){
+          var v00 = field(gx,        gy);
+          var v10 = field(gx + STEP, gy);
+          var v01 = field(gx,        gy + STEP);
+          var v11 = field(gx + STEP, gy + STEP);
+          /* interpolated crossing on each edge */
+          function lerp(a, b){ return (thresh - a) / (b - a); }
+          var top    = (v00 < thresh) !== (v10 < thresh) ? gx + lerp(v00, v10) * STEP : null;
+          var bottom = (v01 < thresh) !== (v11 < thresh) ? gx + lerp(v01, v11) * STEP : null;
+          var left   = (v00 < thresh) !== (v01 < thresh) ? gy + lerp(v00, v01) * STEP : null;
+          var right  = (v10 < thresh) !== (v11 < thresh) ? gy + lerp(v10, v11) * STEP : null;
+          var pts2 = [];
+          if(top    !== null) pts2.push([top,    gy]);
+          if(bottom !== null) pts2.push([bottom, gy + STEP]);
+          if(left   !== null) pts2.push([gx,     left]);
+          if(right  !== null) pts2.push([gx + STEP, right]);
+          if(pts2.length >= 2){
+            ctx.moveTo(pts2[0][0], pts2[0][1]);
+            ctx.lineTo(pts2[1][0], pts2[1][1]);
+          }
         }
       }
-      t+=0.008; requestAnimationFrame(draw);
+      ctx.stroke();
     }
-    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(draw);
+    t += 0.006;
+    if(!reduced) requestAnimationFrame(drawContours);
   }
-  var lc = document.getElementById(loopId);
-  if(lc) {
-    var ctx2=lc.getContext('2d'), t2=0, W2=120, H2=120;
-    lc.width=W2; lc.height=H2;
-    var nodes=[{l:'Signal',a:0},{l:'Insight',a:Math.PI*0.5},{l:'Design',a:Math.PI},{l:'Ship',a:Math.PI*1.5}];
-    function draw2(){
-      ctx2.clearRect(0,0,W2,H2);
-      var cx=W2/2, cy=H2/2, r=38;
-      nodes.forEach(function(n,i){
-        var next=nodes[(i+1)%nodes.length];
-        var x1=cx+Math.cos(n.a+t2)*r, y1=cy+Math.sin(n.a+t2)*r;
-        var x2=cx+Math.cos(next.a+t2)*r, y2=cy+Math.sin(next.a+t2)*r;
-        ctx2.beginPath(); ctx2.moveTo(x1,y1); ctx2.lineTo(x2,y2);
-        ctx2.strokeStyle='rgba(200,168,75,0.15)'; ctx2.lineWidth=0.8; ctx2.stroke();
-        var active=(Math.sin(t2*2+i*1.57)>0.5);
-        ctx2.beginPath(); ctx2.arc(x1,y1,active?4:2.5,0,Math.PI*2);
-        ctx2.fillStyle=active?'rgba(200,168,75,0.9)':'rgba(200,168,75,0.25)'; ctx2.fill();
-      });
-      t2+=0.012; requestAnimationFrame(draw2);
-    }
-    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(draw2);
-  }
+  requestAnimationFrame(drawContours);
 }
-initPQCanvas('pq-mesh-0','pq-loop-0');
-initPQCanvas('pq-mesh-1','pq-loop-1');
-initPQCanvas('pq-mesh-2','pq-loop-2');
+['pq-mesh-0','pq-mesh-1','pq-mesh-2'].forEach(initMeshB);
+
+/* ── initLoop0 — spinning 4-node loop with arrowheads (pq-loop-0) ── */
+function initLoop0(){
+  var lc = document.getElementById('pq-loop-0');
+  if(!lc) return;
+  var ctx = lc.getContext('2d'), t = 0;
+  lc.width = lc.height = 120;
+  var CX = 60, CY = 60, R = 36;
+  var LABELS = ['Signal','Insight','Design','Ship'];
+  function arrowHead(x1,y1,x2,y2){
+    var ang = Math.atan2(y2-y1, x2-x1);
+    var sz  = 5;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - sz*Math.cos(ang-0.45), y2 - sz*Math.sin(ang-0.45));
+    ctx.lineTo(x2 - sz*Math.cos(ang+0.45), y2 - sz*Math.sin(ang+0.45));
+    ctx.closePath();
+    ctx.fill();
+  }
+  function draw(){
+    ctx.clearRect(0, 0, 120, 120);
+    for(var i = 0; i < 4; i++){
+      var a0 = (i / 4) * Math.PI * 2 + t;
+      var a1 = ((i+1) / 4) * Math.PI * 2 + t;
+      var x0 = CX + Math.cos(a0) * R, y0 = CY + Math.sin(a0) * R;
+      var x1 = CX + Math.cos(a1) * R, y1 = CY + Math.sin(a1) * R;
+      /* mid-arc arrow position */
+      var am = a0 + (a1 - a0) * 0.55;
+      var xm = CX + Math.cos(am) * R, ym = CY + Math.sin(am) * R;
+      var xm2= CX + Math.cos(am+0.01)*R, ym2=CY+Math.sin(am+0.01)*R;
+      ctx.strokeStyle = AC + '0.2)';
+      ctx.lineWidth   = 0.8;
+      ctx.beginPath();
+      ctx.arc(CX, CY, R, a0, a1);
+      ctx.stroke();
+      ctx.fillStyle   = AC + '0.35)';
+      arrowHead(xm, ym, xm2, ym2);
+      /* node dot */
+      var pulse = 0.5 + 0.5 * Math.sin(t * 3 + i * 1.57);
+      ctx.beginPath();
+      ctx.arc(x0, y0, 2.5 + pulse * 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = AC + (0.3 + pulse * 0.6) + ')';
+      ctx.fill();
+    }
+    t += 0.018;
+    if(!reduced) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+initLoop0();
+
+/* ── initLoop1 — rising bar chart with reveal (pq-loop-1) ── */
+function initLoop1(){
+  var lc = document.getElementById('pq-loop-1');
+  if(!lc) return;
+  var ctx = lc.getContext('2d'), phase = 0;
+  lc.width = lc.height = 120;
+  var BARS = 5;
+  var TARGETS = [0.45, 0.70, 0.55, 0.85, 0.65];
+  var heights = [0, 0, 0, 0, 0];
+  var PERIOD = 200; /* frames for one rise+pause+fade cycle */
+  function draw(){
+    ctx.clearRect(0, 0, 120, 120);
+    var BW = 14, GAP = 6, OX = 18, OY = 100;
+    /* global reveal 0→1→1→0 */
+    var prog = phase / PERIOD;
+    var reveal = prog < 0.4 ? prog / 0.4 : prog < 0.8 ? 1 : 1 - (prog - 0.8) / 0.2;
+    for(var i = 0; i < BARS; i++){
+      var target = TARGETS[i] * 80 * Math.min(1, reveal * 1.4);
+      heights[i] += (target - heights[i]) * 0.12;
+      var h  = heights[i];
+      var x  = OX + i * (BW + GAP);
+      var alpha = 0.12 + (i / BARS) * 0.2;
+      ctx.fillStyle = AC + alpha + ')';
+      ctx.fillRect(x, OY - h, BW, h);
+      /* top accent line */
+      ctx.fillStyle = AC + (alpha + 0.3) + ')';
+      ctx.fillRect(x, OY - h, BW, 1.5);
+    }
+    /* baseline */
+    ctx.strokeStyle = AC + '0.12)';
+    ctx.lineWidth = 0.6;
+    ctx.beginPath(); ctx.moveTo(14, OY); ctx.lineTo(106, OY); ctx.stroke();
+    phase = (phase + 1) % PERIOD;
+    if(!reduced) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+initLoop1();
+
+/* ── initLoop2 — cursor + captured event dots (pq-loop-2) ── */
+function initLoop2(){
+  var lc = document.getElementById('pq-loop-2');
+  if(!lc) return;
+  var ctx = lc.getContext('2d'), t = 0;
+  lc.width = lc.height = 120;
+  var TRAIL = [
+    {x:30,y:80},{x:45,y:60},{x:62,y:72},{x:78,y:45},{x:90,y:55}
+  ];
+  var dots = [];
+  function spawnDot(i){
+    var p = TRAIL[i];
+    dots.push({x:p.x, y:p.y, life:1, idx:i});
+  }
+  var spawnFrames = [0, 40, 80, 120, 160];
+  function draw(){
+    ctx.clearRect(0, 0, 120, 120);
+    /* cursor path */
+    ctx.strokeStyle = AC + '0.12)';
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    TRAIL.forEach(function(p, i){ i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y); });
+    ctx.stroke();
+    /* spawn dots on schedule */
+    spawnFrames.forEach(function(f, i){ if(t % 200 === f) spawnDot(i); });
+    /* draw + age dots */
+    dots = dots.filter(function(d){ return d.life > 0; });
+    dots.forEach(function(d){
+      var r = 3 + (1 - d.life) * 8;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+      ctx.strokeStyle = AC + (d.life * 0.5) + ')';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+      /* solid inner dot */
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = AC + (d.life * 0.8) + ')';
+      ctx.fill();
+      d.life -= 0.012;
+    });
+    /* animated cursor triangle at current trail position */
+    var cp = Math.floor((t % 200) / 200 * TRAIL.length);
+    cp = Math.min(cp, TRAIL.length - 1);
+    var cx = TRAIL[cp].x, cy = TRAIL[cp].y;
+    ctx.fillStyle = AC + '0.7)';
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + 8,  cy + 5);
+    ctx.lineTo(cx + 3,  cy + 5);
+    ctx.lineTo(cx + 3,  cy + 12);
+    ctx.lineTo(cx,      cy + 10);
+    ctx.closePath();
+    ctx.fill();
+    t++;
+    if(!reduced) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+initLoop2();
 /* ── Philosophy cards: canvas icons + 3D tilt ── */
 (function(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
