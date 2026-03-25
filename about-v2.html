@@ -309,7 +309,7 @@ body::before {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 .about-hero-split {
   display: grid;
@@ -401,7 +401,7 @@ body::before {
 .pq-mesh-canvas {
   position: absolute;
   inset: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 0; opacity: 0.18;
+  pointer-events: none; z-index: 0; opacity: 0.65;
 }
 .pq-mini-anim {
   width: 120px; height: 120px;
@@ -870,8 +870,6 @@ body::before {
             <!-- INTRO -->
             <p>I'm <strong>Federico A. Monroy</strong> — a <strong>UX Designer &amp; Strategist</strong> and behavioral analytics practitioner. My degree is in <strong>Industrial Design</strong>, which isn't a fun fact — it's how I think. Proyectual reasoning, systems constraints, and human context came before Figma. That foundation still shapes how I instrument a product, read a session replay, and decide what to build next. Comfortable across any tech stack and any AI toolset. The approach stays constant; the tools adapt to what the team already uses.</p>
             <p>Over seven years across fintech, enterprise, government, and e-commerce — sometimes leading teams, sometimes embedded solo — I've always worked at the edge of design, research, and product. Not entirely any one of them. All three at once.</p>
-
-            <div class="divider"></div>
 
             <!-- PULL QUOTE 1 -->
             <div class="about-pull-quote">
@@ -1618,7 +1616,7 @@ body::before {
   var ctx = c.getContext('2d');
   var W, H, raf, t = 0;
   var mx = -9999, my = -9999;
-  var LINES = 20;
+  var LINES = 28;
   var COL = 'rgba(200,168,75,';
 
   function resize(){
@@ -1635,7 +1633,7 @@ body::before {
       var amp   = 10 + (i % 3) * 6;
       var freq  = 0.008 + (i % 4) * 0.002;
       var speed = 1 + (i % 5) * 0.3;
-      var alpha = 0.04 + (i % 4) * 0.025;
+      var alpha = 0.10 + (i % 4) * 0.045;
       ctx.beginPath();
       ctx.strokeStyle = COL + alpha + ')';
       ctx.lineWidth   = 0.7;
@@ -1686,7 +1684,7 @@ function initMeshB(meshId){
   var mc = document.getElementById(meshId);
   if(!mc) return;
   var ctx = mc.getContext('2d'), t = 0, W, H;
-  var STEP = 8, LEVELS = 8;
+  var STEP = 5, LEVELS = 12;
   function rsz(){
     var r = mc.parentElement.getBoundingClientRect();
     W = mc.width  = r.width  || 600;
