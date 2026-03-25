@@ -424,31 +424,97 @@ body::before {
 
 /* ══ PROCESS SECTION ══ */
 .proc-section { position: relative; }
+/* ── Timeline nav ── */
 .proc-nav {
-  display: flex; align-items: center; gap: 0;
+  position: relative;
+  padding: 20px 24px 16px;
   border-bottom: 1px solid var(--border-subtle);
-  overflow-x: auto; scrollbar-width: none; margin-bottom: 0;
+  background: var(--bg-surface);
 }
-.proc-nav::-webkit-scrollbar { display: none; }
+/* progress line behind dots */
+.proc-tl-track {
+  position: absolute;
+  top: 34px; left: 48px; right: 48px;
+  height: 1px; background: var(--border-subtle);
+  z-index: 0;
+}
+.proc-tl-fill {
+  height: 100%; width: 0%;
+  background: var(--accent);
+  transition: width linear;
+  border-radius: 1px;
+}
+.proc-steps-row {
+  position: relative; z-index: 1;
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 0;
+}
 .proc-step {
-  display: flex; align-items: center; gap: 7px;
-  padding: 12px 16px; border: none; background: none;
-  cursor: pointer; border-bottom: 2px solid transparent;
-  transition: border-color 200ms, background 200ms; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; border: none; background: none;
+  cursor: pointer; padding: 0; flex: 1;
+  transition: opacity 200ms;
 }
-.proc-step:hover { background: var(--bg-surface); }
-.proc-step--active { border-bottom-color: var(--accent); background: var(--bg-surface); }
-.proc-step-num {
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--bg-raised); border: 1px solid var(--border-subtle);
+.proc-step:hover .proc-step-dot { border-color: var(--accent); }
+.proc-step-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--bg-raised);
+  border: 1.5px solid var(--border-subtle);
   display: flex; align-items: center; justify-content: center;
   font-size: 0.6rem; font-weight: 700; color: var(--text-tertiary);
-  font-family: 'DM Mono', monospace; flex-shrink: 0; transition: all 200ms;
+  font-family: 'DM Mono', monospace;
+  transition: all 280ms cubic-bezier(0.34,1.2,0.64,1);
+  position: relative;
 }
-.proc-step--active .proc-step-num { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
-.proc-step-label { font-size: 0.72rem; font-weight: 500; color: var(--text-tertiary); white-space: nowrap; transition: color 200ms; }
-.proc-step--active .proc-step-label { color: var(--text-primary); }
-.proc-sep { width: 20px; height: 1px; background: var(--border-subtle); flex-shrink: 0; }
+/* done state */
+.proc-step--done .proc-step-dot {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+/* active state — glow */
+.proc-step--active .proc-step-dot {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-dim), 0 0 12px rgba(21,128,61,0.2);
+  transform: scale(1.12);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .proc-step--active .proc-step-dot {
+    animation: dotPulse 2.4s ease-in-out infinite;
+  }
+}
+@keyframes dotPulse {
+  0%,100% { box-shadow: 0 0 0 4px var(--accent-dim), 0 0 8px rgba(21,128,61,0.15); }
+  50%      { box-shadow: 0 0 0 6px var(--accent-dim), 0 0 16px rgba(21,128,61,0.3); }
+}
+/* checkmark for done steps */
+.proc-step--done .proc-step-dot::after {
+  content: '✓'; font-size: 0.65rem; font-weight: 700;
+  color: var(--accent);
+}
+.proc-step--done .proc-step-num { display: none; }
+.proc-step-num { display: block; }
+.proc-step-label {
+  font-size: 0.65rem; font-weight: 500;
+  color: var(--text-tertiary); white-space: nowrap;
+  transition: color 200ms; text-align: center;
+}
+.proc-step--active .proc-step-label { color: var(--text-primary); font-weight: 600; }
+.proc-step--done .proc-step-label { color: var(--accent); }
+/* progress bar (above the dots row) */
+.proc-progress-bar {
+  height: 2px; background: var(--border-subtle);
+  width: 100%; overflow: hidden; border-radius: 1px;
+  margin-bottom: 14px;
+}
+.proc-progress-fill {
+  height: 100%; background: var(--accent);
+  width: 0%; transition: width linear;
+}
+/* remove old sep */
+.proc-sep { display: none; }
 .proc-panels { border: 1px solid var(--border-subtle); border-top: none; }
 .proc-panel { display: none; }
 .proc-panel--active { display: block; animation: procFade 300ms ease; }
@@ -548,12 +614,6 @@ body::before {
 .proc-sys-sub { font-size: 0.6rem; color: var(--text-tertiary); }
 .proc-sys-arrow { text-align: center; font-size: 0.8rem; color: var(--text-tertiary); margin: 2px 0; }
 .proc-adapt-note { padding: 6px 10px; margin-top: 4px; background: var(--bg-surface); border: 0.5px solid var(--border-subtle); border-radius: var(--radius-md); font-size: 0.68rem; color: var(--text-tertiary); font-style: italic; text-align: center; }
-/* === Progress bar nav === */
-.proc-nav { flex-direction: column; gap: 0; padding: 0; }
-.proc-progress-bar { height: 2px; background: var(--border-subtle); width: 100%; overflow: hidden; border-radius: 0; }
-.proc-progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width linear; }
-.proc-steps-row { display: flex; align-items: center; overflow-x: auto; scrollbar-width: none; padding: var(--space-4) var(--space-8); }
-.proc-steps-row::-webkit-scrollbar { display: none; }
 /* === Signal app layout === */
 .proc-right--signal { display: flex; flex-direction: column; gap: 6px; }
 .proc-signal-app { background: var(--bg-raised); border: 1px solid var(--border-subtle); border-radius: 6px; overflow: visible; position: relative; }
@@ -563,7 +623,7 @@ body::before {
 .proc-signal-screen { padding: 7px; position: relative; overflow: visible; min-height: 120px; }
 .proc-app-nav { display: flex; gap: 8px; margin-bottom: 6px; font-size: 7px; color: var(--text-tertiary); }
 .proc-app-nav span { cursor: default; }
-/* === Cursor sizing === */
+/* === Cursor (override) === */
 .proc-demo-cursor { position: absolute; pointer-events: none; z-index: 30; transition: left 480ms cubic-bezier(0.34,1,0.64,1), top 480ms cubic-bezier(0.34,1,0.64,1); left: 20%; top: 25%; }
 .proc-cursor-emoji { font-size: 16px; line-height: 1; margin-top: 2px; opacity: 0; transition: opacity 250ms; }
 .proc-cursor-emoji.show { opacity: 1; }
@@ -575,12 +635,73 @@ body::before {
 .proc-act-outputs { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
 .proc-stack-note { text-align: center; font-size: 0.76rem; color: var(--text-tertiary); font-style: italic; margin-top: var(--space-24); padding: 10px 20px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); max-width: 480px; margin-left: auto; margin-right: auto; }
 @media (max-width: 768px) {
-  .proc-content-split { grid-template-columns: 1fr; }
-  .proc-right { border-top: 1px solid var(--border-subtle); }
-  .proc-left { border-right: none; }
-  .proc-step-label { display: none; }
-  .proc-step { padding: 10px 12px; }
+  /* Nav — timeline compacto mobile */
+  .proc-nav { padding: 14px 16px 12px; }
+  .proc-tl-track { top: 27px; left: 32px; right: 32px; }
+  .proc-step-dot { width: 22px; height: 22px; font-size: 0.55rem; }
+  .proc-step-label { display: block; font-size: 0.58rem; }
+  .proc-step--active .proc-step-dot { transform: scale(1.08); }
+  /* Panels — layout mobile */
+  .proc-content-split {
+    grid-template-columns: 1fr;
+    display: flex; flex-direction: column;
+  }
+  .proc-left {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--space-16);
+    gap: 0;
+  }
+  .proc-left .proc-desc { display: none; }
+  .proc-left .proc-outputs { display: none; }
+  .proc-left .proc-tools { margin-bottom: 0; }
+  .proc-right { border-top: none; order: 2; }
+  /* Mobile extra blocks */
+  .proc-mobile-footer {
+    display: block;
+    padding: var(--space-16);
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+  }
+  .proc-mobile-footer .proc-desc {
+    display: block;
+    font-size: 0.82rem; color: var(--text-secondary);
+    line-height: 1.7; margin-bottom: var(--space-12);
+  }
+  .proc-mobile-footer .proc-outputs { display: flex; flex-direction: column; gap: 4px; }
+  .proc-mobile-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: var(--space-12) var(--space-16);
+    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+  }
+  .proc-mobile-dots { display: flex; gap: 5px; align-items: center; }
+  .proc-mobile-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--border-subtle);
+    transition: background 200ms, width 200ms;
+  }
+  .proc-mobile-dot--active {
+    background: var(--accent);
+    width: 14px; border-radius: 3px;
+  }
+  .proc-mobile-btn {
+    font-size: 0.7rem; padding: 5px 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 100px;
+    background: var(--bg-surface);
+    color: var(--text-secondary); cursor: pointer;
+    transition: all 180ms;
+  }
+  .proc-mobile-btn--next {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent); font-weight: 600;
+  }
 }
+/* Mobile footer/nav — desktop: hidden */
+.proc-mobile-footer { display: none; }
+.proc-mobile-nav { display: none; }
 @keyframes ldot { 0%,100%{opacity:1} 50%{opacity:0.3} }
 @keyframes tblink { 0%,100%{opacity:1} 50%{opacity:0} }
   </style>
@@ -761,29 +882,26 @@ body::before {
   </h2>
   <div class="proc-nav" role="tablist" aria-label="Process steps">
     <div class="proc-progress-bar"><div class="proc-progress-fill" id="proc-progress"></div></div>
+    <div class="proc-tl-track"><div class="proc-tl-fill" id="proc-tl-fill"></div></div>
     <div class="proc-steps-row">
       <button class="proc-step proc-step--active" id="pst-0" role="tab" aria-selected="true" aria-controls="proc-p0" onclick="procJump(0)">
-        <div class="proc-step-num">01</div>
+        <div class="proc-step-dot"><span class="proc-step-num">01</span></div>
         <div class="proc-step-label">Signal</div>
       </button>
-      <div class="proc-sep" aria-hidden="true"></div>
       <button class="proc-step" id="pst-1" role="tab" aria-selected="false" aria-controls="proc-p1" onclick="procJump(1)">
-        <div class="proc-step-num">02</div>
+        <div class="proc-step-dot"><span class="proc-step-num">02</span></div>
         <div class="proc-step-label">Understand</div>
       </button>
-      <div class="proc-sep" aria-hidden="true"></div>
       <button class="proc-step" id="pst-2" role="tab" aria-selected="false" aria-controls="proc-p2" onclick="procJump(2)">
-        <div class="proc-step-num">03</div>
+        <div class="proc-step-dot"><span class="proc-step-num">03</span></div>
         <div class="proc-step-label">Synthesize</div>
       </button>
-      <div class="proc-sep" aria-hidden="true"></div>
       <button class="proc-step" id="pst-3" role="tab" aria-selected="false" aria-controls="proc-p3" onclick="procJump(3)">
-        <div class="proc-step-num">04</div>
+        <div class="proc-step-dot"><span class="proc-step-num">04</span></div>
         <div class="proc-step-label">Act</div>
       </button>
-      <div class="proc-sep" aria-hidden="true"></div>
       <button class="proc-step" id="pst-4" role="tab" aria-selected="false" aria-controls="proc-p4" onclick="procJump(4)">
-        <div class="proc-step-num">05</div>
+        <div class="proc-step-dot"><span class="proc-step-num">05</span></div>
         <div class="proc-step-label">Connect</div>
       </button>
     </div>
@@ -850,6 +968,27 @@ body::before {
           </div>
         </div>
       </div>
+      <!-- Mobile footer: desc + outputs + nav -->
+      <div class="proc-mobile-footer">
+        <p class="proc-desc">I define what to track and why — coordinating with dev to tag existing components. Every click, funnel step, session replay, in-app experiment, and NPS response gets named and captured.</p>
+        <div class="proc-outputs">
+          <div class="proc-out-label">Output</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#639922"></div>Drop-off reports · funnel data</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#378ADD"></div>Feature adoption maps</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>In-app feedback · NPS</div>
+        </div>
+      </div>
+      <div class="proc-mobile-nav">
+        <button class="proc-mobile-btn" style="visibility:hidden">←</button>
+        <div class="proc-mobile-dots" id="mob-dots-0">
+          <div class="proc-mobile-dot proc-mobile-dot--active"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+        </div>
+        <button class="proc-mobile-btn proc-mobile-btn--next" onclick="procJump(1)">Understand →</button>
+      </div>
     </div>
     <!-- 02 UNDERSTAND -->
     <div class="proc-panel" id="proc-p1" role="tabpanel">
@@ -900,6 +1039,26 @@ body::before {
           <div class="proc-save-note"><span style="color:#22c55e;font-weight:600">✓</span>/research/config-friction/ → source of truth</div>
         </div>
       </div>
+      <div class="proc-mobile-footer">
+        <p class="proc-desc">Analytics tell me where. Research tells me why. I choose the method based on what the data shows — not a scheduled sprint.</p>
+        <div class="proc-outputs">
+          <div class="proc-out-label">Output</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#7c3aed"></div>Pain points · frustrations</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#1D4ED8"></div>Jobs to be done</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#639922"></div>Mental models · behavioral patterns</div>
+        </div>
+      </div>
+      <div class="proc-mobile-nav">
+        <button class="proc-mobile-btn" onclick="procJump(0)">← Signal</button>
+        <div class="proc-mobile-dots" id="mob-dots-1">
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot proc-mobile-dot--active"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+        </div>
+        <button class="proc-mobile-btn proc-mobile-btn--next" onclick="procJump(2)">Synthesize →</button>
+      </div>
     </div>
     <!-- 03 SYNTHESIZE -->
     <div class="proc-panel" id="proc-p2" role="tabpanel">
@@ -939,6 +1098,26 @@ body::before {
           </div>
           <div class="proc-supervised-note">Supervised by Federico at every step</div>
         </div>
+      </div>
+      <div class="proc-mobile-footer">
+        <p class="proc-desc">Analytics and research meet in a source of truth. An LLM clusters, categorizes, and finds patterns. I supervise every step.</p>
+        <div class="proc-outputs">
+          <div class="proc-out-label">Output</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#e05c4a"></div>Design items — friction, conversion</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#378ADD"></div>Product items — bugs, performance</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Reports · insight decks</div>
+        </div>
+      </div>
+      <div class="proc-mobile-nav">
+        <button class="proc-mobile-btn" onclick="procJump(1)">← Understand</button>
+        <div class="proc-mobile-dots" id="mob-dots-2">
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot proc-mobile-dot--active"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+        </div>
+        <button class="proc-mobile-btn proc-mobile-btn--next" onclick="procJump(3)">Act →</button>
       </div>
     </div>
     <!-- 04 ACT -->
@@ -999,6 +1178,27 @@ body::before {
           </div>
         </div>
       </div>
+      <div class="proc-mobile-footer">
+        <p class="proc-desc">Reports and insights become material for four areas — always with behavioral evidence attached. Your team prioritizes. I make sure there's always something to act on.</p>
+        <div class="proc-outputs">
+          <div class="proc-out-label">Four paths</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#9b6cff"></div>Design — Figma DS-connected</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#4aa3d4"></div>Product — tickets · user stories</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>Low-code — Pendo guide</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Marketing — copy · campaigns</div>
+        </div>
+      </div>
+      <div class="proc-mobile-nav">
+        <button class="proc-mobile-btn" onclick="procJump(2)">← Synthesize</button>
+        <div class="proc-mobile-dots" id="mob-dots-3">
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot proc-mobile-dot--active"></div>
+          <div class="proc-mobile-dot"></div>
+        </div>
+        <button class="proc-mobile-btn proc-mobile-btn--next" onclick="procJump(4)">Connect →</button>
+      </div>
     </div>
     <!-- 05 CONNECT -->
     <div class="proc-panel" id="proc-p4" role="tabpanel">
@@ -1040,6 +1240,26 @@ body::before {
           </div>
           <div class="proc-adapt-note">I can work in any of these layers — or all of them</div>
         </div>
+      </div>
+      <div class="proc-mobile-footer">
+        <p class="proc-desc">Everything feeds a central repository. LLMs read those files directly. No uploads, no context loss. Adapts to your stack.</p>
+        <div class="proc-outputs">
+          <div class="proc-out-label">The result</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#c8a84b"></div>No context lost between sessions</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Every tool reads from the same source</div>
+          <div class="proc-out-item"><div class="proc-out-dot" style="background:#4aa3d4"></div>Adapts to your stack</div>
+        </div>
+      </div>
+      <div class="proc-mobile-nav">
+        <button class="proc-mobile-btn" onclick="procJump(3)">← Act</button>
+        <div class="proc-mobile-dots" id="mob-dots-4">
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot"></div>
+          <div class="proc-mobile-dot proc-mobile-dot--active"></div>
+        </div>
+        <button class="proc-mobile-btn" style="visibility:hidden">→</button>
       </div>
     </div>
   </div>
@@ -1426,25 +1646,34 @@ var procTimers=[];
 var autoTimer=null;
 var current=0;
 var DURATIONS=[6000,5000,5500,5000,5000];
+var procAnimated=[false,false,false,false,false];
 function qt(f,d){procTimers.push(setTimeout(f,d));}
 function clrT(){procTimers.forEach(clearTimeout);procTimers=[];}
 function procActivate(n){
+  document.querySelectorAll('.proc-step').forEach(function(b,i){
+    b.classList.toggle('proc-step--active', i===n);
+    b.classList.toggle('proc-step--done', i<n);
+    b.setAttribute('aria-selected', i===n?'true':'false');
+  });
+  document.querySelectorAll('.proc-panel').forEach(function(p,i){
+    p.classList.toggle('proc-panel--active', i===n);
+  });
+  /* animate tl-fill: percentage across 5 steps */
+  var fill=document.getElementById('proc-tl-fill');
+  if(fill){
+    fill.style.transition='none';
+    setTimeout(function(){
+      fill.style.transition='width 500ms ease';
+      fill.style.width=(n/4*100)+'%';
+    },30);
+  }
   current=n;
-  clrT();
-  document.querySelectorAll('.proc-step').forEach(function(b){
-    b.classList.remove('proc-step--active');
-    b.setAttribute('aria-selected','false');
-  });
-  document.querySelectorAll('.proc-panel').forEach(function(p){
-    p.classList.remove('proc-panel--active');
-  });
-  var btn=document.getElementById('pst-'+n);
-  if(btn){btn.classList.add('proc-step--active');btn.setAttribute('aria-selected','true');}
-  var panel=document.getElementById('proc-p'+n);
-  if(panel)panel.classList.add('proc-panel--active');
   startProgress(DURATIONS[n]);
-  var fns=[animSignal,animUnderstand,animSynth,animAct,animConnect];
-  setTimeout(fns[n],80);
+  if(!procAnimated[n]){
+    procAnimated[n]=true;
+    var fns=[animSignal,animUnderstand,animSynth,animAct,animConnect];
+    setTimeout(fns[n],80);
+  }
 }
 window.procJump=function(n){
   clearInterval(autoTimer);autoTimer=null;
