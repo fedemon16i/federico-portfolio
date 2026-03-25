@@ -421,303 +421,142 @@ body::before {
   line-height: 1.65;
   flex-grow: 1;
 }
-/* ── HIW narrative carousel ── */
-.hiw-section { margin-bottom: var(--space-64); padding: var(--space-48) 0; }
-.hiw-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-32);
-  max-width: 560px;
-}
-.hiw-title em { font-style: italic; color: var(--accent); }
-.hiw-layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: var(--space-32);
-  align-items: start;
-}
-.hiw-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-left: 1px solid var(--border-subtle);
-}
-.hiw-tab {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-12);
-  padding: var(--space-16) var(--space-20);
-  background: none;
-  border: none;
-  border-left: 2px solid transparent;
-  margin-left: -1px;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-  transition: background 200ms;
-}
-.hiw-tab:hover { background: rgba(255,255,255,0.03); }
-.hiw-tab--active { border-left-color: var(--accent); background: rgba(200,168,75,0.04); }
-.hiw-tab-num {
-  font-size: 0.55rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--text-tertiary);
-  margin-top: 3px;
-  flex-shrink: 0;
-}
-.hiw-tab--active .hiw-tab-num { color: var(--accent); }
-.hiw-tab-info { display: flex; flex-direction: column; gap: 3px; }
-.hiw-tab-label {
-  font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  line-height: 1.2;
-}
-.hiw-tab--active .hiw-tab-label { color: var(--text-primary); }
-.hiw-tab-sub { font-size: 0.72rem; color: var(--text-tertiary); line-height: 1.4; }
-.hiw-screen-wrap {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  position: sticky;
-  top: 80px;
-}
-.hiw-chrome {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 10px;
-  background: var(--bg-raised);
+
+/* ══ PROCESS SECTION ══ */
+.proc-section { position: relative; }
+.proc-nav {
+  display: flex; align-items: center; gap: 0;
   border-bottom: 1px solid var(--border-subtle);
+  overflow-x: auto; scrollbar-width: none; margin-bottom: 0;
 }
-.hiw-chrome-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.12); flex-shrink: 0; }
-.hiw-chrome-url { flex: 1; font-family: monospace; font-size: 0.6rem; color: var(--text-tertiary); margin: 0 6px; }
-.hiw-screen-body { position: relative; min-height: 220px; padding: 14px; }
-.hiw-panel { display: none; flex-direction: column; gap: 8px; animation: hiwFadeIn 300ms ease; }
-.hiw-panel--active { display: flex; }
-@keyframes hiwFadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
-@media (prefers-reduced-motion: reduce) { .hiw-panel { animation: none; } }
-.hiw-panel-label {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 2px;
+.proc-nav::-webkit-scrollbar { display: none; }
+.proc-step {
+  display: flex; align-items: center; gap: 7px;
+  padding: 12px 16px; border: none; background: none;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: border-color 200ms, background 200ms; flex-shrink: 0;
 }
-.hiw-signal-area {
-  position: relative;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--border-subtle);
-  border-radius: 6px;
-  padding: 10px;
-  min-height: 80px;
+.proc-step:hover { background: var(--bg-surface); }
+.proc-step--active { border-bottom-color: var(--accent); background: var(--bg-surface); }
+.proc-step-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--bg-raised); border: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem; font-weight: 700; color: var(--text-tertiary);
+  font-family: 'DM Mono', monospace; flex-shrink: 0; transition: all 200ms;
 }
-.hiw-demo-cursor {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  pointer-events: none;
-  z-index: 2;
-  left: 30%;
-  top: 30%;
-  transition: left 500ms cubic-bezier(0.16,1,0.3,1), top 500ms cubic-bezier(0.16,1,0.3,1);
+.proc-step--active .proc-step-num { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+.proc-step-label { font-size: 0.72rem; font-weight: 500; color: var(--text-tertiary); white-space: nowrap; transition: color 200ms; }
+.proc-step--active .proc-step-label { color: var(--text-primary); }
+.proc-sep { width: 20px; height: 1px; background: var(--border-subtle); flex-shrink: 0; }
+.proc-panels { border: 1px solid var(--border-subtle); border-top: none; }
+.proc-panel { display: none; }
+.proc-panel--active { display: block; animation: procFade 300ms ease; }
+@keyframes procFade { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .proc-panel--active { animation: none; } }
+.proc-content-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.proc-left {
+  padding: var(--space-24); border-right: 1px solid var(--border-subtle);
+  display: flex; flex-direction: column; gap: 0;
 }
-.hiw-cursor-label {
-  font-size: 0.5rem;
-  color: #4aa3d4;
-  background: rgba(10,26,42,0.85);
-  padding: 1px 4px;
-  border-radius: 3px;
-  white-space: nowrap;
-}
-.hiw-app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-.hiw-app-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border-subtle);
-  border-radius: 5px;
-  padding: 6px 8px;
-  font-size: 0.52rem;
-  color: var(--text-tertiary);
-  transition: background 200ms, border-color 200ms;
-}
-.hiw-app-card.hiw-hovered { background: rgba(74,163,212,0.08); border-color: rgba(74,163,212,0.3); }
-.hiw-app-card.hiw-clicked { background: rgba(74,163,212,0.15); border-color: rgba(74,163,212,0.5); color: rgba(74,163,212,0.9); }
-.hiw-evt-badge {
-  margin-top: 6px;
-  font-size: 0.5rem;
-  font-family: monospace;
-  color: var(--accent);
-  padding: 2px 6px;
-  background: rgba(200,168,75,0.08);
-  border: 1px solid rgba(200,168,75,0.2);
-  border-radius: 3px;
-  display: inline-block;
-  opacity: 0;
-  transition: opacity 250ms;
-}
-.hiw-evt-badge.show { opacity: 1; }
-.hiw-funnel { display: flex; flex-direction: column; gap: 4px; }
-.hiw-funnel-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 20px;
-}
-.hiw-funnel-bar::before {
-  content: '';
-  display: block;
-  width: var(--fw, 50%);
-  height: 100%;
-  background: var(--fc, rgba(74,163,212,0.4));
-  border-radius: 3px;
-  flex-shrink: 0;
-}
-.hiw-fb-label { font-size: 0.5rem; color: var(--text-tertiary); white-space: nowrap; }
-.hiw-fb-cnt { font-size: 0.5rem; color: var(--text-secondary); font-family: monospace; margin-left: auto; }
-.hiw-rcards { display: flex; flex-direction: column; gap: 6px; }
-.hiw-rcard {
-  padding: 8px 10px;
-  background: var(--rc, rgba(255,255,255,0.03));
-  border: 1px solid var(--rb, var(--border-subtle));
-  border-radius: 5px;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 300ms ease, transform 300ms ease;
-}
-.hiw-rcard.show { opacity: 1; transform: translateY(0); }
-.hiw-rcard-label {
-  font-size: 0.5rem;
-  font-weight: 700;
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 3px;
-}
-.hiw-rcard-finding { font-size: 0.6rem; color: var(--text-secondary); line-height: 1.4; }
-.hiw-clusters { display: flex; gap: 6px; }
-.hiw-cluster {
-  flex: 1;
-  background: var(--cc, rgba(255,255,255,0.03));
-  border: 1px solid var(--cb, var(--border-subtle));
-  border-radius: 5px;
-  padding: 6px 8px;
-  min-height: 80px;
-}
-.hiw-cluster-label {
-  font-size: 0.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-tertiary);
-  margin-bottom: 5px;
-}
-.hiw-cluster-items { display: flex; flex-direction: column; gap: 3px; }
-.hiw-cluster-chip {
-  font-size: 0.46rem;
-  color: var(--text-secondary);
-  padding: 2px 5px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border-subtle);
-  border-radius: 3px;
-  opacity: 0;
-  transition: opacity 300ms ease;
-}
-.hiw-cluster-chip.show { opacity: 1; }
-.hiw-ai-badge {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.52rem;
-  color: var(--text-tertiary);
-  font-style: italic;
-  margin-top: 4px;
-}
-.hiw-ai-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-@media (prefers-reduced-motion: no-preference) { .hiw-ai-dot { animation: ldot 1.5s ease-in-out infinite; } }
-.hiw-act-outputs { display: flex; flex-direction: column; gap: 5px; }
-.hiw-act-card {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border-subtle);
-  border-radius: 5px;
-  font-size: 0.6rem;
-  color: var(--text-secondary);
-  opacity: 0;
-  transform: translateX(-5px);
-  transition: opacity 300ms ease, transform 300ms ease;
-}
-.hiw-act-card.show { opacity: 1; transform: translateX(0); }
-.hiw-auto-row {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-.hiw-auto-label { font-size: 0.55rem; color: var(--text-tertiary); }
-.hiw-auto-btn {
-  font-size: 0.58rem;
-  padding: 2px 8px;
-  border-radius: 100px;
-  border: 1px solid var(--border-subtle);
-  background: none;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  transition: background 150ms, color 150ms, border-color 150ms;
-}
-.hiw-auto-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-secondary); }
-.hiw-auto-btn--on { background: rgba(200,168,75,0.1); border-color: rgba(200,168,75,0.4); color: var(--accent); }
-.hiw-auto-desc {
-  font-size: 0.6rem;
-  color: var(--text-tertiary);
-  line-height: 1.55;
-  margin-top: 5px;
-  font-style: italic;
-}
-.hiw-stack-note {
-  text-align: center;
-  font-size: 0.72rem;
-  color: var(--text-tertiary);
-  font-style: italic;
-  margin-top: var(--space-24);
-  padding: 8px 16px;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  display: inline-block;
-}
+.proc-right { padding: var(--space-20); background: var(--bg-surface); display: flex; flex-direction: column; gap: 8px; }
+.proc-eyebrow { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-8); }
+.proc-title { font-family: var(--font-display); font-size: clamp(1.4rem,2.5vw,1.8rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text-primary); margin-bottom: var(--space-12); }
+.proc-desc { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-16); max-width: 340px; }
+.proc-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--space-20); }
+.proc-tool { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border: 1px solid var(--border-subtle); border-radius: 100px; background: var(--bg-surface); font-size: 0.72rem; font-weight: 500; color: var(--text-secondary); transition: border-color 220ms, color 220ms; }
+.proc-tool:hover { border-color: var(--border-default); color: var(--text-primary); }
+.proc-outputs { margin-top: auto; }
+.proc-out-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: var(--space-8); }
+.proc-out-item { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text-secondary); padding: 3px 0; }
+.proc-out-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.proc-vis-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 4px; }
+.proc-mini-chrome { background: var(--bg-raised); border: 1px solid var(--border-subtle); border-radius: 6px; overflow: hidden; }
+.proc-chrome-bar { height: 18px; background: #060606; display: flex; align-items: center; padding: 0 6px; gap: 3px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.proc-chrome-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+.proc-chrome-url { flex: 1; margin: 0 5px; font-size: 0.46rem; color: var(--text-tertiary); font-family: 'DM Mono', monospace; }
+.proc-chrome-body { padding: 8px; position: relative; }
+.proc-user-tag { position: absolute; top: 5px; right: 6px; display: flex; align-items: center; gap: 3px; padding: 2px 6px; background: rgba(74,163,212,0.12); border: 0.5px solid rgba(74,163,212,0.3); border-radius: 100px; font-size: 0.46rem; font-weight: 600; color: #4aa3d4; z-index: 5; }
+.proc-user-dot { width: 4px; height: 4px; border-radius: 50%; background: #4aa3d4; }
+.proc-wf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-bottom: 6px; }
+.proc-wf-card { padding: 5px; border: 0.5px solid var(--border-subtle); border-radius: 4px; background: var(--bg-surface); }
+.proc-wf-card--sel { border-color: rgba(74,163,212,0.3); background: rgba(74,163,212,0.06); }
+.proc-wf-card--drop { border-color: rgba(224,92,74,0.3); background: rgba(224,92,74,0.06); }
+.proc-wf-row { height: 4px; background: rgba(255,255,255,0.08); border-radius: 1px; margin-bottom: 3px; width: 100%; }
+.proc-wf-row--acc { background: rgba(74,163,212,0.3); }
+.proc-wf-row--err { background: rgba(224,92,74,0.3); }
+.proc-demo-cursor { position: absolute; pointer-events: none; z-index: 20; display: flex; align-items: flex-start; gap: 3px; left: 30%; top: 60%; }
+.proc-cursor-label { font-size: 0.44rem; font-weight: 600; background: #4aa3d4; color: #fff; padding: 1px 4px; border-radius: 2px; margin-top: 9px; white-space: nowrap; }
+.proc-cursor-emoji { font-size: 11px; margin-top: 7px; opacity: 0; transition: opacity 150ms; line-height: 1; }
+.proc-cursor-emoji.show { opacity: 1; animation: cursorBounce 500ms cubic-bezier(0.34,1.56,0.64,1) forwards; }
+@keyframes cursorBounce { 0%{transform:translateY(0) scale(1)} 35%{transform:translateY(-6px) scale(1.2)} 65%{transform:translateY(-2px) scale(1.05)} 100%{transform:translateY(0) scale(1)} }
+.proc-pain-badge { position: absolute; bottom: 100%; left: 0; margin-bottom: 4px; white-space: nowrap; font-size: 0.5rem; font-weight: 600; padding: 2px 7px; background: var(--bg-surface); border: 1px solid rgba(224,92,74,0.4); border-radius: 100px; color: #e05c4a; display: flex; align-items: center; gap: 3px; opacity: 0; transform: translateY(4px); transition: opacity 200ms, transform 200ms; }
+.proc-pain-badge.show { opacity: 1; transform: translateY(0); }
+.proc-pain-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; animation: ldot 1s ease-in-out infinite; }
+.proc-event-stream { display: flex; flex-direction: column; gap: 2px; }
+.proc-es-row { display: flex; align-items: center; gap: 5px; padding: 3px 6px; background: var(--bg-raised); border: 0.5px solid var(--border-subtle); border-radius: 4px; font-size: 0.52rem; opacity: 0; transform: translateX(-4px); transition: all 220ms; }
+.proc-es-row.in { opacity: 1; transform: translateX(0); }
+.proc-es-row--hot { background: rgba(224,92,74,0.06); border-color: rgba(224,92,74,0.2); }
+.proc-es-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.proc-es-name { font-family: 'DM Mono', monospace; flex: 1; color: var(--text-secondary); font-size: 0.48rem; }
+.proc-es-row--hot .proc-es-name { color: #e05c4a; }
+.proc-es-tag { font-size: 0.44rem; font-family: 'DM Mono', monospace; }
+.proc-funnel { margin-top: 4px; }
+.proc-fn-row { display: grid; grid-template-columns: 48px 1fr 32px; align-items: center; gap: 5px; margin-bottom: 3px; }
+.proc-fn-name { font-size: 0.52rem; color: var(--text-secondary); text-align: right; }
+.proc-fn-track { height: 10px; background: var(--bg-surface); border-radius: 2px; overflow: hidden; border: 0.5px solid var(--border-subtle); }
+.proc-fn-fill { height: 100%; border-radius: 2px; width: 0; transition: width 750ms ease; }
+.proc-fn-pct { font-size: 0.48rem; font-family: 'DM Mono', monospace; color: var(--text-tertiary); text-align: right; }
+.proc-fn-pct--drop { color: #e05c4a; font-weight: 600; }
+.proc-drop-note { margin-top: 5px; padding: 3px 7px; background: rgba(224,92,74,0.07); border: 0.5px solid rgba(224,92,74,0.2); border-radius: 4px; font-size: 0.52rem; color: #e05c4a; display: flex; align-items: center; gap: 4px; opacity: 0; transition: opacity 300ms; }
+.proc-drop-note.show { opacity: 1; }
+.proc-signal-ctx { padding: 4px 8px; background: rgba(224,92,74,0.06); border: 0.5px solid rgba(224,92,74,0.2); border-radius: 4px; font-size: 0.58rem; color: #e05c4a; display: flex; align-items: center; gap: 5px; }
+.proc-res-cards { display: flex; gap: 6px; }
+.proc-res-card { flex: 1; padding: 8px; border: 0.5px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-raised); }
+.proc-res-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+.proc-res-title { font-size: 0.68rem; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.proc-res-sub { font-size: 0.58rem; color: var(--text-tertiary); line-height: 1.4; }
+.proc-pendo-exp { padding: 7px 8px; background: rgba(255,71,133,0.05); border: 0.5px solid rgba(255,71,133,0.2); border-radius: var(--radius-md); }
+.proc-pendo-head { display: flex; align-items: center; gap: 5px; font-size: 0.6rem; font-weight: 600; color: rgba(255,71,133,0.9); margin-bottom: 3px; }
+.proc-pendo-body { font-size: 0.62rem; color: var(--text-secondary); line-height: 1.5; }
+.proc-pendo-body code { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--text-secondary); background: var(--bg-surface); padding: 0 3px; border-radius: 2px; }
+.proc-save-note { padding: 4px 8px; font-size: 0.58rem; color: var(--text-tertiary); font-family: 'DM Mono', monospace; background: var(--bg-raised); border: 0.5px solid var(--border-subtle); border-radius: 4px; display: flex; align-items: center; gap: 5px; }
+.proc-terminal { background: #050505; border: 0.5px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 10px; font-family: 'DM Mono', monospace; font-size: 0.6rem; line-height: 1.9; }
+.proc-tl { display: block; }
+.ptl-g { color: #22c55e; } .ptl-a { color: #c8a84b; } .ptl-b { color: #4aa3d4; } .ptl-d { color: #444; }
+.proc-clusters { display: flex; flex-direction: column; gap: 4px; }
+.proc-cluster { padding: 6px 8px; border-radius: var(--radius-md); }
+.proc-cluster--design { background: rgba(224,92,74,0.06); border: 0.5px solid rgba(224,92,74,0.2); }
+.proc-cluster--product { background: rgba(74,163,212,0.06); border: 0.5px solid rgba(74,163,212,0.2); }
+.proc-cluster--discard { background: var(--bg-surface); border: 0.5px solid var(--border-subtle); }
+.proc-cluster-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px; }
+.proc-cluster--design .proc-cluster-label { color: #e05c4a; }
+.proc-cluster--product .proc-cluster-label { color: #4aa3d4; }
+.proc-cluster--discard .proc-cluster-label { color: var(--text-tertiary); }
+.proc-cluster-item { font-size: 0.64rem; color: var(--text-secondary); padding: 1px 0; }
+.proc-supervised-note { font-size: 0.6rem; color: var(--text-tertiary); font-style: italic; font-family: 'DM Mono', monospace; }
+.proc-out-paths { display: flex; flex-direction: column; gap: 6px; }
+.proc-out-path { padding: 8px 10px; border: 0.5px solid var(--border-subtle); border-radius: 0 var(--radius-md) var(--radius-md) 0; background: var(--bg-raised); border-left: 2px solid var(--pc, var(--border-subtle)); }
+.proc-out-path-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px; }
+.proc-out-path-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.proc-out-path-body { font-size: 0.68rem; color: var(--text-secondary); margin-bottom: 4px; }
+.proc-out-path-tag { display: inline-block; font-size: 0.54rem; font-weight: 500; padding: 1px 6px; border-radius: 100px; }
+.proc-sys-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 4px; }
+.proc-sys-node { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border: 0.5px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-raised); }
+.proc-sys-icon { width: 24px; height: 24px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.proc-sys-name { font-size: 0.72rem; font-weight: 600; color: var(--text-primary); }
+.proc-sys-sub { font-size: 0.6rem; color: var(--text-tertiary); }
+.proc-sys-arrow { text-align: center; font-size: 0.8rem; color: var(--text-tertiary); margin: 2px 0; }
+.proc-adapt-note { padding: 6px 10px; margin-top: 4px; background: var(--bg-surface); border: 0.5px solid var(--border-subtle); border-radius: var(--radius-md); font-size: 0.68rem; color: var(--text-tertiary); font-style: italic; text-align: center; }
+.proc-stack-note { text-align: center; font-size: 0.76rem; color: var(--text-tertiary); font-style: italic; margin-top: var(--space-24); padding: 10px 20px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); max-width: 480px; margin-left: auto; margin-right: auto; }
 @media (max-width: 768px) {
-  .hiw-layout { grid-template-columns: 1fr; }
-  .hiw-screen-wrap { position: static; }
-  .hiw-tabs {
-    border-left: none;
-    border-top: 1px solid var(--border-subtle);
-    flex-direction: row;
-    overflow-x: auto;
-  }
-  .hiw-tab {
-    border-left: none;
-    border-top: 2px solid transparent;
-    margin-left: 0;
-    margin-top: -1px;
-    min-width: 120px;
-  }
-  .hiw-tab--active {
-    border-top-color: var(--accent);
-    border-left-color: transparent;
-    background: rgba(200,168,75,0.04);
-  }
+  .proc-content-split { grid-template-columns: 1fr; }
+  .proc-right { border-top: 1px solid var(--border-subtle); }
+  .proc-left { border-right: none; }
+  .proc-step-label { display: none; }
+  .proc-step { padding: 10px 12px; }
 }
+@keyframes ldot { 0%,100%{opacity:1} 50%{opacity:0.3} }
 @keyframes tblink { 0%,100%{opacity:1} 50%{opacity:0} }
   </style>
 </head>
@@ -890,136 +729,273 @@ body::before {
 
             <div class="divider"></div>
 
-<section class="hiw-section" id="how-i-work" aria-label="How I work">
+<section class="project-section proc-section" id="how-i-work">
   <div class="section-eyebrow">How I Work</div>
-  <h2 class="hiw-title">From signal to shipped &mdash; <em>one loop.</em></h2>
-  <div class="hiw-layout">
-    <div class="hiw-tabs" role="tablist" aria-label="Work moments">
-      <button class="hiw-tab hiw-tab--active" role="tab" aria-selected="true" aria-controls="hiw-panel-0" id="hiw-tab-0" onclick="hiwGo(0)">
-        <span class="hiw-tab-num">01</span>
-        <div class="hiw-tab-info">
-          <span class="hiw-tab-label">Signal</span>
-          <span class="hiw-tab-sub">Behavioral data from the live product</span>
+  <h2 class="project-section-title" style="font-family:var(--font-display);max-width:520px;margin-bottom:var(--space-32)">
+    From signal to shipped — <em>one loop.</em>
+  </h2>
+  <div class="proc-nav" role="tablist" aria-label="Process steps">
+    <button class="proc-step proc-step--active" role="tab" aria-selected="true" aria-controls="proc-p0" onclick="procGo(0,this)">
+      <div class="proc-step-num">01</div>
+      <div class="proc-step-label">Signal</div>
+    </button>
+    <div class="proc-sep" aria-hidden="true"></div>
+    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p1" onclick="procGo(1,this)">
+      <div class="proc-step-num">02</div>
+      <div class="proc-step-label">Understand</div>
+    </button>
+    <div class="proc-sep" aria-hidden="true"></div>
+    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p2" onclick="procGo(2,this)">
+      <div class="proc-step-num">03</div>
+      <div class="proc-step-label">Synthesize</div>
+    </button>
+    <div class="proc-sep" aria-hidden="true"></div>
+    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p3" onclick="procGo(3,this)">
+      <div class="proc-step-num">04</div>
+      <div class="proc-step-label">Act</div>
+    </button>
+    <div class="proc-sep" aria-hidden="true"></div>
+    <button class="proc-step" role="tab" aria-selected="false" aria-controls="proc-p4" onclick="procGo(4,this)">
+      <div class="proc-step-num">05</div>
+      <div class="proc-step-label">Connect</div>
+    </button>
+  </div>
+  <div class="proc-panels">
+    <!-- 01 SIGNAL -->
+    <div class="proc-panel proc-panel--active" id="proc-p0" role="tabpanel">
+      <div class="proc-content-split">
+        <div class="proc-left">
+          <div class="proc-eyebrow">01 · Signal</div>
+          <h3 class="proc-title">Instrument &amp;<br>capture behavior</h3>
+          <p class="proc-desc">I define what to track and why — coordinating with dev to tag existing components. Every click, funnel step, session replay, in-app experiment, and NPS response gets named and captured.</p>
+          <div class="proc-tools">
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>Pendo</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20h18M7 14v6M12 10v10M17 6v14"/></svg>GA4</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Mixpanel</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Session replay</span>
+          </div>
+          <div class="proc-outputs">
+            <div class="proc-out-label">Output</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#639922"></div>Drop-off reports · funnel data</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#378ADD"></div>Feature adoption maps</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#BA7517"></div>A/B experiment results</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>In-app feedback · NPS · walkthroughs</div>
+          </div>
         </div>
-      </button>
-      <button class="hiw-tab" role="tab" aria-selected="false" aria-controls="hiw-panel-1" id="hiw-tab-1" onclick="hiwGo(1)">
-        <span class="hiw-tab-num">02</span>
-        <div class="hiw-tab-info">
-          <span class="hiw-tab-label">Understand</span>
-          <span class="hiw-tab-sub">Research triggered by real signals</span>
+        <div class="proc-right" id="proc-vis-0">
+          <div class="proc-vis-label">Live capture — user session</div>
+          <div class="proc-mini-chrome">
+            <div class="proc-chrome-bar">
+              <div class="proc-chrome-dot"></div><div class="proc-chrome-dot"></div><div class="proc-chrome-dot"></div>
+              <div class="proc-chrome-url">platform.app / features</div>
+            </div>
+            <div class="proc-chrome-body">
+              <div class="proc-user-tag"><div class="proc-user-dot"></div>user — web app</div>
+              <div class="proc-wf-grid">
+                <div class="proc-wf-card" id="sig-c0"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:70%"></div></div>
+                <div class="proc-wf-card proc-wf-card--sel" id="sig-c1"><div class="proc-wf-row proc-wf-row--acc"></div><div class="proc-wf-row proc-wf-row--acc" style="width:65%"></div></div>
+                <div class="proc-wf-card" id="sig-c2"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:60%"></div></div>
+                <div class="proc-wf-card proc-wf-card--drop" id="sig-c3"><div class="proc-wf-row proc-wf-row--err"></div><div style="font-size:7px;color:#e05c4a;margin-top:2px">⚠ abandoned</div></div>
+              </div>
+              <div class="proc-demo-cursor" id="proc-cursor">
+                <svg width="10" height="13" viewBox="0 0 10 13" fill="none"><path d="M0 0l3.8 13 2.4-4.3L10 7 0 0z" fill="#4aa3d4"/><path d="M0 0l3.8 13 2.4-4.3L10 7 0 0z" stroke="white" stroke-width="0.5"/></svg>
+                <div class="proc-cursor-label">user</div>
+                <div class="proc-cursor-emoji" id="proc-emoji">😤</div>
+                <div class="proc-pain-badge" id="proc-pain"><div class="proc-pain-dot"></div>Pain point detected</div>
+              </div>
+            </div>
+          </div>
+          <div class="proc-event-stream">
+            <div class="proc-es-row" id="sig-ev0"><div class="proc-es-dot" style="background:#378ADD"></div><div class="proc-es-name">page_view</div><div class="proc-es-tag" style="color:#378ADD">NAV</div></div>
+            <div class="proc-es-row" id="sig-ev1"><div class="proc-es-dot" style="background:#639922"></div><div class="proc-es-name">feature_configure_click</div><div class="proc-es-tag" style="color:#639922">ACT</div></div>
+            <div class="proc-es-row proc-es-row--hot" id="sig-ev2"><div class="proc-es-dot" style="background:#e05c4a"></div><div class="proc-es-name">setup_abandoned</div><div class="proc-es-tag" style="color:#e05c4a">DROP</div></div>
+          </div>
+          <div class="proc-funnel" id="sig-funnel">
+            <div class="proc-fn-row"><div class="proc-fn-name">Visit</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb0" style="background:#639922"></div></div><div class="proc-fn-pct" id="sig-fp0">—</div></div>
+            <div class="proc-fn-row"><div class="proc-fn-name">Config</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb1" style="background:#BA7517"></div></div><div class="proc-fn-pct" id="sig-fp1">—</div></div>
+            <div class="proc-fn-row"><div class="proc-fn-name">Done</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb2" style="background:#e05c4a"></div></div><div class="proc-fn-pct proc-fn-pct--drop" id="sig-fp2">—</div></div>
+            <div class="proc-drop-note" id="sig-drop">68% drop-off at config → research triggered</div>
+          </div>
         </div>
-      </button>
-      <button class="hiw-tab" role="tab" aria-selected="false" aria-controls="hiw-panel-2" id="hiw-tab-2" onclick="hiwGo(2)">
-        <span class="hiw-tab-num">03</span>
-        <div class="hiw-tab-info">
-          <span class="hiw-tab-label">Synthesize</span>
-          <span class="hiw-tab-sub">AI-assisted, always supervised</span>
-        </div>
-      </button>
-      <button class="hiw-tab" role="tab" aria-selected="false" aria-controls="hiw-panel-3" id="hiw-tab-3" onclick="hiwGo(3)">
-        <span class="hiw-tab-num">04</span>
-        <div class="hiw-tab-info">
-          <span class="hiw-tab-label">Act</span>
-          <span class="hiw-tab-sub">Design, ticket, guide &mdash; or automate</span>
-        </div>
-      </button>
-    </div>
-    <div class="hiw-screen-wrap" aria-live="polite">
-      <div class="hiw-chrome">
-        <span class="hiw-chrome-dot"></span><span class="hiw-chrome-dot"></span><span class="hiw-chrome-dot"></span>
-        <span class="hiw-chrome-url" id="hiw-url">platform.app / analytics</span>
       </div>
-      <div class="hiw-screen-body">
-        <!-- Panel 0: Signal -->
-        <div class="hiw-panel hiw-panel--active" id="hiw-panel-0" role="tabpanel" aria-labelledby="hiw-tab-0">
-          <div class="hiw-panel-label">Live event stream</div>
-          <div class="hiw-signal-area" id="hiw-signal-area">
-            <div class="hiw-demo-cursor" id="hiw-cursor">
-              <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M2 2l10 4.5-4 1.5-1.5 4L2 2z" fill="#4aa3d4" stroke="#0a1a2a" stroke-width="0.8"/></svg>
-              <span class="hiw-cursor-label">demo user</span>
-            </div>
-            <div class="hiw-app-grid">
-              <div class="hiw-app-card" id="hac0">Onboarding</div>
-              <div class="hiw-app-card" id="hac1">Feature A</div>
-              <div class="hiw-app-card" id="hac2">Reports</div>
-              <div class="hiw-app-card" id="hac3">Settings</div>
-            </div>
-            <div class="hiw-evt-badge" id="hiw-evt">setup_wizard_click &middot; ACT</div>
+    </div>
+    <!-- 02 UNDERSTAND -->
+    <div class="proc-panel" id="proc-p1" role="tabpanel">
+      <div class="proc-content-split">
+        <div class="proc-left">
+          <div class="proc-eyebrow">02 · Understand</div>
+          <h3 class="proc-title">Research triggered<br>by the signal</h3>
+          <p class="proc-desc">Analytics tell me where. Research tells me why. I choose the method based on what the data shows — not a scheduled sprint.</p>
+          <div class="proc-tools">
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l-4 4L5 8"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Teams · Zoom</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#7c3aed"/><line x1="12" y1="5" x2="12" y2="19" stroke="white" stroke-width="2.5"/><line x1="5" y1="12" x2="19" y2="12" stroke="white" stroke-width="2.5"/></svg>Maze</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg>Qualtrics</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 23 23"><rect x="0" y="0" width="10" height="10" fill="#F25022"/><rect x="12" y="0" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>Dynamics 365</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>Pendo surveys</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Optimal · Useberry</span>
           </div>
-          <div class="hiw-funnel" id="hiw-funnel">
-            <div class="hiw-funnel-bar" style="--fw:100%;--fc:rgba(74,163,212,0.55)"><span class="hiw-fb-label">Step 1</span><span class="hiw-fb-cnt">3,201</span></div>
-            <div class="hiw-funnel-bar" style="--fw:62%;--fc:rgba(200,168,75,0.5)"><span class="hiw-fb-label">Step 2</span><span class="hiw-fb-cnt">1,984</span></div>
-            <div class="hiw-funnel-bar" style="--fw:29%;--fc:rgba(224,92,74,0.55)"><span class="hiw-fb-label">Step 3 &darr;</span><span class="hiw-fb-cnt">941</span></div>
-          </div>
-        </div>
-        <!-- Panel 1: Understand -->
-        <div class="hiw-panel" id="hiw-panel-1" role="tabpanel" aria-labelledby="hiw-tab-1">
-          <div class="hiw-panel-label">Research outputs</div>
-          <div class="hiw-rcards" id="hiw-rcards">
-            <div class="hiw-rcard" style="--rc:rgba(155,108,255,0.1);--rb:rgba(155,108,255,0.25)">
-              <div class="hiw-rcard-label">Interview &middot; 6 users</div>
-              <div class="hiw-rcard-finding">&ldquo;I didn&rsquo;t realize step 3 was required&rdquo;</div>
-            </div>
-            <div class="hiw-rcard" style="--rc:rgba(74,163,212,0.08);--rb:rgba(74,163,212,0.22)">
-              <div class="hiw-rcard-label">NPS &middot; Pendo survey</div>
-              <div class="hiw-rcard-finding">Ease of setup: 2.3 / 5</div>
-            </div>
-            <div class="hiw-rcard" style="--rc:rgba(34,197,94,0.07);--rb:rgba(34,197,94,0.2)">
-              <div class="hiw-rcard-label">Usability test &middot; Maze</div>
-              <div class="hiw-rcard-finding">Task success: 41% &middot; 3 critical paths found</div>
-            </div>
+          <div class="proc-outputs">
+            <div class="proc-out-label">Output</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#7c3aed"></div>Pain points · frustrations</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#1D4ED8"></div>Jobs to be done</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#639922"></div>Mental models · behavioral patterns</div>
           </div>
         </div>
-        <!-- Panel 2: Synthesize -->
-        <div class="hiw-panel" id="hiw-panel-2" role="tabpanel" aria-labelledby="hiw-tab-2">
-          <div class="hiw-panel-label">AI cluster &middot; supervised</div>
-          <div class="hiw-clusters" id="hiw-clusters">
-            <div class="hiw-cluster" style="--cc:rgba(212,83,126,0.08);--cb:rgba(212,83,126,0.2)">
-              <div class="hiw-cluster-label">Design</div>
-              <div class="hiw-cluster-items" id="hcc-design"></div>
+        <div class="proc-right">
+          <div class="proc-vis-label">Methods — signal-driven</div>
+          <div class="proc-signal-ctx"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>68% drop-off at config → research triggered</div>
+          <div class="proc-res-cards">
+            <div class="proc-res-card" style="--rc:#7c3aed">
+              <div class="proc-res-icon" style="background:rgba(124,58,237,0.12)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+              <div class="proc-res-title">Interviews</div>
+              <div class="proc-res-sub">Teams · Zoom · recorded + transcribed</div>
             </div>
-            <div class="hiw-cluster" style="--cc:rgba(74,163,212,0.08);--cb:rgba(74,163,212,0.2)">
-              <div class="hiw-cluster-label">Product</div>
-              <div class="hiw-cluster-items" id="hcc-product"></div>
+            <div class="proc-res-card" style="--rc:#1D4ED8">
+              <div class="proc-res-icon" style="background:rgba(29,78,216,0.12)"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg></div>
+              <div class="proc-res-title">Surveys</div>
+              <div class="proc-res-sub">Qualtrics · Dynamics · Pendo</div>
             </div>
-            <div class="hiw-cluster" style="--cc:rgba(160,160,160,0.04);--cb:rgba(160,160,160,0.12)">
-              <div class="hiw-cluster-label">Discard</div>
-              <div class="hiw-cluster-items" id="hcc-discard"></div>
+            <div class="proc-res-card" style="--rc:#7c3aed">
+              <div class="proc-res-icon" style="background:rgba(124,58,237,0.12)"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#7c3aed"/><line x1="12" y1="5" x2="12" y2="19" stroke="white" stroke-width="2.5"/><line x1="5" y1="12" x2="19" y2="12" stroke="white" stroke-width="2.5"/></svg></div>
+              <div class="proc-res-title">Tests</div>
+              <div class="proc-res-sub">Maze · Optimal · Useberry</div>
             </div>
           </div>
-          <div class="hiw-ai-badge">
-            <span class="hiw-ai-dot"></span>Claude &middot; supervised
+          <div class="proc-pendo-exp">
+            <div class="proc-pendo-head"><svg width="10" height="10" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>Pendo in-app experiment — no code</div>
+            <div class="proc-pendo-body">NPS modal triggered after <code>setup_abandoned</code> · deployed in minutes · low-code</div>
+          </div>
+          <div class="proc-save-note"><span style="color:#22c55e;font-weight:600">✓</span>/research/config-friction/ → source of truth</div>
+        </div>
+      </div>
+    </div>
+    <!-- 03 SYNTHESIZE -->
+    <div class="proc-panel" id="proc-p2" role="tabpanel">
+      <div class="proc-content-split">
+        <div class="proc-left">
+          <div class="proc-eyebrow">03 · Synthesize</div>
+          <h3 class="proc-title">AI-assisted<br>pattern finding</h3>
+          <p class="proc-desc">Analytics and research meet in a source of truth. An LLM clusters, categorizes, and finds patterns. I supervise every step. Output: actionable insights in three buckets.</p>
+          <div class="proc-tools">
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.9)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Claude</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 23 23"><rect x="0" y="0" width="10" height="10" fill="#F25022"/><rect x="12" y="0" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>Copilot Studio</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>SharePoint · Drive</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Power BI</span>
+          </div>
+          <div class="proc-outputs">
+            <div class="proc-out-label">Output</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#e05c4a"></div>Design items — friction, conversion, adoption</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#378ADD"></div>Product items — bugs, performance, content</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#888"></div>Discarded — low signal, duplicates</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Reports · presentations · insight decks</div>
           </div>
         </div>
-        <!-- Panel 3: Act -->
-        <div class="hiw-panel" id="hiw-panel-3" role="tabpanel" aria-labelledby="hiw-tab-3">
-          <div class="hiw-panel-label">Output paths</div>
-          <div class="hiw-act-outputs" id="hiw-act-outputs">
-            <div class="hiw-act-card">
-              <svg width="13" height="13" viewBox="0 0 38 57" fill="none"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
-              Figma proposal + evidence
+        <div class="proc-right">
+          <div class="proc-vis-label">Processing — supervised</div>
+          <div class="proc-terminal" id="proc-term">
+            <div class="proc-tl"><span class="ptl-g">→</span> Reading /research/config-friction/ (8 files)</div>
+            <div class="proc-tl"><span class="ptl-d">  interviews/ ✓ · surveys/ ✓ · analytics/ ✓</span></div>
+            <div class="proc-tl"><span class="ptl-g">→</span> Skills: ux-synthesis-framework</div>
+            <div class="proc-tl"><span class="ptl-a">→</span> Clustering findings...</div>
+            <div class="proc-tl"><span class="ptl-g">✓</span> Patterns identified · relations mapped</div>
+            <div class="proc-tl"><span class="ptl-b">→</span> Saving /insights/config-friction/ ✓</div>
+          </div>
+          <div class="proc-clusters">
+            <div class="proc-cluster proc-cluster--design"><div class="proc-cluster-label">Design · ×3</div><div class="proc-cluster-item">Config form — too many required fields</div><div class="proc-cluster-item">Price change unexplained · trust issue</div><div class="proc-cluster-item">Progress indicator missing</div></div>
+            <div class="proc-cluster proc-cluster--product"><div class="proc-cluster-label">Product · ×1</div><div class="proc-cluster-item">Timeout on mobile — backend issue</div></div>
+            <div class="proc-cluster proc-cluster--discard"><div class="proc-cluster-label">Discard · ×2</div><div class="proc-cluster-item" style="opacity:0.5">Duplicate signals · low confidence</div></div>
+          </div>
+          <div class="proc-supervised-note">Supervised by Federico at every step</div>
+        </div>
+      </div>
+    </div>
+    <!-- 04 ACT -->
+    <div class="proc-panel" id="proc-p3" role="tabpanel">
+      <div class="proc-content-split">
+        <div class="proc-left">
+          <div class="proc-eyebrow">04 · Act</div>
+          <h3 class="proc-title">From insight to<br>something concrete</h3>
+          <p class="proc-desc">Reports and insights become material for four areas — always with behavioral evidence attached. Your team prioritizes. I make sure there's always something to act on.</p>
+          <div class="proc-tools">
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 38 57" fill="none"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>Figma · Make</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(74,163,212,0.9)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M14 17.5h7M17.5 14v7"/></svg>Jira · ADO · Linear</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>v0 · Claude Code</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>Pendo guide</span>
+          </div>
+          <div class="proc-outputs">
+            <div class="proc-out-label">Four paths</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#9b6cff"></div>Design — Figma DS-connected · prototype · code</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#4aa3d4"></div>Product — tickets · user stories · bugs</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>Low-code — Pendo guide · no dev needed</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Marketing — copy · content · campaigns</div>
+          </div>
+        </div>
+        <div class="proc-right">
+          <div class="proc-vis-label">Delivery — evidence attached</div>
+          <div class="proc-out-paths">
+            <div class="proc-out-path" style="--pc:rgba(155,108,255,0.2)">
+              <div class="proc-out-path-head"><span class="proc-out-path-label" style="color:#9b6cff">Figma</span><svg width="12" height="12" viewBox="0 0 38 57" fill="none"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg></div>
+              <div class="proc-out-path-body">config-form-v2 · DS-connected · evidence on every frame</div>
+              <span class="proc-out-path-tag" style="background:rgba(155,108,255,0.1);color:#9b6cff">Manual · Figma AI · Make</span>
             </div>
-            <div class="hiw-act-card">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(74,163,212,0.9)" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M14 17.5h7M17.5 14v7"/></svg>
-              Ticket with data attached
+            <div class="proc-out-path" style="--pc:rgba(74,163,212,0.2)">
+              <div class="proc-out-path-head"><span class="proc-out-path-label" style="color:#4aa3d4">ADO · UX-089</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M14 17.5h7M17.5 14v7"/></svg></div>
+              <div class="proc-out-path-body">Reduce config drop-off · 68% abandon · survey 2.3/5 · Priority: High</div>
+              <span class="proc-out-path-tag" style="background:rgba(74,163,212,0.1);color:#4aa3d4">Behavioral evidence attached</span>
             </div>
-            <div class="hiw-act-card">
-              <svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>
-              Pendo guide &middot; no code
+            <div class="proc-out-path" style="--pc:rgba(255,71,133,0.2)">
+              <div class="proc-out-path-head"><span class="proc-out-path-label" style="color:#FF4785">Pendo guide</span><svg width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg></div>
+              <div class="proc-out-path-body">"Need help?" triggered at config_started · no code · live</div>
+              <span class="proc-out-path-tag" style="background:rgba(255,71,133,0.1);color:#FF4785">Measuring → loop restarts</span>
             </div>
           </div>
-          <div class="hiw-auto-row">
-            <span class="hiw-auto-label">Automation:</span>
-            <button class="hiw-auto-btn hiw-auto-btn--on" id="hiw-auto-manual" onclick="hiwToggleAuto('manual',event)">Manual</button>
-            <button class="hiw-auto-btn" id="hiw-auto-assisted" onclick="hiwToggleAuto('assisted',event)">AI-assisted</button>
-            <button class="hiw-auto-btn" id="hiw-auto-automated" onclick="hiwToggleAuto('automated',event)">Automated</button>
+        </div>
+      </div>
+    </div>
+    <!-- 05 CONNECT -->
+    <div class="proc-panel" id="proc-p4" role="tabpanel">
+      <div class="proc-content-split">
+        <div class="proc-left">
+          <div class="proc-eyebrow">05 · Connect</div>
+          <h3 class="proc-title">One source of truth.<br>Everything reads from it.</h3>
+          <p class="proc-desc">Everything feeds a central repository — analytics, transcripts, research, insights, designs. LLMs read those files directly. No uploads, no context loss. Adapts to your stack.</p>
+          <div class="proc-tools">
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.9)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Claude · Cowork</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 23 23"><rect x="0" y="0" width="10" height="10" fill="#F25022"/><rect x="12" y="0" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>Copilot + SharePoint</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Claude Code · GitHub</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Power Automate · n8n</span>
           </div>
-          <div class="hiw-auto-desc" id="hiw-auto-desc">Figma + manual prompts &rarr; Claude chat &rarr; Claude Code &rarr; GitHub PR.</div>
+          <div class="proc-outputs">
+            <div class="proc-out-label">The result</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#c8a84b"></div>No context lost between sessions</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Every tool reads from the same source</div>
+            <div class="proc-out-item"><div class="proc-out-dot" style="background:#4aa3d4"></div>Manual, hybrid AI, or fully automated</div>
+          </div>
+        </div>
+        <div class="proc-right">
+          <div class="proc-vis-label">Your stack — two examples</div>
+          <div class="proc-sys-label">Enterprise (EY-style)</div>
+          <div class="proc-sys-node">
+            <div class="proc-sys-icon" style="background:rgba(0,164,239,0.1)"><svg width="12" height="12" viewBox="0 0 23 23"><rect x="0" y="0" width="10" height="10" fill="#F25022"/><rect x="12" y="0" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg></div>
+            <div><div class="proc-sys-name">Copilot + SharePoint</div><div class="proc-sys-sub">Pendo → SharePoint → Copilot reads → Power Automate delivers</div></div>
+          </div>
+          <div class="proc-sys-arrow">↓</div>
+          <div class="proc-sys-label" style="margin-top:6px">Technical (this portfolio)</div>
+          <div class="proc-sys-node">
+            <div class="proc-sys-icon" style="background:rgba(200,168,75,0.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.9)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
+            <div><div class="proc-sys-name">Claude + Claude Code + GitHub</div><div class="proc-sys-sub">Claude chat → Claude Code → PR → GitHub Pages</div></div>
+          </div>
+          <div class="proc-sys-arrow">↓</div>
+          <div class="proc-sys-node" style="border-color:rgba(200,168,75,0.25);background:rgba(200,168,75,0.04)">
+            <div class="proc-sys-icon" style="background:rgba(200,168,75,0.1)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.9)" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+            <div><div class="proc-sys-name" style="color:rgba(200,168,75,0.9)">/analytics · /research · /insights · /designs</div><div class="proc-sys-sub">Single source of truth — LLMs read, humans decide</div></div>
+          </div>
+          <div class="proc-adapt-note">I can work in any of these layers — or all of them</div>
         </div>
       </div>
     </div>
   </div>
-  <p class="hiw-stack-note">I adapt to your stack &mdash; not the other way around.</p>
+  <p class="proc-stack-note">I adapt to your stack — not the other way around. Manual, AI-assisted, or automated.</p>
 </section>
 
             <!-- PULL QUOTE 2 -->
@@ -1300,109 +1276,6 @@ function initPQCanvas(meshId, loopId) {
 initPQCanvas('pq-mesh-0','pq-loop-0');
 initPQCanvas('pq-mesh-1','pq-loop-1');
 initPQCanvas('pq-mesh-2','pq-loop-2');
-/* ── HIW narrative carousel ── */
-var hiwCurrent = 0;
-var hiwAutoTimer = null;
-var HIW_URLS = [
-  'platform.app / analytics',
-  'research.app / findings',
-  'synthesis.app / insights',
-  'figma.com / designs'
-];
-var HIW_CLUSTER_ITEMS = {
-  design: ['Split step 3','Add progress bar'],
-  product: ['Clarify required fields','Update copy'],
-  discard: ['Dark mode request']
-};
-var HIW_AUTO_MODES = {
-  manual: 'Figma + manual prompts \u2192 Claude chat \u2192 Claude Code \u2192 GitHub PR.',
-  assisted: 'Figma specs \u2192 AI-generated components \u2192 review \u2192 PR. Speed: 3\u00d7.',
-  automated: 'Analytics trigger \u2192 AI proposes fix \u2192 auto-PR. I review before merge.'
-};
-
-function _hiwGo(idx) {
-  hiwCurrent = idx;
-  document.querySelectorAll('.hiw-tab').forEach(function(t,i){
-    t.classList.toggle('hiw-tab--active', i===idx);
-    t.setAttribute('aria-selected', i===idx ? 'true' : 'false');
-  });
-  document.querySelectorAll('.hiw-panel').forEach(function(p,i){
-    p.classList.toggle('hiw-panel--active', i===idx);
-  });
-  var urlEl = document.getElementById('hiw-url');
-  if(urlEl) urlEl.textContent = HIW_URLS[idx];
-  [hiwAnimM0, hiwAnimM1, hiwAnimM2, hiwAnimM3][idx]();
-}
-window.hiwGo = function(idx) {
-  clearInterval(hiwAutoTimer);
-  _hiwGo(idx);
-  hiwAutoTimer = setInterval(function(){ _hiwGo((hiwCurrent+1)%4); }, 5000);
-};
-function hiwAnimM0() {
-  ['hac0','hac1','hac2','hac3'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el){ el.classList.remove('hiw-hovered','hiw-clicked'); }
-  });
-  var evt=document.getElementById('hiw-evt');
-  if(evt) evt.classList.remove('show');
-  var cur=document.getElementById('hiw-cursor');
-  var area=document.getElementById('hiw-signal-area');
-  function mv(px,py){
-    if(!area||!cur) return;
-    var W=area.offsetWidth, H=area.offsetHeight;
-    cur.style.left=(px/100*W)+'px'; cur.style.top=(py/100*H)+'px';
-  }
-  mv(25,25);
-  setTimeout(function(){ mv(35,55); var c=document.getElementById('hac0'); if(c) c.classList.add('hiw-hovered'); }, 500);
-  setTimeout(function(){ var c=document.getElementById('hac0'); if(c){ c.classList.remove('hiw-hovered'); c.classList.add('hiw-clicked'); } }, 900);
-  setTimeout(function(){ if(evt) evt.classList.add('show'); }, 1300);
-}
-function hiwAnimM1() {
-  document.querySelectorAll('.hiw-rcard').forEach(function(c,i){
-    c.classList.remove('show');
-    setTimeout(function(){ c.classList.add('show'); }, 150*i + 100);
-  });
-}
-function hiwAnimM2() {
-  var containers = {
-    design: document.getElementById('hcc-design'),
-    product: document.getElementById('hcc-product'),
-    discard: document.getElementById('hcc-discard')
-  };
-  Object.keys(containers).forEach(function(k){
-    var el = containers[k]; if(!el) return;
-    el.innerHTML = '';
-    (HIW_CLUSTER_ITEMS[k]||[]).forEach(function(txt, i){
-      var chip = document.createElement('div');
-      chip.className = 'hiw-cluster-chip';
-      chip.textContent = txt;
-      el.appendChild(chip);
-      setTimeout(function(){ chip.classList.add('show'); }, 200*i + 150);
-    });
-  });
-}
-function hiwAnimM3() {
-  document.querySelectorAll('.hiw-act-card').forEach(function(c,i){
-    c.classList.remove('show');
-    setTimeout(function(){ c.classList.add('show'); }, 150*i + 100);
-  });
-}
-window.hiwToggleAuto = function(mode, e) {
-  if(e) e.stopPropagation();
-  document.querySelectorAll('.hiw-auto-btn').forEach(function(b){ b.classList.remove('hiw-auto-btn--on'); });
-  var btn = document.getElementById('hiw-auto-'+mode);
-  if(btn) btn.classList.add('hiw-auto-btn--on');
-  var desc = document.getElementById('hiw-auto-desc');
-  if(desc) desc.textContent = HIW_AUTO_MODES[mode] || '';
-};
-/* Stop auto on manual tab click */
-document.querySelectorAll('.hiw-tab').forEach(function(t){
-  t.addEventListener('click', function(){ clearInterval(hiwAutoTimer); });
-});
-/* Start */
-_hiwGo(0);
-hiwAutoTimer = setInterval(function(){ _hiwGo((hiwCurrent+1)%4); }, 5000);
-
 /* ── Philosophy cards: canvas icons + 3D tilt ── */
 (function(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1494,6 +1367,85 @@ hiwAutoTimer = setInterval(function(){ _hiwGo((hiwCurrent+1)%4); }, 5000);
     card.addEventListener('mouseleave', function(){ card.style.transform=''; });
   });
 })();
+})();
+</script>
+
+<script>
+(function(){
+'use strict';
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var procAnimated = [false,false,false,false,false];
+window.procGo = function(n, btn) {
+  document.querySelectorAll('.proc-step').forEach(function(b){
+    b.classList.remove('proc-step--active');
+    b.setAttribute('aria-selected','false');
+  });
+  document.querySelectorAll('.proc-panel').forEach(function(p){
+    p.classList.remove('proc-panel--active');
+  });
+  btn.classList.add('proc-step--active');
+  btn.setAttribute('aria-selected','true');
+  var panel = document.getElementById('proc-p'+n);
+  if(panel) panel.classList.add('proc-panel--active');
+  if(n===0 && !procAnimated[0]){ procAnimated[0]=true; animSignal(); }
+  if(n===1 && !procAnimated[1]){ procAnimated[1]=true; animUnderstand(); }
+  if(n===2 && !procAnimated[2]){ procAnimated[2]=true; animSynth(); }
+};
+function animSignal(){
+  if(reduced) return;
+  var cur=document.getElementById('proc-cursor');
+  var screen=document.querySelector('#proc-p0 .proc-chrome-body');
+  function mc(xp,yp){
+    if(!cur||!screen) return;
+    var r=screen.getBoundingClientRect();
+    if(!r.width) return;
+    cur.style.left=(xp/100*r.width)+'px'; cur.style.top=(yp/100*r.height)+'px';
+  }
+  mc(20,30);
+  setTimeout(function(){ mc(55,45); document.getElementById('sig-ev0').classList.add('in'); },1100);
+  setTimeout(function(){ mc(55,72); document.getElementById('sig-ev1').classList.add('in'); },1800);
+  setTimeout(function(){
+    mc(25,88);
+    var em=document.getElementById('proc-emoji');
+    if(em){ em.classList.remove('show'); void em.offsetWidth; em.classList.add('show'); }
+    var pb=document.getElementById('proc-pain');
+    if(pb){ pb.classList.add('show'); setTimeout(function(){ pb.classList.remove('show'); },2000); }
+    document.getElementById('sig-ev2').classList.add('in');
+  },2800);
+  setTimeout(function(){
+    [['sig-fb0',100,'sig-fp0','100%'],['sig-fb1',52,'sig-fp1','52%'],['sig-fb2',18,'sig-fp2','18%']].forEach(function(d,i){
+      setTimeout(function(){
+        var b=document.getElementById(d[0]); if(b) b.style.width=d[1]+'%';
+        var p=document.getElementById(d[2]); if(p) p.textContent=d[3];
+      },i*200);
+    });
+    setTimeout(function(){ var dn=document.getElementById('sig-drop'); if(dn) dn.classList.add('show'); },800);
+  },4000);
+}
+function animUnderstand(){
+  if(reduced) return;
+  var cards=document.querySelectorAll('#proc-p1 .proc-res-card');
+  cards.forEach(function(c){ c.style.opacity='0'; c.style.transform='translateY(6px)'; c.style.transition='opacity 300ms ease,transform 300ms ease'; });
+  cards.forEach(function(c,i){ setTimeout(function(){ c.style.opacity='1'; c.style.transform='translateY(0)'; },300+i*250); });
+}
+function animSynth(){
+  if(reduced) return;
+  var lines=document.querySelectorAll('#proc-p2 .proc-tl');
+  lines.forEach(function(l){ l.style.opacity='0'; });
+  lines.forEach(function(l,i){ setTimeout(function(){ l.style.opacity='1'; l.style.transition='opacity 250ms'; },i*320); });
+  var clusters=document.querySelectorAll('#proc-p2 .proc-cluster');
+  clusters.forEach(function(c){ c.style.opacity='0'; c.style.transform='translateX(-4px)'; c.style.transition='opacity 300ms,transform 300ms'; });
+  clusters.forEach(function(c,i){ setTimeout(function(){ c.style.opacity='1'; c.style.transform='translateX(0)'; },lines.length*320+i*300); });
+}
+animSignal(); procAnimated[0]=true;
+document.querySelectorAll('.proc-out-path,.proc-sys-node').forEach(function(el){
+  el.addEventListener('mousemove',function(e){
+    var r=el.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+    el.style.transform='perspective(600px) rotateX('+(-y*3)+'deg) rotateY('+(x*2)+'deg)';
+  });
+  el.addEventListener('mouseleave',function(){ el.style.transform=''; });
+});
 })();
 </script>
 
