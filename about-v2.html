@@ -480,88 +480,108 @@ body::before {
 /* ══ PROCESS SECTION ══ */
 .proc-section { position: relative; }
 /* ── Timeline nav ── */
+/* ── Stepper A: pill container ── */
 .proc-nav {
-  position: relative;
-  padding: 20px 24px 16px;
+  padding: 10px 16px;
   border-bottom: 1px solid var(--border-subtle);
   background: var(--bg-surface);
 }
-/* progress line behind dots */
-.proc-tl-track {
-  position: absolute;
-  top: 34px; left: 48px; right: 48px;
-  height: 1px; background: var(--border-subtle);
-  z-index: 1;
+.proc-tl-track { display: none; }
+.proc-tl-fill { display: none; }
+/* progress bar — slim, above pills */
+.proc-progress-bar {
+  height: 2px;
+  background: var(--border-subtle);
+  border-radius: 1px;
+  overflow: hidden;
+  margin-bottom: 8px;
 }
-.proc-tl-fill {
-  height: 100%; width: 0%;
+.proc-progress-fill {
+  height: 100%;
   background: var(--accent);
-  transition: width linear;
+  width: 0%;
+  transition: width 500ms ease;
   border-radius: 1px;
 }
+/* pill container */
 .proc-steps-row {
-  position: relative; z-index: 2;
-  display: flex; justify-content: space-between;
-  align-items: flex-start; gap: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-raised);
+  border-radius: 100px;
+  border: 0.5px solid var(--border-subtle);
 }
+/* each step = pill */
 .proc-step {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 6px; border: none; background: none;
-  cursor: pointer; padding: 0; flex: 1;
-  transition: opacity 200ms;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background 200ms, box-shadow 200ms;
+  min-height: 34px;
 }
-.proc-step:hover .proc-step-dot { border-color: var(--accent); }
-.proc-step-dot {
-  width: 28px; height: 28px; border-radius: 50%;
+.proc-step:hover {
   background: var(--bg-surface);
-  border: 1.5px solid var(--border-subtle);
+}
+.proc-step--active {
+  background: var(--bg-surface);
+  box-shadow: 0 0 0 1px var(--accent),
+              0 0 14px var(--accent-dim);
+}
+.proc-step--done {
+  opacity: 0.6;
+}
+/* dot indicator */
+.proc-step-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  flex-shrink: 0;
+  transition: all 220ms;
+  border: none;
+  box-shadow: none;
+  transform: none;
+  isolation: auto;
+  font-size: 0; color: transparent;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.6rem; font-weight: 700; color: var(--text-tertiary);
-  font-family: 'DM Mono', monospace;
-  transition: all 280ms cubic-bezier(0.34,1.2,0.64,1);
-  position: relative;
-  z-index: 2;
-  isolation: isolate;
 }
-/* done state */
 .proc-step--done .proc-step-dot {
-  background: var(--accent-dim);
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--accent);
+  opacity: 0.7;
 }
-/* active state — glow */
 .proc-step--active .proc-step-dot {
-  background: var(--accent-dim);
-  border-color: var(--accent);
-  color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-dim), 0 0 12px rgba(21,128,61,0.2);
-  transform: scale(1.12);
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  width: 8px; height: 8px;
 }
-@media (prefers-reduced-motion: no-preference) {
-  .proc-step--active .proc-step-dot {
-    animation: dotPulse 2.4s ease-in-out infinite;
-  }
-}
-@keyframes dotPulse {
-  0%,100% { box-shadow: 0 0 0 4px var(--accent-dim), 0 0 8px rgba(21,128,61,0.15); }
-  50%      { box-shadow: 0 0 0 6px var(--accent-dim), 0 0 16px rgba(21,128,61,0.3); }
-}
-/* checkmark for done steps */
-.proc-step--done .proc-step-dot::after {
-  content: '✓'; font-size: 0.65rem; font-weight: 700;
-  color: var(--accent);
-}
-.proc-step--done .proc-step-num { display: none; }
-.proc-step-num { display: block; }
+/* hide old num inside dot */
+.proc-step-num { display: none; }
+.proc-step--done .proc-step-dot::after { display: none; }
+/* label */
 .proc-step-label {
-  font-size: 0.65rem; font-weight: 500;
-  color: var(--text-tertiary); white-space: nowrap;
-  transition: color 200ms; text-align: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  transition: color 200ms;
 }
-.proc-step--active .proc-step-label { color: var(--text-primary); font-weight: 600; }
-.proc-step--done .proc-step-label { color: var(--accent); }
-/* remove old sep */
+.proc-step--active .proc-step-label {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.proc-step--done .proc-step-label {
+  color: var(--text-secondary);
+}
 .proc-sep { display: none; }
+@keyframes dotPulse {}
 .proc-panels { border: 1px solid var(--border-subtle); border-top: none; }
 .proc-panel { display: none; }
 .proc-panel--active { display: block; animation: procFade 300ms ease; }
@@ -727,6 +747,27 @@ body::before {
   .about-outside-photos { grid-template-columns: 1fr 1fr; }
   .about-outside-photos .aop-card:last-child { display: none; }
 }
+/* Replay button */
+.proc-replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: var(--space-8);
+  transition: color 180ms;
+  font-family: 'DM Mono', monospace;
+}
+.proc-replay-btn:hover { color: var(--text-secondary); }
+.proc-replay-wrap {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--space-20) var(--space-8);
+}
 .proc-stack-note { text-align: center; font-size: 0.76rem; color: var(--text-tertiary); font-style: italic; margin-top: var(--space-24); padding: 10px 20px; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); max-width: 480px; margin-left: auto; margin-right: auto; }
 @media (max-width: 768px) {
   /* Nav — timeline compacto mobile */
@@ -734,7 +775,9 @@ body::before {
   .proc-tl-track { top: 27px; left: 32px; right: 32px; }
   .proc-step-dot { width: 22px; height: 22px; font-size: 0.55rem; }
   .proc-step-label { display: block; font-size: 0.58rem; }
-  .proc-step--active .proc-step-dot { transform: scale(1.08); }
+  .proc-step--active .proc-step-dot { width: 8px; height: 8px; }
+  .proc-tool { font-size: 0.62rem; padding: 3px 7px; gap: 3px; }
+  .proc-tool svg { width: 11px; height: 11px; }
   /* Panels — layout mobile */
   .proc-content-split {
     grid-template-columns: 1fr;
@@ -980,7 +1023,7 @@ body::before {
     From signal to shipped — <em>one loop.</em>
   </h2>
   <div class="proc-nav" role="tablist" aria-label="Process steps">
-    <div class="proc-tl-track"><div class="proc-tl-fill" id="proc-tl-fill"></div></div>
+    <div class="proc-progress-bar"><div class="proc-progress-fill" id="proc-tl-fill"></div></div>
     <div class="proc-steps-row">
       <button class="proc-step proc-step--active" id="pst-0" role="tab" aria-selected="true" aria-controls="proc-p0" onclick="procJump(0)">
         <div class="proc-step-dot"><span class="proc-step-num">01</span></div>
@@ -1066,6 +1109,12 @@ body::before {
               <div class="proc-drop-note" id="sig-drop">68% drop-off at config → research triggered</div>
             </div>
           </div>
+          <div class="proc-replay-wrap">
+            <button class="proc-replay-btn" onclick="procReplay(0)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
+              replay
+            </button>
+          </div>
         </div>
       </div>
       <!-- Mobile footer: desc + outputs + nav -->
@@ -1137,6 +1186,12 @@ body::before {
             <div class="proc-pendo-body">NPS modal triggered after <code>setup_abandoned</code> · deployed in minutes · low-code</div>
           </div>
           <div class="proc-save-note"><span style="color:#22c55e;font-weight:600">✓</span>/research/config-friction/ → source of truth</div>
+          <div class="proc-replay-wrap">
+            <button class="proc-replay-btn" onclick="procReplay(1)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
+              replay
+            </button>
+          </div>
         </div>
       </div>
       <div class="proc-mobile-footer">
@@ -1197,6 +1252,12 @@ body::before {
             <div class="proc-cluster proc-cluster--discard"><div class="proc-cluster-label">Discard · ×2</div><div class="proc-cluster-item" style="opacity:0.5">Duplicate signals · low confidence</div></div>
           </div>
           <div class="proc-supervised-note">Supervised by Federico at every step</div>
+          <div class="proc-replay-wrap">
+            <button class="proc-replay-btn" onclick="procReplay(2)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
+              replay
+            </button>
+          </div>
         </div>
       </div>
       <div class="proc-mobile-footer">
@@ -1302,6 +1363,12 @@ body::before {
           .proc-act-arrow{text-align:center;font-size:1rem;color:var(--text-tertiary);padding:2px 0;transition:opacity 300ms;}
           .proc-wf-price{font-size:7px;color:var(--text-tertiary);margin-top:2px;}
           </style>
+          <div class="proc-replay-wrap">
+            <button class="proc-replay-btn" onclick="procReplay(3)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
+              replay
+            </button>
+          </div>
         </div>
       </div>
       <div class="proc-mobile-footer">
@@ -1389,6 +1456,12 @@ body::before {
             </div>
           </div>
           <div class="proc-adapt-note">I currently work async across all these layers — and can focus on any single one</div>
+          <div class="proc-replay-wrap">
+            <button class="proc-replay-btn" onclick="procReplay(4)">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
+              replay
+            </button>
+          </div>
         </div>
       </div>
       <div class="proc-mobile-footer">
@@ -2105,6 +2178,7 @@ function procActivate(n){
   var fill=document.getElementById('proc-tl-fill');
   if(fill){
     fill.style.transition='none';
+    void fill.offsetWidth;
     setTimeout(function(){
       fill.style.transition='width 500ms ease';
       fill.style.width=(n/4*100)+'%';
@@ -2116,6 +2190,11 @@ function procActivate(n){
   var fns=[animSignal,animUnderstand,animSynth,animAct,animConnect];
   setTimeout(fns[n],80);
 }
+window.procReplay=function(n){
+  var fns=[animSignal,animUnderstand,animSynth,animAct,animConnect];
+  clrT();
+  if(fns[n]) setTimeout(fns[n],80);
+};
 window.procJump=function(n){
   clearInterval(autoTimer);autoTimer=null;
   procActivate(n);
