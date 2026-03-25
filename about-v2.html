@@ -24,14 +24,16 @@
       background: var(--accent); flex-shrink: 0;
     }
     .about-pull-quote {
-      padding: var(--space-48) var(--space-24);
+      padding-top: var(--space-48);
+      padding-bottom: var(--space-48);
+      padding-left: max(var(--space-24, 1.5rem), calc((100vw - var(--max-w, 1024px)) / 2 + var(--space-24, 1.5rem)));
+      padding-right: max(var(--space-24, 1.5rem), calc((100vw - var(--max-w, 1024px)) / 2 + var(--space-24, 1.5rem)));
       border-top: 1px solid var(--border-subtle);
       border-bottom: 1px solid var(--border-subtle);
       margin: var(--space-48) 0;
       width: 100vw;
       position: relative;
       left: 50%;
-      right: 50%;
       margin-left: -50vw;
       margin-right: -50vw;
     }
@@ -307,10 +309,19 @@ body::before {
 .about-hero {
   position: relative;
   overflow: hidden;
-  min-height: 480px;
+  min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: var(--space-64) 0;
+  padding: var(--space-64) 0 var(--space-96);
+}
+.about-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 .about-hero-mesh {
   position: absolute;
@@ -327,7 +338,7 @@ body::before {
   gap: var(--space-48);
   align-items: center;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .about-hero-left {
   display: flex;
@@ -406,8 +417,7 @@ body::before {
   display: flex !important;
   align-items: center;
   gap: 32px;
-  padding-left: calc(50vw - min(var(--max-w, 1200px), 100vw) / 2 + var(--space-24));
-  padding-right: calc(50vw - min(var(--max-w, 1200px), 100vw) / 2 + var(--space-24));
+  /* padding handled by inline head style — no override here */
 }
 .about-pull-quote > * { position: relative; z-index: 1; }
 .pq-mesh-canvas {
@@ -1877,12 +1887,11 @@ body::before {
     if(raf)cancelAnimationFrame(raf);
     draw();
   }
-  wrap.addEventListener('mousemove',function(e){
+  document.addEventListener('mousemove',function(e){
     var r=wrap.getBoundingClientRect();
     mx=(e.clientX-r.left)/(r.width||1);
     my=(e.clientY-r.top)/(r.height||1);
   });
-  wrap.addEventListener('mouseleave',function(){mx=0.5;my=0.5;});
   window.addEventListener('resize',start);
   requestAnimationFrame(start);
 })();
