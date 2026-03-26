@@ -2776,15 +2776,20 @@ function animSignal(){
     },400);
   }
   setTimeout(function(){
-    checkBox(0,function(){
-      checkBox(1,function(){
-        checkBox(2,function(){
-          checkBox(3,function(){
-            /* click continue */
-            moveTo('sig-spec-btn',function(){
-              clk('sig-spec-btn');
-              setTimeout(function(){urlEl.textContent=urls[2];stp(2);spn(2);},400);
-            },400);
+    /* wait 2 frames after spn(1) so sig-p1 is fully rendered before BoundingClientRect */
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        checkBox(0,function(){
+          checkBox(1,function(){
+            checkBox(2,function(){
+              checkBox(3,function(){
+                /* click continue */
+                moveTo('sig-spec-btn',function(){
+                  clk('sig-spec-btn');
+                  setTimeout(function(){urlEl.textContent=urls[2];stp(2);spn(2);},400);
+                },400);
+              });
+            });
           });
         });
       });
