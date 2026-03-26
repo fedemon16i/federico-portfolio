@@ -629,6 +629,41 @@ body::before {
   .proc-step-sep { display: none; }
   .proc-step--connect { display: none; }
 }
+.proc-connect-footer-btn {
+  display: none;
+}
+@media (max-width: 768px) {
+  .proc-connect-footer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    border-top: 1px dashed rgba(200,168,75,0.2);
+    cursor: pointer;
+    margin-top: var(--space-12);
+  }
+  .proc-connect-footer-btn:hover {
+    background: rgba(200,168,75,0.03);
+  }
+  .proc-connect-footer-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(200,168,75,0.1);
+    border: 1px solid rgba(200,168,75,0.25);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .proc-connect-footer-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(200,168,75,0.6);
+    letter-spacing: 0.02em;
+  }
+}
 .proc-panels { border: 1px solid var(--border-subtle); border-top: none; }
 .proc-panel { display: none; }
 .proc-panel--active { display: block; animation: procFade 300ms ease; }
@@ -1309,6 +1344,10 @@ body::before {
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#378ADD"></div>Feature adoption maps</div>
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>In-app feedback · NPS</div>
         </div>
+        <button class="proc-connect-footer-btn" onclick="openConnectModal()">
+          <div class="proc-connect-footer-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.8)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <span class="proc-connect-footer-label">How does this connect?</span>
+        </button>
       </div>
       <div class="proc-mobile-nav">
         <button class="proc-mobile-btn" style="visibility:hidden">←</button>
@@ -1431,6 +1470,10 @@ body::before {
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#1D4ED8"></div>Jobs to be done</div>
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#639922"></div>Mental models · behavioral patterns</div>
         </div>
+        <button class="proc-connect-footer-btn" onclick="openConnectModal()">
+          <div class="proc-connect-footer-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.8)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <span class="proc-connect-footer-label">How does this connect?</span>
+        </button>
       </div>
       <div class="proc-mobile-nav">
         <button class="proc-mobile-btn" onclick="procJump(0)">← Signal</button>
@@ -1571,6 +1614,10 @@ body::before {
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#378ADD"></div>Product items — bugs, performance</div>
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Reports · insight decks</div>
         </div>
+        <button class="proc-connect-footer-btn" onclick="openConnectModal()">
+          <div class="proc-connect-footer-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.8)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <span class="proc-connect-footer-label">How does this connect?</span>
+        </button>
       </div>
       <div class="proc-mobile-nav">
         <button class="proc-mobile-btn" onclick="procJump(1)">← Understand</button>
@@ -1746,6 +1793,10 @@ body::before {
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>Low-code — Pendo guide</div>
           <div class="proc-out-item"><div class="proc-out-dot" style="background:#22c55e"></div>Marketing — copy · campaigns</div>
         </div>
+        <button class="proc-connect-footer-btn" onclick="openConnectModal()">
+          <div class="proc-connect-footer-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.8)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          <span class="proc-connect-footer-label">How does this connect?</span>
+        </button>
       </div>
       <div class="proc-mobile-nav">
         <button class="proc-mobile-btn" onclick="procJump(2)">← Synthesize</button>
