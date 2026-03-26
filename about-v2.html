@@ -592,6 +592,7 @@ body::before {
 }
 .proc-sep { display: none; }
 @keyframes dotPulse {}
+@keyframes synblink { 0%,100%{opacity:1} 50%{opacity:0} }
 .proc-panels { border: 1px solid var(--border-subtle); border-top: none; }
 .proc-panel { display: none; }
 .proc-panel--active { display: block; animation: procFade 300ms ease; }
@@ -1404,21 +1405,94 @@ body::before {
           </div>
         </div>
         <div class="proc-right">
-          <div class="proc-vis-label">Processing — supervised</div>
-          <div class="proc-terminal" id="proc-term">
-            <div class="proc-tl"><span class="ptl-g">→</span> Reading /research/config-friction/ (8 files)</div>
-            <div class="proc-tl"><span class="ptl-d">  interviews/ ✓ · surveys/ ✓ · analytics/ ✓</span></div>
-            <div class="proc-tl"><span class="ptl-g">→</span> Skills: ux-synthesis-framework</div>
-            <div class="proc-tl"><span class="ptl-a">→</span> Clustering findings...</div>
-            <div class="proc-tl"><span class="ptl-g">✓</span> Patterns identified · relations mapped</div>
-            <div class="proc-tl"><span class="ptl-b">→</span> Saving /insights/config-friction/ ✓</div>
+          <div class="proc-vis-label">AI Synthesis — supervised</div>
+
+          <!-- LLM console -->
+          <div id="syn-console" style="background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:7px;overflow:hidden;margin-bottom:6px">
+            <div style="height:20px;background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;padding:0 8px;gap:4px">
+              <div style="width:5px;height:5px;border-radius:50%;background:#e05c4a"></div>
+              <div style="width:5px;height:5px;border-radius:50%;background:#f4c842"></div>
+              <div style="width:5px;height:5px;border-radius:50%;background:#22c55e"></div>
+              <div style="flex:1;text-align:center;font-size:6px;font-weight:600;color:rgba(255,255,255,0.2);letter-spacing:.06em;text-transform:uppercase">Claude · AI Synthesis</div>
+            </div>
+            <div style="padding:8px 10px">
+              <!-- files -->
+              <div id="syn-files" style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:7px">
+                <div id="syn-f0" style="display:flex;align-items:center;gap:3px;padding:2px 5px;border-radius:3px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);font-size:5.5px;color:rgba(255,255,255,0.3);opacity:0;transform:translateY(-3px);transition:all 250ms">📄 interviews.txt</div>
+                <div id="syn-f1" style="display:flex;align-items:center;gap:3px;padding:2px 5px;border-radius:3px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);font-size:5.5px;color:rgba(255,255,255,0.3);opacity:0;transform:translateY(-3px);transition:all 250ms">📊 survey_results.xlsx</div>
+                <div id="syn-f2" style="display:flex;align-items:center;gap:3px;padding:2px 5px;border-radius:3px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);font-size:5.5px;color:rgba(255,255,255,0.3);opacity:0;transform:translateY(-3px);transition:all 250ms">🗺️ journey_map.fig</div>
+                <div id="syn-f3" style="display:flex;align-items:center;gap:3px;padding:2px 5px;border-radius:3px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);font-size:5.5px;color:rgba(255,255,255,0.3);opacity:0;transform:translateY(-3px);transition:all 250ms">📹 session_notes.md</div>
+                <div id="syn-f4" style="display:flex;align-items:center;gap:3px;padding:2px 5px;border-radius:3px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);font-size:5.5px;color:rgba(255,255,255,0.3);opacity:0;transform:translateY(-3px);transition:all 250ms">📋 optimal_output.csv</div>
+                <div id="syn-f5" style="display:flex;align-items:center;gap:3px;padding:2px 5px;border-radius:3px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);font-size:5.5px;color:rgba(255,255,255,0.3);opacity:0;transform:translateY(-3px);transition:all 250ms">📖 jtbd_framework.md</div>
+              </div>
+              <!-- prompt -->
+              <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:6px 8px;margin-bottom:5px;min-height:32px">
+                <div style="font-size:5.5px;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Prompt</div>
+                <div id="syn-prompt" style="font-size:6px;color:rgba(255,255,255,0.45);font-family:DM Mono,monospace;line-height:1.5"><span id="syn-cursor" style="display:inline-block;width:1px;height:8px;background:rgba(200,168,75,0.8);margin-left:1px;vertical-align:middle;animation:synblink 1s step-end infinite"></span></div>
+              </div>
+              <div style="display:flex;justify-content:flex-end">
+                <div id="syn-btn" style="height:16px;padding:0 8px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.28);border-radius:3px;font-size:6px;color:rgba(200,168,75,0.85);font-weight:600;display:flex;align-items:center;gap:3px;opacity:0;transition:opacity 250ms;cursor:pointer">
+                  <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  Run synthesis
+                </div>
+              </div>
+              <!-- processing -->
+              <div id="syn-proc" style="margin-top:6px;opacity:0;transition:opacity 300ms">
+                <div style="font-size:5.5px;color:rgba(255,255,255,0.2);font-family:DM Mono,monospace;margin-bottom:3px">Processing 6 files…</div>
+                <div style="height:2px;background:rgba(255,255,255,0.06);border-radius:1px;overflow:hidden;margin-bottom:4px">
+                  <div id="syn-bar" style="height:100%;width:0%;background:linear-gradient(90deg,rgba(200,168,75,0.5),rgba(200,168,75,1));border-radius:1px;transition:width 2500ms cubic-bezier(0.4,0,0.2,1)"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:2px">
+                  <div id="syn-ps0" style="font-size:5.5px;font-family:DM Mono,monospace;color:rgba(255,255,255,0.2);opacity:0;transition:opacity 200ms">Clustering pain points by theme</div>
+                  <div id="syn-ps1" style="font-size:5.5px;font-family:DM Mono,monospace;color:rgba(255,255,255,0.2);opacity:0;transition:opacity 200ms">Extracting emotional signals</div>
+                  <div id="syn-ps2" style="font-size:5.5px;font-family:DM Mono,monospace;color:rgba(255,255,255,0.2);opacity:0;transition:opacity 200ms">Mapping to JTBD framework</div>
+                  <div id="syn-ps3" style="font-size:5.5px;font-family:DM Mono,monospace;color:rgba(255,255,255,0.2);opacity:0;transition:opacity 200ms">Hierarchizing by frequency + severity</div>
+                  <div id="syn-ps4" style="font-size:5.5px;font-family:DM Mono,monospace;color:rgba(255,255,255,0.2);opacity:0;transition:opacity 200ms">Categorizing: Design / Product / Discard</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="proc-clusters">
-            <div class="proc-cluster proc-cluster--design"><div class="proc-cluster-label">Design · ×3</div><div class="proc-cluster-item">Config form — too many required fields</div><div class="proc-cluster-item">Price change unexplained · trust issue</div><div class="proc-cluster-item">Progress indicator missing</div></div>
-            <div class="proc-cluster proc-cluster--product"><div class="proc-cluster-label">Product · ×1</div><div class="proc-cluster-item">Timeout on mobile — backend issue</div></div>
-            <div class="proc-cluster proc-cluster--discard"><div class="proc-cluster-label">Discard · ×2</div><div class="proc-cluster-item" style="opacity:0.5">Duplicate signals · low confidence</div></div>
+
+          <!-- clusters output -->
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div id="syn-c0" style="background:rgba(74,163,212,0.04);border:1px solid rgba(74,163,212,0.15);border-radius:5px;padding:6px 8px;opacity:0;transform:translateX(-4px);transition:all 350ms">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:3px">
+                <span style="font-size:9px">🎨</span>
+                <span style="font-size:7px;font-weight:600;color:rgba(74,163,212,0.8)">Design — 4 items</span>
+                <span style="margin-left:auto;font-size:5px;font-family:DM Mono,monospace;padding:1px 4px;border-radius:2px;border:1px solid rgba(74,163,212,0.2);background:rgba(74,163,212,0.06);color:rgba(74,163,212,0.6)">high priority</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:1px">
+                <div style="font-size:6px;color:rgba(255,255,255,0.4);display:flex;gap:4px;align-items:flex-start">· <span>Guided setup wizard — step-by-step config flow</span></div>
+                <div style="font-size:6px;color:rgba(255,255,255,0.4);display:flex;gap:4px;align-items:flex-start">· <span>Inline tooltips on technical fields (api_key, webhook)</span></div>
+                <div style="font-size:6px;color:rgba(255,255,255,0.4);display:flex;gap:4px;align-items:flex-start">· <span>Progress indicator showing completion</span></div>
+                <div style="font-size:6px;color:rgba(255,255,255,0.4);display:flex;gap:4px;align-items:flex-start">· <span>Copy-paste helper for API credentials</span></div>
+              </div>
+            </div>
+            <div id="syn-c1" style="background:rgba(124,58,237,0.04);border:1px solid rgba(124,58,237,0.15);border-radius:5px;padding:6px 8px;opacity:0;transform:translateX(-4px);transition:all 350ms">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:3px">
+                <span style="font-size:9px">📦</span>
+                <span style="font-size:7px;font-weight:600;color:rgba(124,58,237,0.8)">Product — 1 item</span>
+                <span style="margin-left:auto;font-size:5px;font-family:DM Mono,monospace;padding:1px 4px;border-radius:2px;border:1px solid rgba(124,58,237,0.2);background:rgba(124,58,237,0.06);color:rgba(124,58,237,0.6)">backlog</span>
+              </div>
+              <div style="font-size:6px;color:rgba(255,255,255,0.4);display:flex;gap:4px">· <span>IT admin delegation — let non-technical users request help</span></div>
+            </div>
+            <div id="syn-c2" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:5px;padding:6px 8px;opacity:0;transform:translateX(-4px);transition:all 350ms">
+              <div style="display:flex;align-items:center;gap:4px;margin-bottom:3px">
+                <span style="font-size:9px">🗑️</span>
+                <span style="font-size:7px;font-weight:600;color:rgba(255,255,255,0.3)">Discard — 2 items</span>
+                <span style="margin-left:auto;font-size:5px;font-family:DM Mono,monospace;padding:1px 4px;border-radius:2px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.25)">low signal</span>
+              </div>
+              <div style="font-size:6px;color:rgba(255,255,255,0.25);display:flex;gap:4px">· <span>Auto-fill from LinkedIn (out of scope)</span></div>
+              <div style="font-size:6px;color:rgba(255,255,255,0.25);display:flex;gap:4px">· <span>Dark mode for config screen (cosmetic)</span></div>
+            </div>
           </div>
-          <div class="proc-supervised-note">Supervised by Federico at every step</div>
+
+          <!-- cycle note -->
+          <div id="syn-cycle" style="margin-top:6px;padding:5px 8px;background:rgba(74,163,212,0.04);border:1px solid rgba(74,163,212,0.12);border-radius:4px;font-size:6px;color:rgba(74,163,212,0.55);display:flex;align-items:center;gap:5px;opacity:0;transition:opacity 400ms">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
+            Every improvement follows the same loop — measured, evaluated, iterated.
+          </div>
+
           <div class="proc-replay-wrap">
             <button class="proc-replay-btn" onclick="procReplay(2)">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
@@ -2499,17 +2573,81 @@ function animUnderstand(){
   },6600);
 }
 function animSynth(){
-  if(reduced) return;
-  var lines=document.querySelectorAll('#proc-p2 .proc-tl');
-  var clusters=document.querySelectorAll('#proc-p2 .proc-cluster');
-  var note=document.querySelector('#proc-p2 .proc-supervised-note');
-  lines.forEach(function(l){l.style.opacity='0';l.style.transition='none';});
-  clusters.forEach(function(c){c.style.opacity='0';c.style.transform='translateX(-6px)';c.style.transition='none';});
-  if(note)note.style.opacity='0';
-  lines.forEach(function(l,i){qt(function(){l.style.transition='opacity 220ms';l.style.opacity='1';},i*300);});
-  var cs=lines.length*300+200;
-  clusters.forEach(function(c,i){qt(function(){c.style.transition='opacity 350ms ease,transform 350ms ease';c.style.opacity='1';c.style.transform='translateX(0)';},cs+i*350);});
-  qt(function(){if(note){note.style.transition='opacity 400ms';note.style.opacity='1';}},cs+clusters.length*350+200);
+  if(reduced)return;
+
+  /* reset */
+  var promptStr='Cluster, hierarchize and categorize the attached files. Identify: pain points, frustrations, confusion, joy. Map to JTBDs. Output: Design / Product / Discard.';
+  var promptEl=document.getElementById('syn-prompt');
+  var btn=document.getElementById('syn-btn');
+  var proc=document.getElementById('syn-proc');
+  var bar=document.getElementById('syn-bar');
+  var cycle=document.getElementById('syn-cycle');
+  var files=['syn-f0','syn-f1','syn-f2','syn-f3','syn-f4','syn-f5'];
+  var steps=['syn-ps0','syn-ps1','syn-ps2','syn-ps3','syn-ps4'];
+  var clusters=['syn-c0','syn-c1','syn-c2'];
+
+  if(promptEl)promptEl.innerHTML='<span id="syn-cursor" style="display:inline-block;width:1px;height:8px;background:rgba(200,168,75,0.8);margin-left:1px;vertical-align:middle;animation:synblink 1s step-end infinite"></span>';
+  if(btn)btn.style.opacity='0';
+  if(proc)proc.style.opacity='0';
+  if(bar)bar.style.width='0%';
+  if(cycle)cycle.style.opacity='0';
+  files.forEach(function(id){var e=document.getElementById(id);if(e){e.style.opacity='0';e.style.transform='translateY(-3px)';e.style.borderColor='rgba(255,255,255,0.07)';e.style.color='rgba(255,255,255,0.3)';e.style.background='rgba(255,255,255,0.03)';}});
+  steps.forEach(function(id){var e=document.getElementById(id);if(e){e.style.opacity='0';e.style.color='rgba(255,255,255,0.2)';}});
+  clusters.forEach(function(id){var e=document.getElementById(id);if(e){e.style.opacity='0';e.style.transform='translateX(-4px)';}});
+
+  /* files appear */
+  files.forEach(function(id,i){
+    qt(function(){
+      var e=document.getElementById(id);
+      if(!e)return;
+      e.style.opacity='1';e.style.transform='translateY(0)';
+      setTimeout(function(){e.style.borderColor='rgba(200,168,75,0.3)';e.style.color='rgba(200,168,75,0.65)';e.style.background='rgba(200,168,75,0.05)';},150);
+    },300+i*180);
+  });
+
+  /* type prompt */
+  var typed=0;
+  function typeNext(){
+    if(!promptEl)return;
+    if(typed<promptStr.length){
+      promptEl.innerHTML=promptStr.slice(0,++typed)+'<span style="display:inline-block;width:1px;height:8px;background:rgba(200,168,75,0.8);margin-left:1px;vertical-align:middle;animation:synblink 1s step-end infinite"></span>';
+      qt(typeNext,30+Math.random()*15);
+    } else {
+      if(promptEl)promptEl.innerHTML=promptStr;
+      if(btn){qt(function(){btn.style.opacity='1';},200);}
+    }
+  }
+  qt(typeNext,1500);
+
+  /* click send */
+  qt(function(){
+    if(btn){btn.style.transform='scale(0.94)';setTimeout(function(){if(btn)btn.style.transform='';},120);}
+    qt(function(){
+      if(proc)proc.style.opacity='1';
+      qt(function(){if(bar)bar.style.width='100%';},50);
+      /* steps */
+      var stepTimes=[200,900,1700,2400,3200];
+      stepTimes.forEach(function(t,i){
+        qt(function(){
+          var e=document.getElementById('syn-ps'+i);
+          if(!e)return;
+          e.style.opacity='1';e.style.color='rgba(200,168,75,0.7)';
+          setTimeout(function(){e.style.color='rgba(34,197,94,0.65)';},600);
+        },t);
+      });
+      /* clusters */
+      qt(function(){
+        clusters.forEach(function(id,i){
+          qt(function(){
+            var e=document.getElementById(id);
+            if(e){e.style.transition='opacity 350ms ease,transform 350ms ease';e.style.opacity='1';e.style.transform='translateX(0)';}
+          },i*400);
+        });
+      },3900);
+      /* cycle */
+      qt(function(){if(cycle)cycle.style.opacity='1';},5500);
+    },300);
+  },4200);
 }
 function animAct(){
   if(reduced)return;
