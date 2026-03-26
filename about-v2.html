@@ -839,7 +839,9 @@ body::before {
   .proc-left .proc-desc { display: none; }
   .proc-left .proc-outputs { display: none; }
   .proc-left .proc-tools { margin-bottom: 0; }
-  .proc-right { border-top: none; order: 2; }
+  .proc-right { border-top: none; order: 2; overflow: hidden; }
+  #act-stage { overflow: hidden; }
+  #act-dw { position: absolute; top: 0; left: 0; right: 0; width: 100%; }
   /* Mobile extra blocks */
   .proc-mobile-footer {
     display: block;
@@ -1144,6 +1146,7 @@ body::before {
                 <div style="width:5px;height:5px;border-radius:50%;background:#f4c842"></div>
                 <div style="width:5px;height:5px;border-radius:50%;background:#22c55e"></div>
                 <div style="flex:1;height:11px;background:rgba(255,255,255,0.04);border-radius:2px;margin:0 6px;display:flex;align-items:center;padding:0 5px"><span id="sig-url" style="font-size:6px;color:rgba(255,255,255,0.18);font-family:DM Mono,monospace">app.platform.io/catalog</span></div>
+                <div id="sig-user-tag" style="display:flex;align-items:center;gap:3px;padding:2px 6px;background:rgba(74,163,212,0.12);border:0.5px solid rgba(74,163,212,0.3);border-radius:100px;font-size:5.5px;font-weight:600;color:#4aa3d4;opacity:0;transition:opacity 400ms;flex-shrink:0"><div style="width:4px;height:4px;border-radius:50%;background:#4aa3d4"></div>demo user</div>
               </div>
               <!-- steps row -->
               <div style="display:flex;padding:5px 8px;gap:0;border-bottom:1px solid rgba(255,255,255,0.05)">
@@ -2499,9 +2502,11 @@ function clrT(){
   /* reset signal panel */
   var sigAbandoned=document.getElementById('sig-abandoned');
   if(sigAbandoned)sigAbandoned.style.opacity='0';
+  if(sigUserTag)sigUserTag.style.opacity='0';
   var sigModal=document.getElementById('sig-modal');
   if(sigModal){sigModal.style.opacity='0';sigModal.style.pointerEvents='none';}
   var sigUrl=document.getElementById('sig-url');
+  var sigUserTag=document.getElementById('sig-user-tag');
   if(sigUrl)sigUrl.textContent='app.platform.io/catalog';
   ['sig-p0','sig-p1','sig-p2','sig-p3'].forEach(function(id,j){var p=document.getElementById(id);if(p)p.style.display=j===0?'block':'none';});
   [0,1,2,3].forEach(function(j){var n=document.getElementById('sig-sn'+j);if(n)n.style.cssText=j===0?'width:13px;height:13px;border-radius:50%;border:1px solid rgba(200,168,75,0.6);background:rgba(200,168,75,0.08);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(200,168,75,0.9);font-family:monospace;transition:all 300ms':'width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(255,255,255,0.25);font-family:monospace;transition:all 300ms';});
@@ -2653,7 +2658,16 @@ function animSignal(){
     },3200+i*700);
   });
   setTimeout(function(){
-    moveTo('sig-acc-btn',function(){clk('sig-acc-btn');sev(3);setTimeout(function(){urlEl.textContent=urls[3];stp(3);spn(3);sev(4);},400);},400);
+    moveTo('sig-acc-btn',function(){
+      clk('sig-acc-btn');
+      sev(3);
+      setTimeout(function(){
+        urlEl.textContent=urls[3];stp(3);spn(3);sev(4);
+        /* show user tag when reaching step 3 */
+        var ut=document.getElementById('sig-user-tag');
+        if(ut)ut.style.opacity='1';
+      },400);
+    },400);
   },6200);
   /* step 4: config - struggle then abandon */
   setTimeout(function(){moveTo('sig-cv0',function(){var c=document.getElementById('sig-cv0');if(c)c.style.borderColor='rgba(200,168,75,0.35)';},500);},7000);
@@ -2670,25 +2684,28 @@ function animSignal(){
       sev(6);
       setTimeout(function(){
         sev(7);
-        /* cursor moves to a random field and clicks before disappearing */
+        /* cursor stays visible, moves to config field, clicks, THEN fades */
         setTimeout(function(){
-          moveTo('sig-cv0',function(){
-            clk('sig-cv0');
-            setTimeout(function(){
-              /* cursor fades out */
-              if(cur){
-                cur.style.transition='opacity 600ms ease';
-                cur.style.opacity='0';
-              }
+          /* ensure cursor is fully visible before moving */
+          if(cur){cur.style.transition='none';cur.style.opacity='1';}
+          setTimeout(function(){
+            moveTo('sig-cv0',function(){
+              clk('sig-cv0');
+              /* wait after click before fading */
               setTimeout(function(){
-                var a=document.getElementById('sig-abandoned');
-                if(a){a.style.opacity='1';}
-                /* restore cursor opacity for replay */
-                if(cur){cur.style.opacity='1';cur.style.transition='';}
-              },700);
+                if(cur){
+                  cur.style.transition='opacity 500ms ease';
+                  cur.style.opacity='0';
+                }
+                /* abandoned screen after cursor gone */
+                setTimeout(function(){
+                  var a=document.getElementById('sig-abandoned');
+                  if(a){a.style.opacity='1';}
+                },600);
+              },600);
             },400);
-          },350);
-        },200);
+          },50);
+        },300);
       },500);
     },400);
   },9800);
