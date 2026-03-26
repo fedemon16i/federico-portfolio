@@ -786,8 +786,8 @@ body::before {
   .proc-step-dot { width: 22px; height: 22px; font-size: 0.55rem; }
   .proc-step-label { display: block; font-size: 0.58rem; }
   .proc-step--active .proc-step-dot { width: 8px; height: 8px; }
-  .proc-tool { font-size: 0.62rem; padding: 3px 7px; gap: 3px; }
-  .proc-tool svg { width: 11px; height: 11px; }
+  .proc-tool { font-size: 0.58rem; padding: 2px 6px; gap: 3px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .proc-tool svg { width: 10px; height: 10px; flex-shrink: 0; }
   /* Panels — layout mobile */
   .proc-content-split {
     grid-template-columns: 1fr;
@@ -1063,12 +1063,9 @@ body::before {
           <h3 class="proc-title">Instrument &amp;<br>capture behavior</h3>
           <p class="proc-desc">I define what to track and why. Every meaningful interaction gets named, tagged, and captured — coordinating with dev or deploying no-code where possible.</p>
           <div class="proc-tools">
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20h18M7 14v6M12 10v10M17 6v14"/></svg>Analytics platform</span>
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Session replay</span>
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 0 2 2h2"/></svg>In-app experiments</span>
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>A/B testing</span>
-            <span class="proc-tool" style="border-color:rgba(255,71,133,0.3);color:rgba(255,71,133,0.9)"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>e.g. Pendo</span>
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Session replay</span>
+            <span class="proc-tool" style="border-color:rgba(255,71,133,0.3);color:rgba(255,71,133,0.9)"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>Pendo</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20h18M7 14v6M12 10v10M17 6v14"/></svg>Google Analytics</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>Mixpanel</span>
           </div>
           <div class="proc-outputs">
             <div class="proc-out-label">Output</div>
@@ -1078,51 +1075,157 @@ body::before {
             <div class="proc-out-item"><div class="proc-out-dot" style="background:#FF4785"></div>In-app feedback · NPS · walkthroughs</div>
           </div>
         </div>
-        <div class="proc-right proc-right--signal" id="proc-vis-0">
-          <div class="proc-vis-label"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> User — using a web app</div>
-          <div class="proc-signal-app">
-            <div class="proc-signal-bar">
-              <div class="proc-sb-dots"><span></span><span></span><span></span></div>
-              <div class="proc-chrome-url">platform.app / features</div>
-              <div class="proc-user-tag"><div class="proc-user-dot"></div>user-243</div>
-            </div>
-            <div class="proc-signal-screen" id="sig-screen">
-              <div class="proc-app-nav"><span>Dashboard</span><span style="color:var(--accent)">Features</span><span>Billing</span></div>
-              <div class="proc-wf-grid">
-                <div class="proc-wf-card" id="sig-c0"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:70%"></div></div>
-                <div class="proc-wf-card proc-wf-card--sel" id="sig-c1"><div class="proc-wf-row proc-wf-row--acc"></div><div class="proc-wf-row proc-wf-row--acc" style="width:65%"></div></div>
-                <div class="proc-wf-card" id="sig-c2"><div class="proc-wf-row"></div><div class="proc-wf-row" style="width:60%"></div></div>
-                <div class="proc-wf-card proc-wf-card--drop" id="sig-c3"><div class="proc-wf-row proc-wf-row--err"></div><div style="font-size:7px;color:#e05c4a;margin-top:2px">⚠ abandoned</div></div>
+        <div class="proc-right">
+            <div class="proc-vis-label">Software Acquisition & Setup</div>
+            <div id="sig-screen" style="background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:8px;overflow:hidden;position:relative;font-size:0">
+              <!-- bar -->
+              <div style="height:22px;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;padding:0 8px;gap:4px">
+                <div style="width:5px;height:5px;border-radius:50%;background:#e05c4a"></div>
+                <div style="width:5px;height:5px;border-radius:50%;background:#f4c842"></div>
+                <div style="width:5px;height:5px;border-radius:50%;background:#22c55e"></div>
+                <div style="flex:1;height:11px;background:rgba(255,255,255,0.04);border-radius:2px;margin:0 6px;display:flex;align-items:center;padding:0 5px"><span id="sig-url" style="font-size:6px;color:rgba(255,255,255,0.18);font-family:DM Mono,monospace">app.platform.io/catalog</span></div>
               </div>
-              <div class="proc-demo-cursor" id="proc-cursor">
-                <svg width="10" height="13" viewBox="0 0 10 13" fill="none"><path d="M0 0l3.8 13 2.4-4.3L10 7 0 0z" fill="#4aa3d4"/><path d="M0 0l3.8 13 2.4-4.3L10 7 0 0z" stroke="white" stroke-width="0.5"/></svg>
-                <div class="proc-cursor-label">user</div>
-                <div class="proc-cursor-emoji" id="proc-emoji">😤</div>
-                <div class="proc-pain-badge" id="proc-pain"><div class="proc-pain-dot"></div>Pain point detected</div>
+              <!-- steps row -->
+              <div style="display:flex;padding:5px 8px;gap:0;border-bottom:1px solid rgba(255,255,255,0.05)">
+                <div style="flex:1;display:flex;align-items:center;gap:3px">
+                  <div id="sig-sn0" style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(200,168,75,0.6);background:rgba(200,168,75,0.08);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(200,168,75,0.9);font-family:monospace;transition:all 300ms">1</div>
+                  <span id="sig-sl0" style="font-size:6px;color:rgba(255,255,255,0.5)">Catalog</span>
+                </div>
+                <div style="width:8px;height:1px;background:rgba(255,255,255,0.07);margin-top:6px;flex-shrink:0"></div>
+                <div style="flex:1;display:flex;align-items:center;gap:3px">
+                  <div id="sig-sn1" style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(255,255,255,0.25);font-family:monospace;transition:all 300ms">2</div>
+                  <span id="sig-sl1" style="font-size:6px;color:rgba(255,255,255,0.25)">Specs</span>
+                </div>
+                <div style="width:8px;height:1px;background:rgba(255,255,255,0.07);margin-top:6px;flex-shrink:0"></div>
+                <div style="flex:1;display:flex;align-items:center;gap:3px">
+                  <div id="sig-sn2" style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(255,255,255,0.25);font-family:monospace;transition:all 300ms">3</div>
+                  <span id="sig-sl2" style="font-size:6px;color:rgba(255,255,255,0.25)">Account</span>
+                </div>
+                <div style="width:8px;height:1px;background:rgba(255,255,255,0.07);margin-top:6px;flex-shrink:0"></div>
+                <div style="flex:1;display:flex;align-items:center;gap:3px">
+                  <div id="sig-sn3" style="width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(255,255,255,0.25);font-family:monospace;transition:all 300ms">4</div>
+                  <span id="sig-sl3" style="font-size:6px;color:rgba(255,255,255,0.25)">Config</span>
+                </div>
+              </div>
+              <!-- panel 1: catalog -->
+              <div id="sig-p0" style="padding:8px 10px;display:block">
+                <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Software Catalog</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+                  <div id="sig-c0" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:6px;transition:all 200ms">
+                    <div style="font-size:11px;margin-bottom:2px">📊</div>
+                    <div style="font-size:6.5px;font-weight:600;color:rgba(255,255,255,0.45)">Analytics Pro</div>
+                    <div style="font-size:5.5px;color:rgba(255,255,255,0.2);margin-top:1px">$49/mo</div>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:6px">
+                    <div style="font-size:11px;margin-bottom:2px">🔍</div>
+                    <div style="font-size:6.5px;font-weight:600;color:rgba(255,255,255,0.45)">Search Suite</div>
+                    <div style="font-size:5.5px;color:rgba(255,255,255,0.2);margin-top:1px">$29/mo</div>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:6px">
+                    <div style="font-size:11px;margin-bottom:2px">📋</div>
+                    <div style="font-size:6.5px;font-weight:600;color:rgba(255,255,255,0.45)">Forms Builder</div>
+                    <div style="font-size:5.5px;color:rgba(255,255,255,0.2);margin-top:1px">$19/mo</div>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:6px">
+                    <div style="font-size:11px;margin-bottom:2px">🔗</div>
+                    <div style="font-size:6.5px;font-weight:600;color:rgba(255,255,255,0.45)">API Connect</div>
+                    <div style="font-size:5.5px;color:rgba(255,255,255,0.2);margin-top:1px">$39/mo</div>
+                  </div>
+                </div>
+              </div>
+              <!-- panel 2: specs -->
+              <div id="sig-p1" style="padding:8px 10px;display:none">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,0.05)">
+                  <span style="font-size:16px">📊</span>
+                  <div>
+                    <div style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.55)">Analytics Pro</div>
+                    <div style="font-size:5.5px;color:rgba(200,168,75,0.7);background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.2);border-radius:2px;padding:1px 4px;display:inline-block;margin-top:1px">Enterprise</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:7px">
+                  <div style="display:flex;justify-content:space-between"><span style="font-size:6px;color:rgba(255,255,255,0.25)">Integration</span><span style="font-size:6px;color:rgba(255,255,255,0.45);font-family:monospace">REST · Webhook</span></div>
+                  <div style="display:flex;justify-content:space-between"><span style="font-size:6px;color:rgba(255,255,255,0.25)">Retention</span><span style="font-size:6px;color:rgba(255,255,255,0.45);font-family:monospace">24 months</span></div>
+                  <div style="display:flex;justify-content:space-between"><span style="font-size:6px;color:rgba(255,255,255,0.25)">Seats</span><span style="font-size:6px;color:rgba(255,255,255,0.45);font-family:monospace">Up to 50</span></div>
+                  <div style="display:flex;justify-content:space-between"><span style="font-size:6px;color:rgba(255,255,255,0.25)">SLA</span><span style="font-size:6px;color:rgba(255,255,255,0.45);font-family:monospace">99.9% uptime</span></div>
+                </div>
+                <div id="sig-spec-btn" style="height:18px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+                  <span style="font-size:6.5px;color:rgba(200,168,75,0.8);font-weight:600">Select & Continue →</span>
+                </div>
+              </div>
+              <!-- panel 3: account -->
+              <div id="sig-p2" style="padding:8px 10px;display:none">
+                <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Account Setup</div>
+                <div id="sig-af0" style="height:18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:3px;margin-bottom:3px;display:flex;align-items:center;padding:0 6px;transition:all 200ms"><span style="font-size:6px;color:rgba(255,255,255,0.2);font-family:monospace">Full name</span></div>
+                <div id="sig-af1" style="height:18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:3px;margin-bottom:3px;display:flex;align-items:center;padding:0 6px;transition:all 200ms"><span style="font-size:6px;color:rgba(255,255,255,0.2);font-family:monospace">Work email</span></div>
+                <div id="sig-af2" style="height:18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:3px;margin-bottom:3px;display:flex;align-items:center;padding:0 6px;transition:all 200ms"><span style="font-size:6px;color:rgba(255,255,255,0.2);font-family:monospace">Company name</span></div>
+                <div id="sig-af3" style="height:18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:3px;margin-bottom:5px;display:flex;align-items:center;padding:0 6px;transition:all 200ms"><span style="font-size:6px;color:rgba(255,255,255,0.2);font-family:monospace">Team size</span></div>
+                <div id="sig-acc-btn" style="height:18px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+                  <span style="font-size:6.5px;color:rgba(200,168,75,0.8);font-weight:600">Create Account →</span>
+                </div>
+              </div>
+              <!-- panel 4: config drop-off -->
+              <div id="sig-p3" style="padding:8px 10px;display:none">
+                <div style="font-size:7px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Integration Config</div>
+                <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:4px;padding:6px;margin-bottom:4px">
+                  <div style="font-size:5.5px;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">API Settings</div>
+                  <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px">
+                    <span style="font-size:6px;color:rgba(255,255,255,0.25);flex:1;font-family:monospace">endpoint_url</span>
+                    <div id="sig-cv0" style="height:13px;flex:2;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:2px;display:flex;align-items:center;padding:0 4px;transition:all 200ms"><span style="font-size:5.5px;color:rgba(255,255,255,0.15);font-family:monospace">https://api.your-domain...</span></div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:4px;margin-bottom:2px">
+                    <span style="font-size:6px;color:rgba(255,255,255,0.25);flex:1;font-family:monospace">api_key</span>
+                    <div id="sig-cv1" style="height:13px;flex:2;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:2px;display:flex;align-items:center;padding:0 4px;transition:all 200ms"><span style="font-size:5.5px;color:rgba(255,255,255,0.15);font-family:monospace">sk-••••••••••</span></div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:4px">
+                    <span style="font-size:6px;color:rgba(255,255,255,0.25);flex:1;font-family:monospace">webhook_secret</span>
+                    <div id="sig-cv2" style="height:13px;flex:2;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:2px;display:flex;align-items:center;padding:0 4px;transition:all 200ms"><span style="font-size:5.5px;color:rgba(255,255,255,0.15);font-family:monospace">wh_secret_key</span></div>
+                  </div>
+                </div>
+              </div>
+              <!-- modal -->
+              <div id="sig-modal" style="position:absolute;inset:0;background:rgba(0,0,0,0.75);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 300ms;z-index:10">
+                <div style="width:150px;background:#1e1e1e;border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:10px;position:relative">
+                  <div id="sig-modal-x" style="position:absolute;top:6px;right:6px;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer"><span style="font-size:9px;color:rgba(255,255,255,0.35);line-height:1">×</span></div>
+                  <div style="font-size:7.5px;font-weight:700;color:rgba(255,255,255,0.65);margin-bottom:3px">⚙️ Advanced config needed</div>
+                  <div style="font-size:6px;color:rgba(255,255,255,0.3);line-height:1.5;margin-bottom:7px">Your integration requires API credentials and a custom event schema. Need IT help?</div>
+                  <div style="display:flex;gap:4px">
+                    <div style="flex:1;height:15px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:2px;display:flex;align-items:center;justify-content:center"><span style="font-size:5.5px;color:rgba(255,255,255,0.25)">Skip for now</span></div>
+                    <div style="flex:1;height:15px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);border-radius:2px;display:flex;align-items:center;justify-content:center"><span style="font-size:5.5px;color:rgba(200,168,75,0.8);font-weight:600">Get help →</span></div>
+                  </div>
+                </div>
+              </div>
+              <!-- abandoned -->
+              <div id="sig-abandoned" style="position:absolute;inset:0;background:rgba(0,0,0,0.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;opacity:0;pointer-events:none;transition:opacity 500ms;z-index:20">
+                <div style="font-size:18px">⚠️</div>
+                <div style="font-size:9px;font-weight:700;color:#e05c4a;letter-spacing:.06em">SESSION ABANDONED</div>
+                <div style="font-size:6.5px;color:rgba(224,92,74,0.5);text-align:center;max-width:130px;line-height:1.4">User exited at config step — integration never completed</div>
+                <div style="margin-top:3px;font-size:5.5px;font-family:monospace;color:rgba(224,92,74,0.4);background:rgba(224,92,74,0.06);border:1px solid rgba(224,92,74,0.15);border-radius:2px;padding:2px 6px">drop_off · step_4 · config</div>
+              </div>
+              <!-- pendo badge -->
+              <div style="position:absolute;bottom:5px;right:7px;display:flex;align-items:center;gap:3px;font-size:5.5px;color:rgba(255,71,133,0.6);font-weight:600;background:rgba(255,71,133,0.06);border:1px solid rgba(255,71,133,0.15);border-radius:2px;padding:2px 4px;z-index:5">
+                <svg width="6" height="6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>
+                Pendo Live Capture
+              </div>
+              <!-- cursor -->
+              <div id="sig-cursor" style="position:absolute;left:20px;top:40px;pointer-events:none;z-index:50;transition:left 500ms cubic-bezier(0.4,0,0.2,1),top 500ms cubic-bezier(0.4,0,0.2,1)">
+                <svg width="11" height="13" viewBox="0 0 14 16" fill="none"><path d="M1 1l5 13 2.5-5L14 6.5 1 1z" fill="#4aa3d4" stroke="rgba(255,255,255,0.6)" stroke-width="0.8"/></svg>
+              </div>
+            </div>
+            <!-- event stream -->
+            <div style="margin-top:8px">
+              <div style="font-size:6px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:5px">Event Stream</div>
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <div id="sig-ev0" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#4aa3d4;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">page_view</strong> /catalog</span></div>
+                <div id="sig-ev1" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#4aa3d4;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">item_selected</strong> analytics_pro</span></div>
+                <div id="sig-ev2" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#4aa3d4;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">specs_viewed</strong> 8.2s</span></div>
+                <div id="sig-ev3" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#4aa3d4;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">account_created</strong> step 3 ✓</span></div>
+                <div id="sig-ev4" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#f4c842;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">config_started</strong> step_4</span></div>
+                <div id="sig-ev5" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#f4c842;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">modal_shown</strong> config_help</span></div>
+                <div id="sig-ev6" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#e05c4a;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">modal_dismissed</strong> ×</span></div>
+                <div id="sig-ev7" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#e05c4a;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">session_end</strong> drop_off</span></div>
               </div>
             </div>
           </div>
-          <div class="proc-vis-label" style="margin-top:8px"><svg width="10" height="10" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg> Pendo · live capture</div>
-          <div class="proc-pendo-panel">
-            <div class="proc-event-stream">
-              <div class="proc-es-row" id="sig-ev0"><div class="proc-es-dot" style="background:#378ADD"></div><div class="proc-es-name">page_view</div><div class="proc-es-tag" style="color:#378ADD">NAV</div></div>
-              <div class="proc-es-row" id="sig-ev1"><div class="proc-es-dot" style="background:#639922"></div><div class="proc-es-name">feature_configure_click</div><div class="proc-es-tag" style="color:#639922">ACT</div></div>
-              <div class="proc-es-row proc-es-row--hot" id="sig-ev2"><div class="proc-es-dot" style="background:#e05c4a"></div><div class="proc-es-name">setup_abandoned</div><div class="proc-es-tag" style="color:#e05c4a">DROP</div></div>
-            </div>
-            <div class="proc-funnel" id="sig-funnel">
-              <div class="proc-fn-row"><div class="proc-fn-name">Visit</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb0" style="background:#639922"></div></div><div class="proc-fn-pct" id="sig-fp0">—</div></div>
-              <div class="proc-fn-row"><div class="proc-fn-name">Config</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb1" style="background:#BA7517"></div></div><div class="proc-fn-pct" id="sig-fp1">—</div></div>
-              <div class="proc-fn-row"><div class="proc-fn-name">Done</div><div class="proc-fn-track"><div class="proc-fn-fill" id="sig-fb2" style="background:#e05c4a"></div></div><div class="proc-fn-pct proc-fn-pct--drop" id="sig-fp2">—</div></div>
-              <div class="proc-drop-note" id="sig-drop">68% drop-off at config → research triggered</div>
-            </div>
-          </div>
-          <div class="proc-replay-wrap">
-            <button class="proc-replay-btn" onclick="procReplay(0)">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
-              replay
-            </button>
-          </div>
-        </div>
       </div>
       <!-- Mobile footer: desc + outputs + nav -->
       <div class="proc-mobile-footer">
@@ -1230,10 +1333,11 @@ body::before {
           <h3 class="proc-title">AI-assisted<br>pattern finding</h3>
           <p class="proc-desc">Analytics and research meet in a source of truth. An LLM clusters, categorizes, and finds patterns. I supervise every step. Output: actionable insights in three buckets.</p>
           <div class="proc-tools">
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.9)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Claude</span>
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 23 23"><rect x="0" y="0" width="10" height="10" fill="#F25022"/><rect x="12" y="0" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>Copilot Studio</span>
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>SharePoint · Drive</span>
-            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>Power BI</span>
+            <span class="proc-tool" style="border-color:rgba(200,168,75,0.3);color:rgba(200,168,75,0.9)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.9)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Claude · Cowork</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 23 23"><rect x="0" y="0" width="10" height="10" fill="#F25022"/><rect x="12" y="0" width="10" height="10" fill="#7FBA00"/><rect x="0" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>Copilot · SharePoint · Power BI</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>Notion</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>GitHub</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>MCP</span>
           </div>
           <div class="proc-outputs">
             <div class="proc-out-label">Output</div>
@@ -1299,6 +1403,7 @@ body::before {
             <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 38 57" fill="none"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>Figma · Make</span>
             <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(74,163,212,0.9)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><path d="M14 17.5h7M17.5 14v7"/></svg>Jira · ADO · Linear</span>
             <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>v0 · Claude Code</span>
+            <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Lovable · Bolt</span>
             <span class="proc-tool"><svg width="13" height="13" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF4785"/><rect x="7" y="7" width="4" height="10" rx="1" fill="white"/><path d="M13 12l4-5v10l-4-5z" fill="white"/></svg>Pendo guide</span>
           </div>
           <div class="proc-outputs">
@@ -2087,7 +2192,21 @@ var DURATIONS=[6000,5000,5500,5000,5000];
 var procAnimated=[false,false,false,false,false];
 var ANIM_FNS_REF=[];
 function qt(f,d){procTimers.push(setTimeout(f,d));}
-function clrT(){procTimers.forEach(clearTimeout);procTimers=[];}
+function clrT(){
+  /* reset signal panel */
+  var sigAbandoned=document.getElementById('sig-abandoned');
+  if(sigAbandoned)sigAbandoned.style.opacity='0';
+  var sigModal=document.getElementById('sig-modal');
+  if(sigModal){sigModal.style.opacity='0';sigModal.style.pointerEvents='none';}
+  var sigUrl=document.getElementById('sig-url');
+  if(sigUrl)sigUrl.textContent='app.platform.io/catalog';
+  ['sig-p0','sig-p1','sig-p2','sig-p3'].forEach(function(id,j){var p=document.getElementById(id);if(p)p.style.display=j===0?'block':'none';});
+  [0,1,2,3].forEach(function(j){var n=document.getElementById('sig-sn'+j);if(n)n.style.cssText=j===0?'width:13px;height:13px;border-radius:50%;border:1px solid rgba(200,168,75,0.6);background:rgba(200,168,75,0.08);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(200,168,75,0.9);font-family:monospace;transition:all 300ms':'width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(255,255,255,0.25);font-family:monospace;transition:all 300ms';});
+  [0,1,2,3,4,5,6,7].forEach(function(i){var e=document.getElementById('sig-ev'+i);if(e)e.style.opacity='0';});
+  var sigCur=document.getElementById('sig-cursor');
+  if(sigCur){sigCur.style.transition='none';sigCur.style.left='20px';sigCur.style.top='40px';}
+  procTimers.forEach(clearTimeout);procTimers=[];
+}
 function procActivate(n){
   document.querySelectorAll('.proc-step').forEach(function(b,i){
     b.classList.toggle('proc-step--active', i===n);
@@ -2143,38 +2262,80 @@ function startAuto(){
   },DURATIONS[current]);
 }
 function animSignal(){
-  if(reduced) return;
-  var cur=document.getElementById('proc-cursor');
-  var screen=document.getElementById('sig-screen');
-  ['sig-ev0','sig-ev1','sig-ev2'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.remove('in');});
-  ['sig-fb0','sig-fb1','sig-fb2'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.width='0%';});
-  ['sig-fp0','sig-fp1','sig-fp2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='—';});
-  var drop=document.getElementById('sig-drop');if(drop)drop.classList.remove('show');
-  var em=document.getElementById('proc-emoji');if(em)em.classList.remove('show');
-  var pb=document.getElementById('proc-pain');if(pb)pb.classList.remove('show');
-  ['sig-c0','sig-c1','sig-c2','sig-c3'].forEach(function(id){var el=document.getElementById(id);if(el){el.classList.remove('proc-wf-card--hov','proc-wf-card--clicked');}});
-  function mc(xp,yp){
-    if(!cur||!screen)return;
-    var r=screen.getBoundingClientRect();
-    if(!r.width){setTimeout(function(){animSignal();},200);return;}
-    cur.style.left=(xp/100*r.width)+'px';cur.style.top=(yp/100*r.height)+'px';
+  var urls=['app.platform.io/catalog','app.platform.io/product/analytics-pro','app.platform.io/setup/account','app.platform.io/setup/config'];
+  var cur=document.getElementById('sig-cursor');
+  var urlEl=document.getElementById('sig-url');
+  if(!cur||!urlEl)return;
+  function sev(i){var e=document.getElementById('sig-ev'+i);if(e)e.style.opacity='1';}
+  function stp(i){
+    [0,1,2,3].forEach(function(j){
+      var n=document.getElementById('sig-sn'+j);
+      var l=document.getElementById('sig-sl'+j);
+      if(!n||!l)return;
+      if(j<i){n.style.cssText='width:13px;height:13px;border-radius:50%;border:1px solid rgba(34,197,94,0.4);background:rgba(34,197,94,0.06);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(34,197,94,0.8);font-family:monospace;transition:all 300ms';}
+      else if(j===i){n.style.cssText='width:13px;height:13px;border-radius:50%;border:1px solid rgba(200,168,75,0.6);background:rgba(200,168,75,0.08);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(200,168,75,0.9);font-family:monospace;transition:all 300ms';}
+      else{n.style.cssText='width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:6px;color:rgba(255,255,255,0.25);font-family:monospace;transition:all 300ms';}
+    });
   }
-  qt(function(){mc(20,25);},100);
-  qt(function(){mc(55,38);var c=document.getElementById('sig-c1');if(c)c.classList.add('proc-wf-card--hov');},700);
-  qt(function(){var c=document.getElementById('sig-c1');if(c){c.classList.remove('proc-wf-card--hov');c.classList.add('proc-wf-card--clicked');}document.getElementById('sig-ev0').classList.add('in');},1200);
-  qt(function(){mc(55,68);document.getElementById('sig-ev1').classList.add('in');},1900);
-  qt(function(){mc(55,68);var c3=document.getElementById('sig-c3');if(c3)c3.style.borderColor='rgba(200,168,75,0.5)';},2600);
-  qt(function(){
-    mc(22,85);
-    if(em){em.classList.remove('show');void em.offsetWidth;em.classList.add('show');}
-    if(pb){pb.classList.add('show');setTimeout(function(){pb.classList.remove('show');},2200);}
-    document.getElementById('sig-ev2').classList.add('in');
-  },3200);
-  qt(function(){
-    var fd=[['sig-fb0',100,'sig-fp0','100%'],['sig-fb1',52,'sig-fp1','52%'],['sig-fb2',18,'sig-fp2','18%']];
-    fd.forEach(function(d,i){qt(function(){var b=document.getElementById(d[0]);if(b)b.style.width=d[1]+'%';var p=document.getElementById(d[2]);if(p)p.textContent=d[3];},i*220);});
-    qt(function(){if(drop)drop.classList.add('show');},850);
-  },4200);
+  function spn(i){
+    ['sig-p0','sig-p1','sig-p2','sig-p3'].forEach(function(id,j){
+      var p=document.getElementById(id);if(p)p.style.display=j===i?'block':'none';
+    });
+  }
+  function moveTo(elId,cb,dur){
+    var el=document.getElementById(elId);
+    var sc=document.getElementById('sig-screen');
+    if(!el||!sc)return;
+    var r=el.getBoundingClientRect(),sr=sc.getBoundingClientRect();
+    var tx=r.left-sr.left+r.width/2-5,ty=r.top-sr.top+r.height/2-6;
+    cur.style.left=tx+'px';cur.style.top=ty+'px';
+    setTimeout(cb||function(){},dur||500);
+  }
+  function clk(elId){var e=document.getElementById(elId);if(e){e.style.transform='scale(0.94)';setTimeout(function(){e.style.transform='';},120);}}
+  sev(0);
+  /* step 1: select catalog item */
+  setTimeout(function(){
+    moveTo('sig-c0',function(){
+      clk('sig-c0');
+      var c=document.getElementById('sig-c0');
+      if(c)c.style.borderColor='rgba(200,168,75,0.5)';
+      sev(1);
+      setTimeout(function(){urlEl.textContent=urls[1];stp(1);spn(1);sev(2);},500);
+    },600);
+  },600);
+  /* step 2: click continue on specs */
+  setTimeout(function(){
+    moveTo('sig-spec-btn',function(){clk('sig-spec-btn');setTimeout(function(){urlEl.textContent=urls[2];stp(2);spn(2);},400);},500);
+  },2200);
+  /* step 3: fill account fields */
+  ['sig-af0','sig-af1','sig-af2','sig-af3'].forEach(function(fid,i){
+    setTimeout(function(){
+      var f=document.getElementById(fid);if(!f)return;
+      moveTo(fid,function(){
+        f.style.borderColor='rgba(200,168,75,0.45)';f.style.background='rgba(200,168,75,0.04)';
+        setTimeout(function(){f.style.borderColor='rgba(34,197,94,0.2)';f.style.background='rgba(34,197,94,0.03)';},350);
+      },400);
+    },3200+i*700);
+  });
+  setTimeout(function(){
+    moveTo('sig-acc-btn',function(){clk('sig-acc-btn');sev(3);setTimeout(function(){urlEl.textContent=urls[3];stp(3);spn(3);sev(4);},400);},400);
+  },6200);
+  /* step 4: config - struggle then abandon */
+  setTimeout(function(){moveTo('sig-cv0',function(){var c=document.getElementById('sig-cv0');if(c)c.style.borderColor='rgba(200,168,75,0.35)';},500);},7000);
+  setTimeout(function(){
+    moveTo('sig-cv1',function(){
+      var c=document.getElementById('sig-cv1');if(c)c.style.borderColor='rgba(200,168,75,0.35)';
+      setTimeout(function(){var m=document.getElementById('sig-modal');if(m){m.style.opacity='1';m.style.pointerEvents='all';}sev(5);},600);
+    },600);
+  },8000);
+  setTimeout(function(){
+    moveTo('sig-modal-x',function(){
+      clk('sig-modal-x');
+      var m=document.getElementById('sig-modal');if(m){m.style.opacity='0';m.style.pointerEvents='none';}
+      sev(6);
+      setTimeout(function(){sev(7);setTimeout(function(){var a=document.getElementById('sig-abandoned');if(a){a.style.opacity='1';}},400);},500);
+    },400);
+  },9800);
 }
 function animUnderstand(){
   if(reduced) return;
