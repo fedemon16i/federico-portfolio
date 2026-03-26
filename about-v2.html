@@ -2300,22 +2300,25 @@ window.procJump=function(n){
 function startProgress(dur){
   var fill=document.getElementById('proc-tl-fill');
   if(!fill)return;
+  /* reset to 0 instantly */
   fill.style.transition='none';
-  setTimeout(function(){
-    fill.style.transition='width '+dur+'ms linear';
-    var pct=(current/4*100);
-    fill.style.width=pct+'%';
-    setTimeout(function(){
-      fill.style.transition='width '+dur+'ms linear';
-      fill.style.width=((current+1)/4*100)+'%';
-    },50);
-  },30);
+  fill.style.width='0%';
+  /* force reflow */
+  void fill.offsetWidth;
+  /* animate 0 → 100% over the panel duration */
+  fill.style.transition='width '+dur+'ms linear';
+  fill.style.width='100%';
 }
 function startAuto(){
   clearInterval(autoTimer);
-  autoTimer=setInterval(function(){
-    procActivate((current+1)%5);
-  },DURATIONS[current]);
+  autoTimer=null;
+  var n=current;
+  var dur=DURATIONS[n]||6000;
+  autoTimer=setTimeout(function(){
+    if(autoTimer===null)return;
+    procActivate((n+1)%5);
+    startAuto();
+  },dur);
 }
 function animSignal(){
   var urls=['app.platform.io/catalog','app.platform.io/product/analytics-pro','app.platform.io/setup/account','app.platform.io/setup/config'];
