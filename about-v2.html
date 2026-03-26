@@ -595,6 +595,40 @@ body::before {
 @keyframes synblink { 0%,100%{opacity:1} 50%{opacity:0} }
 @keyframes cntblink { 0%,100%{opacity:1} 50%{opacity:0} }
 @keyframes cntpulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+/* Connect step — extra/optional style */
+.proc-step-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--border-subtle);
+  flex-shrink: 0;
+  align-self: center;
+  margin: 0 2px;
+}
+.proc-step--connect {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  gap: 5px;
+  color: rgba(200,168,75,0.5);
+  border: 0.5px dashed rgba(200,168,75,0.2);
+  border-radius: 100px;
+}
+.proc-step--connect:hover {
+  background: rgba(200,168,75,0.06);
+  color: rgba(200,168,75,0.75);
+  border-color: rgba(200,168,75,0.35);
+}
+.proc-step--connect.proc-step--active {
+  background: rgba(200,168,75,0.08);
+  box-shadow: 0 0 0 1px rgba(200,168,75,0.4), 0 0 12px rgba(200,168,75,0.08);
+  color: rgba(200,168,75,0.9);
+  border-color: rgba(200,168,75,0.4);
+}
+.proc-step--connect svg { flex-shrink: 0; }
+/* hide sep + connect tab on mobile — replaced by modal button in each panel */
+@media (max-width: 768px) {
+  .proc-step-sep { display: none; }
+  .proc-step--connect { display: none; }
+}
 .proc-panels { border: 1px solid var(--border-subtle); border-top: none; }
 .proc-panel { display: none; }
 .proc-panel--active { display: block; animation: procFade 300ms ease; }
@@ -1056,10 +1090,28 @@ body::before {
         <div class="proc-step-dot"><span class="proc-step-num">04</span></div>
         <div class="proc-step-label">Act</div>
       </button>
-      <button class="proc-step" id="pst-4" role="tab" aria-selected="false" aria-controls="proc-p4" onclick="procJump(4)">
-        <div class="proc-step-dot"><span class="proc-step-num">05</span></div>
+      <!-- separator -->
+      <div class="proc-step-sep" aria-hidden="true"></div>
+      <!-- connect: desktop = tab extra, mobile = modal trigger -->
+      <button class="proc-step proc-step--connect" id="pst-4" role="tab" aria-selected="false" aria-controls="proc-p4"
+        onclick="(window.innerWidth>=769)?procJump(4):openConnectModal()">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
         <div class="proc-step-label">Connect</div>
       </button>
+    </div>
+
+    <!-- mobile connect modal -->
+    <div id="connect-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)closeConnectModal()">
+      <div style="background:#111;border:1.5px solid rgba(200,168,75,0.2);border-radius:12px;overflow:hidden;width:100%;max-width:400px;max-height:80vh;overflow-y:auto">
+        <div style="height:44px;background:#0d0d0d;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;padding:0 16px;gap:8px;position:sticky;top:0;z-index:1">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(200,168,75,0.8)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          <span style="flex:1;font-size:0.8rem;font-weight:600;color:rgba(200,168,75,0.75)">How does this connect?</span>
+          <button onclick="closeConnectModal()" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;cursor:pointer;line-height:1;padding:4px">×</button>
+        </div>
+        <div id="connect-modal-body" style="padding:16px">
+          <!-- injected from proc-p4 content -->
+        </div>
+      </div>
     </div>
   </div>
   <div class="proc-panels">
@@ -2618,14 +2670,46 @@ function animSignal(){
       sev(6);
       setTimeout(function(){
         sev(7);
+        /* cursor moves to a random field and clicks before disappearing */
         setTimeout(function(){
-          var a=document.getElementById('sig-abandoned');
-          if(a){a.style.opacity='1';}
-          /* hold abandoned state for 2.5s before auto-advance */
-        },400);
+          moveTo('sig-cv0',function(){
+            clk('sig-cv0');
+            setTimeout(function(){
+              /* cursor fades out */
+              if(cur){
+                cur.style.transition='opacity 600ms ease';
+                cur.style.opacity='0';
+              }
+              setTimeout(function(){
+                var a=document.getElementById('sig-abandoned');
+                if(a){a.style.opacity='1';}
+                /* restore cursor opacity for replay */
+                if(cur){cur.style.opacity='1';cur.style.transition='';}
+              },700);
+            },400);
+          },350);
+        },200);
       },500);
     },400);
   },9800);
+}
+function openConnectModal(){
+  var modal=document.getElementById('connect-modal');
+  var body=document.getElementById('connect-modal-body');
+  var panel=document.getElementById('proc-p4');
+  if(!modal||!body||!panel)return;
+  /* clone proc-right content into modal */
+  var right=panel.querySelector('.proc-right');
+  if(right){body.innerHTML='';var clone=right.cloneNode(true);clone.style.cssText='';body.appendChild(clone);}
+  modal.style.display='flex';
+  document.body.style.overflow='hidden';
+  /* run connect animation on cloned content — simplified */
+  animConnect();
+}
+function closeConnectModal(){
+  var modal=document.getElementById('connect-modal');
+  if(modal)modal.style.display='none';
+  document.body.style.overflow='';
 }
 function animUnderstand(){
   if(reduced)return;
