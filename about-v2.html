@@ -2714,15 +2714,15 @@ function animSignal(){
   function moveTo(elId,cb,dur){
     var el=document.getElementById(elId);
     var sc=document.getElementById('sig-screen');
-    if(!el||!sc)return;
-    /* use offsetTop/offsetLeft for stable relative positioning */
-    var tx=el.offsetLeft+el.offsetWidth/2-5;
-    var ty=el.offsetTop+el.offsetHeight/2-6;
-    /* clamp to screen bounds */
-    var maxX=sc.offsetWidth-18;
-    var maxY=sc.offsetHeight-18;
-    tx=Math.max(2,Math.min(tx,maxX));
-    ty=Math.max(2,Math.min(ty,maxY));
+    if(!el||!sc){setTimeout(cb||function(){},dur||500);return;}
+    /* getBoundingClientRect snapshot taken together — scroll compensated */
+    var r=el.getBoundingClientRect();
+    var sr=sc.getBoundingClientRect();
+    var tx=r.left-sr.left+r.width/2-5;
+    var ty=r.top-sr.top+r.height/2-6;
+    /* clamp within screen bounds */
+    tx=Math.max(2,Math.min(tx,sr.width-18));
+    ty=Math.max(2,Math.min(ty,sr.height-18));
     cur.style.transition='left '+(dur||500)+'ms cubic-bezier(0.4,0,0.2,1),top '+(dur||500)+'ms cubic-bezier(0.4,0,0.2,1)';
     void cur.offsetWidth;
     cur.style.left=tx+'px';cur.style.top=ty+'px';
