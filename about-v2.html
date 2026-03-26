@@ -1214,7 +1214,12 @@ body::before {
                 Pendo Live Capture
               </div>
               <!-- cursor -->
-              <div id="sig-cursor" style="position:absolute;left:20px;top:40px;pointer-events:none;z-index:50;transition:left 500ms cubic-bezier(0.4,0,0.2,1),top 500ms cubic-bezier(0.4,0,0.2,1);font-size:13px;line-height:1;filter:drop-shadow(0 0 4px rgba(74,163,212,0.5))">🖱️</div>
+              <div id="sig-cursor" style="position:absolute;left:20px;top:40px;pointer-events:none;z-index:50;transition:left 500ms cubic-bezier(0.4,0,0.2,1),top 500ms cubic-bezier(0.4,0,0.2,1)">
+                <svg id="sig-cursor-svg" width="14" height="16" viewBox="0 0 14 16" fill="none" style="filter:drop-shadow(0 0 4px rgba(74,163,212,0.5));transition:transform 100ms">
+                  <path d="M1 1l5 13 2.5-5L14 6.5 1 1z" fill="#4aa3d4" stroke="rgba(255,255,255,0.7)" stroke-width="0.8"/>
+                </svg>
+                <div id="sig-cursor-ring" style="position:absolute;top:0;left:0;width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(74,163,212,0.6);opacity:0;transform:scale(1);pointer-events:none"></div>
+              </div>
             </div>
             <!-- event stream -->
             <div style="margin-top:8px">
@@ -2306,7 +2311,26 @@ function animSignal(){
     cur.style.left=tx+'px';cur.style.top=ty+'px';
     setTimeout(cb||function(){},dur||500);
   }
-  function clk(elId){var e=document.getElementById(elId);if(e){e.style.transform='scale(0.94)';setTimeout(function(){e.style.transform='';},120);}}
+  function clk(elId){
+    var e=document.getElementById(elId);
+    if(e){e.style.transform='scale(0.94)';setTimeout(function(){e.style.transform='';},120);}
+    /* cursor click pulse */
+    var ring=document.getElementById('sig-cursor-ring');
+    var svg=document.getElementById('sig-cursor-svg');
+    if(ring){
+      ring.style.transition='none';
+      ring.style.opacity='0.8';
+      ring.style.transform='scale(1)';
+      void ring.offsetWidth;
+      ring.style.transition='opacity 400ms ease, transform 400ms ease';
+      ring.style.opacity='0';
+      ring.style.transform='scale(2.5)';
+    }
+    if(svg){
+      svg.style.transform='scale(0.85)';
+      setTimeout(function(){if(svg)svg.style.transform='scale(1)';},120);
+    }
+  }
   sev(0);
   /* step 1: select catalog item */
   setTimeout(function(){
