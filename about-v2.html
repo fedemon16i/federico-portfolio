@@ -311,7 +311,7 @@ body::before {
   overflow: hidden;
   min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: calc(var(--nav-h, 64px) + var(--space-80, 80px)) 0 180px;
 }
 .about-hero::after {
@@ -1607,7 +1607,7 @@ body::before {
           <div class="proc-vis-label">Insights → delivery path</div>
 
           <!-- stage: paths grid + design window overlay -->
-          <div style="position:relative" id="act-stage">
+          <div style="position:relative;min-height:var(--act-stage-h,120px)" id="act-stage">
 
             <!-- 4 paths grid -->
             <div id="act-paths" style="display:grid;grid-template-columns:1fr 1fr;gap:4px;transition:opacity 300ms ease">
@@ -1753,7 +1753,7 @@ body::before {
           <div class="proc-mobile-dot proc-mobile-dot--active"></div>
           <div class="proc-mobile-dot"></div>
         </div>
-        <button class="proc-mobile-btn proc-mobile-btn--next" onclick="procJump(4)">Connect →</button>
+        <button class="proc-mobile-btn proc-mobile-btn--next" onclick="(window.innerWidth>=769)?procJump(4):openConnectModal()">Connect →</button>
       </div>
     </div>
     <!-- 05 CONNECT -->
@@ -2870,7 +2870,8 @@ function animAct(){
   paths.forEach(function(id,i){qt(function(){var e=document.getElementById(id);if(e){e.style.transition='opacity 300ms ease,transform 300ms ease';e.style.opacity='1';e.style.transform='translateY(0)';}},200+i*350);});
   qt(function(){var p=document.getElementById('act-p0');if(p){p.style.boxShadow='0 0 0 1.5px rgba(26,188,254,0.5),0 0 14px rgba(26,188,254,0.1)';p.style.background='rgba(26,188,254,0.08)';}},1800);
   qt(function(){
-    if(stage)stage.style.minHeight=(pg?pg.offsetHeight:120)+'px';
+    var h=pg?pg.offsetHeight:120;
+    if(stage){stage.style.minHeight=h+'px';}
     if(pg)pg.style.opacity='0';
     qt(function(){if(dw){dw.style.transition='opacity 400ms ease,transform 400ms cubic-bezier(0.34,1.1,0.64,1)';dw.style.opacity='1';dw.style.transform='scale(1)';dw.style.pointerEvents='all';}},200);
   },2200);
