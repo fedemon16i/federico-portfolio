@@ -595,6 +595,11 @@ body::before {
 @keyframes synblink { 0%,100%{opacity:1} 50%{opacity:0} }
 @keyframes cntblink { 0%,100%{opacity:1} 50%{opacity:0} }
 @keyframes cntpulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+/* gallery arrows — desktop hidden */
+.proc-gallery-arrow { display: none; }
+@media (max-width: 820px) {
+  .proc-gallery-arrow { display: flex; }
+}
 /* Connect step — extra/optional style */
 .proc-step-sep {
   width: 1px;
@@ -863,9 +868,21 @@ body::before {
   /* Nav — timeline compacto mobile */
   .proc-nav { padding: 14px 16px 12px; }
   .proc-tl-track { top: 27px; left: 32px; right: 32px; }
-  .proc-step-dot { width: 22px; height: 22px; font-size: 0.55rem; }
-  .proc-step-label { display: block; font-size: 0.58rem; }
-  .proc-step--active .proc-step-dot { width: 8px; height: 8px; }
+  /* stepper mobile — compact: active shows name, others show number */
+  .proc-step { flex: 0 0 auto; padding: 5px 6px; gap: 0; min-width: 0; }
+  .proc-step-dot { width: 20px; height: 20px; font-size: 0.55rem; flex-shrink: 0; }
+  .proc-step-label { display: none; font-size: 0.6rem; }
+  .proc-step-num { display: flex; }
+  .proc-step--active { flex: 0 0 auto; padding: 5px 8px; gap: 5px; }
+  .proc-step--active .proc-step-dot { width: 7px; height: 7px; font-size: 0; }
+  .proc-step--active .proc-step-label { display: block; }
+  .proc-step--active .proc-step-num { display: none; }
+  .proc-step--done .proc-step-dot { width: 20px; height: 20px; }
+  .proc-step-sep { display: flex; }
+  .proc-step--connect { display: flex; padding: 5px 7px; gap: 0; }
+  .proc-step--connect .proc-step-label { display: none; }
+  .proc-step--connect svg { display: none; }
+  .proc-step--connect::after { content: '+'; font-size: 1rem; color: rgba(200,168,75,0.55); font-weight: 300; line-height: 1; }
   .proc-tool { font-size: 0.58rem; padding: 2px 6px; gap: 3px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .proc-tool svg { width: 10px; height: 10px; flex-shrink: 0; }
   /* Panels — layout mobile */
@@ -898,40 +915,28 @@ body::before {
     line-height: 1.7; margin-bottom: var(--space-12);
   }
   .proc-mobile-footer .proc-outputs { display: flex; flex-direction: column; gap: 4px; }
-  .proc-mobile-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: var(--space-12) var(--space-12);
-    border-top: 1px solid var(--border-subtle);
-    background: var(--bg-surface);
-    gap: var(--space-8);
-    overflow: hidden;
-  }
-  .proc-mobile-dots { display: flex; gap: 4px; align-items: center; }
-  .proc-mobile-dot {
-    width: 4px; height: 4px; border-radius: 50%;
-    background: var(--border-subtle);
-    transition: background 200ms, width 200ms;
-    flex-shrink: 0;
-  }
-  .proc-mobile-dot--active {
-    background: var(--accent);
-    width: 12px; border-radius: 2px;
-  }
-  .proc-mobile-btn {
-    font-size: 0.65rem; padding: 5px 10px;
-    border: 1px solid var(--border-subtle);
-    border-radius: 100px;
-    background: var(--bg-surface);
-    color: var(--text-secondary); cursor: pointer;
+  /* hide old mobile nav entirely */
+  .proc-mobile-nav { display: none !important; }
+  /* gallery arrows — inset on sides of proc-right */
+  .proc-gallery-arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 10;
     transition: all 180ms;
-    white-space: nowrap;
-    flex-shrink: 0;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
-  .proc-mobile-btn--next {
-    background: var(--accent-dim);
-    border-color: var(--accent);
-    color: var(--accent); font-weight: 600;
-  }
+  .proc-gallery-arrow:hover { background: rgba(255,255,255,0.12); }
+  .proc-gallery-arrow:active { transform: translateY(-50%) scale(0.9); }
+  .proc-gallery-arrow.left { left: 6px; }
+  .proc-gallery-arrow.right { right: 6px; }
+  .proc-gallery-arrow.hidden { opacity: 0; pointer-events: none; }
+  .proc-right { position: relative; }
 }
 @keyframes ldot { 0%,100%{opacity:1} 50%{opacity:0.3} }
 @keyframes tblink { 0%,100%{opacity:1} 50%{opacity:0} }
@@ -1178,6 +1183,8 @@ body::before {
           </div>
         </div>
         <div class="proc-right">
+          <button class="proc-gallery-arrow left hidden" onclick="procJump(0)" aria-label="Previous"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="proc-gallery-arrow right" onclick="procJump(1)" aria-label="Next"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
             <div class="proc-vis-label">Software Acquisition & Setup</div>
             <div id="sig-screen" style="background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:8px;overflow:hidden;position:relative;font-size:0">
               <!-- bar -->
@@ -1428,6 +1435,8 @@ body::before {
           </div>
         </div>
         <div class="proc-right">
+          <button class="proc-gallery-arrow left" onclick="procJump(0)" aria-label="Previous"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="proc-gallery-arrow right" onclick="procJump(2)" aria-label="Next"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
           <div class="proc-vis-label">Research — signal-driven</div>
 
           <!-- signal trigger from step 1 -->
@@ -1550,6 +1559,8 @@ body::before {
           </div>
         </div>
         <div class="proc-right">
+          <button class="proc-gallery-arrow left" onclick="procJump(1)" aria-label="Previous"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="proc-gallery-arrow right" onclick="procJump(3)" aria-label="Next"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
           <div class="proc-vis-label">AI Synthesis — supervised</div>
 
           <!-- LLM console -->
@@ -1690,6 +1701,8 @@ body::before {
           </div>
         </div>
         <div class="proc-right">
+          <button class="proc-gallery-arrow left" onclick="procJump(2)" aria-label="Previous"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="proc-gallery-arrow right hidden" onclick="procJump(4)" aria-label="Next"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
           <div class="proc-vis-label">Insights → delivery path</div>
 
           <!-- stage: paths grid + design window overlay -->
