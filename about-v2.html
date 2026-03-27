@@ -624,10 +624,8 @@ body::before {
   border-color: rgba(200,168,75,0.4);
 }
 .proc-step--connect svg { flex-shrink: 0; }
-/* hide sep + connect tab on mobile — replaced by modal button in each panel */
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .proc-step-sep { display: none; }
-  .proc-step--connect { display: none; }
 }
 .proc-connect-footer-btn {
   display: none;
@@ -1138,7 +1136,7 @@ body::before {
       <div class="proc-step-sep" aria-hidden="true"></div>
       <!-- connect: desktop = tab extra, mobile = modal trigger -->
       <button class="proc-step proc-step--connect" id="pst-4" role="tab" aria-selected="false" aria-controls="proc-p4"
-        onclick="(window.innerWidth>=820)?procJump(4):openConnectModal()">
+        onclick="procJump(4)">
         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
         <div class="proc-step-label">Connect</div>
       </button>
@@ -3037,15 +3035,23 @@ function animAct(){
   var stage=document.getElementById('act-stage');
   var tip=document.getElementById('act-tip');
   var cur=document.getElementById('act-cur');
-  /* mobile: paths already visible via HTML, nothing to do */
-  if(window.innerWidth<820){ return; }
-
-  /* desktop reset */
+  /* reset for all viewports */
   paths.forEach(function(id){var e=document.getElementById(id);if(e){e.style.opacity='0';e.style.transform='translateY(4px)';e.style.boxShadow='';e.style.background=e.style.background;}});
   if(pg){pg.style.opacity='1';pg.style.display='grid';}
   if(dw){dw.style.display='none';dw.style.opacity='0';dw.style.transform='scale(0.97)';dw.style.pointerEvents='none';}
   if(tip)tip.style.opacity='0';
   if(cur){cur.style.transition='none';cur.style.left='10px';cur.style.top='12px';}
+
+  /* mobile: animate paths in, skip dw crossfade */
+  if(window.innerWidth<820){
+    paths.forEach(function(id,i){
+      qt(function(){
+        var e=document.getElementById(id);
+        if(e){e.style.transition='opacity 300ms ease,transform 300ms ease';e.style.opacity='1';e.style.transform='translateY(0)';}
+      },200+i*350);
+    });
+    return;
+  }
 
   /* desktop: paths appear → Design selected → paths hide → dw crossfades in */
   paths.forEach(function(id,i){
