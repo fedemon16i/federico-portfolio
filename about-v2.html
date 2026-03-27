@@ -869,40 +869,37 @@ body::before {
   /* Nav — timeline compacto mobile */
   .proc-nav { padding: 14px 16px 12px; }
   .proc-tl-track { top: 27px; left: 32px; right: 32px; }
-  /* adaptive stepper mobile: steps-inner flex:1, active=dot+name, inactive=number, done=✓ */
-  .proc-steps-row { padding: 4px 6px; gap: 0; flex-wrap: nowrap; }
-  /* inner steps group grows to fill space */
-  .proc-steps-row { display: flex; align-items: center; }
-  /* step: shrinks if needed, number visible */
-  .proc-step { flex: 1 1 0; padding: 4px 3px; gap: 0; min-width: 0; justify-content: center; }
+  /* mobile stepper — compact, same pill style as desktop, numbers in dots */
+  .proc-steps-row { padding: 3px 4px; gap: 2px; }
+  .proc-step { flex: 0 0 auto; padding: 5px 7px; gap: 5px; min-width: 0; }
   .proc-step-dot {
-    width: clamp(18px, 5vw, 22px);
-    height: clamp(18px, 5vw, 22px);
+    width: 20px; height: 20px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.12);
-    font-size: clamp(0.48rem, 1.4vw, 0.58rem);
-    color: rgba(255,255,255,0.4);
+    background: transparent;
+    border: none; box-shadow: none;
+    font-size: 0.58rem;
+    color: var(--text-tertiary);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     transition: all 220ms;
   }
   .proc-step-num { display: flex; font-size: inherit; color: inherit; }
-  .proc-step-label { display: none; font-size: clamp(0.55rem, 1.5vw, 0.65rem); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  /* active: small green dot + label, no shrink */
-  .proc-step--active { flex: 0 0 auto; padding: 4px 8px; gap: 5px; background: rgba(255,255,255,0.04); box-shadow: 0 0 0 1px rgba(21,128,61,0.5); border-radius: 100px; }
-  .proc-step--active .proc-step-dot { width: 7px; height: 7px; background: rgba(21,128,61,0.15); border: 1.5px solid rgba(21,128,61,0.6); font-size: 0; }
-  .proc-step--active .proc-step-label { display: block; color: rgba(255,255,255,0.85); font-weight: 600; }
+  .proc-step-label { display: none; }
+  /* active — same style as desktop but compact */
+  .proc-step--active { background: var(--bg-surface); box-shadow: 0 0 0 1px var(--accent), 0 0 8px var(--accent-dim); padding: 5px 8px; }
+  .proc-step--active .proc-step-dot { width: 6px; height: 6px; background: var(--accent); box-shadow: 0 0 5px var(--accent); font-size: 0; }
+  .proc-step--active .proc-step-label { display: block; font-size: 0.6rem; color: var(--text-primary); font-weight: 600; }
   .proc-step--active .proc-step-num { display: none; }
-  /* done: tick */
-  .proc-step--done .proc-step-dot { background: rgba(21,128,61,0.06); border-color: rgba(21,128,61,0.25); color: rgba(21,128,61,0.7); }
+  /* done */
+  .proc-step--done { opacity: 0.6; }
+  .proc-step--done .proc-step-dot { background: transparent; border: none; color: var(--accent); font-size: 0.55rem; width: 20px; height: 20px; }
   /* separator */
-  .proc-step-sep { display: flex; width: 1px; height: clamp(10px, 2.5vw, 16px); background: rgba(255,255,255,0.07); flex-shrink: 0; margin: 0 clamp(1px, 0.5vw, 3px); }
-  /* connect: fixed pill, no shrink, shows "Connect" label */
-  .proc-step--connect { flex: 0 0 auto; padding: 5px 10px; gap: 0; border: 1px dashed rgba(200,168,75,0.28); border-radius: 100px; margin-left: 4px; background: transparent; }
+  .proc-step-sep { display: flex; width: 1px; height: 14px; background: var(--border-subtle); flex-shrink: 0; margin: 0 1px; }
+  /* connect — + symbol, compact */
+  .proc-step--connect { flex: 0 0 auto; padding: 5px 8px; gap: 0; border: 0.5px dashed rgba(200,168,75,0.25); background: transparent; margin-left: 2px; }
   .proc-step--connect svg { display: none; }
-  .proc-step--connect .proc-step-label { display: block; font-size: 0.62rem; font-weight: 600; color: rgba(200,168,75,0.55); }
-  .proc-step--connect::after { content: none; }
+  .proc-step--connect .proc-step-label { display: none; }
+  .proc-step--connect::after { content: '+'; font-size: 1.1rem; color: rgba(200,168,75,0.5); font-weight: 300; line-height: 1; }
   .proc-tool { font-size: 0.58rem; padding: 2px 6px; gap: 3px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .proc-tool svg { width: 10px; height: 10px; flex-shrink: 0; }
   /* Panels — layout mobile */
@@ -1843,7 +1840,7 @@ body::before {
             </div>
           </div>
 
-          <div class="proc-replay-wrap" id="act-replay-wrap" style="position:relative;z-index:10;margin-top:8px">
+          <div class="proc-replay-wrap" id="act-replay-wrap">
             <button class="proc-replay-btn" onclick="procReplay(3)">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
               <span class="replay-label">replay</span>
@@ -1988,7 +1985,7 @@ body::before {
             </div>
           </div>
 
-          <div class="proc-replay-wrap" style="margin-top:8px">
+          <div class="proc-replay-wrap">
             <button class="proc-replay-btn" onclick="procReplay(4)">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
               <span class="replay-label">replay</span>
