@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -439,8 +439,109 @@
     @media (max-width: 900px) { .rsf-grid { grid-template-columns: 1fr 1fr; } .rsf-ai-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 600px) { .rsf-grid { grid-template-columns: 1fr; } .rsf-ai-grid { grid-template-columns: 1fr; } .rsf-loop-outputs { grid-template-columns: 1fr; } }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ── V2 RESUME PREVIEW ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: 0.032;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
+}
+:root {
+  --font-display: 'Syne', sans-serif;
+}
+/* Force dark mode en resume-v2 */
+[data-theme="light"] {
+  --bg-base: #0c0c0c !important;
+  --bg-surface: #141414 !important;
+  --bg-raised: #1a1a1a !important;
+  --bg-card: #1c1c1c !important;
+  --bg-hover: #222222 !important;
+  --text-primary: #f0f0f0 !important;
+  --text-secondary: #a0a0a0 !important;
+  --text-tertiary: #606060 !important;
+  --border-subtle: rgba(255,255,255,0.07) !important;
+  --border-default: rgba(255,255,255,0.12) !important;
+  --border-strong: rgba(255,255,255,0.22) !important;
+  --shadow: rgba(0,0,0,0.4) !important;
+}
+/* También forzar en :root por si acaso */
+:root {
+  --bg-base: #0c0c0c;
+  --bg-surface: #141414;
+  --bg-raised: #1a1a1a;
+  --bg-card: #1c1c1c;
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #606060;
+  --border-subtle: rgba(255,255,255,0.07);
+}
+/* El download button y stat-pill que funcionan en dark */
+.stat-pill {
+  background: var(--accent) !important;
+  color: #0c0c0c !important;
+}
+.kw {
+  display: inline-block;
+  color: var(--accent);
+  animation: kwGlow 3.5s ease-in-out infinite;
+}
+.kw.kw-d2 { animation-delay: 1.75s; }
+@media (prefers-reduced-motion: reduce) { .kw { animation: none; } }
+@keyframes kwGlow {
+  0%,100% { text-shadow: none; opacity: 0.82; }
+  50% { text-shadow: 0 0 22px rgba(200,168,75,0.55), 0 0 48px rgba(200,168,75,0.1); opacity: 1; }
+}
+.kw-section {
+  display: inline-block;
+  position: relative;
+  color: var(--accent);
+}
+.kw-section::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(200,168,75,0.15));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 800ms cubic-bezier(0.16,1,0.3,1);
+}
+.kw-section.kw-visible::after { transform: scaleX(1); }
+[data-v2-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.16,1,0.3,1);
+}
+[data-v2-reveal].v2-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.v2-banner {
+  position: fixed;
+  bottom: 16px; right: 16px;
+  background: rgba(200,168,75,0.12);
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.68rem;
+  color: #c8a84b;
+  z-index: 9999;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.v2-banner a { color: #c8a84b; text-decoration: underline; margin-left: 8px; opacity: 0.7; }
+  </style>
 </head>
 <body>
+<div class="v2-banner">V2 Preview <a href="resume.html">← Ver original</a></div>
 
   <a class="skip-link" href="#main">Skip to main content</a>
 
@@ -543,7 +644,7 @@
       <!-- ── HEADER ── -->
       <header class="r-header">
         <div>
-          <h1 class="r-name">Federico A. Monroy</h1>
+          <h1 class="r-name"><span class="kw">Federico</span> A. Monroy</h1>
           <p class="r-title">Sr. UX Designer &amp; Strategist · Behavioral Analytics · CRO · AI</p>
           <div class="r-meta">
             <span>Córdoba, Argentina</span>
@@ -564,15 +665,15 @@
 
       <!-- ── ABOUT ── -->
       <section class="r-section" aria-labelledby="about-h">
-        <h2 class="r-section-title" id="about-h">About</h2>
+        <h2 class="r-section-title" id="about-h"><span class="kw-section">About</span></h2>
         <div class="r-about">
-          <p>UX Designer &amp; Strategist with 7+ years closing the loop between what users do and what teams ship. I instrument platforms with Pendo, synthesize behavioral and qualitative data, and deliver Figma-ready decisions — orchestrating across research, design, and engineering.</p>
+          <p>UX Designer &amp; Strategist with 7+ years delivering across the full product loop. I use behavioral analytics and research to diagnose fast, then deliver — designs, interaction improvements, onboarding flows, adoption fixes, or tickets your team can act on. The depth depends on what you need. The output is always something concrete.</p>
           <p>Stack-agnostic. The approach stays constant, the tools adapt.</p>
         </div>
       </section>
 
       <section class="r-section" aria-labelledby="skills-h">
-        <h2 class="r-section-title" id="skills-h">Skills & Tools</h2>
+        <h2 class="r-section-title" id="skills-h"><span class="kw-section">Skills</span> &amp; Tools</h2>
         <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-24);line-height:1.6;">Stack-agnostic — I adapt to what the team uses. The tools below are what I know best; equivalents always welcome.</p>
         <div class="rsf-grid">
           <div class="rsf-card">
@@ -750,7 +851,7 @@
 
       <!-- ── HOW I WORK ── -->
       <section class="r-section" aria-labelledby="hiw-h">
-        <h2 class="r-section-title" id="hiw-h">How I work</h2>
+        <h2 class="r-section-title" id="hiw-h">How I <span class="kw-section">work</span></h2>
         <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-24);line-height:1.6;">I orchestrate the full loop — and get my hands dirty when needed. The method stays constant; the tools adapt to the team's stack.</p>
         <div class="rsf-loop">
           <div class="rsf-loop-step">
@@ -821,7 +922,7 @@
 
       <!-- ── EXPERIENCE ── -->
       <section class="r-section" aria-labelledby="exp-h">
-        <h2 class="r-section-title" id="exp-h">Experience</h2>
+        <h2 class="r-section-title" id="exp-h"><span class="kw-section">Experience</span></h2>
 
         <!-- Globant / EY -->
         <div class="r-exp-item">
@@ -1020,6 +1121,35 @@ function toggleHIW(btn) {
   panel.hidden = expanded;
 }
   </script>
+
+<script>
+(function(){
+  var reveals = document.querySelectorAll('[data-v2-reveal]');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var idx = Array.from(e.target.parentElement.querySelectorAll('[data-v2-reveal]:not(.v2-in)')).indexOf(e.target);
+          setTimeout(function(){ e.target.classList.add('v2-in'); }, idx * 100);
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.1});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('v2-in'); });
+  }
+  var kws = document.querySelectorAll('.kw-section');
+  if('IntersectionObserver' in window && kws.length){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('kw-visible'); io2.unobserve(e.target); }
+      });
+    }, {threshold: 0.5});
+    kws.forEach(function(el){ io2.observe(el); });
+  }
+})();
+</script>
 
 </body>
 </html>
