@@ -17,9 +17,9 @@
   function openDropdown() {
     dropdownMenu.classList.add('open');
     dropdownToggle.setAttribute('aria-expanded', 'true');
-    // Focus first item
+    // Delay focus so iOS click event fully resolves first
     const firstItem = dropdownMenu.querySelector('.nav-dropdown-item');
-    if (firstItem) firstItem.focus();
+    if (firstItem) setTimeout(() => firstItem.focus(), 50);
   }
 
   function closeDropdown() {
@@ -64,8 +64,13 @@
       }
     });
 
-    // Close on outside click
-    document.addEventListener('click', (e) => {
+    // Close on outside click — use mousedown for desktop, touchend for iOS
+    document.addEventListener('mousedown', (e) => {
+      if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+    document.addEventListener('touchend', (e) => {
       if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
         closeDropdown();
       }
