@@ -28,8 +28,9 @@
   }
 
   if (dropdownToggle && dropdownMenu) {
-    // Click toggle
-    dropdownToggle.addEventListener('click', () => {
+    // Click toggle — stopPropagation so outside-click doesn't fire same event
+    dropdownToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = dropdownMenu.classList.contains('open');
       isOpen ? closeDropdown() : openDropdown();
     });
@@ -64,13 +65,8 @@
       }
     });
 
-    // Close on outside click — use mousedown for desktop, touchend for iOS
-    document.addEventListener('mousedown', (e) => {
-      if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
-        closeDropdown();
-      }
-    });
-    document.addEventListener('touchend', (e) => {
+    // Close on outside click
+    document.addEventListener('click', (e) => {
       if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
         closeDropdown();
       }
