@@ -89,6 +89,16 @@
       position: relative;
       z-index: 1;
     }
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: var(--space-40) !important;
+    }
+    @media (max-width: 640px) {
+      .projects-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-32) !important;
+      }
+    }
   </style>
   <link rel="stylesheet" href="assets/shared.css">
 </head>
