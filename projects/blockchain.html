@@ -15,6 +15,20 @@
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
     }
+  /* ── Context section ── */
+  .bc-context { padding: var(--space-48) 0 var(--space-32); border-bottom: 1px solid var(--border-subtle); }
+  .bc-ctx-row { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+  .bc-ctx-chip { display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; flex:1; min-width:160px; }
+  .bc-ctx-icon { width:18px; height:18px; flex-shrink:0; stroke:var(--accent); }
+  .bc-ctx-label { font-size:0.58rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:2px; }
+  .bc-ctx-val { font-size:0.8rem; font-weight:700; color:var(--text-primary); }
+  .bc-ctx-problem { border-left:3px solid var(--accent); padding-left:16px; margin-bottom:20px; }
+  .bc-ctx-problem-quote { font-size:0.95rem; font-weight:700; color:var(--text-primary); line-height:1.5; margin-bottom:8px; font-style:italic; }
+  .bc-ctx-problem-body { font-size:0.8rem; color:var(--text-secondary); line-height:1.75; max-width:580px; }
+  .bc-ctx-owned { display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+  .bc-ctx-owned-label { font-size:0.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); padding-top:3px; white-space:nowrap; }
+  .bc-ctx-owned-items { display:flex; flex-wrap:wrap; gap:6px; }
+  .bc-ctx-owned-items span { font-size:0.72rem; padding:4px 10px; border-radius:100px; border:1px solid var(--border-default); background:var(--bg-surface); color:var(--text-secondary); }
   /* Hero 3D overlay */
   #bc-hero-canvas { opacity: 0; }
   #bc-hero-canvas.bc-ready { opacity: 1; }
@@ -170,6 +184,48 @@
       </div>
     </header>
 
+    <!-- ══ CONTEXT ══ -->
+    <section class="bc-context">
+      <div class="container" style="max-width:900px">
+
+        <!-- 3 context chips -->
+        <div class="bc-ctx-row">
+          <div class="bc-ctx-chip">
+            <svg class="bc-ctx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            <div><div class="bc-ctx-label">Platform</div><div class="bc-ctx-val">3D Spatial Experiences</div></div>
+          </div>
+          <div class="bc-ctx-chip">
+            <svg class="bc-ctx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <div><div class="bc-ctx-label">Users</div><div class="bc-ctx-val">Creators &amp; Visitors</div></div>
+          </div>
+          <div class="bc-ctx-chip">
+            <svg class="bc-ctx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            <div><div class="bc-ctx-label">My role</div><div class="bc-ctx-val">Lead UX · 3D spatial bridge</div></div>
+          </div>
+        </div>
+
+        <!-- Problem statement -->
+        <div class="bc-ctx-problem">
+          <div class="bc-ctx-problem-quote">"We know what we want to build. We just can't explain it to the developers."</div>
+          <div class="bc-ctx-problem-body">A startup with a compelling 3D vision but no bridge between stakeholders, influencers, and dev. No one on the team had spatial UX experience. I joined as the person who could speak both languages — and invented the patterns from scratch.</div>
+        </div>
+
+        <!-- What I owned — inline list -->
+        <div class="bc-ctx-owned">
+          <span class="bc-ctx-owned-label">What I owned</span>
+          <div class="bc-ctx-owned-items">
+            <span>Spatial UX architecture</span>
+            <span>Mobile → desktop translation</span>
+            <span>Competitive benchmarking</span>
+            <span>Stakeholder alignment</span>
+            <span>Client-led user testing</span>
+            <span>Dev-ready Figma specs</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <div class="project-content">
       <div class="container" style="max-width:900px;">
 
@@ -261,7 +317,7 @@
                   <div class="bc-phone-label">Confirm</div>
                   <div class="bc-phone">
                     <div class="bc-phone-bar"></div>
-                    <img src="../Add POI - Map view - Places info sheet basic.png" alt="Place info sheet" class="bc-phone-img">
+                    <img src="../Add POI - Map view - Place's info sheet (basic).png" alt="Place info sheet" class="bc-phone-img">
                     <div class="bc-phone-home"></div>
                   </div>
                 </div>
@@ -397,7 +453,7 @@
                   <div class="bc-phone-label">Universal Feed</div>
                   <div class="bc-phone">
                     <div class="bc-phone-bar"></div>
-                    <img src="../Visitor - UNIVERSAL FEED info sheet Feeds.png" alt="Universal feed" class="bc-phone-img">
+                    <img src="../Visitor - UNIVERSAL FEED info sheet (Feeds).png" alt="Universal feed" class="bc-phone-img">
                     <div class="bc-phone-home"></div>
                   </div>
                 </div>
