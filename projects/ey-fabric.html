@@ -572,6 +572,94 @@
     }
     /* Override global 100svh — EY has no full-screen image hero */
     .project-hero { min-height: auto !important; }
+    /* ── EY Workflow ── */
+    .eyw-wrap{display:grid;grid-template-columns:160px 1fr;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:14px;overflow:hidden;margin-bottom:var(--space-16)}
+    .eyw-sidebar{border-right:1px solid var(--border-subtle);padding:6px;display:flex;flex-direction:column}
+    .eyw-step{display:flex;align-items:center;gap:8px;width:100%;padding:9px 10px;border-radius:8px;background:transparent;border:none;cursor:pointer;text-align:left;transition:background 200ms ease;font-family:var(--font-display)}
+    .eyw-step--active{background:rgba(255,255,255,0.06)}
+    .eyw-n{font-size:0.56rem;font-family:var(--font-mono);color:var(--text-tertiary);font-weight:700;flex-shrink:0;transition:color 200ms}
+    .eyw-step--active .eyw-n{color:var(--accent)}
+    .eyw-l{font-size:0.7rem;font-weight:500;color:var(--text-tertiary);flex:1;transition:color 200ms}
+    .eyw-step--active .eyw-l{font-weight:700;color:var(--text-primary)}
+    .eyw-dot{width:4px;height:4px;border-radius:50%;margin-left:auto;flex-shrink:0;opacity:0;transition:opacity 200ms}
+    .eyw-step--active .eyw-dot{opacity:1}
+    .eyw-panels{position:relative}
+    .eyw-panel{display:none;padding:24px;animation:eywIn 250ms cubic-bezier(0.16,1,0.3,1) both}
+    .eyw-panel--active{display:block}
+    .eyw-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+    @media(max-width:768px){.eyw-wrap{grid-template-columns:1fr}.eyw-sidebar{flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid var(--border-subtle)}.eyw-dot{display:none}.eyw-panel-grid{grid-template-columns:1fr}}
+    .eyw-eyebrow{font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+    .eyw-title{font-size:1rem;font-weight:700;letter-spacing:-0.02em;color:var(--text-primary);margin:0 0 10px;line-height:1.3}
+    .eyw-body{font-size:0.78rem;color:var(--text-secondary);line-height:1.75;margin:0 0 12px}
+    .eyw-list{font-size:0.72rem;color:var(--text-secondary);padding-left:0;margin:0 0 16px;list-style:none;display:flex;flex-direction:column;gap:5px}
+    .eyw-list li{display:flex;gap:8px;align-items:flex-start}.eyw-list li::before{content:"·";color:var(--accent);flex-shrink:0;margin-top:1px}
+    .eyw-metric{display:inline-flex;align-items:baseline;gap:6px;padding:6px 12px;border:1px solid;border-radius:8px;margin-top:auto}
+    .eyw-metric-val{font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;font-family:var(--font-mono)}
+    .eyw-metric-label{font-size:0.65rem;opacity:0.6}
+    .eyw-panel-vis{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:10px;padding:14px 16px;min-height:180px}
+    .eyw-vis-label{font-size:0.55rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:12px}
+    .eyw-vis-url{font-size:6px;color:var(--text-tertiary);font-family:var(--font-mono);margin-bottom:8px}
+    .eyw-field{height:22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:5px;margin-bottom:4px;display:flex;align-items:center;padding:0 8px;font-size:6.5px;color:rgba(255,255,255,0.2);font-family:var(--font-mono);transition:all 350ms cubic-bezier(0.16,1,0.3,1)}
+    .eyw-field.filled{background:rgba(200,168,75,0.08);border-color:rgba(200,168,75,0.4);color:rgba(255,255,255,0.65)}
+    .eyw-field--submit.submitted{background:rgba(200,168,75,0.12);border-color:rgba(200,168,75,0.5);color:#c8a84b;font-weight:700;justify-content:center}
+    .eyw-ev-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+    .eyw-ev{display:inline-flex;font-size:5.5px;padding:1px 5px;border-radius:3px;font-family:var(--font-mono);font-weight:700}
+    .eyw-ev-act{background:rgba(200,168,75,0.12);border:1px solid rgba(200,168,75,0.3);color:#c8a84b}
+    .eyw-ev-conv{background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);color:#22c55e}
+    .eyw-nums-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:8px}
+    .eyw-num-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:6px 4px;text-align:center}
+    .eyw-num{font-size:1rem;font-weight:800;font-family:var(--font-mono);letter-spacing:-0.02em;line-height:1}
+    .eyw-num-label{font-size:5px;color:rgba(255,255,255,0.25);margin-top:3px}
+    .eyw-survey-mock{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:7px;padding:8px 10px;margin-bottom:6px;transition:opacity 500ms ease}
+    .eyw-survey-header{font-size:6px;color:rgba(255,71,133,0.7);font-weight:600;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+    .eyw-survey-q{font-size:6.5px;color:rgba(255,255,255,0.5);margin-bottom:5px}
+    .eyw-survey-scale{display:flex;gap:3px}
+    .eyw-survey-scale div{flex:1;height:16px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;transition:all 250ms ease}
+    .eyw-replay-mock{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:7px;overflow:hidden;transition:opacity 500ms ease}
+    .eyw-replay-header{height:20px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;padding:0 8px;gap:6px;font-size:6px;color:rgba(255,255,255,0.35);font-family:var(--font-mono)}
+    .eyw-rec{color:#e05c4a;animation:loopPulse 1.5s ease-in-out infinite}
+    .eyw-replay-row{display:flex;align-items:center;gap:6px;padding:4px 8px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:6px;color:rgba(255,255,255,0.4)}
+    .eyw-ts{color:rgba(255,255,255,0.2);font-family:var(--font-mono);width:24px;flex-shrink:0}
+    .eyw-tag{font-size:5px;padding:1px 4px;border-radius:2px;font-family:var(--font-mono);font-weight:700;flex-shrink:0}
+    .eyw-tag--hover{background:rgba(200,168,75,0.12);border:1px solid rgba(200,168,75,0.3);color:#c8a84b}
+    .eyw-tag--scroll{background:rgba(200,168,75,0.12);border:1px solid rgba(200,168,75,0.3);color:#c8a84b}
+    .eyw-tag--drop{background:rgba(224,92,74,0.12);border:1px solid rgba(224,92,74,0.3);color:#e05c4a}
+    .eyw-console{background:var(--bg-base);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 12px}
+    .eyw-console-header{font-size:5.5px;color:#38bdf8;margin-bottom:8px;display:flex;align-items:center;gap:6px;font-family:var(--font-mono)}
+    .eyw-live-dot{width:5px;height:5px;border-radius:50%;background:#22c55e;animation:loopPulse 1.5s ease-in-out infinite;flex-shrink:0}
+    .eyw-files-row{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+    .eyw-file-chip{font-size:5.5px;padding:1px 5px;border-radius:3px;font-family:var(--font-mono);border:1px solid rgba(200,168,75,0.25);background:rgba(200,168,75,0.08);color:#c8a84b;opacity:0;transform:translateY(-3px);transition:all 300ms ease}
+    .eyw-file-chip.vis{opacity:1;transform:translateY(0)}
+    .eyw-progress-wrap{transition:opacity 300ms ease}
+    .eyw-progress-track{height:2px;background:rgba(255,255,255,0.06);border-radius:1px;overflow:hidden;margin-bottom:5px}
+    .eyw-progress-fill{height:100%;width:0%;background:linear-gradient(90deg,rgba(200,168,75,0.5),#c8a84b);border-radius:1px;transition:width 2800ms cubic-bezier(0.16,1,0.3,1)}
+    .eyw-synstep{font-size:6px;font-family:var(--font-mono);color:rgba(200,168,75,0.7);margin-bottom:2px;animation:loopFadeUp 200ms ease}
+    .eyw-clusters{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+    .eyw-cluster{font-size:6px;padding:2px 7px;border-radius:4px;animation:loopFadeUp 300ms ease}
+    .eyw-paths{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+    .eyw-path{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;transition:all 300ms ease}
+    .eyw-path.sel{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.35)}
+    .eyw-path-label{font-size:7.5px;font-weight:700;color:rgba(255,255,255,0.7)}
+    .eyw-path-sub{font-size:6px;color:rgba(255,255,255,0.3)}
+    .eyw-path-n{font-size:6px;font-family:var(--font-mono);margin-left:auto;opacity:0.7}
+    .eyw-figma-win{background:var(--bg-base);border:1px solid rgba(26,188,254,0.2);border-radius:8px;overflow:hidden}
+    .eyw-figma-bar{height:20px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;padding:0 8px;gap:5px;font-size:5.5px;color:rgba(255,255,255,0.3);font-family:var(--font-mono)}
+    .eyw-figma-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:7px}
+    .eyw-figma-frame{background:var(--bg-raised);border:1px solid rgba(255,255,255,0.07);border-radius:5px;padding:5px 6px}
+    .eyw-frame-label{font-size:5px;font-weight:700;margin-bottom:3px;letter-spacing:.04em}
+    .eyw-frame-field{height:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:2px;margin-bottom:2px;display:flex;align-items:center;padding:0 4px;font-size:5px;color:rgba(255,255,255,0.35);font-family:var(--font-mono)}
+    .eyw-frame-stat{font-size:4.5px;text-align:center;font-family:var(--font-mono);margin-top:3px}
+    .eyw-mrow{margin-bottom:10px}
+    .eyw-mhdr{display:flex;justify-content:space-between;margin-bottom:4px;font-size:6px}
+    .eyw-mbar-track{height:4px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;margin-bottom:3px}
+    .eyw-mbar-fill{height:100%;width:0%;border-radius:2px;transition:width 800ms cubic-bezier(0.16,1,0.3,1)}
+    .eyw-nav{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+    .eyw-arrow{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.4);font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 200ms ease;font-family:inherit}
+    .eyw-arrow:hover{border-color:var(--accent);color:var(--accent)}
+    .eyw-arrow:disabled{opacity:0.2;cursor:default}
+    .eyw-dots{display:flex;gap:5px;align-items:center}
+    .eyw-dot-nav{height:4px;border-radius:100px;background:rgba(255,255,255,0.15);border:none;padding:0;cursor:pointer;transition:all 250ms ease}
+    @keyframes eywIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
   </style>
 </head>
 <body>
@@ -762,788 +850,183 @@
             <div class="project-owned-item">When design is needed, I'm part of that loop too — Figma proposals following the existing design system, auto layout, and component guidelines. Code-ready, behavioral evidence on every frame.</div>
           </div>
         </div>
-        <!-- ── WHAT I DO — navigator ── -->
-        <div class="project-section-label" style="margin-bottom:var(--space-8);">What I do</div>
-        <h2 class="project-section-title" style="max-width:640px;margin-bottom:var(--space-8);">See each layer of the workflow in action</h2>
-        <p class="project-body-text" style="max-width:640px;margin-bottom:var(--space-24);">Each tab shows a real layer — from instrumenting the platform to closing the feedback loop.</p>
-        <div class="enc-nav" role="tablist" aria-label="EY Fabric workflow layers">
-          <button class="enc-tab enc-tab--active" role="tab" aria-selected="true"
-            aria-controls="ey-panel-instrument" id="ey-tab-instrument"
-            onclick="encShow(this,'ey-panel-instrument','ey-enc-panels')">
-            Instrument
-          </button>
-          <button class="enc-tab" role="tab" aria-selected="false"
-            aria-controls="ey-panel-analytics" id="ey-tab-analytics"
-            onclick="encShow(this,'ey-panel-analytics','ey-enc-panels')">
-            Analytics &amp; Guides
-          </button>
-          <button class="enc-tab" role="tab" aria-selected="false"
-            aria-controls="ey-panel-workflow" id="ey-tab-workflow"
-            onclick="encShow(this,'ey-panel-workflow','ey-enc-panels')">
-            How I Work
-          </button>
-          <button class="enc-tab" role="tab" aria-selected="false"
-            aria-controls="ey-panel-evidence" id="ey-tab-evidence"
-            onclick="encShow(this,'ey-panel-evidence','ey-enc-panels')">
-            Evidence
-          </button>
-        </div>
-        <div class="enc-panels" id="ey-enc-panels">
+        <!-- ── WHAT I DO — animated workflow ── -->
+        <div class="project-section" id="ey-workflow-section" data-anim>
+          <div class="project-section-label" style="margin-bottom:var(--space-8);">What I do</div>
+          <h2 class="project-section-title" style="max-width:640px;margin-bottom:var(--space-8);">See each layer of the workflow in action</h2>
+          <p class="project-body-text" style="max-width:580px;margin-bottom:var(--space-32);">One loop, no handoffs — from behavioral signal to shipped improvement. Click any step or use arrows to explore.</p>
 
-        <div class="enc-panel enc-panel--active" role="tabpanel" id="ey-panel-instrument" aria-labelledby="ey-tab-instrument">
-        <!-- ── INSTRUMENT ── -->
-        <div class="project-section" id="ey-instrument" data-anim>
-          <div class="project-section-label">Instrument</div>
-          <h2 class="project-section-title">I work with UI and devs to define what to track — and why</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-24);">Before any analytics exist, someone has to define the events. I coordinate with UI designers and engineers to tag existing components, name events consistently, and map them to user stories — so the data means something when it arrives.</p>
-          <div class="ey-instrument-demo">
-            <!-- ── In-mock interaction hint ── -->
-            <div class="ey-mock-hint" id="ey-mock-hint" aria-label="This demo is interactive">
-              <span class="ey-mock-hint-dot" aria-hidden="true"></span>
-              <span class="ey-mock-hint-text">Interactive — click each step to walk through the flow</span>
-              <span class="ey-mock-hint-badge">Try it</span>
+          <!-- Sidebar + panel grid -->
+          <div class="eyw-wrap" id="eyw-wrap">
+            <!-- Left sidebar -->
+            <div class="eyw-sidebar" role="tablist" aria-label="Workflow steps">
+              <button class="eyw-step eyw-step--active" role="tab" aria-selected="true" aria-controls="eyw-p0" onclick="eywShow(0)"><span class="eyw-n">01</span><span class="eyw-l">Instrument</span><span class="eyw-dot" style="background:#818cf8"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p1" onclick="eywShow(1)"><span class="eyw-n">02</span><span class="eyw-l">Understand</span><span class="eyw-dot" style="background:#c8a84b"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p2" onclick="eywShow(2)"><span class="eyw-n">03</span><span class="eyw-l">Synthesize</span><span class="eyw-dot" style="background:#38bdf8"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p3" onclick="eywShow(3)"><span class="eyw-n">04</span><span class="eyw-l">Act</span><span class="eyw-dot" style="background:#22c55e"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p4" onclick="eywShow(4)"><span class="eyw-n">05</span><span class="eyw-l">Measure</span><span class="eyw-dot" style="background:#c8a84b"></span></button>
             </div>
-            <!-- Step bar -->
-            <div class="ey-stepbar" id="ey-stepbar" role="tablist" aria-label="Instrumentation flow steps">
-              <div class="ey-step-item">
-                <button class="ey-step-btn active" id="esn1" role="tab" aria-selected="true" aria-controls="esc1" onclick="eyGoStep(1)">
-                  <span class="ey-step-num">1</span><span class="ey-step-label">Catalog</span>
-                </button>
-              </div>
-              <div class="ey-step-sep" aria-hidden="true"></div>
-              <div class="ey-step-item">
-                <button class="ey-step-btn" id="esn2" role="tab" aria-selected="false" aria-controls="esc2" onclick="eyGoStep(2)">
-                  <span class="ey-step-num">2</span><span class="ey-step-label">Configure</span>
-                </button>
-              </div>
-              <div class="ey-step-sep" aria-hidden="true"></div>
-              <div class="ey-step-item">
-                <button class="ey-step-btn" id="esn3" role="tab" aria-selected="false" aria-controls="esc3" onclick="eyGoStep(3)">
-                  <span class="ey-step-num">3</span><span class="ey-step-label">Confirm</span>
-                </button>
-              </div>
-              <div class="ey-step-sep" aria-hidden="true"></div>
-              <div class="ey-step-item">
-                <button class="ey-step-btn" id="esn4" role="tab" aria-selected="false" aria-controls="esc4" onclick="eyGoStep(4)">
-                  <span class="ey-step-num">4</span><span class="ey-step-label">Walkthrough</span>
-                </button>
-              </div>
-              <div class="ey-step-sep" aria-hidden="true"></div>
-              <div class="ey-step-item">
-                <button class="ey-step-btn" id="esn5" role="tab" aria-selected="false" aria-controls="esc5" onclick="eyGoStep(5)">
-                  <span class="ey-step-num">5</span><span class="ey-step-label">Feedback</span>
-                </button>
-              </div>
-            </div>
-            <!-- Tag legend -->
-            <div class="ey-tag-legend" aria-label="Tracking event types legend">
-              <span class="ey-tleg"><span class="ey-etag ey-etag-nav">NAV</span> Navigation</span>
-              <span class="ey-tleg"><span class="ey-etag ey-etag-disc">DISC</span> Discovery</span>
-              <span class="ey-tleg"><span class="ey-etag ey-etag-act">ACT</span> Action</span>
-              <span class="ey-tleg"><span class="ey-etag ey-etag-conv">CONV</span> Conversion</span>
-            </div>
-            <!-- SCREEN 1: CATALOG -->
-            <div class="ey-screen active" id="esc1" role="tabpanel" aria-labelledby="esn1">
-              <div class="ey-mock-shell">
-                <div class="ey-mock-bar">
-                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
-                  <span class="ey-mock-url">fabric.ey.com/catalog</span>
-                </div>
-                <div class="ey-mock-body">
-                  <div class="ey-search-row">
-                    <div class="ey-search-input">⌕ Search services... <span class="ey-etag ey-etag-disc">DISC · search_query</span></div>
+
+            <!-- Panels -->
+            <div class="eyw-panels">
+
+              <!-- Panel 01 Instrument -->
+              <div class="eyw-panel eyw-panel--active" id="eyw-p0" role="tabpanel">
+                <div class="eyw-panel-grid">
+                  <div class="eyw-panel-text">
+                    <div class="eyw-eyebrow" style="color:#818cf8">01 · Instrument</div>
+                    <h3 class="eyw-title">Tag every meaningful interaction</h3>
+                    <p class="eyw-body">Before any analytics exist, someone has to define the events. I coordinate with UI and engineers to name events consistently and map them to user stories — across 90+ marketplace assets.</p>
+                    <ul class="eyw-list">
+                      <li>Custom event schema across 90+ assets</li>
+                      <li>Funnels, paths, journeys, segments</li>
+                      <li>Pendo guides triggered by behavioral signals</li>
+                      <li>Session replay on high-drop-off flows</li>
+                    </ul>
+                    <div class="eyw-metric" style="border-color:#818cf820;background:#818cf808"><span class="eyw-metric-val" style="color:#818cf8">90+</span><span class="eyw-metric-label">assets instrumented</span></div>
                   </div>
-                  <div class="ey-filter-row">
-                    <span class="ey-fc ey-fc--sel">All <span class="ey-etag ey-etag-nav">NAV · filter_all</span></span>
-                    <span class="ey-fc">APIs <span class="ey-etag ey-etag-nav">NAV · filter_api</span></span>
-                    <span class="ey-fc">Data</span>
-                    <span class="ey-fc">Security</span>
-                  </div>
-                  <div class="ey-cat-grid">
-                    <div class="ey-cat-card">
-                      <div class="ey-cat-type">API</div>
-                      <div class="ey-cat-title">Tax Compliance Engine</div>
-                      <div class="ey-cat-desc">Automated multi-jurisdiction validation.</div>
-                      <div class="ey-cat-footer"><span class="ey-cat-cta">View details <span class="ey-etag ey-etag-disc">DISC · info_click</span></span><span class="ey-cat-price">$200/mo</span></div>
-                    </div>
-                    <div class="ey-cat-card ey-cat-card--selected">
-                      <div class="ey-cat-type">Data</div>
-                      <div class="ey-cat-title">Risk Analytics Feed</div>
-                      <div class="ey-cat-desc">Real-time risk scoring with configurable thresholds.</div>
-                      <div class="ey-cat-footer"><span class="ey-cat-cta ey-cat-cta--selected">Selected ✓</span><span class="ey-cat-price">$450/mo</span></div>
-                    </div>
-                    <div class="ey-cat-card">
-                      <div class="ey-cat-type">Security</div>
-                      <div class="ey-cat-title">Auth & Identity Layer</div>
-                      <div class="ey-cat-desc">SSO + MFA with enterprise stack.</div>
-                      <div class="ey-cat-footer"><span class="ey-cat-cta">View details <span class="ey-etag ey-etag-disc">DISC · info_click</span></span><span class="ey-cat-price">$80/mo</span></div>
-                    </div>
-                    <div class="ey-cat-card">
-                      <div class="ey-cat-type">API</div>
-                      <div class="ey-cat-title">Document Processing</div>
-                      <div class="ey-cat-desc">OCR + extraction pipeline.</div>
-                      <div class="ey-cat-footer"><span class="ey-cat-cta">View details <span class="ey-etag ey-etag-disc">DISC · info_click</span></span><span class="ey-cat-price">$120/mo</span></div>
+                  <div class="eyw-panel-vis" id="eyw-vis0">
+                    <div class="eyw-vis-label">Live · Instrument</div>
+                    <div class="eyw-form-mock">
+                      <div class="eyw-vis-url">fabric.ey.com/subscribe</div>
+                      <div class="eyw-field" id="eyf0">Service tier</div>
+                      <div class="eyw-field" id="eyf1">Volume / month</div>
+                      <div class="eyw-field" id="eyf2">Region</div>
+                      <div class="eyw-field eyw-field--submit" id="eyfs">Subscribe →</div>
+                      <div class="eyw-ev-row" id="eyevs"></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="ey-nav-btns">
-                <span class="ey-nav-note">Risk Analytics Feed selected</span>
-                <button class="ey-btn-next" onclick="eyGoStep(2)">Configure → <span class="ey-etag ey-etag-act">ACT · cta_start</span></button>
-              </div>
-            </div>
-            <!-- SCREEN 2: CONFIGURE -->
-            <div class="ey-screen" id="esc2" role="tabpanel" aria-labelledby="esn2">
-              <div class="ey-mock-shell">
-                <div class="ey-mock-bar">
-                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
-                  <span class="ey-mock-url">fabric.ey.com/configure</span>
-                </div>
-                <div class="ey-mock-body">
-                  <div class="ey-config-layout">
-                    <div class="ey-config-main">
-                      <div class="ey-cfg-title">Risk Analytics Feed</div>
-                      <div class="ey-cfg-sub">Pricing updates as you configure.</div>
-                      <div class="ey-form-grp">
-                        <div class="ey-form-lbl">Environment <span class="ey-etag ey-etag-act">ACT · field_env</span></div>
-                        <div class="ey-form-sel">Production</div>
-                      </div>
-                      <div class="ey-form-grp">
-                        <div class="ey-form-lbl">Volume / month <span class="ey-etag ey-etag-act">ACT · field_volume</span></div>
-                        <div class="ey-form-sel">Up to 10,000 calls — $450</div>
-                      </div>
-                      <div class="ey-form-grp">
-                        <div class="ey-form-lbl">Region</div>
-                        <div class="ey-form-sel">US East</div>
-                      </div>
-                      <div class="ey-toggle-row"><span class="ey-toggle-lbl">SLA monitoring <span class="ey-etag ey-etag-act">ACT · toggle_sla</span></span><div class="ey-tgl ey-tgl--on"><div class="ey-tgl-knob"></div></div></div>
-                      <div class="ey-toggle-row"><span class="ey-toggle-lbl">Custom alerting <span class="ey-etag ey-etag-act">ACT · toggle_alert</span></span><div class="ey-tgl"><div class="ey-tgl-knob"></div></div></div>
+
+              <!-- Panel 02 Understand -->
+              <div class="eyw-panel" id="eyw-p1" role="tabpanel" hidden>
+                <div class="eyw-panel-grid">
+                  <div class="eyw-panel-text">
+                    <div class="eyw-eyebrow" style="color:#c8a84b">02 · Understand</div>
+                    <h3 class="eyw-title">Research when the signal says so</h3>
+                    <p class="eyw-body">Behavioral signals trigger the right research method at the right moment — no scheduled sprints. Each method deploys when data shows a pattern worth investigating.</p>
+                    <ul class="eyw-list">
+                      <li>1:1 interviews triggered by drop-off spikes</li>
+                      <li>Maze unmoderated tests on low-CTR flows</li>
+                      <li>Optimal Workshop for IA findability</li>
+                      <li>In-app Pendo surveys post-checkout</li>
+                    </ul>
+                    <div class="eyw-metric" style="border-color:#c8a84b20;background:#c8a84b08"><span class="eyw-metric-val" style="color:#c8a84b">4×</span><span class="eyw-metric-label">methods in rotation</span></div>
+                  </div>
+                  <div class="eyw-panel-vis" id="eyw-vis1">
+                    <div class="eyw-vis-label">Live · Understand</div>
+                    <div class="eyw-nums-row" id="eynums">
+                      <div class="eyw-num-card"><div class="eyw-num" id="eyn0" style="color:#818cf8">0</div><div class="eyw-num-label">Sessions</div></div>
+                      <div class="eyw-num-card"><div class="eyw-num" id="eyn1" style="color:#e05c4a">0</div><div class="eyw-num-label">Drop-off</div></div>
+                      <div class="eyw-num-card"><div class="eyw-num" id="eyn2" style="color:#c8a84b">0</div><div class="eyw-num-label">Friction pts</div></div>
                     </div>
-                    <div class="ey-price-panel">
-                      <div class="ey-price-title">Estimated cost</div>
-                      <div class="ey-price-row"><span>Base plan</span><span>$450</span></div>
-                      <div class="ey-price-row"><span>SLA</span><span>$50</span></div>
-                      <div class="ey-price-row"><span>Alerting</span><span>—</span></div>
-                      <div class="ey-price-total"><span>Total/mo</span><span class="ey-price-total-num">$500</span></div>
+                    <div class="eyw-survey-mock" id="eysurvey" style="opacity:0">
+                      <div class="eyw-survey-header"><svg width="10" height="10" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#FF4785"/><rect x="10" y="9" width="5" height="14" rx="1.5" fill="white"/><path d="M17 16l6-7v14l-6-7z" fill="white"/></svg>Pendo in-app survey · n=248</div>
+                      <div class="eyw-survey-q">How easy was it to configure?</div>
+                      <div class="eyw-survey-scale" id="eyrating"></div>
+                    </div>
+                    <div class="eyw-replay-mock" id="eyreplay" style="opacity:0;transition:opacity 500ms ease 200ms">
+                      <div class="eyw-replay-header"><span class="eyw-rec">● REC</span>Session replay · configure_abandon</div>
+                      <div class="eyw-replay-row"><span class="eyw-ts">0:18</span><span class="eyw-tag eyw-tag--hover">HOVER</span><span>api_key field — no action</span></div>
+                      <div class="eyw-replay-row"><span class="eyw-ts">0:31</span><span class="eyw-tag eyw-tag--scroll">SCROLL</span><span>Down then back up</span></div>
+                      <div class="eyw-replay-row"><span class="eyw-ts">0:44</span><span class="eyw-tag eyw-tag--drop">DROP</span><span>Tab closed — no submit</span></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="ey-nav-btns">
-                <button class="ey-btn-back" onclick="eyGoStep(1)">← Back <span class="ey-etag ey-etag-nav">NAV · back_catalog</span></button>
-                <button class="ey-btn-next" onclick="eyGoStep(3)">Review order → <span class="ey-etag ey-etag-conv">CONV · checkout_start</span></button>
-              </div>
-            </div>
-            <!-- SCREEN 3: CONFIRM -->
-            <div class="ey-screen" id="esc3" role="tabpanel" aria-labelledby="esn3">
-              <div class="ey-mock-shell">
-                <div class="ey-mock-bar">
-                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
-                  <span class="ey-mock-url">fabric.ey.com/confirm</span>
-                </div>
-                <div class="ey-mock-body">
-                  <div class="ey-summary-card">
-                    <div class="ey-summary-head">Order summary</div>
-                    <div class="ey-summary-body">
-                      <div class="ey-sum-row"><span class="ey-sum-lbl">Service</span><span class="ey-sum-val">Risk Analytics Feed</span></div>
-                      <div class="ey-sum-row"><span class="ey-sum-lbl">Volume</span><span class="ey-sum-val">Up to 10,000 calls/mo</span></div>
-                      <div class="ey-sum-row"><span class="ey-sum-lbl">Environment</span><span class="ey-sum-val">Production · US East</span></div>
-                      <div class="ey-sum-row"><span class="ey-sum-lbl">SLA monitoring</span><span class="ey-sum-val ey-sum-val--ok">Enabled</span></div>
-                      <div class="ey-sum-row"><span class="ey-sum-lbl">Custom alerting</span><span class="ey-sum-val ey-sum-val--muted">Disabled</span></div>
-                    </div>
-                    <div class="ey-sum-total"><span>Total / month</span><span class="ey-price-total-num">$500</span></div>
+
+              <!-- Panel 03 Synthesize -->
+              <div class="eyw-panel" id="eyw-p2" role="tabpanel" hidden>
+                <div class="eyw-panel-grid">
+                  <div class="eyw-panel-text">
+                    <div class="eyw-eyebrow" style="color:#38bdf8">03 · Synthesize</div>
+                    <h3 class="eyw-title">AI reads the files. I read the AI.</h3>
+                    <p class="eyw-body">Copilot reads SharePoint via MCP directly — no uploads needed. It clusters findings, I supervise and validate. Every insight gets a behavioral evidence trail before it becomes an action.</p>
+                    <ul class="eyw-list">
+                      <li>Copilot + MCP reads SharePoint directly</li>
+                      <li>Clusters friction themes automatically</li>
+                      <li>I validate and prioritize every output</li>
+                      <li>Figma Make delivers DS-connected proposals</li>
+                    </ul>
+                    <div class="eyw-metric" style="border-color:#38bdf820;background:#38bdf808"><span class="eyw-metric-val" style="color:#38bdf8">∞</span><span class="eyw-metric-label">source files read</span></div>
                   </div>
-                </div>
-              </div>
-              <div class="ey-nav-btns">
-                <button class="ey-btn-back" onclick="eyGoStep(2)">← Edit <span class="ey-etag ey-etag-nav">NAV · back_configure</span></button>
-                <button class="ey-btn-next" onclick="eyGoStep(4)" id="ey-submit-btn">Confirm & activate <span class="ey-etag ey-etag-conv">CONV · order_submit</span></button>
-              </div>
-            </div>
-            <!-- SCREEN 4: WALKTHROUGH -->
-            <div class="ey-screen" id="esc4" role="tabpanel" aria-labelledby="esn4">
-              <div class="ey-mock-shell">
-                <div class="ey-mock-bar">
-                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
-                  <span class="ey-mock-url">fabric.ey.com/dashboard</span>
-                </div>
-                <div class="ey-mock-body">
-                  <div class="ey-wt-base">
-                    <div class="ey-wt-ui-row">
-                      <span class="ey-wt-pill">Overview</span>
-                      <span class="ey-wt-pill ey-wt-pill--hl">Risk Feed ←</span>
-                      <span class="ey-wt-pill">Reports</span>
-                      <span class="ey-wt-pill">Settings</span>
-                    </div>
-                    <div class="ey-wt-placeholder"></div>
-                    <div class="ey-wt-grid">
-                      <div class="ey-wt-cell"></div>
-                      <div class="ey-wt-cell"></div>
-                      <div class="ey-wt-cell"></div>
-                    </div>
-                    <div class="ey-wt-tooltip" id="ey-wt-tooltip">
-                      <div class="ey-wt-badge" id="ey-wt-badge">Step 1 of 4 · Getting started</div>
-                      <div class="ey-wt-text" id="ey-wt-text">This is your Risk Feed dashboard. Here you'll find real-time scoring for every transaction.</div>
-                      <div class="ey-wt-foot">
-                        <span class="ey-wt-skip">Skip tour</span>
-                        <button class="ey-wt-next" onclick="eyNextWT()">Next →</button>
+                  <div class="eyw-panel-vis" id="eyw-vis2">
+                    <div class="eyw-vis-label">Live · Synthesize</div>
+                    <div class="eyw-console">
+                      <div class="eyw-console-header"><span class="eyw-live-dot"></span>Copilot · SharePoint · 14 files</div>
+                      <div class="eyw-files-row" id="eysynfiles"></div>
+                      <div class="eyw-progress-wrap" id="eysynbar" style="opacity:0">
+                        <div class="eyw-progress-track"><div class="eyw-progress-fill" id="eysynfill"></div></div>
+                        <div id="eysynsteps"></div>
+                        <div class="eyw-clusters" id="eysynclusters"></div>
                       </div>
                     </div>
                   </div>
-                  <div class="ey-wt-dots" aria-hidden="true">
-                    <span class="ey-wt-dot ey-wt-dot--active" id="eyd1"></span>
-                    <span class="ey-wt-dot" id="eyd2"></span>
-                    <span class="ey-wt-dot" id="eyd3"></span>
-                    <span class="ey-wt-dot" id="eyd4"></span>
+                </div>
+              </div>
+
+              <!-- Panel 04 Act -->
+              <div class="eyw-panel" id="eyw-p3" role="tabpanel" hidden>
+                <div class="eyw-panel-grid">
+                  <div class="eyw-panel-text">
+                    <div class="eyw-eyebrow" style="color:#22c55e">04 · Act</div>
+                    <h3 class="eyw-title">Three paths. Zero lost findings.</h3>
+                    <p class="eyw-body">Every insight becomes an action. Design proposal, dev ticket, or research brief — with behavioral evidence attached. Nothing gets lost between research and shipping.</p>
+                    <ul class="eyw-list">
+                      <li>Figma proposals — DS-connected, code-ready</li>
+                      <li>ADO tickets with Pendo evidence attached</li>
+                      <li>Research briefs for the next sprint</li>
+                      <li>Figma Make prototypes for rapid validation</li>
+                    </ul>
+                    <div class="eyw-metric" style="border-color:#22c55e20;background:#22c55e08"><span class="eyw-metric-val" style="color:#22c55e">3×</span><span class="eyw-metric-label">output types</span></div>
                   </div>
-                  <p class="ey-wt-metric">Deployed via Pendo — no code · <span class="ey-etag ey-etag-act">ACT · guide_step_view</span> <span class="ey-etag ey-etag-act">ACT · guide_next_click</span></p>
-                </div>
-              </div>
-              <div class="ey-nav-btns">
-                <button class="ey-btn-back" onclick="eyGoStep(3)">← Back</button>
-                <button class="ey-btn-next" onclick="eyGoStep(5)">See feedback → <span class="ey-etag ey-etag-conv">CONV · guide_completed</span></button>
-              </div>
-            </div>
-            <!-- SCREEN 5: FEEDBACK -->
-            <div class="ey-screen" id="esc5" role="tabpanel" aria-labelledby="esn5">
-              <div class="ey-mock-shell">
-                <div class="ey-mock-bar">
-                  <span class="ey-mdot"></span><span class="ey-mdot"></span><span class="ey-mdot"></span>
-                  <span class="ey-mock-url">fabric.ey.com/dashboard</span>
-                </div>
-                <div class="ey-mock-body">
-                  <div class="ey-fb-bg"></div>
-                  <div class="ey-fb-shell">
-                    <div class="ey-fb-bar">
-                      <span class="ey-fb-label">Quick feedback · Pendo</span>
-                      <span class="ey-fb-close" aria-label="Close feedback">×</span>
-                    </div>
-                    <div class="ey-fb-body">
-                      <div class="ey-fb-q">How easy was it to set up Risk Analytics Feed?</div>
-                      <div class="ey-fb-scale" role="group" aria-label="Rating 1 to 5">
-                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 1">1</button>
-                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 2">2</button>
-                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 3">3</button>
-                        <button class="ey-fb-num ey-fb-num--sel" onclick="eySelFB(this)" aria-label="Rating 4" aria-pressed="true">4</button>
-                        <button class="ey-fb-num" onclick="eySelFB(this)" aria-label="Rating 5">5</button>
+                  <div class="eyw-panel-vis" id="eyw-vis3">
+                    <div class="eyw-vis-label">Live · Act</div>
+                    <div class="eyw-paths" id="eypaths"></div>
+                    <div class="eyw-figma-win" id="eyfigwin" style="opacity:0;max-height:0;overflow:hidden;transition:opacity 400ms ease,max-height 600ms cubic-bezier(0.16,1,0.3,1)">
+                      <div class="eyw-figma-bar"><svg width="7" height="10" viewBox="0 0 38 57" fill="none"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg><span>config-wizard.fig · DS connected</span></div>
+                      <div class="eyw-figma-grid">
+                        <div class="eyw-figma-frame eyw-figma-before"><div class="eyw-frame-label" style="color:#e05c4a">BEFORE</div><div class="eyw-frame-field" style="border-color:rgba(224,92,74,0.3)">api_key ❓</div><div class="eyw-frame-field" style="border-color:rgba(224,92,74,0.3)">endpoint ❓</div><div class="eyw-frame-stat" style="color:#e05c4a">68% abandon</div></div>
+                        <div class="eyw-figma-frame eyw-figma-after"><div class="eyw-frame-label" style="color:#22c55e">AFTER</div><div class="eyw-frame-field" style="border-color:rgba(34,197,94,0.3)">✓ Org name</div><div class="eyw-frame-field" style="border-color:rgba(26,188,254,0.4);color:#38bdf8">API endpoint</div><div class="eyw-frame-stat" style="color:#22c55e">wizard · step 4</div></div>
                       </div>
-                      <div class="ey-fb-q2">Anything we can improve?</div>
-                      <textarea class="ey-fb-textarea" placeholder="Optional..." aria-label="Open feedback"></textarea>
-                      <button class="ey-fb-submit" onclick="eyFbSubmit(this)">Submit <span class="ey-etag ey-etag-conv">CONV · survey_submit</span></button>
                     </div>
                   </div>
-                  <p class="ey-fb-trigger">Triggered after <strong>guide_completed</strong> event · Score → Qualtrics dashboard</p>
                 </div>
               </div>
-              <div class="ey-nav-btns">
-                <button class="ey-btn-back" onclick="eyGoStep(4)">← Back</button>
-                <span class="ey-nav-note">Loop complete — findings → Figma / ADO / campaign</span>
+
+              <!-- Panel 05 Measure -->
+              <div class="eyw-panel" id="eyw-p4" role="tabpanel" hidden>
+                <div class="eyw-panel-grid">
+                  <div class="eyw-panel-text">
+                    <div class="eyw-eyebrow" style="color:#c8a84b">05 · Measure</div>
+                    <h3 class="eyw-title">Every change has a verdict.</h3>
+                    <p class="eyw-body">Post-change, the same Pendo funnels that surfaced the problem confirm whether the fix worked. The loop closes — and opens again with the next signal.</p>
+                    <ul class="eyw-list">
+                      <li>Pre/post funnel comparison in Pendo</li>
+                      <li>Adoption rate tracking per asset</li>
+                      <li>Guide completion rates after walkthroughs</li>
+                      <li>NPS trend after UX improvements</li>
+                    </ul>
+                    <div class="eyw-metric" style="border-color:#c8a84b20;background:#c8a84b08"><span class="eyw-metric-val" style="color:#c8a84b">↩</span><span class="eyw-metric-label">loop closed</span></div>
+                  </div>
+                  <div class="eyw-panel-vis" id="eyw-vis4">
+                    <div class="eyw-vis-label">Post-intervention · config step</div>
+                    <div id="eymetrics"></div>
+                  </div>
+                </div>
               </div>
-            </div>
+
+            </div><!-- /eyw-panels -->
+          </div><!-- /eyw-wrap -->
+
+          <!-- Bottom nav -->
+          <div class="eyw-nav">
+            <button class="eyw-arrow" id="eyw-prev" onclick="eywMove(-1)" aria-label="Previous step">←</button>
+            <div class="eyw-dots" id="eyw-dots"></div>
+            <button class="eyw-arrow" id="eyw-next" onclick="eywMove(1)" aria-label="Next step">→</button>
           </div>
-        </div>
-
-        </div><!-- close enc-panel instrument -->
-        <div class="enc-panel" role="tabpanel" id="ey-panel-analytics" aria-labelledby="ey-tab-analytics" hidden>
-        <!-- ── ANALYTICS & GUIDES ── -->
-        <div class="project-section" id="ey-analytics" data-anim>
-          <div class="project-section-label">Analytics & Guides</div>
-          <h2 class="project-section-title">From events to decisions — funnels, journeys, feedback, walkthroughs</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-24);">Once instrumented, Pendo turns events into behavioral intelligence. I build funnels to identify drop-offs, journey maps to understand the full experience, in-app surveys to capture sentiment at the right moment, and guided walkthroughs to onboard users to new features — all without touching code.</p>
-          <div class="ey-analytics-grid">
-            <div class="ey-an-card">
-              <div class="ey-an-head">Pendo — Funnel Report</div>
-              <div class="ey-an-body">
-                <div class="ey-funnel-row">Landing <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:100%;background:var(--accent)"></div></div> 100%</div>
-                <div class="ey-funnel-row">Preview <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:72%;background:var(--accent)"></div></div> 72%</div>
-                <div class="ey-funnel-row">Docs <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:48%;background:var(--accent)"></div></div> 48%</div>
-                <div class="ey-funnel-row" style="color:#e05c4a;">Install <div class="ey-fbar-wrap"><div class="ey-fbar" style="width:22%;background:#e05c4a"></div></div> 22% ⚠</div>
-                <div class="ey-an-note">Drop-off between Docs → Install flagged for UXR</div>
-              </div>
-            </div>
-            <div class="ey-an-card">
-              <div class="ey-an-head">Journey Map — Developer</div>
-              <div class="ey-an-body">
-                <div class="ey-journey">
-                  <div class="ey-jcol"><div class="ey-jcol-head">Discover</div><div class="ey-jcol-body"><div class="ey-jtag ey-jtag--ok">Finds asset</div></div></div>
-                  <div class="ey-jcol"><div class="ey-jcol-head ey-jcol-head--hot">Try</div><div class="ey-jcol-body"><div class="ey-jtag ey-jtag--pain">Confused docs</div><div class="ey-jtag ey-jtag--pain">Drops off</div></div></div>
-                  <div class="ey-jcol"><div class="ey-jcol-head">Adopt</div><div class="ey-jcol-body"><div class="ey-jtag ey-jtag--neu">Returns</div><div class="ey-jtag ey-jtag--ok">Installs</div></div></div>
-                </div>
-              </div>
-            </div>
-            <div class="ey-an-card">
-              <div class="ey-an-head">Pendo — In-App Survey</div>
-              <div class="ey-an-body">
-                <div class="ey-survey-mock">
-                  <div class="ey-survey-q">How easy was it to find this asset?</div>
-                  <div class="ey-survey-scale">
-                    <div class="ey-survey-num ey-survey-num--sel">1</div>
-                    <div class="ey-survey-num">2</div>
-                    <div class="ey-survey-num">3</div>
-                    <div class="ey-survey-num">4</div>
-                    <div class="ey-survey-num">5</div>
-                  </div>
-                  <div class="ey-survey-trigger">Triggered after asset_detail pageview</div>
-                </div>
-              </div>
-            </div>
-            <div class="ey-an-card">
-              <div class="ey-an-head">Pendo — Walkthrough Guide</div>
-              <div class="ey-an-body">
-                <div class="ey-guide-mock">
-                  <div class="ey-guide-step">Step 2 of 4 · Getting started</div>
-                  <div class="ey-guide-text">Click "Install" to add this API to your project</div>
-                  <div class="ey-guide-foot">
-                    <span class="ey-guide-skip">Skip tour</span>
-                    <span class="ey-guide-next">Next →</span>
-                  </div>
-                </div>
-                <div class="ey-guide-note">No code — deployed via Pendo</div>
-              </div>
-            </div>
-          </div>
-          <div class="ey-output-strip">
-            Every finding routes to one of three outputs:
-            <strong>Figma design proposal</strong> ·
-            <strong>ADO / Jira ticket with evidence</strong> ·
-            <strong>Marketing or onboarding campaign</strong>
-          </div>
-        </div>
-
-        </div><!-- close enc-panel analytics -->
-        <div class="enc-panel" role="tabpanel" id="ey-panel-workflow" aria-labelledby="ey-tab-workflow" hidden>
-        <!-- ── WORKFLOW SYSTEM ── -->
-        <div class="project-section wy-section" id="ey-workflow" data-anim>
-          <div class="project-section-label">How I Work</div>
-          <h2 class="project-section-title">A system where every design decision has a behavioral evidence trail</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-32);">Analytics and research don't happen in sequence — they run in parallel, on-demand and proactively, triggered by what the platform surfaces. The output is always one of two things: a design proposal or a prioritized ticket.</p>
-
-          <!-- Framework reference block -->
-          <div class="wy-frameworks">
-            <div class="wy-fw-block">
-              <div class="wy-fw-label">HEART — reference framework</div>
-              <div class="wy-fw-metrics">
-                <span class="wy-fw-metric">Happiness</span>
-                <span class="wy-fw-metric">Engagement</span>
-                <span class="wy-fw-metric">Adoption</span>
-                <span class="wy-fw-metric">Retention</span>
-                <span class="wy-fw-metric">Task success</span>
-              </div>
-            </div>
-            <div class="wy-fw-block">
-              <div class="wy-fw-label">Pendo — UX &amp; product metrics</div>
-              <div class="wy-fw-metrics">
-                <span class="wy-fw-metric">Feature adoption</span>
-                <span class="wy-fw-metric">Retention</span>
-                <span class="wy-fw-metric">NPS in-app</span>
-                <span class="wy-fw-metric">Path analysis</span>
-                <span class="wy-fw-metric">Funnel drop-off</span>
-                <span class="wy-fw-metric">Guide engagement</span>
-                <span class="wy-fw-metric">Segment behavior</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Tab switcher -->
-          <div class="wy-tabs" role="tablist" aria-label="Workflow version">
-            <button class="wy-tab active" role="tab" aria-selected="true" onclick="wyShowTab('manual', this)">
-              Current workflow
-              <span class="wy-tab-badge badge-live">Live</span>
-            </button>
-            <button class="wy-tab tab-auto" role="tab" aria-selected="false" onclick="wyShowTab('auto', this)">
-              Automated pipeline
-              <span class="wy-tab-badge badge-wip">In progress</span>
-            </button>
-          </div>
-
-          <!-- PANEL: MANUAL -->
-          <div class="wy-panel active" id="wy-manual">
-            <div class="wy-grid">
-
-              <!-- Platform -->
-              <div class="wy-node platform">
-                <div class="wy-node-eyebrow">Source</div>
-                <div class="wy-node-title">EY Fabric — production platform</div>
-                <div class="wy-node-desc">100+ marketplace assets live. Publishers, consumers, support, documentation — all generating behavioral signals continuously.</div>
-              </div>
-
-              <div class="wy-arrow">
-                <div class="wy-arrow-line"></div>
-                <span>signals</span>
-                <div class="wy-arrow-line"></div>
-              </div>
-
-              <!-- Analytics track -->
-              <div class="wy-node">
-                <div class="wy-node-eyebrow">Behavioral Analytics</div>
-                <div class="wy-node-title">Pendo instrumentation</div>
-                <div class="wy-node-desc">Custom event tracking, funnels, path analysis, journey mapping, segments, and comparison reports — I build and maintain all of it.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag">Drop-offs</span>
-                  <span class="wy-tag">Conversion rates</span>
-                  <span class="wy-tag">Publisher gaps</span>
-                  <span class="wy-tag">Friction patterns</span>
-                  <span class="wy-tag">Over / under-use</span>
-                </div>
-                <div class="wy-tool-row">
-                  <svg class="wy-tool-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FF4876"/><text x="12" y="17" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">P</text></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">Pendo</span>
-                </div>
-              </div>
-
-              <!-- Research track -->
-              <div class="wy-node">
-                <div class="wy-node-eyebrow">UX Research</div>
-                <div class="wy-node-title">Research on signal</div>
-                <div class="wy-node-desc">When analytics flags a pattern — too many retries, consistent drop-offs, low adoption on a high-value asset — I investigate with the right method.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag">1:1 interviews</span>
-                  <span class="wy-tag">Maze tests</span>
-                  <span class="wy-tag">Optimal Workshop</span>
-                  <span class="wy-tag">Pendo surveys</span>
-                  <span class="wy-tag">Walkthroughs</span>
-                </div>
-                <div class="wy-tool-row">
-                  <svg class="wy-tool-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#6B47ED"/><path d="M7 7h4v4H7zM13 7h4v4h-4zM7 13h4v4H7zM13 13h4v4h-4z" fill="none" stroke="white" stroke-width="1.5"/></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">Maze</span>
-                  <svg class="wy-tool-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">Q</text></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">Qualtrics</span>
-                </div>
-              </div>
-
-              <div class="wy-arrow">
-                <div class="wy-arrow-line"></div>
-                <span>synthesize</span>
-                <div class="wy-arrow-line"></div>
-              </div>
-
-              <!-- Synthesis -->
-              <div class="wy-node synthesis">
-                <div class="wy-node-eyebrow">Synthesis</div>
-                <div class="wy-node-title">Copilot + SharePoint source of truth</div>
-                <div class="wy-node-desc">Analytics exports + research outputs go into Copilot, connected to the XDA team's SharePoint knowledge base. I prompt, review, and structure the synthesis into actionable outputs.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag">Reports</span>
-                  <span class="wy-tag">Presentations</span>
-                  <span class="wy-tag">Insight docs</span>
-                  <span class="wy-tag">Decision briefs</span>
-                </div>
-                <div class="wy-tool-row">
-                  <svg class="wy-tool-icon" viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">Copilot</span>
-                  <svg class="wy-tool-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0078D4"/><text x="12" y="17" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="sans-serif">SP</text></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">SharePoint</span>
-                </div>
-              </div>
-
-              <div class="wy-arrow">
-                <div class="wy-arrow-line"></div>
-                <span>output</span>
-                <div class="wy-arrow-line"></div>
-              </div>
-
-              <!-- Design output -->
-              <div class="wy-node output-design">
-                <div class="wy-node-eyebrow">Design output</div>
-                <div class="wy-node-title">Figma Make → UI audit → ship</div>
-                <div class="wy-node-desc">Insights feed Figma Make with the design system already connected. UI designers audit proposals. Every frame has a behavioral reason.</div>
-                <div class="wy-tool-row">
-                  <svg class="wy-tool-icon" viewBox="0 0 38 57" fill="none" aria-hidden="true"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">Figma Make</span>
-                </div>
-              </div>
-
-              <!-- Dev/Product output -->
-              <div class="wy-node output-dev">
-                <div class="wy-node-eyebrow muted">Product &amp; Dev output</div>
-                <div class="wy-node-title">ADO — prioritized tickets</div>
-                <div class="wy-node-desc">When findings reveal bugs or critical friction that require engineering — output goes as a structured ticket with behavioral evidence, severity, and recommended fix.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag">Bug reports</span>
-                  <span class="wy-tag">Priority flags</span>
-                  <span class="wy-tag">Evidence attached</span>
-                </div>
-                <div class="wy-tool-row">
-                  <svg class="wy-tool-icon" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#0078D4"/><text x="12" y="17" text-anchor="middle" font-size="9" font-weight="700" fill="white" font-family="sans-serif">ADO</text></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">Azure DevOps</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- PANEL: AUTOMATED -->
-          <div class="wy-panel" id="wy-auto">
-            <div class="wy-grid">
-
-              <!-- Platform -->
-              <div class="wy-node platform">
-                <div class="wy-node-eyebrow blue">Source</div>
-                <div class="wy-node-title">EY Fabric — production platform</div>
-                <div class="wy-node-desc">Same platform, same 100+ assets. The difference: behavioral signals are now pulled automatically via MCP — no manual export.</div>
-              </div>
-
-              <div class="wy-arrow blue">
-                <div class="wy-arrow-line"></div>
-                <span>Pendo MCP</span>
-                <div class="wy-arrow-line"></div>
-              </div>
-
-              <!-- Pendo MCP -->
-              <div class="wy-node mcp-node">
-                <div class="wy-node-eyebrow blue">MCP — Pendo</div>
-                <div class="wy-node-title">Automated analytics pull</div>
-                <div class="wy-node-desc">Pendo MCP connects directly to analytics API. Funnels, paths, and segments are queried programmatically — no export, no paste.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag blue">Direct API</span>
-                  <span class="wy-tag blue">Auto-segmentation</span>
-                  <span class="wy-tag blue">Signal detection</span>
-                </div>
-              </div>
-
-              <!-- Research (still human) -->
-              <div class="wy-node">
-                <div class="wy-node-eyebrow">UX Research — human-in-the-loop</div>
-                <div class="wy-node-title">Agents flag → Federico investigates</div>
-                <div class="wy-node-desc">When the Copilot Studio orchestrator detects a pattern exceeding defined thresholds, it creates a research task in Teams. I run the investigation — 1:1, Maze, survey — and feed results back.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag">Teams notification</span>
-                  <span class="wy-tag">Task auto-created</span>
-                  <span class="wy-tag">Results fed back to agent</span>
-                </div>
-              </div>
-
-              <div class="wy-arrow blue">
-                <div class="wy-arrow-line"></div>
-                <span>Copilot Studio orchestrates</span>
-                <div class="wy-arrow-line"></div>
-              </div>
-
-              <!-- Copilot Studio -->
-              <div class="wy-node mcp-node" style="grid-column: 1 / -1;">
-                <div class="wy-node-eyebrow blue">Orchestrator</div>
-                <div class="wy-node-title">Copilot Studio + agents + Power Automate</div>
-                <div class="wy-node-desc">The central nervous system of the automated pipeline. Connected to Pendo MCP, SharePoint MD repositories, Teams, and ADO. Agents synthesize analytics + research automatically, route outputs, and create tickets — all triggered by behavioral thresholds I define.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag blue">Pendo MCP</span>
-                  <span class="wy-tag blue">Figma MCP</span>
-                  <span class="wy-tag purple">Power Automate</span>
-                  <span class="wy-tag purple">MS Teams</span>
-                  <span class="wy-tag blue">SharePoint MD repos</span>
-                  <span class="wy-tag">ADO integration</span>
-                </div>
-                <div style="margin-top:var(--space-8);padding:8px var(--space-12);background:rgba(29,111,164,0.08);border:1px solid rgba(29,111,164,0.2);border-radius:6px;">
-                  <p style="font-size:0.72rem;color:var(--text-tertiary);line-height:1.5;">⚠️ In progress — company policies for full automation are not yet active. Architecture is designed and tested; waiting for policy approval.</p>
-                </div>
-                <div class="wy-tool-row" style="margin-top:var(--space-8)">
-                  <svg class="wy-tool-icon" viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>
-                  <span style="font-size:0.65rem;color:var(--text-tertiary)">Copilot Studio</span>
-                </div>
-              </div>
-
-              <div class="wy-arrow blue">
-                <div class="wy-arrow-line"></div>
-                <span>auto-route</span>
-                <div class="wy-arrow-line"></div>
-              </div>
-
-              <!-- Design output automated -->
-              <div class="wy-node output-design mcp-node">
-                <div class="wy-node-eyebrow blue">Design output — automated</div>
-                <div class="wy-node-title">Figma MCP → Figma Make → UI audit</div>
-                <div class="wy-node-desc">Insights routed via Figma MCP trigger Figma Make proposals automatically. Design system already connected. UI designers review output.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag blue">Figma MCP</span>
-                  <span class="wy-tag blue">DS auto-connected</span>
-                </div>
-              </div>
-
-              <!-- ADO automated -->
-              <div class="wy-node output-dev mcp-node">
-                <div class="wy-node-eyebrow blue">Dev output — automated</div>
-                <div class="wy-node-title">ADO tickets — auto-generated</div>
-                <div class="wy-node-desc">When agents detect bugs or critical friction above threshold, Power Automate creates an ADO ticket with behavioral evidence, severity classification, and recommended action — no manual step.</div>
-                <div class="wy-tags">
-                  <span class="wy-tag blue">Auto-classified</span>
-                  <span class="wy-tag blue">Evidence attached</span>
-                  <span class="wy-tag purple">Power Automate</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- JS for tab switching — inline, no dependency -->
-          <script>
-          function wyShowTab(id, btn) {
-            document.querySelectorAll('.wy-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.wy-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-            document.getElementById('wy-' + id).classList.add('active');
-            btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-          }
-          </script>
-        </div>
-
-        </div><!-- close enc-panel workflow -->
-        <div class="enc-panel" role="tabpanel" id="ey-panel-evidence" aria-labelledby="ey-tab-evidence" hidden>
-        <!-- ── CODED WIREFRAMES ── -->
-        <div class="project-section" id="ey-evidence" data-anim>
-          <div class="project-section-label">Evidence</div>
-          <h2 class="project-section-title">What the work looks like</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-24);">Screens contain confidential platform data — wireframe representations below. Real screenshots (data blurred) available on request.</p>
-
-          <div class="wy-screens">
-
-            <!-- Wireframe 1: Pendo funnel -->
-            <div class="wy-screen">
-              <div class="wy-screen-bar">
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <span class="wy-screen-title">Pendo — Funnel Report</span>
-              </div>
-              <div class="wy-screen-body">
-                <div style="font-size:0.6rem;color:var(--text-tertiary);margin-bottom:8px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em">Asset conversion funnel</div>
-                <div class="wy-funnel">
-                  <div class="wy-funnel-row">
-                    <span class="wy-funnel-label">Landing</span>
-                    <div class="wy-funnel-bar-wrap"><div class="wy-funnel-bar" style="width:100%"></div></div>
-                    <span class="wy-funnel-pct">100%</span>
-                  </div>
-                  <div class="wy-funnel-row">
-                    <span class="wy-funnel-label">Preview</span>
-                    <div class="wy-funnel-bar-wrap"><div class="wy-funnel-bar" style="width:72%"></div></div>
-                    <span class="wy-funnel-pct">72%</span>
-                  </div>
-                  <div class="wy-funnel-row">
-                    <span class="wy-funnel-label">Docs</span>
-                    <div class="wy-funnel-bar-wrap"><div class="wy-funnel-bar" style="width:48%"></div></div>
-                    <span class="wy-funnel-pct">48%</span>
-                  </div>
-                  <div class="wy-funnel-row">
-                    <span class="wy-funnel-label">Install</span>
-                    <div class="wy-funnel-bar-wrap"><div class="wy-funnel-bar" style="width:22%;background:#e05c4a"></div></div>
-                    <span class="wy-funnel-pct" style="color:#e05c4a">22%</span>
-                  </div>
-                </div>
-                <div style="margin-top:8px;padding:5px 8px;background:rgba(224,92,74,0.08);border-left:2px solid #e05c4a;border-radius:0 4px 4px 0">
-                  <p style="font-size:0.6rem;color:#e05c4a;line-height:1.4">Drop-off between Docs → Install flagged for UXR investigation</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Wireframe 2: Research synthesis -->
-            <div class="wy-screen">
-              <div class="wy-screen-bar">
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <span class="wy-screen-title">Copilot — Synthesis</span>
-              </div>
-              <div class="wy-screen-body">
-                <div style="font-size:0.6rem;color:var(--text-tertiary);margin-bottom:8px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em">Research synthesis output</div>
-                <div style="display:flex;flex-direction:column;gap:5px;">
-                  <div style="height:8px;background:var(--bg-raised);border-radius:3px;width:90%"></div>
-                  <div style="height:8px;background:var(--bg-raised);border-radius:3px;width:75%"></div>
-                  <div style="height:8px;background:var(--bg-raised);border-radius:3px;width:85%"></div>
-                  <div style="height:8px;background:var(--bg-raised);border-radius:3px;width:60%"></div>
-                  <div style="margin:5px 0;padding:6px 8px;background:var(--accent-dim);border-left:2px solid var(--accent);border-radius:0 4px 4px 0">
-                    <p style="font-size:0.6rem;color:var(--accent);line-height:1.4;font-weight:600">3 actionable items identified</p>
-                  </div>
-                  <div style="height:8px;background:var(--bg-raised);border-radius:3px;width:80%"></div>
-                  <div style="height:8px;background:var(--bg-raised);border-radius:3px;width:70%"></div>
-                </div>
-                <div class="wy-placeholder" style="margin-top:8px;min-height:60px;">
-                  <span class="wy-placeholder-label">Real screenshot — blurred</span>
-                  <span class="wy-placeholder-sub">Replace when available</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Wireframe 3: Figma Make proposal -->
-            <div class="wy-screen">
-              <div class="wy-screen-bar">
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <span class="wy-screen-title">Figma Make — Proposal</span>
-              </div>
-              <div class="wy-screen-body">
-                <div style="font-size:0.6rem;color:var(--text-tertiary);margin-bottom:8px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em">Generated design proposal</div>
-                <div style="border:1px solid var(--border-subtle);border-radius:6px;padding:8px;background:var(--bg-raised);">
-                  <div style="height:7px;background:var(--border-default);border-radius:2px;width:50%;margin-bottom:6px"></div>
-                  <div style="height:5px;background:var(--border-subtle);border-radius:2px;width:80%;margin-bottom:3px"></div>
-                  <div style="height:5px;background:var(--border-subtle);border-radius:2px;width:65%;margin-bottom:8px"></div>
-                  <div style="display:flex;gap:5px;">
-                    <div style="flex:1;height:28px;background:var(--accent);border-radius:4px;opacity:0.7"></div>
-                    <div style="flex:1;height:28px;background:var(--border-subtle);border-radius:4px;"></div>
-                  </div>
-                </div>
-                <div style="margin-top:6px;font-size:0.6rem;color:var(--text-tertiary);font-style:italic;line-height:1.4">Design system connected — ready for UI audit</div>
-              </div>
-            </div>
-
-            <!-- Wireframe 4: ADO ticket -->
-            <div class="wy-screen">
-              <div class="wy-screen-bar">
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <div class="wy-screen-dot"></div>
-                <span class="wy-screen-title">ADO — Ticket output</span>
-              </div>
-              <div class="wy-screen-body">
-                <div style="font-size:0.6rem;color:var(--text-tertiary);margin-bottom:8px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em">Prioritized work items</div>
-                <div class="wy-ticket">
-                  <div class="wy-ticket-prio high"></div>
-                  <div>
-                    <div class="wy-ticket-type">Bug · High</div>
-                    <div class="wy-ticket-title">Install CTA unresponsive on Firefox — 34 affected sessions</div>
-                  </div>
-                </div>
-                <div class="wy-ticket">
-                  <div class="wy-ticket-prio med"></div>
-                  <div>
-                    <div class="wy-ticket-type">UX · Medium</div>
-                    <div class="wy-ticket-title">Docs section exit rate 52% — content gap confirmed via 1:1</div>
-                  </div>
-                </div>
-                <div class="wy-ticket">
-                  <div class="wy-ticket-prio med"></div>
-                  <div>
-                    <div class="wy-ticket-type">Design · Medium</div>
-                    <div class="wy-ticket-title">Publisher metadata incomplete — users abandon before preview</div>
-                  </div>
-                </div>
-                <div style="margin-top:4px;font-size:0.6rem;color:var(--text-tertiary);font-style:italic">All items include Pendo session link + evidence</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ── TOOLS ── -->
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Tools Used</div>
-          <div class="tools-row">
-            <span class="tool-chip">Pendo</span>
-            <span class="tool-chip">Figma</span>
-            <span class="tool-chip">Figma Make</span>
-            <span class="tool-chip">Copilot</span>
-            <span class="tool-chip">Copilot Studio</span>
-            <span class="tool-chip">SharePoint</span>
-            <span class="tool-chip">Azure DevOps</span>
-            <span class="tool-chip">Power Automate</span>
-            <span class="tool-chip">MS Teams</span>
-            <span class="tool-chip">Qualtrics</span>
-            <span class="tool-chip">Maze</span>
-            <span class="tool-chip">Optimal Workshop</span>
-            <span class="tool-chip">Microsoft Dynamics</span>
-            <span class="tool-chip">Miro</span>
-          </div>
-        </div>
-
-        </div><!-- close enc-panel evidence -->
-        </div><!-- close enc-panels -->
+        </div><!-- /ey-workflow-section -->
 
         <div class="project-nav" data-anim>
           <a href="layer-ey.html" class="project-nav-card">
@@ -1689,6 +1172,205 @@
     /* Pause on reduced motion */
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       if(loop)loop.style.display='none';
+    }
+  })();
+  </script>
+  <script>
+  /* ── EY Workflow interactive panels ── */
+  (function(){
+    var active=0,total=5,cleanups=[];
+
+    /* Dots init */
+    function initDots(){
+      var d=document.getElementById('eyw-dots');
+      if(!d)return;
+      d.innerHTML='';
+      for(var i=0;i<total;i++){
+        var b=document.createElement('button');
+        b.className='eyw-dot-nav';
+        b.style.width=i===0?'14px':'4px';
+        b.style.background=i===0?'var(--accent)':'rgba(255,255,255,0.15)';
+        b.setAttribute('aria-label','Step '+(i+1));
+        (function(n){b.addEventListener('click',function(){eywShow(n);});})(i);
+        d.appendChild(b);
+      }
+    }
+
+    function updateDots(n){
+      var dots=document.querySelectorAll('.eyw-dot-nav');
+      dots.forEach(function(d,i){
+        d.style.width=i===n?'14px':'4px';
+        d.style.background=i===n?'var(--accent)':'rgba(255,255,255,0.15)';
+      });
+      var prev=document.getElementById('eyw-prev');
+      var next=document.getElementById('eyw-next');
+      if(prev)prev.disabled=n===0;
+      if(next)next.disabled=n===total-1;
+    }
+
+    window.eywShow=function(n){
+      document.querySelectorAll('.eyw-panel').forEach(function(p){
+        p.classList.remove('eyw-panel--active');
+        p.hidden=true;
+      });
+      document.querySelectorAll('.eyw-step').forEach(function(s){
+        s.classList.remove('eyw-step--active');
+        s.setAttribute('aria-selected','false');
+      });
+      var panel=document.getElementById('eyw-p'+n);
+      var step=document.querySelectorAll('.eyw-step')[n];
+      if(panel){panel.classList.add('eyw-panel--active');panel.hidden=false;}
+      if(step){step.classList.add('eyw-step--active');step.setAttribute('aria-selected','true');}
+      active=n;
+      updateDots(n);
+      if(cleanups[n]){cleanups[n]();cleanups[n]=null;}
+      setTimeout(function(){cleanups[n]=runPanel(n)||null;},80);
+    };
+
+    window.eywMove=function(dir){
+      eywShow(Math.max(0,Math.min(total-1,active+dir)));
+    };
+
+    function runPanel(n){
+      var ts=[];
+      function s(fn,ms){var id=setTimeout(fn,ms);ts.push(id);}
+      function cleanup(){ts.forEach(clearTimeout);}
+
+      if(n===0){
+        var fields=[['eyf0','Production','act'],['eyf1','10k calls · $450','act'],['eyf2','US East','act']];
+        fields.forEach(function(f,i){
+          s(function(){
+            var el=document.getElementById(f[0]);
+            if(el){el.classList.add('filled');el.textContent='✓  '+f[1];}
+            var ev=document.createElement('span');
+            ev.className='eyw-ev eyw-ev-'+f[2];
+            ev.textContent=f[2].toUpperCase()+'·event';
+            var row=document.getElementById('eyevs');
+            if(row)row.appendChild(ev);
+          },600+i*700);
+        });
+        s(function(){
+          var fs=document.getElementById('eyfs');
+          if(fs){fs.classList.add('submitted');fs.textContent='✓  Subscribed — CONV';}
+          var ev=document.createElement('span');ev.className='eyw-ev eyw-ev-conv';ev.textContent='CONV·event';
+          var row=document.getElementById('eyevs');if(row)row.appendChild(ev);
+        },2800);
+      }
+
+      if(n===1){
+        var T=[2841,68,31],steps2=32;
+        for(var i=0;i<steps2;i++){
+          (function(si){s(function(){
+            var p=(si+1)/steps2,e=1-Math.pow(1-p,3);
+            [0,1,2].forEach(function(j){
+              var el=document.getElementById('eyn'+j);
+              if(el)el.textContent=j===1?Math.round(T[j]*e)+'%':Math.round(T[j]*e).toLocaleString();
+            });
+          },300+si*38);})(i);
+        }
+        s(function(){
+          var sv=document.getElementById('eysurvey');if(sv)sv.style.opacity='1';
+          var r=document.getElementById('eyrating');
+          if(r){[1,2,3,4,5].forEach(function(num,ni){
+            var d=document.createElement('div');
+            d.style.cssText='flex:1;height:16px;border-radius:4px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:rgba(255,255,255,0.2);transition:all 250ms ease';
+            d.textContent=num;r.appendChild(d);
+            setTimeout(function(){
+              d.style.background=num<=2?'rgba(224,92,74,0.2)':num===3?'rgba(200,168,75,0.15)':'rgba(34,197,94,0.15)';
+              d.style.borderColor=num<=2?'rgba(224,92,74,0.4)':num===3?'rgba(200,168,75,0.35)':'rgba(34,197,94,0.35)';
+              d.style.color=num<=2?'#e05c4a':num===3?'#c8a84b':'#22c55e';
+            },200+ni*250);
+          });}
+        },1700);
+        s(function(){var rp=document.getElementById('eyreplay');if(rp)rp.style.opacity='1';},2800);
+      }
+
+      if(n===2){
+        var FILES=['interviews.txt','pendo.csv','sessions.md','qualtrics.xlsx','jtbd.md','copilot.md'];
+        var fc=document.getElementById('eysynfiles');
+        FILES.forEach(function(f,i){
+          s(function(){
+            if(fc){var sp=document.createElement('span');sp.className='eyw-file-chip';sp.textContent=f;fc.appendChild(sp);
+            setTimeout(function(){sp.classList.add('vis');},20);}
+          },200+i*180);
+        });
+        var a=200+FILES.length*180+300;
+        s(function(){
+          var bw=document.getElementById('eysynbar');if(bw)bw.style.opacity='1';
+          setTimeout(function(){var fi=document.getElementById('eysynfill');if(fi)fi.style.width='100%';},50);
+          ['Clustering themes','JTBD mapping','Prioritizing'].forEach(function(st,si){
+            s(function(){
+              var sc=document.getElementById('eysynsteps');
+              if(sc){var d=document.createElement('div');d.className='eyw-synstep';d.textContent='✓ '+st;sc.appendChild(d);}
+            },200+si*400);
+          });
+          s(function(){
+            var cc=document.getElementById('eysynclusters');
+            if(cc){[['Design·4','#22c55e','#22c55e0d'],['ADO·2','#38bdf8','#38bdf80d']].forEach(function(cl){
+              var d=document.createElement('div');d.className='eyw-cluster';
+              d.style.cssText='border:1px solid '+cl[1]+'30;background:'+cl[2]+';color:'+cl[1];
+              d.textContent=cl[0];cc.appendChild(d);
+            });}
+          },1500);
+        },a);
+      }
+
+      if(n===3){
+        var PATHS=[['Design','Figma · DS-connected','#22c55e','8 proposals'],['Ticket','ADO · with evidence','#38bdf8','14 items'],['Research','Brief · next sprint','#9b6cff','3 briefs']];
+        var pc=document.getElementById('eypaths');
+        if(pc){pc.innerHTML='';
+          PATHS.forEach(function(p,pi){
+            s(function(){
+              var d=document.createElement('div');d.className='eyw-path';
+              d.style.borderLeft='2px solid '+p[2];
+              d.innerHTML='<div style="flex:1"><div class="eyw-path-label">'+p[0]+'</div><div class="eyw-path-sub">'+p[1]+'</div></div><span class="eyw-path-n" style="color:'+p[2]+'">'+p[3]+'</span>';
+              pc.appendChild(d);
+              if(pi===0)setTimeout(function(){d.classList.add('sel');},600);
+            },300+pi*300);
+          });
+        }
+        s(function(){
+          var fw=document.getElementById('eyfigwin');
+          if(fw){fw.style.opacity='1';fw.style.maxHeight='200px';}
+        },2800);
+      }
+
+      if(n===4){
+        var M=[['Drop-off','#e05c4a',68,31],['Completion','#22c55e',32,69],['Time on step','#c8a84b',72,35]];
+        var mc=document.getElementById('eymetrics');
+        if(mc){mc.innerHTML='';
+          M.forEach(function(m,mi){
+            var wrap=document.createElement('div');wrap.className='eyw-mrow';
+            wrap.innerHTML='<div class="eyw-mhdr"><span style="color:var(--text-tertiary)">'+m[0]+'</span><span style="font-weight:700;color:'+m[1]+';font-family:var(--font-mono)">'+m[2]+'% → '+m[3]+'%</span></div>';
+            var t1=document.createElement('div');t1.className='eyw-mbar-track';
+            var f1=document.createElement('div');f1.className='eyw-mbar-fill';f1.style.background='rgba(255,255,255,0.15)';t1.appendChild(f1);
+            var t2=document.createElement('div');t2.className='eyw-mbar-track';
+            var f2=document.createElement('div');f2.className='eyw-mbar-fill';f2.style.background=m[1];f2.style.opacity='0.8';f2.style.transitionDelay='300ms';t2.appendChild(f2);
+            wrap.appendChild(t1);wrap.appendChild(t2);mc.appendChild(wrap);
+            s(function(){f1.style.width=m[2]+'%';},400+mi*50);
+            s(function(){f2.style.width=m[3]+'%';},1800+mi*50);
+          });
+        }
+      }
+
+      return cleanup;
+    }
+
+    document.addEventListener('keydown',function(e){
+      var sec=document.getElementById('ey-workflow-section');
+      if(!sec)return;
+      if(e.key==='ArrowRight')eywMove(1);
+      if(e.key==='ArrowLeft')eywMove(-1);
+    });
+
+    initDots();
+    updateDots(0);
+    var sec=document.getElementById('ey-workflow-section');
+    if(sec){
+      var obs=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){runPanel(0);obs.disconnect();}
+      },{threshold:0.1});
+      obs.observe(sec);
     }
   })();
   </script>
