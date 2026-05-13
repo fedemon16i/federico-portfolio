@@ -101,6 +101,7 @@
     }
   </style>
   <link rel="stylesheet" href="assets/shared.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 <div class="v2-banner">V2 Preview <a href="index.html">← Ver original</a></div>
@@ -318,11 +319,10 @@
             style="--card-accent: var(--accent-blockchain);"
             data-anim data-anim-delay="2"
           >
-            <div class="card-image" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#001818 0%,#002828 100%);" data-light-bg="linear-gradient(135deg,#e8f0f0 0%,#d8eaea 100%)">
-              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-8);padding:var(--space-20);">
-                <span style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;color:rgba(34,212,200,0.12);text-align:center;">BLOCKCHAIN 3D</span>
-              </div>
-              <div class="card-tags">
+            <div class="card-image" style="position:relative;overflow:hidden;background:#080d14;">
+              <canvas id="bc-card-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 600ms ease;"></canvas>
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(28,28,28,0.95) 0%,rgba(28,28,28,0.15) 60%,transparent 100%);z-index:1;pointer-events:none;transition:background 500ms ease;" id="bc-card-overlay"></div>
+              <div class="card-tags" style="position:relative;z-index:2;">
                 <span class="card-tag tag-chip tag-thematic">Spatial UI</span>
                 <span class="card-tag tag-chip tag-thematic">Startup</span>
                 <span class="card-tag tag-chip tag-thematic">3D</span>
@@ -682,5 +682,63 @@
 })();
 </script>
 
+  <script>
+  (function(){
+    function initCard3D(){
+      var canvas=document.getElementById('bc-card-canvas');
+      if(!canvas||!window.THREE)return;
+      var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+      var W=canvas.parentElement.clientWidth||300,H=canvas.parentElement.clientHeight||200;
+      var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
+      renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+      renderer.setClearColor(isDark?0x080d14:0xf0ede8,1);
+      var scene=new THREE.Scene();
+      scene.fog=new THREE.FogExp2(isDark?0x080d14:0xf0ede8,0.028);
+      var camera=new THREE.PerspectiveCamera(50,W/H,0.1,200);
+      camera.position.set(0,14,16);camera.lookAt(0,0,0);
+      scene.add(new THREE.AmbientLight(isDark?0x4aa3d4:0x90b8d0,isDark?0.4:0.7));
+      var dir=new THREE.DirectionalLight(0xffffff,isDark?0.7:1.1);dir.position.set(5,10,5);scene.add(dir);
+      if(isDark){var pt=new THREE.PointLight(0x4aa3d4,1.6,22);pt.position.set(0,7,0);scene.add(pt);}
+      scene.add(new THREE.GridHelper(24,24,isDark?0x1a3a5c:0xd0cdc8,isDark?0x0d1e30:0xe0ddd8));
+      var gnd=new THREE.Mesh(new THREE.PlaneGeometry(24,24),new THREE.MeshLambertMaterial({color:isDark?0x080d14:0xf0ede8}));gnd.rotation.x=-Math.PI/2;gnd.position.y=-0.01;scene.add(gnd);
+      var bColors=isDark?[0x1a2840,0x152233,0x1e2d42,0x17263a]:[0xd0ccc6,0xc8c4be,0xd4d0ca,0xccc8c2];
+      var bldgs=[];
+      [[-3,-2,2,4,2],[2.5,-3,1.5,5.5,1.5],[-5,1.5,2.2,3,2],[5,-1.5,1.5,6,1.5],[3,2.5,1.8,4.5,2],[-6,-3,1.5,3.5,1.5],[4.5,5,1.8,3.5,1.8],[-3.5,-5,1.2,4.5,1.2]].forEach(function(c){
+        var col=bColors[Math.floor(Math.random()*bColors.length)];
+        var m=new THREE.Mesh(new THREE.BoxGeometry(c[2],c[3],c[4]),new THREE.MeshLambertMaterial({color:col,transparent:true,opacity:isDark?0.88:0.92}));
+        m.position.set(c[0],-c[3],c[1]);m.targetY=c[3]/2;m.riseSpeed=0.03+Math.random()*0.02;
+        m.add(new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry),new THREE.LineBasicMaterial({color:isDark?0x2a4a6a:0xb0acaa,transparent:true,opacity:0.25})));
+        scene.add(m);bldgs.push(m);
+      });
+      var pin=new THREE.Group();pin.position.set(0,-3,0);pin.targetY=2;pin.risen=false;pin.floatOff=0;
+      var pc=new THREE.Color('#4aa3d4');
+      var ps=new THREE.Mesh(new THREE.SphereGeometry(0.3,12,12),new THREE.MeshLambertMaterial({color:pc,emissive:pc,emissiveIntensity:isDark?0.3:0.08}));ps.position.y=0.7;pin.add(ps);
+      var pst=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.04,0.7,8),new THREE.MeshLambertMaterial({color:pc}));pst.position.y=0.35;pin.add(pst);
+      var pr=new THREE.Mesh(new THREE.TorusGeometry(0.38,0.028,8,24),new THREE.MeshBasicMaterial({color:pc,transparent:true,opacity:0.35}));pr.rotation.x=Math.PI/2;pin.add(pr);pin.ring=pr;scene.add(pin);
+      var start=Date.now(),animId;
+      function tick(){
+        animId=requestAnimationFrame(tick);
+        var t=(Date.now()-start)/1000,el=Date.now()-start;
+        bldgs.forEach(function(b){if(b.position.y<b.targetY)b.position.y=Math.min(b.targetY,b.position.y+b.riseSpeed);});
+        if(el>800&&pin.position.y<pin.targetY){pin.position.y=Math.min(pin.targetY,pin.position.y+0.06);pin.risen=pin.position.y>=pin.targetY;}
+        if(pin.risen){pin.position.y=pin.targetY+Math.sin(t*1.5)*0.1;pin.ring.material.opacity=0.2+Math.sin(t*2)*0.15;pin.ring.scale.setScalar(1+Math.sin(t*1.8)*0.12);}
+        var R=16,S=0.05;camera.position.x=Math.sin(t*S)*R;camera.position.z=Math.cos(t*S)*R;camera.position.y=12+Math.sin(t*0.1)*1.5;camera.lookAt(0,1,0);
+        renderer.render(scene,camera);
+      }
+      tick();
+      canvas.style.opacity='1';
+      /* Update overlay on theme change */
+      var overlay=document.getElementById('bc-card-overlay');
+      function updateOverlay(){
+        var dark=document.documentElement.getAttribute('data-theme')!=='light';
+        if(overlay)overlay.style.background=dark?'linear-gradient(to top,rgba(28,28,28,0.95) 0%,rgba(28,28,28,0.15) 60%,transparent 100%)':'linear-gradient(to top,rgba(245,245,240,0.95) 0%,rgba(245,245,240,0.15) 60%,transparent 100%)';
+      }
+      new MutationObserver(updateOverlay).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+    }
+    /* Init after Three.js loads */
+    if(window.THREE){initCard3D();}
+    else{var s=document.querySelector('script[src*="three"]');if(s)s.addEventListener('load',initCard3D);}
+  })();
+  </script>
 </body>
 </html>
