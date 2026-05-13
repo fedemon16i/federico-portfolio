@@ -280,11 +280,12 @@
             style="--card-accent: var(--accent-ey);"
             data-anim data-anim-delay="1"
           >
-            <div class="card-image" style="position:relative;overflow:hidden;background:linear-gradient(135deg,#1a1200 0%,#2d2000 100%);" data-light-bg="linear-gradient(135deg,#f0ede6 0%,#e8e2d8 100%)">
-              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-8);padding:var(--space-20);">
-                <span style="font-family:var(--font-display);font-size:1.75rem;font-weight:800;letter-spacing:-0.03em;color:rgba(200,168,75,0.12);text-align:center;">EY FABRIC</span>
-              </div>
-              <div class="card-tags">
+            <div class="card-image" style="position:relative;overflow:hidden;background:#09090b;">
+              <canvas id="ey-card-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity 600ms ease;"></canvas>
+              <div id="ey-card-overlay" style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to top,rgba(9,9,11,0.95) 0%,rgba(9,9,11,0.15) 60%,transparent 100%);"></div>
+              <!-- Live signal stream -->
+              <div id="ey-card-stream" aria-hidden="true" style="position:absolute;inset:0;padding:12px 14px;opacity:0.28;z-index:0;pointer-events:none;overflow:hidden;"></div>
+              <div class="card-tags" style="position:absolute;bottom:10px;left:10px;z-index:3;">
                 <span class="card-tag tag-chip tag-thematic">Behavioral Analytics</span>
                 <span class="card-tag tag-chip tag-thematic">Product</span>
                 <span class="card-tag tag-chip tag-thematic">Instrumentation</span>
@@ -590,6 +591,53 @@
     </div>
   </footer>
 
+  <script>
+  (function(){
+    var EVENTS=[
+      {tag:'ACT', name:'cta_subscribe',    val:'+18% WoW', tc:'#c8a84b'},
+      {tag:'DROP',name:'configure_abandon', val:'31% rate',  tc:'#e05c4a'},
+      {tag:'CONV',name:'checkout_complete', val:'818 sess',  tc:'#22c55e'},
+      {tag:'NAV', name:'catalog_filter',    val:'2,841',     tc:'#818cf8'},
+      {tag:'DISC',name:'asset_detail_view', val:'1,630',     tc:'#38bdf8'},
+      {tag:'NPS', name:'survey_response',   val:'score 42',  tc:'#c8a84b'},
+      {tag:'ACT', name:'walkthrough_start', val:'Pendo',     tc:'#c8a84b'},
+      {tag:'CONV',name:'integration_done',  val:'+8% MoM',   tc:'#22c55e'},
+    ];
+    var container=document.getElementById('ey-card-stream');
+    if(!container)return;
+    var idx=0,rows=[];
+    function addRow(){
+      var ev=EVENTS[idx%EVENTS.length];idx++;
+      var row=document.createElement('div');
+      row.style.cssText='display:flex;align-items:center;gap:6px;margin-bottom:3px;opacity:0;transform:translateY(3px);transition:opacity 250ms ease,transform 250ms ease;font-family:monospace';
+      var tag=document.createElement('span');
+      tag.style.cssText='font-size:5px;font-weight:700;padding:1px 4px;border-radius:2px;background:'+ev.tc+'14;border:1px solid '+ev.tc+'30;color:'+ev.tc+';flex-shrink:0;letter-spacing:.04em';
+      tag.textContent=ev.tag;
+      var name=document.createElement('span');
+      name.style.cssText='font-size:6px;color:rgba(255,255,255,0.35);flex:1';
+      name.textContent=ev.name;
+      var val=document.createElement('span');
+      val.style.cssText='font-size:5.5px;color:rgba(255,255,255,0.2)';
+      val.textContent=ev.val;
+      row.appendChild(tag);row.appendChild(name);row.appendChild(val);
+      container.appendChild(row);
+      setTimeout(function(){row.style.opacity='1';row.style.transform='translateY(0)';},16);
+      rows.push(row);
+      if(rows.length>10){var old=rows.shift();if(old.parentNode)old.parentNode.removeChild(old);}
+    }
+    var card=document.getElementById('ey-card-stream');
+    var obs=new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){
+        addRow();
+        setInterval(addRow,420);
+        var canvas=document.getElementById('ey-card-canvas');
+        if(canvas)canvas.style.opacity='1';
+        obs.disconnect();
+      }
+    },{threshold:0.1});
+    obs.observe(card);
+  })();
+  </script>
   <script src="assets/main.js"></script>
 <script>
 (function(){
