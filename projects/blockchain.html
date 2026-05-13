@@ -15,6 +15,23 @@
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
     }
+  /* Hero 3D overlay */
+  #bc-hero-canvas { opacity: 0; }
+  #bc-hero-canvas.bc-ready { opacity: 1; }
+  [data-theme="dark"] #bc-hero-canvas,
+  :root:not([data-theme]) #bc-hero-canvas { opacity: 0.5; filter: blur(1.5px); }
+  [data-theme="light"] #bc-hero-canvas { opacity: 0.25; filter: blur(2px); }
+  [data-theme="dark"] #bc-hero-overlay {
+    background: linear-gradient(to bottom, rgba(8,13,20,0.45) 0%, rgba(8,13,20,0.15) 40%, rgba(8,13,20,0.65) 80%, rgba(8,13,20,1) 100%);
+  }
+  [data-theme="light"] #bc-hero-overlay,
+  :root:not([data-theme]) #bc-hero-overlay {
+    background: linear-gradient(to bottom, rgba(240,237,232,0.55) 0%, rgba(240,237,232,0.25) 40%, rgba(240,237,232,0.7) 80%, rgba(240,237,232,1) 100%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) #bc-hero-canvas { opacity: 0.5; filter: blur(1.5px); }
+    :root:not([data-theme]) #bc-hero-overlay { background: linear-gradient(to bottom, rgba(8,13,20,0.45) 0%, rgba(8,13,20,0.15) 40%, rgba(8,13,20,0.65) 80%, rgba(8,13,20,1) 100%); }
+  }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -108,8 +125,10 @@
   </nav>
 
   <main id="main">
-    <header class="project-hero" aria-labelledby="project-title">
-      <div class="container">
+    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;">
+      <canvas id="bc-hero-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;transition:opacity 600ms ease;"></canvas>
+      <div id="bc-hero-overlay" style="position:absolute;inset:0;z-index:1;pointer-events:none;transition:background 500ms ease;"></div>
+      <div class="container" style="position:relative;z-index:2;">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
           <a href="../index.html">Home</a>
           <span class="project-breadcrumb-sep" aria-hidden="true">›</span>
@@ -437,6 +456,73 @@
     </div>
   </footer>
 
+  <script>
+  (function(){
+    function initHero3D(){
+      var canvas=document.getElementById('bc-hero-canvas');
+      if(!canvas||!window.THREE)return;
+      var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+      var W=canvas.clientWidth||window.innerWidth,H=canvas.clientHeight||window.innerHeight;
+      var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
+      renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+      renderer.setClearColor(isDark?0x080d14:0xf0ede8,1);
+      var scene=new THREE.Scene();
+      scene.fog=new THREE.FogExp2(isDark?0x080d14:0xf0ede8,isDark?0.022:0.016);
+      var camera=new THREE.PerspectiveCamera(50,W/H,0.1,200);
+      camera.position.set(0,18,20);camera.lookAt(0,0,0);
+      scene.add(new THREE.AmbientLight(isDark?0x4aa3d4:0x90b8d0,isDark?0.4:0.7));
+      var dir=new THREE.DirectionalLight(isDark?0x88aacc:0xffffff,isDark?0.7:1.1);
+      dir.position.set(8,14,6);scene.add(dir);
+      if(isDark){var pt=new THREE.PointLight(0x4aa3d4,1.6,28);pt.position.set(0,9,0);scene.add(pt);}
+      scene.add(new THREE.GridHelper(34,34,isDark?0x1a3a5c:0xd0cdc8,isDark?0x0d1e30:0xe0ddd8));
+      var gnd=new THREE.Mesh(new THREE.PlaneGeometry(34,34),new THREE.MeshLambertMaterial({color:isDark?0x080d14:0xf0ede8}));
+      gnd.rotation.x=-Math.PI/2;gnd.position.y=-0.01;scene.add(gnd);
+      var rm=new THREE.MeshLambertMaterial({color:isDark?0x0f1a28:0xdedad4});
+      [[28,.05,1.6,0,0,0],[28,.05,1.6,0,0,-6],[28,.05,1.6,0,0,6],[1.6,.05,28,0,0,0],[1.6,.05,28,-7,0,0],[1.6,.05,28,7,0,0]].forEach(function(r){var m=new THREE.Mesh(new THREE.BoxGeometry(r[0],r[1],r[2]),rm);m.position.set(r[3],r[4],r[5]);scene.add(m);});
+      var bldgs=[];
+      var bColors=isDark?[0x1a2840,0x152233,0x1e2d42,0x17263a,0x1c2e44,0x162030]:[0xd0ccc6,0xc8c4be,0xd4d0ca,0xccc8c2,0xd8d4ce,0xc4c0ba];
+      [[-4,-3,2.5,5,2.5],[3,-4,2,7,2],[-7,2,3,3.5,2],[7,-2,1.8,8,1.8],[4,3,2,5.5,2.5],[-8,-4,2,4,2],[6,7,2.2,4.5,2],[-5,-7,1.5,6,1.5],[2,6,1.8,3,1.8],[-3,6,2,3.5,2.5],[9,3,1.6,5,1.6],[-10,1,2,4,2],[5,-8,1.8,3.5,1.8],[-2,-9,2.2,5,2],[10,-4,1.5,6,1.5]].forEach(function(c){
+        var col=bColors[Math.floor(Math.random()*bColors.length)];
+        var m=new THREE.Mesh(new THREE.BoxGeometry(c[2],c[3],c[4]),new THREE.MeshLambertMaterial({color:col,transparent:true,opacity:isDark?0.88:0.92}));
+        m.position.set(c[0],-c[3],c[1]);m.targetY=c[3]/2;m.riseSpeed=0.022+Math.random()*0.018;
+        m.add(new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry),new THREE.LineBasicMaterial({color:isDark?0x2a4a6a:0xb0acaa,transparent:true,opacity:isDark?0.25:0.18})));
+        if(isDark){var wm=new THREE.MeshBasicMaterial({color:0x4aa3d4,transparent:true,opacity:Math.random()*0.25+0.15});for(var i=0;i<3;i++)for(var j=0;j<2;j++){var wn=new THREE.Mesh(new THREE.PlaneGeometry(0.14,0.14),wm);wn.position.set(-c[2]/2+0.01,-c[3]/4+i*(c[3]/4),j*0.38-0.19);wn.rotation.y=-Math.PI/2;m.add(wn);}}
+        scene.add(m);bldgs.push(m);
+      });
+      var pins=[];
+      [[0,-1,'#4aa3d4',1.2],[3.5,3,'#e05c4a',0.9],[-5,0.5,'#f4c842',0.9]].forEach(function(p,i){
+        var g=new THREE.Group();g.position.set(p[0],-3,p[1]);g.targetY=2;g.risen=false;g.floatOff=Math.random()*Math.PI*2;g.delay=i*450;
+        var col=new THREE.Color(p[2]),s=p[3];
+        var sph=new THREE.Mesh(new THREE.SphereGeometry(0.22*s,12,12),new THREE.MeshLambertMaterial({color:col,emissive:col,emissiveIntensity:isDark?0.28:0.08}));
+        sph.position.y=0.55*s;g.add(sph);
+        var stem=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.03,0.55*s,8),new THREE.MeshLambertMaterial({color:col}));
+        stem.position.y=0.27*s;g.add(stem);
+        var ring=new THREE.Mesh(new THREE.TorusGeometry(0.3*s,0.025,8,24),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:0.32}));
+        ring.rotation.x=Math.PI/2;g.add(ring);g.ring=ring;
+        scene.add(g);pins.push(g);
+      });
+      var particles;
+      if(isDark){var pg=new THREE.BufferGeometry(),pp=new Float32Array(140*3);for(var i=0;i<140;i++){pp[i*3]=(Math.random()-.5)*36;pp[i*3+1]=Math.random()*14;pp[i*3+2]=(Math.random()-.5)*36;}pg.setAttribute('position',new THREE.BufferAttribute(pp,3));particles=new THREE.Points(pg,new THREE.PointsMaterial({color:0x4aa3d4,size:0.05,transparent:true,opacity:0.3}));scene.add(particles);}
+      var start=Date.now(),animId;
+      function tick(){
+        animId=requestAnimationFrame(tick);
+        var t=(Date.now()-start)/1000,el=Date.now()-start;
+        bldgs.forEach(function(b){if(b.position&&b.targetY&&b.position.y<b.targetY)b.position.y=Math.min(b.targetY,b.position.y+b.riseSpeed);});
+        pins.forEach(function(g,i){if(el>1200+g.delay&&g.position.y<g.targetY){g.position.y=Math.min(g.targetY,g.position.y+0.05);g.risen=g.position.y>=g.targetY;}if(g.risen){g.position.y=g.targetY+Math.sin(t*1.4+g.floatOff)*0.07;if(g.ring){g.ring.material.opacity=0.18+Math.sin(t*2+i)*0.12;g.ring.scale.setScalar(1+Math.sin(t*1.6+i)*0.09);}}});
+        var R=20,S=0.032;camera.position.x=Math.sin(t*S)*R;camera.position.z=Math.cos(t*S)*R;camera.position.y=16+Math.sin(t*0.07)*2;camera.lookAt(0,1,0);
+        if(particles)particles.rotation.y=t*0.01;
+        renderer.render(scene,camera);
+      }
+      tick();
+      canvas.classList.add('bc-ready');
+      /* Re-init on theme change */
+      var obs=new MutationObserver(function(){cancelAnimationFrame(animId);renderer.dispose();canvas.classList.remove('bc-ready');setTimeout(initHero3D,50);});
+      obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+      window.addEventListener('resize',function(){var w=canvas.clientWidth,h=canvas.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});
+    }
+    if(window.THREE){initHero3D();}else{document.querySelector('script[src*="three"]').addEventListener('load',initHero3D);}
+  })();
+  </script>
   <script src="../assets/main.js"></script>
   <style>
   .bc-flow-wrap{margin-bottom:var(--space-64)}
