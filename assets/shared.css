@@ -2577,3 +2577,187 @@ img {
   .enc-tab { padding: var(--space-10) var(--space-16); font-size: 0.65rem; }
 }
 
+/* ══════════════════════════════════════
+   LOGO SVG SYSTEM — reusable across all pages
+   Usage: <span class="logo-chip logo-pendo">Pendo</span>
+   ══════════════════════════════════════ */
+
+/* Base — all logo chips share this */
+.logo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.logo-chip svg, .logo-chip .logo-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Stack row — for hero sections */
+.stack-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.stack-row-label {
+  font-size: 0.57rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+}
+
+/* Hero background loop — shared base */
+.hero-bg-loop {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 280px;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-bg-loop-inner {
+  border-radius: 14px;
+  overflow: hidden;
+  filter: blur(0.5px);
+  opacity: 0.18;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+}
+.hero-bg-loop-fade-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(to right, var(--bg-base), transparent);
+  pointer-events: none;
+}
+.hero-bg-loop-fade-radial {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, var(--bg-base) 80%);
+  pointer-events: none;
+}
+
+/* Loop panel mini — shared layout */
+.loop-panel {
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+}
+.loop-bar-header {
+  height: 24px;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 5px;
+}
+.loop-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.loop-dot-r { background: #e05c4a; }
+.loop-dot-y { background: #f4c842; }
+.loop-dot-g { background: #22c55e; }
+.loop-title { flex: 1; text-align: center; font-size: 6px; color: var(--text-tertiary); letter-spacing: .04em; }
+.loop-step-label {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 5.5px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  z-index: 5;
+}
+.loop-dots {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  display: flex;
+  gap: 4px;
+  z-index: 5;
+}
+.loop-dot-nav {
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.15);
+  transition: all 300ms ease;
+  border: none;
+  padding: 0;
+  cursor: default;
+}
+.loop-dot-nav.active { width: 14px; }
+.loop-dot-nav:not(.active) { width: 4px; }
+
+/* Mini field rows */
+.mini-field {
+  height: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 5px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 6.5px;
+  color: rgba(255,255,255,0.2);
+  transition: all 350ms cubic-bezier(0.16,1,0.3,1);
+}
+.mini-field.filled {
+  background: rgba(200,168,75,0.08);
+  border-color: rgba(200,168,75,0.4);
+  color: rgba(255,255,255,0.65);
+}
+.mini-field.submitted {
+  background: rgba(200,168,75,0.12);
+  border-color: rgba(200,168,75,0.5);
+  color: var(--accent);
+  font-weight: 700;
+  justify-content: center;
+}
+
+/* Mini event tag */
+.mini-ev-tag {
+  display: inline-flex;
+  font-size: 5.5px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+.mini-ev-tag.act  { background: rgba(200,168,75,0.12); border: 1px solid rgba(200,168,75,0.3); color: #c8a84b; }
+.mini-ev-tag.conv { background: rgba(34,197,94,0.12);  border: 1px solid rgba(34,197,94,0.3);  color: #22c55e; }
+.mini-ev-tag.nav  { background: rgba(129,140,248,0.12);border: 1px solid rgba(129,140,248,0.3);color: #818cf8; }
+.mini-ev-tag.drop { background: rgba(224,92,74,0.12);  border: 1px solid rgba(224,92,74,0.3);  color: #e05c4a; }
+
+/* Keyframes for loop panels */
+@keyframes loopFadeUp {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes loopPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.6); }
+}
+@keyframes loopBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loop-dot-nav, .mini-field, .hero-bg-loop-inner { transition: none; animation: none; }
+}
+
