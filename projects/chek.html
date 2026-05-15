@@ -235,6 +235,35 @@
       line-height: 1.65;
     }
 
+    /* Competitor pills with logos */
+    .chek-bench-pill { display:inline-flex; align-items:center; gap:7px; opacity:0; transform:translateY(6px); transition:opacity 400ms ease, transform 400ms cubic-bezier(0.34,1.56,0.64,1); }
+    .chek-bench-pill.vis { opacity:1; transform:none; }
+    /* Event tags */
+    .chek-ev-tag { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:7px; font-size:0.7rem; opacity:0; transform:translateX(-8px); transition:all 380ms cubic-bezier(0.34,1.1,0.64,1); }
+    .chek-ev-tag.vis { opacity:1; transform:none; }
+    .chek-ev-tag--right { transform:translateX(8px); }
+    .chek-ev-tag--right.vis { transform:none; }
+    .chek-ev-num { font-size:0.6rem; font-weight:700; color:var(--accent); font-family:var(--font-mono); min-width:20px; }
+    .chek-ev-name { color:var(--text-secondary); }
+    /* Event action buttons */
+    .chek-ev-action { text-align:center; padding:4px 0; border-radius:6px; border:1px solid transparent; font-size:11px; transition:all 300ms ease; cursor:default; }
+    /* HEARTS rows */
+    .hearts-row.vis { opacity:1; transform:none; }
+    @media(max-width:768px){ #chek-events-diagram{ grid-template-columns:1fr; } #chek-ev-left,#chek-ev-right{ align-items:center; } }
+    /* Friction narrative animation */
+    .friction-step { opacity:0; transform:translateY(8px); transition:opacity 450ms ease, transform 450ms cubic-bezier(0.34,1.1,0.64,1); }
+    .friction-step.vis { opacity:1; transform:none; }
+    .friction-arrow-wrap { opacity:0; transition:opacity 300ms ease; }
+    .friction-arrow-wrap.vis { opacity:1; }
+    .friction-row-badge { opacity:0; transform:translateX(-8px); transition:all 400ms ease; }
+    .friction-row-badge.vis { opacity:1; transform:none; }
+    .friction-pill { display:inline-block; opacity:0; transform:scale(0.8); transition:all 350ms cubic-bezier(0.34,1.56,0.64,1); }
+    .friction-pill.vis { opacity:1; transform:scale(1); }
+    @keyframes problemPulse { 0%,100%{box-shadow:0 0 0 0 rgba(224,92,74,0)} 50%{box-shadow:0 0 0 6px rgba(224,92,74,0.25)} }
+    .friction-step.problem { animation:problemPulse 2s ease-in-out 3; }
+    @keyframes solutionGlow { 0%{box-shadow:0 0 0 0 rgba(34,197,94,0)} 100%{box-shadow:0 0 0 8px rgba(34,197,94,0.15)} }
+    .friction-step.solution { animation:solutionGlow 600ms ease-out forwards; }
+
     /* --- Section 4: Benchmarking --- */
     .competitor-grid {
       display: flex;
@@ -884,7 +913,7 @@
 /* ── Wireframe Cursor Flow ── */
 .chek-wf-wrap { display: flex; gap: var(--space-40); align-items: flex-start; margin-top: var(--space-40); }
 .chek-wf-left { flex: 0 0 auto; }
-.chek-wf-phone-outer { position: relative; width: 200px; }
+.chek-wf-phone-outer { position: relative; width: 240px; }
 .chek-wf-right { flex: 1; min-width: 0; padding-top: var(--space-12); }
 .chek-wf-tag { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: rgba(155,108,255,0.1); border: 1px solid rgba(155,108,255,0.25); border-radius: 4px; padding: 3px 10px; margin-bottom: var(--space-12); }
 .chek-wf-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-8); line-height: 1.3; }
@@ -999,12 +1028,12 @@
   </nav>
 
   <main id="main">
-    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;background:#0a0a0a;">
+    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;background:#0a0a0a;background-image:linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,0.92) 35%, rgba(10,10,10,0.55) 70%, rgba(10,10,10,0.2) 100%), url('../chek/IMG_0187.jpeg');background-size:cover;background-position:right center;">
 
       <!-- Animated iPhone mockup — right side background -->
       <div id="chek-hero-phone" aria-hidden="true" style="position:absolute;right:5%;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;opacity:0.55;filter:blur(0.5px);transition:opacity 600ms ease;">
         <!-- iPhone 17 frame -->
-        <div style="width:200px;background:#1a1a1a;border-radius:44px;padding:3.5px;box-shadow:0 32px 80px rgba(0,0,0,0.6),inset 0 0 0 1px #2a2a2a,inset 0 0 0 2px #111;position:relative;">
+        <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 24px 60px rgba(0,0,0,0.5),inset 0 0 0 1px #2a2a2a;position:relative;">
           <!-- Side buttons -->
           <div style="position:absolute;left:-3px;top:80px;width:3px;height:28px;background:#222;border-radius:2px 0 0 2px;"></div>
           <div style="position:absolute;left:-3px;top:118px;width:3px;height:40px;background:#222;border-radius:2px 0 0 2px;"></div>
@@ -1382,16 +1411,43 @@
           <h2 class="project-section-title">Benchmarking</h2>
           <p class="project-body-text">Evaluated 9 competitors across Chile and LATAM to identify the state of the art — legally, experientially, and technically.</p>
 
-          <div class="competitor-grid" role="list" aria-label="Competitors analyzed">
-            <span class="competitor-pill" role="listitem">C6 Bank</span>
-            <span class="competitor-pill" role="listitem">Mercado Pago</span>
-            <span class="competitor-pill" role="listitem">Santander</span>
-            <span class="competitor-pill" role="listitem">Nu Bank</span>
-            <span class="competitor-pill" role="listitem">Rappi</span>
-            <span class="competitor-pill" role="listitem">Banco Ripley</span>
-            <span class="competitor-pill" role="listitem">BCI</span>
-            <span class="competitor-pill" role="listitem">MACH</span>
-            <span class="competitor-pill" role="listitem">Tenpo</span>
+          <div class="competitor-grid" id="chek-bench-grid" role="list" aria-label="Competitors analyzed">
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="0">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#000"/><text x="20" y="26" text-anchor="middle" font-size="14" font-weight="800" fill="white" font-family="sans-serif">C6</text></svg>
+              C6 Bank
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="80">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="20" fill="#00BCFF"/><text x="20" y="27" text-anchor="middle" font-size="18" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
+              Mercado Pago
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="160">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#EC0000"/><text x="20" y="27" text-anchor="middle" font-size="16" font-weight="800" fill="white" font-family="sans-serif">S</text></svg>
+              Santander
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="240">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="20" fill="#820AD1"/><text x="20" y="27" text-anchor="middle" font-size="18" font-weight="800" fill="white" font-family="sans-serif">N</text></svg>
+              Nu Bank
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="320">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#FF441A"/><text x="20" y="27" text-anchor="middle" font-size="16" font-weight="700" fill="white" font-family="sans-serif">R</text></svg>
+              Rappi
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="400">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#E30613"/><text x="20" y="27" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">BR</text></svg>
+              Banco Ripley
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="480">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#005DA4"/><text x="20" y="27" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="sans-serif">BCI</text></svg>
+              BCI
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="560">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="20" fill="#7C3AED"/><text x="20" y="27" text-anchor="middle" font-size="13" font-weight="700" fill="white" font-family="sans-serif">M</text></svg>
+              MACH
+            </div>
+            <div class="competitor-pill chek-bench-pill" role="listitem" data-delay="640">
+              <svg width="20" height="20" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#00C48C"/><text x="20" y="27" text-anchor="middle" font-size="12" font-weight="700" fill="white" font-family="sans-serif">T</text></svg>
+              Tenpo
+            </div>
           </div>
 
           <div class="findings-grid">
@@ -1442,49 +1498,81 @@
           <h2 class="project-section-title">Measuring Success: Google HEARTS Framework</h2>
           <p class="project-body-text">Built a full measurement plan before launch — every feature has observable signals and actionable metrics.</p>
 
-          <div class="hearts-table-wrap">
-            <table class="hearts-table">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Goal</th>
-                  <th scope="col">Signals</th>
-                  <th scope="col">Metrics</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row" class="hearts-row-label">Happiness</th>
-                  <td data-label="Goal">User satisfaction with the process</td>
-                  <td data-label="Signals">Positive feedback from surveys, social media, NPS</td>
-                  <td data-label="Metrics">NPS · Perceived ease of use · CSAT</td>
-                </tr>
-                <tr>
-                  <th scope="row" class="hearts-row-label">Engagement</th>
-                  <td data-label="Goal">Users interact frequently: add-ons, purchases, logins</td>
-                  <td data-label="Signals">Purchases · New users · User registration · Users logged in</td>
-                  <td data-label="Metrics">User registration · Login · Session length · Profile customization · Cart Abandonment</td>
-                </tr>
-                <tr>
-                  <th scope="row" class="hearts-row-label">Adoption</th>
-                  <td data-label="Goal">Increase registrations and premium memberships per month</td>
-                  <td data-label="Signals">More accounts created · More memberships</td>
-                  <td data-label="Metrics">Account upgrades · Login sessions/day · Registered users/month · Cart Abandonment</td>
-                </tr>
-                <tr>
-                  <th scope="row" class="hearts-row-label">Retention</th>
-                  <td data-label="Goal">Users continue using the platform: deposits, purchases, credit card use</td>
-                  <td data-label="Signals">Return customers from MKT DB · Loyalty programs</td>
-                  <td data-label="Metrics">Active Users · Renewal Rate · Repeated Purchases · Memberships/month</td>
-                </tr>
-                <tr>
-                  <th scope="row" class="hearts-row-label">Task Success</th>
-                  <td data-label="Goal">Users complete key flows without errors or abandonment</td>
-                  <td data-label="Signals">Flow completion rates · Support tickets · Error events</td>
-                  <td data-label="Metrics">Funnel completion · Drop-off by step · Error rate</td>
-                </tr>
-              </tbody>
-            </table>
+          <div id="chek-hearts-diagram" style="margin-top:var(--space-24);">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div class="hearts-row" id="hr-h" style="opacity:0;transform:translateX(-12px);transition:all 500ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="display:flex;align-items:stretch;gap:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden;">
+                  <div style="width:52px;flex-shrink:0;background:rgba(155,108,255,0.12);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border-subtle);">
+                    <span style="font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--font-display);letter-spacing:-0.03em;">H</span>
+                  </div>
+                  <div style="padding:10px 14px;flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Happiness</div><div style="font-size:0.72rem;color:var(--text-secondary);">User satisfaction with the credit experience</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Signals</div><div style="font-size:0.72rem;color:var(--text-secondary);">Survey feedback · NPS · App store ratings</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Metrics</div><div style="font-size:0.72rem;color:var(--accent);font-weight:600;">NPS · CSAT · Perceived ease of use</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="hearts-row" id="hr-e" style="opacity:0;transform:translateX(-12px);transition:all 500ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="display:flex;align-items:stretch;gap:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden;">
+                  <div style="width:52px;flex-shrink:0;background:rgba(155,108,255,0.12);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border-subtle);">
+                    <span style="font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--font-display);letter-spacing:-0.03em;">E</span>
+                  </div>
+                  <div style="padding:10px 14px;flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Engagement</div><div style="font-size:0.72rem;color:var(--text-secondary);">Users return to pay, check balance, and use features</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Signals</div><div style="font-size:0.72rem;color:var(--text-secondary);">Logins · Payments made · Feature taps</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Metrics</div><div style="font-size:0.72rem;color:var(--accent);font-weight:600;">Sessions/month · DAU · Feature adoption rate</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="hearts-row" id="hr-a" style="opacity:0;transform:translateX(-12px);transition:all 500ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="display:flex;align-items:stretch;gap:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden;">
+                  <div style="width:52px;flex-shrink:0;background:rgba(155,108,255,0.12);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border-subtle);">
+                    <span style="font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--font-display);letter-spacing:-0.03em;">A</span>
+                  </div>
+                  <div style="padding:10px 14px;flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Adoption</div><div style="font-size:0.72rem;color:var(--text-secondary);">New users onboard and activate the credit card</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Signals</div><div style="font-size:0.72rem;color:var(--text-secondary);">Accounts created · First payment · Onboarding completion</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Metrics</div><div style="font-size:0.72rem;color:var(--accent);font-weight:600;">Onboarding completion rate · Registered users/month</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="hearts-row" id="hr-r" style="opacity:0;transform:translateX(-12px);transition:all 500ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="display:flex;align-items:stretch;gap:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden;">
+                  <div style="width:52px;flex-shrink:0;background:rgba(155,108,255,0.12);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border-subtle);">
+                    <span style="font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--font-display);letter-spacing:-0.03em;">R</span>
+                  </div>
+                  <div style="padding:10px 14px;flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Retention</div><div style="font-size:0.72rem;color:var(--text-secondary);">Users keep using the card month after month</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Signals</div><div style="font-size:0.72rem;color:var(--text-secondary);">Return payments · Repeated logins · No churn</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Metrics</div><div style="font-size:0.72rem;color:var(--accent);font-weight:600;">Active users · Renewal rate · Churn rate</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="hearts-row" id="hr-t" style="opacity:0;transform:translateX(-12px);transition:all 500ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="display:flex;align-items:stretch;gap:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden;">
+                  <div style="width:52px;flex-shrink:0;background:rgba(155,108,255,0.12);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border-subtle);">
+                    <span style="font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--font-display);letter-spacing:-0.03em;">T</span>
+                  </div>
+                  <div style="padding:10px 14px;flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Task Success</div><div style="font-size:0.72rem;color:var(--text-secondary);">Users complete pay, block, and view flows without friction</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Signals</div><div style="font-size:0.72rem;color:var(--text-secondary);">Flow completion · Drop-off events · Error triggers</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Metrics</div><div style="font-size:0.72rem;color:var(--accent);font-weight:600;">Funnel completion % · Drop-off by step · Error rate</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="hearts-row" id="hr-s" style="opacity:0;transform:translateX(-12px);transition:all 500ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="display:flex;align-items:stretch;gap:0;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden;">
+                  <div style="width:52px;flex-shrink:0;background:rgba(155,108,255,0.12);display:flex;align-items:center;justify-content:center;border-right:1px solid var(--border-subtle);">
+                    <span style="font-size:1.6rem;font-weight:800;color:var(--accent);font-family:var(--font-display);letter-spacing:-0.03em;">S</span>
+                  </div>
+                  <div style="padding:10px 14px;flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Success</div><div style="font-size:0.72rem;color:var(--text-secondary);">Overall framework — did the product achieve its goals?</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Signals</div><div style="font-size:0.72rem;color:var(--text-secondary);">Onboarding +15% · DS launched · Acquisition by Ripley</div></div>
+                    <div><div style="font-size:0.58rem;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Metrics</div><div style="font-size:0.72rem;color:var(--accent);font-weight:600;">+15% onboarding completion · 10+ DS features shipped</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -1497,91 +1585,99 @@
           <h2 class="project-section-title">Instrumenting the Product for Analytics</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-32);">Designed a complete event taxonomy for the credit card hub — 11 trackable interactions mapped before launch to enable funnel analysis and drop-off detection.</p>
 
-          <div class="tracking-layout">
+          <!-- Organic event flow — hub screen with labeled interactions -->
+          <div id="chek-events-diagram" style="display:grid;grid-template-columns:1fr auto 1fr;gap:var(--space-24);align-items:center;">
 
-            <!-- Left column -->
-            <div class="event-col" aria-label="Events 2.1 through 2.5">
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.1</span>
-                <span class="event-badge-label">Hub TDC Page</span>
+            <!-- Left events -->
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;" id="chek-ev-left">
+              <div class="chek-ev-tag" data-delay="0">
+                <span class="chek-ev-num">01</span>
+                <span class="chek-ev-name">Hub TDC view</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.2</span>
-                <span class="event-badge-label">Back button</span>
+              <div class="chek-ev-tag" data-delay="120">
+                <span class="chek-ev-num">02</span>
+                <span class="chek-ev-name">Back button</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.3</span>
-                <span class="event-badge-label">Show details button</span>
+              <div class="chek-ev-tag" data-delay="240">
+                <span class="chek-ev-num">03</span>
+                <span class="chek-ev-name">Show card details</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.4</span>
-                <span class="event-badge-label">Pay card button</span>
+              <div class="chek-ev-tag" data-delay="360">
+                <span class="chek-ev-num">04</span>
+                <span class="chek-ev-name">Pay card</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.5</span>
-                <span class="event-badge-label">Block card button</span>
+              <div class="chek-ev-tag" data-delay="480">
+                <span class="chek-ev-num">05</span>
+                <span class="chek-ev-name">Block card</span>
               </div>
             </div>
 
-            <!-- Phone frame -->
-            <div class="phone-frame-wrap">
-              <div class="phone-frame" role="img" aria-label="Credit card hub screen mockup — Chek Credit Card">
-                <div class="phone-status-bar">Chek Credit Card</div>
-                <div class="phone-card-visual">
-                  <span class="phone-card-label">CHEK</span>
-                </div>
-                <div class="phone-balance-rows">
-                  <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Total limit</span>
-                    <span class="phone-balance-val">$500.000</span>
+            <!-- Center phone -->
+            <div style="position:relative;flex-shrink:0;">
+              <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 16px 40px rgba(0,0,0,0.4);">
+                <div style="background:#000;border-radius:38px;overflow:hidden;">
+                  <div style="height:40px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;position:relative;">
+                    <div style="width:100px;height:24px;background:#000;border-radius:100px;border:1.5px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
+                    <div style="font-size:8px;color:rgba(255,255,255,0.5);font-family:monospace;position:relative;z-index:1;">9:41</div>
                   </div>
-                  <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Available credit</span>
-                    <span class="phone-balance-val">$320.000</span>
+                  <div style="height:32px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;">
+                    <span style="font-size:12px;color:#fff;">← </span>
+                    <span style="font-size:10px;font-weight:600;color:#fff;margin-left:6px;">Tarjeta de crédito Chek</span>
                   </div>
-                  <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Next billing</span>
-                    <span class="phone-balance-val">15 Mar</span>
+                  <div style="background:#fff;padding:8px;">
+                    <div style="background:linear-gradient(135deg,#6B21A8,#4c1080);border-radius:10px;padding:10px;color:#fff;margin-bottom:6px;position:relative;">
+                      <div style="font-size:9px;opacity:0.7;margin-bottom:1px;">Hola, Catalina H.</div>
+                      <div style="font-size:13px;font-weight:800;letter-spacing:-.5px;">cheK</div>
+                      <div style="font-size:8px;opacity:0.55;font-family:monospace;margin-top:5px;">•••• •••• •••• 7355</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:3px;margin-bottom:5px;" id="chek-ev-actions">
+                      <div class="chek-ev-action" id="cea-show">👁<div style="font-size:5.5px;color:#888;margin-top:2px;">Mostrar</div></div>
+                      <div class="chek-ev-action" id="cea-pay" style="background:rgba(107,33,168,0.08);border-color:rgba(107,33,168,0.3);">💳<div style="font-size:5.5px;color:#6B21A8;margin-top:2px;font-weight:600;">Pagar</div></div>
+                      <div class="chek-ev-action" id="cea-block">🔒<div style="font-size:5.5px;color:#888;margin-top:2px;">Bloquear</div></div>
+                      <div class="chek-ev-action" id="cea-more">⋯<div style="font-size:5.5px;color:#888;margin-top:2px;">Más</div></div>
+                    </div>
+                    <div style="font-size:7.5px;display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;"><span style="color:#888;">Disponible</span><span style="background:#6B21A8;color:#fff;font-size:6px;padding:1px 5px;border-radius:100px;">$1.000.000 ›</span></div>
+                    <div style="font-size:7.5px;display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f0f0f0;"><span style="color:#888;">Utilizado</span><span style="font-weight:500;">$1.500</span></div>
+                    <div style="font-size:7px;color:#6B21A8;padding:3px 0;" id="chek-ev-txlink">Ver todos los movimientos ›</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;">
+                      <div style="border:1px solid #e8e0f0;border-radius:5px;padding:4px 5px;" id="chek-ev-billing"><div style="font-size:6px;color:#aaa;">Próx. facturación</div><div style="font-size:7.5px;font-weight:600;color:#222;">05 Sept</div></div>
+                      <div style="border:1px solid #e8e0f0;border-radius:5px;padding:4px 5px;" id="chek-ev-due"><div style="font-size:6px;color:#aaa;">Vencimiento</div><div style="font-size:7.5px;font-weight:600;color:#222;">25 Sept</div></div>
+                    </div>
+                    <div style="font-size:7px;color:#6B21A8;padding:3px 0;" id="chek-ev-upcoming">Ver próximos vencimientos</div>
                   </div>
-                  <div class="phone-balance-row">
-                    <span class="phone-balance-lbl">Due date</span>
-                    <span class="phone-balance-val">30 Mar</span>
+                  <div style="height:14px;background:#fff;display:flex;align-items:center;justify-content:center;">
+                    <div style="width:50px;height:3px;border-radius:2px;background:#222;"></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right column -->
-            <div class="event-col" aria-label="Events 2.6 through 2.11">
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.6</span>
-                <span class="event-badge-label">More actions button</span>
+            <!-- Right events -->
+            <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start;" id="chek-ev-right">
+              <div class="chek-ev-tag chek-ev-tag--right" data-delay="600">
+                <span class="chek-ev-name">More actions</span>
+                <span class="chek-ev-num">06</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.7</span>
-                <span class="event-badge-label">Credit limit &amp; available button</span>
+              <div class="chek-ev-tag chek-ev-tag--right" data-delay="720">
+                <span class="chek-ev-name">Credit limit &amp; available</span>
+                <span class="chek-ev-num">07</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.8</span>
-                <span class="event-badge-label">View all transactions button</span>
+              <div class="chek-ev-tag chek-ev-tag--right" data-delay="840">
+                <span class="chek-ev-name">View transactions</span>
+                <span class="chek-ev-num">08</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.9</span>
-                <span class="event-badge-label">Next billing button</span>
+              <div class="chek-ev-tag chek-ev-tag--right" data-delay="960">
+                <span class="chek-ev-name">Next billing tap</span>
+                <span class="chek-ev-num">09</span>
               </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.10</span>
-                <span class="event-badge-label">Due date button</span>
-              </div>
-              <div class="event-badge">
-                <span class="event-badge-num" aria-hidden="true">2.11</span>
-                <span class="event-badge-label">View upcoming due dates button</span>
+              <div class="chek-ev-tag chek-ev-tag--right" data-delay="1080">
+                <span class="chek-ev-name">Upcoming due dates</span>
+                <span class="chek-ev-num">10</span>
               </div>
             </div>
 
           </div>
-
-          <p class="tracking-footer-note">Each event maps to a GTM tag — enabling funnel analysis, drop-off detection, and feature adoption tracking post-launch.</p>
+          <p style="font-size:0.72rem;color:var(--text-tertiary);margin-top:var(--space-16);font-style:italic;">Each event maps to a Pendo tag — enabling funnel analysis, drop-off detection, and feature adoption tracking post-launch.</p>
 
         </div>
 
@@ -1598,13 +1694,13 @@
 
             <!-- iPhone 17 mockup -->
             <div style="position:relative;flex-shrink:0;" id="chek-hifi-wrap">
-              <div style="width:220px;background:#1a1a1a;border-radius:48px;padding:4px;box-shadow:0 32px 80px rgba(0,0,0,0.55),inset 0 0 0 1px #2a2a2a,inset 0 0 0 2px #111;position:relative;">
+              <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 24px 60px rgba(0,0,0,0.5),inset 0 0 0 1px #2a2a2a,inset 0 0 0 2px #111;position:relative;">
                 <div style="position:absolute;left:-4px;top:88px;width:4px;height:30px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
                 <div style="position:absolute;left:-4px;top:128px;width:4px;height:44px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
                 <div style="position:absolute;right:-4px;top:110px;width:4px;height:54px;background:#1e1e1e;border-radius:0 3px 3px 0;"></div>
                 <div style="background:#000;border-radius:44px;overflow:hidden;">
                   <div style="height:48px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;position:relative;">
-                    <div style="width:96px;height:28px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:10px;left:50%;transform:translateX(-50%);"></div>
+                    <div style="width:110px;height:30px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
                     <div style="display:flex;justify-content:space-between;width:100%;padding:0 18px;font-size:9px;color:rgba(255,255,255,0.75);font-family:monospace;position:relative;z-index:1;">
                       <span>9:41</span><span>●●● ▲ ■</span>
                     </div>
@@ -2056,6 +2152,54 @@
 
   })();
   </script>
+<script>
+/* Benchmark pills animation */
+(function(){
+  var grid=document.getElementById('chek-bench-grid');
+  if(!grid) return;
+  var obs=new IntersectionObserver(function(e){
+    if(!e[0].isIntersecting) return;
+    [].slice.call(grid.querySelectorAll('.chek-bench-pill')).forEach(function(el){
+      setTimeout(function(){el.classList.add('vis');},parseInt(el.dataset.delay)||0);
+    });
+    obs.disconnect();
+  },{threshold:0.15});
+  obs.observe(grid);
+})();
+</script>
+<script>
+/* HEARTS animation */
+(function(){
+  var diag=document.getElementById('chek-hearts-diagram');
+  if(!diag) return;
+  var obs=new IntersectionObserver(function(e){
+    if(!e[0].isIntersecting) return;
+    ['hr-h','hr-e','hr-a','hr-r','hr-t','hr-s'].forEach(function(id,i){
+      setTimeout(function(){
+        var el=document.getElementById(id);
+        if(el){el.style.opacity='1';el.style.transform='none';}
+      },200+i*180);
+    });
+    obs.disconnect();
+  },{threshold:0.1});
+  obs.observe(diag);
+})();
+</script>
+<script>
+/* Event tags animation */
+(function(){
+  var diag=document.getElementById('chek-events-diagram');
+  if(!diag) return;
+  var obs=new IntersectionObserver(function(e){
+    if(!e[0].isIntersecting) return;
+    [].slice.call(diag.querySelectorAll('.chek-ev-tag')).forEach(function(el){
+      setTimeout(function(){el.classList.add('vis');},parseInt(el.dataset.delay)||0);
+    });
+    obs.disconnect();
+  },{threshold:0.1});
+  obs.observe(diag);
+})();
+</script>
 <script>
 /* Friction diagram animation */
 (function(){
