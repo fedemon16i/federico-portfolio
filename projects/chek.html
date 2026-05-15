@@ -1028,35 +1028,29 @@
   </nav>
 
   <main id="main">
-    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;background:#0a0a0a;background-image:linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,0.92) 35%, rgba(10,10,10,0.55) 70%, rgba(10,10,10,0.2) 100%), url('../chek/IMG_0187.jpeg');background-size:cover;background-position:right center;">
+    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;background:#1a0533;">
 
-      <!-- Animated iPhone mockup — right side background -->
-      <div id="chek-hero-phone" aria-hidden="true" style="position:absolute;right:5%;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;opacity:0.55;filter:blur(0.5px);transition:opacity 600ms ease;">
-        <!-- iPhone 17 frame -->
-        <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 24px 60px rgba(0,0,0,0.5),inset 0 0 0 1px #2a2a2a;position:relative;">
-          <!-- Side buttons -->
-          <div style="position:absolute;left:-3px;top:80px;width:3px;height:28px;background:#222;border-radius:2px 0 0 2px;"></div>
-          <div style="position:absolute;left:-3px;top:118px;width:3px;height:40px;background:#222;border-radius:2px 0 0 2px;"></div>
-          <div style="position:absolute;right:-3px;top:100px;width:3px;height:50px;background:#222;border-radius:0 2px 2px 0;"></div>
-          <div style="background:#000;border-radius:40px;overflow:hidden;">
-            <!-- Status bar -->
+      <!-- Purple particle grid bg -->
+      <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(155,108,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(155,108,255,0.06) 1px,transparent 1px);background-size:60px 60px;z-index:0;pointer-events:none;"></div>
+      <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(107,33,168,0.35) 0%,transparent 65%);z-index:0;pointer-events:none;"></div>
+      <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(107,33,168,0.15) 0%,transparent 55%);z-index:0;pointer-events:none;"></div>
+
+      <!-- Zoomed iPhone — right side, large, with screen loop -->
+      <div id="chek-hero-phone" aria-hidden="true" style="position:absolute;right:-40px;top:50%;transform:translateY(-46%) scale(1.6);z-index:1;pointer-events:none;opacity:0;transition:opacity 700ms ease;transform-origin:center right;">
+        <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 32px 80px rgba(0,0,0,0.6),inset 0 0 0 1px #2a2a2a,0 0 60px rgba(107,33,168,0.3);position:relative;">
+          <div style="position:absolute;left:-4px;top:88px;width:4px;height:28px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
+          <div style="position:absolute;left:-4px;top:126px;width:4px;height:42px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
+          <div style="position:absolute;right:-4px;top:108px;width:4px;height:52px;background:#1e1e1e;border-radius:0 3px 3px 0;"></div>
+          <div style="background:#000;border-radius:38px;overflow:hidden;">
             <div style="height:44px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;position:relative;">
-              <!-- Dynamic island -->
-              <div style="width:90px;height:26px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
-              <div style="display:flex;justify-content:space-between;width:100%;padding:0 16px;font-size:9px;color:rgba(255,255,255,0.8);font-family:monospace;position:relative;z-index:1;">
-                <span>9:41</span>
-                <span>●●● ▲ ■</span>
-              </div>
+              <div style="width:110px;height:30px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
+              <div style="display:flex;justify-content:space-between;width:100%;padding:0 16px;font-size:9px;color:rgba(255,255,255,0.7);font-family:monospace;position:relative;z-index:1;"><span>9:41</span><span>●●● ▲</span></div>
             </div>
-            <!-- Chek purple nav bar -->
             <div style="height:38px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;">
-              <span style="font-size:14px;color:rgba(255,255,255,0.8);">←</span>
+              <span style="font-size:13px;color:rgba(255,255,255,0.8);">←</span>
               <span id="chek-hero-nav" style="font-size:11px;font-weight:600;color:#fff;flex:1;">Tarjeta de crédito Chek</span>
             </div>
-            <!-- Screen content -->
-            <div id="chek-hero-screen" style="background:#fff;min-height:360px;position:relative;overflow:hidden;">
-            </div>
-            <!-- Home indicator -->
+            <div id="chek-hero-screen" style="background:#fff;min-height:340px;overflow:hidden;transition:opacity 300ms ease;"></div>
             <div style="height:20px;background:#fff;display:flex;align-items:center;justify-content:center;">
               <div style="width:70px;height:4px;border-radius:3px;background:#222;"></div>
             </div>
@@ -1064,8 +1058,10 @@
         </div>
       </div>
 
-      <!-- Left gradient over phone -->
-      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.6) 65%, rgba(10,10,10,0.1) 100%);z-index:2;pointer-events:none;"></div>
+      <!-- Left fade gradient -->
+      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to right,rgba(26,5,51,1) 0%,rgba(26,5,51,0.95) 35%,rgba(26,5,51,0.7) 60%,rgba(26,5,51,0.1) 100%);z-index:2;pointer-events:none;"></div>
+      <!-- Bottom fade -->
+      <div aria-hidden="true" style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,#1a0533);z-index:2;pointer-events:none;"></div>
 
       <div class="container" style="position:relative;z-index:3;">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
@@ -1372,35 +1368,76 @@
         <div class="project-section" data-anim id="chek-wf-section">
           <div class="project-section-label">Wireframes</div>
           <h2 class="project-section-title">Key Flows — Wireframe Documentation</h2>
-          <p class="project-body-text">Low-fidelity flows built to validate structure before high-fidelity production. All wireframes were tested via Useberry.</p>
+          <p class="project-body-text" style="margin-bottom:var(--space-24);">Low-fidelity flows built to validate structure before high-fidelity production. All wireframes were tested via Useberry.</p>
 
-          <div class="chek-wf-wrap">
-            <div class="chek-wf-left">
-              <div class="chek-wf-phone-outer">
-                <div id="chek-wf-phone" class="phone-frame wf-phone" role="img" aria-label="Wireframe flow" aria-live="polite"></div>
-                <svg id="chek-wf-cur" class="chek-wf-cur" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 0 L4 18 L9 13 L14 24 L16 23 L11 12 L18 12 Z" fill="#9b6cff" stroke="rgba(255,255,255,0.8)" stroke-width="0.8"/></svg>
-                <div id="chek-wf-rpl" class="chek-wf-rpl" aria-hidden="true"></div>
-              </div>
-            </div>
-            <div class="chek-wf-right">
-              <span id="chek-wf-tag" class="chek-wf-tag">Flow 1 / 4</span>
-              <div id="chek-wf-title" class="chek-wf-title">Hub TDC — Credit Card Home</div>
-              <div id="chek-wf-sub" class="chek-wf-sub">The main hub screen. Designed to surface the most critical information without overwhelming the user.</div>
-              <div id="chek-wf-anns" class="chek-wf-anns" aria-live="polite"></div>
-              <div class="chek-wf-controls" role="group" aria-label="Wireframe flow navigation">
-                <button class="chek-wf-btn" id="chek-wf-prev" aria-label="Previous flow">&#x2039; Prev</button>
-                <button class="chek-wf-btn chek-wf-btn-pause" id="chek-wf-pause" aria-label="Pause auto-advance">Pause</button>
-                <button class="chek-wf-btn" id="chek-wf-next" aria-label="Next flow">Next &#x203a;</button>
-              </div>
-              <div class="chek-wf-dots" id="chek-wf-dots" role="tablist" aria-label="Wireframe flow indicator">
-                <button class="chek-wf-dot active" role="tab" aria-selected="true" aria-label="Flow 1" data-idx="0"></button>
-                <button class="chek-wf-dot" role="tab" aria-selected="false" aria-label="Flow 2" data-idx="1"></button>
-                <button class="chek-wf-dot" role="tab" aria-selected="false" aria-label="Flow 3" data-idx="2"></button>
-                <button class="chek-wf-dot" role="tab" aria-selected="false" aria-label="Flow 4" data-idx="3"></button>
-              </div>
-            </div>
+          <!-- Flow tabs -->
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:var(--space-24);">
+            <button class="chek-wf-tab chek-wf-tab--active" onclick="chekWfShow(0)">Flow 1 — Hub</button>
+            <button class="chek-wf-tab" onclick="chekWfShow(1)">Flow 2 — Pay</button>
+            <button class="chek-wf-tab" onclick="chekWfShow(2)">Flow 3 — Confirm</button>
+            <button class="chek-wf-tab" onclick="chekWfShow(3)">Flow 4 — Cupo</button>
           </div>
 
+          <!-- Grid: phone left, annotations right -->
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--space-32);align-items:start;" id="chek-wf-grid">
+
+            <!-- Phone wrap — position:relative is critical for cursor -->
+            <div style="position:relative;flex-shrink:0;" id="chek-wf-phone-wrap">
+              <!-- iPhone 16 shell — wireframe light style -->
+              <div style="width:240px;background:#e8e5e0;border-radius:42px;padding:3.5px;box-shadow:0 8px 32px rgba(0,0,0,0.12),inset 0 0 0 1px #d0cdc8;">
+                <div style="position:absolute;left:-3px;top:85px;width:3px;height:26px;background:#d0cdc8;border-radius:2px 0 0 2px;"></div>
+                <div style="position:absolute;left:-3px;top:120px;width:3px;height:40px;background:#d0cdc8;border-radius:2px 0 0 2px;"></div>
+                <div style="position:absolute;right:-3px;top:100px;width:3px;height:50px;background:#d0cdc8;border-radius:0 2px 2px 0;"></div>
+                <div style="background:#f8f8f6;border-radius:38px;overflow:hidden;">
+                  <!-- Status bar -->
+                  <div style="height:44px;background:#f0ede8;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;position:relative;">
+                    <div style="width:100px;height:24px;background:#e0ddd8;border-radius:100px;position:absolute;top:10px;left:50%;transform:translateX(-50%);"></div>
+                    <div style="display:flex;justify-content:space-between;width:100%;padding:0 14px;font-size:8px;color:#aaa;font-family:monospace;position:relative;z-index:1;"><span>9:41</span><span>●●●</span></div>
+                  </div>
+                  <!-- Nav bar -->
+                  <div style="height:34px;background:#ede9e2;border-bottom:1px solid #e0ddd8;display:flex;align-items:center;padding:0 10px;gap:7px;">
+                    <span style="font-size:11px;color:var(--accent);">←</span>
+                    <span id="chek-wf-nav" style="font-size:10px;font-weight:600;color:#444;flex:1;text-align:center;">Chek Credit Card</span>
+                  </div>
+                  <!-- Body -->
+                  <div id="chek-wf-body" style="background:#f8f8f6;min-height:300px;transition:opacity 200ms ease;overflow:hidden;"></div>
+                  <!-- Home indicator -->
+                  <div style="height:18px;background:#f8f8f6;display:flex;align-items:center;justify-content:center;">
+                    <div style="width:60px;height:3px;border-radius:2px;background:#ccc;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cursor — absolute inside position:relative wrap -->
+              <div id="chek-wf-cur" style="position:absolute;top:30%;left:50%;pointer-events:none;z-index:50;opacity:0;transition:top 520ms cubic-bezier(0.16,1,0.3,1),left 520ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;">
+                <div id="chek-wf-ring" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(155,108,255,0.7);opacity:0;transition:opacity 200ms ease;"></div>
+                <svg width="13" height="15" viewBox="0 0 13 15" fill="none" aria-hidden="true"><path d="M1 1l4.2 11.5 1.9-4.3L11.5 6 1 1z" fill="var(--accent)" stroke="rgba(255,255,255,0.9)" stroke-width="0.7"/></svg>
+              </div>
+              <!-- Ripple -->
+              <div id="chek-wf-rpl" style="position:absolute;pointer-events:none;z-index:49;opacity:0;">
+                <div id="chek-wf-rpl-ring" style="width:26px;height:26px;border-radius:50%;border:2px solid rgba(155,108,255,0.5);position:absolute;top:50%;left:50%;"></div>
+              </div>
+              <!-- Flash -->
+              <div id="chek-wf-flash" style="position:absolute;inset:0;background:rgba(155,108,255,0.06);opacity:0;pointer-events:none;z-index:48;border-radius:42px;transition:opacity 120ms ease;"></div>
+              <!-- Label -->
+              <div style="text-align:center;margin-top:8px;font-size:0.6rem;color:var(--text-tertiary);font-family:var(--font-mono);">low-fidelity · Useberry tested</div>
+            </div>
+
+            <!-- Right panel -->
+            <div>
+              <div id="chek-wf-tag" style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;"></div>
+              <h3 id="chek-wf-title" style="font-size:1rem;font-weight:700;letter-spacing:-0.02em;color:var(--text-primary);margin:0 0 6px;line-height:1.3;"></h3>
+              <p id="chek-wf-desc" style="font-size:0.78rem;color:var(--text-secondary);line-height:1.7;margin:0 0 14px;"></p>
+              <div id="chek-wf-anns" style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px;"></div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                <button onclick="chekWfPrev()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">← Prev</button>
+                <button onclick="chekWfToggle()" id="chek-wf-pause" style="padding:5px 12px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">⏸ Pause</button>
+                <button onclick="chekWfNext()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">Next →</button>
+                <span id="chek-wf-counter" style="font-size:0.6rem;color:var(--text-tertiary);font-family:var(--font-mono);"></span>
+              </div>
+              <div id="chek-wf-dots" style="display:flex;gap:5px;margin-top:12px;"></div>
+            </div>
+          </div>
         </div>
 
         <!-- ==============================
@@ -1692,8 +1729,8 @@
           <!-- ── CHEK HIFI — iPhone 17 mockup + cursor flow ── -->
           <div id="chek-hifi-section" style="display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;">
 
-            <!-- iPhone 17 mockup -->
-            <div style="position:relative;flex-shrink:0;" id="chek-hifi-wrap">
+            <!-- iPhone 16 mockup -->
+            <div style="position:relative;flex-shrink:0;display:inline-block;" id="chek-hifi-wrap">
               <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 24px 60px rgba(0,0,0,0.5),inset 0 0 0 1px #2a2a2a,inset 0 0 0 2px #111;position:relative;">
                 <div style="position:absolute;left:-4px;top:88px;width:4px;height:30px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
                 <div style="position:absolute;left:-4px;top:128px;width:4px;height:44px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
@@ -2120,7 +2157,7 @@
       if(!paused) runCursor(cur); else clr();
     };
 
-    /* ── HERO PHONE (background) ── */
+    /* ── HERO PHONE — loop with pulse glow ── */
     var heroScreens=[
       {nav:'Tarjeta de crédito Chek',build:S[0].build},
       {nav:'Ver y pagar',build:S[1].build},
@@ -2133,13 +2170,26 @@
       var hn=document.getElementById('chek-hero-nav');
       var hb=document.getElementById('chek-hero-screen');
       if(hn) hn.textContent=hs.nav;
-      if(hb){ hb.style.opacity='0.001'; setTimeout(function(){hb.innerHTML=''; hs.build(hb); hb.style.opacity='1';},200); }
+      if(hb){
+        hb.style.opacity='0';
+        setTimeout(function(){
+          hb.innerHTML='';
+          hs.build(hb);
+          hb.style.opacity='1';
+        },300);
+      }
     }
     var heroPhone=document.getElementById('chek-hero-phone');
     var heroBody=document.getElementById('chek-hero-screen');
     if(heroBody){ heroScreens[0].build(heroBody); }
-    if(heroPhone){ setTimeout(function(){heroPhone.style.opacity='0.55';},400); }
-    setInterval(heroNext,5000);
+    /* Fade in hero phone after short delay */
+    if(heroPhone){
+      setTimeout(function(){
+        heroPhone.style.opacity='1';
+      },500);
+    }
+    /* Loop screens every 4s */
+    setInterval(heroNext,4000);
 
     /* ── Init hifi ── */
     var section=document.getElementById('chek-hifi-section');
@@ -2229,168 +2279,239 @@
 <script>
 /* Wireframe cursor flow */
 (function(){
-  'use strict';
-  var sec=document.getElementById('chek-wf-section');
-  if(!sec) return;
   var WF=[
-    {tag:'Flow 1 / 4',title:'Hub TDC — Credit Card Home',
-     sub:'The main hub screen. Designed to surface the most critical information without overwhelming the user.',
-     anns:[['Card area','Quick view card data — copy/paste enabled'],
-           ['Action buttons','Accessibility — most used features surfaced first'],
-           ['Balance row','Balance — used and available with movements link'],
-           ['Dates row','Financial Education — billing vs due date explained on tap']],
-     cursor:['#cwf-act1','#cwf-act2','#cwf-act3'],
-     build:function(el){
-       el.setAttribute('aria-label','Wireframe: Credit Card Hub screen');
-       el.innerHTML='<div class="wf-screen-header"><span class="wf-back-btn">←</span><span class="wf-screen-title">Chek Credit Card</span></div>'
-         +'<div class="wf-card-block"><div class="wf-card-name">CHEK</div><div class="wf-card-number">•••• •••• •••• 7355</div></div>'
-         +'<div class="wf-actions-row">'
-         +'<div class="wf-action-btn" id="cwf-act1"><div class="wf-action-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><div class="wf-action-label">Show details</div></div>'
-         +'<div class="wf-action-btn" id="cwf-act2"><div class="wf-action-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="wf-action-label">Pay card</div></div>'
-         +'<div class="wf-action-btn" id="cwf-act3"><div class="wf-action-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="wf-action-label">Block card</div></div>'
-         +'<div class="wf-action-btn"><div class="wf-action-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div class="wf-action-label">More</div></div>'
-         +'</div>'
-         +'<div class="wf-info-rows"><div class="wf-info-row"><span class="wf-info-row-label">Available to use</span><span class="wf-info-row-chip">$1,000,000 ›</span></div>'
-         +'<div class="wf-info-row"><span class="wf-info-row-label">Used</span><span class="wf-info-row-value">$1,500</span></div></div>'
-         +'<div class="wf-link-row">View all transactions ›</div>'
-         +'<div class="wf-dates-row"><div class="wf-date-cell"><span class="wf-date-label">Next billing</span><span class="wf-date-value">05 Sept</span></div>'
-         +'<div class="wf-date-cell"><span class="wf-date-label">Due date</span><span class="wf-date-value">25 Sept</span></div></div>';
-     }
+    {
+      nav:'Chek Credit Card', tag:'Flow 1 / 4',
+      title:'Hub TDC — Credit Card Home',
+      desc:'Main hub screen. Critical information surfaced without overwhelming the user.',
+      tapX:'30%', tapY:'52%',
+      anns:[
+        {t:'Card area',b:'Quick view card data — copy/paste enabled for card number'},
+        {t:'Action buttons',b:'Most-used features surfaced first — accessibility priority'},
+        {t:'Balance row',b:'Used and available with movements link'},
+        {t:'Dates row',b:'Financial education — billing vs due date explained on tap'},
+      ],
+      build:function(el){
+        el.innerHTML=
+          '<div style="background:#e8e5e0;border:1px solid #d0cdc8;border-radius:10px;padding:10px;margin:8px;position:relative;">'+
+            '<div style="font-size:8px;font-weight:700;color:#666;letter-spacing:.08em;margin-bottom:3px;">CHEK</div>'+
+            '<div style="font-size:8px;font-weight:800;color:#7c4dbb;margin-bottom:6px;">cheK</div>'+
+            '<div style="font-size:7.5px;color:#888;font-family:monospace;letter-spacing:.1em;margin-bottom:5px;">•••• •••• •••• 7355</div>'+
+            '<div style="display:flex;gap:10px;font-size:7px;color:#aaa;"><span>EXP: ••/••</span><span>CVV: •••</span></div>'+
+          '</div>'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:7px 8px;border-bottom:1px solid #e8e5e0;">'+
+            ['👁 Show','💳 Pay','🔒 Block','⋯ More'].map(function(a,i){
+              var p=a.split(' ');
+              return '<div style="text-align:center;"><div style="width:26px;height:26px;border-radius:50%;border:1px dashed #bbb;background:#eee;margin:0 auto 2px;display:flex;align-items:center;justify-content:center;font-size:11px;" id="wf-act-'+i+'">'+p[0]+'</div><div style="font-size:6px;color:#999;">'+p[1]+'</div></div>';
+            }).join('')+
+          '</div>'+
+          '<div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #eeebe6;font-size:8px;"><span style="color:#888;">Available</span><span style="background:#9b6cff;color:#fff;font-size:7px;padding:1px 6px;border-radius:100px;">$1,000,000 ›</span></div>'+
+          '<div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #eeebe6;font-size:8px;"><span style="color:#888;">Used</span><span style="font-weight:500;color:#444;">$1,500</span></div>'+
+          '<div style="font-size:7.5px;color:#9b6cff;padding:4px 8px;">View all movements ›</div>'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:4px 8px 6px;">'+
+            '<div style="border:1px dashed #ccc;border-radius:6px;padding:5px 6px;"><span style="font-size:6px;color:#aaa;display:block;">Next billing</span><div style="font-size:8px;font-weight:600;color:#555;margin-top:1px;">05 Sept</div></div>'+
+            '<div style="border:1px dashed #ccc;border-radius:6px;padding:5px 6px;"><span style="font-size:6px;color:#aaa;display:block;">Due date</span><div style="font-size:8px;font-weight:600;color:#555;margin-top:1px;">25 Sept</div></div>'+
+          '</div>'+
+          '<div style="font-size:7.5px;color:#9b6cff;padding:2px 8px 6px;">View upcoming due dates</div>';
+      }
     },
-    {tag:'Flow 2 / 4',title:'2.2 → 2.2.1 — Pay Card Flow',
-     sub:'Full payment flow with financial education nudges at each decision point.',
-     anns:[['Radio options','Financial Education — clear labels explain consequences before choosing'],
-           ['Green callout','Positive reinforcement for full payment'],
-           ['Yellow callout','Transparent consequence warning — reduces future debt complaints']],
-     cursor:['#cwf-r1','#cwf-rb'],
-     build:function(el){
-       el.setAttribute('aria-label','Wireframe: Payment selection screen');
-       el.innerHTML='<div class="wf-screen-header"><span class="wf-back-btn">←</span><span class="wf-screen-title">View &amp; Pay</span></div>'
-         +'<div class="wf-screen-body-text">Payment selection: valid until 09/25/2023</div>'
-         +'<div class="wf-radio-group">'
-         +'<div class="wf-radio-option" id="cwf-r1"><div class="wf-radio-circle"></div><div class="wf-radio-texts"><div class="wf-radio-label">Total balance $1,000,000</div><div class="wf-radio-sublabel">Covers 100% of your balance</div></div></div>'
-         +'<div class="wf-radio-option" id="cwf-r2"><div class="wf-radio-circle"></div><div class="wf-radio-texts"><div class="wf-radio-label">Minimum payment $50,000</div><div class="wf-radio-sublabel">Covers minimum payment only</div></div></div>'
-         +'<div class="wf-radio-option"><div class="wf-radio-circle"></div><div class="wf-radio-texts"><div class="wf-radio-label">Select custom amount</div></div></div>'
-         +'<div class="wf-radio-option"><div class="wf-radio-circle"></div><div class="wf-radio-texts"><div class="wf-radio-label">📅 Restructure Debt</div></div></div>'
-         +'</div>'
-         +'<div class="wf-btn" id="cwf-rb">CONTINUE</div>';
-     }
+    {
+      nav:'View & Pay', tag:'Flow 2 / 4',
+      title:'Pay Card Flow',
+      desc:'Full payment flow with financial education nudges at decision points.',
+      tapX:'50%', tapY:'76%',
+      anns:[
+        {t:'Radio group',b:'4 options — full, minimum, custom, restructure debt'},
+        {t:'Education nudge',b:'Minimum payment warning shows interest cost'},
+        {t:'CTA',b:'Blocked until option selected — prevents accidental payments'},
+      ],
+      build:function(el){
+        el.innerHTML=
+          '<div style="padding:6px 8px 3px;"><div style="font-size:7.5px;color:#aaa;">Payment selection · valid until 09/25/23</div></div>'+
+          ['Total balance $1,000,000 | Covers 100% | false',
+           'Minimum $50,000 | ⚠ Interest will apply | warn',
+           'Custom amount | | false',
+           '📅 Restructure | | false'].map(function(r,i){
+            var p=r.split('|');
+            return '<div style="display:flex;align-items:center;gap:7px;padding:7px 8px;border-bottom:1px solid #eeebe6;" id="wf-opt-'+i+'">'+
+              '<div style="width:12px;height:12px;border-radius:50%;border:1.5px solid '+(i===1?'#9b6cff':'#bbb')+';flex-shrink:0;background:'+(i===1?'#9b6cff':'transparent')+';box-shadow:'+(i===1?'inset 0 0 0 3px #f8f8f6':'none')+';"></div>'+
+              '<div><div style="font-size:8px;font-weight:500;color:#333;">'+p[0].trim()+'</div>'+(p[1].trim()?'<div style="font-size:7px;color:'+(p[2].trim()==='warn'?'#f59e0b':'#888')+';">'+p[1].trim()+'</div>':'')+'</div>'+
+            '</div>';
+          }).join('')+
+          '<div id="wf-cta" style="margin:8px;height:28px;background:#9b6cff;border-radius:8px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;font-weight:700;color:#fff;">Confirm Payment →</span></div>'+
+          '<div style="text-align:center;padding:3px;"><span style="font-size:7.5px;color:#aaa;">Cancel</span></div>';
+      }
     },
-    {tag:'Flow 3 / 4',title:'2.5 — Credit Limit &amp; Available Balance',
-     sub:'Financial education screen — demystifies credit card balance concepts that users consistently misunderstood.',
-     anns:[['Each ⓘ icon','Tap to expand — explains what each concept means in plain language'],
-           ['Pro Tip box','Contextual financial nudge at the right moment']],
-     cursor:['#cwf-i1','#cwf-i2','#cwf-i3'],
-     build:function(el){
-       el.setAttribute('aria-label','Wireframe: Credit limit and available balance');
-       el.innerHTML='<div class="wf-screen-header"><span class="wf-back-btn">←</span><span class="wf-screen-title">Credit Limit &amp; Balance</span></div>'
-         +'<div class="wf-screen-body-text" style="color:#999;">Chek Mastercard Credit Card</div>'
-         +'<div class="wf-info-icon-row" id="cwf-i1"><span class="wf-info-icon">ⓘ</span><span class="wf-info-icon-label">Granted credit limit</span><span class="wf-info-icon-value">$1,800,000</span></div>'
-         +'<div class="wf-info-icon-row" id="cwf-i2"><span class="wf-info-icon">ⓘ</span><span class="wf-info-icon-label">Total Charges</span><span class="wf-info-icon-value">$1,800,000</span></div>'
-         +'<div class="wf-info-icon-row" id="cwf-i3"><span class="wf-info-icon">ⓘ</span><span class="wf-info-icon-label">Available for purchases</span><span class="wf-info-icon-value">$908,900</span></div>'
-         +'<div class="wf-info-icon-row"><span class="wf-info-icon">ⓘ</span><span class="wf-info-icon-label">AV / SAV</span><span class="wf-info-icon-value">$500,000</span></div>'
-         +'<div class="wf-section-divider"></div>'
-         +'<div class="wf-callout wf-callout-purple"><div class="wf-callout-title">💡 Chek Pro Tip: Pay the maximum</div></div>';
-     }
+    {
+      nav:'Confirm Payment', tag:'Flow 3 / 4',
+      title:'Confirmation Screen',
+      desc:'Summary before commit — prevents accidental payments.',
+      tapX:'50%', tapY:'78%',
+      anns:[
+        {t:'Summary',b:'Amount, date, and account shown before committing'},
+        {t:'Remaining balance',b:'Post-payment state shown — reinforces financial awareness'},
+        {t:'CTA',b:'Back to hub after success — loop complete'},
+      ],
+      build:function(el){
+        el.innerHTML=
+          '<div style="background:#e8f0f8;border:1px solid #c5d8f0;border-radius:10px;padding:10px;margin:8px;text-align:center;">'+
+            '<div style="font-size:7.5px;color:#666;margin-bottom:3px;">Payment amount</div>'+
+            '<div style="font-size:18px;font-weight:700;color:#9b6cff;font-family:monospace;">$50,000</div>'+
+            '<div style="font-size:7px;color:#888;margin-top:2px;">Minimum payment · Sep 25</div>'+
+          '</div>'+
+          '<div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #eeebe6;font-size:8px;"><span style="color:#888;">From account</span><span style="font-weight:500;color:#333;">•••• 7355</span></div>'+
+          '<div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #eeebe6;font-size:8px;"><span style="color:#888;">Processing</span><span style="font-weight:500;color:#333;">Immediate</span></div>'+
+          '<div style="display:flex;justify-content:space-between;padding:5px 8px;border-bottom:1px solid #eeebe6;font-size:8px;"><span style="color:#888;">Remaining</span><span style="font-weight:500;color:#e05c4a;">$950,000</span></div>'+
+          '<div id="wf-confirm-btn" style="margin:8px;height:28px;background:#9b6cff;border-radius:8px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;font-weight:700;color:#fff;">Confirm &amp; Pay</span></div>'+
+          '<div style="text-align:center;padding:3px;"><span style="font-size:7.5px;color:#aaa;">Cancel</span></div>';
+      }
     },
-    {tag:'Flow 4 / 4',title:'2.4.1 — Security Help',
-     sub:'Empathetic security flow — designed to reduce anxiety and surface the right action fast.',
-     anns:[['Empathetic intro','Shows user section goal — reduces anxiety before action'],
-           ['List options','Block Card — Fraud / Steal / Other'],
-           ['Toggle','Instant reversible action — no confirmation friction'],
-           ['Awareness link','Deep link to Help / Chatbot / Fraud prevention content']],
-     cursor:['#cwf-h1','#cwf-h2'],
-     build:function(el){
-       el.setAttribute('aria-label','Wireframe: Security help options list');
-       el.innerHTML='<div class="wf-screen-header"><span class="wf-back-btn">←</span><span class="wf-screen-title">Security Help</span></div>'
-         +'<div class="wf-screen-body-text">To help you, please tell us which of these situations best applies to you.</div>'
-         +'<div class="wf-help-list">'
-         +'<div class="wf-help-option" id="cwf-h1"><span class="wf-help-option-text">I think my data has been compromised</span><span class="wf-help-chevron">›</span></div>'
-         +'<div class="wf-help-option"><span class="wf-help-option-text">I have unrecognized charges</span><span class="wf-help-chevron">›</span></div>'
-         +'<div class="wf-help-option" id="cwf-h2"><span class="wf-help-option-text">My card is no longer safe, I need to replace it</span><span class="wf-help-chevron">›</span></div>'
-         +'<div class="wf-help-option"><span class="wf-help-option-text">I want to change my PIN</span><span class="wf-help-chevron">›</span></div>'
-         +'</div>'
-         +'<div class="wf-link-row-center">I forgot my PIN</div>';
-     }
+    {
+      nav:'Cupo y Disponibles', tag:'Flow 4 / 4',
+      title:'Credit Limit & Available Balance',
+      desc:'Transparency screen — users understand exactly where credit stands.',
+      tapX:'50%', tapY:'82%',
+      anns:[
+        {t:'Tab toggle',b:'Saldo vs Detalles extras — progressive disclosure'},
+        {t:'Available vs Used',b:'Side by side — immediate comprehension'},
+        {t:'Credit breakdown',b:'Cupo Total, Avance, Super Avance itemized'},
+      ],
+      build:function(el){
+        el.innerHTML=
+          '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #e0ddd8;">'+
+            '<div style="padding:7px;text-align:center;border-right:1px solid #e0ddd8;border-bottom:2px solid #9b6cff;margin-bottom:-2px;"><div style="font-size:7px;color:#9b6cff;">Saldo</div></div>'+
+            '<div style="padding:7px;text-align:center;"><div style="font-size:7px;color:#aaa;">Detalles</div></div>'+
+          '</div>'+
+          '<div style="padding:6px 8px 3px;"><div style="font-size:7.5px;color:#666;">Saldo de tu tarjeta de crédito</div></div>'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #e0ddd8;">'+
+            '<div style="padding:7px 8px;border-right:1px solid #e0ddd8;text-align:center;"><div style="font-size:6.5px;color:#9b6cff;">Disponible</div><div style="font-size:12px;font-weight:700;color:#333;">$0.000.000</div></div>'+
+            '<div style="padding:7px 8px;text-align:center;"><div style="font-size:6.5px;color:#888;">Utilizado</div><div style="font-size:12px;font-weight:700;color:#333;">$0.000.000</div></div>'+
+          '</div>'+
+          '<div style="padding:4px 8px 2px;"><div style="font-size:8px;font-weight:600;color:#333;">Detalles extras</div></div>'+
+          ['💲 Cupo Total · $5,000,000','💲 Avance · $100,000','💲 Super Avance · $100,000','📄 Fecha de facturación · 26 de cada mes'].map(function(r){
+            var p=r.split('·');
+            var ic=p[0].trim().split(' ')[0];
+            var nm=p[0].trim().slice(2).trim();
+            return '<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;border-bottom:1px solid #eeebe6;">'+
+              '<div style="width:20px;height:20px;border-radius:50%;background:#ede0f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;">'+ic+'</div>'+
+              '<div style="flex:1;"><div style="font-size:8px;font-weight:500;color:#333;">'+nm+'</div><div style="font-size:7px;color:#888;">'+p[1].trim()+'</div></div>'+
+              '<span style="font-size:11px;color:#ddd;">ⓘ</span>'+
+            '</div>';
+          }).join('');
+      }
     }
   ];
 
-  var cur=document.getElementById('chek-wf-cur'),rpl=document.getElementById('chek-wf-rpl');
-  var phone=document.getElementById('chek-wf-phone'),tagEl=document.getElementById('chek-wf-tag');
-  var titleEl=document.getElementById('chek-wf-title'),subEl=document.getElementById('chek-wf-sub');
-  var annsEl=document.getElementById('chek-wf-anns'),dotsWrap=document.getElementById('chek-wf-dots');
-  var dots=dotsWrap?dotsWrap.querySelectorAll('.chek-wf-dot'):[];
-  var idx=0,paused=false,timer=null,curTimer=null;
-  var mm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)');
+  var wfCur=0,wfPaused=false,wfTids=[];
+  function wfClr(){wfTids.forEach(clearTimeout);wfTids=[];}
+  function wfSch(fn,ms){var id=setTimeout(fn,ms);wfTids.push(id);}
 
-  function getPos(el){
-    var outer=document.querySelector('.chek-wf-phone-outer');
-    if(!outer||!el) return {x:80,y:60};
-    var r1=outer.getBoundingClientRect(),r2=el.getBoundingClientRect();
-    return {x:r2.left-r1.left+r2.width/2-10,y:r2.top-r1.top+r2.height/2-10};
+  function wfRender(idx,animate){
+    wfCur=idx;
+    var s=WF[idx];
+    var nav=document.getElementById('chek-wf-nav');
+    var body=document.getElementById('chek-wf-body');
+    var tag=document.getElementById('chek-wf-tag');
+    var title=document.getElementById('chek-wf-title');
+    var desc=document.getElementById('chek-wf-desc');
+    var anns=document.getElementById('chek-wf-anns');
+    var counter=document.getElementById('chek-wf-counter');
+    if(nav) nav.textContent=s.nav;
+    if(tag) tag.textContent=s.tag;
+    if(title) title.textContent=s.title;
+    if(desc) desc.textContent=s.desc;
+    if(counter) counter.textContent=(idx+1)+' / '+WF.length;
+    [].slice.call(document.querySelectorAll('.chek-wf-tab')).forEach(function(t,i){
+      t.classList.toggle('chek-wf-tab--active',i===idx);
+    });
+    if(body){
+      if(animate){
+        var fl=document.getElementById('chek-wf-flash');
+        if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';},120);}
+        body.style.opacity='0';
+        setTimeout(function(){body.innerHTML='';s.build(body);body.style.opacity='1';},180);
+      } else {
+        body.innerHTML=''; s.build(body);
+      }
+    }
+    if(anns){
+      anns.innerHTML='';
+      s.anns.forEach(function(a,i){
+        var d=document.createElement('div');
+        d.style.cssText='display:flex;gap:9px;padding:8px 10px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-left:2px solid var(--accent);border-radius:0 7px 7px 0;opacity:0;transform:translateX(-5px);transition:all 350ms ease;';
+        d.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0;margin-top:2px"><path d="M5 12h14M12 5l7 7-7 7"/></svg><div><div style="font-size:0.72rem;font-weight:700;color:var(--text-primary);margin-bottom:2px;">'+a.t+'</div><div style="font-size:0.65rem;color:var(--text-secondary);line-height:1.6;">'+a.b+'</div></div>';
+        anns.appendChild(d);
+        setTimeout(function(){d.style.opacity='1';d.style.transform='none';},animate?380+i*150:60+i*60);
+      });
+    }
+    wfUpdDots(idx);
   }
-  function tapAt(x,y){
-    if(!rpl) return;
-    rpl.style.left=(x+10)+'px'; rpl.style.top=(y+10)+'px';
-    rpl.style.display='block'; rpl.style.animation='none';
-    void rpl.offsetWidth;
-    rpl.style.animation='wfRpl 0.5s ease-out forwards';
-    setTimeout(function(){rpl.style.display='none';},520);
+
+  function wfRunCursor(idx){
+    wfClr();
+    var s=WF[idx];
+    var cur=document.getElementById('chek-wf-cur');
+    var ring=document.getElementById('chek-wf-ring');
+    var rpl=document.getElementById('chek-wf-rpl');
+    var rplRing=document.getElementById('chek-wf-rpl-ring');
+    if(!cur) return;
+    cur.style.opacity='1';
+    cur.style.top='22%'; cur.style.left='50%';
+    wfSch(function(){ cur.style.top=s.tapY; cur.style.left=s.tapX; },650);
+    wfSch(function(){ if(ring) ring.style.opacity='1'; },1220);
+    wfSch(function(){
+      cur.style.transform='scale(0.75)';
+      if(rpl){ rpl.style.left=s.tapX; rpl.style.top=s.tapY; rpl.style.opacity='1'; }
+      if(rplRing){ rplRing.style.animation='none'; void rplRing.offsetWidth; rplRing.style.animation='ckRpl 550ms ease-out forwards'; }
+      var targets={0:'wf-act-1',1:'wf-cta',2:'wf-confirm-btn',3:null};
+      var tid=targets[idx];
+      if(tid){var el=document.getElementById(tid);if(el){el.style.boxShadow='0 0 0 2px #9b6cff';setTimeout(function(){if(el)el.style.boxShadow='';},900);}}
+    },1520);
+    wfSch(function(){ cur.style.transform='scale(1)'; if(ring) ring.style.opacity='0'; },1780);
+    wfSch(function(){
+      cur.style.opacity='0';
+      if(rpl) rpl.style.opacity='0';
+      var next=(idx+1)%WF.length;
+      wfRender(next,true);
+      wfSch(function(){ if(!wfPaused) wfRunCursor(next); },700);
+    },2200);
   }
-  function runCursor(flow,step){
-    if(!flow.cursor||!flow.cursor[step]||!cur||(mm&&mm.matches)) return;
-    var el=phone.querySelector(flow.cursor[step]);
-    if(!el) return;
-    var pos=getPos(el);
-    cur.style.display='block'; cur.style.left=pos.x+'px'; cur.style.top=pos.y+'px';
-    clearTimeout(curTimer);
-    curTimer=setTimeout(function(){
-      tapAt(pos.x,pos.y);
-      if(step+1<flow.cursor.length) curTimer=setTimeout(function(){runCursor(flow,step+1);},950);
-    },480);
-  }
-  function showAnns(flow){
-    annsEl.innerHTML='';
-    flow.anns.forEach(function(a,i){
-      var d=document.createElement('div'); d.className='chek-wf-ann';
-      d.innerHTML='<span class="chek-wf-ann-arrow" aria-hidden="true">→</span><span><span class="chek-wf-ann-bold">'+a[0]+':</span> '+a[1]+'</span>';
-      annsEl.appendChild(d);
-      setTimeout(function(){d.classList.add('wf-ann-in');},i*120+200);
+
+  function wfUpdDots(idx){
+    var d=document.getElementById('chek-wf-dots'); if(!d) return;
+    d.innerHTML='';
+    WF.forEach(function(_,i){
+      var b=document.createElement('button');
+      b.style.cssText='width:'+(i===idx?16:5)+'px;height:5px;border-radius:100px;background:'+(i===idx?'var(--accent)':'rgba(155,108,255,0.2)')+';border:none;cursor:pointer;padding:0;transition:all 250ms ease;';
+      b.setAttribute('aria-label','Flow '+(i+1));
+      b.onclick=(function(ii){return function(){window.chekWfShow(ii);};})(i);
+      d.appendChild(b);
     });
   }
-  function updDots(i){
-    dots.forEach(function(d,j){d.classList.toggle('active',j===i);d.setAttribute('aria-selected',j===i?'true':'false');});
-  }
-  function showFlow(i,anim){
-    var flow=WF[i]; if(!flow) return;
-    tagEl.textContent=flow.tag; titleEl.innerHTML=flow.title; subEl.textContent=flow.sub;
-    flow.build(phone); showAnns(flow); updDots(i);
-    if(cur) cur.style.display='none';
-    if(anim!==false&&!(mm&&mm.matches)) setTimeout(function(){runCursor(flow,0);},600);
-  }
-  function startT(){clearInterval(timer);timer=setInterval(function(){if(!paused){idx=(idx+1)%WF.length;showFlow(idx,true);}},5000);}
-  var prevBtn=document.getElementById('chek-wf-prev');
-  var nextBtn=document.getElementById('chek-wf-next');
-  var pauseBtn=document.getElementById('chek-wf-pause');
-  if(prevBtn) prevBtn.addEventListener('click',function(){clearTimeout(curTimer);idx=(idx-1+WF.length)%WF.length;showFlow(idx,true);startT();});
-  if(nextBtn) nextBtn.addEventListener('click',function(){clearTimeout(curTimer);idx=(idx+1)%WF.length;showFlow(idx,true);startT();});
-  if(pauseBtn) pauseBtn.addEventListener('click',function(){
-    paused=!paused;
-    pauseBtn.textContent=paused?'Resume':'Pause';
-    if(!paused) startT();
-  });
-  dots.forEach(function(d){
-    d.addEventListener('click',function(){
-      var i=parseInt(this.getAttribute('data-idx'),10);
-      if(!isNaN(i)){clearTimeout(curTimer);idx=i;showFlow(i,true);startT();}
-    });
-  });
-  if(typeof IntersectionObserver!=='undefined'){
-    var obs=new IntersectionObserver(function(entries){
-      if(entries[0].isIntersecting){showFlow(0,true);startT();obs.unobserve(entries[0].target);}
-    },{threshold:0.2});
+
+  window.chekWfShow=function(idx){
+    wfPaused=true;
+    var btn=document.getElementById('chek-wf-pause'); if(btn) btn.textContent='▶ Play';
+    wfClr();
+    var cur=document.getElementById('chek-wf-cur'); if(cur) cur.style.opacity='0';
+    wfRender(idx,true);
+  };
+  window.chekWfPrev=function(){ window.chekWfShow((wfCur-1+WF.length)%WF.length); };
+  window.chekWfNext=function(){ window.chekWfShow((wfCur+1)%WF.length); };
+  window.chekWfToggle=function(){
+    wfPaused=!wfPaused;
+    var btn=document.getElementById('chek-wf-pause');
+    if(btn) btn.textContent=wfPaused?'▶ Play':'⏸ Pause';
+    if(!wfPaused) wfRunCursor(wfCur); else wfClr();
+  };
+
+  var sec=document.getElementById('chek-wf-section');
+  if(sec){
+    var obs=new IntersectionObserver(function(e){
+      if(e[0].isIntersecting){ wfRender(0,false); setTimeout(function(){wfRunCursor(0);},500); obs.disconnect(); }
+    },{threshold:0.08});
     obs.observe(sec);
-  } else {showFlow(0,false);startT();}
+  }
 })();
 </script>
   <script src="../assets/main.js"></script>
