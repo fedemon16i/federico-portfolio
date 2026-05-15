@@ -966,8 +966,46 @@
   </nav>
 
   <main id="main">
-    <header class="project-hero" aria-labelledby="project-title" style="background-image: linear-gradient(to right, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.85) 45%, rgba(10,10,10,0.4) 100%), linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, #0c0c0c 90%), url('../chek/IMG_0187.jpeg'); background-size: cover; background-position: right center; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);">
-      <div class="container">
+    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;background:#0a0a0a;">
+
+      <!-- Animated iPhone mockup — right side background -->
+      <div id="chek-hero-phone" aria-hidden="true" style="position:absolute;right:5%;top:50%;transform:translateY(-50%);z-index:1;pointer-events:none;opacity:0.55;filter:blur(0.5px);transition:opacity 600ms ease;">
+        <!-- iPhone 17 frame -->
+        <div style="width:200px;background:#1a1a1a;border-radius:44px;padding:3.5px;box-shadow:0 32px 80px rgba(0,0,0,0.6),inset 0 0 0 1px #2a2a2a,inset 0 0 0 2px #111;position:relative;">
+          <!-- Side buttons -->
+          <div style="position:absolute;left:-3px;top:80px;width:3px;height:28px;background:#222;border-radius:2px 0 0 2px;"></div>
+          <div style="position:absolute;left:-3px;top:118px;width:3px;height:40px;background:#222;border-radius:2px 0 0 2px;"></div>
+          <div style="position:absolute;right:-3px;top:100px;width:3px;height:50px;background:#222;border-radius:0 2px 2px 0;"></div>
+          <div style="background:#000;border-radius:40px;overflow:hidden;">
+            <!-- Status bar -->
+            <div style="height:44px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;position:relative;">
+              <!-- Dynamic island -->
+              <div style="width:90px;height:26px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
+              <div style="display:flex;justify-content:space-between;width:100%;padding:0 16px;font-size:9px;color:rgba(255,255,255,0.8);font-family:monospace;position:relative;z-index:1;">
+                <span>9:41</span>
+                <span>●●● ▲ ■</span>
+              </div>
+            </div>
+            <!-- Chek purple nav bar -->
+            <div style="height:38px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;">
+              <span style="font-size:14px;color:rgba(255,255,255,0.8);">←</span>
+              <span id="chek-hero-nav" style="font-size:11px;font-weight:600;color:#fff;flex:1;">Tarjeta de crédito Chek</span>
+            </div>
+            <!-- Screen content -->
+            <div id="chek-hero-screen" style="background:#fff;min-height:360px;position:relative;overflow:hidden;">
+            </div>
+            <!-- Home indicator -->
+            <div style="height:20px;background:#fff;display:flex;align-items:center;justify-content:center;">
+              <div style="width:70px;height:4px;border-radius:3px;background:#222;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left gradient over phone -->
+      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.6) 65%, rgba(10,10,10,0.1) 100%);z-index:2;pointer-events:none;"></div>
+
+      <div class="container" style="position:relative;z-index:3;">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
           <a href="../index.html">Home</a>
           <span class="project-breadcrumb-sep" aria-hidden="true">›</span>
@@ -1952,26 +1990,61 @@
           <h2 class="project-section-title">Selected Hi-Fidelity Screens</h2>
           <p class="project-body-text" style="margin-bottom:var(--space-8);">Key screens from the final design, annotated to highlight design decisions.</p>
 
-          <div class="hifi-grid">
-            <div class="hifi-card">
-              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" loading="eager">
-              <p class="img-caption">Home Screen &amp; Upcoming Due Dates</p>
+          <!-- ── CHEK HIFI — iPhone 17 mockup + cursor flow ── -->
+          <div id="chek-hifi-section" style="display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;">
+
+            <!-- iPhone 17 mockup -->
+            <div style="position:relative;flex-shrink:0;" id="chek-hifi-wrap">
+              <div style="width:220px;background:#1a1a1a;border-radius:48px;padding:4px;box-shadow:0 32px 80px rgba(0,0,0,0.55),inset 0 0 0 1px #2a2a2a,inset 0 0 0 2px #111;position:relative;">
+                <div style="position:absolute;left:-4px;top:88px;width:4px;height:30px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
+                <div style="position:absolute;left:-4px;top:128px;width:4px;height:44px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
+                <div style="position:absolute;right:-4px;top:110px;width:4px;height:54px;background:#1e1e1e;border-radius:0 3px 3px 0;"></div>
+                <div style="background:#000;border-radius:44px;overflow:hidden;">
+                  <div style="height:48px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;position:relative;">
+                    <div style="width:96px;height:28px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:10px;left:50%;transform:translateX(-50%);"></div>
+                    <div style="display:flex;justify-content:space-between;width:100%;padding:0 18px;font-size:9px;color:rgba(255,255,255,0.75);font-family:monospace;position:relative;z-index:1;">
+                      <span>9:41</span><span>●●● ▲ ■</span>
+                    </div>
+                  </div>
+                  <div id="chek-hifi-nav" style="height:40px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;">
+                    <span style="font-size:14px;color:rgba(255,255,255,0.8);">←</span>
+                    <span id="chek-hifi-nav-title" style="font-size:11.5px;font-weight:600;color:#fff;flex:1;">Tarjeta de crédito Chek</span>
+                  </div>
+                  <div id="chek-hifi-body" style="background:#fff;min-height:400px;position:relative;overflow:hidden;transition:opacity 250ms ease;"></div>
+                  <div style="height:20px;background:#fff;display:flex;align-items:center;justify-content:center;">
+                    <div style="width:72px;height:4px;border-radius:3px;background:#222;"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Cursor -->
+              <div id="chek-cur" style="position:absolute;pointer-events:none;z-index:50;opacity:0;transition:top 520ms cubic-bezier(0.16,1,0.3,1),left 520ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;">
+                <div id="chek-cur-ring" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(107,33,168,0.7);opacity:0;transition:opacity 200ms ease;"></div>
+                <svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1l4.2 11.5 1.9-4.3L11.5 6 1 1z" fill="#6B21A8" stroke="white" stroke-width="0.8"/></svg>
+              </div>
+              <!-- Ripple -->
+              <div id="chek-rpl" style="position:absolute;pointer-events:none;z-index:49;opacity:0;">
+                <div id="chek-rpl-ring" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(107,33,168,0.5);position:absolute;top:50%;left:50%;"></div>
+              </div>
+              <!-- Flash -->
+              <div id="chek-flash" style="position:absolute;inset:0;background:rgba(107,33,168,0.08);opacity:0;pointer-events:none;z-index:48;border-radius:48px;transition:opacity 120ms ease;"></div>
             </div>
-            <div class="hifi-card">
-              <img src="../chek/IMG_0189.jpeg" alt="NFC for Ripley Stores and No Plastic Needed" loading="lazy">
-              <p class="img-caption">NFC for Ripley Stores &amp; No Plastic Needed</p>
-            </div>
-            <div class="hifi-card">
-              <img src="../chek/IMG_0190.jpeg" alt="Transaction Detail, Monthly Statements, Movements" loading="lazy">
-              <p class="img-caption">Transaction Detail, Monthly Statements, Movements</p>
-            </div>
-            <div class="hifi-card">
-              <img src="../chek/IMG_0191.jpeg" alt="Cupo y Disponibles — Credit Details" loading="lazy">
-              <p class="img-caption">Cupo y Disponibles — Credit Details</p>
-            </div>
-            <div class="hifi-card">
-              <img src="../chek/IMG_0192.jpeg" alt="Ayuda por Seguridad — Security Help Flow" loading="lazy">
-              <p class="img-caption">Ayuda por Seguridad — Security Help Flow</p>
+
+            <!-- Right panel -->
+            <div>
+              <div id="chek-hifi-tag" style="font-size:0.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;"></div>
+              <h3 id="chek-hifi-title" style="font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;color:var(--text-primary);margin:0 0 6px;line-height:1.3;"></h3>
+              <p id="chek-hifi-sub" style="font-size:0.78rem;color:var(--text-secondary);line-height:1.7;margin:0 0 16px;"></p>
+              <!-- Annotation list -->
+              <div id="chek-hifi-anns" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
+              <!-- Controls -->
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                <button onclick="chekHifiPrev()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">← Prev</button>
+                <button onclick="chekHifiToggle()" id="chek-hifi-pause" style="padding:5px 12px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">⏸ Pause</button>
+                <button onclick="chekHifiNext()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">Next →</button>
+                <span id="chek-hifi-counter" style="font-size:0.62rem;color:var(--text-tertiary);font-family:var(--font-mono);"></span>
+              </div>
+              <!-- Dots -->
+              <div id="chek-hifi-dots" style="display:flex;gap:5px;margin-top:12px;"></div>
             </div>
           </div>
         </div>
@@ -2059,6 +2132,327 @@
     </div>
   </footer>
 
+  <style>
+  /* ── Chek HiFi phone screens ── */
+  .ck-card{background:linear-gradient(135deg,#6B21A8 0%,#4c1080 100%);margin:10px;border-radius:12px;padding:12px;color:#fff;position:relative;overflow:hidden}
+  .ck-card-greet{font-size:9px;color:rgba(255,255,255,0.7);margin-bottom:1px}
+  .ck-card-name{font-size:10px;font-weight:600;color:#fff;margin-bottom:8px}
+  .ck-card-brand{position:absolute;right:12px;top:12px;font-size:14px;font-weight:800;color:#fff;letter-spacing:-.5px}
+  .ck-card-num{font-size:9px;color:rgba(255,255,255,0.65);font-family:monospace;letter-spacing:.1em;margin-bottom:5px}
+  .ck-card-mc{position:absolute;right:12px;bottom:12px;display:flex}
+  .ck-card-mc span{width:14px;height:14px;border-radius:50%}
+  .ck-acts{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:7px 10px;border-bottom:1px solid #f0f0f0}
+  .ck-act{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .ck-act-ic{width:28px;height:28px;border-radius:50%;background:#f4f4f8;display:flex;align-items:center;justify-content:center;font-size:11px}
+  .ck-act-ic.hl{background:#e8d5f8;box-shadow:0 0 0 2px #6B21A8}
+  .ck-act-lb{font-size:7.5px;color:#666;text-align:center;line-height:1.2}
+  .ck-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-bottom:1px solid #f5f5f5;font-size:9.5px}
+  .ck-row-l{color:#666}
+  .ck-row-v{font-weight:500;color:#111}
+  .ck-chip{background:#6B21A8;color:#fff;font-size:8px;font-weight:600;padding:2px 7px;border-radius:100px}
+  .ck-link{font-size:9px;color:#6B21A8;padding:3px 10px;display:block}
+  .ck-dates{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:5px 10px}
+  .ck-date{border:1px solid #e8e0f0;border-radius:7px;padding:5px 7px}
+  .ck-date-l{font-size:7.5px;color:#aaa;display:block}
+  .ck-date-v{font-size:9px;font-weight:600;color:#222;margin-top:1px}
+  .ck-opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-bottom:1px solid #f5f5f5}
+  .ck-radio{width:13px;height:13px;border-radius:50%;border:1.5px solid #ccc;flex-shrink:0}
+  .ck-radio.sel{border-color:#6B21A8;background:#6B21A8;box-shadow:inset 0 0 0 3px #fff}
+  .ck-opt-l{font-size:9.5px;font-weight:500;color:#222}
+  .ck-opt-s{font-size:8px;color:#888}
+  .ck-opt-s.warn{color:#f59e0b}
+  .ck-btn{margin:7px 10px;height:32px;background:#6B21A8;border-radius:9px;display:flex;align-items:center;justify-content:center}
+  .ck-btn span{font-size:10px;font-weight:600;color:#fff}
+  .ck-tx{display:flex;align-items:center;gap:7px;padding:6px 10px;border-bottom:1px solid #f5f5f5}
+  .ck-tx-ic{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px}
+  .ck-tx-n{font-size:9.5px;font-weight:500;color:#222}
+  .ck-tx-d{font-size:8px;color:#aaa}
+  .ck-tx-a{font-size:9.5px;font-weight:600;margin-left:auto}
+  .ck-cupo-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #f0f0f0}
+  .ck-cupo-tab{padding:7px 0;text-align:center;font-size:9.5px;font-weight:500;color:#aaa;border-bottom:2px solid transparent;margin-bottom:-2px}
+  .ck-cupo-tab.sel{color:#6B21A8;border-bottom-color:#6B21A8}
+  .ck-cupo-bal{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #eee}
+  .ck-cupo-bal-i{padding:8px 10px;text-align:center}
+  .ck-cupo-bal-i:first-child{border-right:1px solid #eee}
+  .ck-cupo-bal-l{font-size:8.5px;color:#6B21A8}
+  .ck-cupo-bal-v{font-size:12px;font-weight:700;color:#222}
+  .ck-detail{display:flex;align-items:center;gap:7px;padding:6px 10px;border-bottom:1px solid #f5f5f5}
+  .ck-detail-ic{width:22px;height:22px;border-radius:50%;background:#f0e8f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px}
+  .ck-detail-n{font-size:9.5px;font-weight:500;color:#222;flex:1}
+  .ck-sec-hero{margin:10px;background:rgba(107,33,168,0.06);border:1px solid rgba(107,33,168,0.2);border-radius:10px;padding:12px;text-align:center}
+  .ck-sec-opt{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:9px;margin:0 8px 6px;cursor:pointer}
+  .ck-sec-opt-ic{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+  .ck-ann{display:flex;gap:10px;padding:8px 10px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-left:2px solid var(--accent);border-radius:0 7px 7px 0;opacity:0;transform:translateX(-5px);transition:all 350ms ease}
+  .ck-ann.v{opacity:1;transform:none}
+  .ck-ann-dot{width:10px;height:10px;border-radius:50%;background:#6B21A8;box-shadow:0 0 0 3px rgba(107,33,168,0.15);flex-shrink:0;margin-top:3px}
+  @keyframes ckRpl{0%{transform:translate(-50%,-50%) scale(0.2);opacity:0.8}100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}}
+  @keyframes ckFadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:640px){#chek-hifi-section{grid-template-columns:1fr}#chek-hifi-wrap{display:flex;justify-content:center}}
+  </style>
+  <script>
+  (function(){
+    /* ── SCREEN DEFINITIONS ── */
+    var S=[
+      {nav:'Tarjeta de crédito Chek',tag:'Screen 1 / 5',title:'Home Screen',
+       sub:'Hub de la tarjeta — información crítica sin abrumar.',
+       tapX:'30%',tapY:'52%',
+       anns:[
+         {t:'Credit Card',b:'Quick view of card data — copy & paste enabled for card number'},
+         {t:'Accessibility',b:'Most-used features surfaced first — accessibility priority'},
+         {t:'Balance',b:'Used and available credit with movements link'},
+         {t:'Financial Education',b:'Billing vs due date explained on tap'},
+       ],
+       build:function(el){
+         el.innerHTML='<div class="ck-card">'+
+           '<div class="ck-card-greet">Hola, Catalina Hernández</div>'+
+           '<div class="ck-card-name">Que bueno verte</div>'+
+           '<div class="ck-card-brand">cheK</div>'+
+           '<div class="ck-card-num">NÚMERO DE TARJETA<br>• • • • • • • • • • • • 7355</div>'+
+           '<div style="display:flex;gap:10px;font-size:8px;color:rgba(255,255,255,0.6)">'+
+             '<div><div>FECHA EXPIRACIÓN</div><div style="color:#fff">• • / • •</div></div>'+
+             '<div><div>CVV</div><div style="color:#fff">• • •</div></div>'+
+           '</div>'+
+           '<div class="ck-card-mc"><span style="background:#e53e3e"></span><span style="background:#ed8936;margin-left:-5px"></span></div>'+
+         '</div>'+
+         '<div class="ck-acts">'+
+           ['👁 Mostrar','💳 Pagar','🔒 Bloquear','⋯ Más'].map(function(a,i){
+             var p=a.split(' ');
+             return '<div class="ck-act"><div class="ck-act-ic" id="ck-act-'+i+'">'+p[0]+'</div><div class="ck-act-lb">'+p[1]+'<br>tarjeta</div></div>';
+           }).join('')+
+         '</div>'+
+         '<div class="ck-row"><span class="ck-row-l">Disponible para usar</span><span class="ck-chip">$1.000.000 ›</span></div>'+
+         '<div class="ck-row"><span class="ck-row-l">Utilizado</span><span class="ck-row-v">$1.500</span></div>'+
+         '<a class="ck-link">Ver todos los movimientos ›</a>'+
+         '<div class="ck-dates">'+
+           '<div class="ck-date"><span class="ck-date-l">Próx. facturación</span><div class="ck-date-v">05 Septiembre</div></div>'+
+           '<div class="ck-date"><span class="ck-date-l">Vencimiento</span><div class="ck-date-v">25 Septiembre</div></div>'+
+         '</div>'+
+         '<a class="ck-link">Ver próximos vencimientos</a>';
+       }
+      },
+      {nav:'Ver y pagar',tag:'Screen 2 / 5',title:'Pay Card Flow',
+       sub:'Selección de pago con educación financiera en puntos clave.',
+       tapX:'50%',tapY:'78%',
+       anns:[
+         {t:'Payment options',b:'4 paths: total, minimum, custom, restructure debt'},
+         {t:'Financial nudge',b:'Minimum payment shows projected interest cost — education at decision point'},
+         {t:'CTA state',b:'Button activates only after option selected — prevents accidental payments'},
+       ],
+       build:function(el){
+         el.innerHTML='<div style="padding:6px 10px 2px"><div style="font-size:8.5px;color:#888">Selecciona tu forma de pago · válido hasta 09/25/23</div></div>'+
+         ['Saldo total $1.000.000 | Cubre el 100% de tu deuda | false',
+          'Pago mínimo $50.000 | ⚠ Quedarás con $950k | warn',
+          'Seleccionar otro monto | | false',
+          '📅 Reestructurar deuda | | false'].map(function(r,i){
+           var p=r.split('|');
+           return '<div class="ck-opt" id="ck-opt-'+i+'"><div class="ck-radio'+(i===1?' sel':'')+'"></div><div><div class="ck-opt-l">'+p[0].trim()+'</div>'+(p[1].trim()?'<div class="ck-opt-s'+(p[2].trim()==='warn'?' warn':'')+'">'+p[1].trim()+'</div>':'')+'</div></div>';
+          }).join('')+
+         '<div class="ck-btn" id="ck-paybtn"><span>Confirmar pago</span></div>'+
+         '<div style="text-align:center;padding:3px"><span style="font-size:8.5px;color:#aaa">Cancelar</span></div>';
+       }
+      },
+      {nav:'Historial de movimientos',tag:'Screen 3 / 5',title:'Transactions & Statements',
+       sub:'Movimientos recientes con estados de cuenta por mes.',
+       tapX:'62%',tapY:'34%',
+       anns:[
+         {t:'Movement list',b:'Merchant names, dates, amounts — income green, expenses black'},
+         {t:'Statements',b:'Monthly PDF statements accessible in one tap'},
+         {t:'Copy & support',b:'Transaction ID copyable for dispute resolution'},
+       ],
+       build:function(el){
+         el.innerHTML='<div style="padding:6px 10px 2px"><div style="font-size:9px;font-weight:600;color:#222">Disponible <span style="color:#6B21A8">$500.000</span></div></div>'+
+         '<a class="ck-link">Ver estados de cuenta ›</a>'+
+         '<div style="padding:3px 10px 2px"><div style="font-size:9px;font-weight:600;color:#222">Movimientos no facturados</div><div style="font-size:8px;color:#aaa">Septiembre 2022</div></div>'+
+         [['↙','#e8f5e9','Abono mensual','19 Agos, 14:40','+ $30.000','#2e7d32'],
+          ['↗','#fce8e8','Pago Shell','5 Agos, 13:28','- $30.000','#111'],
+          ['↗','#fce8e8','Pago iPhone','5 Agos, 13:28','- $30.000','#111'],
+          ['↗','#fce8e8','North Face','1 Agos, 13:28','- $30.000','#111'],
+          ['↙','#e8f5e9','Camisa','29 Jun, 9:00','+ $30.000','#2e7d32']].map(function(t){
+          return '<div class="ck-tx"><div class="ck-tx-ic" style="background:'+t[1]+'">'+t[0]+'</div><div><div class="ck-tx-n">'+t[2]+'</div><div class="ck-tx-d">'+t[3]+'</div></div><div class="ck-tx-a" style="color:'+t[5]+'">'+t[4]+'</div></div>';
+         }).join('');
+       }
+      },
+      {nav:'Cupo y disponibles',tag:'Screen 4 / 5',title:'Details about Credit',
+       sub:'Educación financiera — todo sobre el crédito en un lugar.',
+       tapX:'50%',tapY:'72%',
+       anns:[
+         {t:'Balance',b:'Available vs used — side by side for instant clarity'},
+         {t:'Credit Line',b:'Total limit, avance, and super avance itemized'},
+         {t:'Billing date',b:'26 of each month — tappable for financial education context'},
+       ],
+       build:function(el){
+         el.innerHTML='<div class="ck-cupo-tabs"><div class="ck-cupo-tab sel">Saldo</div><div class="ck-cupo-tab">Detalles extras</div></div>'+
+         '<div style="padding:6px 10px 3px"><div style="font-size:9px;color:#666">Saldo de tu tarjeta de crédito</div></div>'+
+         '<div class="ck-cupo-bal"><div class="ck-cupo-bal-i"><div class="ck-cupo-bal-l">Disponible</div><div class="ck-cupo-bal-v">$0.000.000</div></div><div class="ck-cupo-bal-i"><div class="ck-cupo-bal-l" style="color:#888">Utilizado</div><div class="ck-cupo-bal-v">$0.000.000</div></div></div>'+
+         '<div style="padding:4px 10px 2px"><div style="font-size:9px;font-weight:600;color:#222">Detalles extras</div></div>'+
+         [['💲','Cupo Total','$5.000.000'],['💲','Avance','$100.000'],['💲','Super Avance','$100.000'],['📄','Fecha de facturación','26 de cada mes',true]].map(function(r){
+           return '<div class="ck-detail"><div class="ck-detail-ic">'+r[0]+'</div><div style="flex:1"><div class="ck-detail-n'+(r[3]?' " style="color:#6B21A8':'"')+'>'+r[1]+'</div><div style="font-size:8px;color:#888">'+r[2]+'</div></div><span style="font-size:12px;color:#ddd">ⓘ</span></div>';
+         }).join('');
+       }
+      },
+      {nav:'Ayuda por seguridad',tag:'Screen 5 / 5',title:'Security Help Flow',
+       sub:'Reassurance primero — estado emocional antes que acciones.',
+       tapX:'50%',tapY:'55%',
+       anns:[
+         {t:'Reassurance first',b:'"We've got you covered" — safety context before action options'},
+         {t:'Block card',b:'Temporary & reversible — can unblock anytime from settings'},
+         {t:'Report stolen',b:'Permanent path — clearly separated from temporary block'},
+       ],
+       build:function(el){
+         el.innerHTML='<div class="ck-sec-hero">'+
+           '<div style="width:44px;height:44px;border-radius:50%;background:rgba(107,33,168,0.1);margin:0 auto 7px;display:flex;align-items:center;justify-content:center;font-size:20px">🛡️</div>'+
+           '<div style="font-size:11px;font-weight:700;color:#222;margin-bottom:3px">We've got you covered</div>'+
+           '<div style="font-size:9px;color:#888;line-height:1.5">Your card is protected. Choose what you need below.</div>'+
+         '</div>'+
+         '<div class="ck-sec-opt" id="ck-sec-0" style="background:#fffbeb;border:1px solid #f59e0b">'+
+           '<div class="ck-sec-opt-ic" style="background:rgba(245,158,11,0.12)">🔒</div>'+
+           '<div style="flex:1"><div style="font-size:10px;font-weight:600;color:#222">Bloquear tarjeta</div><div style="font-size:8.5px;color:#888">Temporal — reversible en cualquier momento</div></div>'+
+           '<span style="font-size:14px;color:#ccc">›</span>'+
+         '</div>'+
+         '<div class="ck-sec-opt" style="background:#fef2f2;border:1px solid #fca5a5">'+
+           '<div class="ck-sec-opt-ic" style="background:rgba(239,68,68,0.1)">⚠️</div>'+
+           '<div style="flex:1"><div style="font-size:10px;font-weight:600;color:#222">Reportar robo</div><div style="font-size:8.5px;color:#888">Bloqueo permanente + reemplazo</div></div>'+
+           '<span style="font-size:14px;color:#ccc">›</span>'+
+         '</div>'+
+         '<div class="ck-sec-opt" style="background:#f5f3ff;border:1px solid #c4b5fd">'+
+           '<div class="ck-sec-opt-ic" style="background:rgba(107,33,168,0.08)">❓</div>'+
+           '<div style="flex:1"><div style="font-size:10px;font-weight:600;color:#222">Perdí mi tarjeta</div><div style="font-size:8.5px;color:#888">Ayuda para encontrarla</div></div>'+
+           '<span style="font-size:14px;color:#ccc">›</span>'+
+         '</div>';
+       }
+      }
+    ];
+
+    var cur=0,paused=false;
+    var tids=[];
+    function clr(){tids.forEach(clearTimeout);tids=[];}
+    function sch(fn,ms){var id=setTimeout(fn,ms);tids.push(id);}
+
+    function renderHifi(idx,animate){
+      cur=idx;
+      var s=S[idx];
+      var body=document.getElementById('chek-hifi-body');
+      var navTitle=document.getElementById('chek-hifi-nav-title');
+      var tag=document.getElementById('chek-hifi-tag');
+      var title=document.getElementById('chek-hifi-title');
+      var sub=document.getElementById('chek-hifi-sub');
+      var anns=document.getElementById('chek-hifi-anns');
+      var counter=document.getElementById('chek-hifi-counter');
+      if(navTitle) navTitle.textContent=s.nav;
+      if(tag) tag.textContent=s.tag;
+      if(title) title.textContent=s.title;
+      if(sub) sub.textContent=s.sub;
+      if(counter) counter.textContent=(idx+1)+' / '+S.length;
+      if(body){
+        if(animate){
+          var fl=document.getElementById('chek-flash');
+          if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';},120);}
+          body.style.opacity='0';
+          setTimeout(function(){body.innerHTML='';s.build(body);body.style.opacity='1';},180);
+        } else {
+          body.innerHTML=''; s.build(body);
+        }
+      }
+      if(anns){
+        anns.innerHTML='';
+        s.anns.forEach(function(a,i){
+          var d=document.createElement('div');
+          d.className='ck-ann';
+          d.innerHTML='<div class="ck-ann-dot"></div><div><div style="font-size:0.75rem;font-weight:700;color:var(--text-primary);margin-bottom:2px">'+a.t+'</div><div style="font-size:0.67rem;color:var(--text-secondary);line-height:1.6">'+a.b+'</div></div>';
+          anns.appendChild(d);
+          setTimeout(function(){d.classList.add('v');},animate?400+i*150:80+i*80);
+        });
+      }
+      updHifiDots(idx);
+    }
+
+    function runCursor(idx){
+      clr();
+      var s=S[idx];
+      var c=document.getElementById('chek-cur');
+      var ring=document.getElementById('chek-cur-ring');
+      var rpl=document.getElementById('chek-rpl');
+      var rplRing=document.getElementById('chek-rpl-ring');
+      if(!c)return;
+      c.style.opacity='1';
+      c.style.top='22%'; c.style.left='50%';
+      sch(function(){ c.style.top=s.tapY; c.style.left=s.tapX; },700);
+      sch(function(){ if(ring) ring.style.opacity='1'; },1280);
+      sch(function(){
+        c.style.transform='scale(0.75)';
+        if(rpl){ rpl.style.left=s.tapX; rpl.style.top=s.tapY; rpl.style.opacity='1'; }
+        if(rplRing){ rplRing.style.animation='none'; void rplRing.offsetWidth; rplRing.style.animation='ckRpl 550ms ease-out forwards'; }
+        var targets={'0':'ck-act-1','1':'ck-paybtn','4':'ck-sec-0'};
+        var tid=targets[String(idx)];
+        if(tid){ var el=document.getElementById(tid); if(el){ el.style.boxShadow='0 0 0 2px #6B21A8'; setTimeout(function(){if(el)el.style.boxShadow='';},900); } }
+      },1580);
+      sch(function(){ c.style.transform='scale(1)'; if(ring) ring.style.opacity='0'; },1840);
+      sch(function(){
+        c.style.opacity='0';
+        if(rpl) rpl.style.opacity='0';
+        var next=(idx+1)%S.length;
+        renderHifi(next,true);
+        sch(function(){ if(!paused) runCursor(next); },750);
+      },2280);
+    }
+
+    function updHifiDots(idx){
+      var d=document.getElementById('chek-hifi-dots'); if(!d)return;
+      d.innerHTML='';
+      S.forEach(function(_,i){
+        var b=document.createElement('button');
+        b.style.cssText='width:'+(i===idx?18:5)+'px;height:5px;border-radius:100px;background:'+(i===idx?'#6B21A8':'rgba(107,33,168,0.2)')+';border:none;cursor:pointer;padding:0;transition:all 250ms ease;';
+        b.setAttribute('aria-label','Screen '+(i+1));
+        b.onclick=function(){chekHifiUserGo(i);};
+        d.appendChild(b);
+      });
+    }
+
+    window.chekHifiUserGo=function(idx){
+      paused=true; var btn=document.getElementById('chek-hifi-pause'); if(btn) btn.textContent='▶ Play';
+      clr(); var c=document.getElementById('chek-cur'); if(c) c.style.opacity='0';
+      renderHifi(idx,true);
+    };
+    window.chekHifiPrev=function(){ window.chekHifiUserGo((cur-1+S.length)%S.length); };
+    window.chekHifiNext=function(){ window.chekHifiUserGo((cur+1)%S.length); };
+    window.chekHifiToggle=function(){
+      paused=!paused; var btn=document.getElementById('chek-hifi-pause');
+      if(btn) btn.textContent=paused?'▶ Play':'⏸ Pause';
+      if(!paused) runCursor(cur); else clr();
+    };
+
+    /* ── HERO PHONE (background) ── */
+    var heroScreens=[
+      {nav:'Tarjeta de crédito Chek',build:S[0].build},
+      {nav:'Ver y pagar',build:S[1].build},
+      {nav:'Cupo y disponibles',build:S[3].build},
+    ];
+    var heroCur=0;
+    function heroNext(){
+      heroCur=(heroCur+1)%heroScreens.length;
+      var hs=heroScreens[heroCur];
+      var hn=document.getElementById('chek-hero-nav');
+      var hb=document.getElementById('chek-hero-screen');
+      if(hn) hn.textContent=hs.nav;
+      if(hb){ hb.style.opacity='0.001'; setTimeout(function(){hb.innerHTML=''; hs.build(hb); hb.style.opacity='1';},200); }
+    }
+    var heroPhone=document.getElementById('chek-hero-phone');
+    var heroBody=document.getElementById('chek-hero-screen');
+    if(heroBody){ heroScreens[0].build(heroBody); }
+    if(heroPhone){ setTimeout(function(){heroPhone.style.opacity='0.55';},400); }
+    setInterval(heroNext,5000);
+
+    /* ── Init hifi ── */
+    var section=document.getElementById('chek-hifi-section');
+    if(section){
+      var obs=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){ renderHifi(0,false); setTimeout(function(){runCursor(0);},600); obs.disconnect(); }
+      },{threshold:0.1});
+      obs.observe(section);
+    }
+
+  })();
+  </script>
   <script src="../assets/main.js"></script>
 
   <div id="lightbox" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9000;display:none;align-items:center;justify-content:center;cursor:zoom-out;" role="dialog" aria-modal="true" aria-label="Image preview">
