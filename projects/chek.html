@@ -1723,63 +1723,40 @@
         <div class="project-section" data-anim>
           <div class="project-section-label">Design Output</div>
           <h2 class="project-section-title">Selected Hi-Fidelity Screens</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-8);">Key screens from the final design, annotated to highlight design decisions.</p>
+          <p class="project-body-text" style="margin-bottom:var(--space-32);">Final screens from Figma — annotated to highlight key design decisions across the five core flows.</p>
 
-          <!-- ── CHEK HIFI — iPhone 17 mockup + cursor flow ── -->
-          <div id="chek-hifi-section" style="display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;">
-
-            <!-- iPhone 16 mockup -->
-            <div style="position:relative;flex-shrink:0;display:inline-block;" id="chek-hifi-wrap">
-              <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 24px 60px rgba(0,0,0,0.5),inset 0 0 0 1px #2a2a2a,inset 0 0 0 2px #111;position:relative;">
-                <div style="position:absolute;left:-4px;top:88px;width:4px;height:30px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
-                <div style="position:absolute;left:-4px;top:128px;width:4px;height:44px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
-                <div style="position:absolute;right:-4px;top:110px;width:4px;height:54px;background:#1e1e1e;border-radius:0 3px 3px 0;"></div>
-                <div style="background:#000;border-radius:44px;overflow:hidden;">
-                  <div style="height:48px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px;position:relative;">
-                    <div style="width:110px;height:30px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
-                    <div style="display:flex;justify-content:space-between;width:100%;padding:0 18px;font-size:9px;color:rgba(255,255,255,0.75);font-family:monospace;position:relative;z-index:1;">
-                      <span>9:41</span><span>●●● ▲ ■</span>
-                    </div>
-                  </div>
-                  <div id="chek-hifi-nav" style="height:40px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;">
-                    <span style="font-size:14px;color:rgba(255,255,255,0.8);">←</span>
-                    <span id="chek-hifi-nav-title" style="font-size:11.5px;font-weight:600;color:#fff;flex:1;">Tarjeta de crédito Chek</span>
-                  </div>
-                  <div id="chek-hifi-body" style="background:#fff;min-height:400px;position:relative;overflow:hidden;transition:opacity 250ms ease;"></div>
-                  <div style="height:20px;background:#fff;display:flex;align-items:center;justify-content:center;">
-                    <div style="width:72px;height:4px;border-radius:3px;background:#222;"></div>
-                  </div>
-                </div>
-              </div>
-              <!-- Cursor -->
-              <div id="chek-cur" style="position:absolute;pointer-events:none;z-index:50;opacity:0;transition:top 520ms cubic-bezier(0.16,1,0.3,1),left 520ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;">
-                <div id="chek-cur-ring" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(107,33,168,0.7);opacity:0;transition:opacity 200ms ease;"></div>
-                <svg width="13" height="15" viewBox="0 0 13 15" fill="none"><path d="M1 1l4.2 11.5 1.9-4.3L11.5 6 1 1z" fill="#6B21A8" stroke="white" stroke-width="0.8"/></svg>
-              </div>
-              <!-- Ripple -->
-              <div id="chek-rpl" style="position:absolute;pointer-events:none;z-index:49;opacity:0;">
-                <div id="chek-rpl-ring" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(107,33,168,0.5);position:absolute;top:50%;left:50%;"></div>
-              </div>
-              <!-- Flash -->
-              <div id="chek-flash" style="position:absolute;inset:0;background:rgba(107,33,168,0.08);opacity:0;pointer-events:none;z-index:48;border-radius:48px;transition:opacity 120ms ease;"></div>
+          <!-- HiFi image grid — real assets -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-24);margin-bottom:var(--space-32);" id="chek-hifi-section">
+            <div class="hifi-card" style="cursor:zoom-in;">
+              <img src="../chek/IMG_0188.jpeg" alt="Home Screen and Upcoming Due Dates" loading="lazy" style="width:100%;height:420px;object-fit:cover;object-position:top;display:block;border-radius:8px;">
+              <p class="img-caption">Home Screen &amp; Upcoming Due Dates</p>
             </div>
+            <div class="hifi-card" style="cursor:zoom-in;">
+              <img src="../chek/IMG_0189.jpeg" alt="NFC for Ripley Stores and No Plastic Needed" loading="lazy" style="width:100%;height:420px;object-fit:cover;object-position:top;display:block;border-radius:8px;">
+              <p class="img-caption">NFC for Ripley Stores &amp; No Plastic Needed</p>
+            </div>
+            <div class="hifi-card" style="cursor:zoom-in;">
+              <img src="../chek/IMG_0190.jpeg" alt="Transaction Detail, Monthly Statements, Movements" loading="lazy" style="width:100%;height:420px;object-fit:cover;object-position:top;display:block;border-radius:8px;">
+              <p class="img-caption">Transaction Detail, Statements &amp; Movements</p>
+            </div>
+            <div class="hifi-card" style="cursor:zoom-in;">
+              <img src="../chek/IMG_0191.jpeg" alt="Cupo y Disponibles — Credit Details" loading="lazy" style="width:100%;height:420px;object-fit:cover;object-position:top;display:block;border-radius:8px;">
+              <p class="img-caption">Credit Limit &amp; Available Balance</p>
+            </div>
+            <div class="hifi-card" style="cursor:zoom-in;">
+              <img src="../chek/IMG_0192.jpeg" alt="Ayuda por Seguridad — Security Help Flow" loading="lazy" style="width:100%;height:420px;object-fit:cover;object-position:top;display:block;border-radius:8px;">
+              <p class="img-caption">Security Help Flow</p>
+            </div>
+          </div>
 
-            <!-- Right panel -->
+          <!-- Claude Code prototype callout -->
+          <div style="display:flex;align-items:flex-start;gap:16px;padding:var(--space-20);background:var(--bg-surface);border:1px solid var(--border-subtle);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;margin-bottom:var(--space-8);">
+            <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:var(--accent-dim);border:1px solid rgba(155,108,255,0.2);display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
             <div>
-              <div id="chek-hifi-tag" style="font-size:0.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:5px;"></div>
-              <h3 id="chek-hifi-title" style="font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;color:var(--text-primary);margin:0 0 6px;line-height:1.3;"></h3>
-              <p id="chek-hifi-sub" style="font-size:0.78rem;color:var(--text-secondary);line-height:1.7;margin:0 0 16px;"></p>
-              <!-- Annotation list -->
-              <div id="chek-hifi-anns" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;"></div>
-              <!-- Controls -->
-              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-                <button onclick="chekHifiPrev()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">← Prev</button>
-                <button onclick="chekHifiToggle()" id="chek-hifi-pause" style="padding:5px 12px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">⏸ Pause</button>
-                <button onclick="chekHifiNext()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">Next →</button>
-                <span id="chek-hifi-counter" style="font-size:0.62rem;color:var(--text-tertiary);font-family:var(--font-mono);"></span>
-              </div>
-              <!-- Dots -->
-              <div id="chek-hifi-dots" style="display:flex;gap:5px;margin-top:12px;"></div>
+              <div style="font-size:0.7rem;font-weight:700;color:var(--text-primary);margin-bottom:3px;">Built with Claude Code</div>
+              <div style="font-size:0.72rem;color:var(--text-secondary);line-height:1.6;">An interactive prototype replicating these screens — with animated cursor flows between states — was built using Claude Code. It runs as a standalone web artifact and mirrors the five core flows shown above.</div>
             </div>
           </div>
         </div>
@@ -1868,343 +1845,74 @@
   </footer>
 
   <style>
-  /* ── Chek HiFi phone screens ── */
-  .ck-card{background:linear-gradient(135deg,#6B21A8 0%,#4c1080 100%);margin:10px;border-radius:12px;padding:12px;color:#fff;position:relative;overflow:hidden}
-  .ck-card-greet{font-size:9px;color:rgba(255,255,255,0.7);margin-bottom:1px}
-  .ck-card-name{font-size:10px;font-weight:600;color:#fff;margin-bottom:8px}
-  .ck-card-brand{position:absolute;right:12px;top:12px;font-size:14px;font-weight:800;color:#fff;letter-spacing:-.5px}
-  .ck-card-num{font-size:9px;color:rgba(255,255,255,0.65);font-family:monospace;letter-spacing:.1em;margin-bottom:5px}
-  .ck-card-mc{position:absolute;right:12px;bottom:12px;display:flex}
-  .ck-card-mc span{width:14px;height:14px;border-radius:50%}
-  .ck-acts{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:7px 10px;border-bottom:1px solid #f0f0f0}
-  .ck-act{display:flex;flex-direction:column;align-items:center;gap:3px}
-  .ck-act-ic{width:28px;height:28px;border-radius:50%;background:#f4f4f8;display:flex;align-items:center;justify-content:center;font-size:11px}
-  .ck-act-ic.hl{background:#e8d5f8;box-shadow:0 0 0 2px #6B21A8}
-  .ck-act-lb{font-size:7.5px;color:#666;text-align:center;line-height:1.2}
-  .ck-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-bottom:1px solid #f5f5f5;font-size:9.5px}
-  .ck-row-l{color:#666}
-  .ck-row-v{font-weight:500;color:#111}
-  .ck-chip{background:#6B21A8;color:#fff;font-size:8px;font-weight:600;padding:2px 7px;border-radius:100px}
-  .ck-link{font-size:9px;color:#6B21A8;padding:3px 10px;display:block}
-  .ck-dates{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:5px 10px}
-  .ck-date{border:1px solid #e8e0f0;border-radius:7px;padding:5px 7px}
-  .ck-date-l{font-size:7.5px;color:#aaa;display:block}
-  .ck-date-v{font-size:9px;font-weight:600;color:#222;margin-top:1px}
-  .ck-opt{display:flex;align-items:center;gap:8px;padding:7px 10px;border-bottom:1px solid #f5f5f5}
-  .ck-radio{width:13px;height:13px;border-radius:50%;border:1.5px solid #ccc;flex-shrink:0}
-  .ck-radio.sel{border-color:#6B21A8;background:#6B21A8;box-shadow:inset 0 0 0 3px #fff}
-  .ck-opt-l{font-size:9.5px;font-weight:500;color:#222}
-  .ck-opt-s{font-size:8px;color:#888}
-  .ck-opt-s.warn{color:#f59e0b}
-  .ck-btn{margin:7px 10px;height:32px;background:#6B21A8;border-radius:9px;display:flex;align-items:center;justify-content:center}
-  .ck-btn span{font-size:10px;font-weight:600;color:#fff}
-  .ck-tx{display:flex;align-items:center;gap:7px;padding:6px 10px;border-bottom:1px solid #f5f5f5}
-  .ck-tx-ic{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px}
-  .ck-tx-n{font-size:9.5px;font-weight:500;color:#222}
-  .ck-tx-d{font-size:8px;color:#aaa}
-  .ck-tx-a{font-size:9.5px;font-weight:600;margin-left:auto}
-  .ck-cupo-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #f0f0f0}
-  .ck-cupo-tab{padding:7px 0;text-align:center;font-size:9.5px;font-weight:500;color:#aaa;border-bottom:2px solid transparent;margin-bottom:-2px}
-  .ck-cupo-tab.sel{color:#6B21A8;border-bottom-color:#6B21A8}
-  .ck-cupo-bal{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #eee}
-  .ck-cupo-bal-i{padding:8px 10px;text-align:center}
-  .ck-cupo-bal-i:first-child{border-right:1px solid #eee}
-  .ck-cupo-bal-l{font-size:8.5px;color:#6B21A8}
-  .ck-cupo-bal-v{font-size:12px;font-weight:700;color:#222}
-  .ck-detail{display:flex;align-items:center;gap:7px;padding:6px 10px;border-bottom:1px solid #f5f5f5}
-  .ck-detail-ic{width:22px;height:22px;border-radius:50%;background:#f0e8f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px}
-  .ck-detail-n{font-size:9.5px;font-weight:500;color:#222;flex:1}
-  .ck-sec-hero{margin:10px;background:rgba(107,33,168,0.06);border:1px solid rgba(107,33,168,0.2);border-radius:10px;padding:12px;text-align:center}
-  .ck-sec-opt{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:9px;margin:0 8px 6px;cursor:pointer}
-  .ck-sec-opt-ic{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
-  .ck-ann{display:flex;gap:10px;padding:8px 10px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-left:2px solid var(--accent);border-radius:0 7px 7px 0;opacity:0;transform:translateX(-5px);transition:all 350ms ease}
-  .ck-ann.v{opacity:1;transform:none}
-  .ck-ann-dot{width:10px;height:10px;border-radius:50%;background:#6B21A8;box-shadow:0 0 0 3px rgba(107,33,168,0.15);flex-shrink:0;margin-top:3px}
   @keyframes ckRpl{0%{transform:translate(-50%,-50%) scale(0.2);opacity:0.8}100%{transform:translate(-50%,-50%) scale(2.8);opacity:0}}
   @keyframes ckFadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
   @media(max-width:640px){#chek-hifi-section{grid-template-columns:1fr}#chek-hifi-wrap{display:flex;justify-content:center}}
   </style>
   <script>
   (function(){
-    /* ── SCREEN DEFINITIONS ── */
-    var S=[
-      {nav:'Tarjeta de crédito Chek',tag:'Screen 1 / 5',title:'Home Screen',
-       sub:'Card hub — critical information without overwhelming the user.',
-       tapX:'30%',tapY:'52%',
-       anns:[
-         {t:'Credit Card',b:'Quick view of card data — copy & paste enabled for card number'},
-         {t:'Accessibility',b:'Most-used features surfaced first — accessibility priority'},
-         {t:'Balance',b:'Used and available credit with movements link'},
-         {t:'Financial Education',b:'Billing vs due date explained on tap'},
-       ],
-       build:function(el){
-         el.innerHTML='<div class="ck-card">'+
-           '<div class="ck-card-greet">Hola, Catalina Hernández</div>'+
-           '<div class="ck-card-name">Que bueno verte</div>'+
-           '<div class="ck-card-brand">cheK</div>'+
-           '<div class="ck-card-num">NÚMERO DE TARJETA<br>• • • • • • • • • • • • 7355</div>'+
-           '<div style="display:flex;gap:10px;font-size:8px;color:rgba(255,255,255,0.6)">'+
-             '<div><div>FECHA EXPIRACIÓN</div><div style="color:#fff">• • / • •</div></div>'+
-             '<div><div>CVV</div><div style="color:#fff">• • •</div></div>'+
-           '</div>'+
-           '<div class="ck-card-mc"><span style="background:#e53e3e"></span><span style="background:#ed8936;margin-left:-5px"></span></div>'+
-         '</div>'+
-         '<div class="ck-acts">'+
-           [
-             ['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>','Show'],
-             ['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>','Pay'],
-             ['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>','Block'],
-             ['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>','More']
-           ].map(function(a,i){
-             return '<div class="ck-act"><div class="ck-act-ic" id="ck-act-'+i+'">'+a[0]+'</div><div class="ck-act-lb">'+a[1]+'</div></div>';
-           }).join('')+
-         '</div>'+
-         '<div class="ck-row"><span class="ck-row-l">Available credit</span><span class="ck-chip">$1,000,000 ›</span></div>'+
-         '<div class="ck-row"><span class="ck-row-l">Used</span><span class="ck-row-v">$1,500</span></div>'+
-         '<a class="ck-link">View all movements ›</a>'+
-         '<div class="ck-dates">'+
-           '<div class="ck-date"><span class="ck-date-l">Next billing</span><div class="ck-date-v">05 Sept</div></div>'+
-           '<div class="ck-date"><span class="ck-date-l">Due date</span><div class="ck-date-v">25 Sept</div></div>'+
-         '</div>'+
-         '<a class="ck-link">View upcoming due dates</a>';
-       }
-      },
-      {nav:'Ver y pagar',tag:'Screen 2 / 5',title:'Pay Card Flow',
-       sub:'Selección de pago con educación financiera en puntos clave.',
-       tapX:'50%',tapY:'78%',
-       anns:[
-         {t:'Payment options',b:'4 paths: total, minimum, custom, restructure debt'},
-         {t:'Financial nudge',b:'Minimum payment shows projected interest cost — education at decision point'},
-         {t:'CTA state',b:'Button activates only after option selected — prevents accidental payments'},
-       ],
-       build:function(el){
-         el.innerHTML='<div style="padding:6px 10px 2px"><div style="font-size:8.5px;color:#888">Selecciona tu forma de pago · válido hasta 09/25/23</div></div>'+
-         ['Full balance $1,000,000 | Covers 100% of your debt | false',
-          'Minimum $50,000 | ⚠ Interest will apply on remaining balance | warn',
-          'Custom amount | | false',
-          'Restructure debt | | false'].map(function(r,i){
-           var p=r.split('|');
-           return '<div class="ck-opt" id="ck-opt-'+i+'"><div class="ck-radio'+(i===1?' sel':'')+'"></div><div><div class="ck-opt-l">'+p[0].trim()+'</div>'+(p[1].trim()?'<div class="ck-opt-s'+(p[2].trim()==='warn'?' warn':'')+'">'+p[1].trim()+'</div>':'')+'</div></div>';
+    /* ── HERO PHONE — loop ── */
+    var heroS=[
+      {nav:'Credit Card',build:function(el){
+        el.innerHTML=
+          '<div style="background:linear-gradient(135deg,#6B21A8,#4c1080);padding:10px;color:#fff;margin:8px;border-radius:10px;">'+
+            '<div style="font-size:10px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px;">cheK</div>'+
+            '<div style="font-size:7.5px;opacity:0.6;font-family:monospace;letter-spacing:.1em;">•••• •••• •••• 7355</div>'+
+          '</div>'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:6px 8px;border-bottom:1px solid #f0f0f0;">'+
+            [['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>','Show'],
+             ['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>','Pay'],
+             ['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>','Block'],
+             ['<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>','More']
+            ].map(function(a){return '<div style="text-align:center;"><div style="width:24px;height:24px;border-radius:50%;background:#f4f4f8;margin:0 auto 2px;display:flex;align-items:center;justify-content:center;">'+a[0]+'</div><div style="font-size:6px;color:#999;">'+a[1]+'</div></div>';}).join('')+
+          '</div>'+
+          '<div style="padding:0 8px;">'+
+            '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f5f5f5;font-size:8.5px;"><span style="color:#888;">Available</span><span style="background:#6B21A8;color:#fff;font-size:7px;padding:1px 6px;border-radius:100px;">$1,000,000 ›</span></div>'+
+            '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f5f5f5;font-size:8.5px;"><span style="color:#888;">Used</span><span style="font-weight:500;">$1,500</span></div>'+
+          '</div>'+
+          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:6px 8px;">'+
+            '<div style="border:1px solid #e8e0f0;border-radius:6px;padding:5px;"><div style="font-size:6.5px;color:#aaa;">Next billing</div><div style="font-size:8px;font-weight:600;color:#222;">05 Sept</div></div>'+
+            '<div style="border:1px solid #e8e0f0;border-radius:6px;padding:5px;"><div style="font-size:6.5px;color:#aaa;">Due date</div><div style="font-size:8px;font-weight:600;color:#222;">25 Sept</div></div>'+
+          '</div>';
+      }},
+      {nav:'View & Pay',build:function(el){
+        el.innerHTML=
+          '<div style="padding:8px;"><div style="font-size:8px;color:#888;margin-bottom:8px;">Payment selection</div>'+
+          ['Full balance $1,000,000','Minimum $50,000','Custom amount','Restructure debt'].map(function(o,i){
+            return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f5f5f5;">'+
+              '<div style="width:12px;height:12px;border-radius:50%;border:1.5px solid '+(i===1?'#6B21A8':'#ccc')+';flex-shrink:0;background:'+(i===1?'#6B21A8':'transparent')+';box-shadow:'+(i===1?'inset 0 0 0 3px #fff':'none')+'"></div>'+
+              '<div style="font-size:8.5px;color:#333;">'+o+'</div></div>';
           }).join('')+
-         '<div class="ck-btn" id="ck-paybtn"><span>Confirmar pago</span></div>'+
-         '<div style="text-align:center;padding:3px"><span style="font-size:8.5px;color:#aaa">Cancelar</span></div>';
-       }
-      },
-      {nav:'Historial de movimientos',tag:'Screen 3 / 5',title:'Transactions & Statements',
-       sub:'Movimientos recientes con estados de cuenta por mes.',
-       tapX:'62%',tapY:'34%',
-       anns:[
-         {t:'Movement list',b:'Merchant names, dates, amounts — income green, expenses black'},
-         {t:'Statements',b:'Monthly PDF statements accessible in one tap'},
-         {t:'Copy & support',b:'Transaction ID copyable for dispute resolution'},
-       ],
-       build:function(el){
-         el.innerHTML='<div style="padding:6px 10px 2px"><div style="font-size:9px;font-weight:600;color:#222">Available <span style="color:#6B21A8">$500,000</span></div></div>'+
-         '<a class="ck-link">Ver estados de cuenta ›</a>'+
-         '<div style="padding:3px 10px 2px"><div style="font-size:9px;font-weight:600;color:#222">Movimientos no facturados</div><div style="font-size:8px;color:#aaa">Septiembre 2022</div></div>'+
-         [['↙','#e8f5e9','Abono mensual','19 Agos, 14:40','+ $30.000','#2e7d32'],
-          ['↗','#fce8e8','Pago Shell','5 Agos, 13:28','- $30.000','#111'],
-          ['↗','#fce8e8','Pago iPhone','5 Agos, 13:28','- $30.000','#111'],
-          ['↗','#fce8e8','North Face','1 Agos, 13:28','- $30.000','#111'],
-          ['↙','#e8f5e9','Camisa','29 Jun, 9:00','+ $30.000','#2e7d32']].map(function(t){
-          return '<div class="ck-tx"><div class="ck-tx-ic" style="background:'+t[1]+'">'+t[0]+'</div><div><div class="ck-tx-n">'+t[2]+'</div><div class="ck-tx-d">'+t[3]+'</div></div><div class="ck-tx-a" style="color:'+t[5]+'">'+t[4]+'</div></div>';
-         }).join('');
-       }
-      },
-      {nav:'Credit Details',tag:'Screen 4 / 5',title:'Credit Limit & Available Balance',
-       sub:'Educación financiera — todo sobre el crédito en un lugar.',
-       tapX:'50%',tapY:'72%',
-       anns:[
-         {t:'Balance',b:'Available vs used — side by side for instant clarity'},
-         {t:'Credit Line',b:'Total limit, avance, and super avance itemized'},
-         {t:'Billing date',b:'26 of each month — tappable for financial education context'},
-       ],
-       build:function(el){
-         el.innerHTML='<div class="ck-cupo-tabs"><div class="ck-cupo-tab sel">Balance</div><div class="ck-cupo-tab">Details</div></div>'+
-         '<div style="padding:6px 10px 3px"><div style="font-size:9px;color:#666">Your credit card balance</div></div>'+
-         '<div class="ck-cupo-bal"><div class="ck-cupo-bal-i"><div class="ck-cupo-bal-l">Available</div><div class="ck-cupo-bal-v">$0,000,000</div></div><div class="ck-cupo-bal-i"><div class="ck-cupo-bal-l" style="color:#888">Used</div><div class="ck-cupo-bal-v">$0,000,000</div></div></div>'+
-         '<div style="padding:4px 10px 2px"><div style="font-size:9px;font-weight:600;color:#222">Extra details</div></div>'+
-         [['<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>','Total credit line','$5,000,000'],['<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>','Cash advance','$100,000'],['<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>','Super advance','$100,000'],['<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>','Billing date','26th of each month',true]].map(function(r){
-           return '<div class="ck-detail"><div class="ck-detail-ic">'+r[0]+'</div><div style="flex:1"><div class="ck-detail-n'+(r[3]?' " style="color:#6B21A8':'"')+'>'+r[1]+'</div><div style="font-size:8px;color:#888">'+r[2]+'</div></div><span style="font-size:12px;color:#ddd">ⓘ</span></div>';
-         }).join('');
-       }
-      },
-      {nav:'Ayuda por seguridad',tag:'Screen 5 / 5',title:'Security Help Flow',
-       sub:'Reassurance primero — estado emocional antes que acciones.',
-       tapX:'50%',tapY:'55%',
-       anns:[
-         {t:'Reassurance first',b:'"We've got you covered" — safety context before action options'},
-         {t:'Block card',b:'Temporary & reversible — can unblock anytime from settings'},
-         {t:'Report stolen',b:'Permanent path — clearly separated from temporary block'},
-       ],
-       build:function(el){
-         el.innerHTML='<div class="ck-sec-hero">'+
-           '<div style="width:44px;height:44px;border-radius:50%;background:rgba(107,33,168,0.1);margin:0 auto 7px;display:flex;align-items:center;justify-content:center;">'+
-             '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9b6cff" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'+
-           '</div>'+
-           '<div style="font-size:11px;font-weight:700;color:#222;margin-bottom:3px">We've got you covered</div>'+
-           '<div style="font-size:9px;color:#888;line-height:1.5">Your card is protected. Choose what you need below.</div>'+
-         '</div>'+
-         '<div class="ck-sec-opt" id="ck-sec-0" style="background:#fffbeb;border:1px solid #f59e0b">'+
-           '<div class="ck-sec-opt-ic" style="background:rgba(245,158,11,0.12)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>'+
-           '<div style="flex:1"><div style="font-size:10px;font-weight:600;color:#222">Block card</div><div style="font-size:8.5px;color:#888">Temporary — reversible anytime from settings</div></div>'+
-           '<span style="font-size:14px;color:#ccc">›</span>'+
-         '</div>'+
-         '<div class="ck-sec-opt" style="background:#fef2f2;border:1px solid #fca5a5">'+
-           '<div class="ck-sec-opt-ic" style="background:rgba(239,68,68,0.1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>'+
-           '<div style="flex:1"><div style="font-size:10px;font-weight:600;color:#222">Reportar robo</div><div style="font-size:8.5px;color:#888">Bloqueo permanente + reemplazo</div></div>'+
-           '<span style="font-size:14px;color:#ccc">›</span>'+
-         '</div>'+
-         '<div class="ck-sec-opt" style="background:#f5f3ff;border:1px solid #c4b5fd">'+
-           '<div class="ck-sec-opt-ic" style="background:rgba(107,33,168,0.08)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9b6cff" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>'+
-           '<div style="flex:1"><div style="font-size:10px;font-weight:600;color:#222">Lost my card</div><div style="font-size:8.5px;color:#888">Help finding it</div></div>'+
-           '<span style="font-size:14px;color:#ccc">›</span>'+
-         '</div>';
-       }
-      }
-    ];
-
-    var cur=0,paused=false;
-    var tids=[];
-    function clr(){tids.forEach(clearTimeout);tids=[];}
-    function sch(fn,ms){var id=setTimeout(fn,ms);tids.push(id);}
-
-    function renderHifi(idx,animate){
-      cur=idx;
-      var s=S[idx];
-      var body=document.getElementById('chek-hifi-body');
-      var navTitle=document.getElementById('chek-hifi-nav-title');
-      var tag=document.getElementById('chek-hifi-tag');
-      var title=document.getElementById('chek-hifi-title');
-      var sub=document.getElementById('chek-hifi-sub');
-      var anns=document.getElementById('chek-hifi-anns');
-      var counter=document.getElementById('chek-hifi-counter');
-      if(navTitle) navTitle.textContent=s.nav;
-      if(tag) tag.textContent=s.tag;
-      if(title) title.textContent=s.title;
-      if(sub) sub.textContent=s.sub;
-      if(counter) counter.textContent=(idx+1)+' / '+S.length;
-      if(body){
-        if(animate){
-          var fl=document.getElementById('chek-flash');
-          if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';},120);}
-          body.style.opacity='0';
-          setTimeout(function(){body.innerHTML='';s.build(body);body.style.opacity='1';},180);
-        } else {
-          body.innerHTML=''; s.build(body);
-        }
-      }
-      if(anns){
-        anns.innerHTML='';
-        s.anns.forEach(function(a,i){
-          var d=document.createElement('div');
-          d.className='ck-ann';
-          d.innerHTML='<div class="ck-ann-dot"></div><div><div style="font-size:0.75rem;font-weight:700;color:var(--text-primary);margin-bottom:2px">'+a.t+'</div><div style="font-size:0.67rem;color:var(--text-secondary);line-height:1.6">'+a.b+'</div></div>';
-          anns.appendChild(d);
-          setTimeout(function(){d.classList.add('v');},animate?400+i*150:80+i*80);
-        });
-      }
-      updHifiDots(idx);
-    }
-
-    function runCursor(idx){
-      clr();
-      var s=S[idx];
-      var c=document.getElementById('chek-cur');
-      var ring=document.getElementById('chek-cur-ring');
-      var rpl=document.getElementById('chek-rpl');
-      var rplRing=document.getElementById('chek-rpl-ring');
-      if(!c)return;
-      c.style.opacity='1';
-      c.style.top='22%'; c.style.left='50%';
-      sch(function(){ c.style.top=s.tapY; c.style.left=s.tapX; },700);
-      sch(function(){ if(ring) ring.style.opacity='1'; },1280);
-      sch(function(){
-        c.style.transform='scale(0.75)';
-        if(rpl){ rpl.style.left=s.tapX; rpl.style.top=s.tapY; rpl.style.opacity='1'; }
-        if(rplRing){ rplRing.style.animation='none'; void rplRing.offsetWidth; rplRing.style.animation='ckRpl 550ms ease-out forwards'; }
-        var targets={'0':'ck-act-1','1':'ck-paybtn','4':'ck-sec-0'};
-        var tid=targets[String(idx)];
-        if(tid){ var el=document.getElementById(tid); if(el){ el.style.boxShadow='0 0 0 2px #6B21A8'; setTimeout(function(){if(el)el.style.boxShadow='';},900); } }
-      },1580);
-      sch(function(){ c.style.transform='scale(1)'; if(ring) ring.style.opacity='0'; },1840);
-      sch(function(){
-        c.style.opacity='0';
-        if(rpl) rpl.style.opacity='0';
-        var next=(idx+1)%S.length;
-        renderHifi(next,true);
-        sch(function(){ if(!paused) runCursor(next); },750);
-      },2280);
-    }
-
-    function updHifiDots(idx){
-      var d=document.getElementById('chek-hifi-dots'); if(!d)return;
-      d.innerHTML='';
-      S.forEach(function(_,i){
-        var b=document.createElement('button');
-        b.style.cssText='width:'+(i===idx?18:5)+'px;height:5px;border-radius:100px;background:'+(i===idx?'#6B21A8':'rgba(107,33,168,0.2)')+';border:none;cursor:pointer;padding:0;transition:all 250ms ease;';
-        b.setAttribute('aria-label','Screen '+(i+1));
-        b.onclick=function(){chekHifiUserGo(i);};
-        d.appendChild(b);
-      });
-    }
-
-    window.chekHifiUserGo=function(idx){
-      paused=true; var btn=document.getElementById('chek-hifi-pause'); if(btn) btn.textContent='▶ Play';
-      clr(); var c=document.getElementById('chek-cur'); if(c) c.style.opacity='0';
-      renderHifi(idx,true);
-    };
-    window.chekHifiPrev=function(){ window.chekHifiUserGo((cur-1+S.length)%S.length); };
-    window.chekHifiNext=function(){ window.chekHifiUserGo((cur+1)%S.length); };
-    window.chekHifiToggle=function(){
-      paused=!paused; var btn=document.getElementById('chek-hifi-pause');
-      if(btn) btn.textContent=paused?'▶ Play':'⏸ Pause';
-      if(!paused) runCursor(cur); else clr();
-    };
-
-    /* ── HERO PHONE — loop with pulse glow ── */
-    var heroScreens=[
-      {nav:'Tarjeta de crédito Chek',build:S[0].build},
-      {nav:'Ver y pagar',build:S[1].build},
-      {nav:'Cupo y disponibles',build:S[3].build},
+          '<div style="margin-top:8px;height:28px;background:#6B21A8;border-radius:8px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;font-weight:600;color:#fff;">Confirm Payment</span></div></div>';
+      }},
+      {nav:'Credit Details',build:function(el){
+        el.innerHTML=
+          '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #eee;">'+
+            '<div style="padding:7px;text-align:center;border-right:1px solid #eee;border-bottom:2px solid #6B21A8;"><div style="font-size:7px;color:#6B21A8;">Available</div><div style="font-size:12px;font-weight:700;color:#222;">$780,000</div></div>'+
+            '<div style="padding:7px;text-align:center;"><div style="font-size:7px;color:#888;">Used</div><div style="font-size:12px;font-weight:700;color:#222;">$220,000</div></div>'+
+          '</div>'+
+          '<div style="padding:6px 8px;"><div style="font-size:8px;font-weight:600;color:#333;margin-bottom:5px;">Extra details</div>'+
+          ['Total credit line · $5,000,000','Cash advance · $100,000','Billing date · 26th of each month'].map(function(r){
+            var p=r.split('·');
+            return '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f5f5f5;font-size:8px;"><span style="color:#888;">'+p[0].trim()+'</span><span style="color:#333;font-weight:500;">'+p[1].trim()+'</span></div>';
+          }).join('')+
+          '<div style="margin-top:8px;height:28px;background:#6B21A8;border-radius:8px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;font-weight:600;color:#fff;">Pay Now →</span></div></div>';
+      }}
     ];
     var heroCur=0;
     function heroNext(){
-      heroCur=(heroCur+1)%heroScreens.length;
-      var hs=heroScreens[heroCur];
+      heroCur=(heroCur+1)%heroS.length;
+      var hs=heroS[heroCur];
       var hn=document.getElementById('chek-hero-nav');
       var hb=document.getElementById('chek-hero-screen');
       if(hn) hn.textContent=hs.nav;
-      if(hb){
-        hb.style.opacity='0';
-        setTimeout(function(){
-          hb.innerHTML='';
-          hs.build(hb);
-          hb.style.opacity='1';
-        },300);
-      }
+      if(hb){ hb.style.opacity='0'; setTimeout(function(){ hb.innerHTML=''; hs.build(hb); hb.style.opacity='1'; },300); }
     }
     var heroPhone=document.getElementById('chek-hero-phone');
     var heroBody=document.getElementById('chek-hero-screen');
-    if(heroBody){ heroScreens[0].build(heroBody); }
-    /* Fade in hero phone after short delay */
-    if(heroPhone){
-      setTimeout(function(){
-        heroPhone.style.opacity='1';
-      },500);
-    }
-    /* Loop screens every 4s */
+    if(heroBody){ heroS[0].build(heroBody); }
+    if(heroPhone){ setTimeout(function(){ heroPhone.style.opacity='1'; },500); }
     setInterval(heroNext,4000);
-
-    /* ── Init hifi ── */
-    var section=document.getElementById('chek-hifi-section');
-    if(section){
-      var obs=new IntersectionObserver(function(entries){
-        if(entries[0].isIntersecting){ renderHifi(0,false); setTimeout(function(){runCursor(0);},600); obs.disconnect(); }
-      },{threshold:0.1});
-      obs.observe(section);
-    }
-
   })();
   </script>
 <script>
