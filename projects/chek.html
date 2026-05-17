@@ -1661,17 +1661,25 @@
               </div>
             </div>
 
-            <!-- Center phone -->
+            <!-- Center phone — same frame as wireframes -->
             <div style="position:relative;flex-shrink:0;">
-              <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 16px 40px rgba(0,0,0,0.4);">
+              <div style="width:240px;background:#1a1a1a;border-radius:42px;padding:3.5px;box-shadow:0 24px 60px rgba(0,0,0,0.45),inset 0 0 0 1px #2a2a2a;position:relative;">
+                <!-- Side buttons — matching wireframe -->
+                <div style="position:absolute;left:-4px;top:90px;width:4px;height:28px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
+                <div style="position:absolute;left:-4px;top:128px;width:4px;height:42px;background:#1e1e1e;border-radius:3px 0 0 3px;"></div>
+                <div style="position:absolute;right:-4px;top:108px;width:4px;height:54px;background:#1e1e1e;border-radius:0 3px 3px 0;"></div>
                 <div style="background:#000;border-radius:38px;overflow:hidden;">
-                  <div style="height:40px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;position:relative;">
-                    <div style="width:100px;height:24px;background:#000;border-radius:100px;border:1.5px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
-                    <div style="font-size:8px;color:rgba(255,255,255,0.5);font-family:monospace;position:relative;z-index:1;">9:41</div>
+                  <!-- Status bar with dynamic island — matching wireframe height:44px -->
+                  <div style="height:44px;background:#000;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;position:relative;">
+                    <div style="width:110px;height:30px;background:#000;border-radius:100px;border:2px solid #1a1a1a;position:absolute;top:8px;left:50%;transform:translateX(-50%);"></div>
+                    <div style="display:flex;justify-content:space-between;width:100%;padding:0 16px;font-size:8px;color:rgba(255,255,255,0.6);font-family:monospace;position:relative;z-index:1;">
+                      <span>9:41</span><span>●●● ▲</span>
+                    </div>
                   </div>
-                  <div style="height:32px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;">
-                    <span style="font-size:12px;color:#fff;">← </span>
-                    <span style="font-size:10px;font-weight:600;color:#fff;margin-left:6px;">Tarjeta de crédito Chek</span>
+                  <!-- Nav bar — English -->
+                  <div style="height:38px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;">
+                    <span style="font-size:13px;color:rgba(255,255,255,0.8);">←</span>
+                    <span style="font-size:10px;font-weight:600;color:#fff;flex:1;">Credit Card Hub</span>
                   </div>
                   <div style="background:#fff;padding:8px;">
                     <div style="background:linear-gradient(135deg,#6B21A8,#4c1080);border-radius:10px;padding:10px;color:#fff;margin-bottom:6px;position:relative;">
@@ -1690,12 +1698,12 @@
                     <div style="font-size:7px;color:#6B21A8;padding:3px 0;" id="chek-ev-txlink">View all movements ›</div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;">
                       <div style="border:1px solid #e8e0f0;border-radius:5px;padding:4px 5px;" id="chek-ev-billing"><div style="font-size:6px;color:#aaa;">Next billing</div><div style="font-size:7.5px;font-weight:600;color:#222;">05 Sept</div></div>
-                      <div style="border:1px solid #e8e0f0;border-radius:5px;padding:4px 5px;" id="chek-ev-due"><div style="font-size:6px;color:#aaa;">Vencimiento</div><div style="font-size:7.5px;font-weight:600;color:#222;">25 Sept</div></div>
+                      <div style="border:1px solid #e8e0f0;border-radius:5px;padding:4px 5px;" id="chek-ev-due"><div style="font-size:6px;color:#aaa;">Due date</div><div style="font-size:7.5px;font-weight:600;color:#222;">25 Sept</div></div>
                     </div>
                     <div style="font-size:7px;color:#6B21A8;padding:3px 0;" id="chek-ev-upcoming">View upcoming due dates</div>
                   </div>
-                  <div style="height:14px;background:#fff;display:flex;align-items:center;justify-content:center;">
-                    <div style="width:50px;height:3px;border-radius:2px;background:#222;"></div>
+                  <div style="height:20px;background:#fff;display:flex;align-items:center;justify-content:center;">
+                    <div style="width:70px;height:4px;border-radius:3px;background:#222;"></div>
                   </div>
                 </div>
               </div>
