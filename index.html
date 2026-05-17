@@ -721,6 +721,42 @@
     if(cardBody){ CARD_SCREENS[0].build(cardBody); setInterval(chekCardNext,3500); }
   })();
   </script>
+  <script>
+  /* Light mode audit — fix hero text contrast and background */
+  (function(){
+    function applyLightFixes(){
+      var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+      var heroProof=document.querySelector('.hero-proof');
+      var heroBg=document.querySelector('.hero');
+      if(heroProof){
+        heroProof.style.background=isDark?'rgba(255,255,255,0.02)':'rgba(0,0,0,0.04)';
+        heroProof.style.borderColor=isDark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.08)';
+      }
+      /* Fix kw color in light mode */
+      document.querySelectorAll('.kw').forEach(function(el){
+        el.style.color=isDark?'':'var(--accent)';
+      });
+      /* Fix hero-sub opacity */
+      var heroSub=document.querySelector('.hero-sub');
+      if(heroSub) heroSub.style.color=isDark?'':'var(--text-secondary)';
+    }
+    applyLightFixes();
+    new MutationObserver(applyLightFixes).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+    /* Blockchain card overlay for light mode */
+    function fixBcOverlay(){
+      var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+      var overlay=document.getElementById('bc-card-overlay');
+      if(overlay){
+        overlay.style.background=isDark
+          ?'linear-gradient(to top,rgba(28,28,28,0.95) 0%,rgba(28,28,28,0.15) 60%,transparent 100%)'
+          :'linear-gradient(to top,rgba(240,240,240,0.95) 0%,rgba(240,240,240,0.3) 60%,transparent 100%)';
+      }
+    }
+    fixBcOverlay();
+    new MutationObserver(fixBcOverlay).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  })();
+  </script>
   <script src="assets/main.js"></script>
 <script>
 (function(){
