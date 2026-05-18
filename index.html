@@ -395,7 +395,10 @@
             style="--card-accent: var(--accent-chek);"
             data-anim data-anim-delay="1"
           >
-            <div class="card-image" style="position:relative;overflow:hidden;background:#0d0d0d;">
+            <div class="card-image" style="position:relative;overflow:hidden;background:#130026;">
+              <!-- Animated purple mesh -->
+              <canvas id="chek-card-mesh" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;"></canvas>
+              <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(107,33,168,0.4) 0%,transparent 70%);z-index:1;pointer-events:none;"></div>
               <!-- Animated iPhone mini in card -->
               <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:12px;">
                 <div style="width:130px;background:#1a1a1a;border-radius:28px;padding:2.5px;box-shadow:0 16px 40px rgba(0,0,0,0.5),inset 0 0 0 1px #2a2a2a;position:relative;flex-shrink:0;">
@@ -662,6 +665,32 @@
   })();
   </script>
   <script>
+  /* ── Chek card mesh ── */
+  (function(){
+    var c=document.getElementById('chek-card-mesh'); if(!c)return;
+    var ctx=c.getContext('2d');
+    var pts=[],W,H,RAF;
+    function resize(){ W=c.width=c.offsetWidth||c.parentElement.offsetWidth; H=c.height=c.offsetHeight||c.parentElement.offsetHeight; }
+    function init(){
+      pts=[];
+      for(var i=0;i<18;i++) pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,r:Math.random()+.4});
+    }
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<pts.length;i++) for(var j=i+1;j<pts.length;j++){
+        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){ctx.beginPath();ctx.strokeStyle='rgba(155,108,255,'+(0.15*(1-d/120))+')';ctx.lineWidth=.5;ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}
+      }
+      pts.forEach(function(p){
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(155,108,255,0.4)';ctx.fill();
+        p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+      });
+      RAF=requestAnimationFrame(draw);
+    }
+    var obs=new IntersectionObserver(function(e){if(e[0].isIntersecting){resize();init();draw();obs.disconnect();}},{threshold:0.1});
+    obs.observe(c);
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){cancelAnimationFrame(RAF);c.style.display='none';}
+  })();
   (function(){
     var CARD_SCREENS=[
       {nav:'Tarjeta Chek',build:function(el){
