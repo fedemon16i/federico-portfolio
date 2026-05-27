@@ -1732,33 +1732,32 @@ button {
   }
 }
 
-/* ── Project hero: force readable text in light mode ─────── */
-[data-theme="light"] .project-hero,
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) .project-hero {
-    color: var(--text-primary);
-  }
+/* ── Project hero: force white text always (dark bg) ─────── */
+.project-hero { color: rgba(255,255,255,0.95); }
+.project-hero .breadcrumb,
+.project-hero .hero-hook,
+.project-hero .project-sub,
+.project-hero .project-body-text { color: rgba(255,255,255,0.7) !important; }
+.project-hero .project-title,
+.project-hero h1 { color: #ffffff !important; }
+.project-hero .section-eyebrow { color: rgba(255,255,255,0.6) !important; }
+.project-hero .project-timeline { color: rgba(255,255,255,0.5) !important; }
+.project-hero .project-stat-value { color: #ffffff !important; }
+.project-hero .project-stat-label { color: rgba(255,255,255,0.6) !important; }
+.project-hero .project-role-badge {
+  background: rgba(255,255,255,0.15) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.25) !important;
 }
-[data-theme="light"] .project-hero .breadcrumb,
-[data-theme="light"] .project-hero .hero-hook,
-[data-theme="light"] .project-hero .project-sub {
-  color: var(--text-secondary);
+/* Tag chips in hero — keep readable on purple */
+.project-hero .tag-chip {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,255,255,0.2) !important;
+  color: rgba(255,255,255,0.85) !important;
 }
-[data-theme="light"] .project-hero .project-title,
-[data-theme="light"] .project-hero h1 {
-  color: var(--text-primary);
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) .project-hero .breadcrumb,
-  :root:not([data-theme]) .project-hero .hero-hook,
-  :root:not([data-theme]) .project-hero .project-sub {
-    color: var(--text-secondary);
-  }
-  :root:not([data-theme]) .project-hero .project-title,
-  :root:not([data-theme]) .project-hero h1 {
-    color: var(--text-primary);
-  }
-}
+/* Breadcrumb links */
+.project-hero a { color: rgba(255,255,255,0.7) !important; }
+.project-hero a:hover { color: #ffffff !important; }
 
 .project-hero::before {
   content: '';
