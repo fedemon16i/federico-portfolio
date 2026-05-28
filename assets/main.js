@@ -420,3 +420,100 @@ document.addEventListener('DOMContentLoaded', function() {
   new MutationObserver(applyLightCardBgs)
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 });
+
+/* ============================================================
+   DS INTERACTION SYSTEM
+   - Click sounds (Web Audio API)
+   - data-ds-anim IntersectionObserver
+   - icon-3d mouse tracking
+   ============================================================ */
+(function() {
+  'use strict';
+
+  /* ── Click sounds ── */
+  var AudioCtx = window.AudioContext || window.webkitAudioContext;
+  var audioCtx = null;
+
+  function initAudio() {
+    if (!audioCtx && AudioCtx) {
+      try { audioCtx = new AudioCtx(); } catch(e) {}
+    }
+  }
+
+  function playClick(freq, dur, vol) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    initAudio();
+    if (!audioCtx) return;
+    try {
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq || 800, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.5 || 400, audioCtx.currentTime + (dur || 0.06));
+      gain.gain.setValueAtTime(vol || 0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (dur || 0.06));
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + (dur || 0.06));
+    } catch(e) {}
+  }
+
+  /* Sound variants */
+  var SOUNDS = {
+    click:  function() { playClick(800, 0.055, 0.07); },
+    tap:    function() { playClick(1000, 0.04, 0.06); },
+    nav:    function() { playClick(600, 0.08, 0.06); },
+    success:function() { playClick(1200, 0.1, 0.07); setTimeout(function(){playClick(1600,0.08,0.05);},80); },
+    error:  function() { playClick(300, 0.1, 0.08); }
+  };
+
+  /* Attach to data-click-sound elements */
+  document.addEventListener('click', function(e) {
+    var el = e.target.closest('[data-click-sound]');
+    if (!el) return;
+    var type = el.getAttribute('data-click-sound') || 'click';
+    if (SOUNDS[type]) SOUNDS[type]();
+  }, true);
+
+  /* Expose globally for inline use */
+  window.dsSound = SOUNDS;
+
+  /* ── data-ds-anim IntersectionObserver ── */
+  if (window.IntersectionObserver) {
+    var dsObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('ds-visible');
+          dsObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('[data-ds-anim]').forEach(function(el) {
+      dsObs.observe(el);
+    });
+  } else {
+    /* Fallback: show all immediately */
+    document.querySelectorAll('[data-ds-anim]').forEach(function(el) {
+      el.classList.add('ds-visible');
+    });
+  }
+
+  /* ── icon-3d: subtle mouse tracking within each card ── */
+  document.querySelectorAll('.icon-3d').forEach(function(el) {
+    el.addEventListener('mousemove', function(e) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var r = el.getBoundingClientRect();
+      var cx = (e.clientX - r.left) / r.width - 0.5;   /* -0.5 to 0.5 */
+      var cy = (e.clientY - r.top)  / r.height - 0.5;
+      var rotX = cy * -16;  /* max ±8deg */
+      var rotY = cx * 12;
+      el.style.transform = 'perspective(400px) translateY(-3px) rotateX('+rotX+'deg) rotateY('+rotY+'deg) scale(1.06)';
+    });
+    el.addEventListener('mouseleave', function() {
+      el.style.transform = '';
+    });
+  });
+
+})();
