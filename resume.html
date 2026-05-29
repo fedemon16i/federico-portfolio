@@ -418,26 +418,8 @@
     .rsf-ai-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-16); }
     .rsf-ai-col { display: flex; flex-direction: column; gap: var(--space-10); }
     .rsf-ai-label { display: flex; align-items: center; gap: 5px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
-    /* ── How I Work loop ── */
-    .rsf-loop { display: flex; align-items: flex-start; gap: 0; margin-bottom: var(--space-16); overflow-x: auto; scrollbar-width: none; }
-    .rsf-loop::-webkit-scrollbar { display: none; }
-    .rsf-loop-step { flex: 1; min-width: 120px; padding: var(--space-16); background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); display: flex; flex-direction: column; gap: var(--space-6); }
-    .rsf-loop-step--accent { border-color: var(--accent); background: var(--accent-dim); }
-    .rsf-loop-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-tertiary); }
-    .rsf-loop-step--accent .rsf-loop-num { color: var(--accent); }
-    .rsf-loop-name { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
-    .rsf-loop-tools { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
-    .rsf-loop-tool { display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; color: var(--text-secondary); }
-    .rsf-loop-arrow { padding: var(--space-20) var(--space-8); color: var(--text-tertiary); font-size: 0.9rem; flex-shrink: 0; align-self: center; }
-    .rsf-loop-outputs { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-top: var(--space-8); }
-    .rsf-loop-output { padding: var(--space-12) var(--space-16); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-surface); }
-    .rsf-loop-output--dev { border-color: var(--accent); }
-    .rsf-loop-output-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: var(--space-8); }
-    .rsf-loop-output--dev .rsf-loop-output-label { color: var(--accent); }
-    .rsf-loop-output-chips { display: flex; flex-wrap: wrap; gap: 5px; }
-    .rsf-loop-output-chips span { font-size: 0.72rem; padding: 2px 8px; border-radius: 100px; background: var(--bg-raised); border: 1px solid var(--border-subtle); color: var(--text-secondary); }
     @media (max-width: 900px) { .rsf-grid { grid-template-columns: 1fr 1fr; } .rsf-ai-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 600px) { .rsf-grid { grid-template-columns: 1fr; } .rsf-ai-grid { grid-template-columns: 1fr; } .rsf-loop-outputs { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .rsf-grid { grid-template-columns: 1fr; } .rsf-ai-grid { grid-template-columns: 1fr; } }
   </style>
   <style>
 /* ── V2 RESUME PREVIEW ── */
@@ -652,7 +634,7 @@ body::before {
             <span>ES · EN C2</span>
           </div>
         </div>
-        <a href="assets/Federico_Monroy_CV.pdf" target="_blank" rel="noopener noreferrer" class="r-dl-btn" aria-label="View CV PDF">
+        <a href="assets/Federico_Monroy_CV.pdf" target="_blank" rel="noopener noreferrer" class="r-dl-btn" aria-label="View CV PDF" data-click-sound="click">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
@@ -674,7 +656,7 @@ body::before {
       <section class="r-section" aria-labelledby="skills-h">
         <h2 class="r-section-title" id="skills-h"><span class="kw-section">Skills</span> &amp; Tools</h2>
         <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-24);line-height:1.6;">Stack-agnostic — I adapt to what the team uses. The tools below are what I know best; equivalents always welcome.</p>
-        <div class="rsf-grid">
+        <div class="rsf-grid" data-ds-anim>
           <div class="rsf-card">
             <div class="rsf-eyebrow">Design & Prototyping</div>
             <div class="rsf-tools">
@@ -848,79 +830,8 @@ body::before {
         </div>
       </section>
 
-      <!-- ── HOW I WORK ── -->
-      <section class="r-section" aria-labelledby="hiw-h">
-        <h2 class="r-section-title" id="hiw-h">How I <span class="kw-section">work</span></h2>
-        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:var(--space-24);line-height:1.6;">I orchestrate the full loop — and get my hands dirty when needed. The method stays constant; the tools adapt to the team's stack.</p>
-        <div class="rsf-loop">
-          <div class="rsf-loop-step">
-            <div class="rsf-loop-num">01</div>
-            <div class="rsf-loop-name">Sense</div>
-            <div class="rsf-loop-tools">
-              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#CC3A99"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="sans-serif">P</text></svg>Pendo</span>
-              <span class="rsf-loop-tool">GA4</span>
-              <span class="rsf-loop-tool">Session replay</span>
-            </div>
-          </div>
-          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
-          <div class="rsf-loop-step">
-            <div class="rsf-loop-num">02</div>
-            <div class="rsf-loop-name">Research</div>
-            <div class="rsf-loop-tools">
-              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#6B48FF"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>Maze</span>
-              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#1D4ED8"/><text x="12" y="17" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="sans-serif">Q</text></svg>Qualtrics</span>
-              <span class="rsf-loop-tool">1:1 interviews</span>
-            </div>
-          </div>
-          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
-          <div class="rsf-loop-step">
-            <div class="rsf-loop-num">03</div>
-            <div class="rsf-loop-name">Synthesize</div>
-            <div class="rsf-loop-tools">
-              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#D97706"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="bold" fill="white" font-family="sans-serif">C</text></svg>Claude</span>
-              <span class="rsf-loop-tool">Copilot</span>
-              <span class="rsf-loop-tool">Human review</span>
-            </div>
-          </div>
-          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
-          <div class="rsf-loop-step">
-            <div class="rsf-loop-num">04</div>
-            <div class="rsf-loop-name">Design</div>
-            <div class="rsf-loop-tools">
-              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 38 57" fill="none" aria-hidden="true"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>Figma</span>
-              <span class="rsf-loop-tool">v0 · Bolt</span>
-              <span class="rsf-loop-tool">DS-connected</span>
-            </div>
-          </div>
-          <div class="rsf-loop-arrow" aria-hidden="true">→</div>
-          <div class="rsf-loop-step rsf-loop-step--accent">
-            <div class="rsf-loop-num">05</div>
-            <div class="rsf-loop-name">Measure</div>
-            <div class="rsf-loop-tools">
-              <span class="rsf-loop-tool"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="#CC3A99"/><text x="12" y="17" text-anchor="middle" font-size="14" font-weight="bold" fill="white" font-family="sans-serif">P</text></svg>Pendo</span>
-              <span class="rsf-loop-tool">Post-ship</span>
-              <span class="rsf-loop-tool">Loop restarts</span>
-            </div>
-          </div>
-        </div>
-        <div class="rsf-loop-outputs">
-          <div class="rsf-loop-output">
-            <div class="rsf-loop-output-label">Design output</div>
-            <div class="rsf-loop-output-chips">
-              <span>Figma proposal</span><span>UI audit</span><span>Ship</span>
-            </div>
-          </div>
-          <div class="rsf-loop-output rsf-loop-output--dev">
-            <div class="rsf-loop-output-label">Product & dev</div>
-            <div class="rsf-loop-output-chips">
-              <span>Ticket</span><span>Evidence</span><span>Jira · ADO · Linear</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- ── EXPERIENCE ── -->
-      <section class="r-section" aria-labelledby="exp-h">
+      <section class="r-section" aria-labelledby="exp-h" data-ds-anim>
         <h2 class="r-section-title" id="exp-h"><span class="kw-section">Experience</span></h2>
 
         <!-- Globant / EY -->
