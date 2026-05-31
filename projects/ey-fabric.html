@@ -834,7 +834,9 @@
       <div class="container">
 
         <!-- ── THE ROLE — outside the navigator ── -->
-        <div class="project-section" id="ey-role" data-anim style="margin-bottom:var(--space-64);">
+        <div class="project-section" id="ey-role" data-anim style="margin-bottom:var(--space-64);position:relative;overflow:hidden;">
+          <canvas data-mesh data-opacity="0.22" data-speed="0.35" data-accent="rgba(200,168,75,0.1)" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true"></canvas>
+          <div style="position:relative;z-index:1;">
           <div class="project-section-label">The Role</div>
           <h2 class="project-section-title" style="font-size:clamp(1.75rem,3.5vw,2.75rem);line-height:1.15;letter-spacing:-0.03em;max-width:700px;">
             The only practitioner on the team closing the full loop — from behavioral signal to Figma.
@@ -843,15 +845,18 @@
             At EY Fabric I'm embedded as the sole Pendo practitioner on the XDA team — the link between what the platform does, what users experience, and what product and engineering prioritize next. No handoffs between disciplines. One person, one loop.
           </p>
           <div class="project-owned-list">
-            <div class="project-owned-item">Sole Pendo practitioner on the XDA team — I own all instrumentation, funnels, journeys, paths, segments, and reports across 90+ marketplace assets.</div>
-            <div class="project-owned-item">UXR on-demand: 1:1 interviews, Maze tests, Optimal Workshop sessions, and Pendo in-app surveys and walkthroughs — triggered by behavioral signals, not scheduled sprints.</div>
-            <div class="project-owned-item">Synthesize analytics + research using Copilot connected to EY's SharePoint source of truth, then deliver actionable design proposals via Figma Make with the design system already connected.</div>
-            <div class="project-owned-item">When findings reveal bugs or critical friction — output prioritized tickets to product and development via ADO, with behavioral evidence attached.</div>
-            <div class="project-owned-item">When design is needed, I'm part of that loop too — Figma proposals following the existing design system, auto layout, and component guidelines. Code-ready, behavioral evidence on every frame.</div>
+            <div class="project-owned-item" data-ds-anim data-ds-delay="1">Sole Pendo practitioner on the XDA team — I own all instrumentation, funnels, journeys, paths, segments, and reports across 90+ marketplace assets.</div>
+            <div class="project-owned-item" data-ds-anim data-ds-delay="2">UXR on-demand: 1:1 interviews, Maze tests, Optimal Workshop sessions, and Pendo in-app surveys and walkthroughs — triggered by behavioral signals, not scheduled sprints.</div>
+            <div class="project-owned-item" data-ds-anim data-ds-delay="3">Synthesize analytics + research using Copilot connected to EY's SharePoint source of truth, then deliver actionable design proposals via Figma Make with the design system already connected.</div>
+            <div class="project-owned-item" data-ds-anim data-ds-delay="4">When findings reveal bugs or critical friction — output prioritized tickets to product and development via ADO, with behavioral evidence attached.</div>
+            <div class="project-owned-item" data-ds-anim data-ds-delay="5">When design is needed, I'm part of that loop too — Figma proposals following the existing design system, auto layout, and component guidelines. Code-ready, behavioral evidence on every frame.</div>
+          </div>
           </div>
         </div>
         <!-- ── WHAT I DO — animated workflow ── -->
-        <div class="project-section" id="ey-workflow-section" data-anim>
+        <div class="project-section" id="ey-workflow-section" data-anim style="position:relative;overflow:hidden;">
+          <canvas data-mesh data-opacity="0.18" data-speed="0.3" data-accent="rgba(200,168,75,0.08)" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true"></canvas>
+          <div style="position:relative;z-index:1;">
           <div class="project-section-label" style="margin-bottom:var(--space-8);">What I do</div>
           <h2 class="project-section-title" style="max-width:640px;margin-bottom:var(--space-8);">See each layer of the workflow in action</h2>
           <p class="project-body-text" style="max-width:580px;margin-bottom:var(--space-32);">One loop, no handoffs — from behavioral signal to shipped improvement. Click any step or use arrows to explore.</p>
@@ -860,11 +865,11 @@
           <div class="eyw-wrap" id="eyw-wrap">
             <!-- Left sidebar -->
             <div class="eyw-sidebar" role="tablist" aria-label="Workflow steps">
-              <button class="eyw-step eyw-step--active" role="tab" aria-selected="true" aria-controls="eyw-p0" onclick="eywShow(0)"><span class="eyw-n">01</span><span class="eyw-l">Instrument</span><span class="eyw-dot" style="background:#818cf8"></span></button>
-              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p1" onclick="eywShow(1)"><span class="eyw-n">02</span><span class="eyw-l">Understand</span><span class="eyw-dot" style="background:#c8a84b"></span></button>
-              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p2" onclick="eywShow(2)"><span class="eyw-n">03</span><span class="eyw-l">Synthesize</span><span class="eyw-dot" style="background:#38bdf8"></span></button>
-              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p3" onclick="eywShow(3)"><span class="eyw-n">04</span><span class="eyw-l">Act</span><span class="eyw-dot" style="background:#22c55e"></span></button>
-              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p4" onclick="eywShow(4)"><span class="eyw-n">05</span><span class="eyw-l">Measure</span><span class="eyw-dot" style="background:#c8a84b"></span></button>
+              <button class="eyw-step eyw-step--active" role="tab" aria-selected="true" aria-controls="eyw-p0" onclick="eywShow(0)" data-click-sound="tap"><span class="eyw-n">01</span><span class="eyw-l">Instrument</span><span class="eyw-dot" style="background:#818cf8"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p1" onclick="eywShow(1)" data-click-sound="tap"><span class="eyw-n">02</span><span class="eyw-l">Understand</span><span class="eyw-dot" style="background:#c8a84b"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p2" onclick="eywShow(2)" data-click-sound="tap"><span class="eyw-n">03</span><span class="eyw-l">Synthesize</span><span class="eyw-dot" style="background:#38bdf8"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p3" onclick="eywShow(3)" data-click-sound="tap"><span class="eyw-n">04</span><span class="eyw-l">Act</span><span class="eyw-dot" style="background:#22c55e"></span></button>
+              <button class="eyw-step" role="tab" aria-selected="false" aria-controls="eyw-p4" onclick="eywShow(4)" data-click-sound="tap"><span class="eyw-n">05</span><span class="eyw-l">Measure</span><span class="eyw-dot" style="background:#c8a84b"></span></button>
             </div>
 
             <!-- Panels -->
@@ -873,7 +878,7 @@
               <!-- Panel 01 Instrument -->
               <div class="eyw-panel eyw-panel--active" id="eyw-p0" role="tabpanel">
                 <div class="eyw-panel-grid">
-                  <div class="eyw-panel-text">
+                  <div class="eyw-panel-text" data-ds-anim>
                     <div class="eyw-eyebrow" style="color:#818cf8">01 · Instrument</div>
                     <h3 class="eyw-title">Tag every meaningful interaction</h3>
                     <p class="eyw-body">Before any analytics exist, someone has to define the events. I coordinate with UI and engineers to name events consistently and map them to user stories — across 90+ marketplace assets.</p>
@@ -883,7 +888,7 @@
                       <li>Pendo guides triggered by behavioral signals</li>
                       <li>Session replay on high-drop-off flows</li>
                     </ul>
-                    <div class="eyw-metric" style="border-color:#818cf820;background:#818cf808"><span class="eyw-metric-val" style="color:#818cf8">90+</span><span class="eyw-metric-label">assets instrumented</span></div>
+                    <div class="eyw-metric icon-3d" data-glow="ey" style="border-color:#818cf820;background:#818cf808"><span class="eyw-metric-val" style="color:#818cf8">90+</span><span class="eyw-metric-label">assets instrumented</span></div>
                   </div>
                   <div class="eyw-panel-vis" id="eyw-vis0">
                     <div class="eyw-vis-label">Live · Instrument</div>
@@ -902,7 +907,7 @@
               <!-- Panel 02 Understand -->
               <div class="eyw-panel" id="eyw-p1" role="tabpanel" hidden>
                 <div class="eyw-panel-grid">
-                  <div class="eyw-panel-text">
+                  <div class="eyw-panel-text" data-ds-anim>
                     <div class="eyw-eyebrow" style="color:#c8a84b">02 · Understand</div>
                     <h3 class="eyw-title">Research when the signal says so</h3>
                     <p class="eyw-body">Behavioral signals trigger the right research method at the right moment — no scheduled sprints. Each method deploys when data shows a pattern worth investigating.</p>
@@ -912,7 +917,7 @@
                       <li>Optimal Workshop for IA findability</li>
                       <li>In-app Pendo surveys post-checkout</li>
                     </ul>
-                    <div class="eyw-metric" style="border-color:#c8a84b20;background:#c8a84b08"><span class="eyw-metric-val" style="color:#c8a84b">4×</span><span class="eyw-metric-label">methods in rotation</span></div>
+                    <div class="eyw-metric icon-3d" data-glow="ey" style="border-color:#c8a84b20;background:#c8a84b08"><span class="eyw-metric-val" style="color:#c8a84b">4×</span><span class="eyw-metric-label">methods in rotation</span></div>
                   </div>
                   <div class="eyw-panel-vis" id="eyw-vis1">
                     <div class="eyw-vis-label">Live · Understand</div>
@@ -939,7 +944,7 @@
               <!-- Panel 03 Synthesize -->
               <div class="eyw-panel" id="eyw-p2" role="tabpanel" hidden>
                 <div class="eyw-panel-grid">
-                  <div class="eyw-panel-text">
+                  <div class="eyw-panel-text" data-ds-anim>
                     <div class="eyw-eyebrow" style="color:#38bdf8">03 · Synthesize</div>
                     <h3 class="eyw-title">AI reads the files. I read the AI.</h3>
                     <p class="eyw-body">Copilot reads SharePoint via MCP directly — no uploads needed. It clusters findings, I supervise and validate. Every insight gets a behavioral evidence trail before it becomes an action.</p>
@@ -949,7 +954,7 @@
                       <li>I validate and prioritize every output</li>
                       <li>Figma Make delivers DS-connected proposals</li>
                     </ul>
-                    <div class="eyw-metric" style="border-color:#38bdf820;background:#38bdf808"><span class="eyw-metric-val" style="color:#38bdf8">∞</span><span class="eyw-metric-label">source files read</span></div>
+                    <div class="eyw-metric icon-3d" data-glow="ey" style="border-color:#38bdf820;background:#38bdf808"><span class="eyw-metric-val" style="color:#38bdf8">∞</span><span class="eyw-metric-label">source files read</span></div>
                   </div>
                   <div class="eyw-panel-vis" id="eyw-vis2">
                     <div class="eyw-vis-label">Live · Synthesize</div>
@@ -969,7 +974,7 @@
               <!-- Panel 04 Act -->
               <div class="eyw-panel" id="eyw-p3" role="tabpanel" hidden>
                 <div class="eyw-panel-grid">
-                  <div class="eyw-panel-text">
+                  <div class="eyw-panel-text" data-ds-anim>
                     <div class="eyw-eyebrow" style="color:#22c55e">04 · Act</div>
                     <h3 class="eyw-title">Three paths. Zero lost findings.</h3>
                     <p class="eyw-body">Every insight becomes an action. Design proposal, dev ticket, or research brief — with behavioral evidence attached. Nothing gets lost between research and shipping.</p>
@@ -979,7 +984,7 @@
                       <li>Research briefs for the next sprint</li>
                       <li>Figma Make prototypes for rapid validation</li>
                     </ul>
-                    <div class="eyw-metric" style="border-color:#22c55e20;background:#22c55e08"><span class="eyw-metric-val" style="color:#22c55e">3×</span><span class="eyw-metric-label">output types</span></div>
+                    <div class="eyw-metric icon-3d" data-glow="ey" style="border-color:#22c55e20;background:#22c55e08"><span class="eyw-metric-val" style="color:#22c55e">3×</span><span class="eyw-metric-label">output types</span></div>
                   </div>
                   <div class="eyw-panel-vis" id="eyw-vis3">
                     <div class="eyw-vis-label">Live · Act</div>
@@ -998,7 +1003,7 @@
               <!-- Panel 05 Measure -->
               <div class="eyw-panel" id="eyw-p4" role="tabpanel" hidden>
                 <div class="eyw-panel-grid">
-                  <div class="eyw-panel-text">
+                  <div class="eyw-panel-text" data-ds-anim>
                     <div class="eyw-eyebrow" style="color:#c8a84b">05 · Measure</div>
                     <h3 class="eyw-title">Every change has a verdict.</h3>
                     <p class="eyw-body">Post-change, the same Pendo funnels that surfaced the problem confirm whether the fix worked. The loop closes — and opens again with the next signal.</p>
@@ -1008,7 +1013,7 @@
                       <li>Guide completion rates after walkthroughs</li>
                       <li>NPS trend after UX improvements</li>
                     </ul>
-                    <div class="eyw-metric" style="border-color:#c8a84b20;background:#c8a84b08"><span class="eyw-metric-val" style="color:#c8a84b">↩</span><span class="eyw-metric-label">loop closed</span></div>
+                    <div class="eyw-metric icon-3d" data-glow="ey" style="border-color:#c8a84b20;background:#c8a84b08"><span class="eyw-metric-val" style="color:#c8a84b">↩</span><span class="eyw-metric-label">loop closed</span></div>
                   </div>
                   <div class="eyw-panel-vis" id="eyw-vis4">
                     <div class="eyw-vis-label">Post-intervention · config step</div>
@@ -1025,6 +1030,7 @@
             <button class="eyw-arrow" id="eyw-prev" onclick="eywMove(-1)" aria-label="Previous step">←</button>
             <div class="eyw-dots" id="eyw-dots"></div>
             <button class="eyw-arrow" id="eyw-next" onclick="eywMove(1)" aria-label="Next step">→</button>
+          </div>
           </div>
         </div><!-- /ey-workflow-section -->
 
