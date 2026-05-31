@@ -234,11 +234,11 @@
 
           <!-- Tab pills -->
           <div class="bc-tabs" role="tablist">
-            <button class="bc-tab bc-tab--active" onclick="bcShow(0)" role="tab" aria-selected="true"  aria-controls="bc-p0">01 · Space</button>
-            <button class="bc-tab"                onclick="bcShow(1)" role="tab" aria-selected="false" aria-controls="bc-p1">02 · Add POI</button>
-            <button class="bc-tab"                onclick="bcShow(2)" role="tab" aria-selected="false" aria-controls="bc-p2">03 · Set Pin</button>
-            <button class="bc-tab"                onclick="bcShow(3)" role="tab" aria-selected="false" aria-controls="bc-p3">04 · Result</button>
-            <button class="bc-tab"                onclick="bcShow(4)" role="tab" aria-selected="false" aria-controls="bc-p4">05 · Visitor</button>
+            <button class="bc-tab bc-tab--active" onclick="bcShow(0)" role="tab" aria-selected="true"  aria-controls="bc-p0" data-click-sound="tap">01 · Space</button>
+            <button class="bc-tab"                onclick="bcShow(1)" role="tab" aria-selected="false" aria-controls="bc-p1" data-click-sound="tap">02 · Add POI</button>
+            <button class="bc-tab"                onclick="bcShow(2)" role="tab" aria-selected="false" aria-controls="bc-p2" data-click-sound="tap">03 · Set Pin</button>
+            <button class="bc-tab"                onclick="bcShow(3)" role="tab" aria-selected="false" aria-controls="bc-p3" data-click-sound="tap">04 · Result</button>
+            <button class="bc-tab"                onclick="bcShow(4)" role="tab" aria-selected="false" aria-controls="bc-p4" data-click-sound="tap">05 · Visitor</button>
           </div>
 
           <!-- Arrow nav -->
@@ -268,32 +268,56 @@
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">Space · Owner</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Space with map (Owner).png" alt="Space owner view" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Space with map (Owner).png" alt="Space owner view" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">Initial scroll</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Inital scrolling position.png" alt="Initial scrolling position" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Inital scrolling position.png" alt="Initial scrolling position" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="bc-annotations">
                 <div class="bc-section-eyebrow">Design context</div>
-                <div class="bc-annotation">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+                <div class="bc-annotation" data-ds-anim>
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
                   <div><div class="bc-ann-title">3D Tilted Map</div><div class="bc-ann-body">The owner sees a perspective-tilted map — spatial depth communicates ownership. Benchmarked from spatial computing and gaming interfaces.</div></div>
                 </div>
-                <div class="bc-annotation">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="12" width="4" height="8" rx="1"/><rect x="9.5" y="7" width="4" height="13" rx="1"/><rect x="16" y="3" width="4" height="17" rx="1"/></svg></div>
+                <div class="bc-annotation" data-ds-anim>
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="12" width="4" height="8" rx="1"/><rect x="9.5" y="7" width="4" height="13" rx="1"/><rect x="16" y="3" width="4" height="17" rx="1"/></svg></div>
                   <div><div class="bc-ann-title">Space dashboard</div><div class="bc-ann-body">POI count, followers, and active routes surfaced in a bottom sheet without leaving the map context.</div></div>
                 </div>
-                <div class="bc-annotation">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 3h6v7l3 9H6l3-9V3z"/><path d="M9 10h6"/></svg></div>
+                <div class="bc-annotation" data-ds-anim>
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 3h6v7l3 9H6l3-9V3z"/><path d="M9 10h6"/></svg></div>
                   <div><div class="bc-ann-title">User test finding</div><div class="bc-ann-body">Tilted 3D view increased perceived ownership vs flat map. Users described it as "my space" more often in post-test interviews.</div></div>
                 </div>
               </div>
@@ -308,17 +332,41 @@
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">Search</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Add POI - Map view - Search.png" alt="Search for location" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Add POI - Map view - Search.png" alt="Search for location" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">Confirm</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Add POI - Map view - Place's info sheet (basic).png" alt="Place info sheet" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Add POI - Map view - Place's info sheet (basic).png" alt="Place info sheet" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -337,12 +385,12 @@
                   </div>
                   <div class="bc-search-confirm" id="bc-search-confirm" style="display:none;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Pin dropped · Central Park NY</div>
                 </div>
-                <div class="bc-annotation">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                <div class="bc-annotation" data-ds-anim>
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
                   <div><div class="bc-ann-title">Search-first decision</div><div class="bc-ann-body">Users expected to search, not tap on a 3D map. Benchmarking revealed this pattern from Google Maps, Apple Maps, and Foursquare.</div></div>
                 </div>
-                <div class="bc-annotation">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 3h6v7l3 9H6l3-9V3z"/><path d="M9 10h6"/></svg></div>
+                <div class="bc-annotation" data-ds-anim>
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 3h6v7l3 9H6l3-9V3z"/><path d="M9 10h6"/></svg></div>
                   <div><div class="bc-ann-title">40% faster</div><div class="bc-ann-body">Search-first flow reduced task completion time vs manual map tap in client-led user testing sessions.</div></div>
                 </div>
               </div>
@@ -358,9 +406,21 @@
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">Icon</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Set map pin - Options - Icon.png" alt="Set map pin icon" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Set map pin - Options - Icon.png" alt="Set map pin icon" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="bc-pin-desc">Custom icon + color picker</div>
@@ -370,9 +430,21 @@
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">Image</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Set map pin - Select image - OK.png" alt="Set map pin image" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Set map pin - Select image - OK.png" alt="Set map pin image" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="bc-pin-desc">Photo from camera roll</div>
@@ -382,9 +454,21 @@
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">3D Asset</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Set map pin - Select 3D asset - OK.png" alt="Set map pin 3D asset" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Set map pin - Select 3D asset - OK.png" alt="Set map pin 3D asset" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="bc-pin-desc bc-pin-desc--accent">From 3D object library</div>
@@ -408,28 +492,52 @@
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">3D Asset on map</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Map view - POI edited - 3D asset.png" alt="POI with 3D asset on map" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Map view - POI edited - 3D asset.png" alt="POI with 3D asset on map" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">POI list</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Map view - Multiple POI - List enlarged.png" alt="Multiple POIs list" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Map view - Multiple POI - List enlarged.png" alt="Multiple POIs list" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="bc-annotations">
                 <div class="bc-section-eyebrow">Spatial result</div>
-                <div class="bc-annotation">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                <div class="bc-annotation" data-ds-anim>
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="1.5" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                   <div><div class="bc-ann-title">Toast confirmation</div><div class="bc-ann-body">Closes the "did it save?" loop. Users in testing repeatedly tapped Save because there was no feedback without it.</div></div>
                 </div>
-                <div class="bc-annotation">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/><path d="M9 12h6M9 16h4"/></svg></div>
+                <div class="bc-annotation" data-ds-anim>
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/><path d="M9 12h6M9 16h4"/></svg></div>
                   <div><div class="bc-ann-title">List view</div><div class="bc-ann-body">When POIs overlap at zoom level, a drawer lists all items. Draggable to reorder — owner controls visitor discovery sequence.</div></div>
                 </div>
               </div>
@@ -444,17 +552,41 @@
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">POI · Visitor</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../POI selected - Content tab [VISITOR].png" alt="Visitor POI view" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../POI selected - Content tab [VISITOR].png" alt="Visitor POI view" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="bc-phone-wrap">
                   <div class="bc-phone-label">Universal Feed</div>
                   <div class="bc-phone">
-                    <div class="bc-phone-bar"></div>
-                    <img src="../Visitor - UNIVERSAL FEED info sheet (Feeds).png" alt="Universal feed" class="bc-phone-img">
-                    <div class="bc-phone-home"></div>
+                    <div class="bc-phone-btn-r"></div>
+                    <div class="bc-phone-shell">
+                      <div class="bc-phone-shell-inner">
+                        <div class="bc-phone-sb">
+                          <div class="bc-phone-di"></div>
+                          <span class="bc-phone-sb-time">9:41</span>
+                          <div class="bc-phone-sb-icons">
+                            <svg width="10" height="7" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                            <svg width="13" height="7" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="14" height="7" rx="1.5" fill="white"/></svg>
+                          </div>
+                        </div>
+                        <img src="../Visitor - UNIVERSAL FEED info sheet (Feeds).png" alt="Universal feed" class="bc-phone-img">
+                        <div class="bc-phone-home"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -477,8 +609,8 @@
                     <span class="bc-feed-arrow">›</span>
                   </div>
                 </div>
-                <div class="bc-annotation" style="margin-top:8px">
-                  <div class="bc-ann-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
+                <div class="bc-annotation" data-ds-anim style="margin-top:8px">
+                  <div class="bc-ann-icon icon-3d" data-glow="blockchain"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
                   <div><div class="bc-ann-title">Universal Feed</div><div class="bc-ann-body">Visitors can follow POIs across different Spaces. One feed aggregates all subscriptions — cross-space discovery was a key insight from user interviews.</div></div>
                 </div>
               </div>
@@ -488,6 +620,95 @@
 
         </div><!-- /.bc-flow-wrap -->
 
+        <!-- ══ INTERACTIVE PROTOTYPE ══ -->
+        <div class="project-section" data-anim id="bc-proto-section" style="position:relative;overflow:hidden;">
+          <canvas data-mesh data-opacity="0.2" data-speed="0.3" data-accent="rgba(74,163,212,0.1)" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true"></canvas>
+          <div style="position:relative;z-index:1;">
+            <div class="project-section-label">Interactive Prototype</div>
+            <h2 class="project-section-title">Try the 3D Platform Flows</h2>
+            <p class="project-body-text" style="margin-bottom:var(--space-32);">An interactive walkthrough of the five core flows — from Space ownership to Visitor experience. The desktop cursor reflects the web app context.</p>
+
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--space-32);align-items:start;" id="bc-proto-grid">
+
+              <!-- Phone mockup -->
+              <div style="position:relative;flex-shrink:0;" id="bc-proto-wrap">
+                <!-- TRY ME badge -->
+                <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:5px;padding:4px 12px;background:#4aa3d4;border-radius:100px;box-shadow:0 4px 14px rgba(74,163,212,0.35);white-space:nowrap;animation:dsPopIn 600ms cubic-bezier(0.34,1.56,0.64,1) both;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="white" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span style="font-size:0.62rem;font-weight:700;color:white;letter-spacing:.06em;">TRY ME</span>
+                </div>
+                <div style="position:relative;width:200px;">
+                  <!-- Clay shell -->
+                  <div style="position:absolute;left:-3px;top:72px;width:3px;height:20px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;"></div>
+                  <div style="position:absolute;left:-3px;top:98px;width:3px;height:32px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;"></div>
+                  <div style="position:absolute;right:-3px;top:86px;width:3px;height:42px;background:linear-gradient(to left,#111,#2a2a2a);border-radius:0 3px 3px 0;"></div>
+                  <div style="width:200px;background:linear-gradient(160deg,#2a2a2a 0%,#1c1c1c 50%,#111 100%);border-radius:36px;padding:3px;box-shadow:0 24px 50px rgba(0,0,0,0.5),0 0 40px rgba(74,163,212,0.15),inset 0 1.5px 0 rgba(255,255,255,0.09);position:relative;">
+                    <div style="position:absolute;inset:0;border-radius:36px;background:linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%);pointer-events:none;z-index:10;"></div>
+                    <div style="background:#0a0f1a;border-radius:33px;overflow:hidden;">
+                      <!-- Status bar -->
+                      <div style="height:38px;background:#000;display:flex;align-items:flex-end;justify-content:space-between;padding:0 16px 6px;position:relative;flex-shrink:0;">
+                        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#000;border-radius:100px;z-index:2;display:flex;align-items:center;justify-content:center;gap:7px;">
+                          <div style="width:5px;height:5px;border-radius:50%;background:#1a1a1a;"></div>
+                          <div style="width:9px;height:9px;border-radius:50%;background:#1a1a1a;border:1.5px solid #111;"></div>
+                        </div>
+                        <span style="font-size:10px;font-weight:600;color:#fff;font-family:-apple-system,sans-serif;position:relative;z-index:3;line-height:1;">9:41</span>
+                        <div style="display:flex;gap:4px;align-items:center;position:relative;z-index:3;">
+                          <svg width="14" height="10" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                          <svg width="20" height="10" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><rect x="2" y="2.5" width="16" height="7" rx="1.5" fill="white"/></svg>
+                        </div>
+                      </div>
+                      <!-- App nav bar -->
+                      <div style="height:36px;background:#111827;display:flex;align-items:center;padding:0 12px;gap:8px;border-bottom:1px solid rgba(74,163,212,0.15);">
+                        <button id="bc-proto-back" onclick="bcProtoBack()" style="background:transparent;border:none;color:rgba(255,255,255,0.6);font-size:16px;padding:0;cursor:pointer;display:none;">←</button>
+                        <span id="bc-proto-nav-title" style="font-size:11px;font-weight:600;color:#fff;flex:1;">MEGATON OUTDOOR ROUTINE</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                      </div>
+                      <!-- Screen body -->
+                      <div id="bc-proto-body" style="min-height:380px;overflow:hidden;transition:opacity 250ms ease;"></div>
+                      <!-- Home bar -->
+                      <div style="height:18px;background:#0a0f1a;display:flex;align-items:center;justify-content:center;">
+                        <div style="width:60px;height:3.5px;border-radius:2px;background:rgba(255,255,255,0.2);"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Desktop cursor (web app context) -->
+                  <div id="bc-proto-cur" class="desktop-cur">
+                    <div class="desktop-cur-arrow"></div>
+                    <div id="bc-proto-cur-label" class="desktop-cur-label"></div>
+                  </div>
+                  <!-- Ripple -->
+                  <div id="bc-proto-rpl" style="position:absolute;pointer-events:none;z-index:49;opacity:0;transform:translate(-50%,-50%);">
+                    <div id="bc-proto-rpl-ring" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(74,163,212,0.6);position:absolute;top:50%;left:50%;"></div>
+                  </div>
+                  <!-- Flash -->
+                  <div id="bc-proto-flash" style="position:absolute;inset:0;background:rgba(74,163,212,0.06);opacity:0;pointer-events:none;z-index:48;border-radius:36px;transition:opacity 100ms ease;"></div>
+                </div>
+              </div>
+
+              <!-- Right panel -->
+              <div>
+                <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:8px;">Select a flow</div>
+                <div id="bc-proto-flows" style="display:flex;flex-direction:column;gap:5px;margin-bottom:var(--space-24);"></div>
+                <div id="bc-proto-step-info" style="padding:14px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-left:3px solid #4aa3d4;border-radius:0 10px 10px 0;margin-bottom:var(--space-16);">
+                  <div id="bc-proto-step-tag" style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:4px;"></div>
+                  <div id="bc-proto-step-title" style="font-size:0.88rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;line-height:1.3;"></div>
+                  <div id="bc-proto-step-desc" style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;"></div>
+                </div>
+                <div id="bc-proto-steps-row" style="display:flex;gap:4px;align-items:center;margin-bottom:var(--space-16);flex-wrap:wrap;"></div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button onclick="bcProtoBack()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);" data-click-sound="click">← Back</button>
+                  <button onclick="bcProtoReset()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);" data-click-sound="click">↺ Reset</button>
+                  <button onclick="bcProtoAutoPlay()" id="bc-proto-play-btn" style="padding:5px 14px;border-radius:100px;background:rgba(74,163,212,0.12);border:1px solid #4aa3d4;color:#4aa3d4;font-size:0.68rem;cursor:pointer;font-family:var(--font-display);" data-click-sound="tap">▶ Auto-play</button>
+                </div>
+                <div style="margin-top:var(--space-16);height:2px;background:var(--border-subtle);border-radius:1px;overflow:hidden;">
+                  <div id="bc-proto-progress" style="height:100%;width:0%;background:#4aa3d4;border-radius:1px;transition:none;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ PREV / NEXT ══ -->
         <div class="project-nav" data-anim>
           <a href="ey-fabric.html" class="project-nav-card">
             <div class="project-nav-card-label">← Previous</div>
@@ -579,6 +800,391 @@
     if(window.THREE){initHero3D();}else{document.querySelector('script[src*="three"]').addEventListener('load',initHero3D);}
   })();
   </script>
+  <style>
+  @keyframes bcRpl{0%{transform:translate(-50%,-50%) scale(0.2);opacity:0.8}100%{transform:translate(-50%,-50%) scale(2.5);opacity:0}}
+  </style>
+  <script>
+  /* ══ BLOCKCHAIN INTERACTIVE PROTOTYPE ══ */
+  (function(){
+    var ACCENT='#4aa3d4';
+    var FLOWS=[
+      {
+        id:'space',label:'Space — Owner View',tag:'Flow 1',
+        desc:'The owner sees a 3D tilted map of their Space. POIs float above the map with labels. Spatial depth communicates ownership better than a flat view.',
+        steps:[{
+          nav:'MEGATON OUTDOOR ROUTINE',back:false,
+          tag:'Step 1 — Space Hub',title:'3D Space Owner View',
+          desc:'Tilted isometric map with floating POIs. Owner Dashboard in bottom sheet.',
+          cursor:{x:'55%',y:'45%'},tip:'Tap a POI to open it',
+          build:function(el){
+            el.style.background='#0a0f1a';
+            el.innerHTML=
+              '<div style="position:relative;height:220px;background:linear-gradient(180deg,#0d1929 0%,#111f35 100%);overflow:hidden;">'+
+                '<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(74,163,212,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(74,163,212,0.04) 1px,transparent 1px);background-size:24px 24px;transform:perspective(300px) rotateX(35deg) translateY(-20px);transform-origin:bottom center;"></div>'+
+                '<div style="position:absolute;top:30%;left:42%;transform:translate(-50%,-50%);">'+
+                  '<div style="width:8px;height:20px;background:'+ACCENT+';border-radius:50% 50% 0 0 / 60% 60% 0 0;margin:0 auto;"></div>'+
+                  '<div style="width:10px;height:10px;border-radius:50%;background:'+ACCENT+';margin:-5px auto 0;box-shadow:0 0 8px rgba(74,163,212,0.6);animation:dsPulse 1.5s ease-in-out infinite;"></div>'+
+                  '<div style="background:rgba(0,0,0,0.7);border:1px solid rgba(74,163,212,0.4);border-radius:4px;padding:2px 5px;font-size:7px;color:#fff;white-space:nowrap;margin-top:3px;text-align:center;">Workout Circuit · Yoga</div>'+
+                '</div>'+
+                '<div style="position:absolute;top:55%;left:65%;transform:translate(-50%,-50%);">'+
+                  '<div style="width:8px;height:20px;background:#e05c4a;border-radius:50% 50% 0 0 / 60% 60% 0 0;margin:0 auto;"></div>'+
+                  '<div style="width:10px;height:10px;border-radius:50%;background:#e05c4a;margin:-5px auto 0;"></div>'+
+                  '<div style="background:rgba(0,0,0,0.7);border:1px solid rgba(224,92,74,0.4);border-radius:4px;padding:2px 5px;font-size:7px;color:#fff;white-space:nowrap;margin-top:3px;text-align:center;">Fav Yoga Spot</div>'+
+                '</div>'+
+                '<div style="position:absolute;top:45%;left:22%;transform:translate(-50%,-50%);">'+
+                  '<div style="width:8px;height:20px;background:#f4c842;border-radius:50% 50% 0 0 / 60% 60% 0 0;margin:0 auto;"></div>'+
+                  '<div style="width:10px;height:10px;border-radius:50%;background:#f4c842;margin:-5px auto 0;"></div>'+
+                  '<div style="background:rgba(0,0,0,0.7);border:1px solid rgba(244,200,66,0.4);border-radius:4px;padding:2px 5px;font-size:7px;color:#fff;white-space:nowrap;margin-top:3px;text-align:center;">Meeting Point</div>'+
+                '</div>'+
+                '<div style="position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;">'+
+                  ['<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
+                   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>',
+                   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>'
+                  ].map(function(ic){return '<div style="width:28px;height:28px;border-radius:7px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;">'+ic+'</div>';}).join('')+
+                '</div>'+
+                '<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:.06em;white-space:nowrap;">MEGATON OUTDOOR ROUTINE</div>'+
+              '</div>'+
+              '<div style="background:#111827;padding:10px 12px;border-top:1px solid rgba(74,163,212,0.15);">'+
+                '<div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:3px;">MEGATON OUTDOOR ROUTINE</div>'+
+                '<div style="font-size:8.5px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:5px;margin-bottom:8px;">'+
+                  '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+                  '800 W Olympic Blvd, Los Angeles, CA 90015'+
+                '</div>'+
+                '<div style="height:30px;background:'+ACCENT+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="bcProtoGoStep(\'addpoi\',0)">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Add Point of Interest</span>'+
+                '</div>'+
+              '</div>';
+          }
+        }]
+      },
+      {
+        id:'addpoi',label:'Add POI Flow',tag:'Flow 2',
+        desc:'Search-first approach — benchmarked from Google Maps, Apple Maps, Foursquare. Users expect to search, not tap on a 3D map. 40% faster task completion.',
+        steps:[
+          {
+            nav:'Add Point of Interest',back:true,
+            tag:'Step 1 — Search',title:'Search-First POI Creation',
+            desc:'User types location name. Autocomplete surfaces results instantly. Map updates in real-time.',
+            cursor:{x:'50%',y:'22%'},tip:'Type to search locations',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              el.innerHTML=
+                '<div style="padding:10px;">'+
+                  '<div style="height:34px;background:rgba(255,255,255,0.06);border:1px solid rgba(74,163,212,0.4);border-radius:8px;display:flex;align-items:center;padding:0 10px;gap:7px;margin-bottom:8px;">'+
+                    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>'+
+                    '<span style="font-size:9px;color:#fff;font-family:var(--font-mono);">City</span>'+
+                    '<span style="width:1.5px;height:12px;background:'+ACCENT+';animation:dsPulse 1s ease-in-out infinite;display:inline-block;"></span>'+
+                  '</div>'+
+                  ['City Hall South · 1st Street, Los Angeles, CA',
+                   'City of Industry · CA, USA',
+                   'Los Angeles City Hall · North Spring Street'].map(function(r,i){
+                    return '<div style="padding:8px 10px;border-radius:6px;background:'+(i===2?'rgba(74,163,212,0.1)':'transparent')+';border:'+(i===2?'1px solid rgba(74,163,212,0.3)':'1px solid transparent')+';display:flex;align-items:center;gap:7px;margin-bottom:2px;cursor:pointer;">'+
+                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+                      '<span style="font-size:8.5px;color:'+(i===2?'#fff':'rgba(255,255,255,0.6)')+';">'+r+'</span>'+
+                    '</div>';
+                  }).join('')+
+                '</div>'+
+                '<div style="margin:0 10px;height:110px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;">'+
+                  '<span style="font-size:8px;color:rgba(255,255,255,0.25);">Map updating…</span>'+
+                '</div>';
+            }
+          },
+          {
+            nav:'Add Point of Interest',back:true,
+            tag:'Step 2 — Confirm',title:'Location Confirmed',
+            desc:'Selected location shows on map. "Add Point of Interest" CTA appears anchored to bottom.',
+            cursor:{x:'50%',y:'78%'},tip:'Add this location as a POI',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              el.innerHTML=
+                '<div style="position:relative;height:220px;background:linear-gradient(180deg,#0d1929,#111f35);overflow:hidden;">'+
+                  '<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(74,163,212,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(74,163,212,0.04) 1px,transparent 1px);background-size:24px 24px;transform:perspective(300px) rotateX(35deg) translateY(-20px);transform-origin:bottom center;"></div>'+
+                  '<div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);">'+
+                    '<div style="width:10px;height:26px;background:'+ACCENT+';border-radius:50% 50% 0 0 / 60% 60% 0 0;margin:0 auto;box-shadow:0 0 12px rgba(74,163,212,0.6);"></div>'+
+                    '<div style="width:12px;height:12px;border-radius:50%;background:'+ACCENT+';margin:-6px auto 0;"></div>'+
+                  '</div>'+
+                  '<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:.06em;white-space:nowrap;background:rgba(0,0,0,0.5);padding:3px 8px;border-radius:4px;">City Hall</div>'+
+                '</div>'+
+                '<div style="background:#111827;padding:10px 12px;border-top:1px solid rgba(74,163,212,0.15);">'+
+                  '<div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;">HUNTINGTON BEACH CENTRAL PARK</div>'+
+                  '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:8px;display:flex;align-items:center;gap:4px;">'+
+                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+                    '18002 Goldenwest St, Huntington Beach, CA 92647'+
+                  '</div>'+
+                  '<div style="height:30px;background:'+ACCENT+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;">'+
+                    '<span style="font-size:9px;font-weight:600;color:#fff;">Add Point of Interest</span>'+
+                  '</div>'+
+                '</div>';
+            }
+          }
+        ]
+      },
+      {
+        id:'setpin',label:'Set Pin — 3 Levels',tag:'Flow 3',
+        desc:'Progressive disclosure: Icon → Image → 3D Asset. Each level matches user intent and spatial literacy. Design decision validated in client-led testing.',
+        steps:[
+          {
+            nav:'Set Map Pin',back:true,
+            tag:'Step 1 — Choose type',title:'Pin Type Selection',
+            desc:'3 options with progressive spatial richness. Icon for speed, image for personalization, 3D asset for full immersion.',
+            cursor:{x:'50%',y:'55%'},tip:'Select 3D Asset for full immersion',
+            build:function(el){
+              el.style.background='#1a1a1a';
+              el.innerHTML=
+                '<div style="padding:12px;">'+
+                  '<p style="font-size:9px;color:rgba(255,255,255,0.6);margin-bottom:12px;line-height:1.5;">Select how you want this point of interest to look on the map</p>'+
+                  [
+                    {label:'Icon',desc:'Pick a custom icon',sel:true,ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'},
+                    {label:'Image',desc:'Pick a photo',sel:false,ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'},
+                    {label:'3D Asset',desc:'Pick a 3D object',sel:false,ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>'},
+                  ].map(function(o){
+                    return '<div style="display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:8px;background:'+(o.sel?'rgba(74,163,212,0.08)':'transparent')+';border:'+(o.sel?'1px solid rgba(74,163,212,0.3)':'1px solid rgba(255,255,255,0.06)')+';margin-bottom:6px;cursor:pointer;">'+
+                      '<div style="width:20px;height:20px;border-radius:50%;border:2px solid '+(o.sel?ACCENT:'rgba(255,255,255,0.2)')+';background:'+(o.sel?ACCENT:'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                        (o.sel?'<div style="width:6px;height:6px;border-radius:50%;background:#fff;"></div>':'')+
+                      '</div>'+
+                      o.ic+
+                      '<div><div style="font-size:10px;font-weight:600;color:#fff;">'+o.label+'</div><div style="font-size:8px;color:rgba(255,255,255,0.45);">'+o.desc+'</div></div>'+
+                    '</div>';
+                  }).join('')+
+                  '<div style="margin-top:8px;height:30px;background:'+ACCENT+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;">'+
+                    '<span style="font-size:9px;font-weight:600;color:#fff;">Continue</span>'+
+                  '</div>'+
+                '</div>';
+            }
+          }
+        ]
+      },
+      {
+        id:'visitor',label:'Visitor Experience',tag:'Flow 4',
+        desc:'Visitors see POI content, feeds, and can navigate between points. Bottom sheet with tabs: Feed (content) and About (info).',
+        steps:[{
+          nav:'MY FAVORITE YOGA SPOT',back:true,
+          tag:'Step 1 — Visitor POI',title:'Visitor POI View',
+          desc:'Content-first experience. Feed tab shows posts and media. About tab shows location info. Navigation arrows between POIs.',
+          cursor:{x:'50%',y:'25%'},tip:'Scroll feed or tap About',
+          build:function(el){
+            el.style.background='#0a0f1a';
+            el.innerHTML=
+              '<div style="position:relative;height:140px;background:linear-gradient(135deg,#1a3a5c,#0d2a44);overflow:hidden;">'+
+                '<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(74,163,212,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(74,163,212,0.05) 1px,transparent 1px);background-size:20px 20px;transform:perspective(250px) rotateX(30deg) translateY(-15px);transform-origin:bottom center;"></div>'+
+                '<div style="position:absolute;top:35%;left:50%;transform:translate(-50%,-50%);">'+
+                  '<div style="width:8px;height:20px;background:#e05c4a;border-radius:50% 50% 0 0 / 60% 60% 0 0;margin:0 auto;"></div>'+
+                  '<div style="width:10px;height:10px;border-radius:50%;background:#e05c4a;margin:-5px auto 0;"></div>'+
+                '</div>'+
+                '<div style="position:absolute;top:60%;left:50%;transform:translate(-50%,-50%);background:rgba(10,15,26,0.85);border:1px solid rgba(224,92,74,0.3);border-radius:5px;padding:3px 8px;font-size:7.5px;font-weight:600;color:#fff;white-space:nowrap;">MY FAVORITE YOGA SPOT</div>'+
+                '<div style="position:absolute;top:10px;left:10px;display:flex;gap:6px;">'+
+                  '<div style="width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;">←</div>'+
+                  '<div style="width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;">→</div>'+
+                '</div>'+
+              '</div>'+
+              '<div style="background:#111827;padding:8px 12px 0;">'+
+                '<div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:2px;">MY FAVORITE YOGA SPOT</div>'+
+                '<div style="font-size:8px;color:rgba(255,255,255,0.5);margin-bottom:6px;line-height:1.4;">Check out this amazing place for practicing Yoga, alone or together…</div>'+
+                '<div style="display:flex;gap:16px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:0;">'+
+                  ['FEED','ABOUT'].map(function(t,i){return '<div style="font-size:9px;font-weight:700;color:'+(i===0?ACCENT:'rgba(255,255,255,0.35)')+';padding-bottom:6px;border-bottom:'+(i===0?'2px solid '+ACCENT:'2px solid transparent')+';cursor:pointer;">'+t+'</div>';}).join('')+
+                '</div>'+
+              '</div>'+
+              '<div style="background:#111827;padding:8px 12px;">'+
+                '<div style="background:linear-gradient(135deg,#1a3a5c,#0d5a8a);border-radius:8px;padding:12px;text-align:center;margin-bottom:6px;">'+
+                  '<div style="font-size:10px;font-weight:700;color:#fff;line-height:1.4;">Enjoy Nature and connect<br>with Life!</div>'+
+                '</div>'+
+                '<div style="font-size:8px;color:rgba(255,255,255,0.5);line-height:1.5;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod laoreet…</div>'+
+              '</div>';
+          }
+        }]
+      },
+      {
+        id:'feed',label:'Universal Feed',tag:'Flow 5',
+        desc:'The Feed aggregates content across all POIs in a Space. Subscribers see updates without opening individual POIs. Discovery-first design.',
+        steps:[{
+          nav:'CENTRAL PARK NY',back:true,
+          tag:'Step 1 — Feed',title:'Space Feed — Content Discovery',
+          desc:'Feed shows grouped content per POI. Each group has title, description, subscriber count. Tap to open the content.',
+          cursor:{x:'50%',y:'55%'},tip:'Tap a feed item to open',
+          build:function(el){
+            el.style.background='#0a0f1a';
+            el.innerHTML=
+              '<div style="position:relative;height:100px;background:linear-gradient(135deg,#1a3a5c,#0d2a44);overflow:hidden;">'+
+                '<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(74,163,212,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(74,163,212,0.05) 1px,transparent 1px);background-size:20px 20px;transform:perspective(200px) rotateX(28deg) translateY(-10px);transform-origin:bottom center;"></div>'+
+                '<div style="position:absolute;top:30%;left:48%;transform:translate(-50%,-50%);">'+
+                  '<div style="background:rgba(255,255,255,0.9);border-radius:4px;padding:3px 6px;font-size:6px;font-weight:700;color:#0a0f1a;white-space:nowrap;">CENTRAL PARK NY</div>'+
+                '</div>'+
+              '</div>'+
+              '<div style="background:#111827;padding:8px 12px 4px;">'+
+                '<div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:1px;">CENTRAL PARK NY</div>'+
+                '<div style="font-size:8px;color:rgba(255,255,255,0.5);margin-bottom:6px;">This is a great place to practice some Yoga &amp; stretching exercises.</div>'+
+                '<div style="display:flex;gap:16px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">'+
+                  ['Feed','About'].map(function(t,i){return '<div style="font-size:9px;font-weight:700;color:'+(i===0?ACCENT:'rgba(255,255,255,0.35)')+';padding-bottom:5px;border-bottom:'+(i===0?'2px solid '+ACCENT:'2px solid transparent')+';">'+t+'</div>';}).join('')+
+                '</div>'+
+                '<div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:2px;">YOGA IN THE PARK</div>'+
+                '<div style="font-size:7.5px;color:rgba(255,255,255,0.45);margin-bottom:8px;">Follow this yoga routine I prepared for you.</div>'+
+                [
+                  {title:'Warm up routine',subs:59,posts:10},
+                  {title:'Stretching routine',subs:37,posts:10},
+                  {title:'Cool down routine',subs:22,posts:8},
+                ].map(function(f){
+                  return '<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);">'+
+                    '<div style="width:36px;height:36px;border-radius:6px;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
+                      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(74,163,212,0.7)" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '</div>'+
+                    '<div style="flex:1;"><div style="font-size:9px;font-weight:600;color:#fff;">'+f.title+'</div>'+
+                    '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-top:1px;">'+
+                      '<span style="color:'+ACCENT+';font-weight:600;">POSTS </span><span style="color:rgba(255,255,255,0.5);">'+f.posts+'</span>  '+
+                      '<span style="color:'+ACCENT+';font-weight:600;">SUBS </span><span style="color:rgba(255,255,255,0.5);">'+f.subs+'</span>'+
+                    '</div></div>'+
+                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                  '</div>';
+                }).join('')+
+              '</div>';
+          }
+        }]
+      }
+    ];
+
+    /* ── State ── */
+    var cur=0,step=0,isAuto=false,autoInt=null,tids=[];
+    var DUR=5000;
+    var fIdx={};FLOWS.forEach(function(f){fIdx[f.id]=f;});
+
+    function pSch(fn,ms){var id=setTimeout(fn,ms);tids.push(id);}
+    function pClr(){tids.forEach(clearTimeout);tids=[];}
+
+    window.bcProtoGoStep=function(fid,si){
+      pClr();stopAuto();
+      var f=fIdx[fid];if(!f)return;
+      cur=FLOWS.indexOf(f);step=si||0;
+      render(true);
+    };
+
+    function render(animate){
+      var f=FLOWS[cur],s=f.steps[step];
+      var body=document.getElementById('bc-proto-body');
+      var navT=document.getElementById('bc-proto-nav-title');
+      var backB=document.getElementById('bc-proto-back');
+      var stepTag=document.getElementById('bc-proto-step-tag');
+      var stepTi=document.getElementById('bc-proto-step-title');
+      var stepDe=document.getElementById('bc-proto-step-desc');
+      if(navT) navT.textContent=s.nav;
+      if(backB) backB.style.display=s.back?'block':'none';
+      if(stepTag) stepTag.textContent=f.tag+' · '+s.tag;
+      if(stepTi) stepTi.textContent=s.title;
+      if(stepDe) stepDe.textContent=s.desc;
+      if(body){
+        if(animate){
+          var fl=document.getElementById('bc-proto-flash');
+          if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';},110);}
+          body.style.opacity='0';
+          setTimeout(function(){body.innerHTML='';s.build(body);body.style.opacity='1';},200);
+        } else {
+          body.innerHTML='';s.build(body);
+        }
+      }
+      renderFlows();renderDots();
+      if(!isAuto) pSch(function(){runCursor(s);},400);
+    }
+
+    function renderFlows(){
+      var list=document.getElementById('bc-proto-flows');if(!list)return;
+      list.innerHTML='';
+      FLOWS.forEach(function(f,i){
+        var b=document.createElement('button');
+        b.style.cssText='width:100%;display:flex;align-items:center;gap:10px;padding:8px 12px;background:'+(i===cur?'rgba(74,163,212,0.1)':'transparent')+';border:1px solid '+(i===cur?'rgba(74,163,212,0.3)':'rgba(255,255,255,0.06)')+';border-radius:8px;cursor:pointer;font-family:var(--font-display);text-align:left;transition:all 200ms ease;color:'+(i===cur?'#fff':'rgba(255,255,255,0.5)')+';font-size:0.72rem;font-weight:'+(i===cur?'600':'400')+';';
+        b.setAttribute('data-click-sound','tap');
+        b.innerHTML='<div style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:'+(i===cur?'#4aa3d4':'rgba(255,255,255,0.15)')+'"></div>'+
+          '<span style="flex:1;">'+f.label+'</span>'+
+          '<span style="font-size:0.58rem;color:rgba(255,255,255,0.3);font-family:var(--font-mono);">'+f.tag+'</span>';
+        b.onclick=(function(fi){return function(){window.bcProtoGoStep(FLOWS[fi].id,0);};})(i);
+        list.appendChild(b);
+      });
+    }
+
+    function renderDots(){
+      var row=document.getElementById('bc-proto-steps-row');if(!row)return;
+      var f=FLOWS[cur];
+      if(f.steps.length<=1){row.innerHTML='';return;}
+      row.innerHTML='';
+      f.steps.forEach(function(s,i){
+        var b=document.createElement('button');
+        b.style.cssText='width:'+(i===step?16:5)+'px;height:5px;border-radius:100px;background:'+(i<=step?'#4aa3d4':'rgba(74,163,212,0.2)')+';border:none;cursor:pointer;padding:0;transition:all 250ms ease;';
+        b.onclick=(function(si){return function(){window.bcProtoGoStep(f.id,si);};})(i);
+        row.appendChild(b);
+        if(i<f.steps.length-1){var sep=document.createElement('div');sep.style.cssText='height:1px;width:12px;background:rgba(74,163,212,0.2);flex-shrink:0;';row.appendChild(sep);}
+      });
+    }
+
+    /* Desktop cursor */
+    function runCursor(s){
+      if(!s.cursor)return;
+      var c=document.getElementById('bc-proto-cur');
+      var lbl=document.getElementById('bc-proto-cur-label');
+      var rpl=document.getElementById('bc-proto-rpl');
+      var rplRing=document.getElementById('bc-proto-rpl-ring');
+      if(!c)return;
+      c.style.top='12%';c.style.left='20%';c.style.opacity='1';
+      pSch(function(){c.style.top=s.cursor.y;c.style.left=s.cursor.x;},350);
+      pSch(function(){if(lbl){lbl.textContent=s.tip;lbl.style.opacity='1';}},850);
+      pSch(function(){
+        if(rpl){rpl.style.left=s.cursor.x;rpl.style.top=s.cursor.y;rpl.style.opacity='1';}
+        if(rplRing){rplRing.style.animation='none';void rplRing.offsetWidth;rplRing.style.animation='bcRpl 520ms ease-out forwards';}
+      },1300);
+      pSch(function(){if(lbl)lbl.style.opacity='0';},1700);
+      pSch(function(){c.style.opacity='0';if(rpl)rpl.style.opacity='0';},2000);
+    }
+
+    /* Progress bar */
+    function startProg(){
+      var bar=document.getElementById('bc-proto-progress');
+      if(!bar)return;
+      bar.style.transition='none';bar.style.width='0%';
+      void bar.offsetWidth;
+      bar.style.transition='width '+DUR+'ms linear';bar.style.width='100%';
+    }
+    function resetProg(){var bar=document.getElementById('bc-proto-progress');if(bar){bar.style.transition='none';bar.style.width='0%';}}
+
+    /* Auto-play */
+    var autoSeq=[
+      ['space',0],['addpoi',0],['addpoi',1],
+      ['setpin',0],['visitor',0],['feed',0]
+    ];
+    var autoIdx=0;
+    function stopAuto(){
+      isAuto=false;clearInterval(autoInt);resetProg();
+      var btn=document.getElementById('bc-proto-play-btn');
+      if(btn){btn.textContent='▶ Auto-play';btn.style.background='rgba(74,163,212,0.12)';}
+    }
+    window.bcProtoAutoPlay=function(){
+      if(isAuto){stopAuto();return;}
+      isAuto=true;autoIdx=0;
+      var btn=document.getElementById('bc-proto-play-btn');
+      if(btn){btn.textContent='⏸ Stop';btn.style.background='rgba(74,163,212,0.25)';}
+      function next(){
+        if(!isAuto)return;
+        var s=autoSeq[autoIdx%autoSeq.length];
+        window.bcProtoGoStep(s[0],s[1]);autoIdx++;
+        startProg();
+      }
+      next();
+      autoInt=setInterval(next,DUR);
+    };
+
+    window.bcProtoBack=function(){
+      if(step>0){window.bcProtoGoStep(FLOWS[cur].id,step-1);}
+      else{window.bcProtoGoStep('space',0);}
+    };
+    window.bcProtoReset=function(){stopAuto();window.bcProtoGoStep('space',0);};
+
+    /* Init */
+    var sec=document.getElementById('bc-proto-section');
+    if(sec){
+      render(false);
+      var obs=new IntersectionObserver(function(e){
+        if(e[0].isIntersecting){pSch(function(){runCursor(FLOWS[0].steps[0]);},300);obs.disconnect();}
+      },{threshold:0.1});
+      obs.observe(sec);
+    }
+
+  })();
+  </script>
   <script src="../assets/main.js"></script>
   <style>
   .bc-flow-wrap{margin-bottom:var(--space-64)}
@@ -604,14 +1210,45 @@
   .bc-content-row{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
   @media(max-width:640px){.bc-content-row{grid-template-columns:1fr}}
   .bc-phones{display:flex;gap:12px;flex-wrap:wrap}
-  .bc-phone-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
-  .bc-phone-label{font-size:7px;font-weight:700;color:rgba(74,163,212,0.7);letter-spacing:.06em;text-transform:uppercase}
-  .bc-phone{width:130px;background:#0a0a0a;border-radius:22px;border:2px solid rgba(255,255,255,0.1);box-shadow:0 16px 48px rgba(0,0,0,0.6);overflow:hidden;flex-shrink:0}
-  .bc-phone-bar{height:18px;background:#111;display:flex;align-items:center;padding:0 8px}
-  .bc-phone-bar::after{content:"9:41";font-size:5px;color:rgba(255,255,255,0.35);font-family:var(--font-mono)}
-  .bc-phone-img{width:100%;display:block;object-fit:cover;object-position:top}
-  .bc-phone-home{height:14px;background:#0a0a0a;display:flex;align-items:center;justify-content:center}
-  .bc-phone-home::after{content:"";width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,0.12)}
+  /* ── Clay phone system — same as portfolio standard ── */
+  .bc-phone-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;}
+  .bc-phone-label{font-size:0.6rem;color:var(--text-tertiary);font-family:var(--font-mono);text-align:center;}
+  .bc-phone{
+    position:relative;
+    width:160px;
+  }
+  .bc-phone-shell{
+    width:160px;
+    background:linear-gradient(160deg,#2a2a2a 0%,#1c1c1c 50%,#111 100%);
+    border-radius:30px;
+    padding:2.5px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.55),0 6px 12px rgba(0,0,0,0.3),
+               inset 0 1.5px 0 rgba(255,255,255,0.09),inset 0 -1px 0 rgba(0,0,0,0.5);
+    position:relative;
+  }
+  .bc-phone-shell::before{
+    content:'';position:absolute;inset:0;border-radius:30px;
+    background:linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%);
+    pointer-events:none;z-index:10;
+  }
+  .bc-phone-shell-inner{background:#0a0f1a;border-radius:27px;overflow:hidden;}
+  .bc-phone-sb{
+    height:30px;background:#000;display:flex;align-items:flex-end;
+    justify-content:space-between;padding:0 12px 5px;position:relative;flex-shrink:0;
+  }
+  .bc-phone-di{
+    position:absolute;top:6px;left:50%;transform:translateX(-50%);
+    width:76px;height:18px;background:#000;border-radius:100px;z-index:2;
+  }
+  .bc-phone-sb-time{font-size:8px;font-weight:600;color:#fff;font-family:-apple-system,sans-serif;position:relative;z-index:3;line-height:1;}
+  .bc-phone-sb-icons{display:flex;gap:3px;align-items:center;position:relative;z-index:3;}
+  .bc-phone-img{width:100%;display:block;object-fit:cover;}
+  .bc-phone-home{height:12px;background:#0a0f1a;display:flex;align-items:center;justify-content:center;}
+  .bc-phone-home::after{content:'';width:40px;height:2.5px;border-radius:2px;background:rgba(255,255,255,0.25);}
+  /* Side buttons */
+  .bc-phone::before{content:'';position:absolute;left:-2.5px;top:58px;width:2.5px;height:16px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;}
+  .bc-phone::after{content:'';position:absolute;left:-2.5px;top:80px;width:2.5px;height:26px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;}
+  .bc-phone-btn-r{position:absolute;right:-2.5px;top:68px;width:2.5px;height:32px;background:linear-gradient(to left,#111,#2a2a2a);border-radius:0 2px 2px 0;}
   .bc-annotations{display:flex;flex-direction:column;gap:8px}
   .bc-section-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:4px}
   .bc-annotation{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #4aa3d4;border-radius:6px;padding:8px 10px}
