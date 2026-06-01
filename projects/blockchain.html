@@ -710,9 +710,26 @@
   </script>
   <style>
   @keyframes bcRpl{0%{transform:translate(-50%,-50%) scale(0.2);opacity:0.8}100%{transform:translate(-50%,-50%) scale(2.6);opacity:0}}
+  @keyframes bcPinPop{0%{transform:translate(-50%,-100%) scale(1)}50%{transform:translate(-50%,-100%) scale(1.15)}100%{transform:translate(-50%,-100%) scale(1)}}
   .finger-cur{position:absolute;pointer-events:none;z-index:50;transition:top 520ms cubic-bezier(0.34,1.1,0.64,1),left 520ms cubic-bezier(0.34,1.1,0.64,1),opacity 300ms ease;opacity:0;transform:translate(-50%,-50%);}
   .finger-circle{position:relative;width:24px;height:24px;border-radius:50%;border:2px solid rgba(74,163,212,0.7);box-shadow:0 0 12px rgba(74,163,212,0.3);transition:transform 150ms ease,background 150ms ease;}
   .finger-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(74,163,212,0.35);opacity:0;transition:opacity 200ms ease;}
+  /* Pin hover */
+  #bc-proto-body .bc-pin { cursor: pointer; transition: filter 150ms ease; }
+  #bc-proto-body .bc-pin:hover { animation: bcPinPop 300ms ease; filter: brightness(1.3) drop-shadow(0 0 6px currentColor); }
+  /* CTA buttons inside phone */
+  #bc-proto-body .bc-cta { cursor: pointer; transition: transform 120ms ease, filter 120ms ease; user-select: none; }
+  #bc-proto-body .bc-cta:hover { filter: brightness(1.15); }
+  #bc-proto-body .bc-cta:active { transform: scale(0.96); filter: brightness(0.95); }
+  /* Search results hover */
+  #bc-proto-body .bc-result:hover { background: rgba(74,163,212,0.12) !important; cursor: pointer; }
+  /* Option rows hover */
+  #bc-proto-body .bc-option:hover { border-color: rgba(74,163,212,0.4) !important; cursor: pointer; }
+  /* Feed items hover */
+  #bc-proto-body .bc-feed-row:hover { background: rgba(74,163,212,0.06) !important; cursor: pointer; }
+  /* Scrollbar hide in proto body */
+  #bc-proto-body { scrollbar-width: none; }
+  #bc-proto-body::-webkit-scrollbar { display: none; }
   </style>
   <script>
   /* ══ BLOCKCHAIN PROTOTYPE v2 — finger cursor, precise taps, DS narrative ══ */
@@ -731,7 +748,7 @@
       var ctaFn=opts.ctaFn||'';
 
       var pinsHtml=pins.map(function(p){
-        return '<div style="position:absolute;left:'+p.x+';top:'+p.y+';transform:translate(-50%,-100%);z-index:3;cursor:pointer;"'+
+        return '<div class="bc-pin" style="position:absolute;left:'+p.x+';top:'+p.y+';transform:translate(-50%,-100%);z-index:3;cursor:pointer;"'+
           (p.onClick?' onclick="'+p.onClick+'"':'')+'>'+
           '<div style="width:'+(p.big?14:9)+'px;height:'+(p.big?36:22)+'px;background:'+p.color+';border-radius:50% 50% 0 0 / 60% 60% 0 0;margin:0 auto;box-shadow:0 0 '+(p.big?'14px':'8px')+' '+p.color+'88;"></div>'+
           '<div style="width:'+(p.big?16:10)+'px;height:'+(p.big?16:10)+'px;border-radius:50%;background:'+p.color+';margin:-'+(p.big?8:5)+'px auto 0;"></div>'+
@@ -745,7 +762,7 @@
         '<div style="background:#111827;padding:10px 12px 0;border-top:1px solid rgba(74,163,212,0.15);">'+
           '<div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;text-transform:uppercase;letter-spacing:.03em;">'+sheetTitle+'</div>'+
           (sheetSub?'<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:8px;display:flex;align-items:center;gap:4px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+sheetSub+'</div>':'')+
-          '<div style="height:30px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;"'+(ctaFn?' onclick="'+ctaFn+'"':'')+' data-click-sound="tap">'+
+          '<div class="bc-cta" style="height:30px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;"'+(ctaFn?' onclick="'+ctaFn+'"':'')+' data-click-sound="tap">'+
             '<span style="font-size:9px;font-weight:600;color:#fff;">'+ctaLabel+'</span>'+
           '</div>'+
         '</div>':
@@ -774,7 +791,7 @@
           nav:'MEGATON OUTDOOR ROUTINE',back:false,
           tag:'Step 1 — Space Hub',title:'3D Tilted Map — Ownership View',
           desc:'The owner sees their Space as a 3D isometric map. POIs float with labels. Spatial depth communicates ownership better than a flat view — validated in user testing.',
-          tap:{x:'44%',y:'52%'},tip:'Tap a POI to open it',
+          tap:{x:'44%',y:'38%'},tip:'Tap a POI to open it',
           build:function(el){
             el.style.background='#0a0f1a';
             make3DMap(el,{
@@ -812,7 +829,7 @@
             nav:'Add Point of Interest',back:true,
             tag:'Step 1 — Search',title:'Search-First POI Creation',
             desc:'Users expect to search, not tap on a 3D map. Benchmarking revealed this pattern from major mapping apps.',
-            tap:{x:'50%',y:'18%'},tip:'Type to search a location',
+            tap:{x:'50%',y:'28%'},tip:'Type to search a location',
             build:function(el){
               el.style.background='#0a0f1a';
               make3DMap(el,{h:150,pins:[{x:'50%',y:'45%',color:AC,big:true}]});
@@ -833,7 +850,7 @@
                   {t:'Los Angeles City Hall',s:'North Spring Street, Los Angeles, CA, USA',hl:true},
                   {t:'City Club LA',s:'Flower St, Los Angeles, CA, USA',hl:false},
                 ].map(function(r){
-                  return '<div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:7px;background:'+(r.hl?'rgba(74,163,212,0.1)':'transparent')+';border:'+(r.hl?'1px solid rgba(74,163,212,0.25)':'1px solid transparent')+';cursor:pointer;margin-bottom:2px;" data-click-sound="click">'+
+                  return '<div class="bc-result" style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:7px;background:'+(r.hl?'rgba(74,163,212,0.1)':'transparent')+';border:'+(r.hl?'1px solid rgba(74,163,212,0.25)':'1px solid transparent')+';cursor:pointer;margin-bottom:2px;"'+(r.hl?' onclick="bcProtoGoStep(\'addpoi\',1)" data-click-sound="success"':' data-click-sound="click"')+'>'+
                     '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" style="margin-top:2px;flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
                     '<div><div style="font-size:9px;color:'+(r.hl?'#fff':'rgba(255,255,255,0.6)')+';font-weight:'+(r.hl?'600':'400')+';">'+r.t+'</div>'+
                     '<div style="font-size:7.5px;color:rgba(255,255,255,0.35);margin-top:1px;">'+r.s+'</div></div>'+
@@ -846,7 +863,7 @@
             nav:'Add Point of Interest',back:true,
             tag:'Step 2 — Confirm',title:'Location Confirmed on Map',
             desc:'"Add Point of Interest" anchored to bottom sheet. Location shown on 3D map before committing.',
-            tap:{x:'50%',y:'84%'},tip:'Tap to add this POI',
+            tap:{x:'50%',y:'86%'},tip:'Tap to add this POI',
             build:function(el){
               el.style.background='#0a0f1a';
               make3DMap(el,{
@@ -870,7 +887,7 @@
             nav:'Set Map Pin',back:true,
             tag:'Step 1 — Choose type',title:'3 Levels of Spatial Richness',
             desc:'Progressive disclosure: icon for speed, image for personalization, 3D asset for full spatial immersion.',
-            tap:{x:'50%',y:'65%'},tip:'Select 3D Asset',
+            tap:{x:'50%',y:'62%'},tip:'Select 3D Asset',
             build:function(el){
               el.style.background='#111';
               el.innerHTML=
@@ -884,7 +901,7 @@
                     {l:'3D Asset',d:'Pick a 3D object from the library as your POI',sel:false,
                      ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>'},
                   ].map(function(o){
-                    return '<div style="display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:10px;background:'+(o.sel?'rgba(74,163,212,0.08)':'transparent')+';border:'+(o.sel?'1.5px solid rgba(74,163,212,0.3)':'1.5px solid rgba(255,255,255,0.06)')+';margin-bottom:8px;cursor:pointer;" data-click-sound="click">'+
+                    return '<div class="bc-option" style="display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:10px;background:'+(o.sel?'rgba(74,163,212,0.08)':'transparent')+';border:'+(o.sel?'1.5px solid rgba(74,163,212,0.3)':'1.5px solid rgba(255,255,255,0.06)')+';margin-bottom:8px;cursor:pointer;" data-click-sound="click">'+
                       '<div style="width:22px;height:22px;border-radius:50%;border:2px solid '+(o.sel?AC:'rgba(255,255,255,0.25)')+';background:'+(o.sel?AC:'transparent')+';flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
                         (o.sel?'<div style="width:7px;height:7px;border-radius:50%;background:#fff;"></div>':'')+
                       '</div>'+
@@ -893,7 +910,7 @@
                       '<div style="font-size:8px;color:rgba(255,255,255,0.4);margin-top:2px;">'+o.d+'</div></div>'+
                     '</div>';
                   }).join('')+
-                  '<div style="height:36px;background:'+AC+';border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:4px;" data-click-sound="success">'+
+                  '<div class="bc-cta" style="height:36px;background:'+AC+';border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:4px;" onclick="bcProtoGoStep(\'setpin\',1)" data-click-sound="success">'+
                     '<span style="font-size:10px;font-weight:600;color:#fff;">Continue</span>'+
                   '</div>'+
                 '</div>';
@@ -903,7 +920,7 @@
             nav:'Set Map Pin — 3D Asset',back:true,
             tag:'Step 2 — Select Asset',title:'3D Asset Library',
             desc:'Users browse categorized 3D objects. Architecture, shapes, interior design. Selected asset appears on the 3D map.',
-            tap:{x:'50%',y:'48%'},tip:'Select the building asset',
+            tap:{x:'54%',y:'68%'},tip:'Select the building asset',
             build:function(el){
               el.style.background='#111';
               el.innerHTML=
@@ -932,7 +949,7 @@
                     '</div>';
                   }).join('')+
                 '</div>'+
-                '<div style="padding:8px 14px;"><div style="height:34px;background:'+AC+';border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;" data-click-sound="success">'+
+                '<div style="padding:8px 14px;"><div class="bc-cta" style="height:34px;background:'+AC+';border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="success">'+
                   '<span style="font-size:10px;font-weight:600;color:#fff;">Continue</span>'+
                 '</div></div>';
             }
@@ -946,7 +963,7 @@
           nav:'WORKOUT CIRCUIT 1: YOGA',back:true,
           tag:'Step 1 — Visitor POI',title:'POI Visitor View — Feed Tab',
           desc:'Map context stays visible. Bottom sheet shows POI title, description, and content grid. Feed and About tabs for progressive disclosure.',
-          tap:{x:'50%',y:'30%'},tip:'Scroll feed or switch to About',
+          tap:{x:'50%',y:'68%'},tip:'Scroll feed or switch to About',
           build:function(el){
             el.style.background='#0a0f1a';
             make3DMap(el,{
@@ -982,7 +999,7 @@
           nav:'CENTRAL PARK NY',back:true,
           tag:'Step 1 — Space Feed',title:'Universal Feed — Content Discovery',
           desc:'Aggregated feed across all POIs in a Space. Grouped by POI with subscriber counts. Tap any group to dive into that content.',
-          tap:{x:'50%',y:'58%'},tip:'Tap a feed group to open',
+          tap:{x:'50%',y:'72%'},tip:'Tap a feed group to open',
           build:function(el){
             el.style.background='#0a0f1a';
             make3DMap(el,{h:120,pins:[{x:'48%',y:'40%',color:AC,big:true}]});
@@ -1001,7 +1018,7 @@
                 {t:'Stretching routine',p:10,s:37},
                 {t:'Cool down routine',p:8,s:22},
               ].map(function(f){
-                return '<div style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;" data-click-sound="click">'+
+                return '<div class="bc-feed-row" style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;" data-click-sound="click">'+
                   '<div style="width:38px;height:38px;border-radius:7px;background:rgba(74,163,212,0.08);border:1px solid rgba(74,163,212,0.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
                     '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
                   '</div>'+
