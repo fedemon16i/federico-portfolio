@@ -477,6 +477,12 @@
                   </div>
                   <!-- Flash -->
                   <div id="bc-proto-flash" style="position:absolute;inset:0;background:rgba(74,163,212,0.06);opacity:0;pointer-events:none;z-index:48;border-radius:40px;transition:opacity 100ms ease;"></div>
+                  <!-- Hotspot — pulsing ring on tap target -->
+                  <div id="bc-hotspot" class="bc-hotspot" style="opacity:0;transition:opacity 300ms ease,top 400ms cubic-bezier(0.16,1,0.3,1),left 400ms cubic-bezier(0.16,1,0.3,1);">
+                    <div class="bc-hotspot-ring"></div>
+                    <div class="bc-hotspot-ring"></div>
+                    <div class="bc-hotspot-dot"></div>
+                  </div>
                   <!-- Tap hint — shown once -->
                   <div id="bc-tap-hint" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:55;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);border:1px solid rgba(74,163,212,0.3);border-radius:100px;padding:5px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:opacity 400ms ease;pointer-events:none;">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
@@ -721,6 +727,11 @@
   @keyframes bcRpl{0%{transform:translate(-50%,-50%) scale(0.2);opacity:0.8}100%{transform:translate(-50%,-50%) scale(2.6);opacity:0}}
   @keyframes bcPinPop{0%{transform:translate(-50%,-100%) scale(1)}50%{transform:translate(-50%,-100%) scale(1.15)}100%{transform:translate(-50%,-100%) scale(1)}}
   @keyframes bcPinPulse{0%,100%{transform:translate(-50%,-100%) scale(1)}50%{transform:translate(-50%,-100%) scale(1.12)}}
+  @keyframes bcHotPulse{0%{transform:translate(-50%,-50%) scale(0.6);opacity:0.9}100%{transform:translate(-50%,-50%) scale(1.8);opacity:0}}
+  .bc-hotspot{position:absolute;pointer-events:none;z-index:45;}
+  .bc-hotspot-ring{width:32px;height:32px;border-radius:50%;border:2px solid rgba(74,163,212,0.8);position:absolute;top:50%;left:50%;animation:bcHotPulse 1.2s ease-out infinite;}
+  .bc-hotspot-ring:nth-child(2){animation-delay:0.4s;}
+  .bc-hotspot-dot{width:8px;height:8px;border-radius:50%;background:#4aa3d4;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(74,163,212,0.8);}
   #bc-proto-body::-webkit-scrollbar{display:none;}
   #bc-proto-body .bc-cta{transition:transform 100ms ease,filter 100ms ease;}
   #bc-proto-body .bc-cta:hover{filter:brightness(1.2);}
@@ -975,83 +986,207 @@
       },
       {
         id:'visitor',label:'Visitor Experience',tag:'Flow 4',
-        dsNote:'Original: flat content list. Reimagined: map context stays visible above the sheet. Feed grid shows spatial richness of the POI.',
-        steps:[{
-          nav:'WORKOUT CIRCUIT 1: YOGA',back:true,
-          tag:'Step 1 — Visitor POI',title:'POI Visitor View — Feed Tab',
-          desc:'Map context stays visible. Bottom sheet shows POI title, description, and content grid. Feed and About tabs for progressive disclosure.',
-          tap:{x:'50%',y:'68%'},tip:'Scroll feed or switch to About',
-          build:function(el){
-            el.style.background='#0a0f1a';
-            make3DMap(el,{
-              h:160,
-              pins:[{x:'48%',y:'35%',color:'#e05c4a',big:true,label:'WORKOUT CIRCUIT 1: YOGA'}]
-            });
-            var sheet=document.createElement('div');
-            sheet.style.cssText='background:#111827;border-radius:12px 12px 0 0;margin-top:-10px;position:relative;z-index:5;';
-            sheet.innerHTML=
-              '<div style="width:36px;height:3px;border-radius:2px;background:rgba(255,255,255,0.25);margin:8px auto 10px;"></div>'+
-              '<div style="padding:0 12px 8px;">'+
-                '<div style="font-size:13px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px;">WORKOUT CIRCUIT 1: YOGA</div>'+
-                '<div style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:8px;">Welcome to the 1st of 3 circuits of workouts… <span style="color:'+AC+';">More</span></div>'+
-                '<div style="display:flex;gap:16px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:8px;">'+
-                  ['FEED','ABOUT'].map(function(t,i){return '<div style="font-size:9px;font-weight:700;color:'+(i===0?AC:'rgba(255,255,255,0.4)')+';padding-bottom:7px;border-bottom:'+(i===0?'2px solid '+AC:'2px solid transparent')+';cursor:pointer;">'+t+'</div>';}).join('')+
+        dsNote:'Original: flat content list. Reimagined: map stays visible, tabs split content vs info, grid shows POI richness.',
+        steps:[
+          {
+            nav:'WORKOUT CIRCUIT 1: YOGA',back:true,
+            tag:'Step 1 — POI Feed',title:'Visitor sees POI with Feed tab',
+            desc:'The map stays visible above the sheet. Tap ABOUT to see location info, or tap any content item to open it.',
+            tap:{x:'30%',y:'62%'},tip:'Tap ABOUT tab to see location info',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{h:155,pins:[{x:'48%',y:'38%',color:'#e05c4a',big:true,label:'WORKOUT CIRCUIT 1: YOGA'}]});
+              var sheet=document.createElement('div');
+              sheet.style.cssText='background:#111827;position:relative;z-index:5;';
+              sheet.innerHTML=
+                '<div style="padding:8px 12px 0;">'+
+                  '<div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;margin-bottom:2px;">WORKOUT CIRCUIT 1: YOGA</div>'+
+                  '<div style="font-size:8.5px;color:rgba(255,255,255,0.5);line-height:1.5;margin-bottom:6px;">Welcome to the 1st of 3 circuits… <span style="color:'+AC+';">More</span></div>'+
+                  '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">'+
+                    '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:6px;border-bottom:2px solid '+AC+';">FEED</div>'+
+                    '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',1)" data-click-sound="tap">ABOUT</div>'+
+                  '</div>'+
+                  '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:6px;">'+
+                    ['Warm up','Stretching','Cool down','Power','Balance','Yoga'].map(function(t,i){
+                      var colors=['#4aa3d4','#4a7aa3','#1a3a5c','#2a5a7a','#0d2a44','#4aa3d4'];
+                      return '<div class="bc-cta" style="aspect-ratio:1;border-radius:5px;background:linear-gradient(135deg,'+colors[i]+'44,'+colors[i]+'22);border:1px solid '+colors[i]+'44;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',2)" data-click-sound="click">'+
+                        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="'+colors[i]+'" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                        '<span style="font-size:5.5px;color:rgba(255,255,255,0.5);">'+t+'</span>'+
+                      '</div>';
+                    }).join('')+
+                  '</div>'+
+                '</div>';
+              el.appendChild(sheet);
+            }
+          },
+          {
+            nav:'WORKOUT CIRCUIT 1: YOGA',back:true,
+            tag:'Step 2 — About Tab',title:'About tab — location info',
+            desc:'About tab shows geo-location, description, and tags. Visitor can navigate to next POI with the arrows.',
+            tap:{x:'50%',y:'45%'},tip:'Tap ← → arrows to browse POIs',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{h:140,pins:[{x:'48%',y:'40%',color:'#e05c4a',big:true}]});
+              var sheet=document.createElement('div');
+              sheet.style.cssText='background:#111827;position:relative;z-index:5;padding:8px 12px;';
+              sheet.innerHTML=
+                '<div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;margin-bottom:4px;">WORKOUT CIRCUIT 1: YOGA</div>'+
+                '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:10px;">'+
+                  '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="tap">FEED</div>'+
+                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:6px;border-bottom:2px solid '+AC+';">ABOUT</div>'+
                 '</div>'+
-                '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;">'+
-                  [AC,'#4a7aa3','#1a3a5c','#2a5a7a','#0d2a44',AC].map(function(c){
-                    return '<div style="aspect-ratio:1;border-radius:4px;background:linear-gradient(135deg,'+c+'44,'+c+'22);border:1px solid '+c+'33;display:flex;align-items:center;justify-content:center;">'+
-                      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="'+c+'" stroke-width="1.3" opacity="0.7"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
-                    '</div>';
+                '<div style="display:flex;align-items:flex-start;gap:8px;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px;">'+
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" style="flex-shrink:0;margin-top:1px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+                  '<div>'+
+                    '<div style="font-size:8px;color:#fff;font-weight:500;line-height:1.5;">Huntington Beach Central Park East</div>'+
+                    '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);">18002 Goldenwest St, CA 92647</div>'+
+                  '</div>'+
+                '</div>'+
+                '<div style="font-size:8px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:8px;">Welcome to the 1st of 3 circuits of workouts that will give you one of the most complete experiences…</div>'+
+                '<div style="display:flex;gap:5px;flex-wrap:wrap;">'+
+                  ['Yoga','Exercise','Health','LA'].map(function(t){
+                    return '<span style="padding:3px 8px;border-radius:100px;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);font-size:7.5px;color:#4aa3d4;">'+t+'</span>';
                   }).join('')+
                 '</div>'+
-              '</div>';
-            el.appendChild(sheet);
+                '<div style="display:flex;justify-content:space-between;margin-top:10px;">'+
+                  '<div class="bc-cta" style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="nav">'+
+                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>'+
+                    '<span style="font-size:8px;color:rgba(255,255,255,0.6);">Prev</span>'+
+                  '</div>'+
+                  '<div class="bc-cta" style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;" onclick="bcProtoGoStep(\'feed\',0)" data-click-sound="nav">'+
+                    '<span style="font-size:8px;color:rgba(255,255,255,0.6);">Next</span>'+
+                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                  '</div>'+
+                '</div>';
+              el.appendChild(sheet);
+            }
+          },
+          {
+            nav:'WARM UP ROUTINE',back:true,
+            tag:'Step 3 — Content Detail',title:'Content item opened',
+            desc:'Tapping a feed item opens its content. Posts, subscribers, and a preview of what\'s inside.',
+            tap:{x:'50%',y:'75%'},tip:'Tap Subscribe or browse posts',
+            build:function(el){
+              el.style.background='#111827';
+              el.innerHTML=
+                '<div style="padding:12px;">'+
+                  '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'+
+                    '<div style="width:44px;height:44px;border-radius:10px;background:rgba(74,163,212,0.15);border:1px solid rgba(74,163,212,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '</div>'+
+                    '<div>'+
+                      '<div style="font-size:11px;font-weight:700;color:#fff;">WARM UP ROUTINE</div>'+
+                      '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-top:1px;">Workout Circuit 1: Yoga · 10 posts · 59 subs</div>'+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="bc-cta" style="height:32px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;" data-click-sound="success">'+
+                    '<span style="font-size:9px;font-weight:600;color:#fff;">Subscribe</span>'+
+                  '</div>'+
+                  [
+                    {t:'Intro — what to expect',d:'Duration: 8 min · Beginner friendly'},
+                    {t:'Upper body warmup',d:'Duration: 5 min · Arms + shoulders'},
+                    {t:'Core activation',d:'Duration: 6 min · Low impact'},
+                  ].map(function(p,i){
+                    return '<div class="bc-feed-item" style="display:flex;align-items:center;gap:9px;padding:8px;border-radius:7px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);margin-bottom:5px;cursor:pointer;" data-click-sound="click">'+
+                      '<div style="width:32px;height:32px;border-radius:6px;background:rgba(74,163,212,0.1);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
+                        '<span style="font-size:8px;font-weight:700;color:#4aa3d4;">'+(i+1)+'</span>'+
+                      '</div>'+
+                      '<div style="flex:1;">'+
+                        '<div style="font-size:8.5px;font-weight:600;color:#fff;">'+p.t+'</div>'+
+                        '<div style="font-size:7px;color:rgba(255,255,255,0.4);margin-top:1px;">'+p.d+'</div>'+
+                      '</div>'+
+                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                    '</div>';
+                  }).join('')+
+                '</div>';
+            }
           }
-        }]
+        ]
       },
       {
         id:'feed',label:'Universal Feed',tag:'Flow 5',
-        dsNote:'Original DS: separate feed screen. Reimagined: grouped feed per Space with subscriber counts. Discovery-first.',
-        steps:[{
-          nav:'CENTRAL PARK NY',back:true,
-          tag:'Step 1 — Space Feed',title:'Universal Feed — Content Discovery',
-          desc:'Aggregated feed across all POIs in a Space. Grouped by POI with subscriber counts. Tap any group to dive into that content.',
-          tap:{x:'50%',y:'72%'},tip:'Tap a feed group to open',
-          build:function(el){
-            el.style.background='#0a0f1a';
-            make3DMap(el,{h:120,pins:[{x:'48%',y:'40%',color:AC,big:true}]});
-            var sheet=document.createElement('div');
-            sheet.style.cssText='background:#111827;border-radius:10px 10px 0 0;margin-top:-6px;position:relative;z-index:5;padding:8px 12px 0;';
-            sheet.innerHTML=
-              '<div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:1px;">CENTRAL PARK NY</div>'+
-              '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:7px;">This is a great place to practice some Yoga &amp; stretching exercises.</div>'+
-              '<div style="display:flex;gap:14px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:7px;">'+
-                ['Feed','About'].map(function(t,i){return '<div style="font-size:9px;font-weight:700;color:'+(i===0?AC:'rgba(255,255,255,0.35)')+';padding-bottom:5px;border-bottom:'+(i===0?'2px solid '+AC:'2px solid transparent')+';">'+t+'</div>';}).join('')+
-              '</div>'+
-              '<div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:1px;">YOGA IN THE PARK</div>'+
-              '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-bottom:7px;">Follow this yoga routine I prepared for you.</div>'+
-              [
-                {t:'Warm up routine',p:10,s:59},
-                {t:'Stretching routine',p:10,s:37},
-                {t:'Cool down routine',p:8,s:22},
-              ].map(function(f){
-                return '<div class="bc-feed-row" style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;" data-click-sound="click">'+
-                  '<div style="width:38px;height:38px;border-radius:7px;background:rgba(74,163,212,0.08);border:1px solid rgba(74,163,212,0.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
-                    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
-                  '</div>'+
-                  '<div style="flex:1;">'+
-                    '<div style="font-size:9px;font-weight:600;color:#fff;">'+f.t+'</div>'+
-                    '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-top:2px;">'+
-                      '<span style="color:'+AC+';font-weight:600;">POSTS </span><span>'+f.p+'</span>  '+
-                      '<span style="color:'+AC+';font-weight:600;">SUBS </span><span>'+f.s+'</span>'+
+        dsNote:'Original DS: separate feed screen. Reimagined: grouped feed per Space. Discovery-first with subscriber counts.',
+        steps:[
+          {
+            nav:'CENTRAL PARK NY',back:true,
+            tag:'Step 1 — Space Feed',title:'Universal Feed — tap a group',
+            desc:'All POI content in one feed, grouped by location. Tap any row to dive into that POI\'s content.',
+            tap:{x:'50%',y:'72%'},tip:'Tap a feed row to open it',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{h:112,pins:[{x:'48%',y:'42%',color:AC,big:true}]});
+              var sheet=document.createElement('div');
+              sheet.style.cssText='background:#111827;position:relative;z-index:5;padding:8px 12px 0;';
+              sheet.innerHTML=
+                '<div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:1px;">CENTRAL PARK NY</div>'+
+                '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:6px;">This is a great place to practice Yoga &amp; stretching.</div>'+
+                '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">'+
+                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:5px;border-bottom:2px solid '+AC+';">Feed</div>'+
+                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);padding-bottom:5px;border-bottom:2px solid transparent;">About</div>'+
+                '</div>'+
+                '<div style="font-size:8.5px;font-weight:700;color:#fff;margin-bottom:2px;">YOGA IN THE PARK</div>'+
+                '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-bottom:6px;">Follow this yoga routine I prepared for you.</div>'+
+                [
+                  {t:'Warm up routine',p:10,s:59},
+                  {t:'Stretching routine',p:10,s:37},
+                  {t:'Cool down routine',p:8,s:22},
+                ].map(function(f){
+                  return '<div class="bc-feed-item" style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;" onclick="bcProtoGoStep(\'feed\',1)" data-click-sound="success">'+
+                    '<div style="width:38px;height:38px;border-radius:7px;background:rgba(74,163,212,0.08);border:1px solid rgba(74,163,212,0.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
+                      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '</div>'+
+                    '<div style="flex:1;">'+
+                      '<div style="font-size:9px;font-weight:600;color:#fff;">'+f.t+'</div>'+
+                      '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-top:2px;"><span style="color:'+AC+';font-weight:600;">POSTS </span>'+f.p+'  <span style="color:'+AC+';font-weight:600;">SUBS </span>'+f.s+'</div>'+
+                    '</div>'+
+                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                  '</div>';
+                }).join('');
+              el.appendChild(sheet);
+            }
+          },
+          {
+            nav:'YOGA IN THE PARK',back:true,
+            tag:'Step 2 — Feed Detail',title:'Content group opened',
+            desc:'Full content list for this POI group. Each post has a play button. Subscribe to get updates.',
+            tap:{x:'50%',y:'55%'},tip:'Tap a post to preview it',
+            build:function(el){
+              el.style.background='#111827';
+              el.innerHTML=
+                '<div style="padding:12px;">'+
+                  '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">'+
+                    '<div style="width:40px;height:40px;border-radius:9px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '</div>'+
+                    '<div style="flex:1;">'+
+                      '<div style="font-size:11px;font-weight:700;color:#fff;">YOGA IN THE PARK</div>'+
+                      '<div style="font-size:8px;color:rgba(255,255,255,0.4);">3 posts · 59 subscribers</div>'+
                     '</div>'+
                   '</div>'+
-                  '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                  '<div class="bc-cta" style="height:30px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;cursor:pointer;" data-click-sound="success">'+
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="white" style="margin-right:5px;" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '<span style="font-size:9px;font-weight:600;color:#fff;">Subscribe</span>'+
+                  '</div>'+
+                  [
+                    {t:'Warm up routine',d:'8 min · Beginner',n:1},
+                    {t:'Stretching full body',d:'12 min · Intermediate',n:2},
+                    {t:'Cool down flow',d:'6 min · All levels',n:3},
+                  ].map(function(p){
+                    return '<div class="bc-feed-item" style="display:flex;align-items:center;gap:9px;padding:8px;border-radius:7px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);margin-bottom:4px;cursor:pointer;" data-click-sound="click">'+
+                      '<div style="width:34px;height:34px;border-radius:7px;background:rgba(74,163,212,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                        '<svg width="14" height="14" viewBox="0 0 24 24" fill="#4aa3d4" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'+
+                      '</div>'+
+                      '<div style="flex:1;">'+
+                        '<div style="font-size:8.5px;font-weight:600;color:#fff;">'+p.t+'</div>'+
+                        '<div style="font-size:7px;color:rgba(255,255,255,0.4);">'+p.d+'</div>'+
+                      '</div>'+
+                      '<span style="font-size:7.5px;color:rgba(255,255,255,0.3);font-family:var(--font-mono);">#'+p.n+'</span>'+
+                    '</div>';
+                  }).join('')+
                 '</div>';
-              }).join('');
-            el.appendChild(sheet);
+            }
           }
-        }]
+        ]
       }
     ];
 
@@ -1129,7 +1264,7 @@
       });
     }
 
-    /* Finger cursor with precise tap */
+    /* Finger cursor + hotspot — precise tap */
     function runFinger(s){
       if(!s.tap)return;
       var c=document.getElementById('bc-proto-cur');
@@ -1137,17 +1272,38 @@
       var fc=document.getElementById('bc-proto-circle');
       var rpl=document.getElementById('bc-proto-rpl');
       var rr=document.getElementById('bc-proto-rpl-ring');
+      var hs=document.getElementById('bc-hotspot');
+      var stepTag=document.getElementById('bc-proto-step-tag');
       if(!c)return;
+      /* Show hotspot on target immediately */
+      if(hs){hs.style.top=s.tap.y;hs.style.left=s.tap.x;hs.style.opacity='1';}
+      /* Update right panel tip */
+      if(stepTag&&s.tip){
+        var tipEl=document.getElementById('bc-proto-tip');
+        if(!tipEl){
+          tipEl=document.createElement('div');
+          tipEl.id='bc-proto-tip';
+          tipEl.style.cssText='display:flex;align-items:center;gap:7px;padding:7px 10px;background:rgba(74,163,212,0.08);border:1px solid rgba(74,163,212,0.2);border-radius:8px;font-size:0.68rem;color:#4aa3d4;margin-bottom:8px;';
+          var si=document.getElementById('bc-proto-step-info');
+          if(si&&si.parentNode)si.parentNode.insertBefore(tipEl,si);
+        }
+        tipEl.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>'+'<span>'+s.tip+'</span>';
+      }
+      /* Finger appears */
       c.style.top='12%';c.style.left='50%';c.style.opacity='1';
       pSch(function(){c.style.top=s.tap.y;c.style.left=s.tap.x;},350);
       pSch(function(){if(ring)ring.style.opacity='1';},900);
+      /* Press */
       pSch(function(){
         if(fc){fc.style.transform='scale(0.65)';fc.style.background='rgba(74,163,212,0.5)';}
+        if(hs)hs.style.opacity='0'; /* hotspot hides on tap */
         if(rpl){rpl.style.left=s.tap.x;rpl.style.top=s.tap.y;rpl.style.opacity='1';}
         if(rr){rr.style.animation='none';void rr.offsetWidth;rr.style.animation='bcRpl 520ms ease-out forwards';}
       },1250);
       pSch(function(){if(fc){fc.style.transform='scale(1)';fc.style.background='rgba(74,163,212,0.25)';}if(ring)ring.style.opacity='0';},1480);
       pSch(function(){c.style.opacity='0';if(rpl)rpl.style.opacity='0';},1800);
+      /* Restore hotspot after tap for loop */
+      pSch(function(){if(hs&&!isAuto){hs.style.opacity='0.6';}},2200);
     }
 
     /* Progress */
@@ -1159,7 +1315,13 @@
     function resetProg(){var bar=document.getElementById('bc-proto-progress');if(bar){bar.style.transition='none';bar.style.width='0%';}}
 
     /* Auto-play */
-    var SEQ=[['space',0],['addpoi',0],['addpoi',1],['setpin',0],['setpin',1],['visitor',0],['feed',0]];
+    var SEQ=[
+      ['space',0],
+      ['addpoi',0],['addpoi',1],
+      ['setpin',0],['setpin',1],
+      ['visitor',0],['visitor',1],['visitor',2],
+      ['feed',0],['feed',1]
+    ];
     var aIdx=0;
     function stopAuto(){
       isAuto=false;clearInterval(autoInt);resetProg();
