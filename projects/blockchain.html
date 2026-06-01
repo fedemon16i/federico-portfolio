@@ -235,83 +235,176 @@
           <div style="position:relative;z-index:1;">
 
             <!-- Section header -->
-            <div class="project-section-label">Design &amp; Prototype</div>
-            <h2 class="project-section-title">From Design System to Reimagination</h2>
-            <p class="project-body-text" style="max-width:620px;margin-bottom:var(--space-32);">
-              The platform was built on an existing black-and-neon design system. The interactive prototype below reimagines each flow with refined spatial UI — same mental models, elevated execution. Reference screens from the original DS are shown for context.
-            </p>
+            <div class="project-section-label">Design Systems &amp; Prototype</div>
+            <h2 class="project-section-title">Two Design Systems. One Spatial Vision.</h2>
 
-            <!-- Original DS reference strip -->
+            <!-- DS dual explanation -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16);margin-bottom:var(--space-24);max-width:720px;" class="bc-ds-grid">
+              <!-- Flat DS -->
+              <div style="padding:var(--space-16);background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:12px;border-left:3px solid rgba(255,255,255,0.15);">
+                <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:8px;">Web UI Layer — Flat DS</div>
+                <div style="font-size:0.85rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">Black &amp; Neon</div>
+                <p style="font-size:0.72rem;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">The platform's web-facing UI used a flat design system — bold black backgrounds, neon yellow (#CBFF00) as the primary action color. Designed in Figma, applied across all 2D interactive surfaces.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-tertiary);">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0z"/><path d="M5 19.5A3.5 3.5 0 018.5 16H12v3.5a3.5 3.5 0 11-7 0z"/><path d="M5 12.5A3.5 3.5 0 018.5 9H12v7H8.5A3.5 3.5 0 015 12.5z"/></svg>
+                    Figma
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-tertiary);">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    Web UI
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-tertiary);">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    Mobile-first
+                  </span>
+                </div>
+              </div>
+
+              <!-- Spatial DS -->
+              <div style="padding:var(--space-16);background:rgba(74,163,212,0.06);border:1px solid rgba(74,163,212,0.2);border-radius:12px;border-left:3px solid #4aa3d4;">
+                <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:8px;">3D Spatial Layer — Unity DS</div>
+                <div style="font-size:0.85rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">Spatial &amp; Immersive</div>
+                <p style="font-size:0.72rem;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">The 3D layer ran on Unity. UI patterns were benchmarked from spatial computing platforms, gaming interfaces, and WebXR experiences. Spline was used for 3D asset visualization and design handoff. No established playbook — patterns invented from scratch.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                    Unity
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Spline
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0z"/><path d="M5 19.5A3.5 3.5 0 018.5 16H12v3.5a3.5 3.5 0 11-7 0z"/><path d="M5 12.5A3.5 3.5 0 018.5 9H12v7H8.5A3.5 3.5 0 015 12.5z"/></svg>
+                    Figma
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    Deep benchmarking
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <style>@media(max-width:600px){.bc-ds-grid{grid-template-columns:1fr!important}}</style>
+
+            <!-- Original DS reference strip — lightbox enabled -->
+            <style>
+              .bc-thumb{flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;cursor:pointer;transition:transform 150ms ease,opacity 150ms ease;}
+              .bc-thumb:hover{transform:translateY(-3px);}
+              .bc-thumb:hover .bc-thumb-shell{box-shadow:0 12px 28px rgba(0,0,0,0.6),0 0 0 1.5px rgba(74,163,212,0.4),inset 0 1px 0 rgba(255,255,255,0.1);}
+              .bc-thumb-shell{width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);transition:box-shadow 150ms ease;}
+              .bc-thumb-inner{background:#000;border-radius:14px;overflow:hidden;}
+              .bc-thumb-inner img{width:100%;display:block;object-fit:cover;height:130px;object-position:top;}
+              .bc-thumb-label{font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;line-height:1.3;}
+              /* Lightbox */
+              #bc-lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:var(--space-24);backdrop-filter:blur(6px);}
+              #bc-lb-inner{position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--space-16);max-width:360px;width:100%;}
+              #bc-lb-phone{width:280px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:44px;padding:3px;box-shadow:0 32px 64px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.06),inset 0 1.5px 0 rgba(255,255,255,0.09);}
+              #bc-lb-phone-inner{background:#000;border-radius:41px;overflow:hidden;}
+              #bc-lb-img{width:100%;display:block;object-fit:cover;max-height:540px;}
+              #bc-lb-cap{font-size:0.72rem;color:var(--text-secondary);text-align:center;line-height:1.5;max-width:320px;}
+              #bc-lb-close{position:fixed;top:var(--space-24);right:var(--space-24);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:var(--text-primary);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 150ms ease;}
+              #bc-lb-close:hover{background:rgba(255,255,255,0.18);}
+              .bc-lb-nav-btn{padding:7px 18px;border-radius:100px;border:1px solid rgba(74,163,212,0.35);background:rgba(74,163,212,0.08);color:#4aa3d4;font-size:0.7rem;cursor:pointer;transition:background 150ms ease;font-family:var(--font-display);}
+              .bc-lb-nav-btn:hover{background:rgba(74,163,212,0.16);}
+              #bc-lb-nav{display:flex;gap:var(--space-12);align-items:center;}
+              #bc-lb-counter{font-size:0.65rem;color:var(--text-tertiary);}
+            </style>
+
+            <!-- Lightbox overlay -->
+            <div id="bc-lb" role="dialog" aria-modal="true" aria-label="Screen lightbox" onclick="if(event.target===this)bcLbClose()">
+              <button id="bc-lb-close" onclick="bcLbClose()" aria-label="Close lightbox">&#x2715;</button>
+              <div id="bc-lb-inner">
+                <div id="bc-lb-phone">
+                  <div id="bc-lb-phone-inner">
+                    <img id="bc-lb-img" src="" alt="" loading="lazy">
+                  </div>
+                </div>
+                <p id="bc-lb-cap"></p>
+                <div id="bc-lb-nav">
+                  <button class="bc-lb-nav-btn" onclick="bcLbNav(-1)" aria-label="Previous screen">&#8592; Prev</button>
+                  <span id="bc-lb-counter"></span>
+                  <button class="bc-lb-nav-btn" onclick="bcLbNav(1)" aria-label="Next screen">Next &#8594;</button>
+                </div>
+              </div>
+            </div>
+
             <div style="margin-bottom:var(--space-40);">
               <div style="font-size:0.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-12);display:flex;align-items:center;gap:8px;">
                 <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
-                Original Design System — reference
+                Original Design System — 15 screens
                 <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
               </div>
               <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;" id="bc-ref-strip">
-                <div style="flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;">
-                  <div style="position:relative;width:72px;">
-                    <div style="width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);">
-                      <div style="background:#000;border-radius:14px;overflow:hidden;">
-                        <img src="../Space with map (Owner).png" alt="Original: Space owner view" style="width:100%;display:block;object-fit:cover;height:130px;object-position:top;">
-                      </div>
-                    </div>
-                  </div>
-                  <span style="font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;">Space · Owner</span>
+                <div class="bc-thumb" onclick="bcLbOpen(0)" role="button" aria-label="Open Space Owner screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Space with map (Owner).png" alt="Space owner view with 3D map"></div></div>
+                  <span class="bc-thumb-label">Space · Owner</span>
                 </div>
-                <div style="flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;">
-                  <div style="position:relative;width:72px;">
-                    <div style="width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);">
-                      <div style="background:#000;border-radius:14px;overflow:hidden;">
-                        <img src="../Set map pin - Options - Icon.png" alt="Original: Set map pin options" style="width:100%;display:block;object-fit:cover;height:130px;object-position:top;">
-                      </div>
-                    </div>
-                  </div>
-                  <span style="font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;">Set Pin · Options</span>
+                <div class="bc-thumb" onclick="bcLbOpen(1)" role="button" aria-label="Open Map Tilted Dark screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Map view - POI icon - Initial selection - Tilted dark.png" alt="Map tilted dark POI selection"></div></div>
+                  <span class="bc-thumb-label">Map · Tilted dark</span>
                 </div>
-                <div style="flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;">
-                  <div style="position:relative;width:72px;">
-                    <div style="width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);">
-                      <div style="background:#000;border-radius:14px;overflow:hidden;">
-                        <img src="../Set map pin - Select 3D asset - OK.png" alt="Original: 3D asset selection" style="width:100%;display:block;object-fit:cover;height:130px;object-position:top;">
-                      </div>
-                    </div>
-                  </div>
-                  <span style="font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;">Set Pin · 3D Asset</span>
+                <div class="bc-thumb" onclick="bcLbOpen(2)" role="button" aria-label="Open Map Multiple POIs screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../POI 1 - Map.png" alt="Map with multiple POI pins"></div></div>
+                  <span class="bc-thumb-label">Map · Multiple POIs</span>
                 </div>
-                <div style="flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;">
-                  <div style="position:relative;width:72px;">
-                    <div style="width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);">
-                      <div style="background:#000;border-radius:14px;overflow:hidden;">
-                        <img src="../Map view - POI edited - 3D asset.png" alt="Original: 3D POI on map" style="width:100%;display:block;object-fit:cover;height:130px;object-position:top;">
-                      </div>
-                    </div>
-                  </div>
-                  <span style="font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;">Map · 3D POI</span>
+                <div class="bc-thumb" onclick="bcLbOpen(3)" role="button" aria-label="Open Add POI Search screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Add POI - Map view - Search.png" alt="Add POI search flow"></div></div>
+                  <span class="bc-thumb-label">Add POI · Search</span>
                 </div>
-                <div style="flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;">
-                  <div style="position:relative;width:72px;">
-                    <div style="width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);">
-                      <div style="background:#000;border-radius:14px;overflow:hidden;">
-                        <img src="../POI selected - Content tab [VISITOR].png" alt="Original: Visitor POI view" style="width:100%;display:block;object-fit:cover;height:130px;object-position:top;">
-                      </div>
-                    </div>
-                  </div>
-                  <span style="font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;">Visitor · Feed</span>
+                <div class="bc-thumb" onclick="bcLbOpen(4)" role="button" aria-label="Open Add POI Info Sheet screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Add POI - Map view - Place's info sheet (basic).png" alt="Add POI location info sheet"></div></div>
+                  <span class="bc-thumb-label">Add POI · Info</span>
                 </div>
-                <div style="flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;">
-                  <div style="position:relative;width:72px;">
-                    <div style="width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);">
-                      <div style="background:#000;border-radius:14px;overflow:hidden;">
-                        <img src="../Edit Mode - Select objects part 1.png" alt="Original: 3D edit mode" style="width:100%;display:block;object-fit:cover;height:130px;object-position:top;">
-                      </div>
-                    </div>
-                  </div>
-                  <span style="font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;">Edit · 3D Mode</span>
+                <div class="bc-thumb" onclick="bcLbOpen(5)" role="button" aria-label="Open Set POI Form screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set POI - Info form - Image added - Action added single.png" alt="Set POI form with image and actions"></div></div>
+                  <span class="bc-thumb-label">Set POI · Form</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(6)" role="button" aria-label="Open Set Pin Options screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Options - Icon.png" alt="Set pin options: icon, image, 3D asset"></div></div>
+                  <span class="bc-thumb-label">Set Pin · Options</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(7)" role="button" aria-label="Open Set Pin Color screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Select Pin icon - Change color.png" alt="Set pin icon color picker"></div></div>
+                  <span class="bc-thumb-label">Set Pin · Color</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(8)" role="button" aria-label="Open Set Pin Image screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Select image - OK.png" alt="Set pin photo as spatial marker"></div></div>
+                  <span class="bc-thumb-label">Set Pin · Image</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(9)" role="button" aria-label="Open Set Pin 3D Asset screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Select 3D asset - OK.png" alt="Set pin 3D Unity asset"></div></div>
+                  <span class="bc-thumb-label">Set Pin · 3D Asset</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(10)" role="button" aria-label="Open Map 3D POI screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Map view - POI edited - 3D asset.png" alt="3D building asset as POI on map"></div></div>
+                  <span class="bc-thumb-label">Map · 3D POI</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(11)" role="button" aria-label="Open POI List screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Map view - Multiple POI - List enlarged.png" alt="All POIs list view reorderable"></div></div>
+                  <span class="bc-thumb-label">POI List</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(12)" role="button" aria-label="Open Visitor Feed screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../POI selected - Content tab [VISITOR].png" alt="Visitor content feed grid"></div></div>
+                  <span class="bc-thumb-label">Visitor · Feed</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(13)" role="button" aria-label="Open Universal Feed screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Visitor - UNIVERSAL FEED info sheet (Feeds).png" alt="Universal feed across all POIs"></div></div>
+                  <span class="bc-thumb-label">Universal Feed</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(14)" role="button" aria-label="Open Edit 3D Mode screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Edit Mode - Select objects part 1.png" alt="3D edit mode section-level Unity editing"></div></div>
+                  <span class="bc-thumb-label">Edit · 3D Mode</span>
                 </div>
               </div>
-              <div style="font-size:0.62rem;color:var(--text-tertiary);text-align:center;margin-top:var(--space-8);font-style:italic;">Original DS screens — black/neon system used during development</div>
+              <div style="font-size:0.62rem;color:var(--text-tertiary);text-align:center;margin-top:var(--space-8);font-style:italic;display:flex;align-items:center;justify-content:center;gap:6px;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Tap any thumbnail to open full-size &middot; Original black/neon DS &middot; Unity 3D + Figma
+              </div>
             </div>
+
 
             <!-- Divider -->
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:var(--space-32);">
@@ -416,6 +509,112 @@
             </div>
           </div>
         </div>
+
+        <!-- ══ WEB APP SECTION ══ -->
+        <section id="bc-webapp" style="background:var(--bg-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:var(--space-96) 0;position:relative;overflow:hidden;">
+          <canvas id="bc-mesh-webapp" data-mesh style="position:absolute;inset:0;width:100%;height:100%;opacity:0.18;pointer-events:none;" aria-hidden="true"></canvas>
+          <div class="container" style="position:relative;z-index:1;">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);" class="section-eyebrow">Platform Architecture</div>
+            <h2 style="font-size:1.8rem;font-weight:800;color:var(--text-primary);margin-bottom:var(--space-16);line-height:1.2;">The Platform Also Lives on the Web</h2>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.7;max-width:580px;margin-bottom:var(--space-40);">Beyond the mobile app, the platform required a full web companion — a management dashboard where Space owners configure their 3D environments, manage POIs, and monitor activity. Designing for both mobile and desktop surfaces demanded strict design system coherence.</p>
+
+            <!-- Feature cards -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-16);margin-bottom:var(--space-48);">
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="0">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Space Dashboard</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Central hub for managing multiple 3D Spaces — visitor analytics, content calendar, and POI health at a glance.</p>
+                </div>
+              </div>
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="80">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">3D Map Web</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Full three.js map view on desktop — drag, zoom, and click-to-edit POIs directly in the browser without Unity.</p>
+                </div>
+              </div>
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="160">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">3D Asset Library</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Searchable catalogue of Unity-ready 3D objects. Owners browse, preview, and attach assets to any POI from the web dashboard.</p>
+                </div>
+              </div>
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="240">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Multi-role Access</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Owner, Editor, and Viewer roles — each with distinct permissions. Designed so the same component set serves all three without diverging UI branches.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Browser chrome mockup -->
+            <div id="bc-webapp-demo" style="border-radius:12px;overflow:hidden;border:1px solid var(--border-subtle);background:var(--bg-base);box-shadow:0 24px 60px rgba(0,0,0,0.4);">
+              <!-- Browser bar -->
+              <div style="height:40px;background:#1a1a1a;display:flex;align-items:center;padding:0 14px;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);">
+                <div style="width:12px;height:12px;border-radius:50%;background:#e05c4a;"></div>
+                <div style="width:12px;height:12px;border-radius:50%;background:#f4c842;"></div>
+                <div style="width:12px;height:12px;border-radius:50%;background:#5fe6a0;"></div>
+                <div style="flex:1;margin:0 12px;height:24px;background:rgba(255,255,255,0.05);border-radius:5px;display:flex;align-items:center;padding:0 10px;gap:6px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.3);">app.blockchain-platform.io/spaces/megaton/dashboard</span>
+                </div>
+              </div>
+              <!-- App shell -->
+              <div style="display:grid;grid-template-columns:200px 1fr;min-height:380px;">
+                <!-- Sidebar -->
+                <div style="background:#111;border-right:1px solid rgba(255,255,255,0.06);padding:var(--space-20) 0;display:flex;flex-direction:column;gap:2px;">
+                  <div style="padding:0 var(--space-16) var(--space-16);border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:var(--space-12);">
+                    <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:4px;">Space</div>
+                    <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);">Megaton Outdoor</div>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;background:rgba(74,163,212,0.1);border-left:2px solid #4aa3d4;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    <span style="font-size:0.7rem;font-weight:600;color:#4aa3d4;">Dashboard</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">3D Map</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">Asset Library</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">Team</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M4.93 4.93a10 10 0 000 14.14"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">Analytics</span>
+                  </div>
+                </div>
+                <!-- Main: Three.js map -->
+                <div id="bc-webapp-map" style="position:relative;overflow:hidden;background:#0a0f1a;min-height:280px;">
+                  <canvas id="bc-canvas-web" style="width:100%;height:100%;display:block;" aria-label="Interactive 3D map of Space POIs" role="img"></canvas>
+                  <!-- Desktop cursor -->
+                  <div id="bc-webapp-cur" style="position:absolute;pointer-events:none;z-index:50;transition:top 600ms cubic-bezier(0.34,1.1,0.64,1),left 600ms cubic-bezier(0.34,1.1,0.64,1),opacity 300ms ease;opacity:0;">
+                    <svg width="22" height="26" viewBox="0 0 22 26" fill="none" aria-hidden="true">
+                      <path d="M2 2l16 10-7 1-4 8z" fill="var(--bg-base)" stroke="var(--text-primary)" stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div id="bc-webapp-cur-lbl" style="position:absolute;pointer-events:none;z-index:50;padding:4px 9px;background:rgba(74,163,212,0.9);border-radius:5px;font-size:0.6rem;font-weight:700;color:#000;white-space:nowrap;opacity:0;transition:opacity 250ms ease;"></div>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:0.65rem;color:var(--text-tertiary);text-align:center;margin-top:var(--space-12);font-style:italic;">Illustrated Three.js mockup — represents the web dashboard 3D map interaction pattern</p>
+          </div>
+        </section>
 
         <!-- ══ PREV / NEXT ══ -->
         <div class="project-nav" data-anim>
@@ -968,6 +1167,147 @@
       }
     }
 
+  })();
+
+  /* ── Lightbox ── */
+  var BC_IMGS=[
+    {src:'../Space with map (Owner).png',cap:'Space · Owner — 3D tilted map with floating POIs'},
+    {src:'../Map view - POI icon - Initial selection - Tilted dark.png',cap:'Map · Tilted dark — spatial depth communicates ownership'},
+    {src:'../POI 1 - Map.png',cap:'Map · Multiple POIs — flat map with labeled pins'},
+    {src:'../Add POI - Map view - Search.png',cap:'Add POI · Search — search-first flow validated in testing'},
+    {src:'../Add POI - Map view - Place\'s info sheet (basic).png',cap:'Add POI · Info sheet — location confirmed before committing'},
+    {src:'../Set POI - Info form - Image added - Action added single.png',cap:'Set POI · Form — name, description, tags, actions'},
+    {src:'../Set map pin - Options - Icon.png',cap:'Set Pin · Options — 3 levels: Icon, Image, 3D Asset'},
+    {src:'../Set map pin - Select Pin icon - Change color.png',cap:'Set Pin · Color — custom color picker for icon pins'},
+    {src:'../Set map pin - Select image - OK.png',cap:'Set Pin · Image — photo used as spatial marker'},
+    {src:'../Set map pin - Select 3D asset - OK.png',cap:'Set Pin · 3D Asset — 3D object from Unity library as POI'},
+    {src:'../Map view - POI edited - 3D asset.png',cap:'Map · 3D POI — 3D building asset floating on the map'},
+    {src:'../Map view - Multiple POI - List enlarged.png',cap:'POI List — all POIs in the Space, reorderable'},
+    {src:'../POI selected - Content tab [VISITOR].png',cap:'Visitor · Feed — content grid with feed and about tabs'},
+    {src:'../Visitor - UNIVERSAL FEED info sheet (Feeds).png',cap:'Universal Feed — aggregated content across all POIs'},
+    {src:'../Edit Mode - Select objects part 1.png',cap:'Edit · 3D Mode — section-level Unity editing with texture/color controls'},
+  ];
+  var bcLbIdx=0;
+  window.bcLbOpen=function(i){
+    bcLbIdx=i;
+    var lb=document.getElementById('bc-lb');
+    var img=document.getElementById('bc-lb-img');
+    var cap=document.getElementById('bc-lb-cap');
+    if(!lb||!img)return;
+    img.src=BC_IMGS[i].src;
+    img.alt=BC_IMGS[i].cap;
+    if(cap)cap.textContent=BC_IMGS[i].cap;
+    lb.style.display='flex';
+    document.body.style.overflow='hidden';
+    if(window.dsSound)window.dsSound.click();
+  };
+  window.bcLbClose=function(){
+    var lb=document.getElementById('bc-lb');
+    if(lb){lb.style.display='none';document.body.style.overflow='';}
+  };
+  window.bcLbNav=function(dir){
+    bcLbIdx=(bcLbIdx+dir+BC_IMGS.length)%BC_IMGS.length;
+    var img=document.getElementById('bc-lb-img');
+    var cap=document.getElementById('bc-lb-cap');
+    if(img){img.style.opacity='0';setTimeout(function(){img.src=BC_IMGS[bcLbIdx].src;img.alt=BC_IMGS[bcLbIdx].cap;img.style.opacity='1';},150);}
+    if(cap)cap.textContent=BC_IMGS[bcLbIdx].cap;
+    if(window.dsSound)window.dsSound.click();
+  };
+  document.addEventListener('keydown',function(e){
+    var lb=document.getElementById('bc-lb');
+    if(!lb||lb.style.display==='none')return;
+    if(e.key==='Escape')window.bcLbClose();
+    if(e.key==='ArrowLeft')window.bcLbNav(-1);
+    if(e.key==='ArrowRight')window.bcLbNav(1);
+  });
+
+  /* ── Web app Three.js mini-map + desktop cursor ── */
+  (function(){
+    var canvas=document.getElementById('bc-canvas-web');
+    var mapEl=document.getElementById('bc-webapp-map');
+    var cur=document.getElementById('bc-webapp-cur');
+    var lbl=document.getElementById('bc-webapp-cur-lbl');
+    if(!canvas||!mapEl)return;
+
+    var obs=new IntersectionObserver(function(e){
+      if(e[0].isIntersecting){initWebMap();obs.disconnect();}
+    },{threshold:0.2});
+    obs.observe(mapEl);
+
+    function initWebMap(){
+      if(!window.THREE){setTimeout(initWebMap,300);return;}
+      var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+      var W=mapEl.offsetWidth||500,H=mapEl.offsetHeight||280;
+      var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
+      renderer.setSize(W,H);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      var scene=new THREE.Scene();
+      scene.background=new THREE.Color(isDark?0x080d14:0xf0ede8);
+      var camera=new THREE.PerspectiveCamera(42,W/H,0.1,100);
+      camera.position.set(0,14,18);camera.lookAt(0,0,0);
+      var amb=new THREE.AmbientLight(isDark?0x334466:0xffffff,isDark?0.6:0.9);scene.add(amb);
+      var dir=new THREE.DirectionalLight(isDark?0x88aacc:0xffffff,isDark?0.8:1.1);
+      dir.position.set(6,12,8);scene.add(dir);
+      scene.add(new THREE.GridHelper(28,28,isDark?0x1a3a5c:0xd0cdc8,isDark?0x0d1e30:0xe0ddd8));
+      var gnd=new THREE.Mesh(new THREE.PlaneGeometry(28,28),new THREE.MeshLambertMaterial({color:isDark?0x080d14:0xf0ede8}));
+      gnd.rotation.x=-Math.PI/2;gnd.position.y=-0.01;scene.add(gnd);
+      var bColors=isDark?[0x1a2840,0x152233,0x1e2d42,0x17263a]:[0xd0ccc6,0xc8c4be,0xd4d0ca,0xccc8c2];
+      [[-3,-2,2,4,2],[2,-3,1.8,6,1.8],[-6,2,2.5,3,2.5],[6,-1,1.6,7,1.6],[3,2,1.8,4,1.8],[-7,-3,1.6,3.5,1.6],[5,6,2,4,2],[-4,-6,1.5,5,1.5]].forEach(function(c){
+        var col=bColors[Math.floor(Math.random()*bColors.length)];
+        var m=new THREE.Mesh(new THREE.BoxGeometry(c[2],c[3],c[4]),new THREE.MeshLambertMaterial({color:col,transparent:true,opacity:isDark?0.88:0.92}));
+        m.position.set(c[0],c[3]/2,c[1]);scene.add(m);
+      });
+      var pins=[];
+      [[0,-1,'#4aa3d4'],[2.5,2.5,'#e05c4a'],[-3,0.5,'#f4c842']].forEach(function(p){
+        var col=new THREE.Color(p[2]);
+        var g=new THREE.Group();g.position.set(p[0],2,p[1]);
+        var sph=new THREE.Mesh(new THREE.SphereGeometry(0.2,10,10),new THREE.MeshLambertMaterial({color:col,emissive:col,emissiveIntensity:0.3}));
+        sph.position.y=0.5;g.add(sph);
+        var stem=new THREE.Mesh(new THREE.CylinderGeometry(0.025,0.025,0.5,8),new THREE.MeshLambertMaterial({color:col}));
+        stem.position.y=0.25;g.add(stem);
+        g.floatOff=Math.random()*Math.PI*2;
+        scene.add(g);pins.push(g);
+      });
+      var start=Date.now();
+      function tick(){
+        requestAnimationFrame(tick);
+        var t=(Date.now()-start)/1000;
+        pins.forEach(function(g){g.position.y=2+Math.sin(t*1.3+g.floatOff)*0.06;});
+        camera.position.x=Math.sin(t*0.018)*18*0.3;
+        camera.position.z=18+Math.cos(t*0.013)*2;
+        camera.lookAt(0,1,0);
+        renderer.render(scene,camera);
+      }
+      tick();
+      window.addEventListener('resize',function(){
+        var nW=mapEl.offsetWidth,nH=mapEl.offsetHeight;
+        if(!nW||!nH)return;
+        camera.aspect=nW/nH;camera.updateProjectionMatrix();renderer.setSize(nW,nH);
+      });
+    }
+
+    if(cur&&mapEl){
+      var wtids=[];
+      var labels=['Click to open POI','View Space details','Add new POI here'];
+      var positions=[{x:'48%',y:'42%'},{x:'62%',y:'58%'},{x:'35%',y:'35%'}];
+      var pi=0;
+      function wRun(){
+        wtids.forEach(clearTimeout);wtids=[];
+        cur.style.opacity='1';
+        function step(){
+          cur.style.top=positions[pi].y;cur.style.left=positions[pi].x;
+          if(lbl){lbl.textContent=labels[pi];lbl.style.opacity='1';}
+          var ci=pi;
+          wtids.push(setTimeout(function(){if(lbl)lbl.style.opacity='0';},1100));
+          pi=(pi+1)%positions.length;
+          wtids.push(setTimeout(step,1800));
+        }
+        step();
+      }
+      var wObs=new IntersectionObserver(function(e){
+        if(e[0].isIntersecting){wRun();wObs.disconnect();}
+      },{threshold:0.3});
+      wObs.observe(mapEl);
+    }
   })();
   </script>
 
