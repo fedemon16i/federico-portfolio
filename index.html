@@ -101,6 +101,9 @@
     @keyframes dc2Scan{0%{top:-2px}100%{top:100%}}
     @keyframes dc2CardCur{0%,100%{transform:translate(0,0)}40%{transform:translate(-20px,8px)}70%{transform:translate(-8px,16px)}}
     @keyframes dc2CardRow{0%,100%{background:rgba(22,163,74,0.2)}50%{background:rgba(22,163,74,0.4)}}
+    @keyframes dcScan{0%{top:-2px}100%{top:100%}}
+    @keyframes dcRowGlow{0%,100%{background:rgba(22,163,74,0.15)}50%{background:rgba(22,163,74,0.4)}}
+    @keyframes dcCursor{0%,100%{transform:translate(0,0)}35%{transform:translate(-28px,8px)}70%{transform:translate(-10px,20px)}}
   </style>
   <link rel="stylesheet" href="assets/shared.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -495,48 +498,63 @@
             style="--card-accent: var(--accent-dollarcity);"
             data-anim data-anim-delay="2"
           >
-            <!-- Card DollarCity — logo + proto animado -->
-            <div class="dc-card-inner" style="background:#16a34a;border-radius:inherit;overflow:hidden;position:relative;min-height:280px">
-              <div style="position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.15);animation:dc2Scan 3.5s linear infinite;z-index:3"></div>
-              <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><pattern id="dc2c" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.7" fill="rgba(255,255,255,0.07)"/></pattern></defs><rect width="100%" height="100%" fill="url(#dc2c)"/></svg>
+            <div style="background:#16a34a;border-radius:inherit;overflow:hidden;position:relative;">
+              <!-- scan line -->
+              <div style="position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.2);animation:dcScan 3s linear infinite;z-index:4;pointer-events:none"></div>
+              <!-- dot grid -->
+              <svg style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dcDots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.7" fill="rgba(255,255,255,0.07)"/></pattern></defs><rect width="100%" height="100%" fill="url(#dcDots)"/></svg>
               <!-- Logo -->
-              <div style="position:relative;z-index:2;padding:20px 20px 12px;display:flex;align-items:center;gap:10px">
-                <div style="width:34px;height:34px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0" aria-hidden="true">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-                </div>
-                <div>
-                  <div style="font-size:12px;font-weight:700;color:#fff;line-height:1">DollarCity × Dollarama</div>
-                  <div style="font-size:9px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em">Fraud Surveillance · SaaS</div>
-                </div>
+              <div style="padding:20px 20px 14px;position:relative;z-index:2">
+                <div style="font-size:30px;font-weight:900;color:#FBBF24;letter-spacing:-0.04em;line-height:1;font-style:italic">Dollarcity</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-top:3px">× Dollarama · Fraud SaaS</div>
               </div>
-              <!-- Mini proto -->
-              <div style="position:relative;z-index:2;margin:0 12px;height:160px;overflow:hidden" aria-hidden="true">
-                <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);filter:blur(4px);transform:scale(1.05)"></div>
-                <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:85%;border:0.5px solid rgba(255,255,255,0.2);border-radius:8px 8px 0 0;overflow:hidden;background:#0a0f0a;transform-origin:bottom center;transform:translateX(-50%) perspective(400px) rotateX(5deg)">
-                  <div style="display:flex;gap:4px;padding:5px 8px;background:#0f172a;border-bottom:0.5px solid rgba(255,255,255,0.06)">
+              <!-- Screen cropped bottom -->
+              <div style="position:relative;height:160px;overflow:hidden;z-index:2">
+                <!-- fade top into green -->
+                <div style="position:absolute;top:0;left:0;right:0;height:44px;background:linear-gradient(to bottom,#16a34a,transparent);z-index:3;pointer-events:none"></div>
+                <!-- browser screen -->
+                <div style="width:88%;margin:0 auto;background:#0a0f0a;border-radius:8px 8px 0 0;height:180px;position:relative;overflow:hidden;box-shadow:0 -8px 28px rgba(0,0,0,0.45)">
+                  <!-- chrome bar -->
+                  <div style="display:flex;gap:4px;padding:6px 10px;background:#0f172a;border-bottom:0.5px solid rgba(255,255,255,0.06);align-items:center">
                     <span style="width:6px;height:6px;border-radius:50%;background:#ef4444;display:inline-block"></span>
                     <span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;display:inline-block"></span>
                     <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block"></span>
+                    <div style="flex:1;height:10px;background:rgba(255,255,255,0.04);border-radius:2px;margin-left:4px"></div>
                   </div>
-                  <div style="display:grid;grid-template-columns:60px 1fr;height:100px">
-                    <div style="padding:6px;border-right:0.5px solid rgba(255,255,255,0.05)">
-                      <div style="font-size:7px;color:rgba(22,163,74,0.9);background:rgba(22,163,74,0.12);border-radius:3px;padding:4px 5px;margin-bottom:3px">My Requests</div>
-                      <div style="font-size:7px;color:rgba(255,255,255,0.25);padding:3px 5px;margin-bottom:3px">All Videos</div>
-                      <div style="font-size:7px;color:rgba(255,255,255,0.25);padding:3px 5px">Exceptions</div>
+                  <!-- screen body -->
+                  <div style="display:grid;grid-template-columns:70px 1fr;height:calc(100% - 24px)">
+                    <!-- sidebar -->
+                    <div style="padding:8px;border-right:0.5px solid rgba(255,255,255,0.05)">
+                      <div style="font-size:8px;background:rgba(22,163,74,0.15);color:rgba(22,163,74,0.9);border-radius:3px;padding:5px 6px;margin-bottom:3px">My Requests</div>
+                      <div style="font-size:8px;color:rgba(255,255,255,0.2);padding:5px 6px;margin-bottom:3px">All Videos</div>
+                      <div style="font-size:8px;color:rgba(255,255,255,0.2);padding:5px 6px;margin-bottom:3px">Exceptions</div>
+                      <div style="font-size:8px;color:rgba(255,255,255,0.2);padding:5px 6px">Reports</div>
                     </div>
-                    <div style="padding:7px">
-                      <div style="height:5px;background:rgba(22,163,74,0.25);border-radius:2px;margin-bottom:5px;width:70%;animation:dc2CardRow 2s ease-in-out infinite"></div>
-                      <div style="display:flex;flex-direction:column;gap:4px">
-                        <div style="display:flex;align-items:center;gap:4px"><span style="font-size:7px;padding:1px 5px;background:rgba(22,163,74,0.15);color:rgba(22,163,74,0.9);border-radius:100px">DL</span><div style="flex:1;height:4px;background:rgba(255,255,255,0.04);border-radius:2px"></div></div>
-                        <div style="display:flex;align-items:center;gap:4px"><span style="font-size:7px;padding:1px 5px;background:rgba(217,119,6,0.15);color:rgba(251,191,36,0.9);border-radius:100px">…</span><div style="flex:1;height:4px;background:rgba(255,255,255,0.04);border-radius:2px"></div></div>
-                        <div style="display:flex;align-items:center;gap:4px"><span style="font-size:7px;padding:1px 5px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.25);border-radius:100px">—</span><div style="flex:1;height:4px;background:rgba(255,255,255,0.04);border-radius:2px"></div></div>
+                    <!-- main -->
+                    <div style="padding:9px">
+                      <div style="height:5px;border-radius:2px;background:rgba(22,163,74,0.2);width:68%;margin-bottom:6px;animation:dcRowGlow 2s ease-in-out infinite"></div>
+                      <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px">
+                        <div style="display:flex;align-items:center;gap:5px">
+                          <span style="font-size:7px;padding:1px 6px;border-radius:100px;background:rgba(22,163,74,0.18);color:rgba(22,163,74,0.9);white-space:nowrap">Downloaded</span>
+                          <div style="flex:1;height:3px;background:rgba(255,255,255,0.04);border-radius:2px"></div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:5px">
+                          <span style="font-size:7px;padding:1px 6px;border-radius:100px;background:rgba(217,119,6,0.15);color:rgba(251,191,36,0.8);white-space:nowrap">Downloading…</span>
+                          <div style="flex:1;height:3px;background:rgba(255,255,255,0.04);border-radius:2px"></div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:5px">
+                          <span style="font-size:7px;padding:1px 6px;border-radius:100px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.2);white-space:nowrap">Not requested</span>
+                          <div style="flex:1;height:3px;background:rgba(255,255,255,0.04);border-radius:2px"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <!-- cursor animado -->
-                <div style="position:absolute;bottom:24px;right:28px;z-index:4;pointer-events:none;animation:dc2CardCur 3s ease-in-out infinite">
-                  <div style="width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.6)"></div>
+                  <!-- animated cursor -->
+                  <div style="position:absolute;bottom:28px;right:22px;z-index:5;pointer-events:none;animation:dcCursor 3s ease-in-out infinite">
+                    <div style="width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.55);position:relative">
+                      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.7)"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
