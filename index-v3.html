@@ -521,7 +521,8 @@
       min-width:0;
     }
     .hall.expanded{flex:5;}
-    .hall-canvas-wrap{position:absolute;inset:0;}
+    .hall.expanded .hall-canvas-wrap{width:52%;left:0;right:auto;}
+    .hall-canvas-wrap{position:absolute;inset:0;transition:width 500ms var(--spring-soft,cubic-bezier(0.16,1,0.3,1));}
     .hall-canvas-wrap canvas{width:100%;height:100%;display:block;}
     .hall-vert{
       writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
@@ -530,6 +531,7 @@
       transition:opacity 250ms ease;z-index:3;
     }
     .hall.expanded .hall-vert{opacity:0;pointer-events:none;}
+    .hall.expanded .hall-canvas-wrap > *{transform:scale(1.6);}
     .hall-badge{
       position:absolute;left:16px;bottom:16px;z-index:3;display:flex;align-items:center;gap:8px;
       transition:opacity 200ms ease;
@@ -538,11 +540,29 @@
     .hall-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-shadow:0 0 10px currentColor;}
     .hall-name-small{font-size:13px;font-weight:500;color:#fff;white-space:nowrap;font-family:var(--font-display);}
     .hall-summary{
-      position:absolute;inset:0;z-index:4;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;
-      background:linear-gradient(180deg,transparent 0%,rgba(10,10,10,0.55) 45%,rgba(10,10,10,0.92) 100%);
-      opacity:0;transition:opacity 350ms ease 120ms;
+      position:absolute;top:0;right:0;bottom:0;left:52%;z-index:4;
+      padding:28px 26px;display:flex;flex-direction:column;
+      background:rgba(10,10,10,0.94);backdrop-filter:blur(6px);
+      overflow-y:auto;overscroll-behavior:contain;
+      opacity:0;transform:translateX(8px);
+      transition:opacity 350ms ease 150ms, transform 400ms var(--spring-soft,cubic-bezier(0.16,1,0.3,1)) 150ms;
+      border-left:1px solid rgba(255,255,255,0.08);
     }
-    .hall.expanded .hall-summary{opacity:1;}
+    .hall.expanded .hall-summary{opacity:1;transform:none;}
+    .hall-sum-section{margin-bottom:16px;}
+    .hall-sum-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.4);font-family:var(--font-mono);margin-bottom:8px;}
+    .hall-sum-list{display:flex;flex-direction:column;gap:7px;}
+    .hall-sum-list-item{font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.55;padding-left:14px;position:relative;}
+    .hall-sum-list-item::before{content:'';position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:0.6;}
+    @media(max-width:900px){
+      .hall.expanded .hall-canvas-wrap{width:100%;height:38%;}
+      .hall-summary{left:0;top:38%;}
+    }
+    @media(max-width:700px){
+      .hall.expanded{height:520px;}
+      .hall.expanded .hall-canvas-wrap{height:180px;}
+      .hall-summary{top:180px;}
+    }
     .hall-sum-tag{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.55);margin-bottom:8px;font-family:var(--font-mono);}
     .hall-sum-name{font-family:var(--font-display);font-weight:700;font-size:26px;color:#fff;margin-bottom:8px;}
     .hall-sum-problem{font-size:14px;color:rgba(255,255,255,0.85);line-height:1.6;max-width:420px;margin-bottom:6px;}
@@ -612,6 +632,32 @@
       #loop-diagram.in-view{animation:loopBreathe 6s ease-in-out infinite;}
       @keyframes loopBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.008)}}
     }
+
+    /* ══ HOMEPAGE PREVIEW REEL ══ */
+    .reel-card{
+      position:relative;width:100%;height:140px;border-radius:14px;overflow:hidden;
+      border:1px solid var(--border);background:var(--bg-raised);cursor:pointer;
+      margin-bottom:28px;padding:0;text-align:left;display:block;
+    }
+    .reel-canvas{position:absolute;inset:0;transition:opacity 500ms ease;}
+    .reel-overlay{
+      position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;
+      padding:18px 20px;background:linear-gradient(180deg,transparent 40%,rgba(10,10,10,0.85) 100%);
+    }
+    .reel-left{display:flex;flex-direction:column;gap:2px;}
+    .reel-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.55);font-family:var(--font-mono);}
+    .reel-title{font-family:var(--font-display);font-weight:700;font-size:19px;color:#fff;}
+    .reel-sub{font-size:12px;color:rgba(255,255,255,0.7);}
+    .reel-right{display:flex;align-items:center;}
+    .reel-cta{
+      display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;
+      background:rgba(255,255,255,0.12);padding:7px 13px;border-radius:100px;
+      border:1px solid rgba(255,255,255,0.15);transition:transform 200ms var(--spring,cubic-bezier(0.34,1.56,0.64,1));
+    }
+    .reel-card:hover .reel-cta{transform:translateX(3px);}
+    .reel-dots{position:absolute;top:14px;right:16px;z-index:3;display:flex;gap:5px;}
+    .reel-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.3);transition:background 300ms ease,width 300ms ease;}
+    .reel-dots span.on{background:#fff;width:14px;border-radius:3px;}
   </style>
 </head>
 <body>
@@ -682,8 +728,22 @@
 
           <div class="cta-row anim" data-stagger="3">
             <button class="btn-primary magnetic" data-goto="problem">What's your problem? &#8594;</button>
-            <button class="btn-ghost magnetic" data-goto="work">See my work</button>
           </div>
+
+          <button class="reel-card anim glow-soft" data-stagger="3" data-goto="work" id="reel-card" aria-label="See my work — preview of all projects">
+            <div class="reel-canvas" id="reel-canvas"></div>
+            <div class="reel-overlay">
+              <div class="reel-left">
+                <span class="reel-eyebrow">See my work</span>
+                <span class="reel-title" id="reel-title">EY Fabric</span>
+                <span class="reel-sub" id="reel-sub">90+ dev assets, zero behavioral data</span>
+              </div>
+              <div class="reel-right">
+                <span class="reel-cta">5 projects <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </div>
+            </div>
+            <div class="reel-dots" id="reel-dots"></div>
+          </button>
           <div class="metrics anim glow-soft" data-stagger="3">
             <div class="metric"><b class="lift">5+ yrs</b><span>product &amp; UX</span></div>
             <div class="metric"><b class="lift">&minus;50%</b><span>task time</span></div>
@@ -933,11 +993,21 @@
       cus:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex-shrink:0;opacity:0.7"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>'
     };
     var WORK=[
-      {n:'EY Fabric',m:'Globant · 2023–Present',p:'90+ dev assets, zero behavioral data',d:'Instrumented events, Qualtrics feedback loops, session-level insights',r:'90+ assets measured',a:'var(--acc-ey)',l:'projects/ey-fabric.html',ic:WORK_ICONS.ey,tk:'ey'},
-      {n:'Chek',m:'Applaudo Studios',p:'New virtual card product in a skeptical market',d:'Research-led onboarding redesign + event funnels',r:'+15% onboarding',a:'var(--acc-chek)',l:'projects/chek.html',ic:WORK_ICONS.chek,tk:'chek'},
-      {n:'DollarCity',m:'Applaudo Studios',p:"Fraud workflow non-technical users couldn't operate",d:'Contextual inquiries + redesigned task flows',r:'−50% task completion time',a:'var(--acc-dc)',l:'projects/dollarcity.html',ic:WORK_ICONS.dc,tk:'dc'},
-      {n:'Blockchain 3D',m:'Globant · 2023–2024',p:'3D spatial platform, no UX playbook existed',d:'Benchmarked gaming/WebXR, dual DS (flat + spatial), Unity+Figma+Spline pipeline',r:'2 design systems shipped',a:'var(--acc-bc)',l:'projects/blockchain.html',ic:WORK_ICONS.bc,tk:'bc'},
-      {n:'Aduanas El Salvador',m:'Applaudo Studios',p:'5 analog processes, zero digital, zero research culture',d:'Discovery + flows + dev-ready prototypes leading 5 designers',r:'$500K expansion earned',a:'var(--acc-cus)',l:'projects/customs.html',ic:WORK_ICONS.cus,tk:'cus'}
+      {n:'EY Fabric',m:'Globant · 2023–Present',p:'90+ dev assets, zero behavioral data',d:'Instrumented events, Qualtrics feedback loops, session-level insights',r:'90+ assets measured',a:'var(--acc-ey)',l:'projects/ey-fabric.html',ic:WORK_ICONS.ey,tk:'ey',
+       approach:['Mapped what "engagement" needed to mean with stakeholders','Defined a 5-7 event taxonomy for the assets that mattered','Instrumented with Pendo — tagged existing UI, no custom code','Closed the loop with Qualtrics feedback dashboards'],
+       findings:['Sole Pendo practitioner on the account','UX research delivered on-demand across teams','Bridge between design, engineering and product']},
+      {n:'Chek',m:'Applaudo Studios',p:'New virtual card product in a skeptical market',d:'Research-led onboarding redesign + event funnels',r:'+15% onboarding',a:'var(--acc-chek)',l:'projects/chek.html',ic:WORK_ICONS.chek,tk:'chek',
+       approach:['Led a 4-designer team through the full redesign','Built the onboarding flow around real user hesitation points','Instrumented event-tracking funnels for adoption'],
+       findings:['Design system shipped from scratch, 10+ features','Overhauled consistency across the whole app','South American digital wallet, acquired by Banco Ripley']},
+      {n:'DollarCity',m:'Applaudo Studios',p:"Fraud workflow non-technical users couldn't operate",d:'Contextual inquiries + redesigned task flows',r:'−50% task completion time',a:'var(--acc-dc)',l:'projects/dollarcity.html',ic:WORK_ICONS.dc,tk:'dc',
+       approach:['Ran contextual inquiries with telemarketer users','Identified 3 new personas from real usage patterns','Redesigned the review workflow around their mental model'],
+       findings:['Fraud monitoring SaaS for retail chains — Canada + LATAM','4 user types mapped end-to-end','Platform in active development with real operational risk']},
+      {n:'Blockchain 3D',m:'Globant · 2023–2024',p:'3D spatial platform, no UX playbook existed',d:'Benchmarked gaming/WebXR, dual DS (flat + spatial), Unity+Figma+Spline pipeline',r:'2 design systems shipped',a:'var(--acc-bc)',l:'projects/blockchain.html',ic:WORK_ICONS.bc,tk:'bc',
+       approach:['Benchmarked spatial computing, gaming and WebXR platforms','Built a flat DS for web alongside a spatial DS for Unity','Bridged Figma, Spline and Unity into one handoff pipeline'],
+       findings:['5 core spatial flows shipped: Space, Add POI, Set Pin, Visitor, Feed','Translated mobile-first 3D concepts into a desktop web experience','No prior playbook — patterns invented from scratch']},
+      {n:'Aduanas El Salvador',m:'Applaudo Studios',p:'5 analog processes, zero digital, zero research culture',d:'Discovery + flows + dev-ready prototypes leading 5 designers',r:'$500K expansion earned',a:'var(--acc-cus)',l:'projects/customs.html',ic:WORK_ICONS.cus,tk:'cus',
+       approach:['Digitized 5 analog processes into a working MVP','Managed 5 designers converting flows into dev-ready prototypes','Directed PrimeNG design system adoption across the UI team'],
+       findings:['General Directorate of Customs, Republic of El Salvador','MVP secured client trust to expand into full-scale project','Compliance with public-sector usability standards']}
     ];
     var TEASERS={
       ey:'<div class="t-layer" style="position:relative;width:100%;height:100%;">'+
@@ -979,8 +1049,13 @@
           '<div class="hall-summary">'+
             '<div class="hall-sum-tag">'+esc(w.m)+'</div>'+
             '<div class="hall-sum-name">'+esc(w.n)+'</div>'+
-            '<div class="hall-sum-problem">'+esc(w.p)+'</div>'+
-            '<div class="hall-sum-did">'+esc(w.d)+'</div>'+
+            '<div class="hall-sum-section"><div class="hall-sum-label">The problem</div><div class="hall-sum-problem">'+esc(w.p)+'</div></div>'+
+            '<div class="hall-sum-section"><div class="hall-sum-label">Approach</div><div class="hall-sum-list">'+
+              (w.approach||[]).map(function(a){return '<div class="hall-sum-list-item">'+esc(a)+'</div>';}).join('')+
+            '</div></div>'+
+            '<div class="hall-sum-section"><div class="hall-sum-label">Findings</div><div class="hall-sum-list">'+
+              (w.findings||[]).map(function(f){return '<div class="hall-sum-list-item">'+esc(f)+'</div>';}).join('')+
+            '</div></div>'+
             '<div class="hall-sum-result" style="color:'+w.a+'">'+w.r+'</div>'+
             '<a class="hall-sum-cta" href="'+w.l+'">Open full case <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></a>'+
           '</div>'+
@@ -1107,6 +1182,32 @@
       return '<div class="skill-group"><span class="ans-label" style="margin-bottom:0;">'+g[0]+'</span>'+
         '<div class="skill-chips">'+g[1].map(function(s){return '<span class="skill-chip">'+chipIcon+esc(s)+'</span>';}).join('')+'</div></div>';
     }).join('');
+
+    /* ══ REEL ROTATION — cycles all 5 projects on loop ══ */
+    (function(){
+      var canvas=document.getElementById('reel-canvas');
+      var titleEl=document.getElementById('reel-title');
+      var subEl=document.getElementById('reel-sub');
+      var dotsEl=document.getElementById('reel-dots');
+      if(!canvas||typeof WORK==='undefined')return;
+      var idx=0,timer=null;
+      function paint(){
+        var w=WORK[idx];
+        canvas.className='reel-canvas teaser-scene '+TEASER_CLASS[w.tk];
+        canvas.style.borderRadius='0';
+        canvas.innerHTML=TEASERS[w.tk];
+        canvas.style.background=HALL_BG[w.tk];
+        titleEl.textContent=w.n;
+        subEl.textContent=w.p;
+        dotsEl.innerHTML=WORK.map(function(_,i){return '<span class="'+(i===idx?'on':'')+'"></span>';}).join('');
+      }
+      function next(){ idx=(idx+1)%WORK.length; paint(); }
+      paint();
+      timer=setInterval(next,3600);
+      var reelCard=document.getElementById('reel-card');
+      if(reelCard) reelCard.addEventListener('mouseenter',function(){clearInterval(timer);});
+      if(reelCard) reelCard.addEventListener('mouseleave',function(){timer=setInterval(next,3600);});
+    })();
   })();
 
   /* ══ DEPTH INTERACTIONS ══ */
