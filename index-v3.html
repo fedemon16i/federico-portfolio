@@ -453,6 +453,63 @@
     @media (hover: hover) {
       .tilt:hover { animation: none; }
     }
+
+    /* ══ WORK TEASERS — animated mini-scenes ══ */
+    .work-row{
+      display:grid; grid-template-columns:1fr 140px; gap:16px; align-items:center;
+      text-decoration:none; color:inherit;
+    }
+    .teaser-scene{
+      width:140px; height:88px; border-radius:10px; overflow:hidden; position:relative;
+      background:var(--bg-raised); flex-shrink:0;
+    }
+    .teaser-scene canvas, .teaser-scene .t-layer{ position:absolute; inset:0; }
+    .teaser-label{
+      position:absolute; bottom:5px; left:6px; font-family:var(--font-mono); font-size:8px;
+      color:rgba(255,255,255,0.5); letter-spacing:.04em; z-index:5;
+    }
+    @media (max-width:600px){ .work-row{grid-template-columns:1fr; } .teaser-scene{width:100%;height:100px;order:-1;} }
+
+    /* Teaser 1 — EY: data pulse grid */
+    .t-ey{background:linear-gradient(160deg,#161616,#1c1a10);}
+    .t-ey .pulse-dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--acc-ey);}
+    .t-ey .pulse-line{position:absolute;height:1px;background:linear-gradient(90deg,transparent,var(--acc-ey),transparent);opacity:0.4;}
+    @keyframes pulseGrow{0%{transform:scale(0.6);opacity:0.3}50%{transform:scale(1.4);opacity:1}100%{transform:scale(0.6);opacity:0.3}}
+
+    /* Teaser 2 — Chek: card flip/onboard */
+    .t-chek{background:linear-gradient(160deg,#161616,#1a1425);display:flex;align-items:center;justify-content:center;}
+    .t-chek .mini-card{width:52px;height:32px;border-radius:5px;background:linear-gradient(135deg,var(--acc-chek),#6b21a8);position:relative;box-shadow:0 6px 16px rgba(155,108,255,0.3);}
+    @keyframes cardTilt{0%,100%{transform:rotateY(0deg) rotateX(0deg)}50%{transform:rotateY(12deg) rotateX(-4deg)}}
+    .t-chek .mini-card{animation:cardTilt 4s ease-in-out infinite;transform-style:preserve-3d;}
+
+    /* Teaser 3 — DollarCity: funnel/shrink bars */
+    .t-dc{background:linear-gradient(160deg,#161616,#0f1f14);display:flex;align-items:flex-end;justify-content:center;gap:5px;padding-bottom:10px;}
+    .t-dc .bar{width:8px;border-radius:2px 2px 0 0;background:var(--acc-dc);opacity:0.85;}
+    @keyframes barShrink{0%{height:var(--h0)}50%{height:var(--h1)}100%{height:var(--h0)}}
+
+    /* Teaser 4 — Blockchain: rotating 3D cube wire */
+    .t-bc{background:linear-gradient(160deg,#161616,#10222c);display:flex;align-items:center;justify-content:center;perspective:200px;}
+    .t-bc .wirecube{width:34px;height:34px;position:relative;transform-style:preserve-3d;animation:cubeSpin 6s linear infinite;}
+    .t-bc .wirecube div{position:absolute;inset:0;border:1.4px solid var(--acc-bc);opacity:0.75;}
+    .t-wf{transform:translateZ(17px)} .t-bb{transform:translateZ(-17px)}
+    .t-wl{transform:rotateY(90deg) translateZ(17px)} .t-wr{transform:rotateY(-90deg) translateZ(17px)}
+    .t-wt{transform:rotateX(90deg) translateZ(17px)} .t-wbt{transform:rotateX(-90deg) translateZ(17px)}
+    @keyframes cubeSpin{from{transform:rotateX(-18deg) rotateY(0deg)}to{transform:rotateX(-18deg) rotateY(360deg)}}
+
+    /* Teaser 5 — Aduanas: doc stack digitizing */
+    .t-cus{background:linear-gradient(160deg,#161616,#241410);display:flex;align-items:center;justify-content:center;gap:4px;}
+    .t-cus .doc{width:20px;height:26px;border-radius:2px;border:1.4px solid var(--acc-cus);position:relative;opacity:0.85;}
+    .t-cus .doc::before{content:'';position:absolute;inset:4px 4px auto 4px;height:1.4px;background:var(--acc-cus);box-shadow:0 5px 0 currentColor,0 10px 0 currentColor;opacity:0.6;}
+    @keyframes docFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+    @media (prefers-reduced-motion: no-preference){
+      .t-ey .pulse-dot{animation:pulseGrow 2.4s ease-in-out infinite;}
+      .t-dc .bar{animation:barShrink 3.2s ease-in-out infinite;}
+      .t-cus .doc{animation:docFloat 3s ease-in-out infinite;}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .t-chek .mini-card, .t-bc .wirecube{animation:none;}
+    }
   </style>
 </head>
 <body>
@@ -765,18 +822,42 @@
       cus:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex-shrink:0;opacity:0.7"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>'
     };
     var WORK=[
-      {n:'EY Fabric',m:'Globant · 2023–Present',p:'90+ dev assets, zero behavioral data',d:'Instrumented events, Qualtrics feedback loops, session-level insights',r:'90+ assets measured',a:'var(--acc-ey)',l:'projects/ey-fabric.html',ic:WORK_ICONS.ey},
-      {n:'Chek',m:'Applaudo Studios',p:'New virtual card product in a skeptical market',d:'Research-led onboarding redesign + event funnels',r:'+15% onboarding',a:'var(--acc-chek)',l:'projects/chek.html',ic:WORK_ICONS.chek},
-      {n:'DollarCity',m:'Applaudo Studios',p:"Fraud workflow non-technical users couldn't operate",d:'Contextual inquiries + redesigned task flows',r:'−50% task completion time',a:'var(--acc-dc)',l:'projects/dollarcity.html',ic:WORK_ICONS.dc},
-      {n:'Blockchain 3D',m:'Globant · 2023–2024',p:'3D spatial platform, no UX playbook existed',d:'Benchmarked gaming/WebXR, dual DS (flat + spatial), Unity+Figma+Spline pipeline',r:'2 design systems shipped',a:'var(--acc-bc)',l:'projects/blockchain.html',ic:WORK_ICONS.bc},
-      {n:'Aduanas El Salvador',m:'Applaudo Studios',p:'5 analog processes, zero digital, zero research culture',d:'Discovery + flows + dev-ready prototypes leading 5 designers',r:'$500K expansion earned',a:'var(--acc-cus)',l:'projects/customs.html',ic:WORK_ICONS.cus}
+      {n:'EY Fabric',m:'Globant · 2023–Present',p:'90+ dev assets, zero behavioral data',d:'Instrumented events, Qualtrics feedback loops, session-level insights',r:'90+ assets measured',a:'var(--acc-ey)',l:'projects/ey-fabric.html',ic:WORK_ICONS.ey,tk:'ey'},
+      {n:'Chek',m:'Applaudo Studios',p:'New virtual card product in a skeptical market',d:'Research-led onboarding redesign + event funnels',r:'+15% onboarding',a:'var(--acc-chek)',l:'projects/chek.html',ic:WORK_ICONS.chek,tk:'chek'},
+      {n:'DollarCity',m:'Applaudo Studios',p:"Fraud workflow non-technical users couldn't operate",d:'Contextual inquiries + redesigned task flows',r:'−50% task completion time',a:'var(--acc-dc)',l:'projects/dollarcity.html',ic:WORK_ICONS.dc,tk:'dc'},
+      {n:'Blockchain 3D',m:'Globant · 2023–2024',p:'3D spatial platform, no UX playbook existed',d:'Benchmarked gaming/WebXR, dual DS (flat + spatial), Unity+Figma+Spline pipeline',r:'2 design systems shipped',a:'var(--acc-bc)',l:'projects/blockchain.html',ic:WORK_ICONS.bc,tk:'bc'},
+      {n:'Aduanas El Salvador',m:'Applaudo Studios',p:'5 analog processes, zero digital, zero research culture',d:'Discovery + flows + dev-ready prototypes leading 5 designers',r:'$500K expansion earned',a:'var(--acc-cus)',l:'projects/customs.html',ic:WORK_ICONS.cus,tk:'cus'}
     ];
+    var TEASERS={
+      ey:'<div class="t-layer" style="position:relative;width:100%;height:100%;">'+
+           Array.from({length:9}).map(function(_,i){
+             var x=10+(i%3)*45, y=10+Math.floor(i/3)*28;
+             return '<div class="pulse-dot" style="left:'+x+'%;top:'+y+'%;animation-delay:'+(i*0.25)+'s"></div>';
+           }).join('')+
+           '<div class="pulse-line" style="width:60%;top:30%;left:15%"></div>'+
+           '<div class="pulse-line" style="width:40%;top:65%;left:35%"></div>'+
+         '</div><span class="teaser-label">instrumenting</span>',
+      chek:'<div class="mini-card"></div><span class="teaser-label">onboarding</span>',
+      dc:Array.from({length:5}).map(function(_,i){
+           var h0=[38,52,30,44,26][i], h1=[16,22,14,18,12][i];
+           return '<div class="bar" style="--h0:'+h0+'px;--h1:'+h1+'px;height:'+h0+'px;animation-delay:'+(i*0.15)+'s"></div>';
+         }).join('')+'<span class="teaser-label">funnel drop</span>',
+      bc:'<div class="wirecube"><div class="t-wf"></div><div class="t-bb"></div><div class="t-wl"></div><div class="t-wr"></div><div class="t-wt"></div><div class="t-wbt"></div></div><span class="teaser-label">spatial UI</span>',
+      cus:Array.from({length:3}).map(function(_,i){
+           return '<div class="doc" style="animation-delay:'+(i*0.3)+'s"></div>';
+         }).join('')+'<span class="teaser-label">digitizing</span>'
+    };
+    var TEASER_CLASS={ey:'t-ey',chek:'t-chek',dc:'t-dc',bc:'t-bc',cus:'t-cus'};
     document.getElementById('work-list').innerHTML=WORK.map(function(w){
+      var key=w.tk||(w.ic===WORK_ICONS.ey?'ey':w.ic===WORK_ICONS.chek?'chek':w.ic===WORK_ICONS.dc?'dc':w.ic===WORK_ICONS.bc?'bc':'cus');
       return '<a class="work-row glow-border sheen glass" href="'+w.l+'" style="border-left-color:'+w.a+';--wa:'+w.a+';">'+
-        '<div class="work-top"><span class="work-name">'+w.ic+esc(w.n)+'</span><span class="work-meta">'+w.m+'</span></div>'+
-        '<div class="work-line">'+esc(w.p)+'</div>'+
-        '<div class="work-line">'+esc(w.d)+'</div>'+
-        '<div class="work-bottom"><span class="work-result" style="color:'+w.a+';">'+w.r+'</span><span class="work-open">Open case &#8599;</span></div>'+
+        '<div>'+
+          '<div class="work-top"><span class="work-name">'+w.ic+esc(w.n)+'</span><span class="work-meta">'+w.m+'</span></div>'+
+          '<div class="work-line">'+esc(w.p)+'</div>'+
+          '<div class="work-line">'+esc(w.d)+'</div>'+
+          '<div class="work-bottom"><span class="work-result" style="color:'+w.a+';">'+w.r+'</span><span class="work-open">Open case &#8599;</span></div>'+
+        '</div>'+
+        '<div class="teaser-scene '+TEASER_CLASS[key]+'">'+TEASERS[key]+'</div>'+
       '</a>';
     }).join('');
 
