@@ -653,31 +653,6 @@
       @keyframes loopBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.008)}}
     }
 
-    /* ══ HOMEPAGE PREVIEW REEL ══ */
-    .reel-card{
-      position:relative;width:100%;height:140px;border-radius:14px;overflow:hidden;
-      border:1px solid var(--border);background:var(--bg-raised);cursor:pointer;
-      margin-bottom:28px;padding:0;text-align:left;display:block;
-    }
-    .reel-canvas{position:absolute;inset:0;transition:opacity 500ms ease;}
-    .reel-overlay{
-      position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;
-      padding:18px 20px;background:linear-gradient(180deg,transparent 40%,rgba(10,10,10,0.85) 100%);
-    }
-    .reel-left{display:flex;flex-direction:column;gap:2px;}
-    .reel-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.55);font-family:var(--font-mono);}
-    .reel-title{font-family:var(--font-display);font-weight:700;font-size:19px;color:#fff;}
-    .reel-sub{font-size:12px;color:rgba(255,255,255,0.7);}
-    .reel-right{display:flex;align-items:center;}
-    .reel-cta{
-      display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#fff;
-      background:rgba(255,255,255,0.12);padding:7px 13px;border-radius:100px;
-      border:1px solid rgba(255,255,255,0.15);transition:transform 200ms var(--spring,cubic-bezier(0.34,1.56,0.64,1));
-    }
-    .reel-card:hover .reel-cta{transform:translateX(3px);}
-    .reel-dots{position:absolute;top:14px;right:16px;z-index:3;display:flex;gap:5px;}
-    .reel-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.3);transition:background 300ms ease,width 300ms ease;}
-    .reel-dots span.on{background:#fff;width:14px;border-radius:3px;}
     @keyframes eyOpRip{from{transform:scale(0.3);opacity:0.8}to{transform:scale(2.2);opacity:0}}
 
     /* ══ 3D PARALLAX PHOTO ══ */
@@ -712,6 +687,48 @@
     }
     #panel-start{position:relative;}
     .start-wrap{position:relative;z-index:1;}
+
+    /* ══ CINEMATIC HERO — big, real-scale product demo ══ */
+    .cin-hero{position:relative;background:#0d0d0d;border-radius:0;overflow:hidden;}
+    .cin-chrome{
+      height:38px;background:#161616;border-bottom:1px solid rgba(255,255,255,0.06);
+      display:flex;align-items:center;padding:0 14px;gap:10px;
+    }
+    .cin-dots{display:flex;gap:6px;}
+    .cin-dots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.15);}
+    .cin-url{
+      flex:1;max-width:280px;margin:0 auto;height:22px;border-radius:6px;background:rgba(255,255,255,0.04);
+      display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,0.4);
+      font-family:var(--font-mono);
+    }
+    .cin-stage{position:relative;min-height:340px;overflow:hidden;background:#0a0a0a;}
+    .cin-scene{
+      position:absolute;inset:0;padding:32px 40px;
+      transform:scale(1);transform-origin:center center;
+      transition:transform 900ms cubic-bezier(0.65,0,0.35,1), opacity 500ms ease;
+    }
+    .cin-scene.zoomed{transform:scale(1.06);}
+    .cin-cursor{
+      position:absolute;width:20px;height:20px;pointer-events:none;z-index:20;
+      transition:top 700ms cubic-bezier(0.65,0,0.35,1), left 700ms cubic-bezier(0.65,0,0.35,1);
+    }
+    .cin-ripple{
+      position:absolute;width:26px;height:26px;border-radius:50%;pointer-events:none;
+      border:1.5px solid rgba(255,255,255,0.5);opacity:0;z-index:19;
+    }
+    @keyframes cinRip{from{transform:scale(0.4);opacity:0.8}to{transform:scale(2.4);opacity:0}}
+    .cin-caption{
+      padding:12px 18px;background:#111;border-top:1px solid rgba(255,255,255,0.06);
+      display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.75);
+    }
+    .cin-live-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;}
+    @media(prefers-reduced-motion:no-preference){.cin-live-dot{animation:blink 2s ease-in-out infinite;}}
+    /* Realistic app UI pieces reused across scenes */
+    .cin-panel{background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px;}
+    .cin-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .cin-row:last-child{border-bottom:none;}
+    .cin-badge{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:600;}
+    .cin-highlight{outline:2px solid #c8a84b;outline-offset:3px;border-radius:8px;transition:outline-color 300ms ease;}
   </style>
 </head>
 <body>
@@ -790,20 +807,7 @@
             <button class="btn-primary magnetic" data-goto="problem">What's your problem? &#8594;</button>
           </div>
 
-          <button class="reel-card anim glow-soft" data-stagger="3" data-goto="work" id="reel-card" aria-label="See my work — preview of all projects">
-            <div class="reel-canvas" id="reel-canvas"></div>
-            <div class="reel-overlay">
-              <div class="reel-left">
-                <span class="reel-eyebrow">See my work</span>
-                <span class="reel-title" id="reel-title">EY Fabric</span>
-                <span class="reel-sub" id="reel-sub">90+ dev assets, zero behavioral data</span>
-              </div>
-              <div class="reel-right">
-                <span class="reel-cta">5 projects <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-              </div>
-            </div>
-            <div class="reel-dots" id="reel-dots"></div>
-          </button>
+          <button class="btn-primary magnetic" data-goto="work" style="width:100%;justify-content:center;margin-bottom:28px;">See my work &#8594;</button>
           <div class="metrics anim glow-soft" data-stagger="3">
             <div class="metric"><b class="lift">5+ yrs</b><span>product &amp; UX</span></div>
             <div class="metric"><b class="lift">&minus;50%</b><span>task time</span></div>
@@ -1191,23 +1195,54 @@
         '<div class="op-hero-label"><span class="op-live-dot"></span><span id="'+ns+'-step-txt">Loading&hellip;</span></div>';
     }
 
+    var __cinTimers={};
+    function runCinematicDemo(ns,accent,scenes){
+      if(__cinTimers[ns])clearInterval(__cinTimers[ns]);
+      var i=0;
+      function show(){
+        var s=scenes[i];
+        var scene=document.getElementById(ns+'-cin-scene');
+        var cur=document.getElementById(ns+'-cursor');
+        var rpl=document.getElementById(ns+'-ripple');
+        var cap=document.getElementById(ns+'-step-txt');
+        if(!scene)return;
+        scene.style.opacity='0';
+        scene.classList.remove('zoomed');
+        setTimeout(function(){
+          s.build(scene);
+          scene.style.opacity='1';
+          if(cap)cap.textContent=s.caption;
+          if(cur&&s.cursor){cur.style.left=s.cursor.x;cur.style.top=s.cursor.y;}
+          setTimeout(function(){
+            if(s.highlight)scene.classList.add('zoomed');
+            if(rpl&&s.cursor){
+              rpl.style.left='calc('+s.cursor.x+' - 3px)';
+              rpl.style.top='calc('+s.cursor.y+' - 3px)';
+              rpl.style.borderColor=accent;
+              rpl.style.animation='none';void rpl.offsetWidth;
+              rpl.style.animation='cinRip 600ms ease-out';
+            }
+          },500);
+        },250);
+        i=(i+1)%scenes.length;
+      }
+      show();
+      __cinTimers[ns]=setInterval(show,3400);
+    }
+
     ONEPAGERS.ey=function(host,w){
       host.innerHTML=
-        '<div class="op-hero" id="ey-op-hero">'+
-          '<svg class="op-hero-bg" width="100%" height="100%" aria-hidden="true"><defs><pattern id="eyopgrid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="rgba(200,168,75,0.15)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#eyopgrid)"/></svg>'+
-          '<div style="position:relative;width:240px;background:var(--bg-surface);border-radius:12px;border:1px solid var(--border);padding:16px;z-index:2;">'+
-            '<div style="font-size:9px;color:var(--text-tertiary);margin-bottom:10px;font-family:var(--font-mono)">fabric.ey.com/subscribe</div>'+
-            '<div class="ey-op-field" id="ey-f0" style="height:32px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;color:var(--text-tertiary);transition:all 250ms">Service tier</div>'+
-            '<div class="ey-op-field" id="ey-f1" style="height:32px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;color:var(--text-tertiary);transition:all 250ms">Volume / month</div>'+
-            '<div class="ey-op-field" id="ey-f2" style="height:32px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;color:var(--text-tertiary);transition:all 250ms">Region</div>'+
-            '<div class="ey-op-submit" id="ey-fs" style="height:32px;border-radius:6px;background:#c8a84b;color:#1a1508;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;transition:all 250ms">Subscribe</div>'+
-            '<div id="ey-events" style="display:flex;gap:5px;margin-top:10px;flex-wrap:wrap;min-height:20px"></div>'+
+        '<div class="cin-hero" id="ey-op-hero">'+
+          '<div class="cin-chrome">'+
+            '<div class="cin-dots"><span></span><span></span><span></span></div>'+
+            '<div class="cin-url">fabric.ey.com/admin</div>'+
           '</div>'+
-          '<div class="op-cursor" id="ey-cursor" style="position:absolute;width:16px;height:16px;pointer-events:none;transition:top 550ms cubic-bezier(0.65,0,0.35,1),left 550ms cubic-bezier(0.65,0,0.35,1);z-index:6;top:40px;left:40px;">'+
-            '<svg width="16" height="16" viewBox="0 0 16 16" fill="#f0f0f0" style="filter:drop-shadow(0 1px 3px rgba(0,0,0,0.5))"><path d="M0 0l6 14 2-5 5-2z"/></svg>'+
+          '<div class="cin-stage" id="ey-cin-stage">'+
+            '<div class="cin-scene" id="ey-cin-scene"></div>'+
+            '<div class="cin-cursor" id="ey-cursor"><svg width="20" height="20" viewBox="0 0 20 20" fill="#fff" style="filter:drop-shadow(0 2px 5px rgba(0,0,0,0.6))" aria-hidden="true"><path d="M1 1l7 17 2.2-6.8L17 9z"/></svg></div>'+
+            '<div class="cin-ripple" id="ey-ripple"></div>'+
           '</div>'+
-          '<div id="ey-ripple" style="position:absolute;width:20px;height:20px;border-radius:50%;border:1.5px solid #c8a84b;pointer-events:none;opacity:0;z-index:5;"></div>'+
-          '<div class="op-hero-label"><span class="op-live-dot"></span><span id="ey-step-txt">Instrumenting form fields</span></div>'+
+          '<div class="cin-caption"><span class="cin-live-dot"></span><span id="ey-step-txt">Loading&hellip;</span></div>'+
         '</div>'+
         '<div class="op-gallery" id="ey-gallery"></div>'+
         '<div class="op-body">'+
@@ -1244,12 +1279,58 @@
         return '<div class="op-g-item" style="color:#c8a84b" title="'+g.label+'">'+g.ic+'</div>';
       }).join('')+'<div class="op-g-item op-g-more">+ full<br>walkthrough</div>';
 
-      runCursorDemo('ey',[
-        {id:'ey-f0',x:56,y:70,text:'Production',ev:'FIELD event',label:'Tagging: service tier selected',resetText:'Service tier'},
-        {id:'ey-f1',x:56,y:105,text:'10k calls',ev:'FIELD event',label:'Tagging: volume input',resetText:'Volume / month'},
-        {id:'ey-f2',x:56,y:140,text:'US East',ev:'FIELD event',label:'Tagging: region selected',resetText:'Region'},
-        {id:'ey-fs',x:56,y:175,text:'Subscribed',ev:'CONVERSION event',label:'Conversion event fires',resetText:'Subscribe',done:true}
-      ],'#c8a84b');
+      runCinematicDemo('ey','#c8a84b',[
+        {
+          caption:'Reviewing the developer portal — 90+ assets, no usage data',
+          cursor:{x:'62%',y:'40%'},
+          build:function(scene){
+            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">DEVELOPER PORTAL &middot; ASSETS</div>'+
+              [['Auth SDK','last touched: unknown'],['Payments API','last touched: unknown'],['Webhooks guide','last touched: unknown']].map(function(r){
+                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">'+r[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.35);">'+r[1]+'</span></div>';
+              }).join('')+
+            '</div>';
+          }
+        },
+        {
+          caption:'Defining the event taxonomy that actually matters',
+          cursor:{x:'50%',y:'35%'},
+          build:function(scene){
+            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">EVENT TAXONOMY &middot; DRAFT</div>'+
+              [['asset_view','core'],['search_query','core'],['download','conversion'],['return_visit','retention']].map(function(r){
+                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;font-family:var(--font-mono);">'+r[0]+'</span><span class="cin-badge" style="background:rgba(200,168,75,0.15);color:#c8a84b;">'+r[1]+'</span></div>';
+              }).join('')+
+            '</div>';
+          }
+        },
+        {
+          caption:'Instrumenting with Pendo — tagging existing UI, no code changes',
+          cursor:{x:'70%',y:'55%'},
+          highlight:true,
+          build:function(scene){
+            scene.innerHTML='<div class="cin-panel" style="max-width:560px;margin:0 auto;position:relative;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">PENDO &middot; TAG BUILDER</div>'+
+              '<div class="cin-highlight" style="padding:14px;margin-bottom:10px;"><div style="font-size:13px;color:#fff;margin-bottom:4px;">Download button</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">Selector locked &middot; event: <span style="color:#c8a84b;font-family:var(--font-mono);">download</span></div></div>'+
+              '<div style="height:30px;background:#c8a84b;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#1a1508;">Save tag</div>'+
+            '</div>';
+          }
+        },
+        {
+          caption:'Closing the loop — Qualtrics feedback synced to the dashboard',
+          cursor:{x:'55%',y:'45%'},
+          build:function(scene){
+            scene.innerHTML='<div class="cin-panel" style="max-width:560px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px;font-family:var(--font-mono);">FEEDBACK DASHBOARD</div>'+
+              '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">'+
+                [['90+','assets measured'],['+28%','adoption lift'],['4.6','avg. clarity score']].map(function(m){
+                  return '<div style="text-align:center;padding:12px 8px;background:rgba(255,255,255,0.03);border-radius:8px;"><div style="font-size:20px;font-weight:700;color:#c8a84b;font-family:var(--font-mono);">'+m[0]+'</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;">'+m[1]+'</div></div>';
+                }).join('')+
+              '</div>'+
+            '</div>';
+          }
+        }
+      ]);
     };
 
     ONEPAGERS.chek=function(host,w){
@@ -1579,32 +1660,6 @@
       return '<div class="skill-group"><span class="ans-label" style="margin-bottom:0;">'+g[0]+'</span>'+
         '<div class="skill-chips">'+g[1].map(function(s){return '<span class="skill-chip">'+chipIcon+'<span class="sc-label">'+esc(s)+'</span></span>';}).join('')+'</div></div>';
     }).join('');
-
-    /* ══ REEL ROTATION — cycles all 5 projects on loop ══ */
-    (function(){
-      var canvas=document.getElementById('reel-canvas');
-      var titleEl=document.getElementById('reel-title');
-      var subEl=document.getElementById('reel-sub');
-      var dotsEl=document.getElementById('reel-dots');
-      if(!canvas||typeof WORK==='undefined')return;
-      var idx=0,timer=null;
-      function paint(){
-        var w=WORK[idx];
-        canvas.className='reel-canvas teaser-scene '+TEASER_CLASS[w.tk];
-        canvas.style.borderRadius='0';
-        canvas.innerHTML=TEASERS[w.tk];
-        canvas.style.background=HALL_BG[w.tk];
-        titleEl.textContent=w.n;
-        subEl.textContent=w.p;
-        dotsEl.innerHTML=WORK.map(function(_,i){return '<span class="'+(i===idx?'on':'')+'"></span>';}).join('');
-      }
-      function next(){ idx=(idx+1)%WORK.length; paint(); }
-      paint();
-      timer=setInterval(next,3600);
-      var reelCard=document.getElementById('reel-card');
-      if(reelCard) reelCard.addEventListener('mouseenter',function(){clearInterval(timer);});
-      if(reelCard) reelCard.addEventListener('mouseleave',function(){timer=setInterval(next,3600);});
-    })();
   })();
 
   /* ══ DEPTH INTERACTIONS ══ */
