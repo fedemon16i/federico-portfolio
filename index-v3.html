@@ -36,14 +36,20 @@
       padding:0 20px 0 20px;border-bottom:1px solid var(--border);gap:16px;
     }
     .topbar-name{font-family:var(--font-display);font-weight:500;font-size:15px;white-space:nowrap;}
-    .tabs{display:flex;gap:4px;height:100%;align-items:stretch;overflow-x:auto;scrollbar-width:none;}
+    .tabs{display:flex;gap:4px;height:100%;align-items:center;overflow-x:auto;scrollbar-width:none;}
     .tabs::-webkit-scrollbar{display:none;}
     .tab{
-      font-size:13px;color:var(--text-tertiary);padding:0 14px;display:flex;align-items:center;
-      border-bottom:2px solid transparent;white-space:nowrap;transition:color 150ms ease;
+      font-size:13px;color:var(--text-tertiary);display:flex;align-items:center;
+      white-space:nowrap;border-radius:100px;padding:6px 14px;
+      transition:background 200ms ease,color 200ms ease;
     }
     .tab:hover{color:var(--text-secondary);}
-    .tab[aria-selected="true"]{color:var(--text-primary);border-bottom-color:var(--accent);}
+    .tab[aria-selected="true"], .tab.active{
+      color:var(--text-primary);
+      background:rgba(155,108,255,0.12);
+      border-radius:100px;
+      border-bottom:none;
+    }
     .ask-btn{
       font-size:13px;color:var(--accent);background:var(--accent-dim);
       border:1px solid rgba(155,108,255,0.4);border-radius:100px;padding:6px 14px;white-space:nowrap;
@@ -339,6 +345,102 @@
       }
       .panel-inner { position:relative; z-index:1; }
     }
+
+    /* ══ VISIBLE MODERN LAYER — works on touch ══ */
+
+    /* Aurora background — animated gradient mesh behind everything */
+    body::before {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:
+        radial-gradient(600px 400px at 15% 10%, rgba(155,108,255,0.07), transparent 60%),
+        radial-gradient(500px 350px at 85% 25%, rgba(74,163,212,0.05), transparent 60%),
+        radial-gradient(700px 500px at 50% 90%, rgba(155,108,255,0.04), transparent 65%);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      body::before { animation: aurora 18s ease-in-out infinite alternate; }
+      @keyframes aurora {
+        0%   { transform: translate(0,0) scale(1); }
+        50%  { transform: translate(-2%,1%) scale(1.05); }
+        100% { transform: translate(2%,-1%) scale(1.02); }
+      }
+    }
+    .topbar, .tabs, .panel { position:relative; z-index:1; }
+
+    /* Grain texture — kills the "flat template" look */
+    body::after {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.35;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+    }
+
+    /* Gradient headline */
+    .start-head h1, .grad-text {
+      background: linear-gradient(120deg, #f0f0f0 30%, #9b6cff 65%, #4aa3d4 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .start-head h1 { background-size: 200% 100%; animation: gradShift 6s ease-in-out infinite alternate; }
+      @keyframes gradShift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+    }
+
+    /* Animated gradient border — conic rotation, always visible */
+    .live-border { position: relative; background: var(--bg-surface); }
+    .live-border::before {
+      content:''; position:absolute; inset:-1px; border-radius:inherit; z-index:-1;
+      background: conic-gradient(from var(--angle,0deg),
+        rgba(155,108,255,0.5), rgba(74,163,212,0.2), transparent 30%,
+        transparent 70%, rgba(155,108,255,0.2), rgba(155,108,255,0.5));
+    }
+    @property --angle { syntax:'<angle>'; initial-value:0deg; inherits:false; }
+    @media (prefers-reduced-motion: no-preference) {
+      .live-border::before { animation: spin-border 6s linear infinite; }
+      @keyframes spin-border { to { --angle: 360deg; } }
+    }
+    /* Fallback if @property unsupported: static gradient border still shows */
+
+    /* Glass cards */
+    .glass {
+      background: rgba(22,22,22,0.55) !important;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.09) !important;
+    }
+
+    /* Permanent ambient glow on key elements */
+    .glow-soft { box-shadow: 0 0 32px rgba(155,108,255,0.10), 0 8px 24px rgba(0,0,0,0.4); }
+
+    /* Idle float — cards breathe subtly without interaction */
+    @media (prefers-reduced-motion: no-preference) {
+      .float-1 { animation: idleFloat 7s ease-in-out infinite; }
+      .float-2 { animation: idleFloat 7s 1.2s ease-in-out infinite; }
+      .float-3 { animation: idleFloat 7s 2.4s ease-in-out infinite; }
+      .float-4 { animation: idleFloat 7s 3.6s ease-in-out infinite; }
+      @keyframes idleFloat {
+        0%,100% { transform: translateY(0); }
+        50%     { transform: translateY(-4px); }
+      }
+    }
+
+    /* Result numbers glow */
+    .work-result, .case-result { text-shadow: 0 0 20px currentColor; opacity:0.95; }
+
+    /* Primary CTA — animated gradient fill */
+    .btn-primary {
+      background: linear-gradient(120deg, #9b6cff, #7a4fe0, #4aa3d4, #9b6cff) !important;
+      background-size: 300% 100% !important;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn-primary { animation: ctaFlow 8s ease infinite; }
+      @keyframes ctaFlow { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+    }
+
+    /* Status dot — bigger halo */
+    .status-dot { box-shadow: 0 0 12px rgba(34,197,94,0.6); }
+
+    /* Float yields to tilt on hover — both animate transform */
+    @media (hover: hover) {
+      .tilt:hover { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -372,7 +474,7 @@
           </div>
           <p class="statement anim" data-stagger="2">Many products ship sprint after sprint with no real measurement. I instrument products (Pendo, GA4, Qualtrics), watch real behavior &mdash; replays, funnels, signals &mdash; and use evidence to decide what to fix, what to kill, and what to double down on. Design when needed. Direction always. Data first.</p>
 
-          <div class="loop anim" data-stagger="2" id="loop-diagram" aria-label="Working loop: Instrument, Observe, Diagnose, Fix, Measure, repeat">
+          <div class="loop anim glow-soft" data-stagger="2" id="loop-diagram" aria-label="Working loop: Instrument, Observe, Diagnose, Fix, Measure, repeat">
             <div class="loop-track">
               <div class="loop-line" aria-hidden="true"></div>
               <div class="loop-return" aria-hidden="true"></div>
@@ -407,7 +509,7 @@
             <button class="btn-primary magnetic" data-goto="problem">What's your problem? &#8594;</button>
             <button class="btn-ghost magnetic" data-goto="work">See my work</button>
           </div>
-          <div class="metrics anim" data-stagger="3">
+          <div class="metrics anim glow-soft" data-stagger="3">
             <div class="metric"><b class="lift">5+ yrs</b><span>product &amp; UX</span></div>
             <div class="metric"><b class="lift">&minus;50%</b><span>task time</span></div>
             <div class="metric"><b class="lift">90+</b><span>assets instrumented</span></div>
@@ -424,19 +526,19 @@
           <h2 class="mode-h anim">Which of these sounds like your team?</h2>
           <p class="mode-sub anim" data-stagger="1">Pick one. I'll show you how I'd attack it &mdash; and where I already did.</p>
           <div class="prob-grid anim" data-stagger="2">
-            <button class="prob-card tilt glow-border sheen" data-prob="p1">
+            <button class="prob-card tilt glow-border sheen glass live-border float-1" data-prob="p1">
               <svg class="lift-2" viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8" opacity="0.4"/><line x1="3" y1="3" x2="21" y2="21"/></svg>
               <span class="lift">We ship sprints but can't measure impact</span>
             </button>
-            <button class="prob-card tilt glow-border sheen" data-prob="p2">
+            <button class="prob-card tilt glow-border sheen glass float-2" data-prob="p2">
               <svg class="lift-2" viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
               <span class="lift">Users churn and we don't know why</span>
             </button>
-            <button class="prob-card tilt glow-border sheen" data-prob="p3">
+            <button class="prob-card tilt glow-border sheen glass float-3" data-prob="p3">
               <svg class="lift-2" viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
               <span class="lift">We built features nobody uses</span>
             </button>
-            <button class="prob-card tilt glow-border sheen" data-prob="p4">
+            <button class="prob-card tilt glow-border sheen glass live-border float-4" data-prob="p4">
               <svg class="lift-2" viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/><path d="M12 8v4M12 16h.01"/></svg>
               <span class="lift">No research process &mdash; decisions are opinions</span>
             </button>
@@ -464,7 +566,7 @@
           <h2 class="mode-h anim">Put me in a scenario.</h2>
           <p class="mode-sub anim" data-stagger="1">Pick one and see exactly how I'd run it &mdash; sequence, tools, deliverable.</p>
           <div class="anim" data-stagger="2" id="ch-list"></div>
-          <div class="ch-card anim tilt glow-border sheen" data-stagger="3">
+          <div class="ch-card anim tilt glow-border sheen glass" data-stagger="3">
             <div class="ch-top"><span class="ch-kind">Scenario 5 &middot; Custom</span><span class="badge badge-custom">Custom</span></div>
             <textarea class="ch-textarea" id="ch-custom-input" rows="3" placeholder="Describe your scenario..." aria-label="Describe your custom scenario"></textarea>
             <button class="btn-primary magnetic" id="ch-custom-btn">Challenge Federico &#8594;</button>
@@ -618,7 +720,7 @@
           return '<li class="ans-step"><span class="ans-num">'+(i+1)+'</span><span>'+esc(s)+'</span></li>';
         }).join('')+'</ol>'+
         '<p class="ans-label">Where I already did it</p>'+
-        '<div class="case-card glow-border sheen" style="border-left-color:'+P.c.a+';">'+
+        '<div class="case-card glow-border sheen glass glow-soft" style="border-left-color:'+P.c.a+';">'+
           '<div class="case-name">'+esc(P.c.n)+'</div>'+
           '<div class="case-line">'+esc(P.c.p)+'</div>'+
           '<div class="case-line">'+esc(P.c.d)+'</div>'+
@@ -644,7 +746,7 @@
       {n:'Aduanas El Salvador',m:'Applaudo Studios',p:'5 analog processes, zero digital, zero research culture',d:'Discovery + flows + dev-ready prototypes leading 5 designers',r:'$500K expansion earned',a:'var(--acc-cus)',l:'projects/customs.html'}
     ];
     document.getElementById('work-list').innerHTML=WORK.map(function(w){
-      return '<a class="work-row glow-border sheen" href="'+w.l+'" style="border-left-color:'+w.a+';--wa:'+w.a+';">'+
+      return '<a class="work-row glow-border sheen glass" href="'+w.l+'" style="border-left-color:'+w.a+';--wa:'+w.a+';">'+
         '<div class="work-top"><span class="work-name">'+esc(w.n)+'</span><span class="work-meta">'+w.m+'</span></div>'+
         '<div class="work-line">'+esc(w.p)+'</div>'+
         '<div class="work-line">'+esc(w.d)+'</div>'+
@@ -678,7 +780,7 @@
     var chPicker=document.getElementById('ch-picker'),chResp=document.getElementById('ch-response');
     document.getElementById('ch-list').innerHTML=SCEN.map(function(s,i){
       var badge=s.b==='hard'?'<span class="badge badge-hard">Hard</span>':'<span class="badge badge-med">Medium</span>';
-      return '<button class="ch-card tilt glow-border sheen" data-scen="'+i+'">'+
+      return '<button class="ch-card tilt glow-border sheen glass'+(i===0?' live-border':'')+'" data-scen="'+i+'">'+
         '<div class="ch-top"><span class="ch-kind">Scenario '+(i+1)+' · '+s.k+'</span>'+badge+'</div>'+
         '<div class="ch-text">'+esc(s.t)+'</div>'+
       '</button>';
