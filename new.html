@@ -235,7 +235,11 @@
     .skill-chip{
       display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary);
       background:var(--bg-surface);border:1px solid var(--border);border-radius:100px;padding:4px 10px;
+      overflow:hidden;white-space:nowrap;transition:all 300ms cubic-bezier(0.16,1,0.3,1);
     }
+    .skill-chip .sc-label{max-width:0;opacity:0;transition:all 300ms cubic-bezier(0.16,1,0.3,1);overflow:hidden;display:inline-block;}
+    .skill-chip:hover{border-color:rgba(155,108,255,0.4);background:rgba(155,108,255,0.08);}
+    .skill-chip:hover .sc-label{max-width:140px;opacity:1;margin-left:6px;}
     .skill-chip svg{width:12px;height:12px;stroke:var(--text-tertiary);flex-shrink:0;}
     .edu-box{border-left:2px solid var(--accent);padding-left:12px;margin-top:8px;font-size:13px;color:var(--text-secondary);}
     .edu-certs{font-size:12px;color:var(--text-tertiary);margin-top:6px;line-height:1.6;}
@@ -522,12 +526,16 @@
     }
     .rail-item{
       display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;
-      cursor:pointer;border:1px solid transparent;transition:all 200ms var(--spring-soft,ease);
+      cursor:pointer;border:1px solid transparent;transition:all 250ms var(--spring-soft,cubic-bezier(0.16,1,0.3,1));
       background:transparent;text-align:left;font-family:var(--font-body);width:100%;
+      transform:translateX(0);
     }
+    .rail-item:hover{transform:translateX(3px);}
+    .rail-item.active{transform:translateX(2px);box-shadow:0 4px 16px -6px var(--rail-accent,var(--accent));}
     .rail-item:hover{background:var(--bg-raised);}
     .rail-item.active{background:var(--bg-raised);border-color:var(--rail-accent,var(--accent));}
-    .rail-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--rail-accent,var(--accent));box-shadow:0 0 8px currentColor;}
+    .rail-icon{width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 4px currentColor);}
+    .rail-icon svg{width:16px;height:16px;}
     .rail-text{display:flex;flex-direction:column;gap:1px;min-width:0;}
     .rail-name{font-size:13px;font-weight:500;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .rail-meta{font-size:10.5px;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -671,6 +679,39 @@
     .reel-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.3);transition:background 300ms ease,width 300ms ease;}
     .reel-dots span.on{background:#fff;width:14px;border-radius:3px;}
     @keyframes eyOpRip{from{transform:scale(0.3);opacity:0.8}to{transform:scale(2.2);opacity:0}}
+
+    /* ══ 3D PARALLAX PHOTO ══ */
+    .photo-stage{perspective:700px;flex-shrink:0;}
+    .photo-3d{
+      width:120px;height:120px;border-radius:22px;
+      background:linear-gradient(135deg,rgba(155,108,255,0.18),rgba(74,163,212,0.1));
+      border:1px solid rgba(155,108,255,0.3);display:flex;align-items:center;justify-content:center;
+      transform-style:preserve-3d;transition:transform 250ms ease-out;cursor:pointer;
+      position:relative;overflow:hidden;
+    }
+    .photo-ring{
+      position:absolute;inset:0;
+      background:conic-gradient(from 0deg,rgba(155,108,255,0.45),transparent 35%,transparent 65%,rgba(74,163,212,0.35));
+      opacity:0.7;
+    }
+    @media(prefers-reduced-motion:no-preference){
+      .photo-ring{animation:photoSpin 7s linear infinite;}
+      @keyframes photoSpin{to{transform:rotate(360deg);}}
+    }
+    .photo-fallback{position:relative;z-index:2;font-size:13px;color:rgba(255,255,255,0.55);font-family:var(--font-mono);background:transparent;border:none;}
+    .photo-img{width:100%;height:100%;object-fit:cover;position:relative;z-index:2;border-radius:22px;display:none;}
+
+    /* ══ CURSOR-REACTIVE GRID ══ */
+    .cursor-grid{
+      position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:linear-gradient(rgba(155,108,255,0.05) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(155,108,255,0.05) 1px,transparent 1px);
+      background-size:32px 32px;
+      -webkit-mask-image:radial-gradient(circle 260px at var(--gx,50%) var(--gy,30%),black,transparent 70%);
+      mask-image:radial-gradient(circle 260px at var(--gx,50%) var(--gy,30%),black,transparent 70%);
+    }
+    #panel-start{position:relative;}
+    .start-wrap{position:relative;z-index:1;}
   </style>
 </head>
 <body>
@@ -692,6 +733,7 @@
 
     <!-- ══ MODE 1: START ══ -->
     <section class="panel active" id="panel-start" role="tabpanel" aria-labelledby="tab-start">
+      <div class="cursor-grid" id="start-grid" aria-hidden="true"></div>
       <div class="panel-inner">
         <div class="start-wrap">
           <div class="status-line anim"><span class="status-dot" aria-hidden="true"></span>Currently: EY Fabric via Globant &middot; C&oacute;rdoba, AR</div>
@@ -700,7 +742,12 @@
               <h1>Federico Monroy</h1>
               <div class="role-line" aria-live="polite"><span class="role-item" id="role-item">Behavioral Analytics &amp; UX</span></div>
             </div>
-            <div class="photo-ph ph" data-ph="PHOTO — Federico">PHOTO &mdash; Federico</div>
+            <div class="photo-stage" id="photo-stage">
+              <div class="photo-3d" id="photo-3d">
+                <div class="photo-ring"></div>
+                <span class="photo-fallback ph" data-ph="Federico's photo — swap src on img.photo-img when available">FM</span>
+              </div>
+            </div>
           </div>
           <p class="statement anim" data-stagger="2">Many products ship sprint after sprint with no real measurement. I instrument products (Pendo, GA4, Qualtrics), watch real behavior &mdash; replays, funnels, signals &mdash; and use evidence to decide what to fix, what to kill, and what to double down on. Design when needed. Direction always. Data first.</p>
 
@@ -1175,9 +1222,9 @@
           '</div>'+
           '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:#c8a84b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="op-sec-label">Findings</span></div>'+
             '<div class="op-list">'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>Sole Pendo practitioner on the account</div>'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>UX research delivered on-demand across teams</div>'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>Bridge between design, engineering and product</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>Sole Pendo practitioner on the account</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>UX research delivered on-demand across teams</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>Bridge between design, engineering and product</div>'+
             '</div>'+
           '</div>'+
           '<div class="op-result"><div class="op-result-n" style="color:#c8a84b">90+</div><div class="op-result-l">assets measured</div></div>'+
@@ -1233,8 +1280,8 @@
           '</div>'+
           '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(155,108,255,0.12);color:#9b6cff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="op-sec-label">Findings</span></div>'+
             '<div class="op-list">'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>South American digital wallet, later acquired by Banco Ripley</div>'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>Consistency overhaul across the entire app surface</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>South American digital wallet, later acquired by Banco Ripley</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>Consistency overhaul across the entire app surface</div>'+
             '</div>'+
           '</div>'+
           '<div class="op-result"><div class="op-result-n" style="color:#9b6cff">+15%</div><div class="op-result-l">onboarding conversion</div></div>'+
@@ -1274,8 +1321,8 @@
           '</div>'+
           '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(22,163,74,0.12);color:#16a34a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="op-sec-label">Findings</span></div>'+
             '<div class="op-list">'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>Fraud monitoring SaaS for retail chains — Canada + LATAM</div>'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>4 user types mapped end-to-end</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>Fraud monitoring SaaS for retail chains — Canada + LATAM</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>4 user types mapped end-to-end</div>'+
             '</div>'+
           '</div>'+
           '<div class="op-result"><div class="op-result-n" style="color:#16a34a">&minus;50%</div><div class="op-result-l">task completion time</div></div>'+
@@ -1314,8 +1361,8 @@
           '</div>'+
           '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(74,163,212,0.12);color:#4aa3d4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="op-sec-label">Findings</span></div>'+
             '<div class="op-list">'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>5 core spatial flows shipped end-to-end</div>'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>No prior playbook — patterns invented from scratch</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>5 core spatial flows shipped end-to-end</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>No prior playbook — patterns invented from scratch</div>'+
             '</div>'+
           '</div>'+
           '<div class="op-result"><div class="op-result-n" style="color:#4aa3d4">2</div><div class="op-result-l">design systems shipped</div></div>'+
@@ -1355,8 +1402,8 @@
           '</div>'+
           '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(224,92,74,0.12);color:#e05c4a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="op-sec-label">Findings</span></div>'+
             '<div class="op-list">'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>MVP secured client trust to expand into full-scale project</div>'+
-              '<div class="op-list-item"><span class="op-list-num">&#8226;</span>Compliance with public-sector usability standards</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>MVP secured client trust to expand into full-scale project</div>'+
+              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>Compliance with public-sector usability standards</div>'+
             '</div>'+
           '</div>'+
           '<div class="op-result"><div class="op-result-n" style="color:#e05c4a">$500K</div><div class="op-result-l">expansion earned</div></div>'+
@@ -1374,7 +1421,7 @@
       if(!rail)return;
       rail.innerHTML=WORK.map(function(w,i){
         return '<button class="rail-item'+(i===opCurrent?' active':'')+'" data-idx="'+i+'" style="--rail-accent:'+w.a+'" role="tab" aria-selected="'+(i===opCurrent)+'">'+
-          '<span class="rail-dot"></span>'+
+          '<span class="rail-icon" style="color:'+w.a+'">'+(w.ic||'')+'</span>'+
           '<span class="rail-text"><span class="rail-name">'+esc(w.n)+'</span><span class="rail-meta">'+esc(w.m)+'</span></span>'+
         '</button>';
       }).join('')+
@@ -1530,7 +1577,7 @@
     ];
     document.getElementById('cv-skills').innerHTML=SKILLS.map(function(g){
       return '<div class="skill-group"><span class="ans-label" style="margin-bottom:0;">'+g[0]+'</span>'+
-        '<div class="skill-chips">'+g[1].map(function(s){return '<span class="skill-chip">'+chipIcon+esc(s)+'</span>';}).join('')+'</div></div>';
+        '<div class="skill-chips">'+g[1].map(function(s){return '<span class="skill-chip">'+chipIcon+'<span class="sc-label">'+esc(s)+'</span></span>';}).join('')+'</div></div>';
     }).join('');
 
     /* ══ REEL ROTATION — cycles all 5 projects on loop ══ */
@@ -1655,6 +1702,32 @@
       el.textContent=TICKS[ti];
       el.style.animation='tickerFade 400ms ease both';
     },4200);
+  })();
+
+  /* ══ PHOTO PARALLAX ══ */
+  (function(){
+    var stage=document.getElementById('photo-stage');
+    var photo=document.getElementById('photo-3d');
+    if(!stage||!photo||matchMedia('(hover:none)').matches)return;
+    stage.addEventListener('mousemove',function(e){
+      var r=photo.getBoundingClientRect();
+      var x=(e.clientX-r.left-r.width/2)/r.width;
+      var y=(e.clientY-r.top-r.height/2)/r.height;
+      photo.style.transform='rotateY('+(x*16)+'deg) rotateX('+(-y*16)+'deg) scale(1.03)';
+    });
+    stage.addEventListener('mouseleave',function(){photo.style.transform='none';});
+  })();
+
+  /* ══ GRID FOLLOWS CURSOR ══ */
+  (function(){
+    var grid=document.getElementById('start-grid');
+    var panel=document.getElementById('panel-start');
+    if(!grid||!panel||matchMedia('(hover:none)').matches)return;
+    panel.addEventListener('mousemove',function(e){
+      var r=panel.getBoundingClientRect();
+      grid.style.setProperty('--gx',((e.clientX-r.left)/r.width*100)+'%');
+      grid.style.setProperty('--gy',((e.clientY-r.top)/r.height*100)+'%');
+    });
   })();
   </script>
 </body>
