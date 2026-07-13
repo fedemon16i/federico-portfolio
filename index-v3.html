@@ -510,6 +510,108 @@
     @media (prefers-reduced-motion: reduce){
       .t-chek .mini-card, .t-bc .wirecube{animation:none;}
     }
+
+    /* ══ FULL-SCREEN WORK HALLS ══ */
+    #panel-work{display:flex;flex-direction:column;height:100%;padding:0!important;}
+    .hall-stage{display:flex;gap:3px;flex:1;min-height:0;padding:12px;}
+    .hall{
+      position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
+      flex:1;transition:flex 550ms var(--spring-soft,cubic-bezier(0.16,1,0.3,1));
+      background:var(--bg-raised);border:1px solid var(--border);
+      min-width:0;
+    }
+    .hall.expanded{flex:5;}
+    .hall-canvas-wrap{position:absolute;inset:0;}
+    .hall-canvas-wrap canvas{width:100%;height:100%;display:block;}
+    .hall-vert{
+      writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);
+      position:absolute;left:16px;top:20px;font-size:11px;color:rgba(255,255,255,0.55);
+      letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-mono);
+      transition:opacity 250ms ease;z-index:3;
+    }
+    .hall.expanded .hall-vert{opacity:0;pointer-events:none;}
+    .hall-badge{
+      position:absolute;left:16px;bottom:16px;z-index:3;display:flex;align-items:center;gap:8px;
+      transition:opacity 200ms ease;
+    }
+    .hall.expanded .hall-badge{opacity:0;}
+    .hall-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-shadow:0 0 10px currentColor;}
+    .hall-name-small{font-size:13px;font-weight:500;color:#fff;white-space:nowrap;font-family:var(--font-display);}
+    .hall-summary{
+      position:absolute;inset:0;z-index:4;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;
+      background:linear-gradient(180deg,transparent 0%,rgba(10,10,10,0.55) 45%,rgba(10,10,10,0.92) 100%);
+      opacity:0;transition:opacity 350ms ease 120ms;
+    }
+    .hall.expanded .hall-summary{opacity:1;}
+    .hall-sum-tag{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.55);margin-bottom:8px;font-family:var(--font-mono);}
+    .hall-sum-name{font-family:var(--font-display);font-weight:700;font-size:26px;color:#fff;margin-bottom:8px;}
+    .hall-sum-problem{font-size:14px;color:rgba(255,255,255,0.85);line-height:1.6;max-width:420px;margin-bottom:6px;}
+    .hall-sum-did{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:420px;margin-bottom:14px;}
+    .hall-sum-result{font-family:var(--font-mono);font-size:26px;font-weight:500;margin-bottom:16px;text-shadow:0 0 24px currentColor;}
+    .hall-sum-cta{
+      display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#fff;
+      background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);padding:9px 16px;border-radius:100px;
+      width:fit-content;border:1px solid rgba(255,255,255,0.15);transition:transform 200ms var(--spring,cubic-bezier(0.34,1.56,0.64,1));
+    }
+    .hall-sum-cta:hover{transform:translateX(3px);}
+    .hall-footer{display:flex;gap:8px;padding:10px 12px;flex-wrap:wrap;}
+    @media(max-width:700px){
+      .hall-stage{flex-direction:column;gap:6px;overflow-y:auto;}
+      .hall{flex:none!important;height:64px;transition:height 400ms ease;}
+      .hall.expanded{height:340px;}
+      .hall-vert{writing-mode:initial;transform:none;top:auto;bottom:16px;left:auto;right:16px;font-size:10px;}
+      .hall.expanded .hall-vert{display:none;}
+    }
+
+    /* ══ CHALLENGE — motion icons + suggested prompts ══ */
+    .ch-suggest-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+    .ch-suggest-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;font-family:var(--font-mono);margin-right:4px;}
+    .ch-chip{
+      padding:6px 13px;border-radius:100px;background:var(--bg-raised);border:1px solid var(--border);
+      color:var(--text-secondary);font-size:12px;cursor:pointer;font-family:var(--font-body);
+      transition:transform 250ms var(--spring,cubic-bezier(0.34,1.56,0.64,1)), border-color 200ms ease, color 200ms ease;
+    }
+    .ch-chip:hover{border-color:rgba(155,108,255,0.5);color:var(--text-primary);transform:translateY(-2px);}
+    .ch-chip:active{transform:translateY(0) scale(0.96);}
+
+    .ch-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;position:relative;overflow:hidden;}
+    .ch-icon svg{width:18px;height:18px;position:relative;z-index:2;}
+    .ch-icon-1{background:rgba(239,68,68,0.1);color:#ef4444;}
+    .ch-icon-2{background:rgba(245,158,11,0.1);color:#f59e0b;}
+    .ch-icon-3{background:rgba(239,68,68,0.1);color:#ef4444;}
+    .ch-icon-4{background:rgba(245,158,11,0.1);color:#f59e0b;}
+    .ch-icon-orbit{position:absolute;inset:0;border-radius:50%;border:1px dashed currentColor;opacity:0.3;}
+    @media (prefers-reduced-motion: no-preference){
+      .ch-icon-orbit{animation:chSpin 5s linear infinite;}
+      @keyframes chSpin{to{transform:rotate(360deg);}}
+      .ch-card:hover .ch-icon svg{animation:chPulseIcon 700ms ease;}
+      @keyframes chPulseIcon{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+    }
+
+    /* ══ START MODE — homepage life ══ */
+    .live-ticker{
+      display:flex;align-items:center;gap:9px;padding:9px 14px;border-radius:100px;
+      background:rgba(155,108,255,0.06);border:1px solid rgba(155,108,255,0.18);
+      margin-bottom:20px;font-size:12px;color:var(--text-secondary);width:fit-content;
+    }
+    .live-ticker-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;}
+    @media (prefers-reduced-motion: no-preference){
+      .live-ticker-dot{animation:blink 2s ease-in-out infinite;}
+      .live-ticker-text{animation:tickerFade 400ms ease both;}
+      @keyframes tickerFade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+    }
+    /* Metrics: count-up feel via subtle entrance */
+    @media (prefers-reduced-motion: no-preference){
+      .metrics.anim.in-view .metric:nth-child(1) b{animation:fadeUp 500ms 100ms both;}
+      .metrics.anim.in-view .metric:nth-child(2) b{animation:fadeUp 500ms 200ms both;}
+      .metrics.anim.in-view .metric:nth-child(3) b{animation:fadeUp 500ms 300ms both;}
+      .metrics.anim.in-view .metric:nth-child(4) b{animation:fadeUp 500ms 400ms both;}
+    }
+    /* Loop diagram: subtle idle scale breathing when in view */
+    @media (prefers-reduced-motion: no-preference){
+      #loop-diagram.in-view{animation:loopBreathe 6s ease-in-out infinite;}
+      @keyframes loopBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.008)}}
+    }
   </style>
 </head>
 <body>
@@ -543,6 +645,10 @@
           </div>
           <p class="statement anim" data-stagger="2">Many products ship sprint after sprint with no real measurement. I instrument products (Pendo, GA4, Qualtrics), watch real behavior &mdash; replays, funnels, signals &mdash; and use evidence to decide what to fix, what to kill, and what to double down on. Design when needed. Direction always. Data first.</p>
 
+          <div class="live-ticker anim" data-stagger="2">
+            <span class="live-ticker-dot" aria-hidden="true"></span>
+            <span class="live-ticker-text" id="ticker-text">Instrumenting EY Fabric — session replay review in progress</span>
+          </div>
           <div class="loop anim glow-soft" data-stagger="2" id="loop-diagram" aria-label="Working loop: Instrument, Observe, Diagnose, Fix, Measure, repeat">
             <div class="loop-track">
               <div class="loop-line" aria-hidden="true"></div>
@@ -619,12 +725,10 @@
 
     <!-- ══ MODE 3: WORK ══ -->
     <section class="panel" id="panel-work" role="tabpanel" aria-labelledby="tab-work" hidden>
-      <div class="work-wrap">
-        <h2 class="mode-h anim">5 projects. Problem &#8594; what I did &#8594; result.</h2>
-        <p class="mode-sub anim" data-stagger="1">No storytelling. Just evidence.</p>
-        <div class="anim" data-stagger="2" id="work-list"></div>
-        <div class="ph work-ph-row anim" data-stagger="3" data-ph="Alfred — coming soon">Alfred &middot; coming soon</div>
-        <div class="ph work-ph-row anim" data-stagger="3" data-ph="Forecast — in progress">Forecast &middot; in progress</div>
+      <div class="hall-stage" id="hall-stage" role="tablist" aria-label="Projects — hover or tap to expand"></div>
+      <div class="hall-footer">
+        <div class="ph hall-ph" data-ph="Alfred — coming soon">Alfred &middot; coming soon</div>
+        <div class="ph hall-ph" data-ph="Forecast — in progress">Forecast &middot; in progress</div>
       </div>
     </section>
 
@@ -634,6 +738,13 @@
         <div id="ch-picker">
           <h2 class="mode-h anim">Put me in a scenario.</h2>
           <p class="mode-sub anim" data-stagger="1">Pick one and see exactly how I'd run it &mdash; sequence, tools, deliverable.</p>
+          <div class="ch-suggest-row anim" data-stagger="2">
+            <span class="ch-suggest-label">Try asking</span>
+            <button class="ch-chip" data-scen="0">"Attack a measurement gap"</button>
+            <button class="ch-chip" data-scen="1">"Ship a 0&#8594;1 MVP fast"</button>
+            <button class="ch-chip" data-scen="2">"Fix zero-data dashboards"</button>
+            <button class="ch-chip" data-scen="3">"Navigate team conflict"</button>
+          </div>
           <div class="anim" data-stagger="2" id="ch-list"></div>
           <div class="ch-card anim tilt glow-border sheen glass" data-stagger="3">
             <div class="ch-top"><span class="ch-kind">Scenario 5 &middot; Custom</span><span class="badge badge-custom">Custom</span></div>
@@ -848,18 +959,48 @@
          }).join('')+'<span class="teaser-label">digitizing</span>'
     };
     var TEASER_CLASS={ey:'t-ey',chek:'t-chek',dc:'t-dc',bc:'t-bc',cus:'t-cus'};
-    document.getElementById('work-list').innerHTML=WORK.map(function(w){
-      var key=w.tk||(w.ic===WORK_ICONS.ey?'ey':w.ic===WORK_ICONS.chek?'chek':w.ic===WORK_ICONS.dc?'dc':w.ic===WORK_ICONS.bc?'bc':'cus');
-      return '<a class="work-row glow-border sheen glass" href="'+w.l+'" style="border-left-color:'+w.a+';--wa:'+w.a+';">'+
-        '<div>'+
-          '<div class="work-top"><span class="work-name">'+w.ic+esc(w.n)+'</span><span class="work-meta">'+w.m+'</span></div>'+
-          '<div class="work-line">'+esc(w.p)+'</div>'+
-          '<div class="work-line">'+esc(w.d)+'</div>'+
-          '<div class="work-bottom"><span class="work-result" style="color:'+w.a+';">'+w.r+'</span><span class="work-open">Open case &#8599;</span></div>'+
-        '</div>'+
-        '<div class="teaser-scene '+TEASER_CLASS[key]+'">'+TEASERS[key]+'</div>'+
-      '</a>';
-    }).join('');
+    var HALL_BG={
+      ey:'radial-gradient(circle at 30% 25%, rgba(200,168,75,0.16), #0c0c0c 65%)',
+      chek:'radial-gradient(circle at 65% 30%, rgba(155,108,255,0.16), #0c0c0c 65%)',
+      dc:'radial-gradient(circle at 40% 60%, rgba(22,163,74,0.14), #0c0c0c 65%)',
+      bc:'radial-gradient(circle at 60% 40%, rgba(74,163,212,0.16), #0c0c0c 65%)',
+      cus:'radial-gradient(circle at 50% 50%, rgba(224,92,74,0.14), #0c0c0c 65%)'
+    };
+    var hallCurrent=0;
+    function renderHalls(){
+      var stage=document.getElementById('hall-stage');
+      if(!stage)return;
+      stage.innerHTML=WORK.map(function(w,i){
+        var key=w.tk;
+        return '<div class="hall'+(i===hallCurrent?' expanded':'')+'" data-idx="'+i+'" role="tab" tabindex="0" aria-selected="'+(i===hallCurrent)+'" style="background:'+HALL_BG[key]+'">'+
+          '<div class="hall-canvas-wrap teaser-scene '+TEASER_CLASS[key]+'" style="width:100%;height:100%;border-radius:0;">'+TEASERS[key]+'</div>'+
+          '<div class="hall-vert">'+esc(w.m)+'</div>'+
+          '<div class="hall-badge"><span class="hall-dot" style="background:'+w.a+';color:'+w.a+'"></span><span class="hall-name-small">'+esc(w.n)+'</span></div>'+
+          '<div class="hall-summary">'+
+            '<div class="hall-sum-tag">'+esc(w.m)+'</div>'+
+            '<div class="hall-sum-name">'+esc(w.n)+'</div>'+
+            '<div class="hall-sum-problem">'+esc(w.p)+'</div>'+
+            '<div class="hall-sum-did">'+esc(w.d)+'</div>'+
+            '<div class="hall-sum-result" style="color:'+w.a+'">'+w.r+'</div>'+
+            '<a class="hall-sum-cta" href="'+w.l+'">Open full case <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></a>'+
+          '</div>'+
+        '</div>';
+      }).join('');
+      stage.querySelectorAll('.hall').forEach(function(h){
+        h.addEventListener('mouseenter',function(){hallCurrent=parseInt(h.dataset.idx);renderHalls();});
+        h.addEventListener('click',function(e){
+          if(e.target.closest('.hall-sum-cta'))return;
+          hallCurrent=parseInt(h.dataset.idx);renderHalls();
+        });
+        h.addEventListener('keydown',function(e){
+          if(e.key==='Enter'||e.key===' '){e.preventDefault();hallCurrent=parseInt(h.dataset.idx);renderHalls();}
+        });
+      });
+    }
+    renderHalls();
+    document.querySelectorAll('.tab').forEach(function(t){
+      t.addEventListener('click',function(){if(t.dataset.mode==='work')setTimeout(renderHalls,50);});
+    });
 
     /* ── Data: challenge scenarios ── */
     var SCEN=[
@@ -885,9 +1026,16 @@
         chips:['Evidence-based decisions','Scope negotiation','Stakeholder navigation']}
     ];
     var chPicker=document.getElementById('ch-picker'),chResp=document.getElementById('ch-response');
+    var CH_ICONS=[
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="18" cy="7" r="3" opacity="0.5"/></svg>'
+    ];
     document.getElementById('ch-list').innerHTML=SCEN.map(function(s,i){
       var badge=s.b==='hard'?'<span class="badge badge-hard">Hard</span>':'<span class="badge badge-med">Medium</span>';
       return '<button class="ch-card tilt glow-border sheen glass'+(i===0?' live-border':'')+'" data-scen="'+i+'">'+
+        '<div class="ch-icon ch-icon-'+(i+1)+'"><div class="ch-icon-orbit"></div>'+CH_ICONS[i]+'</div>'+
         '<div class="ch-top"><span class="ch-kind">Scenario '+(i+1)+' · '+s.k+'</span>'+badge+'</div>'+
         '<div class="ch-text">'+esc(s.t)+'</div>'+
       '</button>';
@@ -926,6 +1074,9 @@
     document.getElementById('ch-list').addEventListener('click',function(e){
       var c=e.target.closest('[data-scen]');
       if(c)showScenario(+c.dataset.scen);
+    });
+    document.querySelectorAll('.ch-chip').forEach(function(chip){
+      chip.addEventListener('click',function(){showScenario(+chip.dataset.scen);});
     });
     document.getElementById('ch-custom-btn').addEventListener('click',function(){
       document.getElementById('ch-custom-note').hidden=false;
@@ -1033,6 +1184,26 @@
     document.querySelectorAll('.tab').forEach(function(t){
       t.addEventListener('click', function(){ setTimeout(observeAll, 50); });
     });
+  })();
+
+  /* ══ LIVE TICKER ROTATION ══ */
+  (function(){
+    var TICKS=[
+      'Instrumenting EY Fabric — session replay review in progress',
+      'Last shipped: Chek onboarding funnel — +15% conversion',
+      'Currently mapping: developer portal friction points',
+      'Recent fix: DollarCity fraud flow — task time cut in half'
+    ];
+    var ti=0;
+    var el=document.getElementById('ticker-text');
+    if(!el)return;
+    setInterval(function(){
+      ti=(ti+1)%TICKS.length;
+      el.style.animation='none';
+      void el.offsetWidth;
+      el.textContent=TICKS[ti];
+      el.style.animation='tickerFade 400ms ease both';
+    },4200);
   })();
   </script>
 </body>
