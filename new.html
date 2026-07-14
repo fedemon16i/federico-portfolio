@@ -751,13 +751,36 @@
     .cin-live-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0;}
     @media(prefers-reduced-motion:no-preference){.cin-live-dot{animation:blink 2s ease-in-out infinite;}}
     /* Realistic app UI pieces reused across scenes */
-    .cin-panel{background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px;}
+    .cin-panel{background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:18px;backdrop-filter:blur(2px);}
     .cin-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
     .cin-row:last-child{border-bottom:none;}
     .cin-badge{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:600;}
     .cin-highlight{outline:2px solid #c8a84b;outline-offset:3px;border-radius:8px;transition:outline-color 300ms ease;}
     .skill-group{margin-bottom:14px;}
     .skill-chip svg{width:14px;height:14px;}
+    .cap-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+    .cap-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;background:rgba(155,108,255,0.08);border:1px solid rgba(155,108,255,0.2);font-size:11.5px;color:var(--text-secondary);}
+    .cap-chip svg{color:var(--accent);}
+
+    /* ══ ELEV CARD — restrained 3D, glow, blur. Performance-safe. ══ */
+    @media (prefers-reduced-motion: no-preference) and (hover: hover){
+      .elev-card{
+        transform-style:preserve-3d;
+        transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+        transition:transform 220ms var(--ease-out,cubic-bezier(0.19,1,0.22,1)),box-shadow 300ms ease;
+        will-change:transform;
+      }
+      .elev-card:hover{
+        box-shadow:0 24px 48px -24px rgba(0,0,0,0.55),0 0 0 1px var(--ec-accent,rgba(155,108,255,0.25));
+      }
+      .elev-card::before{
+        content:'';position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;
+        background:radial-gradient(160px circle at var(--mx,50%) var(--my,50%),var(--ec-glow,rgba(155,108,255,0.14)),transparent 65%);
+        opacity:0;transition:opacity 300ms ease;
+      }
+      .elev-card:hover::before{opacity:1;}
+    }
+    .elev-card{position:relative;}
   </style>
 </head>
 <body>
@@ -795,7 +818,13 @@
               </div>
             </div>
           </div>
-          <p class="statement anim" data-stagger="2">Many products ship sprint after sprint with no real measurement. I instrument products (Pendo, GA4, Qualtrics), watch real behavior &mdash; replays, funnels, signals &mdash; and use evidence to decide what to fix, what to kill, and what to double down on. Design when needed. Direction always. Data first.</p>
+          <p class="statement anim" data-stagger="2">I measure usability in real time &mdash; session replays surface problems the moment they happen, not weeks later. I track features, pages, events and satisfaction, then use that evidence to decide what to fix, kill, or double down on.</p>
+          <div class="cap-row anim" data-stagger="2">
+            <span class="cap-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Vibe-code</span>
+            <span class="cap-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>Design</span>
+            <span class="cap-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>Research</span>
+            <span class="cap-chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>Measure &amp; predict</span>
+          </div>
 
           <div class="live-ticker anim" data-stagger="2">
             <span class="live-ticker-dot" aria-hidden="true"></span>
@@ -840,7 +869,7 @@
           <div class="metrics anim glow-soft" data-stagger="3">
             <div class="metric"><b class="lift">5+ yrs</b><span>product &amp; UX</span></div>
             <div class="metric"><b class="lift">&minus;50%</b><span>task time</span></div>
-            <div class="metric"><b class="lift">90+</b><span>assets instrumented</span></div>
+            <div class="metric"><b class="lift">1 hub</b><span>Behavioral Analytics Hub</span></div>
             <div class="metric"><b class="lift">$500K</b><span>scope secured</span></div>
           </div>
         </div>
@@ -1090,9 +1119,9 @@
       cus:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex-shrink:0;opacity:0.7"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/></svg>'
     };
     var WORK=[
-      {n:'EY Fabric',m:'Globant · 2023–Present',p:'90+ dev assets, zero behavioral data',d:'Instrumented events, Qualtrics feedback loops, session-level insights',r:'90+ assets measured',a:'var(--acc-ey)',l:'projects/ey-fabric.html',ic:WORK_ICONS.ey,tk:'ey',
-       approach:['Mapped what "engagement" needed to mean with stakeholders','Defined a 5-7 event taxonomy for the assets that mattered','Instrumented with Pendo — tagged existing UI, no custom code','Closed the loop with Qualtrics feedback dashboards'],
-       findings:['Sole Pendo practitioner on the account','UX research delivered on-demand across teams','Bridge between design, engineering and product']},
+      {n:'EY Fabric',m:'Globant · 2023–Present',p:'Usability problems were invisible until users complained — no way to see friction as it happened',d:'Track every feature, page and event in real time — session replays surface problems the moment they happen, not weeks later',r:'1 unified hub',a:'var(--acc-ey)',l:'projects/ey-fabric.html',ic:WORK_ICONS.ey,tk:'ey',
+       approach:['Track feature, page and event-level usage plus satisfaction signals','Watch session replays to catch usability problems in real time','Building a Behavioral Analytics Hub — one live system instead of isolated dashboards','Framework runs on Pendo + Figma + Factory.ai + Replit, wired together via APIs and MCP'],
+       findings:['Solo build — every part of the product, including replay sessions','AI agents (droids) handle instrumentation and synthesis at scale','Sole Pendo practitioner on the account']},
       {n:'Chek',m:'Applaudo Studios',p:'New virtual card product in a skeptical market',d:'Research-led onboarding redesign + event funnels',r:'+15% onboarding',a:'var(--acc-chek)',l:'projects/chek.html',ic:WORK_ICONS.chek,tk:'chek',
        approach:['Led a 4-designer team through the full redesign','Built the onboarding flow around real user hesitation points','Instrumented event-tracking funnels for adoption'],
        findings:['Design system shipped from scratch, 10+ features','Overhauled consistency across the whole app','South American digital wallet, acquired by Banco Ripley']},
@@ -1307,52 +1336,74 @@
 
       runCinematicDemo('ey','#c8a84b',[
         {
-          caption:'Reviewing the developer portal — 90+ assets, no usage data',
-          cursor:{x:'62%',y:'40%'},
+          caption:'Fabric goes live. Every click, every page, every event — now visible.',
+          cursor:{x:'55%',y:'35%'},
           build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
-              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">DEVELOPER PORTAL &middot; ASSETS</div>'+
-              [['Auth SDK','last touched: unknown'],['Payments API','last touched: unknown'],['Webhooks guide','last touched: unknown']].map(function(r){
-                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">'+r[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.35);">'+r[1]+'</span></div>';
+            scene.innerHTML='<div class="cin-panel" style="max-width:500px;margin:0 auto;">'+
+              '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">'+
+                '<div style="width:20px;height:20px;">'+(BRAND&&BRAND.pendo?BRAND.pendo:'')+'</div>'+
+                '<span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);">Pendo &middot; tracking features, pages, events</span>'+
+              '</div>'+
+              [['Auth SDK page','viewed 1,204&times;'],['Payments API','viewed 340&times;'],['Webhooks guide','viewed 88&times;']].map(function(r){
+                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">'+r[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.35);font-family:var(--font-mono);">'+r[1]+'</span></div>';
               }).join('')+
             '</div>';
           }
         },
         {
-          caption:'Defining the event taxonomy that actually matters',
-          cursor:{x:'50%',y:'35%'},
-          build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
-              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">EVENT TAXONOMY &middot; DRAFT</div>'+
-              [['asset_view','core'],['search_query','core'],['download','conversion'],['return_visit','retention']].map(function(r){
-                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;font-family:var(--font-mono);">'+r[0]+'</span><span class="cin-badge" style="background:rgba(200,168,75,0.15);color:#c8a84b;">'+r[1]+'</span></div>';
-              }).join('')+
-            '</div>';
-          }
-        },
-        {
-          caption:'Instrumenting with Pendo — tagging existing UI, no code changes',
-          cursor:{x:'70%',y:'55%'},
+          caption:'A drop-off spikes. Instead of guessing why, we watch what actually happened.',
+          cursor:{x:'60%',y:'45%'},
           highlight:true,
           build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:560px;margin:0 auto;position:relative;">'+
-              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">PENDO &middot; TAG BUILDER</div>'+
-              '<div class="cin-highlight" style="padding:14px;margin-bottom:10px;"><div style="font-size:13px;color:#fff;margin-bottom:4px;">Download button</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">Selector locked &middot; event: <span style="color:#c8a84b;font-family:var(--font-mono);">download</span></div></div>'+
-              '<div style="height:30px;background:#c8a84b;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#1a1508;">Save tag</div>'+
+            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">SESSION REPLAY &middot; LIVE</div>'+
+              '<div class="cin-highlight" style="padding:14px;display:flex;align-items:center;gap:12px;">'+
+                '<div style="width:34px;height:34px;border-radius:50%;background:rgba(200,168,75,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="1.8"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>'+
+                '<div><div style="font-size:12.5px;color:#fff;">User rage-clicks the same button 4&times;</div><div style="font-size:10.5px;color:rgba(255,255,255,0.4);">Replay captured in real time &mdash; problem found before a single ticket was filed</div></div>'+
+              '</div>'+
             '</div>';
           }
         },
         {
-          caption:'Closing the loop — Qualtrics feedback synced to the dashboard',
-          cursor:{x:'55%',y:'45%'},
+          caption:'Satisfaction data confirms it. Now the fix has evidence behind it, not a hunch.',
+          cursor:{x:'50%',y:'40%'},
           build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:560px;margin:0 auto;">'+
-              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px;font-family:var(--font-mono);">FEEDBACK DASHBOARD</div>'+
-              '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">'+
-                [['90+','assets measured'],['+28%','adoption lift'],['4.6','avg. clarity score']].map(function(m){
-                  return '<div style="text-align:center;padding:12px 8px;background:rgba(255,255,255,0.03);border-radius:8px;"><div style="font-size:20px;font-weight:700;color:#c8a84b;font-family:var(--font-mono);">'+m[0]+'</div><div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;">'+m[1]+'</div></div>';
-                }).join('')+
+            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">SATISFACTION &middot; THIS FLOW</div>'+
+              '<div style="display:flex;align-items:flex-end;gap:8px;height:70px;">'+
+                [30,25,20,45,60,75].map(function(h){return '<div style="flex:1;height:'+h+'%;background:linear-gradient(180deg,#c8a84b,#8a6f2f);border-radius:3px 3px 0 0;"></div>';}).join('')+
               '</div>'+
+              '<div style="font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:10px;">Scores climb once the friction is actually fixed &mdash; not before.</div>'+
+            '</div>';
+          }
+        },
+        {
+          caption:'The bigger build: one Behavioral Analytics Hub, not ten disconnected dashboards.',
+          cursor:{x:'55%',y:'42%'},
+          build:function(scene){
+            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">THE HUB &middot; ONE LIVE SYSTEM</div>'+
+              [
+                ['Pendo','usage + events'],
+                ['Figma','design source of truth'],
+                ['Factory.ai','agent orchestration'],
+                ['Replit','build + ship']
+              ].map(function(r){
+                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">'+r[0]+'</span><span style="font-size:10.5px;color:rgba(255,255,255,0.4);">'+r[1]+'</span></div>';
+              }).join('')+
+              '<div style="font-size:10.5px;color:rgba(255,255,255,0.4);margin-top:8px;">Wired together with APIs and MCP &mdash; built solo.</div>'+
+            '</div>';
+          }
+        },
+        {
+          caption:'Agents do the wiring. I do the thinking. That\'s the whole point of building it this way.',
+          cursor:{x:'50%',y:'45%'},
+          build:function(scene){
+            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">DROIDS &middot; RUNNING</div>'+
+              '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">Instrument new event</span><span class="cin-badge" style="background:rgba(34,197,94,0.15);color:#4ade80;">done</span></div>'+
+              '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">Sync replay to hub</span><span class="cin-badge" style="background:rgba(200,168,75,0.15);color:#c8a84b;">running</span></div>'+
+              '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">Draft satisfaction summary</span><span class="cin-badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.4);">queued</span></div>'+
             '</div>';
           }
         }
@@ -1531,7 +1582,7 @@
       var nav=document.getElementById('proj-rail');
       if(!nav)return;
       nav.innerHTML=WORK.map(function(w,i){
-        return '<button class="topnav-card'+(i===opCurrent?' active':'')+'" data-idx="'+i+'" style="--topnav-accent:'+w.a+'" role="tab" aria-selected="'+(i===opCurrent)+'">'+
+        return '<button class="topnav-card elev-card'+(i===opCurrent?' active':'')+'" data-idx="'+i+'" style="--topnav-accent:'+w.a+';--ec-accent:'+w.a+';--ec-glow:'+w.a+'22;" role="tab" aria-selected="'+(i===opCurrent)+'">'+
           '<span class="topnav-icon">'+(w.ic||'')+'</span>'+
           '<span class="topnav-name">'+esc(w.n)+'</span>'+
         '</button>';
@@ -1702,7 +1753,7 @@
     /* Tilt + glow + sheen — one listener, event delegation */
     var MAX_TILT = 4; /* degrees — subtle */
     document.addEventListener('pointermove', function(e){
-      var card = e.target.closest('.tilt, .glow-border, .sheen');
+      var card = e.target.closest('.tilt, .glow-border, .sheen, .elev-card');
       if(!card) return;
       var r = card.getBoundingClientRect();
       var x = e.clientX - r.left, y = e.clientY - r.top;
