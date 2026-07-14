@@ -516,9 +516,36 @@
       .t-chek .mini-card, .t-bc .wirecube{animation:none;}
     }
 
-    /* ══ WORK — RAIL + ONE-PAGER ══ */
+    /* ══ WORK — TOP NAV + HALF/HALF SPLIT ══ */
     #panel-work{display:flex;flex-direction:column;height:100%;padding:0!important;}
-    .work-shell{display:flex;height:100%;min-height:0;}
+    .work-shell{display:flex;flex-direction:column;height:100%;min-height:0;}
+    .proj-topnav{
+      display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border);
+      overflow-x:auto;flex-shrink:0;background:var(--bg-surface);scrollbar-width:thin;
+    }
+    .topnav-card{
+      display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:100px;
+      border:1px solid var(--border);background:var(--bg-raised);cursor:pointer;flex-shrink:0;
+      transition:all 250ms var(--spring-soft,cubic-bezier(0.16,1,0.3,1));white-space:nowrap;
+    }
+    .topnav-card:hover{transform:translateY(-2px);}
+    .topnav-card.active{background:var(--topnav-accent,var(--accent));border-color:transparent;}
+    .topnav-card.active .topnav-name{color:#fff;}
+    .topnav-card.active .topnav-icon{color:#fff;}
+    .topnav-icon{width:15px;height:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--topnav-accent,var(--accent));}
+    .topnav-icon svg{width:14px;height:14px;}
+    .topnav-name{font-size:12.5px;font-weight:500;color:var(--text-secondary);}
+    .work-split{display:flex;flex:1;min-height:0;}
+    .work-left{
+      width:50%;flex-shrink:0;border-right:1px solid var(--border);
+      display:flex;flex-direction:column;background:#0a0a0a;overflow:hidden;
+    }
+    .work-right{width:50%;overflow-y:auto;overscroll-behavior:contain;}
+    @media(max-width:860px){
+      .work-split{flex-direction:column;}
+      .work-left,.work-right{width:100%;}
+      .work-left{min-height:280px;}
+    }
     .rail{
       width:220px;flex-shrink:0;border-right:1px solid var(--border);
       padding:16px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;
@@ -544,8 +571,8 @@
 
     .one-pager{flex:1;min-width:0;overflow-y:auto;overscroll-behavior:contain;}
     .op-hero{
-      position:relative;min-height:260px;display:flex;align-items:center;justify-content:center;
-      border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg-raised);
+      position:relative;height:100%;min-height:260px;display:flex;align-items:center;justify-content:center;
+      overflow:hidden;background:var(--bg-raised);
     }
     .op-hero-bg{position:absolute;inset:0;opacity:0.5;}
     .op-hero-label{
@@ -701,7 +728,7 @@
       display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,0.4);
       font-family:var(--font-mono);
     }
-    .cin-stage{position:relative;min-height:340px;overflow:hidden;background:#0a0a0a;}
+    .cin-stage{position:relative;flex:1;min-height:260px;overflow:hidden;background:#0a0a0a;}
     .cin-scene{
       position:absolute;inset:0;padding:32px 40px;
       transform:scale(1);transform-origin:center center;
@@ -729,6 +756,8 @@
     .cin-row:last-child{border-bottom:none;}
     .cin-badge{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:600;}
     .cin-highlight{outline:2px solid #c8a84b;outline-offset:3px;border-radius:8px;transition:outline-color 300ms ease;}
+    .skill-group{margin-bottom:14px;}
+    .skill-chip svg{width:14px;height:14px;}
   </style>
 </head>
 <body>
@@ -850,8 +879,11 @@
     <!-- ══ MODE 3: WORK ══ -->
     <section class="panel" id="panel-work" role="tabpanel" aria-labelledby="tab-work" hidden>
       <div class="work-shell">
-        <div class="rail" id="proj-rail" role="tablist" aria-label="Select a project"></div>
-        <div class="one-pager" id="one-pager"></div>
+        <div class="proj-topnav" id="proj-rail" role="tablist" aria-label="Select a project"></div>
+        <div class="work-split">
+          <div class="work-left" id="work-left"></div>
+          <div class="work-right" id="one-pager"></div>
+        </div>
       </div>
     </section>
 
@@ -1030,16 +1062,9 @@
         '<ol class="ans-steps">'+P.steps.map(function(s,i){
           return '<li class="ans-step"><span class="ans-num">'+(i+1)+'</span><span>'+esc(s)+'</span></li>';
         }).join('')+'</ol>'+
-        '<p class="ans-label">Where I already did it</p>'+
-        '<div class="case-card glow-border sheen glass glow-soft" style="border-left-color:'+W.a+';">'+
-          '<div class="case-name">'+esc(W.n)+'</div>'+
-          '<div class="case-line">'+esc(W.p)+'</div>'+
-          '<div class="case-line">'+esc(W.d)+'</div>'+
-          '<div class="case-result" style="color:'+W.a+';">'+W.r+'</div>'+
-        '</div>'+
-        '<div class="ans-actions">'+
-          '<button class="btn-ghost" data-open-work="'+P.ck+'">See full walkthrough &#8594;</button>'+
-          '<button class="btn-primary" data-goto="challenge">Challenge me on this &#8594;</button>'+
+        '<div class="ans-actions" style="margin-top:var(--space-8,16px);">'+
+          '<button class="btn-primary magnetic glow-border" data-open-work="'+P.ck+'" style="--rail-accent:'+W.a+';border-color:'+W.a+';">See it in '+esc(W.n)+' &#8594;</button>'+
+          '<button class="btn-ghost" data-goto="challenge">Challenge me on this &#8594;</button>'+
         '</div>';
       picker.hidden=true;answer.hidden=false;
       document.getElementById('prob-back').addEventListener('click',function(){answer.hidden=true;picker.hidden=false;});
@@ -1048,7 +1073,7 @@
         openBtn.addEventListener('click',function(){
           opCurrent=WORK.findIndex(function(w){return w.tk===P.ck;});
           document.querySelector('[data-mode="work"]').click();
-          setTimeout(function(){renderRail();renderOnePager();},80);
+          setTimeout(function(){renderTopNav();renderOnePager();},80);
         });
       }
     }
@@ -1230,9 +1255,9 @@
       __cinTimers[ns]=setInterval(show,3400);
     }
 
-    ONEPAGERS.ey=function(host,w){
-      host.innerHTML=
-        '<div class="cin-hero" id="ey-op-hero">'+
+    ONEPAGERS.ey=function(left,right,w){
+      left.innerHTML=
+        '<div class="cin-hero" id="ey-op-hero" style="height:100%;display:flex;flex-direction:column;">'+
           '<div class="cin-chrome">'+
             '<div class="cin-dots"><span></span><span></span><span></span></div>'+
             '<div class="cin-url">fabric.ey.com/admin</div>'+
@@ -1243,7 +1268,8 @@
             '<div class="cin-ripple" id="ey-ripple"></div>'+
           '</div>'+
           '<div class="cin-caption"><span class="cin-live-dot"></span><span id="ey-step-txt">Loading&hellip;</span></div>'+
-        '</div>'+
+        '</div>';
+      right.innerHTML=
         '<div class="op-gallery" id="ey-gallery"></div>'+
         '<div class="op-body">'+
           '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:#c8a84b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2l9 4.9V17L12 22l-9-5.1V6.9z"/><path d="M12 22V12M3 7l9 5 9-5"/></svg></div><span class="op-sec-label">The problem</span></div><p class="op-problem">90+ internal developer assets and zero behavioral data. Nobody could tell what was actually being used, or where people got stuck.</p></div>'+
@@ -1333,9 +1359,9 @@
       ]);
     };
 
-    ONEPAGERS.chek=function(host,w){
-      host.innerHTML=
-        '<div class="op-hero" id="chek-op-hero">'+
+    ONEPAGERS.chek=function(left,right,w){
+      left.innerHTML=
+        '<div class="op-hero" id="chek-op-hero" style="height:100%;">'+
           '<svg class="op-hero-bg" width="100%" height="100%" aria-hidden="true"><defs><pattern id="chekgrid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="rgba(155,108,255,0.15)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#chekgrid)"/></svg>'+
           cursorHeroShell('chek','#9b6cff',
             '<div style="font-size:9px;color:var(--text-tertiary);margin-bottom:10px;font-family:var(--font-mono)">chek.app/onboarding</div>'+
@@ -1344,7 +1370,8 @@
             '<div id="chek-f2" style="height:32px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;color:var(--text-tertiary);transition:all 250ms">Card design</div>'+
             '<div id="chek-fs" style="height:32px;border-radius:6px;background:#9b6cff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;transition:all 250ms">Activate card</div>'
           )+
-        '</div>'+
+        '</div>';
+      right.innerHTML=
         '<div class="op-gallery">'+
           brandChip('figma','Figma')+brandChip('useberry','Useberry')+
           '<span style="display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;background:var(--bg-raised);border:1px solid var(--border);font-size:10.5px;color:var(--text-secondary);">Event tracking</span>'+
@@ -1375,9 +1402,9 @@
       ],'#9b6cff');
     };
 
-    ONEPAGERS.dc=function(host,w){
-      host.innerHTML=
-        '<div class="op-hero" id="dc-op-hero">'+
+    ONEPAGERS.dc=function(left,right,w){
+      left.innerHTML=
+        '<div class="op-hero" id="dc-op-hero" style="height:100%;">'+
           '<svg class="op-hero-bg" width="100%" height="100%" aria-hidden="true"><defs><pattern id="dcgrid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="rgba(22,163,74,0.15)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#dcgrid)"/></svg>'+
           cursorHeroShell('dc','#16a34a',
             '<div style="font-size:9px;color:var(--text-tertiary);margin-bottom:10px;font-family:var(--font-mono)">dollarcity.internal/review</div>'+
@@ -1386,7 +1413,8 @@
             '<div id="dc-f2" style="height:32px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;color:var(--text-tertiary);transition:all 250ms">Add note</div>'+
             '<div id="dc-fs" style="height:32px;border-radius:6px;background:#16a34a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;transition:all 250ms">Resolve case</div>'
           )+
-        '</div>'+
+        '</div>';
+      right.innerHTML=
         '<div class="op-gallery">'+
           brandChip('figma','Figma')+brandChip('useberry','Useberry')+
           '<span style="display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;background:var(--bg-raised);border:1px solid var(--border);font-size:10.5px;color:var(--text-secondary);">Contextual inquiry</span>'+
@@ -1416,9 +1444,9 @@
       ],'#16a34a');
     };
 
-    ONEPAGERS.bc=function(host,w){
-      host.innerHTML=
-        '<div class="op-hero" id="bc-op-hero">'+
+    ONEPAGERS.bc=function(left,right,w){
+      left.innerHTML=
+        '<div class="op-hero" id="bc-op-hero" style="height:100%;">'+
           '<svg class="op-hero-bg" width="100%" height="100%" aria-hidden="true"><defs><pattern id="bcopgrid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="rgba(74,163,212,0.15)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#bcopgrid)"/></svg>'+
           cursorHeroShell('bc','#4aa3d4',
             '<div style="font-size:9px;color:var(--text-tertiary);margin-bottom:10px;font-family:var(--font-mono)">Set Point of Interest</div>'+
@@ -1427,7 +1455,8 @@
             '<div id="bc-f2" style="height:32px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;color:var(--text-tertiary);transition:all 250ms">Map position</div>'+
             '<div id="bc-fs" style="height:32px;border-radius:6px;background:#4aa3d4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;transition:all 250ms">Place on map</div>'
           )+
-        '</div>'+
+        '</div>';
+      right.innerHTML=
         '<div class="op-gallery">'+
           brandChip('figma','Figma')+brandChip('unity','Unity')+brandChip('spline','Spline')+
         '</div>'+
@@ -1456,9 +1485,9 @@
       ],'#4aa3d4');
     };
 
-    ONEPAGERS.cus=function(host,w){
-      host.innerHTML=
-        '<div class="op-hero" id="cus-op-hero">'+
+    ONEPAGERS.cus=function(left,right,w){
+      left.innerHTML=
+        '<div class="op-hero" id="cus-op-hero" style="height:100%;">'+
           '<svg class="op-hero-bg" width="100%" height="100%" aria-hidden="true"><defs><pattern id="cusgrid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="rgba(224,92,74,0.15)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#cusgrid)"/></svg>'+
           cursorHeroShell('cus','#e05c4a',
             '<div style="font-size:9px;color:var(--text-tertiary);margin-bottom:10px;font-family:var(--font-mono)">Digitize process</div>'+
@@ -1467,7 +1496,8 @@
             '<div id="cus-f2" style="height:32px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;padding:0 10px;font-size:12px;color:var(--text-tertiary);transition:all 250ms">Assign approver</div>'+
             '<div id="cus-fs" style="height:32px;border-radius:6px;background:#e05c4a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;transition:all 250ms">Submit MVP</div>'
           )+
-        '</div>'+
+        '</div>';
+      right.innerHTML=
         '<div class="op-gallery">'+
           brandChip('figma','Figma')+
           '<span style="display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;background:var(--bg-raised);border:1px solid var(--border);font-size:10.5px;color:var(--text-secondary);">PrimeNG</span>'+
@@ -1497,62 +1527,51 @@
       ],'#e05c4a');
     };
 
-    function renderRail(){
-      var rail=document.getElementById('proj-rail');
-      if(!rail)return;
-      rail.innerHTML=WORK.map(function(w,i){
-        return '<button class="rail-item'+(i===opCurrent?' active':'')+'" data-idx="'+i+'" style="--rail-accent:'+w.a+'" role="tab" aria-selected="'+(i===opCurrent)+'">'+
-          '<span class="rail-icon" style="color:'+w.a+'">'+(w.ic||'')+'</span>'+
-          '<span class="rail-text"><span class="rail-name">'+esc(w.n)+'</span><span class="rail-meta">'+esc(w.m)+'</span></span>'+
+    function renderTopNav(){
+      var nav=document.getElementById('proj-rail');
+      if(!nav)return;
+      nav.innerHTML=WORK.map(function(w,i){
+        return '<button class="topnav-card'+(i===opCurrent?' active':'')+'" data-idx="'+i+'" style="--topnav-accent:'+w.a+'" role="tab" aria-selected="'+(i===opCurrent)+'">'+
+          '<span class="topnav-icon">'+(w.ic||'')+'</span>'+
+          '<span class="topnav-name">'+esc(w.n)+'</span>'+
         '</button>';
-      }).join('')+
-      '<div class="rail-ph">'+
-        '<div class="ph" data-ph="Alfred — coming soon">Alfred</div>'+
-        '<div class="ph" data-ph="Forecast — in progress">Forecast</div>'+
-      '</div>';
-      rail.querySelectorAll('.rail-item').forEach(function(btn){
+      }).join('');
+      nav.querySelectorAll('.topnav-card').forEach(function(btn){
         btn.addEventListener('click',function(){
           opCurrent=parseInt(btn.dataset.idx);
-          renderRail();renderOnePager();
+          renderTopNav();renderOnePager();
         });
       });
     }
 
-    function renderOnePagerFallback(host,w,key){
-      /* placeholder skeleton for projects not yet built */
-      host.innerHTML=
-        '<div class="op-hero" style="background:'+(HALL_BG[key]||'')+'">'+
-          '<div class="op-hero-label"><span class="op-live-dot"></span>'+esc(w.n)+' — full walkthrough coming</div>'+
-        '</div>'+
-        '<div class="op-body">'+
-          '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon">'+w.ic+'</div><span class="op-sec-label">The problem</span></div><p class="op-problem">'+esc(w.p)+'</p></div>'+
-          '<div class="op-section"><div class="op-result"><div class="op-result-n" style="color:'+w.a+'">'+w.r+'</div></div></div>'+
-          '<span class="op-cta" style="cursor:default;opacity:0.6;">Full walkthrough coming soon</span>'+
-        '</div>';
+    function renderFallback(left,right,w,key){
+      left.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;padding:32px;text-align:center;">'+
+        '<div><div class="op-live-dot" style="display:inline-block;margin-bottom:10px;"></div><div style="color:var(--text-tertiary);font-size:13px;">'+esc(w.n)+' &mdash; full walkthrough coming soon</div></div></div>';
+      right.innerHTML='<div class="op-body">'+
+        '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon">'+w.ic+'</div><span class="op-sec-label">The problem</span></div><p class="op-problem">'+esc(w.p)+'</p></div>'+
+        '<div class="op-result"><div class="op-result-n" style="color:'+w.a+'">'+w.r+'</div></div>'+
+      '</div>';
     }
     function renderOnePager(){
-      var host=document.getElementById('one-pager');
-      if(!host)return;
+      var left=document.getElementById('work-left');
+      var right=document.getElementById('one-pager');
+      if(!left||!right)return;
       var w=WORK[opCurrent];
       var key=w.tk;
       var fn=ONEPAGERS[key];
-      host.style.opacity='0';
-      host.style.transform='translateY(6px)';
-      host.style.transition='opacity 220ms ease, transform 260ms var(--spring-soft,cubic-bezier(0.16,1,0.3,1))';
+      left.style.opacity='0';right.style.opacity='0';
+      left.style.transition='opacity 220ms ease';right.style.transition='opacity 220ms ease';
       setTimeout(function(){
-        if(fn){ fn(host,w); } else { renderOnePagerFallback(host,w,key); }
-        host.scrollTop=0;
-        requestAnimationFrame(function(){
-          host.style.opacity='1';
-          host.style.transform='none';
-        });
+        if(fn){ fn(left,right,w); } else { renderFallback(left,right,w,key); }
+        right.scrollTop=0;
+        requestAnimationFrame(function(){left.style.opacity='1';right.style.opacity='1';});
       },160);
     }
 
-    renderRail();
+    renderTopNav();
     renderOnePager();
     document.querySelectorAll('.tab').forEach(function(t){
-      t.addEventListener('click',function(){if(t.dataset.mode==='work')setTimeout(function(){renderRail();renderOnePager();},50);});
+      t.addEventListener('click',function(){if(t.dataset.mode==='work')setTimeout(function(){renderTopNav();renderOnePager();},50);});
     });
 
     /* ── Data: challenge scenarios ── */
@@ -1648,6 +1667,12 @@
     });
 
     /* ── CV skills chips ── */
+    var BRAND_MAP={
+      'Dynamics':'dynamics','Qualtrics':'qualtrics','Useberry':'useberry','Maze':'',
+      'Pendo':'pendo','Google Analytics':'ga','Figma':'figma','Miro':'miro',
+      'Design Systems':'','Claude':'','v0':'','Figma Make':'figma','Copilot':'',
+      'Lean UX':'','Design Thinking':'','Agile':''
+    };
     var chipIcon='<svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
     var SKILLS=[
       ['Research',['Dynamics','Qualtrics','Useberry','Maze']],
@@ -1656,10 +1681,16 @@
       ['AI',['Claude','v0','Figma Make','Copilot']],
       ['Methods',['Lean UX','Design Thinking','Agile']]
     ];
-    document.getElementById('cv-skills').innerHTML=SKILLS.map(function(g){
-      return '<div class="skill-group"><span class="ans-label" style="margin-bottom:0;">'+g[0]+'</span>'+
-        '<div class="skill-chips">'+g[1].map(function(s){return '<span class="skill-chip">'+chipIcon+'<span class="sc-label">'+esc(s)+'</span></span>';}).join('')+'</div></div>';
+    document.getElementById('cv-skills').innerHTML=SKILLS.map(function(g,gi){
+      return '<div class="skill-group anim" data-stagger="'+(gi+1)+'"><span class="ans-label" style="margin-bottom:0;">'+g[0]+'</span>'+
+        '<div class="skill-chips">'+g[1].map(function(s){
+          var bk=BRAND_MAP[s];
+          var ic=(bk&&BRAND[bk])?BRAND[bk]:chipIcon;
+          return '<span class="skill-chip">'+ic+'<span class="sc-label">'+esc(s)+'</span></span>';
+        }).join('')+'</div></div>';
     }).join('');
+    var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in-view');});},{threshold:0.15});
+    document.querySelectorAll('#cv-skills .skill-group').forEach(function(el){io2.observe(el);});
   })();
 
   /* ══ DEPTH INTERACTIONS ══ */
