@@ -66,7 +66,8 @@
       position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
       display:none;
     }
-    #panel-work{overflow:hidden;}
+    #panel-work.active{overflow:hidden;}
+    #panel-work:not(.active){display:none!important;}
     .panel.active{display:block;}
     .panel-inner{min-height:100%;display:flex;flex-direction:column;}
 
@@ -517,7 +518,7 @@
     }
 
     /* ══ WORK — TOP NAV + HALF/HALF SPLIT ══ */
-    #panel-work{display:flex;flex-direction:column;height:100%;padding:0!important;}
+    #panel-work.active{display:flex;flex-direction:column;height:100%;padding:0!important;}
     .work-shell{display:flex;flex-direction:column;height:100%;min-height:0;}
     .proj-topnav{
       display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border);
@@ -784,6 +785,7 @@
   </style>
 </head>
 <body>
+  <div style="position:fixed;bottom:6px;right:8px;z-index:99999;font-family:monospace;font-size:9px;color:rgba(255,255,255,0.25);pointer-events:none;">build: 2026-07-14-b-panelfix</div>
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header class="topbar">
