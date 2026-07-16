@@ -7,6 +7,14 @@ Federico Monroy — Portfolio
 Stack
 Pure HTML + CSS + Vanilla JS. No frameworks. No build step.
 
+## Git workflow — CRITICAL
+Always commit and push DIRECTLY to `main`. NEVER create a branch, NEVER open
+a Pull Request, NEVER wait for manual merge. Every task ends with:
+  git add .
+  git commit -m "..."
+  git push origin main
+This is the only workflow. No exceptions, no branches, no PRs — ever.
+
 
 ## Git Rules
 - Always push to a new branch with a unique name. Never reuse existing branches.
