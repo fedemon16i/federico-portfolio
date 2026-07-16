@@ -782,6 +782,20 @@
       .elev-card:hover::before{opacity:1;}
     }
     .elev-card{position:relative;}
+
+    /* ══ EY CHAPTERS — tabs, stage, caption, connectors ══ */
+    .ey-chapters{display:flex;gap:4px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.08);overflow-x:auto;flex-shrink:0;}
+    .ey-chapters button{padding:6px 11px;border-radius:8px;border:1px solid transparent;background:transparent;color:rgba(255,255,255,0.45);font-size:11.5px;cursor:pointer;white-space:nowrap;transition:all 200ms ease;font-family:var(--font-body,inherit);}
+    .ey-chapters button:hover{background:rgba(255,255,255,0.04);}
+    .ey-chapters button.active{background:rgba(200,168,75,0.12);border-color:rgba(200,168,75,0.3);color:#e8d9b0;}
+    .ey-ch-hint{display:block;font-size:9px;color:rgba(255,255,255,0.3);margin-top:2px;font-weight:400;}
+    .ey-chapter-stage{flex:1;min-height:200px;padding:20px;overflow:hidden;position:relative;}
+    .ey-caption{padding:10px 18px;border-top:1px solid rgba(255,255,255,0.07);font-size:12.5px;color:rgba(255,255,255,0.7);font-family:var(--font-mono,monospace);min-height:20px;}
+    .ey-caption-cursor{display:inline-block;width:6px;color:#c8a84b;animation:blink 700ms step-end infinite;}
+    .ey-connector-line{stroke-dasharray:200;stroke-dashoffset:200;animation:drawLine 900ms ease forwards;}
+    @keyframes drawLine{to{stroke-dashoffset:0;}}
+    @media(prefers-reduced-motion:reduce){.ey-connector-line{animation:none;stroke-dashoffset:0;}}
+    .op-list-item--active{background:rgba(200,168,75,0.08);border-left:2px solid #c8a84b;padding-left:8px;}
   </style>
 </head>
 <body>
@@ -860,6 +874,7 @@
                 </div>
               </div>
             </div>
+            <div id="loop-preview" style="margin-top:12px;min-height:20px;font-family:var(--font-mono);font-size:11.5px;color:var(--accent);text-align:center;opacity:0;transition:opacity 200ms ease;"></div>
             <div class="loop-back-cap">measure feeds back into what gets instrumented next &#8635;</div>
           </div>
 
@@ -1148,7 +1163,9 @@
       useberry:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Useberry"><circle cx="12" cy="12" r="11" fill="#1a1a1a" stroke="rgba(255,255,255,0.15)"/><polygon points="9,7 18,12 9,17" fill="white"/></svg>',
       dynamics:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Microsoft Dynamics"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="13" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>',
       miro:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Miro"><rect x="1" y="1" width="22" height="22" rx="4" fill="#FFD02F"/><path d="M8 6v12M12 6l4 6-4 6M17 6v12" stroke="#050038" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      ga:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Google Analytics"><rect x="14" y="2" width="6" height="20" rx="2" fill="#F9AB00"/><rect x="4" y="14" width="6" height="8" rx="2" fill="#E8710A"/><rect x="9" y="8" width="6" height="14" rx="2" fill="#F9AB00" opacity="0.85"/></svg>'
+      ga:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Google Analytics"><rect x="14" y="2" width="6" height="20" rx="2" fill="#F9AB00"/><rect x="4" y="14" width="6" height="8" rx="2" fill="#E8710A"/><rect x="9" y="8" width="6" height="14" rx="2" fill="#F9AB00" opacity="0.85"/></svg>',
+      factory:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Factory.ai"><rect x="2" y="2" width="20" height="20" rx="5" fill="#111"/><path d="M6 16V9l4 3 4-3 4 3v4" stroke="#f59e0b" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      replit:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Replit"><rect x="2" y="2" width="9" height="9" rx="2" fill="#F26207"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#F26207" opacity="0.7"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#F26207" opacity="0.4"/></svg>'
     };
     function brandChip(key,label){
       return '<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 5px;border-radius:100px;background:var(--bg-raised);border:1px solid var(--border);font-size:10.5px;color:var(--text-secondary);">'+(BRAND[key]||'')+label+'</span>';
@@ -1293,123 +1310,348 @@
             '<div class="cin-dots"><span></span><span></span><span></span></div>'+
             '<div class="cin-url">fabric.ey.com/admin</div>'+
           '</div>'+
-          '<div class="cin-stage" id="ey-cin-stage">'+
-            '<div class="cin-scene" id="ey-cin-scene"></div>'+
-            '<div class="cin-cursor" id="ey-cursor"><svg width="20" height="20" viewBox="0 0 20 20" fill="#fff" style="filter:drop-shadow(0 2px 5px rgba(0,0,0,0.6))" aria-hidden="true"><path d="M1 1l7 17 2.2-6.8L17 9z"/></svg></div>'+
-            '<div class="cin-ripple" id="ey-ripple"></div>'+
-          '</div>'+
-          '<div class="cin-caption"><span class="cin-live-dot"></span><span id="ey-step-txt">Loading&hellip;</span></div>'+
+          '<div class="ey-chapters" role="tablist" aria-label="EY workflow chapters" id="ey-chapters"></div>'+
+          '<div class="ey-chapter-stage" id="ey-chapter-stage"></div>'+
+          '<div class="ey-caption" id="ey-caption"><span id="ey-caption-text"></span><span class="ey-caption-cursor">|</span></div>'+
         '</div>';
+
+      var AC='#c8a84b';
+      var check='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
+
       right.innerHTML=
         '<div class="op-gallery" id="ey-gallery"></div>'+
         '<div class="op-body">'+
-          '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:#c8a84b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2l9 4.9V17L12 22l-9-5.1V6.9z"/><path d="M12 22V12M3 7l9 5 9-5"/></svg></div><span class="op-sec-label">The problem</span></div><p class="op-problem">90+ internal developer assets and zero behavioral data. Nobody could tell what was actually being used, or where people got stuck.</p></div>'+
-          '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:#c8a84b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><span class="op-sec-label">Approach</span></div>'+
-            '<div class="op-list">'+
-              '<div class="op-list-item"><span class="op-list-num">1</span>Mapped what &quot;engagement&quot; needed to mean with stakeholders</div>'+
-              '<div class="op-list-item"><span class="op-list-num">2</span>Defined a 5&#8211;7 event taxonomy for the assets that mattered</div>'+
-              '<div class="op-list-item"><span class="op-list-num">3</span>Instrumented with Pendo &#8212; tagged existing UI, no custom code</div>'+
-              '<div class="op-list-item"><span class="op-list-num">4</span>Closed the loop with Qualtrics feedback dashboards</div>'+
+          '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:'+AC+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2l9 4.9V17L12 22l-9-5.1V6.9z"/><path d="M12 22V12M3 7l9 5 9-5"/></svg></div><span class="op-sec-label">The problem</span></div><p class="op-problem">'+esc(w.p)+'</p></div>'+
+          '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:'+AC+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><span class="op-sec-label">Approach</span></div>'+
+            '<div class="op-list" id="ey-approach-list">'+
+              w.approach.map(function(a,i){return '<div class="op-list-item" data-approach-idx="'+i+'"><span class="op-list-num">'+(i+1)+'</span>'+esc(a)+'</div>';}).join('')+
             '</div>'+
           '</div>'+
-          '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:#c8a84b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="op-sec-label">Findings</span></div>'+
+          '<div class="op-section"><div class="op-sec-head"><div class="op-sec-icon" style="background:rgba(200,168,75,0.12);color:'+AC+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="op-sec-label">Findings</span></div>'+
             '<div class="op-list">'+
-              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>Sole Pendo practitioner on the account</div>'+
-              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>UX research delivered on-demand across teams</div>'+
-              '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></span>Bridge between design, engineering and product</div>'+
+              w.findings.map(function(f){return '<div class="op-list-item"><span class="op-list-num" style="background:transparent;border:none;">'+check+'</span>'+esc(f)+'</div>';}).join('')+
             '</div>'+
           '</div>'+
-          '<div class="op-result"><div class="op-result-n" style="color:#c8a84b">90+</div><div class="op-result-l">assets measured</div></div>'+
+          '<div class="op-result"><div class="op-result-n" style="color:'+AC+'">'+w.r+'</div><div class="op-result-l">Behavioral Analytics Hub</div></div>'+
           '<span class="op-cta" style="cursor:default;opacity:0.7;">Full walkthrough above &#8593;</span>'+
         '</div>';
 
-      /* Gallery — teaser thumbnails linking to the 5 real workflow steps in ey-fabric.html */
+      /* Gallery — teaser thumbnails, mirrors the 6 chapters */
       var gal=document.getElementById('ey-gallery');
       var GAL=[
         {label:'Instrument',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>'},
         {label:'Understand',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'},
         {label:'Synthesize',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>'},
         {label:'Act',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>'},
-        {label:'Measure',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>'}
+        {label:'Measure',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><path d="M23 6l-9.5 9.5-5-5L1 18"/><path d="M17 6h6v6"/></svg>'},
+        {label:'The Hub',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>'}
       ];
       gal.innerHTML=GAL.map(function(g){
-        return '<div class="op-g-item" style="color:#c8a84b" title="'+g.label+'">'+g.ic+'</div>';
-      }).join('')+'<div class="op-g-item op-g-more">+ full<br>walkthrough</div>';
+        return '<div class="op-g-item" style="color:'+AC+'" title="'+g.label+'">'+g.ic+'</div>';
+      }).join('');
 
-      runCinematicDemo('ey','#c8a84b',[
-        {
-          caption:'Fabric goes live. Every click, every page, every event — now visible.',
-          cursor:{x:'55%',y:'35%'},
-          build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:500px;margin:0 auto;">'+
-              '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">'+
-                '<div style="width:20px;height:20px;">'+(BRAND&&BRAND.pendo?BRAND.pendo:'')+'</div>'+
-                '<span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);">Pendo &middot; tracking features, pages, events</span>'+
-              '</div>'+
-              [['Auth SDK page','viewed 1,204&times;'],['Payments API','viewed 340&times;'],['Webhooks guide','viewed 88&times;']].map(function(r){
-                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">'+r[0]+'</span><span style="font-size:11px;color:rgba(255,255,255,0.35);font-family:var(--font-mono);">'+r[1]+'</span></div>';
+      /* ══ EY CHAPTERS — 6-tab live-built workflow, informed by the real EY Fabric
+         instrumentation practice (Pendo, Maze/Qualtrics, Copilot+SharePoint, Figma
+         Make, ADO) plus the Behavioral Analytics Hub (Factory.ai + Replit + MCP). ══ */
+      var eyTimers=[];
+      function eyClear(){eyTimers.forEach(clearTimeout);eyTimers=[];}
+      function eyAfter(ms,fn){eyTimers.push(setTimeout(fn,ms));}
+      function eyConnector(w2,h2,vertical){
+        return '<svg width="'+w2+'" height="'+h2+'" style="display:block;margin:2px auto;overflow:visible;" aria-hidden="true">'+
+          '<line class="ey-connector-line" x1="'+(vertical?w2/2:2)+'" y1="'+(vertical?2:h2/2)+'" x2="'+(vertical?w2/2:w2-2)+'" y2="'+(vertical?h2-2:h2/2)+'" stroke="'+AC+'" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="60"/>'+
+        '</svg>';
+      }
+
+      var EY_CHAPTERS=[
+        { label:'01 &middot; Instrument', hint:'See events get tagged live',
+          caption:'Every click gets a name before it becomes data.',
+          build:function(stage){
+            stage.innerHTML='<div class="cin-panel" style="max-width:480px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">TAG BUILDER &middot; NEW EVENT</div>'+
+              ['Event name','Page path','Category'].map(function(l,i){
+                return '<div id="ey6-f'+i+'" style="height:30px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:11.5px;color:rgba(255,255,255,0.35);transition:all 250ms;"><span>'+l+'</span></div>';
               }).join('')+
+              '<div id="ey6-fs" style="height:30px;border-radius:6px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;color:rgba(255,255,255,0.35);transition:all 250ms;margin-bottom:14px;">Publish tag</div>'+
+              '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">'+
+                '<div style="width:18px;height:18px;">'+(BRAND&&BRAND.pendo?BRAND.pendo:'')+'</div>'+
+                '<span style="font-size:10.5px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);">live usage &mdash; 100+ marketplace assets</span>'+
+              '</div>'+
+              '<div id="ey6-rows"></div>'+
             '</div>';
+            var vals=['asset_view','/portal/auth-sdk','engagement'];
+            [0,1,2].forEach(function(i){
+              eyAfter(300+i*550,function(){
+                var f=document.getElementById('ey6-f'+i);
+                if(!f)return;
+                f.style.borderColor=AC;f.style.background='rgba(200,168,75,0.08)';f.style.color='#e8d9b0';
+                f.innerHTML='<span>'+vals[i]+'</span><span style="font-size:8.5px;padding:2px 6px;border-radius:100px;background:rgba(200,168,75,0.18);color:'+AC+';">FIELD</span>';
+              });
+            });
+            eyAfter(2050,function(){
+              var fs=document.getElementById('ey6-fs');
+              if(fs){fs.style.background=AC;fs.style.color='#1a1508';fs.style.borderColor='transparent';fs.innerHTML='Tagged '+check;}
+            });
+            var rows=[['Auth SDK page','viewed 1,204&times;'],['Payments API','viewed 340&times;'],['Webhooks guide','viewed 88&times;']];
+            rows.forEach(function(r,i){
+              eyAfter(2400+i*260,function(){
+                var host=document.getElementById('ey6-rows');
+                if(!host)return;
+                var row=document.createElement('div');
+                row.className='cin-row';
+                row.style.cssText='opacity:0;transform:translateY(4px);transition:all 300ms ease;';
+                row.innerHTML='<span style="flex:1;font-size:12px;color:#fff;">'+r[0]+'</span><span style="font-size:10.5px;color:rgba(255,255,255,0.35);font-family:var(--font-mono);">'+r[1]+'</span>';
+                host.appendChild(row);
+                requestAnimationFrame(function(){row.style.opacity='1';row.style.transform='none';});
+              });
+            });
           }
         },
-        {
-          caption:'A drop-off spikes. Instead of guessing why, we watch what actually happened.',
-          cursor:{x:'60%',y:'45%'},
-          highlight:true,
-          build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+        { label:'02 &middot; Understand', hint:'Watch a real session replay',
+          caption:'Data raised a flag. The replay shows exactly why.',
+          build:function(stage){
+            stage.innerHTML='<div class="cin-panel" style="max-width:500px;margin:0 auto;">'+
               '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">SESSION REPLAY &middot; LIVE</div>'+
-              '<div class="cin-highlight" style="padding:14px;display:flex;align-items:center;gap:12px;">'+
-                '<div style="width:34px;height:34px;border-radius:50%;background:rgba(200,168,75,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8a84b" stroke-width="1.8"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>'+
-                '<div><div style="font-size:12.5px;color:#fff;">User rage-clicks the same button 4&times;</div><div style="font-size:10.5px;color:rgba(255,255,255,0.4);">Replay captured in real time &mdash; problem found before a single ticket was filed</div></div>'+
+              '<div id="ey6-replay" style="padding:14px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:12px;opacity:0;transition:all 400ms ease;">'+
+                '<div style="width:34px;height:34px;border-radius:50%;background:rgba(200,168,75,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.8"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>'+
+                '<div><div style="font-size:12.5px;color:#fff;">User rage-clicks the same button 4&times;</div><div style="font-size:10.5px;color:rgba(255,255,255,0.4);">0:18 elapsed &mdash; captured before a single ticket was filed</div></div>'+
+              '</div>'+
+              '<div id="ey6-arrow"></div>'+
+              '<div id="ey6-survey" style="opacity:0;transition:all 400ms ease;">'+
+                '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin:10px 0 8px;font-family:var(--font-mono);">PENDO SURVEY &middot; IN-APP</div>'+
+                '<div style="display:flex;gap:5px;margin-bottom:8px;" id="ey6-stars"></div>'+
+                '<div style="font-size:11px;color:rgba(255,255,255,0.45);">Response logged &mdash; friction confirmed by 1:1 + Maze follow-up</div>'+
               '</div>'+
             '</div>';
+            eyAfter(200,function(){var r=document.getElementById('ey6-replay');if(r)r.style.opacity='1';});
+            eyAfter(1100,function(){
+              var a=document.getElementById('ey6-arrow');
+              if(a)a.innerHTML=eyConnector(2,26,true);
+            });
+            eyAfter(1500,function(){var s=document.getElementById('ey6-survey');if(s)s.style.opacity='1';});
+            var starsHtml='';
+            for(var i=0;i<5;i++){starsHtml+='<span id="ey6-star'+i+'" style="width:14px;height:14px;border-radius:3px;background:rgba(255,255,255,0.08);"></span>';}
+            eyAfter(1550,function(){var h=document.getElementById('ey6-stars');if(h)h.innerHTML=starsHtml;});
+            [0,1].forEach(function(i){
+              eyAfter(1750+i*220,function(){
+                var s=document.getElementById('ey6-star'+i);
+                if(s)s.style.background=AC;
+              });
+            });
           }
         },
-        {
-          caption:'Satisfaction data confirms it. Now the fix has evidence behind it, not a hunch.',
-          cursor:{x:'50%',y:'40%'},
-          build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
-              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">SATISFACTION &middot; THIS FLOW</div>'+
-              '<div style="display:flex;align-items:flex-end;gap:8px;height:70px;">'+
-                [30,25,20,45,60,75].map(function(h){return '<div style="flex:1;height:'+h+'%;background:linear-gradient(180deg,#c8a84b,#8a6f2f);border-radius:3px 3px 0 0;"></div>';}).join('')+
+        { label:'03 &middot; Synthesize', hint:'AI reads the research files',
+          caption:'Copilot reads the files. I read Copilot.',
+          build:function(stage){
+            stage.innerHTML='<div class="cin-panel" style="max-width:500px;margin:0 auto;">'+
+              '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">'+
+                '<svg width="16" height="16" viewBox="0 0 23 23" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="#F25022"/><rect x="12" y="1" width="10" height="10" fill="#7FBA00"/><rect x="1" y="12" width="10" height="10" fill="#00A4EF"/><rect x="12" y="12" width="10" height="10" fill="#FFB900"/></svg>'+
+                '<span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);">COPILOT &middot; READING SHAREPOINT</span>'+
               '</div>'+
-              '<div style="font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:10px;">Scores climb once the friction is actually fixed &mdash; not before.</div>'+
+              '<div id="ey6-files"></div>'+
+              '<div id="ey6-synarrow"></div>'+
+              '<div style="font-size:10px;color:rgba(255,255,255,0.35);margin:4px 0 6px;font-family:var(--font-mono);">CLUSTERS &middot; SYNTHESIZED</div>'+
+              '<div id="ey6-clusters" style="display:flex;gap:6px;flex-wrap:wrap;"></div>'+
             '</div>';
+            var files=['replay-summary.md','survey-results.csv','usage-report.pdf'];
+            files.forEach(function(f,i){
+              eyAfter(250+i*400,function(){
+                var host=document.getElementById('ey6-files');
+                if(!host)return;
+                var row=document.createElement('div');
+                row.className='cin-row';
+                row.style.cssText='opacity:0;transform:translateY(4px);transition:all 300ms ease;';
+                row.innerHTML='<span style="flex:1;font-size:12px;color:#fff;font-family:var(--font-mono);">'+f+'</span><span style="font-size:10px;color:'+AC+';">read '+check+'</span>';
+                host.appendChild(row);
+                requestAnimationFrame(function(){row.style.opacity='1';row.style.transform='none';});
+              });
+            });
+            eyAfter(1700,function(){
+              var a=document.getElementById('ey6-synarrow');
+              if(a)a.innerHTML=eyConnector(2,26,true);
+            });
+            var clusters=['Onboarding friction','Docs navigation gap','API discovery blocker'];
+            clusters.forEach(function(c,i){
+              eyAfter(2000+i*300,function(){
+                var host=document.getElementById('ey6-clusters');
+                if(!host)return;
+                var tag=document.createElement('span');
+                tag.style.cssText='font-size:10.5px;padding:4px 10px;border-radius:100px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);color:'+AC+';opacity:0;transition:opacity 300ms ease;';
+                tag.textContent=c;
+                host.appendChild(tag);
+                requestAnimationFrame(function(){tag.style.opacity='1';});
+              });
+            });
           }
         },
-        {
-          caption:'The bigger build: one Behavioral Analytics Hub, not ten disconnected dashboards.',
-          cursor:{x:'55%',y:'42%'},
-          build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
-              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">THE HUB &middot; ONE LIVE SYSTEM</div>'+
-              [
-                ['Pendo','usage + events'],
-                ['Figma','design source of truth'],
-                ['Factory.ai','agent orchestration'],
-                ['Replit','build + ship']
-              ].map(function(r){
-                return '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">'+r[0]+'</span><span style="font-size:10.5px;color:rgba(255,255,255,0.4);">'+r[1]+'</span></div>';
-              }).join('')+
-              '<div style="font-size:10.5px;color:rgba(255,255,255,0.4);margin-top:8px;">Wired together with APIs and MCP &mdash; built solo.</div>'+
+        { label:'04 &middot; Act', hint:'Three outputs, one insight',
+          caption:'One insight, three ways to act on it.',
+          build:function(stage){
+            stage.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div id="ey6-insight" style="padding:12px 14px;border-radius:8px;background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.25);margin-bottom:6px;opacity:0;transition:all 350ms ease;">'+
+                '<div style="font-size:10px;color:'+AC+';font-family:var(--font-mono);margin-bottom:3px;">INSIGHT</div>'+
+                '<div style="font-size:12.5px;color:#fff;">Auth SDK page: high traffic, low completion</div>'+
+              '</div>'+
+              '<div id="ey6-fan" style="display:flex;justify-content:center;gap:24px;padding:4px 0;"></div>'+
+              '<div id="ey6-outputs" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;"></div>'+
             '</div>';
+            eyAfter(150,function(){var i=document.getElementById('ey6-insight');if(i)i.style.opacity='1';});
+            eyAfter(700,function(){
+              var f=document.getElementById('ey6-fan');
+              if(f)f.innerHTML='<svg width="140" height="24" viewBox="0 0 140 24" aria-hidden="true"><path class="ey-connector-line" d="M70 0L15 24" stroke="'+AC+'" stroke-width="1.5" stroke-opacity="0.4" fill="none" stroke-dasharray="60"/><path class="ey-connector-line" d="M70 0L70 24" stroke="'+AC+'" stroke-width="1.5" stroke-opacity="0.4" fill="none" stroke-dasharray="60"/><path class="ey-connector-line" d="M70 0L125 24" stroke="'+AC+'" stroke-width="1.5" stroke-opacity="0.4" fill="none" stroke-dasharray="60"/></svg>';
+            });
+            var outs=[
+              {t:'Figma Make',d:'DS-connected proposal',ic:'<svg viewBox="0 0 38 57" fill="none" aria-hidden="true" width="16" height="16"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>'},
+              {t:'UI audit',d:'Reviewed by design',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.6" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>'},
+              {t:'ADO ticket',d:'Evidence attached',ic:'<svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><rect width="24" height="24" rx="4" fill="#0078D4"/><text x="12" y="16" text-anchor="middle" font-size="8" font-weight="700" fill="white" font-family="sans-serif">ADO</text></svg>'}
+            ];
+            outs.forEach(function(o,i){
+              eyAfter(1000+i*280,function(){
+                var host=document.getElementById('ey6-outputs');
+                if(!host)return;
+                var card=document.createElement('div');
+                card.style.cssText='padding:10px 8px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);text-align:center;opacity:0;transform:translateY(6px);transition:all 300ms ease;';
+                card.innerHTML='<div style="margin-bottom:6px;display:flex;justify-content:center;">'+o.ic+'</div><div style="font-size:10.5px;color:#fff;margin-bottom:2px;">'+o.t+'</div><div style="font-size:9px;color:rgba(255,255,255,0.35);">'+o.d+'</div>';
+                host.appendChild(card);
+                requestAnimationFrame(function(){card.style.opacity='1';card.style.transform='none';});
+              });
+            });
           }
         },
-        {
-          caption:'Agents do the wiring. I do the thinking. That\'s the whole point of building it this way.',
-          cursor:{x:'50%',y:'45%'},
-          build:function(scene){
-            scene.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
-              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">DROIDS &middot; RUNNING</div>'+
-              '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">Instrument new event</span><span class="cin-badge" style="background:rgba(34,197,94,0.15);color:#4ade80;">done</span></div>'+
-              '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">Sync replay to hub</span><span class="cin-badge" style="background:rgba(200,168,75,0.15);color:#c8a84b;">running</span></div>'+
-              '<div class="cin-row"><span style="flex:1;font-size:13px;color:#fff;">Draft satisfaction summary</span><span class="cin-badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.4);">queued</span></div>'+
+        { label:'05 &middot; Measure', hint:'The loop closes with proof',
+          caption:'The same funnel that found the problem confirms the fix.',
+          build:function(stage){
+            stage.innerHTML='<div class="cin-panel" style="max-width:500px;margin:0 auto;">'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:var(--font-mono);">FUNNEL &middot; BEFORE &#8594; AFTER</div>'+
+              '<div style="display:flex;gap:18px;">'+
+                '<div style="flex:1;"><div style="font-size:9.5px;color:rgba(255,255,255,0.35);margin-bottom:6px;">BEFORE &middot; 68% abandon</div><div id="ey6-before" style="display:flex;align-items:flex-end;gap:5px;height:64px;"></div></div>'+
+                '<div style="flex:1;"><div style="font-size:9.5px;color:'+AC+';margin-bottom:6px;">AFTER &middot; 12% abandon</div><div id="ey6-after" style="display:flex;align-items:flex-end;gap:5px;height:64px;"></div></div>'+
+              '</div>'+
+              '<div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:12px;">Funnel improved: 68% &#8594; 12% abandon &mdash; the fix is confirmed, not assumed.</div>'+
             '</div>';
+            var before=[100,62,40,32];
+            var after=[100,92,85,78];
+            before.forEach(function(h,i){
+              eyAfter(200+i*150,function(){
+                var host=document.getElementById('ey6-before');
+                if(!host)return;
+                var bar=document.createElement('div');
+                bar.style.cssText='flex:1;height:0;background:linear-gradient(180deg,rgba(255,255,255,0.35),rgba(255,255,255,0.12));border-radius:3px 3px 0 0;transition:height 400ms ease;';
+                host.appendChild(bar);
+                requestAnimationFrame(function(){bar.style.height=h+'%';});
+              });
+            });
+            after.forEach(function(h,i){
+              eyAfter(1000+i*150,function(){
+                var host=document.getElementById('ey6-after');
+                if(!host)return;
+                var bar=document.createElement('div');
+                bar.style.cssText='flex:1;height:0;background:linear-gradient(180deg,'+AC+',#8a6f2f);border-radius:3px 3px 0 0;transition:height 400ms ease;';
+                host.appendChild(bar);
+                requestAnimationFrame(function(){bar.style.height=h+'%';});
+              });
+            });
+          }
+        },
+        { label:'06 &middot; The Hub &#9733;', hint:'Where it all lives — built solo',
+          caption:'Pendo, Figma, Factory.ai, Replit — one hub, wired by APIs and MCP.',
+          build:function(stage){
+            stage.innerHTML='<div class="cin-panel" style="max-width:520px;margin:0 auto;">'+
+              '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">'+
+                '<span class="op-live-dot" style="width:6px;height:6px;border-radius:50%;background:#22c55e;display:inline-block;"></span>'+
+                '<span style="font-size:11px;color:rgba(255,255,255,0.4);font-family:var(--font-mono);">BEHAVIORAL ANALYTICS HUB &middot; LIVE</span>'+
+              '</div>'+
+              '<div id="ey6-hubrows"></div>'+
+              '<div id="ey6-hubdiagram" style="margin-top:14px;"></div>'+
+              '<div id="ey6-hubcaption" style="font-size:10.5px;color:rgba(255,255,255,0.4);margin-top:10px;opacity:0;transition:opacity 400ms ease;">One system. Built solo. Every part &mdash; including replay sessions &mdash; lives here.</div>'+
+            '</div>';
+            var rows=[
+              {ic:BRAND&&BRAND.pendo,l:'Pendo',d:'usage, events, replay sessions',b:'streaming',bc:'#4ade80'},
+              {ic:BRAND&&BRAND.figma,l:'Figma',d:'design source of truth',b:'synced',bc:'#c8a84b'},
+              {ic:BRAND&&BRAND.factory,l:'Factory.ai',d:'agent orchestration (droids)',b:'running',bc:'#f59e0b'},
+              {ic:BRAND&&BRAND.replit,l:'Replit',d:'build + ship',b:'deployed',bc:'#F26207'}
+            ];
+            rows.forEach(function(r,i){
+              eyAfter(200+i*500,function(){
+                var host=document.getElementById('ey6-hubrows');
+                if(!host)return;
+                var row=document.createElement('div');
+                row.className='cin-row';
+                row.style.cssText='opacity:0;transform:translateY(4px);transition:all 300ms ease;';
+                row.innerHTML='<div style="width:16px;height:16px;flex-shrink:0;">'+(r.ic||'')+'</div>'+
+                  '<span style="flex:1;font-size:12.5px;color:#fff;margin-left:8px;">'+r.l+'</span>'+
+                  '<span style="font-size:9.5px;color:rgba(255,255,255,0.4);margin-right:8px;">'+r.d+'</span>'+
+                  '<span class="cin-badge" style="background:'+r.bc+'22;color:'+r.bc+';">'+r.b+'</span>';
+                host.appendChild(row);
+                requestAnimationFrame(function(){row.style.opacity='1';row.style.transform='none';});
+              });
+            });
+            eyAfter(2300,function(){
+              var d=document.getElementById('ey6-hubdiagram');
+              if(!d)return;
+              d.innerHTML='<svg width="100%" height="46" viewBox="0 0 280 46" aria-hidden="true">'+
+                [30,100,170,240].map(function(x){return '<circle cx="'+x+'" cy="10" r="5" fill="rgba(255,255,255,0.25)"/>';}).join('')+
+                [30,100,170,240].map(function(x,i){return '<line class="ey-connector-line" x1="'+x+'" y1="15" x2="140" y2="38" stroke="'+AC+'" stroke-width="1.3" stroke-opacity="0.35" stroke-dasharray="120" style="animation-delay:'+(i*120)+'ms"/>';}).join('')+
+                '<circle cx="140" cy="38" r="7" fill="'+AC+'"><animate attributeName="r" values="7;9;7" dur="1.8s" repeatCount="indefinite"/></circle>'+
+                '<text x="140" y="41" text-anchor="middle" font-size="7" fill="#1a1508" font-weight="700">HUB</text>'+
+              '</svg>';
+            });
+            eyAfter(3000,function(){var c=document.getElementById('ey6-hubcaption');if(c)c.style.opacity='1';});
           }
         }
-      ]);
+      ];
+
+      var eyChCurrent=0;
+      var eyCapInterval=null;
+      var EY_APPROACH_MAP=[0,1,3,3,0,2];
+
+      function typeCaption(text){
+        var el=document.getElementById('ey-caption-text');
+        if(!el)return;
+        el.textContent='';
+        if(eyCapInterval)clearInterval(eyCapInterval);
+        var i=0;
+        eyCapInterval=setInterval(function(){
+          el.textContent+=text[i];
+          i++;
+          if(i>=text.length)clearInterval(eyCapInterval);
+        },22);
+      }
+
+      function syncApproachHighlight(chIdx){
+        var items=right.querySelectorAll('.op-list-item[data-approach-idx]');
+        items.forEach(function(it){it.classList.remove('op-list-item--active');});
+        var target=right.querySelector('.op-list-item[data-approach-idx="'+EY_APPROACH_MAP[chIdx]+'"]');
+        if(target)target.classList.add('op-list-item--active');
+      }
+
+      function renderEyChapters(){
+        var nav=document.getElementById('ey-chapters');
+        if(!nav)return;
+        nav.innerHTML=EY_CHAPTERS.map(function(c,i){
+          return '<button class="'+(i===eyChCurrent?'active':'')+'" data-ch="'+i+'" role="tab" aria-selected="'+(i===eyChCurrent)+'">'+c.label+'<span class="ey-ch-hint">'+c.hint+'</span></button>';
+        }).join('');
+        nav.querySelectorAll('button').forEach(function(btn){
+          btn.addEventListener('click',function(){
+            eyChCurrent=parseInt(btn.dataset.ch);
+            renderEyChapters();
+            runEyChapter();
+          });
+        });
+      }
+
+      function runEyChapter(){
+        eyClear();
+        var stage=document.getElementById('ey-chapter-stage');
+        if(!stage)return;
+        var c=EY_CHAPTERS[eyChCurrent];
+        stage.innerHTML='';
+        c.build(stage);
+        typeCaption(c.caption);
+        syncApproachHighlight(eyChCurrent);
+      }
+
+      renderEyChapters();
+      runEyChapter();
     };
 
     ONEPAGERS.chek=function(left,right,w){
@@ -1867,6 +2109,31 @@
       grid.style.setProperty('--gx',((e.clientX-r.left)/r.width*100)+'%');
       grid.style.setProperty('--gy',((e.clientY-r.top)/r.height*100)+'%');
     });
+  })();
+
+  /* ══ LOOP DIAGRAM — per-node preview synced to the loopTravel/glowNode CSS cycle ══ */
+  (function(){
+    var el=document.getElementById('loop-preview');
+    if(!el||!matchMedia('(prefers-reduced-motion: no-preference)').matches)return;
+    var LINES=[
+      'Tagging: service tier selected — FIELD event',
+      'Session replay recording — 0:18 elapsed',
+      'Friction pattern found: 3 hover, no click',
+      'Figma proposal ready — DS connected',
+      'Funnel improved: 68% → 12% abandon'
+    ];
+    var DELAYS=[0,900,1800,2700,3600]; /* matches .loop-node:nth-child(n) .loop-circle animation-delay */
+    function cycle(){
+      DELAYS.forEach(function(d,i){
+        setTimeout(function(){
+          el.textContent=LINES[i];
+          el.style.opacity='1';
+        },d+480);
+      });
+      setTimeout(function(){el.style.opacity='0';},DELAYS[4]+1600);
+    }
+    cycle();
+    setInterval(cycle,8000);
   })();
   </script>
 </body>
