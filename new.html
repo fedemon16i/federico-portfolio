@@ -796,6 +796,11 @@
     @keyframes drawLine{to{stroke-dashoffset:0;}}
     @media(prefers-reduced-motion:reduce){.ey-connector-line{animation:none;stroke-dashoffset:0;}}
     .op-list-item--active{background:rgba(200,168,75,0.08);border-left:2px solid #c8a84b;padding-left:8px;}
+    .cin-scrub{padding:8px 18px 4px;background:#111;}
+    .cin-scrub-track{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;position:relative;}
+    .cin-scrub-fill{height:100%;background:linear-gradient(90deg,#c8a84b,#e8d9b0);border-radius:2px;width:0%;transition:width 3400ms linear;}
+    .cin-scrub-marks{display:flex;justify-content:space-between;margin-top:5px;}
+    .cin-scrub-marks span{font-size:8.5px;color:rgba(255,255,255,0.3);font-family:var(--font-mono,monospace);}
   </style>
 </head>
 <body>
@@ -1312,6 +1317,10 @@
           '</div>'+
           '<div class="ey-chapters" role="tablist" aria-label="EY workflow chapters" id="ey-chapters"></div>'+
           '<div class="ey-chapter-stage" id="ey-chapter-stage"></div>'+
+          '<div class="cin-scrub" id="ey-scrub">'+
+            '<div class="cin-scrub-track"><div class="cin-scrub-fill" id="ey-scrub-fill"></div></div>'+
+            '<div class="cin-scrub-marks" id="ey-scrub-marks"></div>'+
+          '</div>'+
           '<div class="ey-caption" id="ey-caption"><span id="ey-caption-text"></span><span class="ey-caption-cursor">|</span></div>'+
         '</div>';
 
@@ -1648,6 +1657,12 @@
         c.build(stage);
         typeCaption(c.caption);
         syncApproachHighlight(eyChCurrent);
+        var marks=document.getElementById('ey-scrub-marks');
+        if(marks&&!marks.children.length){
+          marks.innerHTML=EY_CHAPTERS.map(function(_,idx){return '<span>'+(idx===0?'0:00':'0:0'+idx)+'</span>';}).join('');
+        }
+        var fill=document.getElementById('ey-scrub-fill');
+        if(fill){fill.style.transition='none';fill.style.width='0%';void fill.offsetWidth;fill.style.transition='width 3400ms linear';fill.style.width='100%';}
       }
 
       renderEyChapters();
