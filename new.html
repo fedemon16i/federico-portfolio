@@ -801,6 +801,24 @@
     .cin-scrub-fill{height:100%;background:linear-gradient(90deg,#c8a84b,#e8d9b0);border-radius:2px;width:0%;transition:width 3400ms linear;}
     .cin-scrub-marks{display:flex;justify-content:space-between;margin-top:5px;}
     .cin-scrub-marks span{font-size:8.5px;color:rgba(255,255,255,0.3);font-family:var(--font-mono,monospace);}
+    .proj-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:28px;}
+    .proj-cell{
+      position:relative;padding:14px 10px;border-radius:10px;background:var(--bg-surface);
+      border:1px solid var(--border);cursor:pointer;text-align:center;overflow:hidden;
+      transition:transform 250ms var(--spring-soft,cubic-bezier(0.16,1,0.3,1)),border-color 200ms ease;
+    }
+    .proj-cell:hover{transform:translateY(-3px);border-color:var(--pc-accent,var(--accent));}
+    .proj-cell-badge{
+      width:32px;height:32px;border-radius:8px;margin:0 auto 8px;display:flex;align-items:center;
+      justify-content:center;font-size:12px;font-weight:700;color:#fff;background:var(--pc-accent,var(--accent));
+    }
+    .proj-cell-name{font-size:11px;font-weight:600;color:var(--text-primary);}
+    .proj-cell-desc{
+      font-size:9px;color:var(--text-tertiary);margin-top:2px;max-height:0;opacity:0;
+      overflow:hidden;transition:all 250ms ease;
+    }
+    .proj-cell:hover .proj-cell-desc{max-height:30px;opacity:1;margin-top:3px;}
+    @media(max-width:700px){.proj-grid{grid-template-columns:repeat(2,1fr);}}
   </style>
 </head>
 <body>
@@ -849,7 +867,7 @@
 
           <div class="live-ticker anim" data-stagger="2">
             <span class="live-ticker-dot" aria-hidden="true"></span>
-            <span class="live-ticker-text" id="ticker-text">Instrumenting EY Fabric — session replay review in progress</span>
+            <span class="live-ticker-text" id="ticker-text">Tracking EY Fabric — session replay review in progress</span>
           </div>
           <div class="loop anim glow-soft" data-stagger="2" id="loop-diagram" aria-label="Working loop: Instrument, Observe, Diagnose, Fix, Measure, repeat">
             <div class="loop-track">
@@ -859,7 +877,7 @@
               <div class="loop-row">
                 <div class="loop-node">
                   <div class="loop-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></div>
-                  <span class="loop-cap">Instrument</span>
+                  <span class="loop-cap">Track</span>
                 </div>
                 <div class="loop-node">
                   <div class="loop-circle"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
@@ -887,7 +905,7 @@
             <button class="btn-primary magnetic" data-goto="problem">What's your problem? &#8594;</button>
           </div>
 
-          <button class="btn-primary magnetic" data-goto="work" style="width:100%;justify-content:center;margin-bottom:28px;">See my work &#8594;</button>
+          <div class="proj-grid" id="start-proj-grid"></div>
           <div class="metrics anim glow-soft" data-stagger="3">
             <div class="metric"><b class="lift">5+ yrs</b><span>product &amp; UX</span></div>
             <div class="metric"><b class="lift">&minus;50%</b><span>task time</span></div>
@@ -1170,7 +1188,8 @@
       miro:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Miro"><rect x="1" y="1" width="22" height="22" rx="4" fill="#FFD02F"/><path d="M8 6v12M12 6l4 6-4 6M17 6v12" stroke="#050038" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       ga:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Google Analytics"><rect x="14" y="2" width="6" height="20" rx="2" fill="#F9AB00"/><rect x="4" y="14" width="6" height="8" rx="2" fill="#E8710A"/><rect x="9" y="8" width="6" height="14" rx="2" fill="#F9AB00" opacity="0.85"/></svg>',
       factory:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Factory.ai"><rect x="2" y="2" width="20" height="20" rx="5" fill="#111"/><path d="M6 16V9l4 3 4-3 4 3v4" stroke="#f59e0b" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      replit:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Replit"><rect x="2" y="2" width="9" height="9" rx="2" fill="#F26207"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#F26207" opacity="0.7"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#F26207" opacity="0.4"/></svg>'
+      replit:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="Replit"><rect x="2" y="2" width="9" height="9" rx="2" fill="#F26207"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#F26207" opacity="0.7"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#F26207" opacity="0.4"/></svg>',
+      github:'<svg viewBox="0 0 24 24" width="16" height="16" aria-label="GitHub"><path fill="#e8e8e6" d="M12 .5A11.5 11.5 0 000 12.05c0 5.14 3.29 9.49 7.86 11.03.57.11.79-.25.79-.56v-2c-3.2.71-3.87-1.4-3.87-1.4-.53-1.34-1.29-1.7-1.29-1.7-1.05-.73.08-.71.08-.71 1.16.08 1.78 1.22 1.78 1.22 1.03 1.8 2.71 1.28 3.37.98.1-.76.4-1.28.73-1.58-2.55-.29-5.24-1.31-5.24-5.82 0-1.29.45-2.34 1.2-3.16-.12-.3-.52-1.5.11-3.14 0 0 .98-.32 3.2 1.2a11 11 0 015.83 0c2.22-1.52 3.2-1.2 3.2-1.2.63 1.64.23 2.84.12 3.14.75.82 1.2 1.87 1.2 3.16 0 4.52-2.7 5.52-5.26 5.81.41.36.79 1.08.79 2.17v3.22c0 .31.21.68.8.56A11.5 11.5 0 0024 12.05 11.5 11.5 0 0012 .5z"/></svg>'
     };
     function brandChip(key,label){
       return '<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 5px;border-radius:100px;background:var(--bg-raised);border:1px solid var(--border);font-size:10.5px;color:var(--text-secondary);">'+(BRAND[key]||'')+label+'</span>';
@@ -2001,6 +2020,31 @@
     }).join('');
     var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in-view');});},{threshold:0.15});
     document.querySelectorAll('#cv-skills .skill-group').forEach(function(el){io2.observe(el);});
+
+    /* ══ START — PROJECT LOGO GRID ══ */
+    (function(){
+      var grid=document.getElementById('start-proj-grid');
+      if(!grid||typeof WORK==='undefined')return;
+      grid.innerHTML=WORK.map(function(w,i){
+        var initials=w.n.split(' ').map(function(x){return x[0];}).join('').slice(0,2);
+        return '<div class="proj-cell" style="--pc-accent:'+w.a+'" data-idx="'+i+'">'+
+          '<div class="proj-cell-badge">'+initials+'</div>'+
+          '<div class="proj-cell-name">'+esc(w.n)+'</div>'+
+          '<div class="proj-cell-desc">'+esc(w.m)+'</div>'+
+        '</div>';
+      }).join('');
+      grid.querySelectorAll('.proj-cell').forEach(function(c){
+        c.addEventListener('click',function(){
+          if(typeof opCurrent!=='undefined')opCurrent=parseInt(c.dataset.idx);
+          var workTab=document.querySelector('[data-mode="work"]');
+          if(workTab)workTab.click();
+          setTimeout(function(){
+            if(typeof renderTopNav==='function')renderTopNav();
+            if(typeof renderOnePager==='function')renderOnePager();
+          },80);
+        });
+      });
+    })();
   })();
 
   /* ══ DEPTH INTERACTIONS ══ */
