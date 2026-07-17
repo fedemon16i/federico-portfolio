@@ -15,12 +15,6 @@ a Pull Request, NEVER wait for manual merge. Every task ends with:
   git push origin main
 This is the only workflow. No exceptions, no branches, no PRs — ever.
 
-
-## Git Rules
-- Always push to a new branch with a unique name. Never reuse existing branches.
-- Never push directly to main.
-- After committing always run: git push origin HEAD
-
 assets/shared.css — design system (CSS variables, all components)
 assets/main.js — nav dropdown, keyboard nav, mobile menu, scroll animations
 Fonts: Syne (display) + DM Sans (body) via Google Fonts <link>
