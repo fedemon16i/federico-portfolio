@@ -827,46 +827,32 @@
     .ey-brand .cin-scrub-marks span{color:rgba(0,0,0,0.35)!important;}
     .ey-brand .cin-scrub{background:#000!important;}
 
-    /* ══ WSX — multi-window process showcase ══ */
-    .wsx{padding:20px;}
-    .wsx-head{margin-bottom:14px;}
-    .wsx-title{font-size:15px;font-weight:700;color:var(--text-primary);display:block;}
-    .wsx-sub{font-size:11px;color:var(--text-tertiary);}
-    .wsx-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
-    .wsx-tab{
-      padding:6px 13px;border-radius:100px;border:1px solid var(--border);background:var(--bg-raised);
-      color:var(--text-secondary);font-size:11.5px;cursor:pointer;transition:all 200ms ease;font-family:inherit;
-    }
-    .wsx-tab.active{background:var(--wc,var(--accent));border-color:transparent;color:#fff;font-weight:600;}
-    .wsx-desktop{
-      position:relative;min-height:230px;border-radius:12px;overflow:hidden;background:#08080a;
-      background-image:radial-gradient(circle at 30% 20%, rgba(200,168,75,0.06), transparent 60%),radial-gradient(circle at 75% 70%, rgba(155,108,255,0.06), transparent 60%);
-    }
-    .wsx-win{position:absolute;border-radius:10px;overflow:hidden;box-shadow:0 26px 50px -18px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.08);transition:all 450ms cubic-bezier(0.16,1,0.3,1);}
-    .wsx-win-bar{height:26px;background:#161616;display:flex;align-items:center;gap:7px;padding:0 9px;border-bottom:1px solid #222;}
-    .wsx-win-icon{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-    .wsx-win-icon svg{width:100%;height:100%;}
-    .wsx-win-title{font-size:9px;color:#888;font-weight:600;}
-    .wsx-win-body{background:#121212;padding:10px;}
-    .wsx-win.bg{opacity:0.3;transform:scale(0.94);}
-    .wsx-win.enter{opacity:0;transform:translateY(14px) scale(0.96);}
-    .wsx-win.enter.show{opacity:1;transform:none;}
-    .wsx-row{display:flex;align-items:center;justify-content:space-between;padding:5px 7px;border-radius:5px;font-size:9.5px;color:#999;margin-bottom:3px;transition:all 250ms ease;}
-    .wsx-row.hit{background:rgba(200,168,75,0.07);color:#e8d9b0;}
-    .wsx-row .ok{color:#4ade80;font-size:8.5px;opacity:0;transition:opacity 200ms ease;}
-    .wsx-row.hit .ok{opacity:1;}
-    .wsx-msg{font-size:9.5px;color:#ccc;line-height:1.5;}
-    .wsx-cursor{position:absolute;width:18px;height:18px;pointer-events:none;transition:top 700ms cubic-bezier(0.65,0,0.35,1),left 700ms cubic-bezier(0.65,0,0.35,1);z-index:20;opacity:0;}
-    .wsx-ripple{position:absolute;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--wc,#c8a84b);opacity:0;pointer-events:none;z-index:19;}
-    @keyframes wsxRip{from{transform:scale(0.3);opacity:0.9}to{transform:scale(2.6);opacity:0}}
-    .wsx-caption-wrap{position:absolute;top:16px;right:18px;max-width:190px;text-align:right;z-index:15;}
-    .wsx-caption-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wc,#c8a84b);background:color-mix(in srgb, var(--wc,#c8a84b) 15%, transparent);padding:3px 9px;border-radius:100px;margin-bottom:6px;}
-    .wsx-caption{font-size:13px;font-weight:600;color:#fff;line-height:1.4;text-shadow:0 2px 10px rgba(0,0,0,0.7);}
-    .wsx-tools{display:flex;gap:7px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
-    .wsx-tool-chip{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;opacity:0.28;transition:all 300ms ease;overflow:hidden;}
-    .wsx-tool-chip svg{width:100%;height:100%;}
-    .wsx-tool-chip.active{opacity:1;transform:translateY(-3px);}
-    @media(max-width:700px){.wsx-desktop{min-height:280px;}}
+    /* ══ DEMO ENGINE — reusable framework for all project showcases ══ */
+    .demo-showcase{padding:20px;}
+    .demo-head{margin-bottom:14px;}
+    .demo-title{font-size:15px;font-weight:700;color:var(--text-primary);display:block;}
+    .demo-sub{font-size:11px;color:var(--text-tertiary);}
+    .demo-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+    .demo-tab{padding:6px 13px;border-radius:100px;border:1px solid var(--border);background:var(--bg-raised);color:var(--text-secondary);font-size:11.5px;cursor:pointer;transition:all 200ms ease;font-family:inherit;}
+    .demo-tab.active{background:var(--dc,var(--accent));border-color:transparent;color:#fff;font-weight:600;}
+    .demo-stage{position:relative;min-height:280px;border-radius:12px;overflow:hidden;background:#f7f5f0;box-shadow:0 20px 50px -24px rgba(0,0,0,0.5);}
+    .demo-slide{position:absolute;inset:0;opacity:0;transition:opacity 400ms ease;}
+    .demo-slide.show{opacity:1;}
+    .demo-slide.zoomable{transition:opacity 400ms ease, transform 900ms cubic-bezier(0.16,1,0.3,1);}
+    .demo-slide.text{display:flex;align-items:center;justify-content:center;background:#f7f5f0;padding:0 26px;}
+    .demo-cursor{position:absolute;pointer-events:none;transition:top 600ms cubic-bezier(0.65,0,0.35,1),left 600ms cubic-bezier(0.65,0,0.35,1);z-index:30;opacity:0;}
+    .demo-ripple{position:absolute;width:22px;height:22px;border-radius:50%;border:1.5px solid #1a1a1a;opacity:0;pointer-events:none;z-index:29;}
+    @keyframes demoRip{from{transform:scale(0.3);opacity:0.8}to{transform:scale(2.6);opacity:0}}
+    @keyframes demoBounce{0%{opacity:0;transform:translateY(14px) scale(0.92)}55%{opacity:1;transform:translateY(-3px) scale(1.03)}100%{opacity:1;transform:none}}
+    .demo-bounce{animation:demoBounce 650ms cubic-bezier(0.34,1.56,0.64,1) both;}
+    @keyframes demoShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-3px)}40%{transform:translateX(3px)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+    .demo-shake{animation:demoShake 420ms ease;}
+    @keyframes demoGlow{0%,100%{box-shadow:0 0 0 0 rgba(217,83,79,0.35)}50%{box-shadow:0 0 0 7px rgba(217,83,79,0)}}
+    .demo-glow{animation:demoGlow 1100ms ease-out 2;}
+    .demo-circle-svg ellipse{stroke-dasharray:190;stroke-dashoffset:190;}
+    .demo-circle-svg.draw ellipse{animation:demoDrawCircle 550ms ease-out forwards;}
+    @keyframes demoDrawCircle{to{stroke-dashoffset:0;}}
+    @media(max-width:700px){.demo-stage{min-height:320px;}}
   </style>
 </head>
 <body>
@@ -917,21 +903,13 @@
             <span class="live-ticker-dot" aria-hidden="true"></span>
             <span class="live-ticker-text" id="ticker-text">Tracking EY Fabric — session replay review in progress</span>
           </div>
-          <div class="wsx anim glow-soft" data-stagger="2" id="wsx-showcase">
-            <div class="wsx-head">
-              <span class="wsx-title">How I work</span>
-              <span class="wsx-sub">Tap a step to see it happen</span>
+          <div class="demo-showcase anim glow-soft" data-stagger="2" id="demo-showcase">
+            <div class="demo-head">
+              <span class="demo-title">How I work</span>
+              <span class="demo-sub">Tap a step to see it happen</span>
             </div>
-            <div class="wsx-tabs" id="wsx-tabs"></div>
-            <div class="wsx-desktop" id="wsx-desktop">
-              <div class="wsx-cursor" id="wsx-cur"><svg width="18" height="18" viewBox="0 0 18 18" fill="#fff" style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.6))" aria-hidden="true"><path d="M1 1l7 16 2.3-6.3L17 8z"/></svg></div>
-              <div class="wsx-ripple" id="wsx-rpl"></div>
-              <div class="wsx-caption-wrap">
-                <span class="wsx-caption-tag" id="wsx-ctag">TRACK</span>
-                <div class="wsx-caption" id="wsx-ctext"></div>
-              </div>
-            </div>
-            <div class="wsx-tools" id="wsx-tools"></div>
+            <div class="demo-tabs" id="demo-tabs"></div>
+            <div class="demo-stage" id="demo-stage-ey"></div>
           </div>
 
           <div class="cta-row anim" data-stagger="3">
@@ -2086,209 +2064,301 @@
       });
     })();
 
-    /* ══ WSX ENGINE ══ */
-    var wsxTimers=[];
-    function wsxClearTimers(){wsxTimers.forEach(clearTimeout);wsxTimers=[];}
-    function wsxSchedule(fn,ms){var id=setTimeout(fn,ms);wsxTimers.push(id);return id;}
+    /* ══════════════════════════════════════════════════════
+       DEMO ENGINE — reusable across all project showcases.
+       Usage:
+         var engine = DemoEngine.create('demo-stage-ey', accentColor);
+         engine.addSlide(id, html, {type:'ui'|'text'});
+         engine.run(sequenceArray);
+       See EY_TRACK_SEQUENCE below for a full usage example.
+       ══════════════════════════════════════════════════════ */
+    window.DemoEngine = (function(){
 
-    function wsxCursorTo(el,accent,cb){
-      var deskEl=document.getElementById('wsx-desktop');
-      var cur=document.getElementById('wsx-cur');
-      var rpl=document.getElementById('wsx-rpl');
-      if(!deskEl||!cur||!el)return;
-      var dRect=deskEl.getBoundingClientRect();
-      var eRect=el.getBoundingClientRect();
-      var x=eRect.left-dRect.left+eRect.width*0.82;
-      var y=eRect.top-dRect.top+eRect.height/2;
-      cur.style.opacity='1';cur.style.left=x+'px';cur.style.top=y+'px';
-      wsxSchedule(function(){
-        rpl.style.left=(x-3)+'px';rpl.style.top=(y-3)+'px';rpl.style.borderColor=accent;
-        rpl.style.animation='none';void rpl.offsetWidth;rpl.style.animation='wsxRip 500ms ease-out';
-        if(cb)cb();
-      },720);
-    }
-    function wsxType(text,cb){
-      var el=document.getElementById('wsx-ctext');
-      if(!el)return;
-      el.textContent='';var i=0;
-      var iv=setInterval(function(){el.textContent+=text[i];i++;if(i>=text.length){clearInterval(iv);if(cb)wsxSchedule(cb,900);}},16);
-    }
-    function wsxTools(activeKeys,allKeys){
-      var el=document.getElementById('wsx-tools');
-      if(!el)return;
-      el.innerHTML=allKeys.map(function(k){
-        var on=activeKeys.indexOf(k)>-1;
-        return '<div class="wsx-tool-chip'+(on?' active':'')+'">'+(BRAND[k]||'')+'</div>';
-      }).join('');
-    }
+      function create(stageId, accent){
+        var stage = document.getElementById(stageId);
+        if(!stage) return null;
+        var cur = document.createElement('div');
+        cur.className='demo-cursor';
+        cur.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 1l6 13 2-5 5-2z" fill="#1a1a1a" stroke="#fff" stroke-width="1"/></svg>';
+        var rpl = document.createElement('div');
+        rpl.className='demo-ripple';
+        rpl.style.borderColor = accent || '#1a1a1a';
+        stage.appendChild(cur);
+        stage.appendChild(rpl);
 
-    var WSX_STEPS={
-      track:{
-        accent:'#c8a84b',
-        tools:['pendo','claude','chatgpt','factory'],
-        windows:[
-          {id:'wsx-w-pendo',cls:'',icon:'pendo',title:'Pendo · Auth SDK Report',
-           body:'<div class="wsx-row" id="wsx-r0"><span>checkout_click</span><span class="ok">tagged</span></div>'+
-                '<div class="wsx-row" id="wsx-r1"><span>page_view</span><span class="ok">tagged</span></div>'+
-                '<div class="wsx-row" id="wsx-r2"><span>Send to AI · API/MCP</span><span class="ok">sent</span></div>',
-           style:'width:230px;top:24px;left:16px;z-index:2;'},
-          {id:'wsx-w-figma',cls:'bg',icon:'figma',title:'Figma',body:'',style:'width:200px;top:56px;left:250px;z-index:1;'},
-          {id:'wsx-w-ai',cls:'enter',icon:'claude',title:'Claude · Report Draft',
-           body:'<div class="wsx-msg" id="wsx-aimsg"></div>',
-           style:'width:210px;top:124px;left:170px;z-index:3;'}
-        ],
-        steps:[
-          {row:'wsx-r0',cap:'Tagging isn\'t the finish line. It\'s the start of a report.',toolsActive:['pendo']},
-          {row:'wsx-r1',cap:'Every page, every feature — named and counted.',toolsActive:['pendo']},
-          {row:'wsx-r2',cap:'Pendo hands the data to an AI — Claude, ChatGPT, whatever fits.',toolsActive:['pendo','claude'],
-           win:'wsx-w-ai',type:'Drafting the funnel report from checkout_click and page_view...'}
-        ]
-      },
-      research:{
-        accent:'#4aa3d4',
-        tools:['maze','qualtrics','pendo'],
-        windows:[
-          {id:'wsx-w-maze',cls:'',icon:'maze',title:'Maze · Usability Test',
-           body:'<div class="wsx-row" id="wsx-r0"><span>Task success rate</span><span class="ok">62%</span></div>'+
-                '<div class="wsx-row" id="wsx-r1"><span>Time on task</span><span class="ok">2:14</span></div>',
-           style:'width:220px;top:24px;left:16px;z-index:2;'},
-          {id:'wsx-w-qual',cls:'bg',icon:'qualtrics',title:'Qualtrics',body:'',style:'width:200px;top:56px;left:240px;z-index:1;'},
-          {id:'wsx-w-replay',cls:'enter',icon:'pendo',title:'Pendo · Session Replay',
-           body:'<div class="wsx-msg" id="wsx-aimsg">Watching where users hesitate...</div>',
-           style:'width:210px;top:120px;left:160px;z-index:3;'}
-        ],
-        steps:[
-          {row:'wsx-r0',cap:'Numbers say something\'s wrong. Research says why.',toolsActive:['maze']},
-          {row:'wsx-r1',cap:'Qualtrics and Pendo Guides ask the questions the data can\'t.',toolsActive:['maze','qualtrics']},
-          {row:null,cap:'Then I watch the replay — the moment of hesitation, frame by frame.',toolsActive:['pendo'],win:'wsx-w-replay'}
-        ]
-      },
-      design:{
-        accent:'#9b6cff',
-        tools:['figma','claude'],
-        windows:[
-          {id:'wsx-w-figmamain',cls:'',icon:'figma',title:'Figma · Redesign',
-           body:'<div class="wsx-row" id="wsx-r0"><span>Search bar → top nav</span><span class="ok">done</span></div>'+
-                '<div class="wsx-row" id="wsx-r1"><span>Empty state added</span><span class="ok">done</span></div>',
-           style:'width:230px;top:24px;left:16px;z-index:2;'},
-          {id:'wsx-w-claudedesign',cls:'enter',icon:'claude',title:'Claude · Design Assist',
-           body:'<div class="wsx-msg" id="wsx-aimsg">Generating 3 layout variants from the findings...</div>',
-           style:'width:210px;top:118px;left:190px;z-index:3;'}
-        ],
-        steps:[
-          {row:'wsx-r0',cap:'Every fix traces back to a specific finding — not a hunch.',toolsActive:['figma']},
-          {row:'wsx-r1',cap:'Design that answers what research actually found.',toolsActive:['figma']},
-          {row:null,cap:'Claude drafts variants. I pick, refine, ship.',toolsActive:['claude'],win:'wsx-w-claudedesign'}
-        ]
-      },
-      build:{
-        accent:'#16a34a',
-        tools:['replit','cursorai','v0','bolt','github'],
-        windows:[
-          {id:'wsx-w-code',cls:'',icon:'replit',title:'Replit · Build',
-           body:'<div class="wsx-row" id="wsx-r0"><span>Component scaffolded</span><span class="ok">done</span></div>'+
-                '<div class="wsx-row" id="wsx-r1"><span>Wired to Pendo events</span><span class="ok">done</span></div>',
-           style:'width:230px;top:24px;left:16px;z-index:2;'},
-          {id:'wsx-w-gh',cls:'enter',icon:'github',title:'GitHub · PR',
-           body:'<div class="wsx-msg" id="wsx-aimsg">Opening pull request with the fix...</div>',
-           style:'width:210px;top:118px;left:190px;z-index:3;'}
-        ],
-        steps:[
-          {row:'wsx-r0',cap:'Whichever builder fits — Replit, Cursor, v0, Bolt, Factory.ai.',toolsActive:['replit']},
-          {row:'wsx-r1',cap:'The fix ships wired to the same events that found the problem.',toolsActive:['replit']},
-          {row:null,cap:'Shipped, tracked, ready to measure again.',toolsActive:['github'],win:'wsx-w-gh'}
-        ]
-      },
-      hub:{
-        accent:'#e05c4a',
-        tools:['pendo','qualtrics','maze','figma','claude'],
-        windows:[
-          {id:'wsx-w-hub',cls:'',icon:'pendo',title:'Behavioral Analytics Hub',
-           body:'<div class="wsx-row" id="wsx-r0"><span>Research findings</span><span class="ok">12 synced</span></div>'+
-                '<div class="wsx-row" id="wsx-r1"><span>Live analytics</span><span class="ok">streaming</span></div>'+
-                '<div class="wsx-row" id="wsx-r2"><span>Replay library</span><span class="ok">catalogued</span></div>',
-           style:'width:250px;top:40px;left:20px;z-index:2;'}
-        ],
-        steps:[
-          {row:'wsx-r0',cap:'One hub. Every finding, every metric, every replay — not scattered tools.',toolsActive:['pendo','qualtrics']},
-          {row:'wsx-r1',cap:'Built solo. Live. The whole loop feeds back into it.',toolsActive:['maze','figma']},
-          {row:'wsx-r2',cap:'Catalogued, not buried — anyone on the team can find it.',toolsActive:['claude']}
-        ]
-      }
-    };
-    var WSX_ORDER=['track','research','design','build','hub'];
-    var WSX_LABELS={track:'Track',research:'Research',design:'Design',build:'Build',hub:'Hub'};
-    var wsxCurStep='track';
+        var slideEls = {};
+        var timers = [];
 
-    function wsxRenderTabs(){
-      var el=document.getElementById('wsx-tabs');
-      if(!el)return;
-      el.innerHTML=WSX_ORDER.map(function(k){
-        var s=WSX_STEPS[k];
-        return '<button class="wsx-tab'+(k===wsxCurStep?' active':'')+'" style="--wc:'+s.accent+'" data-step="'+k+'">'+WSX_LABELS[k]+'</button>';
-      }).join('');
-      el.querySelectorAll('.wsx-tab').forEach(function(b){
-        b.addEventListener('click',function(){
-          wsxCurStep=b.dataset.step;
-          wsxRenderTabs();
-          wsxRunStep();
-        });
-      });
-    }
+        function schedule(fn, ms){ var id=setTimeout(fn, ms); timers.push(id); return id; }
+        function clearAll(){ timers.forEach(clearTimeout); timers=[]; }
 
-    function wsxRunStep(){
-      wsxClearTimers();
-      var s=WSX_STEPS[wsxCurStep];
-      var desk=document.getElementById('wsx-desktop');
-      if(!desk||!s)return;
-      desk.querySelectorAll('.wsx-win,.wsx-cursor,.wsx-ripple').forEach(function(w){
-        if(w.id!=='wsx-cur'&&w.id!=='wsx-rpl')w.remove();
-      });
-      var curEl=document.getElementById('wsx-cur'), rplEl=document.getElementById('wsx-rpl');
-      s.windows.forEach(function(w){
-        var div=document.createElement('div');
-        div.className='wsx-win '+w.cls;
-        div.id=w.id;
-        div.style.cssText=w.style;
-        div.innerHTML='<div class="wsx-win-bar"><div class="wsx-win-icon">'+(BRAND[w.icon]||'')+'</div><div class="wsx-win-title">'+w.title+'</div></div><div class="wsx-win-body">'+w.body+'</div>';
-        desk.insertBefore(div,curEl);
-      });
-      wsxTools([],s.tools);
-      var idx=0;
-      function next(){
-        if(idx>=s.steps.length){wsxSchedule(wsxRunStep,2200);return;}
-        var st=s.steps[idx];
-        document.getElementById('wsx-ctag').textContent=WSX_LABELS[wsxCurStep].toUpperCase();
-        document.getElementById('wsx-ctag').style.setProperty('--wc',s.accent);
-        wsxType(st.cap);
-        wsxTools(st.toolsActive,s.tools);
-        if(st.win){
-          var w=document.getElementById(st.win);
-          if(w)w.classList.add('show');
+        function addSlide(id, html, opts){
+          opts = opts || {};
+          var el = document.createElement('div');
+          el.id = stageId + '-' + id;
+          el.className = 'demo-slide' + (opts.type==='text' ? ' text' : '') + (opts.zoomable ? ' zoomable' : '');
+          el.innerHTML = html;
+          stage.insertBefore(el, cur);
+          slideEls[id] = el;
+          return el;
         }
-        if(st.row){
-          var rowEl=document.getElementById(st.row);
-          if(rowEl){
-            wsxCursorTo(rowEl,s.accent,function(){
-              rowEl.classList.add('hit');
-              if(st.type){
-                var msgEl=document.getElementById('wsx-aimsg');
-                if(msgEl){
-                  msgEl.textContent='';var j=0;
-                  var iv=setInterval(function(){msgEl.textContent+=st.type[j];j++;if(j>=st.type.length)clearInterval(iv);},16);
-                }
-              }
-              idx++;wsxSchedule(next,1300);
-            });
-          } else { idx++;wsxSchedule(next,1300); }
-        } else {
-          idx++;wsxSchedule(next,1300);
+
+        function showSlide(id){
+          Object.keys(slideEls).forEach(function(k){
+            slideEls[k].classList.toggle('show', k===id);
+          });
         }
+
+        function cursorTo(targetEl, cb){
+          var sRect = stage.getBoundingClientRect();
+          var tRect = targetEl.getBoundingClientRect();
+          var x = tRect.left - sRect.left + tRect.width/2;
+          var y = tRect.top - sRect.top + tRect.height/2;
+          cur.style.opacity='1'; cur.style.left=x+'px'; cur.style.top=y+'px';
+          schedule(function(){
+            rpl.style.left=(x-3)+'px'; rpl.style.top=(y-3)+'px';
+            rpl.style.animation='none'; void rpl.offsetWidth; rpl.style.animation='demoRip 480ms ease-out';
+            if(cb) cb();
+          }, 600);
+        }
+
+        /* THE PRECISE ZOOM FIX — computes transform-origin from the
+           target element's real position, so zoom always centers
+           exactly on it, regardless of layout. */
+        function zoomTo(slideId, targetEl, scale, cb){
+          var slideEl = slideEls[slideId];
+          if(!slideEl){ if(cb)cb(); return; }
+          var sRect = slideEl.getBoundingClientRect();
+          var tRect = targetEl.getBoundingClientRect();
+          var originX = ((tRect.left + tRect.width/2 - sRect.left) / sRect.width) * 100;
+          var originY = ((tRect.top + tRect.height/2 - sRect.top) / sRect.height) * 100;
+          slideEl.style.transformOrigin = originX+'% '+originY+'%';
+          slideEl.style.transform = 'scale('+scale+')';
+          schedule(cb, 900);
+        }
+        function zoomOut(slideId, cb){
+          var slideEl = slideEls[slideId];
+          if(!slideEl){ if(cb)cb(); return; }
+          slideEl.style.transform = 'scale(1)';
+          schedule(cb, 900);
+        }
+
+        /* Text with per-word color spans, typed at a readable pace
+           (default 32ms/char — slower, easier to read) and a MINIMUM
+           hold time after finishing before the callback fires. */
+        function typeText(el, text, opts, cb){
+          opts = opts || {};
+          var speed = opts.speed || 32;
+          var hold = opts.hold != null ? opts.hold : 1400;
+          el.textContent=''; var i=0;
+          var iv = setInterval(function(){
+            el.textContent += text[i]; i++;
+            if(i>=text.length){ clearInterval(iv); if(cb) schedule(cb, hold); }
+          }, speed);
+        }
+        /* Static bounce-in reveal for short punchy lines — html allowed
+           for inline color spans, e.g. '<span style="color:#c07a2e">word</span>' */
+        function revealBounce(el, html){
+          el.innerHTML = html;
+          el.classList.remove('demo-bounce');
+          void el.offsetWidth;
+          el.classList.add('demo-bounce');
+        }
+
+        function circleAnnotate(svgEl, cb){
+          svgEl.style.opacity='1';
+          svgEl.classList.add('draw');
+          if(cb) schedule(cb, 600);
+        }
+        function clearAnnotate(svgEl){
+          svgEl.style.opacity='0';
+          svgEl.classList.remove('draw');
+        }
+        function shake(el){ el.classList.remove('demo-shake'); void el.offsetWidth; el.classList.add('demo-shake'); }
+        function glow(el){ el.classList.remove('demo-glow'); void el.offsetWidth; el.classList.add('demo-glow'); }
+        function unglow(el){ el.classList.remove('demo-glow','demo-shake'); }
+
+        /* Narration steps — plain TEXT slides shown in sequence,
+           never fake UI. Use for "Step 1 — X. Step 2 — Y." beats. */
+        function narrateSteps(stepLines, opts, onEachDone, onAllDone){
+          opts = opts || {};
+          var idx = 0;
+          var tmpEl = document.createElement('div');
+          tmpEl.style.cssText='font-size:18px;font-weight:600;color:#222;text-align:center;line-height:1.5;';
+          function next(){
+            if(idx>=stepLines.length){ if(onAllDone) onAllDone(); return; }
+            tmpEl.innerHTML = stepLines[idx];
+            if(onEachDone) onEachDone(tmpEl.innerHTML, idx);
+            idx++;
+            schedule(next, opts.holdEach || 1800);
+          }
+          next();
+        }
+
+        return {
+          addSlide: addSlide, showSlide: showSlide, cursorTo: cursorTo,
+          zoomTo: zoomTo, zoomOut: zoomOut, typeText: typeText,
+          revealBounce: revealBounce, circleAnnotate: circleAnnotate,
+          clearAnnotate: clearAnnotate, shake: shake, glow: glow, unglow: unglow,
+          narrateSteps: narrateSteps, clearTimers: clearAll,
+          stageEl: stage
+        };
       }
-      next();
-    }
-    wsxRenderTabs();
-    wsxRunStep();
+
+      return { create: create };
+    })();
+
+    /* ══════════════════════════════════════════════════════
+       EY TRACK SCENE — "Behavior Analytics & Usage"
+       Corrected per feedback: tagging check, generic software
+       license, real tools named, steps as narration text (not
+       fake UI), precise zoom on price, slower pace, color words.
+       Icons: inline SVG (matches this file's convention — no
+       icon-font library is loaded anywhere in this project).
+       ══════════════════════════════════════════════════════ */
+    (function(){
+      var eng = window.DemoEngine.create('demo-stage-ey', '#1a1a1a');
+      if(!eng) return;
+
+      var ICON_PACKAGE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>';
+      var ICON_SAD='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 16s1.5-2 4-2 4 2 4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>';
+
+      eng.addSlide('check', '', {type:'text'});
+      eng.addSlide('intro', '', {type:'text'});
+      eng.addSlide('mkt',
+        '<div style="padding:22px;text-align:center;">'+
+          '<div style="font-size:12px;color:#888;margin-bottom:10px;">Software marketplace</div>'+
+          '<div id="ey-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:280px;margin:0 auto;"></div>'+
+        '</div>'
+      );
+      eng.addSlide('detail',
+        '<div style="padding:22px;">'+
+          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">'+
+            '<div style="width:34px;height:34px;border-radius:10px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;color:#333;"><div style="width:17px;height:17px;">'+ICON_PACKAGE+'</div></div>'+
+            '<div style="font-size:13px;font-weight:500;color:#222;">Design software &mdash; annual license</div>'+
+          '</div>'+
+          '<div style="font-size:11.5px;color:#888;margin-bottom:14px;line-height:1.6;">Full suite license for one team.</div>'+
+          '<div id="ey-buy-btn" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;background:#1a1a1a;color:#fff;font-size:12px;">Get license</div>'+
+        '</div>'
+      );
+      var configHTML =
+        '<div style="padding:18px 20px;">'+
+          '<div style="display:flex;justify-content:space-between;margin-bottom:12px;">'+
+            '<div style="font-size:12.5px;font-weight:500;color:#222;">Checkout</div>'+
+            '<div id="ey-price" style="font-size:14px;font-weight:600;color:#1a1a1a;">$40/mo</div>'+
+          '</div>'+
+          '<div style="background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);padding:12px;position:relative;">'+
+            '<div style="margin-bottom:8px;">'+
+              '<div style="font-size:10.5px;color:#888;margin-bottom:3px;">Seats</div>'+
+              '<div style="height:28px;background:#f5f4f0;border-radius:7px;padding:0 9px;display:flex;align-items:center;font-size:10.5px;color:#666;">5</div>'+
+            '</div>'+
+            '<div style="margin-bottom:8px;position:relative;">'+
+              '<div style="font-size:10.5px;color:#888;margin-bottom:3px;">Extra usage</div>'+
+              '<div id="ey-extra" style="height:28px;background:#f5f4f0;border-radius:7px;padding:0 9px;display:flex;align-items:center;font-size:10.5px;color:#666;transition:background 250ms ease,color 250ms ease;">Optional</div>'+
+              '<div id="ey-qmark" style="position:absolute;top:-20px;right:2px;font-size:20px;font-weight:800;color:#d9534f;opacity:0;transform:scale(0.3) rotate(-15deg);transition:all 380ms cubic-bezier(0.34,1.56,0.64,1);z-index:5;">?</div>'+
+              '<svg id="ey-circle" class="demo-circle-svg" width="90" height="46" viewBox="0 0 90 46" style="position:absolute;top:-9px;left:-6px;pointer-events:none;z-index:4;opacity:0;"><ellipse cx="45" cy="23" rx="42" ry="19" fill="none" stroke="#d9534f" stroke-width="2.2" stroke-linecap="round"/></svg>'+
+            '</div>'+
+            '<div><div style="font-size:10.5px;color:#888;margin-bottom:3px;">Support tier</div><div style="height:28px;background:#f5f4f0;border-radius:7px;padding:0 9px;display:flex;align-items:center;font-size:10.5px;color:#666;">Optional</div></div>'+
+          '</div>'+
+          '<div style="margin-top:8px;font-size:9.5px;color:#aaa;">Docs &middot; FAQ &middot; Contact support</div>'+
+        '</div>';
+      eng.addSlide('config', configHTML, {zoomable:true});
+      eng.addSlide('friction', '', {type:'text'});
+      eng.addSlide('drop',
+        '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;">'+
+          '<div style="width:44px;height:44px;border-radius:50%;background:#fdeceb;display:flex;align-items:center;justify-content:center;margin-bottom:8px;color:#d9534f;"><div style="width:22px;height:22px;">'+ICON_SAD+'</div></div>'+
+          '<div style="font-size:12px;color:#888;">Session ended</div>'+
+        '</div>'
+      );
+      eng.addSlide('found', '', {type:'text'});
+      eng.addSlide('tools', '', {type:'text'});
+
+      var TOOLS=[
+        {n:'Design app',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9.06 11.9l8.07-8.06a2.85 2.85 0 114.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 00-3-3.02z"/></svg>'},
+        {n:'Payments',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>'},
+        {n:'Storage',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>'},
+        {n:'Analytics',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>'},
+        {n:'CRM',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>'},
+        {n:'Support desk',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>'}
+      ];
+      document.getElementById('ey-grid').innerHTML = TOOLS.map(function(t,i){
+        return '<div id="ey-card'+i+'" style="background:#fff;border-radius:11px;box-shadow:0 2px 8px rgba(0,0,0,0.05);padding:12px 6px;text-align:center;transition:all 200ms ease;color:#555;"><div style="width:17px;height:17px;margin:0 auto;">'+t.ic+'</div><div style="font-size:9px;margin-top:5px;color:#333;">'+t.n+'</div></div>';
+      }).join('');
+
+      function step(){
+        eng.showSlide('check');
+        eng.revealBounce(document.getElementById('demo-stage-ey-check').querySelector('*')||document.getElementById('demo-stage-ey-check'),
+          '<div class="demo-bounce" style="font-size:16px;font-weight:500;color:#888;font-style:italic;">First: is this even tracked?</div>');
+        setTimeout(function(){
+          eng.showSlide('intro');
+          var introEl=document.getElementById('demo-stage-ey-intro');
+          eng.typeText(introEl,'A user intends to acquire a software license.',{speed:32,hold:1500},function(){
+            eng.showSlide('mkt');
+            setTimeout(function(){
+              eng.cursorTo(document.getElementById('ey-card0'),function(){
+                document.getElementById('ey-card0').style.boxShadow='0 6px 18px rgba(0,0,0,0.12)';
+                setTimeout(function(){
+                  eng.showSlide('detail');
+                  eng.cursorTo(document.getElementById('ey-buy-btn'),function(){
+                    setTimeout(function(){
+                      eng.showSlide('config');
+                      setTimeout(function(){
+                        eng.cursorTo(document.getElementById('ey-extra'),function(){
+                          eng.zoomTo('config',document.getElementById('ey-price'),1.5,function(){
+                            document.getElementById('ey-extra').style.background='#fdeceb';
+                            document.getElementById('ey-extra').style.color='#d9534f';
+                            document.getElementById('ey-price').textContent='$68/mo';
+                            eng.shake(document.getElementById('ey-extra'));
+                            eng.glow(document.getElementById('ey-extra'));
+                            eng.circleAnnotate(document.getElementById('ey-circle'));
+                            setTimeout(function(){
+                              document.getElementById('ey-qmark').style.opacity='1';
+                              document.getElementById('ey-qmark').style.transform='scale(1) rotate(0deg)';
+                            },300);
+                            setTimeout(function(){
+                              eng.zoomOut('config',function(){
+                                eng.showSlide('friction');
+                                var frEl=document.getElementById('demo-stage-ey-friction');
+                                eng.revealBounce(frEl,'<div class="demo-bounce" style="font-size:18px;font-weight:600;color:#222;text-align:center;line-height:1.5;">The marketplace explains a lot &mdash; docs, FAQ, support. <span style="color:#d9534f;">Never why the price just moved.</span></div>');
+                                setTimeout(function(){
+                                  eng.showSlide('drop');
+                                  setTimeout(function(){
+                                    eng.showSlide('found');
+                                    var foundEl=document.getElementById('demo-stage-ey-found');
+                                    eng.revealBounce(foundEl,'<div class="demo-bounce" style="font-size:18px;font-weight:600;color:#222;text-align:center;line-height:1.5;">This shows up as a <span style="color:#d9534f;">drop-off</span> in the funnel &mdash; found through session replay.</div>');
+                                    setTimeout(function(){
+                                      eng.showSlide('tools');
+                                      var toolsEl=document.getElementById('demo-stage-ey-tools');
+                                      eng.revealBounce(toolsEl,'<div class="demo-bounce" style="font-size:16px;font-weight:500;color:#666;text-align:center;line-height:1.6;">Behavior Analytics &amp; Usage &mdash; Pendo, Mixpanel, Google Analytics, whatever the team already has.</div>');
+                                      setTimeout(function(){
+                                        document.getElementById('ey-card0').style.boxShadow='0 2px 8px rgba(0,0,0,0.05)';
+                                        document.getElementById('ey-extra').style.background='#f5f4f0';
+                                        document.getElementById('ey-extra').style.color='#666';
+                                        eng.unglow(document.getElementById('ey-extra'));
+                                        eng.clearAnnotate(document.getElementById('ey-circle'));
+                                        document.getElementById('ey-qmark').style.opacity='0';
+                                        document.getElementById('ey-qmark').style.transform='scale(0.3) rotate(-15deg)';
+                                        document.getElementById('ey-price').textContent='$40/mo';
+                                        step();
+                                      },2200);
+                                    },2000);
+                                  },1900);
+                                },1900);
+                              });
+                            },1500);
+                          });
+                        });
+                      },600);
+                    },900);
+                  });
+                },500);
+              });
+            },900);
+          });
+        },1600);
+      }
+      step();
+    })();
   })();
 
   /* ══ DEPTH INTERACTIONS ══ */
