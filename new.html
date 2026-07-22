@@ -835,11 +835,15 @@
     .demo-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
     .demo-tab{padding:6px 13px;border-radius:100px;border:1px solid var(--border);background:var(--bg-raised);color:var(--text-secondary);font-size:11.5px;cursor:pointer;transition:all 200ms ease;font-family:inherit;}
     .demo-tab.active{background:var(--dc,var(--accent));border-color:transparent;color:#fff;font-weight:600;}
-    .demo-stage{position:relative;min-height:280px;border-radius:12px;overflow:hidden;background:#f7f5f0;box-shadow:0 20px 50px -24px rgba(0,0,0,0.5);}
+    .demo-stage{--dg-bg:#f7f5f0;--dg-text:#1a1a1a;--dg-text-muted:#888;--dg-input:#ececec;--dg-input-muted:#f0efe9;--dg-danger:#d9534f;--dg-card-bg:#fff;--dg-card-shadow:rgba(0,0,0,0.12);--dg-rec-bg:#1a1a1a;--dg-rec-inner:#2a2a2a;position:relative;min-height:280px;border-radius:12px;overflow:hidden;background:var(--dg-bg);box-shadow:0 20px 50px -24px rgba(0,0,0,0.5);}
+    @media(prefers-color-scheme:dark){.demo-stage{--dg-bg:#333;--dg-text:#f0efe9;--dg-text-muted:#aaa;--dg-input:#3d3d3d;--dg-input-muted:#404040;--dg-card-bg:#404040;--dg-card-shadow:rgba(0,0,0,0.4);--dg-rec-bg:#111;--dg-rec-inner:#1c1c1c;}}
+    .dg-eyebrow{font-size:10px;font-weight:600;color:var(--dg-text-muted);text-transform:uppercase;letter-spacing:0.06em;text-align:center;margin-bottom:10px;}
+    .dg-narr{font-size:12px;color:var(--dg-text);text-align:center;min-height:18px;margin-top:4px;}
+    .dg-card{background:var(--dg-card-bg);border-radius:11px;box-shadow:0 2px 8px var(--dg-card-shadow);}
     .demo-slide{position:absolute;inset:0;opacity:0;transition:opacity 400ms ease;}
     .demo-slide.show{opacity:1;}
     .demo-slide.zoomable{transition:opacity 400ms ease, transform 900ms cubic-bezier(0.16,1,0.3,1);}
-    .demo-slide.text{display:flex;align-items:center;justify-content:center;background:#f7f5f0;padding:0 26px;}
+    .demo-slide.text{display:flex;align-items:center;justify-content:center;background:var(--dg-bg,#f7f5f0);padding:0 26px;}
     .demo-cursor{position:absolute;pointer-events:none;transition:top 600ms cubic-bezier(0.65,0,0.35,1),left 600ms cubic-bezier(0.65,0,0.35,1);z-index:30;opacity:0;}
     .demo-ripple{position:absolute;width:22px;height:22px;border-radius:50%;border:1.5px solid #1a1a1a;opacity:0;pointer-events:none;z-index:29;}
     @keyframes demoRip{from{transform:scale(0.3);opacity:0.8}to{transform:scale(2.6);opacity:0}}
@@ -2209,153 +2213,355 @@
     })();
 
     /* ══════════════════════════════════════════════════════
-       EY TRACK SCENE — "Behavior Analytics & Usage"
-       Corrected per feedback: tagging check, generic software
-       license, real tools named, steps as narration text (not
-       fake UI), precise zoom on price, slower pace, color words.
+       DIAGNOSE — stage 1 of 5 (Diagnose → Research → Design →
+       Launch → [Hub name pending]). Uses the existing
+       window.DemoEngine only — no engine changes. Bar/path/table/
+       replay/multi-cursor visuals are scene-local helpers, not
+       generic engine primitives. Light/dark aware via the
+       --dg-* tokens defined on .demo-stage.
        Icons: inline SVG (matches this file's convention — no
        icon-font library is loaded anywhere in this project).
        ══════════════════════════════════════════════════════ */
     (function(){
-      var eng = window.DemoEngine.create('demo-stage-ey', '#1a1a1a');
+      var eng = window.DemoEngine.create('demo-stage-ey', '#c07a2e');
       if(!eng) return;
+      eng.stageEl.classList.add('demo-stage'); // ensure dark/light vars apply
 
-      var ICON_PACKAGE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>';
-      var ICON_SAD='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 16s1.5-2 4-2 4 2 4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>';
+      // ── Beat 1: Title + tools (Pendo/GA/Mixpanel real brand colors, staggered bounce) ──
+      eng.addSlide('title', '<div style="text-align:center;padding-top:30px;">'+
+        '<div style="font-size:20px;font-weight:600;color:var(--dg-text-muted);">First, <span style="color:var(--dg-text);font-weight:800;">diagnose</span>.</div>'+
+        '<div class="dg-eyebrow" style="margin-top:18px;">Tools</div>'+
+        '<div id="ey-toollogos" style="display:flex;justify-content:center;gap:9px;margin-top:8px;"></div>'+
+        '</div>', {type:'text'});
 
-      eng.addSlide('check', '', {type:'text'});
-      eng.addSlide('intro', '', {type:'text'});
-      eng.addSlide('mkt',
-        '<div style="padding:22px;text-align:center;">'+
-          '<div style="font-size:12px;color:#888;margin-bottom:10px;">Software marketplace</div>'+
-          '<div id="ey-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:280px;margin:0 auto;"></div>'+
-        '</div>'
-      );
-      eng.addSlide('detail',
-        '<div style="padding:22px;">'+
-          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">'+
-            '<div style="width:34px;height:34px;border-radius:10px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;color:#333;"><div style="width:17px;height:17px;">'+ICON_PACKAGE+'</div></div>'+
-            '<div style="font-size:13px;font-weight:500;color:#222;">Design software &mdash; annual license</div>'+
+      // ── Beat 2: Marketplace — 3 named cursors converge with intermediate stop ──
+      eng.addSlide('mkt', '<div style="padding:18px 20px;"><div class="dg-eyebrow">Marketplace — choose a product</div>'+
+        '<div id="ey-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;"></div></div>');
+
+      // ── Beat 3: Configure product license — ONE shared form, 3 cursors visit same fields offset, cycling diagnosis word ──
+      eng.addSlide('form', '<div style="padding:20px 26px;"><div class="dg-eyebrow">Configure product license — Storage plan</div>'+
+        '<div class="dg-card" style="padding:14px;max-width:300px;margin:0 auto;">'+
+          '<div style="font-size:9px;color:var(--dg-text-muted);margin-bottom:3px;">Team name</div>'+
+          '<div id="ey-fld0" style="height:24px;background:var(--dg-input);border-radius:6px;margin-bottom:10px;"></div>'+
+          '<div style="font-size:9px;color:var(--dg-text-muted);margin-bottom:3px;">Storage tier</div>'+
+          '<div id="ey-fld1" style="height:24px;background:var(--dg-input);border-radius:6px;margin-bottom:10px;"></div>'+
+          '<div style="font-size:9px;color:var(--dg-text-muted);margin-bottom:3px;">Retention policy</div>'+
+          '<div id="ey-fld2" style="height:24px;background:var(--dg-input-muted);border-radius:6px;"></div>'+
+        '</div>'+
+        '<div id="ey-diagword" style="text-align:center;font-size:17px;font-weight:700;color:var(--dg-text);margin-top:16px;min-height:24px;">&nbsp;</div></div>', {zoomable:true});
+
+      // ── Beat 4: Building the picture — 4 iconed columns, slow stagger ──
+      eng.addSlide('picture', '<div style="padding:16px 18px;"><div style="font-size:12px;font-weight:600;color:var(--dg-text);margin-bottom:10px;text-align:center;">Building the picture</div>'+
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;">'+
+          '<div><div style="display:flex;align-items:center;gap:3px;margin-bottom:5px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4a7aa3" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 9l6 6M9 15l6-6"/></svg><span style="font-size:8px;color:var(--dg-text-muted);text-transform:uppercase;">Features</span></div><div id="ey-col-feat" style="display:flex;flex-direction:column;gap:3px;"></div></div>'+
+          '<div><div style="display:flex;align-items:center;gap:3px;margin-bottom:5px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7856FF" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg><span style="font-size:8px;color:var(--dg-text-muted);text-transform:uppercase;">Pages</span></div><div id="ey-col-pages" style="display:flex;flex-direction:column;gap:3px;"></div></div>'+
+          '<div><div style="display:flex;align-items:center;gap:3px;margin-bottom:5px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="#F9AB00" stroke="none"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span style="font-size:8px;color:var(--dg-text-muted);text-transform:uppercase;">Events</span></div><div id="ey-col-events" style="display:flex;flex-direction:column;gap:3px;"></div></div>'+
+          '<div><div style="display:flex;align-items:center;gap:3px;margin-bottom:5px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--dg-danger)" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/></svg><span style="font-size:8px;color:var(--dg-text-muted);text-transform:uppercase;">Feedback</span></div><div id="ey-col-fb" style="display:flex;flex-direction:column;gap:3px;"></div></div>'+
+        '</div>'+
+        '<div id="ey-lookfor" style="text-align:center;font-size:10.5px;color:var(--dg-text-muted);margin-top:14px;opacity:0;transition:opacity 600ms ease;">Looking for replay sessions and feedback&hellip;</div></div>');
+
+      // ── Beat 5-9: The 5 reports — Funnel, Paths, Data Explorer, NPS/CSAT, Replay Session ──
+      eng.addSlide('funnel', '<div style="padding:18px 24px;"><div class="dg-eyebrow">Funnel</div>'+
+        '<div style="display:flex;align-items:flex-end;justify-content:center;gap:16px;height:78px;margin-bottom:12px;">'+
+          '<div class="ey-bar" id="ey-fb0" style="width:28px;background:#7856FF;height:0px;border-radius:4px 4px 0 0;transition:height 800ms cubic-bezier(0.16,1,0.3,1);"></div>'+
+          '<div class="ey-bar" id="ey-fb1" style="width:28px;background:#F9AB00;height:0px;border-radius:4px 4px 0 0;transition:height 800ms cubic-bezier(0.16,1,0.3,1);"></div>'+
+          '<div class="ey-bar" id="ey-fb2" style="width:28px;background:var(--dg-danger);height:0px;border-radius:4px 4px 0 0;transition:height 800ms cubic-bezier(0.16,1,0.3,1);"></div>'+
+        '</div><div class="dg-narr" id="ey-narr0"></div></div>');
+
+      eng.addSlide('paths', '<div style="padding:18px 24px;"><div class="dg-eyebrow">Paths</div>'+
+        '<div id="ey-pathrows" style="display:flex;flex-direction:column;gap:6px;max-width:340px;margin:0 auto 10px;"></div>'+
+        '<div class="dg-narr" id="ey-narr1"></div></div>');
+
+      eng.addSlide('table', '<div style="padding:18px 24px;"><div class="dg-eyebrow">Feature, page and event properties</div>'+
+        '<table style="width:100%;max-width:320px;margin:0 auto 10px;border-collapse:collapse;font-size:9px;">'+
+          '<tr style="color:var(--dg-text-muted);"><td style="padding:4px 6px;">User</td><td style="padding:4px 6px;">Property</td><td style="padding:4px 6px;">Value</td></tr>'+
+          '<tbody id="ey-tblrows"></tbody></table>'+
+        '<div class="dg-narr" id="ey-narr2"></div></div>');
+
+      eng.addSlide('feedback', '<div style="padding:18px 24px;"><div class="dg-eyebrow">NPS &amp; CSAT</div>'+
+        '<div style="display:flex;justify-content:center;gap:22px;margin-bottom:12px;">'+
+          '<div id="ey-fbi0" style="opacity:0;text-align:center;"><div style="font-size:16px;font-weight:700;color:var(--dg-text);">41</div><div style="font-size:7.5px;color:var(--dg-text-muted);">NPS</div></div>'+
+          '<div id="ey-fbi1" style="opacity:0;text-align:center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--dg-danger)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01"/></svg><div style="font-size:7.5px;color:var(--dg-text-muted);">CSAT</div></div>'+
+        '</div><div class="dg-narr" id="ey-narr3"></div></div>');
+
+      eng.addSlide('replay', '<div style="padding:18px 22px;"><div class="dg-eyebrow">Replay session</div>'+
+        '<div style="background:var(--dg-rec-bg);border-radius:10px;padding:10px;max-width:280px;margin:0 auto 10px;">'+
+          '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">'+
+            '<span style="width:6px;height:6px;border-radius:50%;background:var(--dg-danger);"></span>'+
+            '<span style="font-size:8px;color:#eee;font-family:monospace;">REC &middot; user_2291</span>'+
+            '<span id="ey-timer" style="font-size:8px;color:#999;font-family:monospace;margin-left:auto;">0:00</span>'+
           '</div>'+
-          '<div style="font-size:11.5px;color:#888;margin-bottom:14px;line-height:1.6;">Full suite license for one team.</div>'+
-          '<div id="ey-buy-btn" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;background:#1a1a1a;color:#fff;font-size:12px;">Get license</div>'+
-        '</div>'
-      );
-      var configHTML =
-        '<div style="padding:18px 20px;">'+
-          '<div style="display:flex;justify-content:space-between;margin-bottom:12px;">'+
-            '<div style="font-size:12.5px;font-weight:500;color:#222;">Checkout</div>'+
-            '<div id="ey-price" style="font-size:14px;font-weight:600;color:#1a1a1a;">$40/mo</div>'+
-          '</div>'+
-          '<div style="background:#fff;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,0.05);padding:12px;position:relative;">'+
-            '<div style="margin-bottom:8px;">'+
-              '<div style="font-size:10.5px;color:#888;margin-bottom:3px;">Seats</div>'+
-              '<div style="height:28px;background:#f5f4f0;border-radius:7px;padding:0 9px;display:flex;align-items:center;font-size:10.5px;color:#666;">5</div>'+
+          '<div style="background:var(--dg-rec-inner);border-radius:6px;height:64px;position:relative;overflow:hidden;">'+
+            '<div id="ey-replaycur" style="position:absolute;width:8px;height:8px;transition:top 700ms cubic-bezier(0.65,0,0.35,1),left 700ms cubic-bezier(0.65,0,0.35,1);top:20px;left:20px;">'+
+              '<svg width="8" height="8" viewBox="0 0 16 16"><path d="M1 1l6 13 2-5 5-2z" fill="#fff"/></svg>'+
             '</div>'+
-            '<div style="margin-bottom:8px;position:relative;">'+
-              '<div style="font-size:10.5px;color:#888;margin-bottom:3px;">Extra usage</div>'+
-              '<div id="ey-extra" style="height:28px;background:#f5f4f0;border-radius:7px;padding:0 9px;display:flex;align-items:center;font-size:10.5px;color:#666;transition:background 250ms ease,color 250ms ease;">Optional</div>'+
-              '<div id="ey-qmark" style="position:absolute;top:-20px;right:2px;font-size:20px;font-weight:800;color:#d9534f;opacity:0;transform:scale(0.3) rotate(-15deg);transition:all 380ms cubic-bezier(0.34,1.56,0.64,1);z-index:5;">?</div>'+
-              '<svg id="ey-circle" class="demo-circle-svg" width="90" height="46" viewBox="0 0 90 46" style="position:absolute;top:-9px;left:-6px;pointer-events:none;z-index:4;opacity:0;"><ellipse cx="45" cy="23" rx="42" ry="19" fill="none" stroke="#d9534f" stroke-width="2.2" stroke-linecap="round"/></svg>'+
-            '</div>'+
-            '<div><div style="font-size:10.5px;color:#888;margin-bottom:3px;">Support tier</div><div style="height:28px;background:#f5f4f0;border-radius:7px;padding:0 9px;display:flex;align-items:center;font-size:10.5px;color:#666;">Optional</div></div>'+
           '</div>'+
-          '<div style="margin-top:8px;font-size:9.5px;color:#aaa;">Docs &middot; FAQ &middot; Contact support</div>'+
-        '</div>';
-      eng.addSlide('config', configHTML, {zoomable:true});
-      eng.addSlide('friction', '', {type:'text'});
-      eng.addSlide('drop',
-        '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;">'+
-          '<div style="width:44px;height:44px;border-radius:50%;background:#fdeceb;display:flex;align-items:center;justify-content:center;margin-bottom:8px;color:#d9534f;"><div style="width:22px;height:22px;">'+ICON_SAD+'</div></div>'+
-          '<div style="font-size:12px;color:#888;">Session ended</div>'+
-        '</div>'
-      );
-      eng.addSlide('found', '', {type:'text'});
-      eng.addSlide('tools', '', {type:'text'});
+        '</div><div class="dg-narr" id="ey-narr4"></div></div>');
 
-      var TOOLS=[
-        {n:'Design app',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9.06 11.9l8.07-8.06a2.85 2.85 0 114.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 00-3-3.02z"/></svg>'},
-        {n:'Payments',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>'},
-        {n:'Storage',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>'},
-        {n:'Analytics',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>'},
-        {n:'CRM',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>'},
-        {n:'Support desk',ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>'}
-      ];
-      document.getElementById('ey-grid').innerHTML = TOOLS.map(function(t,i){
-        return '<div id="ey-card'+i+'" style="background:#fff;border-radius:11px;box-shadow:0 2px 8px rgba(0,0,0,0.05);padding:12px 6px;text-align:center;transition:all 200ms ease;color:#555;"><div style="width:17px;height:17px;margin:0 auto;">'+t.ic+'</div><div style="font-size:9px;margin-top:5px;color:#333;">'+t.n+'</div></div>';
+      // ── Beat 10: Objective closing line ──
+      eng.addSlide('objective', '<div style="text-align:center;">'+
+        '<div style="font-size:9px;font-weight:600;color:var(--dg-text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Objective &middot; UX / Product level</div>'+
+        '<div style="font-size:16px;font-weight:600;color:var(--dg-text);line-height:1.5;max-width:420px;">Detect <span style="color:#c07a2e;">who</span>, <span style="color:#c07a2e;">when</span>, and <span style="color:#c07a2e;">where</span> is having trouble.</div>'+
+        '</div>', {type:'text'});
+
+      // ── Populate tool logos (real brand colors) ──
+      var TOOLS=[{n:'Pendo',c:'#FF4F8B'},{n:'Google Analytics',c:'#F9AB00'},{n:'Mixpanel',c:'#7856FF'}];
+      document.getElementById('ey-toollogos').innerHTML=TOOLS.map(function(t,i){
+        return '<span class="demo-bounce" style="animation-delay:'+(i*180)+'ms;font-size:10px;font-weight:700;color:#fff;background:'+t.c+';padding:4px 11px;border-radius:100px;">'+t.n+'</span>';
       }).join('');
 
-      function step(){
-        eng.showSlide('check');
-        eng.revealBounce(document.getElementById('demo-stage-ey-check').querySelector('*')||document.getElementById('demo-stage-ey-check'),
-          '<div class="demo-bounce" style="font-size:16px;font-weight:500;color:#888;font-style:italic;">First: is this even tracked?</div>');
+      // ── Populate marketplace grid ──
+      var CATS=['Storage','Payments','Design app','Support','Analytics','CRM','AI agent','Email'];
+      document.getElementById('ey-grid').innerHTML=CATS.map(function(c,i){
+        return '<div id="ey-card'+i+'" class="dg-card" style="padding:11px 5px;text-align:center;transition:all 250ms cubic-bezier(0.34,1.56,0.64,1);"><div style="width:18px;height:18px;border-radius:5px;background:var(--dg-input-muted);margin:0 auto 5px;"></div><div style="font-size:8px;color:var(--dg-text);">'+c+'</div></div>';
+      }).join('');
+
+      /* ── Scene-local helpers (not DemoEngine primitives — specific to this scene) ── */
+
+      // Three named user cursors, independent of DemoEngine's single cursor.
+      var CURSOR_COLORS=['#e0575a','#4a7aa3','#c07a2e'];
+      var mCursors=[];
+      function ensureMCursors(){
+        if(mCursors.length)return;
+        CURSOR_COLORS.forEach(function(color){
+          var c=document.createElement('div');
+          c.style.cssText='position:absolute;width:14px;height:14px;pointer-events:none;z-index:25;opacity:0;transition:top 650ms cubic-bezier(0.65,0,0.35,1),left 650ms cubic-bezier(0.65,0,0.35,1);';
+          c.innerHTML='<svg width="14" height="14" viewBox="0 0 16 16"><path d="M1 1l6 13 2-5 5-2z" fill="'+color+'" stroke="#fff" stroke-width="1"/></svg>';
+          var r=document.createElement('div');
+          r.style.cssText='position:absolute;width:18px;height:18px;border-radius:50%;border:1.5px solid '+color+';opacity:0;pointer-events:none;z-index:24;';
+          eng.stageEl.appendChild(c);
+          eng.stageEl.appendChild(r);
+          mCursors.push({el:c,rpl:r,color:color});
+        });
+      }
+      function placeMCursor(idx,x,y){
+        var c=mCursors[idx];
+        if(!c)return;
+        c.el.style.transition='none';
+        c.el.style.left=x+'px';c.el.style.top=y+'px';c.el.style.opacity='1';
+        void c.el.offsetWidth;
+        c.el.style.transition='top 650ms cubic-bezier(0.65,0,0.35,1),left 650ms cubic-bezier(0.65,0,0.35,1)';
+      }
+      function moveMCursor(idx,x,y){
+        var c=mCursors[idx];
+        if(!c)return;
+        c.el.style.left=x+'px';c.el.style.top=y+'px';
+      }
+      function rippleMCursor(idx,x,y){
+        var c=mCursors[idx];
+        if(!c)return;
+        c.rpl.style.left=(x-9)+'px';c.rpl.style.top=(y-9)+'px';c.rpl.style.opacity='1';
+        c.rpl.style.animation='none';void c.rpl.offsetWidth;c.rpl.style.animation='demoRip 480ms ease-out';
+      }
+      function mCursorTargetXY(targetEl){
+        var sRect=eng.stageEl.getBoundingClientRect();
+        var tRect=targetEl.getBoundingClientRect();
+        return {x:tRect.left-sRect.left+tRect.width/2, y:tRect.top-sRect.top+tRect.height/2};
+      }
+      function hideMCursors(){
+        mCursors.forEach(function(c){c.el.style.opacity='0';c.rpl.style.opacity='0';});
+      }
+
+      // Bar growth with forced-reflow reset so the "grow" replays every loop.
+      function growBar(el,px,delay){
         setTimeout(function(){
-          eng.showSlide('intro');
-          var introEl=document.getElementById('demo-stage-ey-intro');
-          eng.typeText(introEl,'A user intends to acquire a software license.',{speed:32,hold:1500},function(){
-            eng.showSlide('mkt');
+          if(!el)return;
+          el.style.transition='none';
+          el.style.height='0px';
+          void el.offsetWidth;
+          el.style.transition='height 800ms cubic-bezier(0.16,1,0.3,1)';
+          el.style.height=px+'px';
+        },delay);
+      }
+
+      function buildPathRows(){
+        var host=document.getElementById('ey-pathrows');
+        if(!host)return;
+        var DATA=[{l:'Left the app',p:41},{l:'Retried the field',p:29},{l:'Asked for help',p:18}];
+        host.innerHTML=DATA.map(function(d,i){
+          return '<div style="display:flex;align-items:center;gap:8px;">'+
+            '<span style="font-size:9px;color:var(--dg-text-muted);width:112px;flex-shrink:0;">'+d.l+'</span>'+
+            '<div style="flex:1;height:14px;background:var(--dg-input-muted);border-radius:4px;overflow:hidden;"><div id="ey-pb'+i+'" style="height:100%;width:0%;background:#7856FF;border-radius:4px;transition:width 700ms cubic-bezier(0.16,1,0.3,1);"></div></div>'+
+            '<span style="font-size:9px;color:var(--dg-text);width:26px;">'+d.p+'%</span>'+
+          '</div>';
+        }).join('');
+      }
+      function growPaths(){
+        [41,29,18].forEach(function(p,i){
+          setTimeout(function(){
+            var el=document.getElementById('ey-pb'+i);
+            if(el)el.style.width=p+'%';
+          },i*250);
+        });
+      }
+
+      function buildTableRows(){
+        var host=document.getElementById('ey-tblrows');
+        if(!host)return;
+        var ROWS=[
+          {u:'user_2291',p:'storage_tier'},
+          {u:'user_8834',p:'retention'},
+          {u:'user_1027',p:'storage_tier'}
+        ];
+        host.innerHTML=ROWS.map(function(r,i){
+          return '<tr class="demo-bounce" style="animation-delay:'+(i*250)+'ms;"><td style="padding:4px 6px;color:var(--dg-text);">'+r.u+'</td><td style="padding:4px 6px;color:var(--dg-text);">'+r.p+'</td><td style="padding:4px 6px;color:var(--dg-danger);font-weight:600;">unclear</td></tr>';
+        }).join('');
+      }
+
+      function fillColumn(hostId,items){
+        var host=document.getElementById(hostId);
+        if(!host)return;
+        host.innerHTML=items.map(function(it,i){
+          var color=it.neg?'var(--dg-danger)':'var(--dg-text)';
+          return '<div class="demo-bounce" style="animation-delay:'+(i*450)+'ms;font-size:8.5px;color:'+color+';background:var(--dg-input-muted);padding:4px 6px;border-radius:5px;">'+it.t+'</div>';
+        }).join('');
+      }
+      var FEATURES=[{t:'Storage plans'},{t:'Team sharing'},{t:'Auto backup'}];
+      var PAGES=[{t:'/plans'},{t:'/checkout'},{t:'/settings'}];
+      var EVENTS=[{t:'plan_selected'},{t:'field_focus'},{t:'form_submit'}];
+      var FEEDBACK=[{t:'"Great support!"'},{t:'"Confusing pricing"',neg:true},{t:'"Long load times"',neg:true}];
+
+      var replayTimerSec=0, replayTimerIv=null;
+      function startReplayTimer(){
+        replayTimerSec=0;
+        var el=document.getElementById('ey-timer');
+        if(replayTimerIv)clearInterval(replayTimerIv);
+        replayTimerIv=setInterval(function(){
+          replayTimerSec++;
+          var m=Math.floor(replayTimerSec/60), s=replayTimerSec%60;
+          if(el)el.textContent=m+':'+(s<10?'0':'')+s;
+        },400);
+      }
+      function stopReplayTimer(){
+        if(replayTimerIv){clearInterval(replayTimerIv);replayTimerIv=null;}
+      }
+      function bounceIn(el){
+        if(!el)return;
+        el.classList.remove('demo-bounce');
+        void el.offsetWidth;
+        el.classList.add('demo-bounce');
+      }
+
+      /* ── Sequence — chains all 10 beats, loops back to title ── */
+      function step(){
+        eng.showSlide('title');
+        setTimeout(function(){
+          eng.showSlide('mkt');
+          ensureMCursors();
+          var target=mCursorTargetXY(document.getElementById('ey-card0'));
+          placeMCursor(0,target.x-70,-16);
+          placeMCursor(1,target.x+64,110);
+          placeMCursor(2,target.x-8,140);
+          setTimeout(function(){
+            // intermediate stop above the target
+            moveMCursor(0,target.x-14,target.y-34);
+            moveMCursor(1,target.x+18,target.y-34);
+            moveMCursor(2,target.x-2,target.y-34);
             setTimeout(function(){
-              eng.cursorTo(document.getElementById('ey-card0'),function(){
-                document.getElementById('ey-card0').style.boxShadow='0 6px 18px rgba(0,0,0,0.12)';
+              // converge on card0
+              moveMCursor(0,target.x,target.y);
+              moveMCursor(1,target.x,target.y);
+              moveMCursor(2,target.x,target.y);
+              setTimeout(function(){
+                rippleMCursor(0,target.x,target.y);
+                rippleMCursor(1,target.x,target.y);
+                rippleMCursor(2,target.x,target.y);
+                document.getElementById('ey-card0').style.boxShadow='0 6px 18px var(--dg-card-shadow)';
                 setTimeout(function(){
-                  eng.showSlide('detail');
-                  eng.cursorTo(document.getElementById('ey-buy-btn'),function(){
+                  hideMCursors();
+                  eng.showSlide('form');
+                  ensureMCursors();
+                  var f0=document.getElementById('ey-fld0'), f1=document.getElementById('ey-fld1'), f2=document.getElementById('ey-fld2');
+                  var wordEl=document.getElementById('ey-diagword');
+                  var fields=[f0,f1,f2];
+                  var words=['Drop-off.','Confusion.','Unclear instructions.'];
+                  fields.forEach(function(fieldEl,fi){
                     setTimeout(function(){
-                      eng.showSlide('config');
-                      setTimeout(function(){
-                        eng.cursorTo(document.getElementById('ey-extra'),function(){
-                          eng.zoomTo('config',document.getElementById('ey-price'),1.5,function(){
-                            document.getElementById('ey-extra').style.background='#fdeceb';
-                            document.getElementById('ey-extra').style.color='#d9534f';
-                            document.getElementById('ey-price').textContent='$68/mo';
-                            eng.shake(document.getElementById('ey-extra'));
-                            eng.glow(document.getElementById('ey-extra'));
-                            eng.circleAnnotate(document.getElementById('ey-circle'));
-                            setTimeout(function(){
-                              document.getElementById('ey-qmark').style.opacity='1';
-                              document.getElementById('ey-qmark').style.transform='scale(1) rotate(0deg)';
-                            },300);
-                            setTimeout(function(){
-                              eng.zoomOut('config',function(){
-                                eng.showSlide('friction');
-                                var frEl=document.getElementById('demo-stage-ey-friction');
-                                eng.revealBounce(frEl,'<div class="demo-bounce" style="font-size:18px;font-weight:600;color:#222;text-align:center;line-height:1.5;">The marketplace explains a lot &mdash; docs, FAQ, support. <span style="color:#d9534f;">Never why the price just moved.</span></div>');
-                                setTimeout(function(){
-                                  eng.showSlide('drop');
-                                  setTimeout(function(){
-                                    eng.showSlide('found');
-                                    var foundEl=document.getElementById('demo-stage-ey-found');
-                                    eng.revealBounce(foundEl,'<div class="demo-bounce" style="font-size:18px;font-weight:600;color:#222;text-align:center;line-height:1.5;">This shows up as a <span style="color:#d9534f;">drop-off</span> in the funnel &mdash; found through session replay.</div>');
-                                    setTimeout(function(){
-                                      eng.showSlide('tools');
-                                      var toolsEl=document.getElementById('demo-stage-ey-tools');
-                                      eng.revealBounce(toolsEl,'<div class="demo-bounce" style="font-size:16px;font-weight:500;color:#666;text-align:center;line-height:1.6;">Behavior Analytics &amp; Usage &mdash; Pendo, Mixpanel, Google Analytics, whatever the team already has.</div>');
-                                      setTimeout(function(){
-                                        document.getElementById('ey-card0').style.boxShadow='0 2px 8px rgba(0,0,0,0.05)';
-                                        document.getElementById('ey-extra').style.background='#f5f4f0';
-                                        document.getElementById('ey-extra').style.color='#666';
-                                        eng.unglow(document.getElementById('ey-extra'));
-                                        eng.clearAnnotate(document.getElementById('ey-circle'));
-                                        document.getElementById('ey-qmark').style.opacity='0';
-                                        document.getElementById('ey-qmark').style.transform='scale(0.3) rotate(-15deg)';
-                                        document.getElementById('ey-price').textContent='$40/mo';
-                                        step();
-                                      },2200);
-                                    },2000);
-                                  },1900);
-                                },1900);
-                              });
-                            },1500);
-                          });
-                        });
-                      },600);
-                    },900);
+                      var t=mCursorTargetXY(fieldEl);
+                      moveMCursor(0,t.x-40,t.y);
+                      moveMCursor(1,t.x,t.y);
+                      moveMCursor(2,t.x+40,t.y);
+                      [0,1,2].forEach(function(ci){var c=mCursors[ci];if(c)c.el.style.opacity='1';});
+                      wordEl.textContent=words[fi];
+                      wordEl.style.color=fi===0?'var(--dg-text)':'var(--dg-danger)';
+                    },fi*750);
                   });
-                },500);
-              });
-            },900);
-          });
-        },1600);
+                  setTimeout(function(){
+                    hideMCursors();
+                    eng.showSlide('picture');
+                    fillColumn('ey-col-feat',FEATURES);
+                    setTimeout(function(){fillColumn('ey-col-pages',PAGES);},600);
+                    setTimeout(function(){fillColumn('ey-col-events',EVENTS);},1200);
+                    setTimeout(function(){fillColumn('ey-col-fb',FEEDBACK);},1800);
+                    setTimeout(function(){
+                      var lf=document.getElementById('ey-lookfor');
+                      if(lf)lf.style.opacity='1';
+                    },1800+3*450+300);
+                    setTimeout(function(){
+                      eng.showSlide('funnel');
+                      growBar(document.getElementById('ey-fb0'),70,0);
+                      growBar(document.getElementById('ey-fb1'),44,400);
+                      growBar(document.getElementById('ey-fb2'),9,800);
+                      setTimeout(function(){
+                        eng.typeText(document.getElementById('ey-narr0'),'Every step loses people. By the last one, only 12% remain.',{speed:32,hold:1600},function(){
+                          eng.showSlide('paths');
+                          buildPathRows();
+                          setTimeout(growPaths,150);
+                          setTimeout(function(){
+                            eng.typeText(document.getElementById('ey-narr1'),'Most who drop off leave for good — a few retry.',{speed:32,hold:1600},function(){
+                              eng.showSlide('table');
+                              buildTableRows();
+                              setTimeout(function(){
+                                eng.typeText(document.getElementById('ey-narr2'),'Same property, same confusion, across every user.',{speed:32,hold:1600},function(){
+                                  eng.showSlide('feedback');
+                                  var fbi0=document.getElementById('ey-fbi0'), fbi1=document.getElementById('ey-fbi1');
+                                  if(fbi0){fbi0.style.transition='opacity 500ms ease';fbi0.style.opacity='1';}
+                                  setTimeout(function(){
+                                    if(fbi1){fbi1.style.transition='opacity 500ms ease';fbi1.style.opacity='1';}
+                                  },300);
+                                  setTimeout(function(){
+                                    eng.typeText(document.getElementById('ey-narr3'),'And they told us so — low scores, before we even asked.',{speed:32,hold:1600},function(){
+                                      eng.showSlide('replay');
+                                      startReplayTimer();
+                                      var cur=document.getElementById('ey-replaycur');
+                                      if(cur){cur.style.top='20px';cur.style.left='20px';}
+                                      setTimeout(function(){if(cur){cur.style.top='38px';cur.style.left='140px';}},500);
+                                      setTimeout(function(){if(cur){cur.style.top='14px';cur.style.left='220px';}},1300);
+                                      setTimeout(function(){
+                                        eng.typeText(document.getElementById('ey-narr4'),'Watch exactly where they hesitate.',{speed:32,hold:1800},function(){
+                                          stopReplayTimer();
+                                          eng.showSlide('objective');
+                                          bounceIn(document.getElementById('demo-stage-ey-objective').querySelector('*')||document.getElementById('demo-stage-ey-objective'));
+                                          setTimeout(function(){
+                                            document.getElementById('ey-card0').style.boxShadow='';
+                                            [0,1,2].forEach(function(fi){
+                                              var fld=document.getElementById('ey-fld'+fi);
+                                              // fields keep their base styling; nothing to reset visually
+                                            });
+                                            wordEl.textContent=' ';
+                                            wordEl.style.color='var(--dg-text)';
+                                            document.getElementById('ey-lookfor').style.opacity='0';
+                                            document.getElementById('ey-fbi0').style.opacity='0';
+                                            document.getElementById('ey-fbi1').style.opacity='0';
+                                            step();
+                                          },2400);
+                                        });
+                                      },1900);
+                                    });
+                                  },900);
+                                });
+                              },600);
+                            });
+                          },1400);
+                        });
+                      },1900);
+                    },1800+3*450+900);
+                  },2600);
+                },700);
+              },650);
+            },550);
+          },500);
+        },1900);
       }
       step();
     })();
