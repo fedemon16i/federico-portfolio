@@ -111,3 +111,66 @@ work" step-row concept) — approved direction, build in this order:
   built yet for any of them.
 
 ---
+
+## 2026-07 — narrative SUPERSEDED: 5-stage plan → seven-beat film
+
+> Read `CLAUDE_CONTEXT.md` (repo root) as the single source of truth for
+> the narrative direction. The 5-stage architecture documented in the
+> section above (**Diagnose → Research → Design → Launch → [Hub]**) is
+> kept for history but is **no longer the approved plan** — do not build
+> new work against it. The section above is left intact per the
+> "always update, never delete" principle, NOT because it is current.
+
+### What changed
+The single-scene "Diagnose" stage was implemented in `new.html` (commit
+`8f12c9f`) using the existing DemoEngine, with full light/dark support via
+`prefers-color-scheme` (dark = lighter gray `#333`, never pure black).
+After that, the overall "How I work" story was reworked from the
+five-*stage* framing into a **seven-*beat* cinematic sequence**, told like
+a product-release film with each beat handing evidence to the next.
+
+### The seven beats (current, approved — full detail in CLAUDE_CONTEXT §4)
+1. **Watch where it breaks** — flow (`/plans → tier selector → /checkout
+   → submit`) shown TOGETHER with a shrinking funnel. Pendo, GA4, Mixpanel.
+2. **Zoom into who struggled** — worst funnel bar resolves into named
+   users (`user_2291`, `user_8834`, `user_1027`), each a carried color.
+   Pendo, Qualtrics.
+3. **Reach them. Hear them.** — research artifact cards (interview,
+   survey, usability test). Zoom, Maze, Qualtrics, Claude.
+4. **Design what they needed** — wireframe → hi-fi → prototype in
+   sequence. Figma, Claude.
+5. **Watch them use it** (Test, reframed as a session recording) — REC
+   dot, running timer, cursor in a mini screen, hesitation/retry markers.
+   Maze, Claude.
+6. **Ship it myself** (Deploy) — terminal sequence (`git push → building…
+   → deployed ✓`) then a live URL badge. Replit, Factory.ai, GitHub, Claude.
+7. **The hub never sleeps** — live dashboard tiles fill in, an alarm fires
+   ("new drop-off detected") with a "↻ back to step one" loop-back cue.
+   The hub is the ENGINE of the loop, not a concluding step. Factory.ai,
+   Claude Cowork/Code/Design, Replit, GitHub. Referred to simply as
+   **The Hub** (names "Governance Hub" / "Behavior Analytics Hub" rejected).
+
+**Hero line**: "I don't wait for a process. I build the whole loop."
+
+### Mapping old → new (so nothing is lost in translation)
+- Old **Diagnose** ≈ new beats 1–2 (funnel + zoom to named users). The
+  currently-live single "Diagnose" scene in `new.html` is the closest
+  existing implementation and is the raw material to expand from.
+- Old **Research** ≈ new beat 3.
+- Old **Design** ≈ new beat 4.
+- Old **Launch** ≈ new beat 6 ("Ship it myself").
+- New beat 5 ("Watch them use it" / Test) is NEW — it did not have a
+  dedicated stage in the old 5-stage plan.
+- Old **stage 5 (name pending)** ≈ new beat 7 (**The Hub**) — the naming
+  question is now resolved by simply not needing a fixed noun ("The Hub").
+
+### Pending / not yet built (supersedes the list above)
+- The seven-beat "How I work" sequence is APPROVED but **only the
+  Diagnose scene is live** — the remaining beats are not yet implemented
+  in `new.html`. This is the next concrete build task.
+- Per-project DemoEngine scenes (Chek, DollarCity, Blockchain, Aduanas,
+  Forecast) — still none built.
+- Challenge mode redesign (visitor describes their own problem, sees it
+  walked through the same seven-beat process) — proposed, not built.
+
+---
