@@ -1,252 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customs / Aduanas ES — Federico Monroy</title>
-  <link rel="stylesheet" href="../assets/shared.css" />
-  <script src="../js/theme.js"></script>
-  <style>
-    :root {
-      --accent: var(--accent-customs);
-      --accent-dim: rgba(224,92,74,0.12);
-      --project-glow: rgba(224,92,74,0.08);
-    }
-    [data-theme="light"] { --accent: #8f2d1e; --accent-dim: rgba(143,45,30,0.12); }
-    @media (prefers-color-scheme: light) {
-      :root:not([data-theme]) { --accent: #8f2d1e; --accent-dim: rgba(143,45,30,0.12); }
-    }
-    #progress-bar {
-      position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customs El Salvador — Federico Monroy</title>
+<meta name="description" content="Five analog customs processes digitized into an MVP that earned the trust — and the budget — to become a $500K full-scale transformation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c1420; --bg-surface:#111c2c; --bg-raised:#162438;
+    --text-primary:#eef3fa; --text-secondary:#a9b8cc; --text-tertiary:#8fa0b8;
+    --border:rgba(59,120,201,0.2); --border-soft:rgba(255,255,255,0.06);
+    --accent:#5091db; --accent-dim:rgba(80,145,219,0.13); --on-accent:#04121f;
+    --font-display:'Space Grotesk',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+    --ease:cubic-bezier(.65,0,.35,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  html,body{background:var(--bg);color:var(--text-primary);font-family:var(--font-body);font-size:16px;line-height:1.65;}
+  a{color:inherit;} button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit;}
+  .skip-link{position:absolute;top:-48px;left:12px;z-index:100;background:var(--accent);color:var(--on-accent);padding:8px 16px;border-radius:8px;font-size:13px;transition:top 150ms ease;}
+  .skip-link:focus{top:12px;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px;}
+
+  nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav-in{display:flex;align-items:center;gap:18px;padding:14px 0;}
+  .nav-back{font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);text-decoration:none;transition:color 200ms;}
+  .nav-back:hover{color:var(--accent);}
+  .nav-name{font-family:var(--font-display);font-weight:700;font-size:15px;}
+  .nav-cv{margin-left:auto;font-family:var(--font-mono);font-size:12px;text-decoration:none;color:var(--text-secondary);border:1px solid var(--border);border-radius:100px;padding:6px 14px;transition:all 200ms;}
+  .nav-cv:hover{border-color:var(--accent);color:var(--text-primary);}
+
+  .hero{padding:64px 0 36px;position:relative;overflow:hidden;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;animation:popIn 550ms var(--spring) both;}
+  .hero-logo{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,7vw,64px);line-height:1.05;letter-spacing:-.01em;;animation:popIn 600ms var(--spring) 80ms both;}
+  .hero-tag{color:var(--text-secondary);font-size:17px;max-width:640px;margin-top:16px;animation:popIn 600ms var(--spring) 160ms both;}
+  .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;animation:popIn 600ms var(--spring) 240ms both;}
+  .hm{font-family:var(--font-mono);font-size:11.5px;color:var(--text-secondary);border:1px solid var(--border);border-radius:100px;padding:6px 14px;}
+  @keyframes popIn{0%{opacity:0;transform:translateY(16px) scale(.96)}60%{opacity:1;transform:translateY(-2px)}100%{opacity:1;transform:none}}
+
+  .stats{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0 8px;}
+  .st{flex:1;min-width:150px;background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:14px;padding:16px 18px;transition:transform 300ms var(--spring),border-color 250ms;}
+  .st:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .st-v{font-family:var(--font-mono);font-size:24px;color:var(--accent);}
+  .st-l{font-size:13px;color:var(--text-secondary);margin-top:3px;line-height:1.4;}
+
+  .scene-sec{padding:44px 0 8px;}
+  .scene{position:relative;height:250px;background:var(--bg-surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+  .scene-cap{font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);text-align:center;margin-top:10px;}
+  .cu-doc{position:absolute;left:50%;top:50%;width:120px;height:150px;transform:translate(-50%,-50%);background:var(--bg-raised);border:1px solid var(--border);border-radius:10px;padding:16px 14px;}.cu-line{height:8px;border-radius:4px;background:rgba(255,255,255,.1);margin-bottom:11px;}.cu-stamp{position:absolute;right:-18px;bottom:12px;font-family:var(--font-mono);font-size:11px;color:var(--accent);border:2px solid var(--accent);font-weight:700;border-radius:8px;padding:5px 12px;animation:stamp 3.4s ease-in-out infinite;}@keyframes stamp{0%,50%{opacity:0;transform:scale(1.7) rotate(-9deg)}62%,100%{opacity:1;transform:scale(1) rotate(-9deg)}}.cu-count{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);}.cu-count b{color:var(--accent);}
+
+  section.case{padding:44px 0 0;}
+  .sec-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .sec-h{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,3vw,30px);line-height:1.25;margin-bottom:10px;}
+  .sec-p{color:var(--text-secondary);font-size:15.5px;max-width:680px;}
+  .case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px;}
+  .cc{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:16px;padding:20px;transition:transform 300ms var(--spring),border-color 250ms;}
+  .cc:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .cc-k{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .cc-t{font-family:var(--font-display);font-weight:700;font-size:16.5px;margin-bottom:8px;}
+  .cc-p{color:var(--text-secondary);font-size:14px;}
+
+  /* linear feature blocks */
+  .feat{padding:56px 0 0;}
+  .feat-in{display:grid;grid-template-columns:1fr 1.1fr;gap:44px;align-items:center;}
+  .feat.flip .feat-in{grid-template-columns:1.1fr 1fr;}
+  .feat.flip .feat-txt{order:2;} .feat.flip .feat-media{order:1;}
+  .feat-txt .sec-p{font-size:15px;}
+  .feat-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+  .feat-list li{font-size:14px;color:var(--text-secondary);padding-left:18px;position:relative;line-height:1.55;}
+  .feat-list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:12px;}
+  .feat-list li b{color:var(--text-primary);font-weight:500;}
+  .feat-media{display:flex;flex-direction:column;gap:14px;}
+  .feat-media.duo{flex-direction:row;} .feat-media.duo .fm-item{flex:1;}
+  .fm-item{border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;background:var(--bg-surface);transition:transform 300ms var(--spring),border-color 250ms;}
+  .fm-item:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .fm-item img{display:block;width:100%;height:auto;cursor:zoom-in;}
+  .fm-item.tall img{max-height:420px;object-fit:cover;object-position:top;}
+  .fm-item figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);padding:8px 12px;border-top:1px solid var(--border-soft);}
+  .fm-panel{border:1px solid var(--border-soft);border-radius:14px;background:var(--bg-surface);padding:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);display:flex;flex-direction:column;gap:9px;}
+  .fm-panel .ln{display:flex;align-items:center;gap:9px;}
+  .fm-panel .ok{color:var(--ok);} .fm-panel .ac{color:var(--accent);}
+  .fm-panel .bar{height:8px;border-radius:4px;background:var(--accent-dim);border:1px solid var(--accent);}
+  .fm-ph{border:2px dashed var(--border);border-radius:14px;min-height:260px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);text-align:center;padding:16px;}
+  .proto-btn{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font-family:var(--font-mono);font-size:12px;color:var(--on-accent);background:var(--accent);font-weight:500;border-radius:100px;padding:10px 20px;text-decoration:none;transition:transform 250ms var(--spring);}
+  .proto-btn:hover{transform:translateY(-2px) scale(1.03);}
+  .proto-btn svg{width:13px;height:13px;fill:var(--on-accent);}
+  @media (max-width:760px){.feat-in,.feat.flip .feat-in{grid-template-columns:1fr;gap:20px;}.feat.flip .feat-txt{order:1}.feat.flip .feat-media{order:2}.feat-media.duo{flex-direction:column;}}
+
+  /* mini design system */
+  .minids{padding:52px 0 0;}
+  .ds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:22px;}
+  .ds{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;}
+  .ds-h{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);}
+  .sw-row{display:flex;gap:9px;flex-wrap:wrap;}
+  .sw{display:flex;flex-direction:column;gap:5px;align-items:center;}
+  .sw i{width:32px;height:32px;border-radius:9px;border:1px solid var(--border);display:block;}
+  .sw small{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);}
+  .type-s{display:flex;flex-direction:column;gap:8px;}
+  .type-s .t1{font-family:var(--font-display);font-weight:700;font-size:22px;}
+  .type-s .t2{font-size:14px;color:var(--text-secondary);}
+  .type-s .t3{font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);}
+  .type-s small{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);}
+  .comp-s{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+  .comp-btn{font-family:var(--font-mono);font-size:12px;background:var(--accent);color:var(--on-accent);font-weight:500;border-radius:9px;padding:8px 18px;}
+  .comp-tag{font-family:var(--font-mono);font-size:11px;color:var(--accent);background:var(--accent-dim);border:1px solid var(--accent);border-radius:100px;padding:4px 12px;}
+  .comp-stat{font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);background:var(--bg-raised);border:1px solid var(--border);border-radius:9px;padding:8px 14px;}
+  .comp-stat b{color:var(--accent);font-weight:500;}
+  .sp-row{display:flex;align-items:flex-end;gap:10px;}
+  .sp{background:var(--accent-dim);border:1px solid var(--accent);border-radius:5px;}
+  .sp small{display:block;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);text-align:center;margin-top:4px;}
+  .rad-row{display:flex;gap:10px;}
+  .rad{width:34px;height:34px;background:var(--bg-raised);border:1px solid var(--border);}
+
+  .gal{padding:52px 0 0;}
+  .gal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px;}
+  .gal-grid.phones{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
+  .gi{position:relative;border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;background:var(--bg-surface);cursor:zoom-in;padding:0;transition:transform 300ms var(--spring),border-color 250ms;}
+  .gi:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .gi img{display:block;width:100%;height:230px;object-fit:cover;object-position:top;}
+  .gal-grid.phones .gi img{height:300px;}
+  .gi figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);padding:8px 12px;border-top:1px solid var(--border-soft);}
+  #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:200;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+  #lightbox.on{display:flex;}
+  #lightbox img{max-width:92vw;max-height:92vh;border-radius:10px;object-fit:contain;}
+  .proto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px;}
+  .pr{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:16px;overflow:hidden;transition:transform 300ms var(--spring),border-color 250ms;}
+  .pr:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .pr-img{position:relative;height:200px;}
+  .pr-img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .pr-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;transition:transform 250ms var(--spring);}
+  .pr:hover .pr-play{transform:translate(-50%,-50%) scale(1.12);}
+  .pr-play svg{width:16px;height:16px;fill:var(--on-accent);margin-left:2px;}
+  .pr-b{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .pr-t{font-family:var(--font-display);font-weight:700;font-size:14.5px;}
+  .pr-b a{font-family:var(--font-mono);font-size:11.5px;color:var(--accent);text-decoration:none;white-space:nowrap;}
+  .pr-b a:hover{text-decoration:underline;}
+  .pn{display:flex;justify-content:space-between;gap:12px;margin:64px 0 0;border-top:1px solid var(--border);padding-top:26px;}
+  .pn a{display:flex;flex-direction:column;gap:3px;text-decoration:none;font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);transition:color 200ms;}
+  .pn a:hover{color:var(--accent);}
+  .pn a b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);}
+  .pn a:hover b{color:var(--accent);}
+  .pn .next{text-align:right;align-items:flex-end;}
+  footer{padding:34px 0 40px;font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+  @media (max-width:720px){
+    .hero{padding-top:44px;}
+    .scene{height:210px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;}
+  }
+</style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <div id="progress-bar" role="progressbar" aria-label="Page reading progress" aria-valuemin="0" aria-valuemax="100"></div>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav><div class="wrap nav-in">
+  <a class="nav-back" href="../index.html">← Home</a>
+  <span class="nav-name">Customs El Salvador</span>
+  <a class="nav-cv" href="../resume.html">Resume ↗</a>
+</div></nav>
 
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="../index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
-      <div class="nav-links" role="menubar">
-        <a href="../index.html" class="nav-link">Home</a>
-        <div class="nav-dropdown">
-          <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
-            Projects
-            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
-            <div class="nav-dropdown-group">
-              <div class="nav-dropdown-group-label">Relevant / Professional</div>
-              <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
-              <a class="nav-dropdown-item" href="blockchain.html" role="menuitem">Blockchain</a>
-              <a class="nav-dropdown-item" href="customs.html" role="menuitem">Customs / Aduanas ES</a>
-              <a class="nav-dropdown-item" href="chek.html" role="menuitem">Chek</a>
-              <a class="nav-dropdown-item" href="dollarcity.html" role="menuitem">DollarCity</a>
-              <a class="nav-dropdown-item" href="forecast.html" role="menuitem">Forecast</a>
-            </div>
-            <div class="nav-dropdown-group">
-              <div class="nav-dropdown-group-label">Personal / Independent</div>
-              <a class="nav-dropdown-item" href="industrial-design-thesis.html" role="menuitem">Industrial Design Thesis</a>
-              <a class="nav-dropdown-item" href="depure.html" role="menuitem">Depure</a>
-              <a class="nav-dropdown-item" href="layer-ey.html" role="menuitem">LayerEY</a>
-            </div>
-          </div>
-        </div>
-        <a href="../resume.html" class="nav-link">Resume</a>
-        <a href="../about.html" class="nav-link">About</a>
-        <a href="../contact.html" class="nav-link">Contact</a>
+<main id="main">
+<header class="hero"><div class="wrap">
+  <p class="hero-eyebrow">Case study · Applaudo Studios · Gobierno de El Salvador</p>
+  <h1 class="hero-logo">Customs <span style='color:var(--accent)'>ES</span></h1>
+  <p class="hero-tag">Five analog customs processes digitized into an MVP that earned the trust — and the budget — to become a $500K full-scale transformation.</p>
+  <div class="hero-meta"><span class='hm'>Gobierno de El Salvador</span><span class='hm'>Dirección General de Aduanas</span><span class='hm'>PrimeNG design system</span><span class='hm'>5 designers led</span><span class='hm'>Figma</span></div>
+</div></header>
+
+<div class="wrap"><div class="stats"><div class='st'><div class='st-v'>$500K</div><div class='st-l'>full-scale project secured by the MVP</div></div><div class='st'><div class='st-v'>5</div><div class='st-l'>analog processes digitized</div></div><div class='st'><div class='st-v'>5</div><div class='st-l'>designers managed to dev-ready prototypes</div></div></div></div>
+
+<section class="scene-sec" aria-label="Animated summary"><div class="wrap">
+  <div class="scene" aria-hidden="true"><div class='cu-doc'><div class='cu-line' style='width:74%'></div><div class='cu-line' style='width:92%'></div><div class='cu-line' style='width:58%'></div><div class='cu-line' style='width:84%'></div><span class='cu-stamp'>DIGITAL ✓</span></div><span class='cu-count'><b>5</b> processes · analog → digital</span></div>
+  <p class="scene-cap">Paper in, digital out — five times over, until the client wanted the whole thing</p>
+</div></section>
+
+<section class="case"><div class="wrap">
+  <p class="sec-eyebrow">The case</p>
+  <h2 class="sec-h">An MVP that bought its own budget.</h2>
+  <p class="sec-p">The General Directorate of Customs of El Salvador ran on paper. The bet: digitize five processes well enough that the full transformation funds itself.</p>
+</div></section>
+
+<section class='feat'><div class='wrap feat-in'><div class='feat-txt'><p class='sec-eyebrow'>01 · The MVP</p><h2 class='sec-h'>Five processes, digitized.</h2><p class='sec-p'>The General Directorate of Customs ran on paper. We digitized five processes well enough that the full transformation funded itself.</p><ul class='feat-list'><li><b>5 analog processes</b> → digital MVP</li><li>Client trust secured → <b>$500K</b> full-scale project</li></ul></div><div class='feat-media'><div class='fm-panel'><span class='ln ok'>✓ process 01 — digital</span><span class='ln ok'>✓ process 02 — digital</span><span class='ln ok'>✓ process 03 — digital</span><span class='ln ok'>✓ process 04 — digital</span><span class='ln ok'>✓ process 05 — digital</span></div></div></div></section><section class='feat flip'><div class='wrap feat-in'><div class='feat-txt'><p class='sec-eyebrow'>02 · The team</p><h2 class='sec-h'>Flows → dev-ready prototypes.</h2><p class='sec-p'>Managed five designers converting user flows and sitemaps into prototypes engineering could build from directly.</p><ul class='feat-list'><li><b>5 designers</b> managed</li><li>Developer-ready output, no translation layer</li></ul></div><div class='feat-media'><div class='fm-panel'><span class='ln'>user flow → sitemap → prototype</span><span class='ln ac'>5 designers · 1 pipeline</span><span class='ln ok'>✓ dev-ready</span></div></div></div></section><section class='feat'><div class='wrap feat-in'><div class='feat-txt'><p class='sec-eyebrow'>03 · The system</p><h2 class='sec-h'>PrimeNG, branded.</h2><p class='sec-p'>Directed PrimeNG design system adoption and customization in Figma — brand guidelines applied across every screen.</p><ul class='feat-list'><li><b>PrimeNG</b> adopted + customized with a UI team</li><li>Brand consistency across all screens</li></ul></div><div class='feat-media'><div class='fm-panel'><span class='ln ac'>■ tokens</span><span class='ln ac'>■ components</span><span class='ln ac'>■ brand layer</span><span class='ln ok'>✓ every screen, one system</span></div></div></div></section>
+
+<section class="minids" aria-labelledby="ds-h"><div class="wrap">
+  <p class="sec-eyebrow">Mini design system</p>
+  <h2 class="sec-h" id="ds-h">The system this project ran on</h2>
+  <div class="ds-grid">
+    <div class="ds"><span class="ds-h">Color tokens</span><div class="sw-row"><span class='sw'><i style='background:#5091db'></i><small>gov blue</small></span><span class='sw'><i style='background:#0c1420'></i><small>bg</small></span><span class='sw'><i style='background:#111c2c'></i><small>surface</small></span><span class='sw'><i style='background:#eef3fa'></i><small>text</small></span></div></div>
+    <div class="ds"><span class="ds-h">Typography</span><div class="type-s">
+      <span class="t1">Display 700</span><small>Space Grotesk · 22-64px</small>
+      <span class="t2">Body 400 — readable at every size.</span><small>DM Sans · 14-17px</small>
+      <span class="t3">mono · labels &amp; data</span><small>DM Mono · 10-13px</small>
+    </div></div>
+    <div class="ds"><span class="ds-h">Live components</span><div class="comp-s">
+      <span class="comp-btn">Submit declaration</span>
+      <span class="comp-tag">PrimeNG</span>
+      <span class="comp-stat"><b>$500K</b> secured</span>
+    </div></div>
+    <div class="ds"><span class="ds-h">Spacing &amp; radius</span>
+      <div class="sp-row">
+        <span><span class="sp" style="width:8px;height:8px"></span><small>8</small></span>
+        <span><span class="sp" style="width:16px;height:16px"></span><small>16</small></span>
+        <span><span class="sp" style="width:24px;height:24px"></span><small>24</small></span>
+        <span><span class="sp" style="width:40px;height:40px"></span><small>40</small></span>
       </div>
-
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-        <!-- Sun icon (shown in dark mode) -->
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <!-- Moon icon (shown in light mode) -->
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-
-      <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
-      <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close navigation menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Navigation</div>
-        <a href="../index.html">Home</a>
-        <a href="../resume.html">Resume</a>
-        <a href="../about.html">About</a>
-        <a href="../contact.html">Contact</a>
-      </div>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Projects</div>
-        <a href="ey-fabric.html">EY Fabric</a>
-        <a href="blockchain.html">Blockchain</a>
-        <a href="customs.html">Customs ES</a>
-        <a href="chek.html">Chek</a>
-        <a href="dollarcity.html">DollarCity</a>
-        <a href="forecast.html">Forecast</a>
-        <a href="industrial-design-thesis.html">ID Thesis</a>
-        <a href="depure.html">Depure</a>
-        <a href="layer-ey.html">LayerEY</a>
+      <div class="rad-row">
+        <span class="rad" style="border-radius:8px"></span>
+        <span class="rad" style="border-radius:14px"></span>
+        <span class="rad" style="border-radius:100px"></span>
       </div>
     </div>
-  </nav>
+  </div>
+</div></section>
 
-  <main id="main">
-    <header class="project-hero" aria-labelledby="project-title">
-      <div class="container">
-        <nav class="project-breadcrumb" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a>
-          <span class="project-breadcrumb-sep" aria-hidden="true">›</span>
-          <span>Customs / Aduanas ES</span>
-        </nav>
-        <div class="project-meta-row" data-anim>
-          <span class="project-role-badge">Lead Product Designer</span>
-          <span class="project-timeline">2021–2023 · Applaudo Studios</span>
-        </div>
-        <div class="section-eyebrow" data-anim>GovTech · Digital Transformation</div>
-        <h1 class="project-title" id="project-title" data-anim data-anim-delay="1">Customs<br><em>Aduanas ES</em></h1>
-        <p class="project-hook-text" data-anim data-anim-delay="2">Digitized 5 analog customs processes into a working MVP for El Salvador's General Directorate of Customs — earning client trust to expand into a $500K full-scale project.</p>
-        <div class="tags" data-anim data-anim-delay="3">
-          <span class="tag tag-accent">GovTech</span>
-          <span class="tag tag-accent">MVP</span>
-          <span class="tag">Design Systems</span>
-          <span class="tag">Team Leadership</span>
-          <span class="tag">PrimeNG</span>
-          <span class="tag">Figma</span>
-        </div>
-        <div class="project-stat-row" data-anim data-anim-delay="4">
-          <div class="project-stat">
-            <div class="project-stat-value">5</div>
-            <div class="project-stat-label">Analog processes digitized</div>
-          </div>
-          <div class="project-stat">
-            <div class="project-stat-value">$500K</div>
-            <div class="project-stat-label">Project scope expansion</div>
-          </div>
-          <div class="project-stat">
-            <div class="project-stat-value">5</div>
-            <div class="project-stat-label">Designers managed</div>
-          </div>
-          <div class="project-stat">
-            <div class="project-stat-value">MVP</div>
-            <div class="project-stat-label">Delivered on time</div>
-          </div>
-        </div>
-      </div>
-    </header>
+<div class="wrap">
+  <div class="pn">
+    <a href="blockchain.html"><span>← previous</span><b>Blockchains Inc.</b></a>
+    <a class="next" href="forecast.html"><span>next →</span><b>Forecast</b></a>
+  </div>
+  <footer><span>© 2026 Federico Monroy</span><span>HTML · CSS · JS · no frameworks</span></footer>
+</div>
+</main>
+<div class="wrap">
+  <div class="pn-dup"></div>
+</div>
 
-    <div class="project-content">
-      <div class="container" style="max-width:900px;">
-
-        <div class="project-section" data-anim>
-          <div class="project-section-label">What I Owned</div>
-          <h2 class="project-section-title">Scope of ownership</h2>
-          <div class="project-owned-list">
-            <div class="project-owned-item">Led a team of 5 designers to convert user flows and sitemaps into developer-ready prototypes</div>
-            <div class="project-owned-item">Digitized 5 analog customs processes into a coherent MVP, securing client confidence for full-scale expansion</div>
-            <div class="project-owned-item">Directed PrimeNG design system adoption and customization in Figma with the UI team, applying brand guidelines consistently across all screens</div>
-            <div class="project-owned-item">Managed cross-functional stakeholder communication between design, development, and government client representatives</div>
-            <div class="project-owned-item">Defined the sitemap, user flows, and information architecture for the entire digital transformation scope</div>
-          </div>
-        </div>
-
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Approach</div>
-          <h2 class="project-section-title">How I worked</h2>
-          <div class="approach-steps">
-            <div class="approach-step">
-              <div class="approach-step-number">01 — Discovery</div>
-              <h3 class="approach-step-title">Map every analog process</h3>
-              <p class="approach-step-desc">Shadowed customs officers and interviewed staff to understand the full scope of 5 analog processes before designing anything.</p>
-            </div>
-            <div class="approach-step">
-              <div class="approach-step-number">02 — System Setup</div>
-              <h3 class="approach-step-title">PrimeNG DS adoption</h3>
-              <p class="approach-step-desc">Directed the design system setup in Figma using PrimeNG, ensuring every component mapped directly to the Angular front-end library the dev team used.</p>
-            </div>
-            <div class="approach-step">
-              <div class="approach-step-number">03 — Build & Handoff</div>
-              <h3 class="approach-step-title">Developer-ready delivery</h3>
-              <p class="approach-step-desc">Led 5 designers to produce full-fidelity prototypes for all 5 processes, with annotated specs and component documentation for seamless handoff.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Evidence</div>
-          <h2 class="project-section-title">Screens & Documentation</h2>
-          <p class="project-body-text" style="margin-bottom:var(--space-24);">Screens, flows, and research artifacts available under NDA upon request.</p>
-          <div class="evidence-grid">
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">📱</span>
-              <span class="evidence-placeholder-label">Screenshot Placeholder</span>
-            </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">🗺️</span>
-              <span class="evidence-placeholder-label">Flow / Journey Map</span>
-            </div>
-            <div class="evidence-placeholder">
-              <span class="evidence-placeholder-icon">🧩</span>
-              <span class="evidence-placeholder-label">Wireframe Placeholder</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-section" data-anim>
-          <div class="project-section-label">Tools Used</div>
-          <div class="tools-row">
-            <span class="tool-chip">Figma</span>
-            <span class="tool-chip">PrimeNG</span>
-            <span class="tool-chip">Miro</span>
-            <span class="tool-chip">Jira</span>
-            <span class="tool-chip">Confluence</span>
-          </div>
-        </div>
-
-        <div class="project-nav" data-anim>
-          <a href="blockchain.html" class="project-nav-card">
-            <div class="project-nav-card-label">← Previous</div>
-            <div class="project-nav-card-title">Blockchain</div>
-          </a>
-          <a href="chek.html" class="project-nav-card next">
-            <div class="project-nav-card-label">Next →</div>
-            <div class="project-nav-card-title">Chek</div>
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2025 Federico A. Monroy</p>
-        <a href="../index.html" class="btn btn-outline" style="padding:var(--space-8) var(--space-16);font-size:0.75rem;">← Back to Home</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../assets/main.js"></script>
-
+<div id="lightbox" role="dialog" aria-label="Image viewer"><img id="lightbox-img" alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'),im=document.getElementById('lightbox-img');
+  document.addEventListener('click',function(e){
+    var g=e.target.closest('[data-lb]');
+    if(g){im.src=g.getAttribute('data-lb');im.alt=g.getAttribute('alt')||'';lb.classList.add('on');document.body.style.overflow='hidden';return;}
+    if(e.target.closest('#lightbox')){lb.classList.remove('on');document.body.style.overflow='';}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.classList.remove('on');document.body.style.overflow='';}});
+})();
+</script>
 </body>
 </html>
