@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blockchains Inc. — Federico Monroy</title>
+<meta name="description" content="The challenge: amalgamating 2D design with an immersive 3D world. Mobile-first flows re-thought for desktop — plus a proposed web redesign, switchable mobile / web.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1414; --bg-surface:#111c1c; --bg-raised:#172525;
+    --text-primary:#eef7f6; --text-secondary:#a3bcba; --text-tertiary:#8ba5a3;
+    --border:rgba(34,212,200,0.18); --border-soft:rgba(255,255,255,0.06);
+    --accent:#22d4c8; --accent-dim:rgba(34,212,200,0.10); --on-accent:#03211f;
+    --font-display:'Space Grotesk',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+    --ease:cubic-bezier(.65,0,.35,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  html,body{background:var(--bg);color:var(--text-primary);font-family:var(--font-body);font-size:16px;line-height:1.65;}
+  a{color:inherit;} button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit;}
+  .skip-link{position:absolute;top:-48px;left:12px;z-index:100;background:var(--accent);color:var(--on-accent);padding:8px 16px;border-radius:8px;font-size:13px;transition:top 150ms ease;}
+  .skip-link:focus{top:12px;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px;}
+
+  nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav-in{display:flex;align-items:center;gap:18px;padding:14px 0;}
+  .nav-back{font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);text-decoration:none;transition:color 200ms;}
+  .nav-back:hover{color:var(--accent);}
+  .nav-name{font-family:var(--font-display);font-weight:700;font-size:15px;}
+  .nav-cv{margin-left:auto;font-family:var(--font-mono);font-size:12px;text-decoration:none;color:var(--text-secondary);border:1px solid var(--border);border-radius:100px;padding:6px 14px;transition:all 200ms;}
+  .nav-cv:hover{border-color:var(--accent);color:var(--text-primary);}
+
+  .hero{padding:64px 0 36px;position:relative;overflow:hidden;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;animation:popIn 550ms var(--spring) both;}
+  .hero-logo{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,7vw,64px);line-height:1.05;letter-spacing:-.01em;;animation:popIn 600ms var(--spring) 80ms both;}
+  .hero-tag{color:var(--text-secondary);font-size:17px;max-width:640px;margin-top:16px;animation:popIn 600ms var(--spring) 160ms both;}
+  .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;animation:popIn 600ms var(--spring) 240ms both;}
+  .hm{font-family:var(--font-mono);font-size:11.5px;color:var(--text-secondary);border:1px solid var(--border);border-radius:100px;padding:6px 14px;}
+  @keyframes popIn{0%{opacity:0;transform:translateY(16px) scale(.96)}60%{opacity:1;transform:translateY(-2px)}100%{opacity:1;transform:none}}
+
+  .stats{display:flex;gap:14px;flex-wrap:wrap;padding:8px 0 8px;}
+  .st{flex:1;min-width:150px;background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:14px;padding:16px 18px;transition:transform 300ms var(--spring),border-color 250ms;}
+  .st:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .st-v{font-family:var(--font-mono);font-size:24px;color:var(--accent);}
+  .st-l{font-size:13px;color:var(--text-secondary);margin-top:3px;line-height:1.4;}
+
+  .scene-sec{padding:44px 0 8px;}
+  .scene{position:relative;height:250px;background:var(--bg-surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+  .scene-cap{font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);text-align:center;margin-top:10px;}
+  @keyframes spin3d{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}.bc-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:40px;perspective:700px;}.bc-cube{width:74px;height:74px;position:relative;transform-style:preserve-3d;animation:spin3d 10s linear infinite;flex-shrink:0;}.bc-f{position:absolute;inset:0;border:1.5px solid var(--accent);background:rgba(34,212,200,.06);border-radius:8px;}.bc-frame{position:relative;border:1px solid var(--border);border-radius:14px;background:var(--bg);overflow:hidden;transition:width 500ms var(--spring),height 500ms var(--spring);}.bc-frame.mobile{width:110px;height:190px;}.bc-frame.web{width:280px;height:180px;}.bc-inner{position:absolute;inset:10px;border:1px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);text-align:center;padding:8px;}.bc-pin{position:absolute;width:12px;height:12px;border-radius:50% 50% 50% 0;background:var(--accent);transform:rotate(-45deg);animation:pindrop 4s ease-in-out infinite;}@keyframes pindrop{0%,10%{opacity:0;margin-top:-14px}22%,80%{opacity:1;margin-top:0}92%,100%{opacity:0}}.bc-tg{position:absolute;top:16px;right:16px;display:flex;gap:6px;z-index:5;}.bc-tgb{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);border:1px solid var(--border);border-radius:100px;padding:5px 14px;transition:all 250ms;}.bc-tgb.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim);}
+
+  section.case{padding:44px 0 0;}
+  .sec-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .sec-h{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,3vw,30px);line-height:1.25;margin-bottom:10px;}
+  .sec-p{color:var(--text-secondary);font-size:15.5px;max-width:680px;}
+  .case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px;}
+  .cc{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:16px;padding:20px;transition:transform 300ms var(--spring),border-color 250ms;}
+  .cc:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .cc-k{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+  .cc-t{font-family:var(--font-display);font-weight:700;font-size:16.5px;margin-bottom:8px;}
+  .cc-p{color:var(--text-secondary);font-size:14px;}
+
+  /* linear feature blocks */
+  .feat{padding:56px 0 0;}
+  .feat-in{display:grid;grid-template-columns:1fr 1.1fr;gap:44px;align-items:center;}
+  .feat.flip .feat-in{grid-template-columns:1.1fr 1fr;}
+  .feat.flip .feat-txt{order:2;} .feat.flip .feat-media{order:1;}
+  .feat-txt .sec-p{font-size:15px;}
+  .feat-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+  .feat-list li{font-size:14px;color:var(--text-secondary);padding-left:18px;position:relative;line-height:1.55;}
+  .feat-list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:12px;}
+  .feat-list li b{color:var(--text-primary);font-weight:500;}
+  .feat-media{display:flex;flex-direction:column;gap:14px;}
+  .feat-media.duo{flex-direction:row;} .feat-media.duo .fm-item{flex:1;}
+  .fm-item{border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;background:var(--bg-surface);transition:transform 300ms var(--spring),border-color 250ms;}
+  .fm-item:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .fm-item img{display:block;width:100%;height:auto;cursor:zoom-in;}
+  .fm-item.tall img{max-height:420px;object-fit:cover;object-position:top;}
+  .fm-item figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);padding:8px 12px;border-top:1px solid var(--border-soft);}
+  .fm-panel{border:1px solid var(--border-soft);border-radius:14px;background:var(--bg-surface);padding:18px;font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);display:flex;flex-direction:column;gap:9px;}
+  .fm-panel .ln{display:flex;align-items:center;gap:9px;}
+  .fm-panel .ok{color:var(--ok);} .fm-panel .ac{color:var(--accent);}
+  .fm-panel .bar{height:8px;border-radius:4px;background:var(--accent-dim);border:1px solid var(--accent);}
+  .fm-ph{border:2px dashed var(--border);border-radius:14px;min-height:260px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);text-align:center;padding:16px;}
+  .proto-btn{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font-family:var(--font-mono);font-size:12px;color:var(--on-accent);background:var(--accent);font-weight:500;border-radius:100px;padding:10px 20px;text-decoration:none;transition:transform 250ms var(--spring);}
+  .proto-btn:hover{transform:translateY(-2px) scale(1.03);}
+  .proto-btn svg{width:13px;height:13px;fill:var(--on-accent);}
+  @media (max-width:760px){.feat-in,.feat.flip .feat-in{grid-template-columns:1fr;gap:20px;}.feat.flip .feat-txt{order:1}.feat.flip .feat-media{order:2}.feat-media.duo{flex-direction:column;}}
+
+  /* mini design system */
+  .minids{padding:52px 0 0;}
+  .ds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:22px;}
+  .ds{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;}
+  .ds-h{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);}
+  .sw-row{display:flex;gap:9px;flex-wrap:wrap;}
+  .sw{display:flex;flex-direction:column;gap:5px;align-items:center;}
+  .sw i{width:32px;height:32px;border-radius:9px;border:1px solid var(--border);display:block;}
+  .sw small{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);}
+  .type-s{display:flex;flex-direction:column;gap:8px;}
+  .type-s .t1{font-family:var(--font-display);font-weight:700;font-size:22px;}
+  .type-s .t2{font-size:14px;color:var(--text-secondary);}
+  .type-s .t3{font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);}
+  .type-s small{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);}
+  .comp-s{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+  .comp-btn{font-family:var(--font-mono);font-size:12px;background:var(--accent);color:var(--on-accent);font-weight:500;border-radius:9px;padding:8px 18px;}
+  .comp-tag{font-family:var(--font-mono);font-size:11px;color:var(--accent);background:var(--accent-dim);border:1px solid var(--accent);border-radius:100px;padding:4px 12px;}
+  .comp-stat{font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);background:var(--bg-raised);border:1px solid var(--border);border-radius:9px;padding:8px 14px;}
+  .comp-stat b{color:var(--accent);font-weight:500;}
+  .sp-row{display:flex;align-items:flex-end;gap:10px;}
+  .sp{background:var(--accent-dim);border:1px solid var(--accent);border-radius:5px;}
+  .sp small{display:block;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);text-align:center;margin-top:4px;}
+  .rad-row{display:flex;gap:10px;}
+  .rad{width:34px;height:34px;background:var(--bg-raised);border:1px solid var(--border);}
+
+  .gal{padding:52px 0 0;}
+  .gal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px;}
+  .gal-grid.phones{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
+  .gi{position:relative;border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;background:var(--bg-surface);cursor:zoom-in;padding:0;transition:transform 300ms var(--spring),border-color 250ms;}
+  .gi:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .gi img{display:block;width:100%;height:230px;object-fit:cover;object-position:top;}
+  .gal-grid.phones .gi img{height:300px;}
+  .gi figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);padding:8px 12px;border-top:1px solid var(--border-soft);}
+  #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:200;display:none;align-items:center;justify-content:center;cursor:zoom-out;}
+  #lightbox.on{display:flex;}
+  #lightbox img{max-width:92vw;max-height:92vh;border-radius:10px;object-fit:contain;}
+  .proto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px;}
+  .pr{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:16px;overflow:hidden;transition:transform 300ms var(--spring),border-color 250ms;}
+  .pr:hover{transform:translateY(-3px);border-color:var(--accent);}
+  .pr-img{position:relative;height:200px;}
+  .pr-img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+  .pr-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;transition:transform 250ms var(--spring);}
+  .pr:hover .pr-play{transform:translate(-50%,-50%) scale(1.12);}
+  .pr-play svg{width:16px;height:16px;fill:var(--on-accent);margin-left:2px;}
+  .pr-b{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .pr-t{font-family:var(--font-display);font-weight:700;font-size:14.5px;}
+  .pr-b a{font-family:var(--font-mono);font-size:11.5px;color:var(--accent);text-decoration:none;white-space:nowrap;}
+  .pr-b a:hover{text-decoration:underline;}
+  .pn{display:flex;justify-content:space-between;gap:12px;margin:64px 0 0;border-top:1px solid var(--border);padding-top:26px;}
+  .pn a{display:flex;flex-direction:column;gap:3px;text-decoration:none;font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);transition:color 200ms;}
+  .pn a:hover{color:var(--accent);}
+  .pn a b{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);}
+  .pn a:hover b{color:var(--accent);}
+  .pn .next{text-align:right;align-items:flex-end;}
+  footer{padding:34px 0 40px;font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+  @media (max-width:720px){
+    .hero{padding-top:44px;}
+    .scene{height:210px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav><div class="wrap nav-in">
+  <a class="nav-back" href="../index.html">← Home</a>
+  <span class="nav-name">Blockchains Inc.</span>
+  <a class="nav-cv" href="../resume.html">Resume ↗</a>
+</div></nav>
+
+<main id="main">
+<header class="hero"><div class="wrap">
+  <p class="hero-eyebrow">Case study · Globant · 3D immersive platform</p>
+  <h1 class="hero-logo">Blockchains <span style='color:var(--accent)'>Inc.</span></h1>
+  <p class="hero-tag">The challenge: amalgamating 2D design with an immersive 3D world. Mobile-first flows re-thought for desktop — plus a proposed web redesign, switchable mobile / web.</p>
+  <div class="hero-meta"><span class='hm'>2D × 3D spatial UI</span><span class='hm'>Client-led user testing</span><span class='hm'>Figma → 3D animation tools</span></div>
+</div></header>
+
+<div class="wrap"><div class="stats"><div class='st'><div class='st-v'>2D/3D</div><div class='st-l'>map feature pioneered and validated via client-led testing</div></div><div class='st'><div class='st-v'>M→D</div><div class='st-l'>mobile-first designs translated to desktop with spatial UI best practices</div></div><div class='st'><div class='st-v'>2</div><div class='st-l'>proposed surfaces — mobile app + web redesign</div></div></div></div>
+
+<section class="scene-sec" aria-label="Animated summary"><div class="wrap">
+  <div class="scene" aria-hidden="true"><div class='bc-tg'><button class='bc-tgb on' id='tgM'>mobile</button><button class='bc-tgb' id='tgW'>web</button></div><div class='bc-wrap'><div class='bc-cube'><span class='bc-f' style='transform:translateZ(37px)'></span><span class='bc-f' style='transform:rotateY(90deg) translateZ(37px)'></span><span class='bc-f' style='transform:rotateY(180deg) translateZ(37px)'></span><span class='bc-f' style='transform:rotateY(-90deg) translateZ(37px)'></span><span class='bc-f' style='transform:rotateX(90deg) translateZ(37px)'></span><span class='bc-f' style='transform:rotateX(-90deg) translateZ(37px)'></span></div><div class='bc-frame mobile' id='bcFrame'><span class='bc-pin' style='left:44%;top:34%'></span><div class='bc-inner' id='bcInner' style='padding:0;border:none'><img id='bcShot' src='../POI%201%20-%20Map.png' alt='' style='width:100%;height:100%;object-fit:cover;border-radius:8px'></div></div></div></div>
+  <p class="scene-cap">Toggle the proposal: mobile ↔ web — drop the real screenshots into the frames when ready</p>
+</div></section>
+
+<section class="case"><div class="wrap">
+  <p class="sec-eyebrow">The case</p>
+  <h2 class="sec-h">Where 2D design meets an immersive world.</h2>
+  <p class="sec-p">A 3D blockchain platform demanded flows that felt native in space — without losing the clarity of 2D product design.</p>
+</div></section>
+
+<section class='feat'><div class='wrap feat-in'><div class='feat-txt'><p class='sec-eyebrow'>01 · The space</p><h2 class='sec-h'>A map you can own.</h2><p class='sec-p'>Every user gets a space with a 3D map at its heart. My job: make 2D product patterns feel native inside it.</p><ul class='feat-list'><li>Mobile-first designs translated to desktop</li><li>Spatial UI best practices benchmarked from immersive apps</li></ul></div><div class='feat-media duo'><figure class='fm-item tall'><img loading='lazy' data-lb='../Space%20with%20map%20(Owner).png' src='../Space%20with%20map%20(Owner).png' alt='Space with map — owner view'><figcaption>Space with map — owner view</figcaption></figure><figure class='fm-item tall'><img loading='lazy' data-lb='../POI%201%20-%20Map.png' src='../POI%201%20-%20Map.png' alt='POI on the 3D map'><figcaption>POI on the 3D map</figcaption></figure></div></div></section><section class='feat flip'><div class='wrap feat-in'><div class='feat-txt'><p class='sec-eyebrow'>02 · Feature · Set map pin</p><h2 class='sec-h'>Icon, image — or a 3D asset.</h2><p class='sec-p'>The pin system I pioneered: mark a point of interest as a flat icon, a photo, or a full 3D object from the library.</p><ul class='feat-list'><li><b>2D/3D map feature</b> validated via client-led user testing</li><li>Figma prototypes bridged with 3D animation tools</li></ul></div><div class='feat-media duo'><figure class='fm-item tall'><img loading='lazy' data-lb='../Set%20map%20pin%20-%20Options%20-%20Icon.png' src='../Set%20map%20pin%20-%20Options%20-%20Icon.png' alt='Pin options — icon'><figcaption>Pin options — icon</figcaption></figure><figure class='fm-item tall'><img loading='lazy' data-lb='../Set%20map%20pin%20-%20Select%203D%20asset%20-%20OK.png' src='../Set%20map%20pin%20-%20Select%203D%20asset%20-%20OK.png' alt='Pin as 3D asset'><figcaption>Pin as 3D asset</figcaption></figure><figure class='fm-item tall'><img loading='lazy' data-lb='../Set%20map%20pin%20-%20Select%20Pin%20icon%20-%20Change%20color.png' src='../Set%20map%20pin%20-%20Select%20Pin%20icon%20-%20Change%20color.png' alt='Pin color picker'><figcaption>Pin color picker</figcaption></figure></div></div></section><section class='feat'><div class='wrap feat-in'><div class='feat-txt'><p class='sec-eyebrow'>03 · Feature · Points of interest</p><h2 class='sec-h'>Places that carry content.</h2><p class='sec-p'>A POI is not a dot — it holds names, descriptions, tags, feeds. Creation and consumption designed as one loop.</p><ul class='feat-list'><li>POI creation form — image, actions, tags</li><li>Visitor view with content tabs and feeds</li></ul></div><div class='feat-media duo'><figure class='fm-item tall'><img loading='lazy' data-lb='../Set%20POI%20-%20Info%20form%20-%20Image%20added%20-%20Action%20added%20(single).png' src='../Set%20POI%20-%20Info%20form%20-%20Image%20added%20-%20Action%20added%20(single).png' alt='POI info form'><figcaption>POI info form</figcaption></figure><figure class='fm-item tall'><img loading='lazy' data-lb='../POI%20selected%20-%20Content%20tab%20%5BVISITOR%5D.png' src='../POI%20selected%20-%20Content%20tab%20%5BVISITOR%5D.png' alt='Visitor content tab'><figcaption>Visitor content tab</figcaption></figure></div></div></section><section class='feat flip'><div class='wrap feat-in'><div class='feat-txt'><p class='sec-eyebrow'>04 · Feature · Browse & search</p><h2 class='sec-h'>From one pin to a whole world.</h2><p class='sec-p'>Lists, search and management for spaces that grow — the 2D backbone that keeps the 3D world navigable.</p><ul class='feat-list'><li>Multiple-POI list and reordering</li><li>Place search with native map results</li></ul></div><div class='feat-media duo'><figure class='fm-item tall'><img loading='lazy' data-lb='../Map%20view%20-%20Multiple%20POI%20-%20List%20enlarged.png' src='../Map%20view%20-%20Multiple%20POI%20-%20List%20enlarged.png' alt='Multiple POI — list'><figcaption>Multiple POI — list</figcaption></figure><figure class='fm-item tall'><img loading='lazy' data-lb='../Add%20POI%20-%20Map%20view%20-%20Search.png' src='../Add%20POI%20-%20Map%20view%20-%20Search.png' alt='Add POI — search'><figcaption>Add POI — search</figcaption></figure></div></div></section>
+
+<section class="minids" aria-labelledby="ds-h"><div class="wrap">
+  <p class="sec-eyebrow">Mini design system</p>
+  <h2 class="sec-h" id="ds-h">The system this project ran on</h2>
+  <div class="ds-grid">
+    <div class="ds"><span class="ds-h">Color tokens</span><div class="sw-row"><span class='sw'><i style='background:#22d4c8'></i><small>teal</small></span><span class='sw'><i style='background:#0b1414'></i><small>bg</small></span><span class='sw'><i style='background:#111c1c'></i><small>surface</small></span><span class='sw'><i style='background:#eef7f6'></i><small>text</small></span></div></div>
+    <div class="ds"><span class="ds-h">Typography</span><div class="type-s">
+      <span class="t1">Display 700</span><small>Space Grotesk · 22-64px</small>
+      <span class="t2">Body 400 — readable at every size.</span><small>DM Sans · 14-17px</small>
+      <span class="t3">mono · labels &amp; data</span><small>DM Mono · 10-13px</small>
+    </div></div>
+    <div class="ds"><span class="ds-h">Live components</span><div class="comp-s">
+      <span class="comp-btn">Set map pin</span>
+      <span class="comp-tag">3D asset</span>
+      <span class="comp-stat"><b>2D/3D</b> validated</span>
+    </div></div>
+    <div class="ds"><span class="ds-h">Spacing &amp; radius</span>
+      <div class="sp-row">
+        <span><span class="sp" style="width:8px;height:8px"></span><small>8</small></span>
+        <span><span class="sp" style="width:16px;height:16px"></span><small>16</small></span>
+        <span><span class="sp" style="width:24px;height:24px"></span><small>24</small></span>
+        <span><span class="sp" style="width:40px;height:40px"></span><small>40</small></span>
+      </div>
+      <div class="rad-row">
+        <span class="rad" style="border-radius:8px"></span>
+        <span class="rad" style="border-radius:14px"></span>
+        <span class="rad" style="border-radius:100px"></span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<div class="wrap">
+  <div class="pn">
+    <a href="chek.html"><span>← previous</span><b>Chek — Banco Ripley</b></a>
+    <a class="next" href="customs.html"><span>next →</span><b>Customs El Salvador</b></a>
+  </div>
+  <footer><span>© 2026 Federico Monroy</span><span>HTML · CSS · JS · no frameworks</span></footer>
+</div>
+</main>
+<div class="wrap">
+  <div class="pn-dup"></div>
+</div>
+<script>(function(){var f=document.getElementById('bcFrame'),inn=document.getElementById('bcInner'),m=document.getElementById('tgM'),w=document.getElementById('tgW');function set(mode){f.className='bc-frame '+mode;if(mode==='mobile'){inn.innerHTML="<img src='../POI%201%20-%20Map.png' alt='' style='width:100%;height:100%;object-fit:cover;border-radius:8px'>";inn.style.cssText='padding:0;border:none';}else{inn.innerHTML='[ web redesign — proposal ]';inn.style.cssText='';}m.classList.toggle('on',mode==='mobile');w.classList.toggle('on',mode==='web');}m.addEventListener('click',function(){set('mobile')});w.addEventListener('click',function(){set('web')});})();</script>
+<div id="lightbox" role="dialog" aria-label="Image viewer"><img id="lightbox-img" alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lightbox'),im=document.getElementById('lightbox-img');
+  document.addEventListener('click',function(e){
+    var g=e.target.closest('[data-lb]');
+    if(g){im.src=g.getAttribute('data-lb');im.alt=g.getAttribute('alt')||'';lb.classList.add('on');document.body.style.overflow='hidden';return;}
+    if(e.target.closest('#lightbox')){lb.classList.remove('on');document.body.style.overflow='';}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.classList.remove('on');document.body.style.overflow='';}});
+})();
+</script>
+</body>
+</html>
