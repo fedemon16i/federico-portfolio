@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blockchain (3D Immersive) — Federico Monroy</title>
+  <link rel="stylesheet" href="../assets/shared.css" />
+  <script src="../js/theme.js"></script>
+  <style>
+    :root {
+      --accent: var(--accent-blockchain);
+      --accent-dim: rgba(34,212,200,0.12);
+      --project-glow: rgba(34,212,200,0.08);
+    }
+    #progress-bar {
+      position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
+    }
+  /* ── Context section ── */
+  .bc-context { padding: var(--space-48) 0 var(--space-32); border-bottom: 1px solid var(--border-subtle); }
+  .bc-ctx-row { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+  .bc-ctx-chip { display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:8px; flex:1; min-width:160px; }
+  .bc-ctx-icon { width:18px; height:18px; flex-shrink:0; stroke:var(--accent); }
+  .bc-ctx-label { font-size:0.58rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:2px; }
+  .bc-ctx-val { font-size:0.8rem; font-weight:700; color:var(--text-primary); }
+  .bc-ctx-problem { border-left:3px solid var(--accent); padding-left:16px; margin-bottom:20px; }
+  .bc-ctx-problem-quote { font-size:0.95rem; font-weight:700; color:var(--text-primary); line-height:1.5; margin-bottom:8px; font-style:italic; }
+  .bc-ctx-problem-body { font-size:0.8rem; color:var(--text-secondary); line-height:1.75; max-width:580px; }
+  .bc-ctx-owned { display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+  .bc-ctx-owned-label { font-size:0.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); padding-top:3px; white-space:nowrap; }
+  .bc-ctx-owned-items { display:flex; flex-wrap:wrap; gap:6px; }
+  .bc-ctx-owned-items span { font-size:0.72rem; padding:4px 10px; border-radius:100px; border:1px solid var(--border-default); background:var(--bg-surface); color:var(--text-secondary); }
+  /* Hero 3D overlay */
+  #bc-hero-canvas { opacity: 0; }
+  #bc-hero-canvas.bc-ready { opacity: 1; }
+  [data-theme="dark"] #bc-hero-canvas,
+  :root:not([data-theme]) #bc-hero-canvas { opacity: 0.5; filter: blur(1.5px); }
+  [data-theme="light"] #bc-hero-canvas { opacity: 0.25; filter: blur(2px); }
+  [data-theme="dark"] #bc-hero-overlay {
+    background: linear-gradient(to bottom, rgba(8,13,20,0.45) 0%, rgba(8,13,20,0.15) 40%, rgba(8,13,20,0.65) 80%, rgba(8,13,20,1) 100%);
+  }
+  [data-theme="light"] #bc-hero-overlay,
+  :root:not([data-theme]) #bc-hero-overlay {
+    background: linear-gradient(to bottom, rgba(240,237,232,0.55) 0%, rgba(240,237,232,0.25) 40%, rgba(240,237,232,0.7) 80%, rgba(240,237,232,1) 100%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) #bc-hero-canvas { opacity: 0.5; filter: blur(1.5px); }
+    :root:not([data-theme]) #bc-hero-overlay { background: linear-gradient(to bottom, rgba(8,13,20,0.45) 0%, rgba(8,13,20,0.15) 40%, rgba(8,13,20,0.65) 80%, rgba(8,13,20,1) 100%); }
+  }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div id="progress-bar" role="progressbar" aria-label="Page reading progress" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
+      <div class="nav-links" role="menubar">
+        <a href="../index.html" class="nav-link">Home</a>
+        <div class="nav-dropdown">
+          <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
+            Projects
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
+            <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric</a>
+            <a class="nav-dropdown-item" href="blockchain.html" role="menuitem">Blockchain 3D</a>
+            <a class="nav-dropdown-item" href="chek.html" role="menuitem">Chek</a>
+            <a class="nav-dropdown-item" href="dollarcity.html" role="menuitem">DollarCity</a>
+            <a class="nav-dropdown-item" href="customs.html" role="menuitem">Customs ES</a>
+            <a class="nav-dropdown-item" href="forecast.html" role="menuitem">Forecast</a>
+          </div>
+        </div>
+        <a href="../resume.html" class="nav-link">Resume</a>
+        <a href="../about.html" class="nav-link">About</a>
+        <a href="../contact.html" class="nav-link">Contact</a>
+      </div>
+
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+        <!-- Sun icon (shown in dark mode) -->
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
+      <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close navigation menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Navigation</div>
+        <a href="../index.html">Home</a>
+        <a href="../resume.html">Resume</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="nav-mobile-section">
+        <div class="nav-mobile-label">Projects</div>
+        <a href="ey-fabric.html">EY Fabric</a>
+        <a href="blockchain.html">Blockchain</a>
+        <a href="customs.html">Customs ES</a>
+        <a href="chek.html">Chek</a>
+        <a href="dollarcity.html">DollarCity</a>
+        <a href="forecast.html">Forecast</a>
+        <a href="industrial-design-thesis.html">ID Thesis</a>
+        <a href="depure.html">Depure</a>
+        <a href="layer-ey.html">LayerEY</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;min-height:auto;padding-top:calc(var(--nav-h) + 40px);padding-bottom:48px;">
+      <canvas id="bc-hero-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;transition:opacity 600ms ease;"></canvas>
+      <div id="bc-hero-overlay" style="position:absolute;inset:0;z-index:1;pointer-events:none;transition:background 500ms ease;"></div>
+      <div class="container" style="position:relative;z-index:2;max-width:1024px;">
+        <nav class="project-breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="project-breadcrumb-sep" aria-hidden="true">›</span>
+          <span>Blockchain (3D Immersive)</span>
+        </nav>
+        <div class="project-meta-row" data-anim style="margin-top:18px;">
+          <span class="project-role-badge">UX Designer</span>
+          <span class="project-timeline">Oct 2023 – Present · Globant / Blockchains Inc.</span>
+        </div>
+        <div class="section-eyebrow" data-anim>3D Startup · 2023–Present</div>
+        <h1 class="project-title" id="project-title" data-anim data-anim-delay="1" style="margin-top:14px;"><em>Blockchain</em><br>3D Immersive</h1>
+        <p class="project-hook-text" data-anim data-anim-delay="2" style="max-width:640px;">A 3D immersive map, no precedent to copy — <strong>I pioneered the spatial UI patterns</strong> and translated them from mobile to desktop, validated with real users.</p>
+        <div class="tags" data-anim data-anim-delay="3">
+          <span class="tag tag-accent">Spatial UI</span>
+          <span class="tag tag-accent">3D Design</span>
+          <span class="tag">Mobile→Desktop</span>
+        </div>
+        <div class="project-stat-row" data-anim data-anim-delay="4" style="margin-top:28px;padding-top:24px;">
+          <div class="project-stat">
+            <div class="project-stat-value">3D</div>
+            <div class="project-stat-label">Spatial UI system</div>
+          </div>
+          <div class="project-stat">
+            <div class="project-stat-value">2D/3D</div>
+            <div class="project-stat-label">Map feature pioneered</div>
+          </div>
+          <div class="project-stat">
+            <div class="project-stat-value">Validated</div>
+            <div class="project-stat-label">Via user testing</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SKILLS -->
+    <section style="max-width:1024px;margin:0 auto;padding:48px 32px 0;">
+      <p style="font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px;">Skills used in this project</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+        <div style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:14px;padding:16px;">
+          <svg width="28" height="28" viewBox="0 0 38 57" style="margin-bottom:8px;"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Figma</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.4;">Spatial UI patterns, mobile-to-desktop translation.</div>
+        </div>
+        <div style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:14px;padding:16px;">
+          <div style="width:28px;height:28px;border-radius:7px;background:#22d4c8;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#062421" stroke-width="2.2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+          </div>
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">3D / Spatial</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.4;">Built the first 2D/3D map feature for the platform.</div>
+        </div>
+        <div style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:14px;padding:16px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" style="margin-bottom:8px;"><rect width="24" height="24" rx="6" fill="#6B48FF"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">User Testing</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.4;">Client-led validation of spatial navigation patterns.</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ CONTEXT ══ -->
+    <section class="bc-context">
+      <div class="container" style="max-width:900px">
+
+        <!-- 3 context chips -->
+        <div class="bc-ctx-row">
+          <div class="bc-ctx-chip">
+            <svg class="bc-ctx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            <div><div class="bc-ctx-label">Platform</div><div class="bc-ctx-val">3D Spatial Experiences</div></div>
+          </div>
+          <div class="bc-ctx-chip">
+            <svg class="bc-ctx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <div><div class="bc-ctx-label">Users</div><div class="bc-ctx-val">Creators &amp; Visitors</div></div>
+          </div>
+          <div class="bc-ctx-chip">
+            <svg class="bc-ctx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            <div><div class="bc-ctx-label">My role</div><div class="bc-ctx-val">Lead UX · 3D spatial bridge</div></div>
+          </div>
+        </div>
+
+        <!-- Problem statement -->
+        <div class="bc-ctx-problem">
+          <div class="bc-ctx-problem-quote">"We know what we want to build. We just can't explain it to the developers."</div>
+          <div class="bc-ctx-problem-body">A startup with a compelling 3D vision but no bridge between stakeholders, influencers, and dev. No one on the team had spatial UX experience. I joined as the person who could speak both languages — and invented the patterns from scratch.</div>
+        </div>
+
+        <!-- What I owned — inline list -->
+        <div class="bc-ctx-owned">
+          <span class="bc-ctx-owned-label">What I owned</span>
+          <div class="bc-ctx-owned-items">
+            <span>Spatial UX architecture</span>
+            <span>Mobile → desktop translation</span>
+            <span>Competitive benchmarking</span>
+            <span>Stakeholder alignment</span>
+            <span>Client-led user testing</span>
+            <span>Dev-ready Figma specs</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="project-content">
+      <div class="container" style="max-width:900px;">
+
+        <!-- ══ UNIFIED PROTOTYPE SECTION ══ -->
+        <div class="project-section" data-anim id="bc-unified" style="position:relative;overflow:hidden;">
+          <canvas data-mesh data-opacity="0.18" data-speed="0.3" data-accent="rgba(74,163,212,0.08)" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;" aria-hidden="true"></canvas>
+          <div style="position:relative;z-index:1;">
+
+            <!-- Section header -->
+            <div class="project-section-label">Design Systems &amp; Prototype</div>
+            <h2 class="project-section-title">Two Design Systems. One Spatial Vision.</h2>
+
+            <!-- DS dual explanation -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16);margin-bottom:var(--space-24);max-width:720px;" class="bc-ds-grid">
+              <!-- Flat DS -->
+              <div style="padding:var(--space-16);background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:12px;border-left:3px solid rgba(255,255,255,0.15);">
+                <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:8px;">Web UI Layer — Flat DS</div>
+                <div style="font-size:0.85rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">Black &amp; Neon</div>
+                <p style="font-size:0.72rem;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">The platform's web-facing UI used a flat design system — bold black backgrounds, neon yellow (#CBFF00) as the primary action color. Designed in Figma, applied across all 2D interactive surfaces.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-tertiary);">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0z"/><path d="M5 19.5A3.5 3.5 0 018.5 16H12v3.5a3.5 3.5 0 11-7 0z"/><path d="M5 12.5A3.5 3.5 0 018.5 9H12v7H8.5A3.5 3.5 0 015 12.5z"/></svg>
+                    Figma
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-tertiary);">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    Web UI
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text-tertiary);">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    Mobile-first
+                  </span>
+                </div>
+              </div>
+
+              <!-- Spatial DS -->
+              <div style="padding:var(--space-16);background:rgba(74,163,212,0.06);border:1px solid rgba(74,163,212,0.2);border-radius:12px;border-left:3px solid #4aa3d4;">
+                <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:8px;">3D Spatial Layer — Unity DS</div>
+                <div style="font-size:0.85rem;font-weight:700;color:var(--text-primary);margin-bottom:6px;">Spatial &amp; Immersive</div>
+                <p style="font-size:0.72rem;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">The 3D layer ran on Unity. UI patterns were benchmarked from spatial computing platforms, gaming interfaces, and WebXR experiences. Spline was used for 3D asset visualization and design handoff. No established playbook — patterns invented from scratch.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                    Unity
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Spline
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5.5A3.5 3.5 0 018.5 2H12v7H8.5A3.5 3.5 0 015 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 110 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 117 0 3.5 3.5 0 01-7 0z"/><path d="M5 19.5A3.5 3.5 0 018.5 16H12v3.5a3.5 3.5 0 11-7 0z"/><path d="M5 12.5A3.5 3.5 0 018.5 9H12v7H8.5A3.5 3.5 0 015 12.5z"/></svg>
+                    Figma
+                  </span>
+                  <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:100px;font-size:0.6rem;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);color:#4aa3d4;">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    Deep benchmarking
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <style>@media(max-width:600px){.bc-ds-grid{grid-template-columns:1fr!important}}</style>
+
+            <!-- Original DS reference strip — lightbox enabled -->
+            <style>
+              .bc-thumb{flex-shrink:0;display:flex;flex-direction:column;gap:4px;align-items:center;cursor:pointer;transition:transform 150ms ease,opacity 150ms ease;}
+              .bc-thumb:hover{transform:translateY(-3px);}
+              .bc-thumb:hover .bc-thumb-shell{box-shadow:0 12px 28px rgba(0,0,0,0.6),0 0 0 1.5px rgba(74,163,212,0.4),inset 0 1px 0 rgba(255,255,255,0.1);}
+              .bc-thumb-shell{width:72px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:16px;padding:2px;box-shadow:0 8px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08);transition:box-shadow 150ms ease;}
+              .bc-thumb-inner{background:#000;border-radius:14px;overflow:hidden;}
+              .bc-thumb-inner img{width:100%;display:block;object-fit:cover;height:130px;object-position:top;}
+              .bc-thumb-label{font-size:0.55rem;color:var(--text-tertiary);text-align:center;max-width:72px;line-height:1.3;}
+              /* Lightbox */
+              #bc-lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:var(--space-24);backdrop-filter:blur(6px);}
+              #bc-lb-inner{position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--space-16);max-width:360px;width:100%;}
+              #bc-lb-phone{width:280px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:44px;padding:3px;box-shadow:0 32px 64px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.06),inset 0 1.5px 0 rgba(255,255,255,0.09);}
+              #bc-lb-phone-inner{background:#000;border-radius:41px;overflow:hidden;}
+              #bc-lb-img{width:100%;display:block;object-fit:cover;max-height:540px;}
+              #bc-lb-cap{font-size:0.72rem;color:var(--text-secondary);text-align:center;line-height:1.5;max-width:320px;}
+              #bc-lb-close{position:fixed;top:var(--space-24);right:var(--space-24);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:var(--text-primary);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 150ms ease;}
+              #bc-lb-close:hover{background:rgba(255,255,255,0.18);}
+              .bc-lb-nav-btn{padding:7px 18px;border-radius:100px;border:1px solid rgba(74,163,212,0.35);background:rgba(74,163,212,0.08);color:#4aa3d4;font-size:0.7rem;cursor:pointer;transition:background 150ms ease;font-family:var(--font-display);}
+              .bc-lb-nav-btn:hover{background:rgba(74,163,212,0.16);}
+              #bc-lb-nav{display:flex;gap:var(--space-12);align-items:center;}
+              #bc-lb-counter{font-size:0.65rem;color:var(--text-tertiary);}
+            </style>
+
+            <!-- Lightbox overlay -->
+            <div id="bc-lb" role="dialog" aria-modal="true" aria-label="Screen lightbox" onclick="if(event.target===this)bcLbClose()">
+              <button id="bc-lb-close" onclick="bcLbClose()" aria-label="Close lightbox">&#x2715;</button>
+              <div id="bc-lb-inner">
+                <div id="bc-lb-phone">
+                  <div id="bc-lb-phone-inner">
+                    <img id="bc-lb-img" src="" alt="" loading="lazy">
+                  </div>
+                </div>
+                <p id="bc-lb-cap"></p>
+                <div id="bc-lb-nav">
+                  <button class="bc-lb-nav-btn" onclick="bcLbNav(-1)" aria-label="Previous screen">&#8592; Prev</button>
+                  <span id="bc-lb-counter"></span>
+                  <button class="bc-lb-nav-btn" onclick="bcLbNav(1)" aria-label="Next screen">Next &#8594;</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-bottom:var(--space-40);">
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-12);display:flex;align-items:center;gap:8px;">
+                <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
+                Original Design System — 15 screens
+                <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
+              </div>
+              <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;" id="bc-ref-strip">
+                <div class="bc-thumb" onclick="bcLbOpen(0)" role="button" aria-label="Open Space Owner screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Space with map (Owner).png" alt="Space owner view with 3D map"></div></div>
+                  <span class="bc-thumb-label">Space · Owner</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(1)" role="button" aria-label="Open Map Tilted Dark screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Map view - POI icon - Initial selection - Tilted (dark).png" alt="Map tilted dark POI selection"></div></div>
+                  <span class="bc-thumb-label">Map · Tilted dark</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(2)" role="button" aria-label="Open Map Multiple POIs screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../POI 1 - Map.png" alt="Map with multiple POI pins"></div></div>
+                  <span class="bc-thumb-label">Map · Multiple POIs</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(3)" role="button" aria-label="Open Add POI Search screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Add POI - Map view - Search.png" alt="Add POI search flow"></div></div>
+                  <span class="bc-thumb-label">Add POI · Search</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(4)" role="button" aria-label="Open Add POI Info Sheet screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Add POI - Map view - Place's info sheet (basic).png" alt="Add POI location info sheet"></div></div>
+                  <span class="bc-thumb-label">Add POI · Info</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(5)" role="button" aria-label="Open Set POI Form screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set POI - Info form - Image added - Action added (single).png" alt="Set POI form with image and actions"></div></div>
+                  <span class="bc-thumb-label">Set POI · Form</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(6)" role="button" aria-label="Open Set Pin Options screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Options - Icon.png" alt="Set pin options: icon, image, 3D asset"></div></div>
+                  <span class="bc-thumb-label">Set Pin · Options</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(7)" role="button" aria-label="Open Set Pin Color screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Select Pin icon - Change color.png" alt="Set pin icon color picker"></div></div>
+                  <span class="bc-thumb-label">Set Pin · Color</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(8)" role="button" aria-label="Open Set Pin Image screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Select image - OK.png" alt="Set pin photo as spatial marker"></div></div>
+                  <span class="bc-thumb-label">Set Pin · Image</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(9)" role="button" aria-label="Open Set Pin 3D Asset screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Set map pin - Select 3D asset - OK.png" alt="Set pin 3D Unity asset"></div></div>
+                  <span class="bc-thumb-label">Set Pin · 3D Asset</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(10)" role="button" aria-label="Open Map 3D POI screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Map view - POI edited - 3D asset.png" alt="3D building asset as POI on map"></div></div>
+                  <span class="bc-thumb-label">Map · 3D POI</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(11)" role="button" aria-label="Open POI List screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Map view - Multiple POI - List enlarged.png" alt="All POIs list view reorderable"></div></div>
+                  <span class="bc-thumb-label">POI List</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(12)" role="button" aria-label="Open Visitor Feed screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../POI selected - Content tab [VISITOR].png" alt="Visitor content feed grid"></div></div>
+                  <span class="bc-thumb-label">Visitor · Feed</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(13)" role="button" aria-label="Open Universal Feed screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Visitor - UNIVERSAL FEED info sheet (Feeds).png" alt="Universal feed across all POIs"></div></div>
+                  <span class="bc-thumb-label">Universal Feed</span>
+                </div>
+                <div class="bc-thumb" onclick="bcLbOpen(14)" role="button" aria-label="Open Edit 3D Mode screen">
+                  <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Edit Mode - Select object%27s part 1.png" alt="3D edit mode section-level Unity editing"></div></div>
+                  <span class="bc-thumb-label">Edit · 3D Mode</span>
+                </div>
+              </div>
+              <div style="font-size:0.62rem;color:var(--text-tertiary);text-align:center;margin-top:var(--space-8);font-style:italic;display:flex;align-items:center;justify-content:center;gap:6px;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Tap any thumbnail to open full-size &middot; Original black/neon DS &middot; Unity 3D + Figma
+              </div>
+            </div>
+
+
+            <!-- Divider -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:var(--space-32);">
+              <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
+              <div style="padding:5px 14px;background:rgba(74,163,212,0.08);border:1px solid rgba(74,163,212,0.2);border-radius:100px;font-size:0.65rem;color:#4aa3d4;white-space:nowrap;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:inline;vertical-align:middle;margin-right:4px;" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Reimagined prototype — try it
+              </div>
+              <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
+            </div>
+
+            <!-- Prototype grid -->
+            <style>
+            #bc-proto-grid{display:grid;grid-template-columns:auto 1fr;gap:var(--space-32);align-items:start;}
+            @media(max-width:700px){#bc-proto-grid{grid-template-columns:1fr!important;}#bc-proto-wrap{display:flex;justify-content:center;}}
+            </style>
+            <div id="bc-proto-grid">
+
+              <!-- Phone -->
+              <div style="position:relative;flex-shrink:0;" id="bc-proto-wrap">
+                <!-- TRY ME -->
+                <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:5px;padding:4px 12px;background:#4aa3d4;border-radius:100px;box-shadow:0 4px 14px rgba(74,163,212,0.4);white-space:nowrap;animation:dsPopIn 600ms cubic-bezier(0.34,1.56,0.64,1) both;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="white" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <span style="font-size:0.62rem;font-weight:700;color:white;letter-spacing:.06em;">TRY ME</span>
+                </div>
+                <div style="position:relative;width:220px;">
+                  <!-- Buttons -->
+                  <div style="position:absolute;left:-3px;top:78px;width:3px;height:22px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;"></div>
+                  <div style="position:absolute;left:-3px;top:108px;width:3px;height:34px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;"></div>
+                  <div style="position:absolute;right:-3px;top:92px;width:3px;height:46px;background:linear-gradient(to left,#111,#2a2a2a);border-radius:0 3px 3px 0;"></div>
+                  <!-- Clay shell -->
+                  <div style="width:220px;background:linear-gradient(160deg,#2a2a2a 0%,#1c1c1c 50%,#111 100%);border-radius:40px;padding:3px;box-shadow:0 24px 50px rgba(0,0,0,0.55),0 0 40px rgba(74,163,212,0.12),inset 0 1.5px 0 rgba(255,255,255,0.09),inset 0 -1px 0 rgba(0,0,0,0.5);position:relative;">
+                    <div style="position:absolute;inset:0;border-radius:40px;background:linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%);pointer-events:none;z-index:10;"></div>
+                    <div style="background:#0a0f1a;border-radius:37px;overflow:hidden;">
+                      <!-- Status bar -->
+                      <div style="height:42px;background:#000;display:flex;align-items:flex-end;justify-content:space-between;padding:0 17px 7px;position:relative;flex-shrink:0;">
+                        <div style="position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;border-radius:100px;z-index:2;display:flex;align-items:center;justify-content:center;gap:7px;">
+                          <div style="width:5px;height:5px;border-radius:50%;background:#1a1a1a;"></div>
+                          <div style="width:9px;height:9px;border-radius:50%;background:#1a1a1a;border:1.5px solid #111;"></div>
+                        </div>
+                        <span style="font-size:11px;font-weight:600;color:#fff;font-family:-apple-system,sans-serif;position:relative;z-index:3;line-height:1;">9:41</span>
+                        <div style="display:flex;gap:5px;align-items:center;position:relative;z-index:3;">
+                          <svg width="16" height="11" viewBox="0 0 17 12" fill="white" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="0.5"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5"/><rect x="9" y="3" width="3" height="9" rx="0.5"/><rect x="13.5" y="0" width="3" height="12" rx="0.5"/></svg>
+                          <svg width="16" height="11" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" fill="white"/><path d="M3.5 6.5C5 4.8 6.4 4 8 4s3 .8 4.5 2.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M1 3.5C3.3 1.3 5.5 0 8 0s4.7 1.3 7 3.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+                          <svg width="23" height="11" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.6" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2"/><path d="M23 4.5v3" stroke="white" stroke-width="1.5" stroke-linecap="round"/><rect x="2" y="2.5" width="16" height="7" rx="1.5" fill="white"/></svg>
+                        </div>
+                      </div>
+                      <!-- Nav bar -->
+                      <div style="height:38px;background:#111827;display:flex;align-items:center;padding:0 13px;gap:8px;border-bottom:1px solid rgba(74,163,212,0.15);">
+                        <button id="bc-proto-back" onclick="bcProtoBack()" style="background:transparent;border:none;color:rgba(255,255,255,0.7);font-size:15px;padding:0;cursor:pointer;display:none;line-height:1;" data-click-sound="nav">&#8592;</button>
+                        <span id="bc-proto-nav-title" style="font-size:11px;font-weight:600;color:#fff;flex:1;letter-spacing:.03em;">MEGATON OUTDOOR ROUTINE</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                      </div>
+                      <!-- Screen body -->
+                      <div id="bc-proto-body" style="min-height:400px;max-height:460px;overflow-y:auto;overflow-x:hidden;transition:opacity 220ms ease;position:relative;scrollbar-width:none;"></div>
+                      <!-- Home bar -->
+                      <div style="height:18px;background:#0a0f1a;display:flex;align-items:center;justify-content:center;">
+                        <div style="width:64px;height:3.5px;border-radius:2px;background:rgba(255,255,255,0.18);"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Finger cursor — mobile app -->
+                  <div id="bc-proto-cur" class="finger-cur">
+                    <div id="bc-proto-ring" class="finger-ring"></div>
+                    <div id="bc-proto-circle" class="finger-circle" style="background:rgba(74,163,212,0.25);border-color:rgba(74,163,212,0.7);"></div>
+                  </div>
+                  <!-- Ripple -->
+                  <div id="bc-proto-rpl" style="position:absolute;pointer-events:none;z-index:49;opacity:0;transform:translate(-50%,-50%);">
+                    <div id="bc-proto-rpl-ring" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(74,163,212,0.6);position:absolute;top:50%;left:50%;"></div>
+                  </div>
+                  <!-- Flash -->
+                  <div id="bc-proto-flash" style="position:absolute;inset:0;background:rgba(74,163,212,0.06);opacity:0;pointer-events:none;z-index:48;border-radius:40px;transition:opacity 100ms ease;"></div>
+                  <!-- Hotspot — pulsing ring on tap target -->
+                  <div id="bc-hotspot" class="bc-hotspot" style="opacity:0;transition:opacity 300ms ease,top 400ms cubic-bezier(0.16,1,0.3,1),left 400ms cubic-bezier(0.16,1,0.3,1);">
+                    <div class="bc-hotspot-ring"></div>
+                    <div class="bc-hotspot-ring"></div>
+                    <div class="bc-hotspot-dot"></div>
+                  </div>
+                  <!-- Tap hint — shown once -->
+                  <div id="bc-tap-hint" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:55;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);border:1px solid rgba(74,163,212,0.3);border-radius:100px;padding:5px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:opacity 400ms ease;pointer-events:none;">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                    <span style="font-size:0.6rem;color:rgba(255,255,255,0.8);">Tap buttons &amp; pins to navigate</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: flow selector + step info -->
+              <div>
+                <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:8px;">Select a flow</div>
+                <div id="bc-proto-flows" style="display:flex;flex-direction:column;gap:5px;margin-bottom:var(--space-24);"></div>
+                <!-- Step info -->
+                <div id="bc-proto-step-info" style="padding:14px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-left:3px solid #4aa3d4;border-radius:0 10px 10px 0;margin-bottom:var(--space-16);">
+                  <div id="bc-proto-step-tag" style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:4px;"></div>
+                  <div id="bc-proto-step-title" style="font-size:0.88rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;line-height:1.3;"></div>
+                  <div id="bc-proto-step-desc" style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin-bottom:8px;"></div>
+                  <!-- DS comparison note -->
+                  <div id="bc-proto-ds-note" style="font-size:0.65rem;color:rgba(74,163,212,0.7);font-style:italic;padding:6px 10px;border-radius:6px;background:rgba(74,163,212,0.06);border:1px solid rgba(74,163,212,0.15);display:none;"></div>
+                </div>
+                <!-- Step dots -->
+                <div id="bc-proto-steps-row" style="display:flex;gap:4px;align-items:center;margin-bottom:var(--space-16);flex-wrap:wrap;"></div>
+                <!-- Controls -->
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button onclick="bcProtoBack()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);" data-click-sound="click">&#8592; Back</button>
+                  <button onclick="bcProtoReset()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);" data-click-sound="click">&#8634; Reset</button>
+                  <button onclick="bcProtoAutoPlay()" id="bc-proto-play-btn" style="padding:5px 14px;border-radius:100px;background:rgba(74,163,212,0.12);border:1px solid #4aa3d4;color:#4aa3d4;font-size:0.68rem;cursor:pointer;font-family:var(--font-display);" data-click-sound="tap">&#9654; Auto-play</button>
+                </div>
+                <!-- Progress -->
+                <div style="margin-top:10px;height:2px;background:var(--border-subtle);border-radius:1px;overflow:hidden;">
+                  <div id="bc-proto-progress" style="height:100%;width:0%;background:#4aa3d4;border-radius:1px;transition:none;"></div>
+                </div>
+                <!-- DS badge -->
+                <div style="display:flex;align-items:center;gap:8px;margin-top:var(--space-16);padding:8px 12px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:8px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                  <span style="font-size:0.62rem;color:var(--text-tertiary);">Reimagined from the original design system — same flows, refined spatial UI</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ WEB APP SECTION ══ -->
+        <section id="bc-webapp" style="background:var(--bg-surface);border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);padding:var(--space-96) 0;position:relative;overflow:hidden;">
+          <canvas id="bc-mesh-webapp" data-mesh style="position:absolute;inset:0;width:100%;height:100%;opacity:0.18;pointer-events:none;" aria-hidden="true"></canvas>
+          <div class="container" style="position:relative;z-index:1;">
+            <div style="font-size:0.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-8);" class="section-eyebrow">Platform Architecture</div>
+            <h2 style="font-size:1.8rem;font-weight:800;color:var(--text-primary);margin-bottom:var(--space-16);line-height:1.2;">The Platform Also Lives on the Web</h2>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.7;max-width:580px;margin-bottom:var(--space-40);">Beyond the mobile app, the platform required a full web companion — a management dashboard where Space owners configure their 3D environments, manage POIs, and monitor activity. Designing for both mobile and desktop surfaces demanded strict design system coherence.</p>
+
+            <!-- Feature cards -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-16);margin-bottom:var(--space-48);">
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="0">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Space Dashboard</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Central hub for managing multiple 3D Spaces — visitor analytics, content calendar, and POI health at a glance.</p>
+                </div>
+              </div>
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="80">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">3D Map Web</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Full three.js map view on desktop — drag, zoom, and click-to-edit POIs directly in the browser without Unity.</p>
+                </div>
+              </div>
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="160">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">3D Asset Library</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Searchable catalogue of Unity-ready 3D objects. Owners browse, preview, and attach assets to any POI from the web dashboard.</p>
+                </div>
+              </div>
+              <div style="padding:var(--space-20);background:var(--bg-base);border:1px solid var(--border-subtle);border-radius:12px;display:flex;flex-direction:column;gap:var(--space-12);" data-ds-anim data-ds-delay="240">
+                <div class="icon-3d" data-glow="blockchain" style="width:40px;height:40px;border-radius:10px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Multi-role Access</div>
+                  <p style="font-size:0.7rem;color:var(--text-secondary);line-height:1.6;margin:0;">Owner, Editor, and Viewer roles — each with distinct permissions. Designed so the same component set serves all three without diverging UI branches.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Browser chrome mockup -->
+            <div id="bc-webapp-demo" style="border-radius:12px;overflow:hidden;border:1px solid var(--border-subtle);background:var(--bg-base);box-shadow:0 24px 60px rgba(0,0,0,0.4);">
+              <!-- Browser bar -->
+              <div style="height:40px;background:#1a1a1a;display:flex;align-items:center;padding:0 14px;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);">
+                <div style="width:12px;height:12px;border-radius:50%;background:#e05c4a;"></div>
+                <div style="width:12px;height:12px;border-radius:50%;background:#f4c842;"></div>
+                <div style="width:12px;height:12px;border-radius:50%;background:#5fe6a0;"></div>
+                <div style="flex:1;margin:0 12px;height:24px;background:rgba(255,255,255,0.05);border-radius:5px;display:flex;align-items:center;padding:0 10px;gap:6px;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.3);">app.blockchain-platform.io/spaces/megaton/dashboard</span>
+                </div>
+              </div>
+              <!-- App shell -->
+              <div style="display:grid;grid-template-columns:200px 1fr;min-height:380px;">
+                <!-- Sidebar -->
+                <div style="background:#111;border-right:1px solid rgba(255,255,255,0.06);padding:var(--space-20) 0;display:flex;flex-direction:column;gap:2px;">
+                  <div style="padding:0 var(--space-16) var(--space-16);border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:var(--space-12);">
+                    <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:4px;">Space</div>
+                    <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);">Megaton Outdoor</div>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;background:rgba(74,163,212,0.1);border-left:2px solid #4aa3d4;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    <span style="font-size:0.7rem;font-weight:600;color:#4aa3d4;">Dashboard</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">3D Map</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">Asset Library</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">Team</span>
+                  </div>
+                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M4.93 4.93a10 10 0 000 14.14"/></svg>
+                    <span style="font-size:0.7rem;color:var(--text-secondary);">Analytics</span>
+                  </div>
+                </div>
+                <!-- Main: Three.js map -->
+                <div id="bc-webapp-map" style="position:relative;overflow:hidden;background:#0a0f1a;min-height:280px;">
+                  <canvas id="bc-canvas-web" style="width:100%;height:100%;display:block;" aria-label="Interactive 3D map of Space POIs" role="img"></canvas>
+                  <!-- Desktop cursor -->
+                  <div id="bc-webapp-cur" style="position:absolute;pointer-events:none;z-index:50;transition:top 600ms cubic-bezier(0.34,1.1,0.64,1),left 600ms cubic-bezier(0.34,1.1,0.64,1),opacity 300ms ease;opacity:0;">
+                    <svg width="22" height="26" viewBox="0 0 22 26" fill="none" aria-hidden="true">
+                      <path d="M2 2l16 10-7 1-4 8z" fill="var(--bg-base)" stroke="var(--text-primary)" stroke-width="1.5" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div id="bc-webapp-cur-lbl" style="position:absolute;pointer-events:none;z-index:50;padding:4px 9px;background:rgba(74,163,212,0.9);border-radius:5px;font-size:0.6rem;font-weight:700;color:#000;white-space:nowrap;opacity:0;transition:opacity 250ms ease;"></div>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:0.65rem;color:var(--text-tertiary);text-align:center;margin-top:var(--space-12);font-style:italic;">Illustrated Three.js mockup — represents the web dashboard 3D map interaction pattern</p>
+          </div>
+        </section>
+
+        <!-- ══ PREV / NEXT ══ -->
+        <div class="project-nav" data-anim>
+          <a href="ey-fabric.html" class="project-nav-card">
+            <div class="project-nav-card-label">← Previous</div>
+            <div class="project-nav-card-title">EY Fabric</div>
+          </a>
+          <a href="customs.html" class="project-nav-card next">
+            <div class="project-nav-card-label">Next →</div>
+            <div class="project-nav-card-title">Customs / Aduanas ES</div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Federico A. Monroy</p>
+        <a href="../index.html" class="btn btn-outline" style="padding:var(--space-8) var(--space-16);font-size:0.75rem;">← Back to Home</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    function initHero3D(){
+      var canvas=document.getElementById('bc-hero-canvas');
+      if(!canvas||!window.THREE)return;
+      var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+      var W=canvas.clientWidth||window.innerWidth,H=canvas.clientHeight||window.innerHeight;
+      var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
+      renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+      renderer.setClearColor(isDark?0x080d14:0xf0ede8,1);
+      var scene=new THREE.Scene();
+      scene.fog=new THREE.FogExp2(isDark?0x080d14:0xf0ede8,isDark?0.022:0.016);
+      var camera=new THREE.PerspectiveCamera(50,W/H,0.1,200);
+      camera.position.set(0,18,20);camera.lookAt(0,0,0);
+      scene.add(new THREE.AmbientLight(isDark?0x4aa3d4:0x90b8d0,isDark?0.4:0.7));
+      var dir=new THREE.DirectionalLight(isDark?0x88aacc:0xffffff,isDark?0.7:1.1);
+      dir.position.set(8,14,6);scene.add(dir);
+      if(isDark){var pt=new THREE.PointLight(0x4aa3d4,1.6,28);pt.position.set(0,9,0);scene.add(pt);}
+      scene.add(new THREE.GridHelper(34,34,isDark?0x1a3a5c:0xd0cdc8,isDark?0x0d1e30:0xe0ddd8));
+      var gnd=new THREE.Mesh(new THREE.PlaneGeometry(34,34),new THREE.MeshLambertMaterial({color:isDark?0x080d14:0xf0ede8}));
+      gnd.rotation.x=-Math.PI/2;gnd.position.y=-0.01;scene.add(gnd);
+      var rm=new THREE.MeshLambertMaterial({color:isDark?0x0f1a28:0xdedad4});
+      [[28,.05,1.6,0,0,0],[28,.05,1.6,0,0,-6],[28,.05,1.6,0,0,6],[1.6,.05,28,0,0,0],[1.6,.05,28,-7,0,0],[1.6,.05,28,7,0,0]].forEach(function(r){var m=new THREE.Mesh(new THREE.BoxGeometry(r[0],r[1],r[2]),rm);m.position.set(r[3],r[4],r[5]);scene.add(m);});
+      var bldgs=[];
+      var bColors=isDark?[0x1a2840,0x152233,0x1e2d42,0x17263a,0x1c2e44,0x162030]:[0xd0ccc6,0xc8c4be,0xd4d0ca,0xccc8c2,0xd8d4ce,0xc4c0ba];
+      [[-4,-3,2.5,5,2.5],[3,-4,2,7,2],[-7,2,3,3.5,2],[7,-2,1.8,8,1.8],[4,3,2,5.5,2.5],[-8,-4,2,4,2],[6,7,2.2,4.5,2],[-5,-7,1.5,6,1.5],[2,6,1.8,3,1.8],[-3,6,2,3.5,2.5],[9,3,1.6,5,1.6],[-10,1,2,4,2],[5,-8,1.8,3.5,1.8],[-2,-9,2.2,5,2],[10,-4,1.5,6,1.5]].forEach(function(c){
+        var col=bColors[Math.floor(Math.random()*bColors.length)];
+        var m=new THREE.Mesh(new THREE.BoxGeometry(c[2],c[3],c[4]),new THREE.MeshLambertMaterial({color:col,transparent:true,opacity:isDark?0.88:0.92}));
+        m.position.set(c[0],-c[3],c[1]);m.targetY=c[3]/2;m.riseSpeed=0.022+Math.random()*0.018;
+        m.add(new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry),new THREE.LineBasicMaterial({color:isDark?0x2a4a6a:0xb0acaa,transparent:true,opacity:isDark?0.25:0.18})));
+        if(isDark){var wm=new THREE.MeshBasicMaterial({color:0x4aa3d4,transparent:true,opacity:Math.random()*0.25+0.15});for(var i=0;i<3;i++)for(var j=0;j<2;j++){var wn=new THREE.Mesh(new THREE.PlaneGeometry(0.14,0.14),wm);wn.position.set(-c[2]/2+0.01,-c[3]/4+i*(c[3]/4),j*0.38-0.19);wn.rotation.y=-Math.PI/2;m.add(wn);}}
+        scene.add(m);bldgs.push(m);
+      });
+      var pins=[];
+      [[0,-1,'#4aa3d4',1.2],[3.5,3,'#e05c4a',0.9],[-5,0.5,'#f4c842',0.9]].forEach(function(p,i){
+        var g=new THREE.Group();g.position.set(p[0],-3,p[1]);g.targetY=2;g.risen=false;g.floatOff=Math.random()*Math.PI*2;g.delay=i*450;
+        var col=new THREE.Color(p[2]),s=p[3];
+        var sph=new THREE.Mesh(new THREE.SphereGeometry(0.22*s,12,12),new THREE.MeshLambertMaterial({color:col,emissive:col,emissiveIntensity:isDark?0.28:0.08}));
+        sph.position.y=0.55*s;g.add(sph);
+        var stem=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.03,0.55*s,8),new THREE.MeshLambertMaterial({color:col}));
+        stem.position.y=0.27*s;g.add(stem);
+        var ring=new THREE.Mesh(new THREE.TorusGeometry(0.3*s,0.025,8,24),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:0.32}));
+        ring.rotation.x=Math.PI/2;g.add(ring);g.ring=ring;
+        scene.add(g);pins.push(g);
+      });
+      var particles;
+      if(isDark){var pg=new THREE.BufferGeometry(),pp=new Float32Array(140*3);for(var i=0;i<140;i++){pp[i*3]=(Math.random()-.5)*36;pp[i*3+1]=Math.random()*14;pp[i*3+2]=(Math.random()-.5)*36;}pg.setAttribute('position',new THREE.BufferAttribute(pp,3));particles=new THREE.Points(pg,new THREE.PointsMaterial({color:0x4aa3d4,size:0.05,transparent:true,opacity:0.3}));scene.add(particles);}
+      var start=Date.now(),animId;
+      function tick(){
+        animId=requestAnimationFrame(tick);
+        var t=(Date.now()-start)/1000,el=Date.now()-start;
+        bldgs.forEach(function(b){if(b.position&&b.targetY&&b.position.y<b.targetY)b.position.y=Math.min(b.targetY,b.position.y+b.riseSpeed);});
+        pins.forEach(function(g,i){if(el>1200+g.delay&&g.position.y<g.targetY){g.position.y=Math.min(g.targetY,g.position.y+0.05);g.risen=g.position.y>=g.targetY;}if(g.risen){g.position.y=g.targetY+Math.sin(t*1.4+g.floatOff)*0.07;if(g.ring){g.ring.material.opacity=0.18+Math.sin(t*2+i)*0.12;g.ring.scale.setScalar(1+Math.sin(t*1.6+i)*0.09);}}});
+        var R=20,S=0.032;camera.position.x=Math.sin(t*S)*R;camera.position.z=Math.cos(t*S)*R;camera.position.y=16+Math.sin(t*0.07)*2;camera.lookAt(0,1,0);
+        if(particles)particles.rotation.y=t*0.01;
+        renderer.render(scene,camera);
+      }
+      tick();
+      canvas.classList.add('bc-ready');
+      /* Re-init on theme change */
+      var obs=new MutationObserver(function(){cancelAnimationFrame(animId);renderer.dispose();canvas.classList.remove('bc-ready');setTimeout(initHero3D,50);});
+      obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+      window.addEventListener('resize',function(){var w=canvas.clientWidth,h=canvas.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);});
+    }
+    if(window.THREE){initHero3D();}else{document.querySelector('script[src*="three"]').addEventListener('load',initHero3D);}
+  })();
+  </script>
+  <style>
+  @keyframes bcRpl{0%{transform:translate(-50%,-50%) scale(0.2);opacity:0.8}100%{transform:translate(-50%,-50%) scale(2.6);opacity:0}}
+  @keyframes bcPinPop{0%{transform:translate(-50%,-100%) scale(1)}50%{transform:translate(-50%,-100%) scale(1.15)}100%{transform:translate(-50%,-100%) scale(1)}}
+  @keyframes bcPinPulse{0%,100%{transform:translate(-50%,-100%) scale(1)}50%{transform:translate(-50%,-100%) scale(1.12)}}
+  @keyframes bcHotPulse{0%{transform:translate(-50%,-50%) scale(0.6);opacity:0.9}100%{transform:translate(-50%,-50%) scale(1.8);opacity:0}}
+  .bc-hotspot{position:absolute;pointer-events:none;z-index:45;}
+  .bc-hotspot-ring{width:32px;height:32px;border-radius:50%;border:2px solid rgba(74,163,212,0.8);position:absolute;top:50%;left:50%;animation:bcHotPulse 1.2s ease-out infinite;}
+  .bc-hotspot-ring:nth-child(2){animation-delay:0.4s;}
+  .bc-hotspot-dot{width:8px;height:8px;border-radius:50%;background:#4aa3d4;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(74,163,212,0.8);}
+  #bc-proto-body::-webkit-scrollbar{display:none;}
+  #bc-proto-body .bc-cta{transition:transform 100ms ease,filter 100ms ease;}
+  #bc-proto-body .bc-cta:hover{filter:brightness(1.2);}
+  #bc-proto-body .bc-cta:active{transform:scale(0.95);}
+  #bc-proto-body .bc-result:hover,#bc-proto-body .bc-result:focus{background:rgba(74,163,212,0.15)!important;cursor:pointer;}
+  #bc-proto-body .bc-option:hover{border-color:rgba(74,163,212,0.5)!important;cursor:pointer;}
+  #bc-proto-body .bc-feed-item:hover{background:rgba(74,163,212,0.08)!important;cursor:pointer;}
+  .finger-cur{position:absolute;pointer-events:none;z-index:50;transition:top 520ms cubic-bezier(0.34,1.1,0.64,1),left 520ms cubic-bezier(0.34,1.1,0.64,1),opacity 300ms ease;opacity:0;transform:translate(-50%,-50%);}
+  .finger-circle{position:relative;width:24px;height:24px;border-radius:50%;border:2px solid rgba(74,163,212,0.7);box-shadow:0 0 12px rgba(74,163,212,0.3);transition:transform 150ms ease,background 150ms ease;}
+  .finger-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(74,163,212,0.35);opacity:0;transition:opacity 200ms ease;}
+  /* Pin hover */
+  #bc-proto-body .bc-pin { cursor: pointer; transition: filter 150ms ease; }
+  #bc-proto-body .bc-pin:hover { animation: bcPinPop 300ms ease; filter: brightness(1.3) drop-shadow(0 0 6px currentColor); }
+  /* CTA buttons inside phone */
+  #bc-proto-body .bc-cta { cursor: pointer; transition: transform 120ms ease, filter 120ms ease; user-select: none; }
+  #bc-proto-body .bc-cta:hover { filter: brightness(1.15); }
+  #bc-proto-body .bc-cta:active { transform: scale(0.96); filter: brightness(0.95); }
+  /* Search results hover */
+  #bc-proto-body .bc-result:hover { background: rgba(74,163,212,0.12) !important; cursor: pointer; }
+  /* Option rows hover */
+  #bc-proto-body .bc-option:hover { border-color: rgba(74,163,212,0.4) !important; cursor: pointer; }
+  /* Feed items hover */
+  #bc-proto-body .bc-feed-row:hover { background: rgba(74,163,212,0.06) !important; cursor: pointer; }
+  /* Scrollbar hide in proto body */
+  #bc-proto-body { scrollbar-width: none; }
+  #bc-proto-body::-webkit-scrollbar { display: none; }
+  </style>
+  <script>
+  /* ══ BLOCKCHAIN PROTOTYPE v2 — finger cursor, precise taps, DS narrative ══ */
+  (function(){
+    var AC='#4aa3d4';
+
+    /* ── 3D map canvas helper ── */
+    function make3DMap(el,opts){
+      opts=opts||{};
+      var h=opts.h||180;
+      var pins=opts.pins||[{x:'44%',y:'38%',color:AC,label:'Workout Circuit · Yoga'},{x:'64%',y:'55%',color:'#e05c4a',label:'Fav Yoga Spot'},{x:'24%',y:'46%',color:'#f4c842',label:'Meeting Point'}];
+      var showSheet=opts.showSheet||false;
+      var sheetTitle=opts.sheetTitle||'';
+      var sheetSub=opts.sheetSub||'';
+      var ctaLabel=opts.ctaLabel||'Add Point of Interest';
+      var ctaFn=opts.ctaFn||'';
+
+      var pinsHtml=pins.map(function(p){
+        return '<div class="bc-pin" style="position:absolute;left:'+p.x+';top:'+p.y+';transform:translate(-50%,-100%);z-index:3;cursor:pointer;"'+
+          (p.onClick?' onclick="'+p.onClick+'"':'')+'>'+
+          '<div style="width:'+(p.big?14:9)+'px;height:'+(p.big?36:22)+'px;background:'+p.color+';border-radius:50% 50% 0 0 / 60% 60% 0 0;margin:0 auto;box-shadow:0 0 '+(p.big?'14px':'8px')+' '+p.color+'88;"></div>'+
+          '<div style="width:'+(p.big?16:10)+'px;height:'+(p.big?16:10)+'px;border-radius:50%;background:'+p.color+';margin:-'+(p.big?8:5)+'px auto 0;"></div>'+
+          (p.label?'<div style="background:rgba(0,0,0,0.78);border:1px solid '+p.color+'55;border-radius:4px;padding:2px 6px;font-size:7px;color:#fff;white-space:nowrap;margin-top:3px;text-align:center;max-width:80px;line-height:1.3;">'+p.label+'</div>':'')+
+        '</div>';
+      }).join('');
+
+      var grid='<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(74,163,212,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(74,163,212,0.035) 1px,transparent 1px);background-size:22px 22px;transform:perspective(320px) rotateX(36deg) translateY(-22px);transform-origin:bottom center;"></div>';
+
+      var sheet=showSheet?
+        '<div style="background:#111827;padding:10px 12px 0;border-top:1px solid rgba(74,163,212,0.15);">'+
+          '<div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;text-transform:uppercase;letter-spacing:.03em;">'+sheetTitle+'</div>'+
+          (sheetSub?'<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:8px;display:flex;align-items:center;gap:4px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+sheetSub+'</div>':'')+
+          '<div class="bc-cta" style="height:30px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;"'+(ctaFn?' onclick="'+ctaFn+'"':'')+' data-click-sound="tap">'+
+            '<span style="font-size:9px;font-weight:600;color:#fff;">'+ctaLabel+'</span>'+
+          '</div>'+
+        '</div>':
+        '';
+
+      el.innerHTML=
+        '<div style="position:relative;height:'+h+'px;background:linear-gradient(180deg,#0d1929 0%,#0e2038 100%);overflow:hidden;">'+
+          grid+pinsHtml+
+          '<div style="position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:5px;">'+
+            ['<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+             '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>',
+             '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>'
+            ].map(function(ic){return '<div style="width:28px;height:28px;border-radius:8px;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;">'+ic+'</div>';}).join('')+
+          '</div>'+
+          '<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:3px 8px;font-size:8px;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:.05em;white-space:nowrap;">MEGATON OUTDOOR ROUTINE</div>'+
+        '</div>'+
+        sheet;
+    }
+
+    /* ── FLOWS ── */
+    var FLOWS=[
+      {
+        id:'space',label:'Space — Owner View',tag:'Flow 1',
+        dsNote:'Original DS used a flat map. Reimagined with 3D tilt — spatial depth that communicates ownership.',
+        steps:[{
+          nav:'MEGATON OUTDOOR ROUTINE',back:false,
+          tag:'Step 1 — Space Hub',title:'3D Tilted Map — Ownership View',
+          desc:'The owner sees their Space as a 3D isometric map. POIs float with labels. Spatial depth communicates ownership better than a flat view — validated in user testing.',
+          tap:{x:'44%',y:'38%'},tip:'Tap a POI to open it',
+          build:function(el){
+            el.style.background='#0a0f1a';
+            make3DMap(el,{
+              h:280,
+              showSheet:true,
+              sheetTitle:'MEGATON OUTDOOR ROUTINE',
+              sheetSub:'800 W Olympic Blvd, Los Angeles, CA 90015',
+              ctaLabel:'Add Point of Interest',
+              ctaFn:"bcProtoGoStep('addpoi',0)",
+              pins:[
+                {x:'44%',y:'38%',color:AC,label:'Workout Circuit · Yoga',onClick:"bcProtoGoStep('visitor',0)"},
+                {x:'64%',y:'58%',color:'#e05c4a',label:'Fav Yoga Spot'},
+                {x:'24%',y:'46%',color:'#f4c842',label:'Meeting Point'}
+              ]
+            });
+            el.innerHTML+='<div style="height:52px;background:#0a0f1a;border-top:1px solid rgba(255,255,255,0.06);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;align-items:center;">'+
+              [
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',l:'Profile'},
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',l:'Chat'},
+                {ic:'<div style="width:36px;height:36px;border-radius:50%;background:rgba(74,163,212,0.15);border:1.5px solid '+AC+';display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>',l:'AI',active:true},
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>',l:'Discover'},
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>',l:'More'},
+              ].map(function(n){
+                return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;">'+n.ic+'<span style="font-size:7px;color:rgba(255,255,255,0.35);">'+n.l+'</span></div>';
+              }).join('')+
+            '</div>';
+          }
+        }]
+      },
+      {
+        id:'addpoi',label:'Add POI',tag:'Flow 2',
+        dsNote:'Original: tap on map. Reimagined: search-first (benchmarked from Google Maps, Apple Maps). 40% faster task completion.',
+        steps:[
+          {
+            nav:'Add Point of Interest',back:true,
+            tag:'Step 1 — Search',title:'Search-First POI Creation',
+            desc:'Users expect to search, not tap on a 3D map. Benchmarking revealed this pattern from major mapping apps.',
+            tap:{x:'50%',y:'28%'},tip:'Type to search a location',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{h:150,pins:[{x:'50%',y:'45%',color:AC,big:true}]});
+              var overlay=document.createElement('div');
+              overlay.style.cssText='background:#111827;border-radius:12px 12px 0 0;margin-top:-8px;padding:10px;position:relative;z-index:5;';
+              overlay.innerHTML=
+                '<div style="height:36px;background:rgba(255,255,255,0.06);border:1.5px solid '+AC+';border-radius:9px;display:flex;align-items:center;padding:0 11px;gap:7px;margin-bottom:8px;">'+
+                  '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>'+
+                  '<span style="font-size:9px;color:#fff;font-family:var(--font-mono);">City</span>'+
+                  '<span style="width:2px;height:13px;background:'+AC+';animation:dsPulse 1s ease-in-out infinite;display:inline-block;border-radius:1px;"></span>'+
+                  '<div style="margin-left:auto;width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;">'+
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>'+
+                  '</div>'+
+                '</div>'+
+                [
+                  {t:'City Hall South',s:'1st Street, Los Angeles, CA, USA',hl:false},
+                  {t:'City of Industry',s:'CA, USA',hl:false},
+                  {t:'Los Angeles City Hall',s:'North Spring Street, Los Angeles, CA, USA',hl:true},
+                  {t:'City Club LA',s:'Flower St, Los Angeles, CA, USA',hl:false},
+                ].map(function(r){
+                  return '<div class="bc-result" style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:7px;background:'+(r.hl?'rgba(74,163,212,0.1)':'transparent')+';border:'+(r.hl?'1px solid rgba(74,163,212,0.25)':'1px solid transparent')+';cursor:pointer;margin-bottom:2px;"'+(r.hl?' onclick="bcProtoGoStep(\'addpoi\',1)" data-click-sound="success"':' data-click-sound="click"')+'>'+
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" style="margin-top:2px;flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+                    '<div><div style="font-size:9px;color:'+(r.hl?'#fff':'rgba(255,255,255,0.6)')+';font-weight:'+(r.hl?'600':'400')+';">'+r.t+'</div>'+
+                    '<div style="font-size:7.5px;color:rgba(255,255,255,0.35);margin-top:1px;">'+r.s+'</div></div>'+
+                  '</div>';
+                }).join('');
+              el.appendChild(overlay);
+            }
+          },
+          {
+            nav:'Add Point of Interest',back:true,
+            tag:'Step 2 — Confirm',title:'Location Confirmed on Map',
+            desc:'"Add Point of Interest" anchored to bottom sheet. Location shown on 3D map before committing.',
+            tap:{x:'50%',y:'86%'},tip:'Tap to add this POI',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{
+                h:270,
+                showSheet:true,
+                sheetTitle:'HUNTINGTON BEACH CENTRAL PARK EAST',
+                sheetSub:'18002 Goldenwest St, Huntington Beach, CA 92647',
+                ctaLabel:'Add Point of Interest',
+                ctaFn:"bcProtoGoStep('setpin',0)",
+                pins:[{x:'50%',y:'40%',color:AC,big:true}]
+              });
+            }
+          }
+        ]
+      },
+      {
+        id:'setpin',label:'Set Pin — 3 Levels',tag:'Flow 3',
+        dsNote:'Original DS: binary choice. Reimagined: progressive disclosure — Icon then Image then 3D Asset. Matches spatial literacy level.',
+        steps:[
+          {
+            nav:'Set Map Pin',back:true,
+            tag:'Step 1 — Choose type',title:'3 Levels of Spatial Richness',
+            desc:'Progressive disclosure: icon for speed, image for personalization, 3D asset for full spatial immersion.',
+            tap:{x:'50%',y:'62%'},tip:'Select 3D Asset',
+            build:function(el){
+              el.style.background='#111';
+              el.innerHTML=
+                '<div style="padding:14px 14px 8px;">'+
+                  '<p style="font-size:9.5px;color:rgba(255,255,255,0.65);margin-bottom:16px;line-height:1.6;">Select how you want this point of interest to look on the map</p>'+
+                  [
+                    {l:'Icon',d:'Pick a custom icon to use as your POI indicator',sel:true,
+                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'},
+                    {l:'Image',d:'Pick an image to use as your POI indicator',sel:false,
+                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'},
+                    {l:'3D Asset',d:'Pick a 3D object from the library as your POI',sel:false,
+                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>'},
+                  ].map(function(o){
+                    return '<div class="bc-option" style="display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:10px;background:'+(o.sel?'rgba(74,163,212,0.08)':'transparent')+';border:'+(o.sel?'1.5px solid rgba(74,163,212,0.3)':'1.5px solid rgba(255,255,255,0.06)')+';margin-bottom:8px;cursor:pointer;" data-click-sound="click">'+
+                      '<div style="width:22px;height:22px;border-radius:50%;border:2px solid '+(o.sel?AC:'rgba(255,255,255,0.25)')+';background:'+(o.sel?AC:'transparent')+';flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
+                        (o.sel?'<div style="width:7px;height:7px;border-radius:50%;background:#fff;"></div>':'')+
+                      '</div>'+
+                      o.ic+
+                      '<div><div style="font-size:11px;font-weight:600;color:'+(o.sel?'#fff':'rgba(255,255,255,0.7)')+';">'+o.l+'</div>'+
+                      '<div style="font-size:8px;color:rgba(255,255,255,0.4);margin-top:2px;">'+o.d+'</div></div>'+
+                    '</div>';
+                  }).join('')+
+                  '<div class="bc-cta" style="height:36px;background:'+AC+';border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:4px;" onclick="bcProtoGoStep(\'setpin\',1)" data-click-sound="success">'+
+                    '<span style="font-size:10px;font-weight:600;color:#fff;">Continue</span>'+
+                  '</div>'+
+                '</div>';
+            }
+          },
+          {
+            nav:'Set Map Pin — 3D Asset',back:true,
+            tag:'Step 2 — Select Asset',title:'3D Asset Library',
+            desc:'Users browse categorized 3D objects. Architecture, shapes, interior design. Selected asset appears on the 3D map.',
+            tap:{x:'54%',y:'68%'},tip:'Select the building asset',
+            build:function(el){
+              el.style.background='#111';
+              el.innerHTML=
+                '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);">'+
+                  '<div style="font-size:11px;font-weight:700;color:#fff;flex:1;">3D Asset</div>'+
+                  '<div style="width:56px;height:56px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;">'+
+                    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.2"><path d="M1 9l11-7 11 7v11a2 2 0 01-2 2H3a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'+
+                  '</div>'+
+                '</div>'+
+                '<div style="padding:8px 14px 4px;font-size:8.5px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;"><span>Shapes</span><span style="color:'+AC+';">View All</span></div>'+
+                '<div style="display:flex;gap:8px;padding:4px 14px 10px;overflow-x:auto;">'+
+                  [
+                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" stroke="none"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>'},
+                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" stroke="none"><circle cx="12" cy="12" r="10"/></svg>'},
+                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" stroke="none"><polygon points="12 2 22 22 2 22"/></svg>'},
+                  ].map(function(s){return '<div style="width:56px;height:56px;border-radius:8px;background:rgba(255,255,255,0.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+s.ic+'</div>';}).join('')+
+                '</div>'+
+                '<div style="padding:4px 14px 4px;font-size:8.5px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;"><span>Architecture</span><span style="color:'+AC+';">View All</span></div>'+
+                '<div style="display:flex;gap:8px;padding:4px 14px 10px;overflow-x:auto;">'+
+                  [
+                    {color:'#f4c842',active:false},{color:'#e05c4a',active:false},{color:AC,active:true},{color:'#f4c842',active:false},
+                  ].map(function(b,i){
+                    return '<div style="width:56px;height:56px;border-radius:8px;background:rgba(255,255,255,0.04);border:'+(b.active?'2px solid '+AC:'1.5px solid rgba(255,255,255,0.08)')+';flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;">'+
+                      '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="'+b.color+'" stroke-width="1.3"><path d="M1 9l11-7 11 7v11a2 2 0 01-2 2H3a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'+
+                      (b.active?'<div style="position:absolute;bottom:4px;right:4px;width:12px;height:12px;border-radius:50%;background:'+AC+';display:flex;align-items:center;justify-content:center;"><svg width="7" height="7" viewBox="0 0 24 24" fill="white"><polyline points="20 6 9 17 4 12"/></svg></div>':'')+
+                    '</div>';
+                  }).join('')+
+                '</div>'+
+                '<div style="padding:8px 14px;"><div class="bc-cta" style="height:34px;background:'+AC+';border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="success">'+
+                  '<span style="font-size:10px;font-weight:600;color:#fff;">Continue</span>'+
+                '</div></div>';
+            }
+          }
+        ]
+      },
+      {
+        id:'visitor',label:'Visitor Experience',tag:'Flow 4',
+        dsNote:'Original: flat content list. Reimagined: map stays visible, tabs split content vs info, grid shows POI richness.',
+        steps:[
+          {
+            nav:'WORKOUT CIRCUIT 1: YOGA',back:true,
+            tag:'Step 1 — POI Feed',title:'Visitor sees POI with Feed tab',
+            desc:'The map stays visible above the sheet. Tap ABOUT to see location info, or tap any content item to open it.',
+            tap:{x:'30%',y:'62%'},tip:'Tap ABOUT tab to see location info',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{h:155,pins:[{x:'48%',y:'38%',color:'#e05c4a',big:true,label:'WORKOUT CIRCUIT 1: YOGA'}]});
+              var sheet=document.createElement('div');
+              sheet.style.cssText='background:#111827;position:relative;z-index:5;';
+              sheet.innerHTML=
+                '<div style="padding:8px 12px 0;">'+
+                  '<div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;margin-bottom:2px;">WORKOUT CIRCUIT 1: YOGA</div>'+
+                  '<div style="font-size:8.5px;color:rgba(255,255,255,0.5);line-height:1.5;margin-bottom:6px;">Welcome to the 1st of 3 circuits… <span style="color:'+AC+';">More</span></div>'+
+                  '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">'+
+                    '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:6px;border-bottom:2px solid '+AC+';">FEED</div>'+
+                    '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',1)" data-click-sound="tap">ABOUT</div>'+
+                  '</div>'+
+                  '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:6px;">'+
+                    ['Warm up','Stretching','Cool down','Power','Balance','Yoga'].map(function(t,i){
+                      var colors=['#4aa3d4','#4a7aa3','#1a3a5c','#2a5a7a','#0d2a44','#4aa3d4'];
+                      return '<div class="bc-cta" style="aspect-ratio:1;border-radius:5px;background:linear-gradient(135deg,'+colors[i]+'44,'+colors[i]+'22);border:1px solid '+colors[i]+'44;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',2)" data-click-sound="click">'+
+                        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="'+colors[i]+'" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                        '<span style="font-size:5.5px;color:rgba(255,255,255,0.5);">'+t+'</span>'+
+                      '</div>';
+                    }).join('')+
+                  '</div>'+
+                '</div>';
+              el.appendChild(sheet);
+            }
+          },
+          {
+            nav:'WORKOUT CIRCUIT 1: YOGA',back:true,
+            tag:'Step 2 — About Tab',title:'About tab — location info',
+            desc:'About tab shows geo-location, description, and tags. Visitor can navigate to next POI with the arrows.',
+            tap:{x:'50%',y:'45%'},tip:'Tap ← → arrows to browse POIs',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{h:140,pins:[{x:'48%',y:'40%',color:'#e05c4a',big:true}]});
+              var sheet=document.createElement('div');
+              sheet.style.cssText='background:#111827;position:relative;z-index:5;padding:8px 12px;';
+              sheet.innerHTML=
+                '<div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;margin-bottom:4px;">WORKOUT CIRCUIT 1: YOGA</div>'+
+                '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:10px;">'+
+                  '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="tap">FEED</div>'+
+                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:6px;border-bottom:2px solid '+AC+';">ABOUT</div>'+
+                '</div>'+
+                '<div style="display:flex;align-items:flex-start;gap:8px;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px;">'+
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" style="flex-shrink:0;margin-top:1px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+                  '<div>'+
+                    '<div style="font-size:8px;color:#fff;font-weight:500;line-height:1.5;">Huntington Beach Central Park East</div>'+
+                    '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);">18002 Goldenwest St, CA 92647</div>'+
+                  '</div>'+
+                '</div>'+
+                '<div style="font-size:8px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:8px;">Welcome to the 1st of 3 circuits of workouts that will give you one of the most complete experiences…</div>'+
+                '<div style="display:flex;gap:5px;flex-wrap:wrap;">'+
+                  ['Yoga','Exercise','Health','LA'].map(function(t){
+                    return '<span style="padding:3px 8px;border-radius:100px;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);font-size:7.5px;color:#4aa3d4;">'+t+'</span>';
+                  }).join('')+
+                '</div>'+
+                '<div style="display:flex;justify-content:space-between;margin-top:10px;">'+
+                  '<div class="bc-cta" style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="nav">'+
+                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>'+
+                    '<span style="font-size:8px;color:rgba(255,255,255,0.6);">Prev</span>'+
+                  '</div>'+
+                  '<div class="bc-cta" style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;" onclick="bcProtoGoStep(\'feed\',0)" data-click-sound="nav">'+
+                    '<span style="font-size:8px;color:rgba(255,255,255,0.6);">Next</span>'+
+                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                  '</div>'+
+                '</div>';
+              el.appendChild(sheet);
+            }
+          },
+          {
+            nav:'WARM UP ROUTINE',back:true,
+            tag:'Step 3 — Content Detail',title:'Content item opened',
+            desc:'Tapping a feed item opens its content. Posts, subscribers, and a preview of what\'s inside.',
+            tap:{x:'50%',y:'75%'},tip:'Tap Subscribe or browse posts',
+            build:function(el){
+              el.style.background='#111827';
+              el.innerHTML=
+                '<div style="padding:12px;">'+
+                  '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'+
+                    '<div style="width:44px;height:44px;border-radius:10px;background:rgba(74,163,212,0.15);border:1px solid rgba(74,163,212,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '</div>'+
+                    '<div>'+
+                      '<div style="font-size:11px;font-weight:700;color:#fff;">WARM UP ROUTINE</div>'+
+                      '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-top:1px;">Workout Circuit 1: Yoga · 10 posts · 59 subs</div>'+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="bc-cta" style="height:32px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;" data-click-sound="success">'+
+                    '<span style="font-size:9px;font-weight:600;color:#fff;">Subscribe</span>'+
+                  '</div>'+
+                  [
+                    {t:'Intro — what to expect',d:'Duration: 8 min · Beginner friendly'},
+                    {t:'Upper body warmup',d:'Duration: 5 min · Arms + shoulders'},
+                    {t:'Core activation',d:'Duration: 6 min · Low impact'},
+                  ].map(function(p,i){
+                    return '<div class="bc-feed-item" style="display:flex;align-items:center;gap:9px;padding:8px;border-radius:7px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);margin-bottom:5px;cursor:pointer;" data-click-sound="click">'+
+                      '<div style="width:32px;height:32px;border-radius:6px;background:rgba(74,163,212,0.1);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
+                        '<span style="font-size:8px;font-weight:700;color:#4aa3d4;">'+(i+1)+'</span>'+
+                      '</div>'+
+                      '<div style="flex:1;">'+
+                        '<div style="font-size:8.5px;font-weight:600;color:#fff;">'+p.t+'</div>'+
+                        '<div style="font-size:7px;color:rgba(255,255,255,0.4);margin-top:1px;">'+p.d+'</div>'+
+                      '</div>'+
+                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                    '</div>';
+                  }).join('')+
+                '</div>';
+            }
+          }
+        ]
+      },
+      {
+        id:'feed',label:'Universal Feed',tag:'Flow 5',
+        dsNote:'Original DS: separate feed screen. Reimagined: grouped feed per Space. Discovery-first with subscriber counts.',
+        steps:[
+          {
+            nav:'CENTRAL PARK NY',back:true,
+            tag:'Step 1 — Space Feed',title:'Universal Feed — tap a group',
+            desc:'All POI content in one feed, grouped by location. Tap any row to dive into that POI\'s content.',
+            tap:{x:'50%',y:'72%'},tip:'Tap a feed row to open it',
+            build:function(el){
+              el.style.background='#0a0f1a';
+              make3DMap(el,{h:112,pins:[{x:'48%',y:'42%',color:AC,big:true}]});
+              var sheet=document.createElement('div');
+              sheet.style.cssText='background:#111827;position:relative;z-index:5;padding:8px 12px 0;';
+              sheet.innerHTML=
+                '<div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:1px;">CENTRAL PARK NY</div>'+
+                '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:6px;">This is a great place to practice Yoga &amp; stretching.</div>'+
+                '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">'+
+                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:5px;border-bottom:2px solid '+AC+';">Feed</div>'+
+                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);padding-bottom:5px;border-bottom:2px solid transparent;">About</div>'+
+                '</div>'+
+                '<div style="font-size:8.5px;font-weight:700;color:#fff;margin-bottom:2px;">YOGA IN THE PARK</div>'+
+                '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-bottom:6px;">Follow this yoga routine I prepared for you.</div>'+
+                [
+                  {t:'Warm up routine',p:10,s:59},
+                  {t:'Stretching routine',p:10,s:37},
+                  {t:'Cool down routine',p:8,s:22},
+                ].map(function(f){
+                  return '<div class="bc-feed-item" style="display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;" onclick="bcProtoGoStep(\'feed\',1)" data-click-sound="success">'+
+                    '<div style="width:38px;height:38px;border-radius:7px;background:rgba(74,163,212,0.08);border:1px solid rgba(74,163,212,0.18);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
+                      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '</div>'+
+                    '<div style="flex:1;">'+
+                      '<div style="font-size:9px;font-weight:600;color:#fff;">'+f.t+'</div>'+
+                      '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-top:2px;"><span style="color:'+AC+';font-weight:600;">POSTS </span>'+f.p+'  <span style="color:'+AC+';font-weight:600;">SUBS </span>'+f.s+'</div>'+
+                    '</div>'+
+                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                  '</div>';
+                }).join('');
+              el.appendChild(sheet);
+            }
+          },
+          {
+            nav:'YOGA IN THE PARK',back:true,
+            tag:'Step 2 — Feed Detail',title:'Content group opened',
+            desc:'Full content list for this POI group. Each post has a play button. Subscribe to get updates.',
+            tap:{x:'50%',y:'55%'},tip:'Tap a post to preview it',
+            build:function(el){
+              el.style.background='#111827';
+              el.innerHTML=
+                '<div style="padding:12px;">'+
+                  '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">'+
+                    '<div style="width:40px;height:40px;border-radius:9px;background:rgba(74,163,212,0.12);border:1px solid rgba(74,163,212,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '</div>'+
+                    '<div style="flex:1;">'+
+                      '<div style="font-size:11px;font-weight:700;color:#fff;">YOGA IN THE PARK</div>'+
+                      '<div style="font-size:8px;color:rgba(255,255,255,0.4);">3 posts · 59 subscribers</div>'+
+                    '</div>'+
+                  '</div>'+
+                  '<div class="bc-cta" style="height:30px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;cursor:pointer;" data-click-sound="success">'+
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="white" style="margin-right:5px;" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
+                    '<span style="font-size:9px;font-weight:600;color:#fff;">Subscribe</span>'+
+                  '</div>'+
+                  [
+                    {t:'Warm up routine',d:'8 min · Beginner',n:1},
+                    {t:'Stretching full body',d:'12 min · Intermediate',n:2},
+                    {t:'Cool down flow',d:'6 min · All levels',n:3},
+                  ].map(function(p){
+                    return '<div class="bc-feed-item" style="display:flex;align-items:center;gap:9px;padding:8px;border-radius:7px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);margin-bottom:4px;cursor:pointer;" data-click-sound="click">'+
+                      '<div style="width:34px;height:34px;border-radius:7px;background:rgba(74,163,212,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                        '<svg width="14" height="14" viewBox="0 0 24 24" fill="#4aa3d4" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>'+
+                      '</div>'+
+                      '<div style="flex:1;">'+
+                        '<div style="font-size:8.5px;font-weight:600;color:#fff;">'+p.t+'</div>'+
+                        '<div style="font-size:7px;color:rgba(255,255,255,0.4);">'+p.d+'</div>'+
+                      '</div>'+
+                      '<span style="font-size:7.5px;color:rgba(255,255,255,0.3);font-family:var(--font-mono);">#'+p.n+'</span>'+
+                    '</div>';
+                  }).join('')+
+                '</div>';
+            }
+          }
+        ]
+      }
+    ];
+
+    /* ── State ── */
+    var cur=0,step=0,isAuto=false,autoInt=null,tids=[];
+    var DUR=5200;
+    var fIdx={};FLOWS.forEach(function(f){fIdx[f.id]=f;});
+    function pSch(fn,ms){var id=setTimeout(fn,ms);tids.push(id);}
+    function pClr(){tids.forEach(clearTimeout);tids=[];}
+
+    window.bcProtoGoStep=function(fid,si){
+      pClr();stopAuto();
+      var f=fIdx[fid];if(!f)return;
+      cur=FLOWS.indexOf(f);step=si||0;
+      render(true);
+    };
+
+    function render(animate){
+      var f=FLOWS[cur],s=f.steps[step];
+      var body=document.getElementById('bc-proto-body');
+      var navT=document.getElementById('bc-proto-nav-title');
+      var backB=document.getElementById('bc-proto-back');
+      var stepTag=document.getElementById('bc-proto-step-tag');
+      var stepTi=document.getElementById('bc-proto-step-title');
+      var stepDe=document.getElementById('bc-proto-step-desc');
+      var dsNote=document.getElementById('bc-proto-ds-note');
+      if(navT){navT.style.opacity='0';setTimeout(function(){navT.textContent=s.nav;navT.style.opacity='1';},180);}
+      if(backB)backB.style.display=s.back?'block':'none';
+      if(stepTag)stepTag.textContent=f.tag+' · '+s.tag;
+      if(stepTi)stepTi.textContent=s.title;
+      if(stepDe)stepDe.textContent=s.desc;
+      if(dsNote&&f.dsNote){dsNote.textContent='↑ DS: '+f.dsNote;dsNote.style.display='block';}
+      else if(dsNote){dsNote.style.display='none';}
+      navT&&(navT.style.transition='opacity 180ms ease');
+      if(body){
+        if(animate){
+          var fl=document.getElementById('bc-proto-flash');
+          if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';},110);}
+          body.style.opacity='0';
+          setTimeout(function(){body.scrollTop=0;body.innerHTML='';s.build(body);body.style.opacity='1';},200);
+        } else {
+          body.scrollTop=0;body.innerHTML='';s.build(body);
+        }
+      }
+      renderFlows();renderDots();
+      if(!isAuto)pSch(function(){runFinger(s);},400);
+    }
+
+    function renderFlows(){
+      var list=document.getElementById('bc-proto-flows');if(!list)return;
+      list.innerHTML='';
+      FLOWS.forEach(function(f,i){
+        var b=document.createElement('button');
+        b.style.cssText='width:100%;display:flex;align-items:center;gap:10px;padding:9px 12px;background:'+(i===cur?'rgba(74,163,212,0.1)':'transparent')+';border:1px solid '+(i===cur?'rgba(74,163,212,0.3)':'rgba(255,255,255,0.06)')+';border-radius:8px;cursor:pointer;font-family:var(--font-display);text-align:left;transition:all 200ms ease;color:'+(i===cur?'#fff':'rgba(255,255,255,0.5)')+';font-size:0.72rem;font-weight:'+(i===cur?'600':'400')+';';
+        b.setAttribute('data-click-sound','tap');
+        b.innerHTML='<div style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:'+(i===cur?'#4aa3d4':'rgba(255,255,255,0.15)')+'"></div>'+
+          '<span style="flex:1;">'+f.label+'</span>'+
+          '<span style="font-size:0.58rem;color:rgba(255,255,255,0.35);font-family:var(--font-mono);">'+f.tag+'</span>';
+        b.onclick=(function(fi){return function(){window.bcProtoGoStep(FLOWS[fi].id,0);};})(i);
+        list.appendChild(b);
+      });
+    }
+
+    function renderDots(){
+      var row=document.getElementById('bc-proto-steps-row');if(!row)return;
+      var f=FLOWS[cur];
+      if(f.steps.length<=1){row.innerHTML='';return;}
+      row.innerHTML='';
+      f.steps.forEach(function(st,i){
+        var b=document.createElement('button');
+        b.style.cssText='width:'+(i===step?18:5)+'px;height:5px;border-radius:100px;background:'+(i<=step?'#4aa3d4':'rgba(74,163,212,0.2)')+';border:none;cursor:pointer;padding:0;transition:all 250ms ease;';
+        b.onclick=(function(si){return function(){window.bcProtoGoStep(f.id,si);};})(i);
+        row.appendChild(b);
+        if(i<f.steps.length-1){var sep=document.createElement('div');sep.style.cssText='height:1px;width:10px;background:rgba(74,163,212,0.2);flex-shrink:0;';row.appendChild(sep);}
+      });
+    }
+
+    /* Finger cursor + hotspot — precise tap */
+    function runFinger(s){
+      if(!s.tap)return;
+      var c=document.getElementById('bc-proto-cur');
+      var ring=document.getElementById('bc-proto-ring');
+      var fc=document.getElementById('bc-proto-circle');
+      var rpl=document.getElementById('bc-proto-rpl');
+      var rr=document.getElementById('bc-proto-rpl-ring');
+      var hs=document.getElementById('bc-hotspot');
+      var stepTag=document.getElementById('bc-proto-step-tag');
+      if(!c)return;
+      /* Show hotspot on target immediately */
+      if(hs){hs.style.top=s.tap.y;hs.style.left=s.tap.x;hs.style.opacity='1';}
+      /* Update right panel tip */
+      if(stepTag&&s.tip){
+        var tipEl=document.getElementById('bc-proto-tip');
+        if(!tipEl){
+          tipEl=document.createElement('div');
+          tipEl.id='bc-proto-tip';
+          tipEl.style.cssText='display:flex;align-items:center;gap:7px;padding:7px 10px;background:rgba(74,163,212,0.08);border:1px solid rgba(74,163,212,0.2);border-radius:8px;font-size:0.68rem;color:#4aa3d4;margin-bottom:8px;';
+          var si=document.getElementById('bc-proto-step-info');
+          if(si&&si.parentNode)si.parentNode.insertBefore(tipEl,si);
+        }
+        tipEl.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>'+'<span>'+s.tip+'</span>';
+      }
+      /* Finger appears */
+      c.style.top='12%';c.style.left='50%';c.style.opacity='1';
+      pSch(function(){c.style.top=s.tap.y;c.style.left=s.tap.x;},350);
+      pSch(function(){if(ring)ring.style.opacity='1';},900);
+      /* Press */
+      pSch(function(){
+        if(fc){fc.style.transform='scale(0.65)';fc.style.background='rgba(74,163,212,0.5)';}
+        if(hs)hs.style.opacity='0'; /* hotspot hides on tap */
+        if(rpl){rpl.style.left=s.tap.x;rpl.style.top=s.tap.y;rpl.style.opacity='1';}
+        if(rr){rr.style.animation='none';void rr.offsetWidth;rr.style.animation='bcRpl 520ms ease-out forwards';}
+      },1250);
+      pSch(function(){if(fc){fc.style.transform='scale(1)';fc.style.background='rgba(74,163,212,0.25)';}if(ring)ring.style.opacity='0';},1480);
+      pSch(function(){c.style.opacity='0';if(rpl)rpl.style.opacity='0';},1800);
+      /* Restore hotspot after tap for loop */
+      pSch(function(){if(hs&&!isAuto){hs.style.opacity='0.6';}},2200);
+    }
+
+    /* Progress */
+    function startProg(){
+      var bar=document.getElementById('bc-proto-progress');
+      if(!bar)return;bar.style.transition='none';bar.style.width='0%';
+      void bar.offsetWidth;bar.style.transition='width '+DUR+'ms linear';bar.style.width='100%';
+    }
+    function resetProg(){var bar=document.getElementById('bc-proto-progress');if(bar){bar.style.transition='none';bar.style.width='0%';}}
+
+    /* Auto-play */
+    var SEQ=[
+      ['space',0],
+      ['addpoi',0],['addpoi',1],
+      ['setpin',0],['setpin',1],
+      ['visitor',0],['visitor',1],['visitor',2],
+      ['feed',0],['feed',1]
+    ];
+    var aIdx=0;
+    function stopAuto(){
+      isAuto=false;clearInterval(autoInt);resetProg();
+      var btn=document.getElementById('bc-proto-play-btn');
+      if(btn){btn.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline;vertical-align:middle;margin-right:4px;"><polygon points="5 3 19 12 5 21 5 3"/></svg> Auto-play';btn.style.background='rgba(74,163,212,0.12)';}
+    }
+    window.bcProtoAutoPlay=function(){
+      if(isAuto){stopAuto();return;}
+      isAuto=true;aIdx=0;
+      var btn=document.getElementById('bc-proto-play-btn');
+      if(btn){btn.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:inline;vertical-align:middle;margin-right:4px;"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg> Stop';btn.style.background='rgba(74,163,212,0.2)';}
+      function next(){
+        if(!isAuto)return;
+        var s=SEQ[aIdx%SEQ.length];
+        window.bcProtoGoStep(s[0],s[1]);aIdx++;startProg();
+      }
+      next();autoInt=setInterval(next,DUR);
+    };
+
+    window.bcProtoBack=function(){
+      if(step>0)window.bcProtoGoStep(FLOWS[cur].id,step-1);
+      else window.bcProtoGoStep('space',0);
+    };
+    window.bcProtoReset=function(){stopAuto();window.bcProtoGoStep('space',0);};
+
+    /* Init */
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded',init);
+    } else { init(); }
+
+    function init(){
+      render(false);
+      /* Dismiss tap hint after 3.5s */
+      var hint=document.getElementById('bc-tap-hint');
+      if(hint){
+        setTimeout(function(){hint.style.opacity='0';setTimeout(function(){if(hint)hint.style.display='none';},400);},3500);
+        /* Also dismiss on first user click inside proto */
+        var wrap=document.getElementById('bc-proto-wrap');
+        if(wrap){wrap.addEventListener('click',function(){if(hint){hint.style.opacity='0';hint.style.display='none';}},{ once:true });}
+      }
+      var sec=document.getElementById('bc-unified');
+      if(sec){
+        var obs=new IntersectionObserver(function(e){
+          if(e[0].isIntersecting){pSch(function(){runFinger(FLOWS[0].steps[0]);},400);obs.disconnect();}
+        },{threshold:0.08});
+        obs.observe(sec);
+      }
+    }
+
+  })();
+
+  /* ── Lightbox ── */
+  var BC_IMGS=[
+    {src:'../Space with map (Owner).png',cap:'Space · Owner — 3D tilted map with floating POIs'},
+    {src:'../Map view - POI icon - Initial selection - Tilted (dark).png',cap:'Map · Tilted dark — spatial depth communicates ownership'},
+    {src:'../POI 1 - Map.png',cap:'Map · Multiple POIs — flat map with labeled pins'},
+    {src:'../Add POI - Map view - Search.png',cap:'Add POI · Search — search-first flow validated in testing'},
+    {src:'../Add POI - Map view - Place\'s info sheet (basic).png',cap:'Add POI · Info sheet — location confirmed before committing'},
+    {src:'../Set POI - Info form - Image added - Action added (single).png',cap:'Set POI · Form — name, description, tags, actions'},
+    {src:'../Set map pin - Options - Icon.png',cap:'Set Pin · Options — 3 levels: Icon, Image, 3D Asset'},
+    {src:'../Set map pin - Select Pin icon - Change color.png',cap:'Set Pin · Color — custom color picker for icon pins'},
+    {src:'../Set map pin - Select image - OK.png',cap:'Set Pin · Image — photo used as spatial marker'},
+    {src:'../Set map pin - Select 3D asset - OK.png',cap:'Set Pin · 3D Asset — 3D object from Unity library as POI'},
+    {src:'../Map view - POI edited - 3D asset.png',cap:'Map · 3D POI — 3D building asset floating on the map'},
+    {src:'../Map view - Multiple POI - List enlarged.png',cap:'POI List — all POIs in the Space, reorderable'},
+    {src:'../POI selected - Content tab [VISITOR].png',cap:'Visitor · Feed — content grid with feed and about tabs'},
+    {src:'../Visitor - UNIVERSAL FEED info sheet (Feeds).png',cap:'Universal Feed — aggregated content across all POIs'},
+    {src:'../Edit Mode - Select object%27s part 1.png',cap:'Edit · 3D Mode — section-level Unity editing with texture/color controls'},
+  ];
+  var bcLbIdx=0;
+  window.bcLbOpen=function(i){
+    bcLbIdx=i;
+    var lb=document.getElementById('bc-lb');
+    var img=document.getElementById('bc-lb-img');
+    var cap=document.getElementById('bc-lb-cap');
+    if(!lb||!img)return;
+    img.src=BC_IMGS[i].src;
+    img.alt=BC_IMGS[i].cap;
+    if(cap)cap.textContent=BC_IMGS[i].cap;
+    lb.style.display='flex';
+    document.body.style.overflow='hidden';
+    if(window.dsSound)window.dsSound.click();
+  };
+  window.bcLbClose=function(){
+    var lb=document.getElementById('bc-lb');
+    if(lb){lb.style.display='none';document.body.style.overflow='';}
+  };
+  window.bcLbNav=function(dir){
+    bcLbIdx=(bcLbIdx+dir+BC_IMGS.length)%BC_IMGS.length;
+    var img=document.getElementById('bc-lb-img');
+    var cap=document.getElementById('bc-lb-cap');
+    if(img){img.style.opacity='0';setTimeout(function(){img.src=BC_IMGS[bcLbIdx].src;img.alt=BC_IMGS[bcLbIdx].cap;img.style.opacity='1';},150);}
+    if(cap)cap.textContent=BC_IMGS[bcLbIdx].cap;
+    if(window.dsSound)window.dsSound.click();
+  };
+  document.addEventListener('keydown',function(e){
+    var lb=document.getElementById('bc-lb');
+    if(!lb||lb.style.display==='none')return;
+    if(e.key==='Escape')window.bcLbClose();
+    if(e.key==='ArrowLeft')window.bcLbNav(-1);
+    if(e.key==='ArrowRight')window.bcLbNav(1);
+  });
+
+  /* ── Web app Three.js mini-map + desktop cursor ── */
+  (function(){
+    var canvas=document.getElementById('bc-canvas-web');
+    var mapEl=document.getElementById('bc-webapp-map');
+    var cur=document.getElementById('bc-webapp-cur');
+    var lbl=document.getElementById('bc-webapp-cur-lbl');
+    if(!canvas||!mapEl)return;
+
+    var obs=new IntersectionObserver(function(e){
+      if(e[0].isIntersecting){initWebMap();obs.disconnect();}
+    },{threshold:0.2});
+    obs.observe(mapEl);
+
+    function initWebMap(){
+      if(!window.THREE){setTimeout(initWebMap,300);return;}
+      var isDark=document.documentElement.getAttribute('data-theme')!=='light';
+      var W=mapEl.offsetWidth||500,H=mapEl.offsetHeight||280;
+      var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
+      renderer.setSize(W,H);renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      var scene=new THREE.Scene();
+      scene.background=new THREE.Color(isDark?0x080d14:0xf0ede8);
+      var camera=new THREE.PerspectiveCamera(42,W/H,0.1,100);
+      camera.position.set(0,14,18);camera.lookAt(0,0,0);
+      var amb=new THREE.AmbientLight(isDark?0x334466:0xffffff,isDark?0.6:0.9);scene.add(amb);
+      var dir=new THREE.DirectionalLight(isDark?0x88aacc:0xffffff,isDark?0.8:1.1);
+      dir.position.set(6,12,8);scene.add(dir);
+      scene.add(new THREE.GridHelper(28,28,isDark?0x1a3a5c:0xd0cdc8,isDark?0x0d1e30:0xe0ddd8));
+      var gnd=new THREE.Mesh(new THREE.PlaneGeometry(28,28),new THREE.MeshLambertMaterial({color:isDark?0x080d14:0xf0ede8}));
+      gnd.rotation.x=-Math.PI/2;gnd.position.y=-0.01;scene.add(gnd);
+      var bColors=isDark?[0x1a2840,0x152233,0x1e2d42,0x17263a]:[0xd0ccc6,0xc8c4be,0xd4d0ca,0xccc8c2];
+      [[-3,-2,2,4,2],[2,-3,1.8,6,1.8],[-6,2,2.5,3,2.5],[6,-1,1.6,7,1.6],[3,2,1.8,4,1.8],[-7,-3,1.6,3.5,1.6],[5,6,2,4,2],[-4,-6,1.5,5,1.5]].forEach(function(c){
+        var col=bColors[Math.floor(Math.random()*bColors.length)];
+        var m=new THREE.Mesh(new THREE.BoxGeometry(c[2],c[3],c[4]),new THREE.MeshLambertMaterial({color:col,transparent:true,opacity:isDark?0.88:0.92}));
+        m.position.set(c[0],c[3]/2,c[1]);scene.add(m);
+      });
+      var pins=[];
+      [[0,-1,'#4aa3d4'],[2.5,2.5,'#e05c4a'],[-3,0.5,'#f4c842']].forEach(function(p){
+        var col=new THREE.Color(p[2]);
+        var g=new THREE.Group();g.position.set(p[0],2,p[1]);
+        var sph=new THREE.Mesh(new THREE.SphereGeometry(0.2,10,10),new THREE.MeshLambertMaterial({color:col,emissive:col,emissiveIntensity:0.3}));
+        sph.position.y=0.5;g.add(sph);
+        var stem=new THREE.Mesh(new THREE.CylinderGeometry(0.025,0.025,0.5,8),new THREE.MeshLambertMaterial({color:col}));
+        stem.position.y=0.25;g.add(stem);
+        g.floatOff=Math.random()*Math.PI*2;
+        scene.add(g);pins.push(g);
+      });
+      var start=Date.now();
+      function tick(){
+        requestAnimationFrame(tick);
+        var t=(Date.now()-start)/1000;
+        pins.forEach(function(g){g.position.y=2+Math.sin(t*1.3+g.floatOff)*0.06;});
+        camera.position.x=Math.sin(t*0.018)*18*0.3;
+        camera.position.z=18+Math.cos(t*0.013)*2;
+        camera.lookAt(0,1,0);
+        renderer.render(scene,camera);
+      }
+      tick();
+      window.addEventListener('resize',function(){
+        var nW=mapEl.offsetWidth,nH=mapEl.offsetHeight;
+        if(!nW||!nH)return;
+        camera.aspect=nW/nH;camera.updateProjectionMatrix();renderer.setSize(nW,nH);
+      });
+    }
+
+    if(cur&&mapEl){
+      var wtids=[];
+      var labels=['Click to open POI','View Space details','Add new POI here'];
+      var positions=[{x:'48%',y:'42%'},{x:'62%',y:'58%'},{x:'35%',y:'35%'}];
+      var pi=0;
+      function wRun(){
+        wtids.forEach(clearTimeout);wtids=[];
+        cur.style.opacity='1';
+        function step(){
+          cur.style.top=positions[pi].y;cur.style.left=positions[pi].x;
+          if(lbl){lbl.textContent=labels[pi];lbl.style.opacity='1';}
+          var ci=pi;
+          wtids.push(setTimeout(function(){if(lbl)lbl.style.opacity='0';},1100));
+          pi=(pi+1)%positions.length;
+          wtids.push(setTimeout(step,1800));
+        }
+        step();
+      }
+      var wObs=new IntersectionObserver(function(e){
+        if(e[0].isIntersecting){wRun();wObs.disconnect();}
+      },{threshold:0.3});
+      wObs.observe(mapEl);
+    }
+  })();
+  </script>
+
+  <script src="../assets/main.js"></script>
+  <style>
+  .bc-arrow-nav{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+  .bc-arrow{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 200ms ease}
+  .bc-arrow:hover{border-color:#4aa3d4;color:#4aa3d4}
+  .bc-counter{font-size:0.65rem;color:rgba(255,255,255,0.3);font-family:var(--font-mono)}
+  .bc-scene-wrap{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(74,163,212,0.2);box-shadow:0 0 60px rgba(74,163,212,0.06);margin-bottom:20px}
+  .bc-canvas{width:100%;height:300px;display:block}
+  .bc-scene-bar{position:absolute;top:12px;left:12px;right:12px;display:flex;align-items:center;justify-content:space-between;z-index:10;pointer-events:none}
+  .bc-scene-title{font-size:9px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:.06em;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);padding:4px 10px;border-radius:100px}
+  .bc-scene-badge{font-size:7px;color:#4aa3d4;background:rgba(74,163,212,0.1);border:1px solid #4aa3d4;padding:3px 8px;border-radius:100px}
+  .bc-poi-label{position:absolute;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);border:1px solid rgba(74,163,212,0.4);border-radius:4px;padding:2px 7px;font-size:8px;font-weight:700;color:#4aa3d4;white-space:nowrap;box-shadow:0 0 10px rgba(74,163,212,0.25);opacity:0;transform:translateY(-6px);transition:all 400ms ease;pointer-events:none;z-index:10}
+  .bc-poi-red{border-color:rgba(224,92,74,0.4);color:#e05c4a}
+  .bc-poi-gold{border-color:rgba(244,200,66,0.4);color:#f4c842}
+  .bc-poi-label.bc-visible{opacity:1;transform:translateY(0)}
+  .bc-toast{position:absolute;bottom:16px;left:12px;right:12px;background:rgba(10,20,30,0.95);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:6px 10px;font-size:8px;color:rgba(255,255,255,0.7);font-family:var(--font-mono);display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(10px);transition:all 400ms ease;z-index:10}
+  .bc-toast::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+  .bc-toast.bc-visible{opacity:1;transform:translateY(0)}
+  .bc-content-row{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
+  @media(max-width:640px){.bc-content-row{grid-template-columns:1fr}}
+  .bc-phones{display:flex;gap:12px;flex-wrap:wrap}
+  /* ── Clay phone system — same as portfolio standard ── */
+  .bc-phone-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;}
+  .bc-phone-label{font-size:0.6rem;color:var(--text-tertiary);font-family:var(--font-mono);text-align:center;}
+  .bc-phone{
+    position:relative;
+    width:160px;
+  }
+  .bc-phone-shell{
+    width:160px;
+    background:linear-gradient(160deg,#2a2a2a 0%,#1c1c1c 50%,#111 100%);
+    border-radius:30px;
+    padding:2.5px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.55),0 6px 12px rgba(0,0,0,0.3),
+               inset 0 1.5px 0 rgba(255,255,255,0.09),inset 0 -1px 0 rgba(0,0,0,0.5);
+    position:relative;
+  }
+  .bc-phone-shell::before{
+    content:'';position:absolute;inset:0;border-radius:30px;
+    background:linear-gradient(135deg,rgba(255,255,255,0.07) 0%,transparent 45%);
+    pointer-events:none;z-index:10;
+  }
+  .bc-phone-shell-inner{background:#0a0f1a;border-radius:27px;overflow:hidden;}
+  .bc-phone-sb{
+    height:30px;background:#000;display:flex;align-items:flex-end;
+    justify-content:space-between;padding:0 12px 5px;position:relative;flex-shrink:0;
+  }
+  .bc-phone-di{
+    position:absolute;top:6px;left:50%;transform:translateX(-50%);
+    width:76px;height:18px;background:#000;border-radius:100px;z-index:2;
+  }
+  .bc-phone-sb-time{font-size:8px;font-weight:600;color:#fff;font-family:-apple-system,sans-serif;position:relative;z-index:3;line-height:1;}
+  .bc-phone-sb-icons{display:flex;gap:3px;align-items:center;position:relative;z-index:3;}
+  .bc-phone-img{width:100%;display:block;object-fit:cover;}
+  .bc-phone-home{height:12px;background:#0a0f1a;display:flex;align-items:center;justify-content:center;}
+  .bc-phone-home::after{content:'';width:40px;height:2.5px;border-radius:2px;background:rgba(255,255,255,0.25);}
+  /* Side buttons */
+  .bc-phone::before{content:'';position:absolute;left:-2.5px;top:58px;width:2.5px;height:16px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;}
+  .bc-phone::after{content:'';position:absolute;left:-2.5px;top:80px;width:2.5px;height:26px;background:linear-gradient(to right,#111,#2a2a2a);border-radius:2px 0 0 2px;}
+  .bc-phone-btn-r{position:absolute;right:-2.5px;top:68px;width:2.5px;height:32px;background:linear-gradient(to left,#111,#2a2a2a);border-radius:0 2px 2px 0;}
+  .bc-annotations{display:flex;flex-direction:column;gap:8px}
+  .bc-section-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:4px}
+  .bc-annotation{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #4aa3d4;border-radius:6px;padding:8px 10px}
+  .bc-ann-icon{font-size:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--accent)}
+  .bc-ann-title{font-size:7.5px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:3px}
+  .bc-ann-body{font-size:6.5px;color:rgba(255,255,255,0.4);line-height:1.65}
+  .bc-search-mock{background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 12px;margin-bottom:8px}
+  .bc-search-bar{height:22px;background:rgba(255,255,255,0.04);border-radius:4px;display:flex;align-items:center;padding:0 8px;gap:6px;border:1px solid rgba(255,255,255,0.08);margin-bottom:6px;transition:border-color 300ms}
+  .bc-search-bar.bc-typing{border-color:#4aa3d4}
+  .bc-search-text,.bc-cursor{font-size:9px;font-family:var(--font-mono)}
+  .bc-search-text{color:#f0f0f0}
+  .bc-cursor{color:#4aa3d4;animation:bcBlink 1s step-end infinite}
+  .bc-search-results{background:rgba(0,0,0,0.4);border-radius:4px;overflow:hidden;margin-bottom:4px}
+  .bc-result{padding:4px 8px;font-size:8px;color:rgba(255,255,255,0.5)}
+  .bc-result--sel{background:rgba(74,163,212,0.12);color:#4aa3d4;font-weight:700}
+  .bc-search-confirm{padding:6px 8px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:4px;font-size:8px;color:rgba(34,197,94,0.8)}
+  .bc-pin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;margin-bottom:16px}
+  .bc-pin-card{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:translateY(10px);transition:all 450ms cubic-bezier(0.34,1.1,0.64,1)}
+  .bc-pin-card.bc-visible{opacity:1;transform:translateY(0)}
+  .bc-pin-dot{width:8px;height:8px;border-radius:50%}
+  .bc-pin-desc{font-size:7px;color:rgba(255,255,255,0.4);font-weight:600;text-align:center}
+  .bc-pin-desc--accent{color:#4aa3d4}
+  .bc-decision-box{background:rgba(74,163,212,0.04);border:1px solid rgba(74,163,212,0.15);border-radius:8px;padding:10px 14px;margin-bottom:16px}
+  #bc-feed{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
+  .bc-feed-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:6px;opacity:0;transform:translateX(-6px);transition:all 350ms ease}
+  .bc-feed-item.bc-visible{opacity:1;transform:translateX(0)}
+  .bc-feed-thumb{width:28px;height:28px;border-radius:4px;background:rgba(74,163,212,0.12);flex-shrink:0}
+  .bc-feed-title{font-size:8px;font-weight:600;color:rgba(255,255,255,0.7)}
+  .bc-feed-meta{font-size:7px;color:#4aa3d4;font-family:var(--font-mono)}
+  .bc-feed-arrow{color:#4aa3d4;font-size:14px;margin-left:auto}
+  .bc-flow-diagram{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06)}
+  .bc-flow-step{display:flex;align-items:center}
+  .bc-flow-node{display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);min-width:52px;transition:all 300ms ease}
+  .bc-flow-node--active{background:rgba(74,163,212,0.12);border-color:#4aa3d4}
+  .bc-flow-node-icon{font-size:14px}
+  .bc-flow-node-label{font-size:6px;font-weight:700;color:rgba(255,255,255,0.4);text-align:center}
+  .bc-flow-node--active .bc-flow-node-label{color:#4aa3d4}
+  .bc-flow-line{width:16px;height:1px;background:rgba(255,255,255,0.1);flex-shrink:0}
+  .bc-flow-line--done{background:#4aa3d4}
+  @keyframes bcBlink{0%,100%{opacity:1}50%{opacity:0}}
+  </style>
+
+</body>
+</html>
