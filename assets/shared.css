@@ -1722,15 +1722,7 @@ button {
   min-height: 420px;
 }
 
-.project-hero {
-  min-height: 100svh;
-}
 
-@supports not (min-height: 100svh) {
-  .project-hero {
-    min-height: 100vh;
-  }
-}
 
 /* ── Project hero: force white text always (dark bg) ─────── */
 .project-hero { color: rgba(255,255,255,0.95); }

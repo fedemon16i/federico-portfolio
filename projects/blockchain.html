@@ -64,21 +64,12 @@
             <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
-            <div class="nav-dropdown-group">
-              <div class="nav-dropdown-group-label">Relevant / Professional</div>
-              <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
-              <a class="nav-dropdown-item" href="blockchain.html" role="menuitem">Blockchain</a>
-              <a class="nav-dropdown-item" href="customs.html" role="menuitem">Customs / Aduanas ES</a>
-              <a class="nav-dropdown-item" href="chek.html" role="menuitem">Chek</a>
-              <a class="nav-dropdown-item" href="dollarcity.html" role="menuitem">DollarCity</a>
-              <a class="nav-dropdown-item" href="forecast.html" role="menuitem">Forecast</a>
-            </div>
-            <div class="nav-dropdown-group">
-              <div class="nav-dropdown-group-label">Personal / Independent</div>
-              <a class="nav-dropdown-item" href="industrial-design-thesis.html" role="menuitem">Industrial Design Thesis</a>
-              <a class="nav-dropdown-item" href="depure.html" role="menuitem">Depure</a>
-              <a class="nav-dropdown-item" href="layer-ey.html" role="menuitem">LayerEY</a>
-            </div>
+            <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric</a>
+            <a class="nav-dropdown-item" href="blockchain.html" role="menuitem">Blockchain 3D</a>
+            <a class="nav-dropdown-item" href="chek.html" role="menuitem">Chek</a>
+            <a class="nav-dropdown-item" href="dollarcity.html" role="menuitem">DollarCity</a>
+            <a class="nav-dropdown-item" href="customs.html" role="menuitem">Customs ES</a>
+            <a class="nav-dropdown-item" href="forecast.html" role="menuitem">Forecast</a>
           </div>
         </div>
         <a href="../resume.html" class="nav-link">Resume</a>
@@ -139,31 +130,28 @@
   </nav>
 
   <main id="main">
-    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;">
+    <header class="project-hero" aria-labelledby="project-title" style="position:relative;overflow:hidden;min-height:auto;padding-top:calc(var(--nav-h) + 40px);padding-bottom:48px;">
       <canvas id="bc-hero-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;transition:opacity 600ms ease;"></canvas>
       <div id="bc-hero-overlay" style="position:absolute;inset:0;z-index:1;pointer-events:none;transition:background 500ms ease;"></div>
-      <div class="container" style="position:relative;z-index:2;">
+      <div class="container" style="position:relative;z-index:2;max-width:1024px;">
         <nav class="project-breadcrumb" aria-label="Breadcrumb">
           <a href="../index.html">Home</a>
           <span class="project-breadcrumb-sep" aria-hidden="true">›</span>
           <span>Blockchain (3D Immersive)</span>
         </nav>
-        <div class="project-meta-row" data-anim>
+        <div class="project-meta-row" data-anim style="margin-top:18px;">
           <span class="project-role-badge">UX Designer</span>
           <span class="project-timeline">Oct 2023 – Present · Globant / Blockchains Inc.</span>
         </div>
         <div class="section-eyebrow" data-anim>3D Startup · 2023–Present</div>
-        <h1 class="project-title" id="project-title" data-anim data-anim-delay="1"><em>Blockchain</em><br>3D Immersive</h1>
-        <p class="project-hook-text" data-anim data-anim-delay="2">Translated mobile-first designs to desktop for a 3D blockchain immersive experience platform — pioneering spatial UI patterns validated through client-led user testing.</p>
+        <h1 class="project-title" id="project-title" data-anim data-anim-delay="1" style="margin-top:14px;"><em>Blockchain</em><br>3D Immersive</h1>
+        <p class="project-hook-text" data-anim data-anim-delay="2" style="max-width:640px;">A 3D immersive map, no precedent to copy — <strong>I pioneered the spatial UI patterns</strong> and translated them from mobile to desktop, validated with real users.</p>
         <div class="tags" data-anim data-anim-delay="3">
           <span class="tag tag-accent">Spatial UI</span>
           <span class="tag tag-accent">3D Design</span>
           <span class="tag">Mobile→Desktop</span>
-          <span class="tag">Startup</span>
-          <span class="tag">Figma</span>
-          <span class="tag">User Testing</span>
         </div>
-        <div class="project-stat-row" data-anim data-anim-delay="4">
+        <div class="project-stat-row" data-anim data-anim-delay="4" style="margin-top:28px;padding-top:24px;">
           <div class="project-stat">
             <div class="project-stat-value">3D</div>
             <div class="project-stat-label">Spatial UI system</div>
@@ -173,16 +161,37 @@
             <div class="project-stat-label">Map feature pioneered</div>
           </div>
           <div class="project-stat">
-            <div class="project-stat-value">Mobile→</div>
-            <div class="project-stat-label">Desktop translation</div>
-          </div>
-          <div class="project-stat">
             <div class="project-stat-value">Validated</div>
             <div class="project-stat-label">Via user testing</div>
           </div>
         </div>
       </div>
     </header>
+
+    <!-- SKILLS -->
+    <section style="max-width:1024px;margin:0 auto;padding:48px 32px 0;">
+      <p style="font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px;">Skills used in this project</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+        <div style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:14px;padding:16px;">
+          <svg width="28" height="28" viewBox="0 0 38 57" style="margin-bottom:8px;"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 0 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 0 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Figma</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.4;">Spatial UI patterns, mobile-to-desktop translation.</div>
+        </div>
+        <div style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:14px;padding:16px;">
+          <div style="width:28px;height:28px;border-radius:7px;background:#22d4c8;display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#062421" stroke-width="2.2"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+          </div>
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">3D / Spatial</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.4;">Built the first 2D/3D map feature for the platform.</div>
+        </div>
+        <div style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:14px;padding:16px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" style="margin-bottom:8px;"><rect width="24" height="24" rx="6" fill="#6B48FF"/><path d="M6 12h12M12 6v12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;">User Testing</div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.4;">Client-led validation of spatial navigation patterns.</div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- ══ CONTEXT ══ -->
     <section class="bc-context">
