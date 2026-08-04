@@ -9,7 +9,6 @@
 /* --- Root Tokens --- */
 :root {
   color-scheme: dark light;
-  --spring: cubic-bezier(.34,1.32,.64,1);
 
   /* Accent — default (overridden per project) */
   --accent: #c8a84b;
@@ -2111,7 +2110,6 @@ img {
   gap: var(--space-16);
   padding-block: var(--space-64);
   border-top: 1px solid var(--border-subtle);
-  perspective: 1200px;
 }
 
 @media (max-width: 600px) {
@@ -3038,7 +3036,7 @@ img {
 
 /* ---- 1. Modern 3D card (skill cards, prototype frames, etc.) ---- */
 .ds-card-3d{
-  position:relative; transition:transform 200ms cubic-bezier(.34,1.32,.64,1), box-shadow 300ms ease;
+  position:relative; transition:transform 200ms ease, box-shadow 300ms ease;
   transform-style:preserve-3d; will-change:transform;
 }
 .ds-card-3d::after{

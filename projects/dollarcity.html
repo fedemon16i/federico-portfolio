@@ -139,6 +139,7 @@
     .dcp-chrome span{width:9px;height:9px;border-radius:50%;}
     .dcp-chrome-ttl{color:rgba(255,255,255,0.55);font-size:12px;font-weight:600;margin-left:8px;font-family:var(--font-mono,monospace);}
     .dcp-stage{position:relative;min-height:400px;background:#f7f8f7;}
+    .finger-cur{position:absolute;pointer-events:none;z-index:50;opacity:0;transition:left 480ms cubic-bezier(0.16,1,0.3,1),top 480ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;transform:translate(-50%,-50%);}
     .dcp-view{display:none;padding:24px;animation:dcpFade 400ms ease;}
     .dcp-view.on{display:block;}
     @keyframes dcpFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
@@ -400,7 +401,7 @@
     .dc-sp-bar{height:3px;background:#16a34a;border-radius:2px;flex-shrink:0}
     .dc-ds-state{display:flex;align-items:center;gap:7px;padding:3px 0;font-size:10px;color:rgba(255,255,255,0.3)}
     /* OUTCOMES */
-    .dc-outcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:16px;margin-top:32px}
+    .dc-outcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:16px;margin-top:32px;perspective:1200px}
     .dc-outcome-card{padding:26px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-top:2px solid #16a34a;border-radius:14px}
     .dc-out-num{font-size:2.8rem;font-weight:800;color:#16a34a;line-height:1}
     .dc-out-lbl{font-size:13px;font-weight:600;margin:8px 0 5px}
@@ -444,6 +445,7 @@
             <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
+            <a class="nav-dropdown-item" href="../projects.html" role="menuitem" style="color:var(--accent);font-weight:700;">All Projects &#8599;</a>
             <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric</a>
             <a class="nav-dropdown-item" href="blockchain.html" role="menuitem">Blockchain 3D</a>
             <a class="nav-dropdown-item" href="chek.html" role="menuitem">Chek</a>
@@ -494,6 +496,7 @@
       </div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Relevant / Professional</div>
+        <a href="../projects.html" style="color:var(--accent);font-weight:700;">All Projects &#8599;</a>
         <a href="ey-fabric.html">EY Fabric</a>
         <a href="blockchain.html">Blockchain</a>
         <a href="customs.html">Customs ES</a>
@@ -566,7 +569,7 @@
             <div class="dc-mini-tbl" id="dcMiniTbl">
               <div class="dc-mini-row"><span>08:28</span><span>#855</span><span>$4.50</span></div>
               <div class="dc-mini-row"><span>08:59</span><span>#317</span><span>$9.10</span></div>
-              <div class="dc-mini-row pf"><span>09:14</span><span>#128</span><span class="dc-mini-pf">⚠ PF</span></div>
+              <div class="dc-mini-row pf"><span>09:14</span><span>#128</span><span class="dc-mini-pf">PF</span></div>
               <div class="dc-mini-row"><span>09:41</span><span>#341</span><span>$8.25</span></div>
               <div class="dc-mini-row"><span>10:03</span><span>#219</span><span>$14.10</span></div>
             </div>
@@ -927,7 +930,7 @@
             <div class="dc-flow-body">
               <div class="dc-flow-tbl-hdr"><span>Timestamp</span><span>Employee</span><span>Total</span><span>Video</span></div>
               <div class="dc-flow-row"><span>2021-11-05 08:28</span><span>#855</span><span>$4.50</span><span class="dc-flow-tag ok">●</span></div>
-              <div class="dc-flow-row fraud"><span>2021-11-05 09:14</span><span>#128</span><span>$62.00</span><span class="dc-flow-tag pf">PF ⚠</span></div>
+              <div class="dc-flow-row fraud"><span>2021-11-05 09:14</span><span>#128</span><span>$62.00</span><span class="dc-flow-tag pf">PF</span></div>
               <div class="dc-flow-row"><span>2021-11-05 09:41</span><span>#341</span><span>$8.25</span><span class="dc-flow-tag ok">●</span></div>
             </div>
           </div>
@@ -938,7 +941,7 @@
             <div class="dc-flow-body">
               <div class="dc-flow-vid-grid">
                 <div class="dc-flow-thumb"></div>
-                <div class="dc-flow-thumb sel"><span class="dc-flow-play">▶</span></div>
+                <div class="dc-flow-thumb sel"><span class="dc-flow-play"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;"><polygon points="6,4 20,12 6,20"/></svg></span></div>
                 <div class="dc-flow-thumb"></div>
               </div>
               <p class="dc-flow-note">Dollarama 1187 · Kiosk 2 · 09:14 AM</p>
@@ -949,7 +952,7 @@
           <div class="dc-flow-screen">
             <div class="dc-flow-chrome"><span></span><span></span><span></span><div class="dc-flow-chrome-ttl">Video Expandido</div></div>
             <div class="dc-flow-body dc-flow-player">
-              <div class="dc-flow-player-frame"><span class="dc-flow-play lg">▶</span></div>
+              <div class="dc-flow-player-frame"><span class="dc-flow-play lg"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;"><polygon points="6,4 20,12 6,20"/></svg></span></div>
               <div class="dc-flow-scrub"><div class="dc-flow-scrub-fill"></div></div>
               <div class="dc-flow-player-meta"><span>0:14 / 2:35</span><span>2X</span></div>
             </div>
@@ -968,6 +971,10 @@
         <div class="dcp-frame" id="dcpFrame">
           <div class="dcp-chrome"><span style="background:#ef4444"></span><span style="background:#f59e0b"></span><span style="background:#22c55e"></span><div class="dcp-chrome-ttl" id="dcpTitle">POS Search &amp; Results</div></div>
           <div class="dcp-stage" id="dcpStage">
+            <div id="dcp-cur" class="finger-cur" style="left:0;top:0;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 3v11.5a2.5 2.5 0 0 0 5 0V9a1.5 1.5 0 0 1 3 0v6" stroke="#111" stroke-width="1.6" fill="#fff"/></svg>
+              <div id="dcp-tooltip" style="position:absolute;left:26px;top:-6px;background:rgba(0,0,0,0.85);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 10px;white-space:normal;max-width:160px;font-size:0.62rem;color:rgba(255,255,255,0.92);opacity:0;transform:translateX(-4px);transition:all 250ms ease;pointer-events:none;line-height:1.4;backdrop-filter:blur(8px);"></div>
+            </div>
 
             <!-- STATE 1: search results table -->
             <div class="dcp-view on" data-view="search">
@@ -978,7 +985,7 @@
               <div class="dcp-tbl">
                 <div class="dcp-row dcp-hdr"><span>Timestamp</span><span>Employee</span><span>Total</span><span>Status</span></div>
                 <div class="dcp-row"><span>Nov 5 · 08:28</span><span>#855</span><span>$4.50</span><span class="dcp-ok">Reviewed</span></div>
-                <div class="dcp-row" tabindex="0" role="button" id="dcpFraudRow" aria-label="Open flagged transaction"><span>Nov 5 · 09:14</span><span>#128</span><span>$62.00</span><span class="dcp-pf">⚠ Possible Fraud</span></div>
+                <div class="dcp-row" tabindex="0" role="button" id="dcpFraudRow" aria-label="Open flagged transaction" data-tip="Click to investigate this flagged transaction"><span>Nov 5 · 09:14</span><span>#128</span><span>$62.00</span><span class="dcp-pf">Possible Fraud</span></div>
                 <div class="dcp-row"><span>Nov 5 · 09:41</span><span>#341</span><span>$8.25</span><span class="dcp-ok">Reviewed</span></div>
                 <div class="dcp-row"><span>Nov 5 · 10:03</span><span>#219</span><span>$14.10</span><span class="dcp-ok">Reviewed</span></div>
               </div>
@@ -987,10 +994,10 @@
             <!-- STATE 2: video investigation thumbnails -->
             <div class="dcp-view" data-view="videos">
               <button class="dcp-back" id="dcpBack1">← POS Search &amp; Results</button>
-              <p class="dcp-meta">Transaction <b>#128</b> · Dollarama 1187 · $62.00 <span class="dcp-pf sm">⚠ Possible Fraud</span></p>
+              <p class="dcp-meta">Transaction <b>#128</b> · Dollarama 1187 · $62.00 <span class="dcp-pf sm">Possible Fraud</span></p>
               <div class="dcp-vidgrid">
                 <div class="dcp-vidcard"><span class="dcp-vidcam">Kiosk 1</span></div>
-                <div class="dcp-vidcard sel" id="dcpVidSel"><span class="dcp-vidcam">Kiosk 2</span><span class="dcp-playbtn">▶</span></div>
+                <div class="dcp-vidcard sel" id="dcpVidSel" data-tip="Switch camera angle"><span class="dcp-vidcam">Kiosk 2</span><span class="dcp-playbtn"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;"><polygon points="6,4 20,12 6,20"/></svg></span></div>
                 <div class="dcp-vidcard"><span class="dcp-vidcam">Cashier 2</span></div>
               </div>
               <p class="dcp-hint">Click the highlighted camera to review footage</p>
@@ -1000,7 +1007,7 @@
             <div class="dcp-view" data-view="player">
               <button class="dcp-back" id="dcpBack2">← Video Investigation</button>
               <div class="dcp-player" id="dcpPlayer">
-                <div class="dcp-player-screen"><span class="dcp-playbtn lg" id="dcpPlayBtn">▶</span></div>
+                <div class="dcp-player-screen"><span class="dcp-playbtn lg" id="dcpPlayBtn" data-tip="Play the flagged footage"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;"><polygon points="6,4 20,12 6,20"/></svg></span></div>
                 <div class="dcp-scrub"><div class="dcp-scrub-fill" id="dcpScrubFill"></div></div>
                 <div class="dcp-player-row"><span id="dcpTime">0:00 / 2:35</span><span>Kiosk 2 · Dollarama 1187</span></div>
               </div>
@@ -1071,6 +1078,9 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="../assets/demo-kit.js"></script>
+  <script>document.addEventListener("DOMContentLoaded",function(){ if(window.DemoKit){ document.querySelectorAll(".dc-outcome-card").forEach(function(el){ DemoKit.tilt3D(el,{maxX:4,maxY:5}); }); } });</script>
   <script src="../assets/main.js"></script>
   <script>
   (function(){
@@ -1080,8 +1090,17 @@
         entries.forEach(function(e){
           if(!e.isIntersecting||e.target.dataset.counted)return;
           e.target.dataset.counted=1;
-          var t=parseInt(e.target.dataset.counter),s=e.target.dataset.suffix||'',c=0,step=t/60;
-          var timer=setInterval(function(){c=Math.min(c+step,t);e.target.textContent=Math.round(c)+s;if(c>=t)clearInterval(timer);},16);
+          var t=parseInt(e.target.dataset.counter),s=e.target.dataset.suffix||'';
+          if(window.anime){
+            var obj={v:0};
+            anime({
+              targets:obj, v:t, round:1, duration:1400, easing:'easeOutExpo',
+              update:function(){ e.target.textContent=obj.v+s; }
+            });
+          } else {
+            var c=0,step=t/60;
+            var timer=setInterval(function(){c=Math.min(c+step,t);e.target.textContent=Math.round(c)+s;if(c>=t)clearInterval(timer);},16);
+          }
         });
       },{threshold:0.5});
       els.forEach(function(el){obs.observe(el);});
@@ -1160,14 +1179,36 @@
       var back2=document.getElementById('dcpBack2'); if(back2) back2.addEventListener('click',function(){showView('videos');});
       var vidSel=document.getElementById('dcpVidSel'); if(vidSel) vidSel.addEventListener('click',function(){showView('player');});
 
+      /* tooltip + finger cursor system, matching Chek's prototype */
+      (function(){
+        var stageEl=document.getElementById('dcpStage');
+        var cur=document.getElementById('dcp-cur');
+        var tip=document.getElementById('dcp-tooltip');
+        if(!stageEl||!cur||!tip) return;
+        stageEl.querySelectorAll('[data-tip]').forEach(function(el){
+          el.addEventListener('mouseenter',function(){
+            tip.textContent=el.getAttribute('data-tip');
+            tip.style.opacity='1'; tip.style.transform='translateX(0)';
+            var sr=stageEl.getBoundingClientRect(), er=el.getBoundingClientRect();
+            cur.style.left=((er.left+er.width/2)-sr.left)/sr.width*100+'%';
+            cur.style.top=((er.top+er.height/2)-sr.top)/sr.height*100+'%';
+            cur.style.opacity='0.85';
+          });
+          el.addEventListener('mouseleave',function(){
+            tip.style.opacity='0'; tip.style.transform='translateX(-4px)';
+            cur.style.opacity='0';
+          });
+        });
+      })();
+
       var playBtn=document.getElementById('dcpPlayBtn'), fill=document.getElementById('dcpScrubFill'), timeEl=document.getElementById('dcpTime');
       var playTimer=null, secs=0, TOTAL=155;
       function fmt(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
-      function stopPlay(){clearInterval(playTimer);playTimer=null;secs=0;if(fill)fill.style.width='0%';if(timeEl)timeEl.textContent='0:00 / 2:35';if(playBtn)playBtn.textContent='▶';}
+      function stopPlay(){clearInterval(playTimer);playTimer=null;secs=0;if(fill)fill.style.width='0%';if(timeEl)timeEl.textContent='0:00 / 2:35';if(playBtn)playBtn.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;"><polygon points="6,4 20,12 6,20"/></svg>';}
       if(playBtn){
         playBtn.addEventListener('click',function(){
           if(playTimer){stopPlay();return;}
-          playBtn.textContent='❚❚';
+          playBtn.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
           playTimer=setInterval(function(){
             secs+=1; if(secs>TOTAL){stopPlay();return;}
             if(fill) fill.style.width=(secs/TOTAL*100)+'%';

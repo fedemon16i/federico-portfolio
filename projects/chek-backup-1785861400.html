@@ -1099,7 +1099,6 @@
             <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
-            <a class="nav-dropdown-item" href="../projects.html" role="menuitem" style="color:var(--accent);font-weight:700;">All Projects &#8599;</a>
             <a class="nav-dropdown-item" href="ey-fabric.html" role="menuitem">EY Fabric</a>
             <a class="nav-dropdown-item" href="blockchain.html" role="menuitem">Blockchain 3D</a>
             <a class="nav-dropdown-item" href="chek.html" role="menuitem">Chek</a>
@@ -1152,7 +1151,6 @@
       </div>
       <div class="nav-mobile-section">
         <div class="nav-mobile-label">Projects</div>
-        <a href="../projects.html" style="color:var(--accent);font-weight:700;">All Projects &#8599;</a>
         <a href="ey-fabric.html">EY Fabric</a>
         <a href="blockchain.html">Blockchain</a>
         <a href="customs.html">Customs ES</a>
@@ -1827,9 +1825,9 @@
               <!-- Controls -->
               <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                 <button onclick="chekProtoBack()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">← Back</button>
-                <button onclick="chekProtoReset()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:inline-block;vertical-align:middle;margin-right:2px;"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg> Reset</button>
+                <button onclick="chekProtoReset()" style="padding:5px 14px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">↺ Reset</button>
                 <div id="chek-proto-auto" style="display:flex;gap:6px;">
-                  <button onclick="chekProtoAutoPlay()" id="chek-proto-play-btn" style="padding:5px 14px;border-radius:100px;background:var(--accent-dim);border:1px solid var(--accent);color:var(--accent);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);"><svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;"><polygon points="6,4 20,12 6,20"/></svg> Auto-play</button>
+                  <button onclick="chekProtoAutoPlay()" id="chek-proto-play-btn" style="padding:5px 14px;border-radius:100px;background:var(--accent-dim);border:1px solid var(--accent);color:var(--accent);font-size:0.68rem;cursor:pointer;font-family:var(--font-display);">▶ Auto-play</button>
                 </div>
               </div>
 
@@ -2452,7 +2450,7 @@
             '<div style="padding:6px 8px 3px;"><div style="font-size:7.5px;color:#aaa;">Payment selection · valid until 09/25/23</div></div>'+
             [
               {l:'Full balance $1,000,000',s:'Covers 100% of your debt',sel:false,warn:false},
-              {l:'Minimum $50,000',s:'Interest will apply on remaining balance',sel:true,warn:true},
+              {l:'Minimum $50,000',s:'⚠ Interest will apply on remaining balance',sel:true,warn:true},
               {l:'Custom amount',s:'',sel:false,warn:false},
               {l:'Restructure debt',s:'',sel:false,warn:false},
             ].map(function(o,i){
@@ -2521,7 +2519,7 @@
               return '<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;border-bottom:1px solid #eeebe6;">'+
                 '<div style="width:20px;height:20px;border-radius:50%;background:#ede0f8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;">'+r.ic+'</div>'+
                 '<div style="flex:1;"><div style="font-size:8px;font-weight:500;color:'+(r.accent?'var(--accent)':'#333')+';">'+r.n+'</div><div style="font-size:7px;color:#888;">'+r.v+'</div></div>'+
-                '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="2" style="display:inline-block;vertical-align:middle;"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r="0.5" fill="#ddd"/></svg>'+
+                '<span style="font-size:11px;color:#ddd;">ⓘ</span>'+
               '</div>';
             }).join('')+
             '<div id="wf-pay-btn" style="margin:8px;height:28px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;font-weight:700;color:#fff;">Pay Now →</span></div>';
@@ -2701,7 +2699,7 @@
     window.chekWfToggle=function(){
       wfPaused=!wfPaused;
       var btn=document.getElementById('chek-wf-pause');
-      if(btn) btn.innerHTML=wfPaused?'<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;"><polygon points="6,4 20,12 6,20"/></svg> Play':'<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Pause';
+      if(btn) btn.textContent=wfPaused?'▶ Play':'⏸ Pause';
       if(!wfPaused){
         wfStartProgress();
         wfScheduleNext();
@@ -2786,7 +2784,7 @@
             tooltip:'Tap "Pay" to initiate a payment',
             build:function(el,go){
               el.innerHTML=
-                '<div class="ck2-card" onclick="'+go('payment')+'">'+
+                '<div class="ck2-card" onclick="'+go('pay-select')+'">'+
                   '<div style="font-size:8px;opacity:0.7;margin-bottom:1px;">Hello, Catalina H.</div>'+
                   '<div style="font-size:13px;font-weight:800;letter-spacing:-.5px;margin-bottom:7px;">cheK</div>'+
                   '<div style="font-size:8px;opacity:0.55;font-family:monospace;letter-spacing:.12em;margin-bottom:4px;">•••• •••• •••• 7355</div>'+
@@ -2796,7 +2794,7 @@
                 '<div class="ck2-act-row">'+
                   [
                     {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',l:'Show',id:'act-show',flow:null},
-                    {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>',l:'Pay',id:'act-pay',flow:'payment'},
+                    {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>',l:'Pay',id:'act-pay',flow:'pay-select'},
                     {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>',l:'Block',id:'act-block',flow:'security'},
                     {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>',l:'More',id:'act-more',flow:null},
                   ].map(function(a){
@@ -2839,7 +2837,7 @@
                 '<div style="padding:8px 10px 4px;"><div style="font-size:8px;color:#888;">Payment selection · valid until 09/25/23</div></div>'+
                 [
                   {l:'Full balance $1,000,000',s:'Covers 100% — no interest',sel:false,warn:false,tip:'Pay everything now'},
-                  {l:'Minimum $50,000',s:'Interest applies on $950k',sel:true,warn:true,tip:'Minimum required payment'},
+                  {l:'Minimum $50,000',s:'⚠ Interest applies on $950k',sel:true,warn:true,tip:'Minimum required payment'},
                   {l:'Custom amount',s:'',sel:false,warn:false,tip:'Enter your own amount'},
                   {l:'Restructure debt',s:'',sel:false,warn:false,tip:'Talk to Chek support'},
                 ].map(function(o,i){
@@ -3274,13 +3272,13 @@
     function stopAuto(){
       isAuto=false; clearInterval(autoInterval);
       var btn=document.getElementById('chek-proto-play-btn');
-      if(btn){ btn.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;"><polygon points="6,4 20,12 6,20"/></svg> Auto-play'; btn.style.background='var(--accent-dim)'; }
+      if(btn){ btn.textContent='▶ Auto-play'; btn.style.background='var(--accent-dim)'; }
     }
     window.chekProtoAutoPlay=function(){
       if(isAuto){stopAuto();return;}
       isAuto=true; autoIdx=0;
       var btn=document.getElementById('chek-proto-play-btn');
-      if(btn){ btn.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop'; btn.style.background='rgba(155,108,255,0.2)'; }
+      if(btn){ btn.textContent='⏸ Stop'; btn.style.background='rgba(155,108,255,0.2)'; }
       function next(){
         if(!isAuto)return;
         var step=autoSequence[autoIdx%autoSequence.length];
@@ -3303,9 +3301,6 @@
 
   })();
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
-  <script src="../assets/demo-kit.js"></script>
-  <script>document.addEventListener("DOMContentLoaded",function(){ if(window.DemoKit){ document.querySelectorAll(".project-nav-card").forEach(function(el){ DemoKit.tilt3D(el,{maxX:4,maxY:5}); }); } });</script>
   <script src="../assets/main.js"></script>
 
   <div id="lightbox" style="position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9000;display:none;align-items:center;justify-content:center;cursor:zoom-out;" role="dialog" aria-modal="true" aria-label="Image preview">

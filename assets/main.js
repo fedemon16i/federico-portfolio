@@ -142,7 +142,7 @@
         [data-anim] {
           opacity: 0;
           transform: translateY(20px);
-          transition: opacity 500ms ease, transform 500ms ease;
+          transition: opacity 550ms ease, transform 650ms cubic-bezier(.34,1.32,.64,1);
         }
         [data-anim][data-anim-delay="1"] { transition-delay: 80ms; }
         [data-anim][data-anim-delay="2"] { transition-delay: 160ms; }
