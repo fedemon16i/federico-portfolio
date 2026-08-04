@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function(){
+    var saved = localStorage.getItem('theme');
+    var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    if(theme==='light') document.documentElement.setAttribute('data-theme','light');
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Projects — Federico Monroy</title>
+<meta name="description" content="Every case study, always expanded. A chronological look at where the loop ran — EY, Blockchain, Forecast, DollarCity, Chek, and Customs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/shared.css" />
+<script src="assets/demo-kit.js"></script>
+<script src="assets/main.js" defer></script>
+<style>
+  :root{ --accent:#d97757; --nav-bg:rgba(14,13,12,0.85);
+    --acc-ey:#ffe600; --acc-bc:#22d4c8; --acc-cus:#e05c4a; --acc-dc:#00a650; --acc-fc:#5b9bd0; }
+  html[data-theme="light"]{ --accent:#a84928; --nav-bg:rgba(247,245,242,0.85); }
+  body{background:var(--bg);}
+
+  /* ===== mini-graphic animations, reused from home's project cards ===== */
+  .g-phone{width:96px;height:172px;border-radius:20px;background:linear-gradient(160deg,#2a2a28,#141412);border:3px solid rgba(255,255,255,.08);box-shadow:0 14px 30px -10px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.3);position:relative;overflow:hidden;flex-shrink:0;}
+  .g-phone-screen{position:relative;inset:9px 5px;border-radius:13px;overflow:hidden;background:#111;height:100%;}
+  .g-browser{width:min(240px,84%);height:150px;border-radius:12px;background:linear-gradient(160deg,#2a2a28,#141412);border:3px solid rgba(255,255,255,.08);box-shadow:0 14px 30px -10px rgba(0,0,0,.5);overflow:hidden;position:relative;}
+  .g-browser-bar{height:20px;background:rgba(255,255,255,.06);display:flex;align-items:center;gap:4px;padding:0 8px;}
+  .g-browser-bar i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);}
+  .g-browser-screen{position:absolute;inset:20px 0 0;background:#111;overflow:hidden;}
+
+  .ey-process{display:flex;align-items:center;gap:0;}
+  .ey-node{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.06);border:1.5px solid rgba(43,38,0,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8px;color:rgba(43,38,0,.6);position:relative;flex-shrink:0;}
+  .ey-node span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:7.5px;white-space:nowrap;color:rgba(43,38,0,.7);}
+  .ey-arrow{width:16px;height:1.5px;background:rgba(43,38,0,.25);position:relative;flex-shrink:0;}
+
+  @keyframes cubeSpin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+  .bc-cube-mini{width:38px;height:38px;position:relative;transform-style:preserve-3d;animation:cubeSpin 9s linear infinite;flex-shrink:0;}
+  .bc-face-mini{position:absolute;inset:0;border:1.5px solid var(--acc-bc);background:rgba(34,212,200,.07);border-radius:5px;}
+
+  .dc-row{position:absolute;left:12px;right:12px;height:9px;border-radius:3px;background:rgba(0,0,0,.08);}
+  .dc-ba-mini{position:absolute;left:12px;top:12px;display:flex;gap:2px;font-family:var(--font-mono);font-size:8px;border-radius:100px;overflow:hidden;border:1px solid rgba(0,0,0,.14);}
+  .dc-ba-mini i{font-style:normal;padding:3px 8px;color:rgba(0,0,0,.4);background:transparent;}
+  .dc-ba-mini i.on{background:var(--acc-dc);color:#fff;}
+  @keyframes scanline{0%{top:14%}50%{top:76%}100%{top:14%}}
+  .dc-scan{position:absolute;left:8px;right:8px;height:2px;background:var(--acc-dc);border-radius:2px;animation:scanline 3.4s ease-in-out infinite;box-shadow:0 0 10px rgba(0,166,80,.5);}
+  .dc-flag{position:absolute;right:16px;top:18px;font-family:var(--font-mono);font-size:10px;color:#b91c1c;background:rgba(185,28,28,.1);border:1px solid rgba(185,28,28,.35);border-radius:100px;padding:2px 7px;}
+
+  .cus-doc{position:absolute;left:50%;top:50%;width:96px;height:120px;margin:-60px 0 0 -48px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 10px;}
+  .cus-line{height:6px;border-radius:3px;background:rgba(255,255,255,.1);margin-bottom:8px;}
+  @keyframes stampIn{0%,55%{opacity:0;transform:scale(1.6) rotate(-8deg)}70%,100%{opacity:1;transform:scale(1) rotate(-8deg)}}
+  .cus-stamp{position:absolute;right:-12px;bottom:8px;font-family:var(--font-mono);font-size:10.5px;color:var(--acc-cus);border:2px solid var(--acc-cus);border-radius:6px;padding:3px 8px;animation:stampIn 3.2s ease-in-out infinite;}
+
+  @keyframes ganttGrow{0%{transform:scaleX(0)}45%,100%{transform:scaleX(1)}}
+  .fc-gantt{position:absolute;height:12px;border-radius:4px;background:var(--acc-fc);transform-origin:left;animation:ganttGrow 3.6s ease-in-out infinite;}
+
+  .mock-toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%) translateY(8px);opacity:0;
+    font-family:var(--font-mono);font-size:9.5px;color:#8fd4a8;background:rgba(18,11,28,.92);border:1px solid rgba(143,212,168,.5);
+    border-radius:100px;padding:4px 11px;white-space:nowrap;animation:toastPop 3.6s ease-in-out infinite;}
+  @keyframes toastPop{0%,15%{opacity:0;transform:translateX(-50%) translateY(8px);}25%,70%{opacity:1;transform:translateX(-50%) translateY(0);}85%,100%{opacity:0;transform:translateX(-50%) translateY(-4px);}}
+  .mock-tap{position:absolute;left:50%;bottom:22%;width:9px;height:9px;border-radius:50%;background:#fff;
+    transform:translate(-50%,50%);box-shadow:0 0 6px rgba(255,255,255,.7);z-index:2;animation:tapFade 2.8s ease-in-out infinite;}
+  .mock-tap-ring{position:absolute;left:50%;bottom:22%;width:9px;height:9px;border-radius:50%;border:1.5px solid #fff;
+    transform:translate(-50%,50%);animation:tapRing 2.8s ease-out infinite;}
+  @keyframes tapFade{0%,60%{opacity:0}68%{opacity:1}82%{opacity:1}100%{opacity:0}}
+  @keyframes tapRing{0%,60%{opacity:0;transform:translate(-50%,50%) scale(1)}68%{opacity:.9;transform:translate(-50%,50%) scale(1)}100%{opacity:0;transform:translate(-50%,50%) scale(2.6)}}
+
+  @media(prefers-reduced-motion:reduce){
+    .bc-cube-mini,.dc-scan,.cus-stamp,.fc-gantt,.mock-toast,.mock-tap,.mock-tap-ring{animation:none !important;}
+  }
+  .pj-hero{padding:calc(var(--nav-h) + 48px) 24px 32px;max-width:900px;margin:0 auto;}
+  .pj-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);
+    display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+  .pj-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent);}
+  .pj-title{font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5.5vw,3.4rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:14px;}
+  .pj-sub{font-size:1.05rem;line-height:1.6;color:var(--text-secondary);max-width:600px;}
+
+  .pj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px;max-width:1200px;margin:0 auto;padding:16px 24px 80px;}
+  .pj-card{position:relative;border-radius:20px;overflow:hidden;background:var(--pc-bg);color:var(--pc-txt);
+    display:flex;flex-direction:column;min-height:440px;text-decoration:none;
+    transition:transform 250ms cubic-bezier(.34,1.14,.64,1),box-shadow 300ms ease;}
+  .pj-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -16px rgba(0,0,0,.5);}
+  .pj-card-head{padding:22px 22px 0;display:flex;align-items:flex-start;justify-content:space-between;}
+  .pj-logo{flex-shrink:0;}
+  .pj-ai{width:15px;height:15px;opacity:.6;}
+  .pj-body{padding:14px 22px 22px;display:flex;flex-direction:column;flex:1;}
+  .pj-top{margin-bottom:14px;}
+  .pj-top b{display:block;font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:3px;}
+  .pj-top small{font-family:var(--font-mono);font-size:11px;opacity:.75;}
+  .pj-graphic{flex:1;border-radius:12px;overflow:hidden;position:relative;margin-bottom:16px;min-height:170px;
+    display:flex;align-items:center;justify-content:center;}
+  .pj-desc{font-size:.9rem;line-height:1.55;opacity:.92;margin-bottom:14px;}
+  .pj-cta{font-size:.85rem;font-weight:600;text-decoration:underline;align-self:flex-start;}
+
+  @media(max-width:600px){
+    .pj-hero{padding-top:calc(var(--nav-h) + 32px);}
+    .pj-grid{grid-template-columns:1fr;gap:16px;padding:12px 16px 60px;}
+    .pj-card{min-height:auto;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div id="progress-bar" aria-hidden="true"></div>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
+    <div class="nav-links" role="menubar">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
+          Projects
+          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
+          <a class="nav-dropdown-item" href="projects.html" role="menuitem" style="color:var(--accent);font-weight:700;">All Projects ↗</a>
+          <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
+          <a class="nav-dropdown-item" href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
+          <a class="nav-dropdown-item" href="projects/chek.html" role="menuitem">Chek</a>
+          <a class="nav-dropdown-item" href="projects/dollarcity.html" role="menuitem">DollarCity</a>
+          <a class="nav-dropdown-item" href="projects/customs.html" role="menuitem">Customs ES</a>
+          <a class="nav-dropdown-item" href="projects/forecast.html" role="menuitem">Forecast</a>
+        </div>
+      </div>
+      <a href="design-system.html" class="nav-link">Design System</a>
+      <a href="resume.html" class="nav-link">Resume</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <header class="pj-hero">
+    <div class="pj-eyebrow">All case studies · Chronological</div>
+    <h1 class="pj-title">Every project, <em>always open</em>.</h1>
+    <p class="pj-sub">No hover, no click — the whole timeline, laid out. From an internal software catalog to a 3D map, a fraud-monitoring system, and a credit card.</p>
+  </header>
+
+  <div class="pj-grid">
+
+    <a class="pj-card" href="projects/ey-fabric.html" style="--pc-bg:#ffe600;--pc-txt:#2b2600;">
+      <div class="pj-card-head">
+        <span class="pj-logo"><svg width="34" height="25" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#2b2600"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#2b2600">EY</text></svg></span>
+        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
+      </div>
+      <div class="pj-body">
+        <div class="pj-top"><b>EY Fabric</b><small>Oct 2023 — Present</small></div>
+        <div class="pj-graphic" style="background:#14130e;"><div class="ey-process">
+          <div class="ey-node ey-n0"><span>diagnose</span>&#9680;</div>
+          <div class="ey-arrow ey-a0"></div>
+          <div class="ey-node ey-n1"><span>instrument</span>&#9681;</div>
+          <div class="ey-arrow ey-a1"></div>
+          <div class="ey-node ey-n2"><span>analyze</span>&#9682;</div>
+          <div class="ey-arrow ey-a2"></div>
+          <div class="ey-node ey-n3"><span>fix</span>&#10003;</div>
+        </div></div>
+        <p class="pj-desc">90+ internal assets, instrumented and mapped across 4 workflow stages — sentiment turned into a live dashboard.</p>
+        <span class="pj-cta">Open case study &#8594;</span>
+      </div>
+    </a>
+
+    <a class="pj-card" href="projects/blockchain.html" style="--pc-bg:#22d4c8;--pc-txt:#042e2a;">
+      <div class="pj-card-head">
+        <span class="pj-logo"><svg width="26" height="26" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#042e2a" stroke-width="1.6"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#042e2a"/></svg></span>
+        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
+      </div>
+      <div class="pj-body">
+        <div class="pj-top"><b>Blockchains Inc.</b><small>Oct 2023 — Present</small></div>
+        <div class="pj-graphic bc-scene" style="background:#0b1414;">
+          <div class="bc-cube-mini">
+            <div class="bc-face-mini" style="transform:translateZ(20px)"></div>
+            <div class="bc-face-mini" style="transform:rotateY(90deg) translateZ(20px)"></div>
+            <div class="bc-face-mini" style="transform:rotateY(180deg) translateZ(20px)"></div>
+            <div class="bc-face-mini" style="transform:rotateY(-90deg) translateZ(20px)"></div>
+            <div class="bc-face-mini" style="transform:rotateX(90deg) translateZ(20px)"></div>
+            <div class="bc-face-mini" style="transform:rotateX(-90deg) translateZ(20px)"></div>
+          </div>
+        </div>
+        <p class="pj-desc">A working 3D prototype — 5 flows, real hotspots — bridging flat UI with an immersive map.</p>
+        <span class="pj-cta">Open case study &#8594;</span>
+      </div>
+    </a>
+
+    <a class="pj-card" href="projects/forecast.html" style="--pc-bg:#5b9bd0;--pc-txt:#fff;">
+      <div class="pj-card-head">
+        <span class="pj-logo" style="font-family:var(--font-display);font-weight:800;font-size:18px;color:#fff;">Forecast</span>
+        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
+      </div>
+      <div class="pj-body">
+        <div class="pj-top"><b>Forecast</b><small>2023 — 2025</small></div>
+        <div class="pj-graphic" style="background:#0d1218;">
+          <span class="fc-gantt" style="left:14%;top:30%;width:46%;animation-delay:0s"></span>
+          <span class="fc-gantt" style="left:26%;top:48%;width:38%;animation-delay:.5s;opacity:.75"></span>
+          <span class="fc-gantt" style="left:20%;top:66%;width:56%;animation-delay:1s;opacity:.5"></span>
+        </div>
+        <p class="pj-desc">Module design inside an established design system — pending assignments, timeframes, employee management.</p>
+        <span class="pj-cta">Open case study &#8594;</span>
+      </div>
+    </a>
+
+    <a class="pj-card" href="projects/dollarcity.html" style="--pc-bg:#00a650;--pc-txt:#fff;">
+      <div class="pj-card-head">
+        <span class="pj-logo"><svg width="26" height="26" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#00a650">D</text></svg></span>
+        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
+      </div>
+      <div class="pj-body">
+        <div class="pj-top"><b>Dollarama &#215; DollarCity</b><small>Jul — Dec 2023</small></div>
+        <div class="pj-graphic" style="background:#e9e7df;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
+          <div class="g-browser-screen">
+            <span class="dc-ba-mini"><i class="dc-ba-b">Before</i><i class="dc-ba-a on">After</i></span>
+            <span class="dc-row" style="top:38%"></span>
+            <span class="dc-row" style="top:58%"></span>
+            <span class="dc-scan"></span>
+            <span class="dc-flag">&#9873; flagged</span>
+          </div>
+        </div></div>
+        <p class="pj-desc">Fraud-monitoring SaaS for retail across Canada &amp; LATAM — real screens, before/after redesign, full research.</p>
+        <span class="pj-cta">Open case study &#8594;</span>
+      </div>
+    </a>
+
+    <a class="pj-card" href="projects/chek.html" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
+      <div class="pj-card-head">
+        <span class="pj-logo" style="font-family:var(--font-display);font-weight:800;font-size:19px;color:#fff;">cheK</span>
+        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
+      </div>
+      <div class="pj-body">
+        <div class="pj-top"><b>Chek</b><small>2021 — 2023</small></div>
+        <div class="pj-graphic" style="background:#120b1c;"><div class="g-phone">
+          <div class="g-phone-screen">
+            <img src="chek/IMG_0188.jpeg" alt="Chek home screen" style="width:100%;height:100%;object-fit:cover;">
+            <span class="mock-toast">&#10003; transaction</span>
+            <span class="mock-tap"></span>
+            <span class="mock-tap-ring"></span>
+          </div>
+        </div></div>
+        <p class="pj-desc">A 5-flow interactive prototype for a virtual credit card — onboarding, funnels, and a system built from scratch.</p>
+        <span class="pj-cta">Open case study &#8594;</span>
+      </div>
+    </a>
+
+    <a class="pj-card" href="projects/customs.html" style="--pc-bg:#e05c4a;--pc-txt:#fff;">
+      <div class="pj-card-head">
+        <span class="pj-logo"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M12 6l5 2.5v3c0 3.5-2 6-5 7-3-1-5-3.5-5-7v-3z" fill="none" stroke="#fff" stroke-width="1.5"/></svg></span>
+        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
+      </div>
+      <div class="pj-body">
+        <div class="pj-top"><b>Customs ES</b><small>2021 — 2023</small></div>
+        <div class="pj-graphic" style="background:#161010;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
+          <div class="g-browser-screen">
+            <div class="cus-doc" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90px;height:100px;">
+              <div class="cus-line" style="width:70%"></div>
+              <div class="cus-line" style="width:90%"></div>
+              <div class="cus-line" style="width:55%"></div>
+              <span class="cus-stamp">DIGITAL &#10003;</span>
+            </div>
+          </div>
+        </div></div>
+        <p class="pj-desc">5 analog processes digitized into an MVP that earned the budget for a full-scale rollout.</p>
+        <span class="pj-cta">Open case study &#8594;</span>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Federico A. Monroy</p>
+      <a href="index.html" class="btn btn-outline" style="padding:var(--space-8) var(--space-16);font-size:0.75rem;">← Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
