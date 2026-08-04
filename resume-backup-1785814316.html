@@ -70,18 +70,14 @@
   /* experience timeline */
   .xp{position:relative;padding-left:26px;}
   .xp::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--border);}
-  .job{position:relative;padding:0 0 34px;perspective:1200px;}
+  .job{position:relative;padding:0 0 34px;}
   .job::before{content:'';position:absolute;left:-26px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);}
   .job-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
   .job-t{font-family:var(--font-display);font-weight:700;font-size:18px;}
   .job-d{font-family:var(--font-mono);font-size:11.5px;color:var(--text-tertiary);}
   .job-r{font-size:14px;color:var(--accent);margin-top:2px;}
-  .cl{margin-top:14px;background:linear-gradient(155deg,var(--bg-surface),var(--bg-raised));border:1px solid var(--border-soft);border-radius:14px;padding:16px 18px;
-    position:relative;transform-style:preserve-3d;transition:transform 200ms ease,box-shadow 300ms ease;will-change:transform;}
-  .cl::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-    background:radial-gradient(circle at var(--lx,50%) var(--ly,50%),rgba(217,119,87,.14),transparent 55%);opacity:0;transition:opacity 250ms;}
-  .cl.ds-hover::after{opacity:1;}
-  .cl.ds-hover{box-shadow:0 0 0 1px rgba(217,119,87,.3),0 0 20px -4px rgba(217,119,87,.35),0 16px 32px -16px rgba(0,0,0,.5);}
+  .cl{margin-top:14px;background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:14px;padding:16px 18px;transition:border-color 250ms;}
+  .cl:hover{border-color:var(--border);}
   .cl-t{font-family:var(--font-display);font-weight:700;font-size:14.5px;margin-bottom:7px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
   .cl-t small{font-family:var(--font-mono);font-size:10.5px;font-weight:400;color:var(--text-tertiary);}
   .cl ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
@@ -91,22 +87,10 @@
   .pill{display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--ok);background:rgba(143,212,168,.1);border:1px solid rgba(143,212,168,.4);border-radius:100px;padding:2px 10px;}
 
   /* education + languages */
-  .two{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;perspective:1200px;}
-  .edu-main{background:linear-gradient(155deg,var(--bg-surface),var(--bg-raised));border:1px solid var(--border-soft);border-radius:14px;padding:18px 20px;
-    position:relative;transform-style:preserve-3d;transition:transform 200ms ease,box-shadow 300ms ease;will-change:transform;}
-  .edu-main::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-    background:radial-gradient(circle at var(--lx,50%) var(--ly,50%),rgba(217,119,87,.16),transparent 55%);opacity:0;transition:opacity 250ms;}
-  .edu-main.ds-hover::after{opacity:1;}
-  .edu-main.ds-hover{box-shadow:0 0 0 1px rgba(217,119,87,.35),0 0 24px -4px rgba(217,119,87,.4),0 20px 40px -18px rgba(0,0,0,.5);}
+  .two{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;}
+  .edu-main{background:var(--bg-surface);border:1px solid var(--border-soft);border-left:3px solid var(--accent);border-radius:14px;padding:18px 20px;}
   .edu-main .cl-t{font-size:15.5px;}
   .edu-p{font-size:14px;color:var(--text-secondary);}
-  .cert,.lang{background:linear-gradient(155deg,var(--bg-surface),var(--bg-raised));border:1px solid var(--border-soft);border-radius:14px;padding:16px 18px;
-    position:relative;transform-style:preserve-3d;transition:transform 200ms ease,box-shadow 300ms ease;will-change:transform;}
-  .cert::after,.lang::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-    background:radial-gradient(circle at var(--lx,50%) var(--ly,50%),rgba(217,119,87,.14),transparent 55%);opacity:0;transition:opacity 250ms;}
-  .cert.ds-hover::after,.lang.ds-hover::after{opacity:1;}
-  .cert.ds-hover,.lang.ds-hover{box-shadow:0 0 0 1px rgba(217,119,87,.3),0 0 20px -4px rgba(217,119,87,.35),0 16px 32px -16px rgba(0,0,0,.5);}
-  .cert{margin-top:14px;}
   .cert{margin-top:14px;background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:14px;padding:16px 18px;}
   .lang{background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;align-self:start;}
   .lg{display:flex;align-items:center;justify-content:space-between;font-size:14px;}
@@ -221,7 +205,7 @@
   <div class="two">
     <div>
       <div class="edu-main">
-        <div class="cl-t">Industrial Design <small style="font-weight:400;">(Bachelor's Degree)</small></div>
+        <div class="cl-t">Industrial Design</div>
         <p class="edu-p">Degree Program in Industrial Design from National University of Córdoba (Argentina) in 2020.</p>
       </div>
       <div class="cert"><div class="cl-t">Certifications &amp; courses</div><ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
@@ -286,23 +270,6 @@
       entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); ro.unobserve(en.target); } });
     },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
     revealEls.forEach(function(el){ ro.observe(el); });
-  }
-
-  /* 3D tilt + glow — same DemoKit.tilt3D pattern used on the home page, applied inline here */
-  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.querySelectorAll('.edu-main,.cert,.lang,.cl').forEach(function(el){
-      el.addEventListener('pointermove',function(e){
-        var r=el.getBoundingClientRect();
-        var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
-        el.style.transform='rotateX('+((py-.5)*-3).toFixed(2)+'deg) rotateY('+((px-.5)*4).toFixed(2)+'deg) translateY(-2px)';
-        el.style.setProperty('--lx',(px*100).toFixed(1)+'%');
-        el.style.setProperty('--ly',(py*100).toFixed(1)+'%');
-        el.classList.add('ds-hover');
-      });
-      el.addEventListener('pointerleave',function(){
-        el.style.transform=''; el.classList.remove('ds-hover');
-      });
-    });
   }
 
   /* quicknav scroll-spy — simple deterministic check, avoids IO race conditions with tall sections */

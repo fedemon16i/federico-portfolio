@@ -3027,3 +3027,101 @@ img {
   .finger-cur, .desktop-cur { display: none !important; }
 }
 
+
+/* ══════════════════════════════════════════════════════════
+   SHARED DESIGN SYSTEM — cards, 3D, wireframe demos, cursors
+   One system, used by home + every project page.
+   See context/DESIGN-SYSTEM.md for usage docs.
+   ══════════════════════════════════════════════════════════ */
+
+/* ---- 1. Modern 3D card (skill cards, prototype frames, etc.) ---- */
+.ds-card-3d{
+  position:relative; transition:transform 200ms ease, box-shadow 300ms ease;
+  transform-style:preserve-3d; will-change:transform;
+}
+.ds-card-3d::after{
+  content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:radial-gradient(circle at var(--lx,50%) var(--ly,50%), rgba(255,255,255,0.10), transparent 55%);
+  opacity:0; transition:opacity 250ms ease;
+}
+.ds-card-3d.ds-hover::after{opacity:1;}
+.ds-card-3d.ds-hover{box-shadow:0 30px 60px -20px rgba(0,0,0,0.45);}
+
+/* ---- 2. Wireframe demo screens (the "always legible" animation style) ---- */
+.wf-wrap{position:relative;background:#0b0b0a;border-radius:14px;overflow:hidden;min-height:280px;margin-bottom:22px;}
+.wf-screen{position:absolute;inset:0;opacity:0;transition:opacity 500ms ease;display:flex;flex-direction:column;}
+.wf-screen.on{opacity:1;}
+.wf-topbar{display:flex;align-items:center;gap:8px;padding:8px 14px;background:#151513;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;}
+.wf-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);}
+.wf-line{height:7px;border-radius:4px;background:rgba(255,255,255,0.14);}
+.wf-line.lg{height:10px;}
+.wf-line.accent{background:var(--accent);opacity:.85;}
+.wf-body{flex:1;padding:16px;overflow:hidden;position:relative;}
+.wf-btn{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:9.5px;font-weight:600;
+  background:var(--accent);color:var(--on-accent,#111);border-radius:5px;padding:5px 11px;}
+.wf-card{background:#151513;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:9px;
+  display:flex;flex-direction:column;gap:6px;transition:opacity 300ms,transform 300ms;}
+.wf-card-ic{width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.1);}
+
+/* wireframe form + stepper */
+.wf-step-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.wf-step-n{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.12);flex-shrink:0;}
+.wf-step-n.done{background:var(--accent);}
+.wf-step-track{flex:1;height:2px;background:rgba(255,255,255,0.1);}
+.wf-field .wf-line{margin-bottom:6px;width:40%;}
+.wf-input{height:22px;border-radius:5px;background:#151513;border:1px solid rgba(255,255,255,0.08);}
+
+/* visitor cursor — the ONE cursor style used everywhere */
+.wf-cur{position:absolute;width:16px;height:16px;pointer-events:none;z-index:9;
+  transition:left 700ms cubic-bezier(.4,0,.2,1),top 700ms cubic-bezier(.4,0,.2,1),opacity 300ms;opacity:0;}
+.wf-cur.show{opacity:1;}
+.wf-cur-ring{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--accent);animation:wfPulse 1.4s ease-out infinite;}
+.wf-cur-dot{width:100%;height:100%;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(0,0,0,0.4);}
+@keyframes wfPulse{0%{transform:scale(.6);opacity:.9;}100%{transform:scale(2.2);opacity:0;}}
+
+/* multi-visitor cursor (colored arrow + tag, for "several users at once" demos) */
+.wf-vcur{position:absolute;width:13px;height:13px;z-index:10;opacity:0;
+  transition:left 750ms cubic-bezier(.4,0,.2,1),top 750ms cubic-bezier(.4,0,.2,1),opacity 400ms;}
+.wf-vcur.show{opacity:1;}
+.wf-vcur svg{width:100%;height:100%;}
+.wf-vtag{position:absolute;top:13px;left:10px;font-family:var(--font-mono);font-size:8.5px;color:#0c0c0c;border-radius:4px;padding:1px 5px;white-space:nowrap;font-weight:600;}
+.wf-qmark{position:absolute;font-weight:700;font-size:13px;color:#e5b567;z-index:11;opacity:0;transition:opacity 250ms;}
+
+/* funnel (drop-off chart) */
+.wf-funnel{display:flex;align-items:flex-end;gap:6px;height:64px;padding:0 6px;}
+.wf-funnel-bar{flex:1;background:var(--accent);border-radius:3px 3px 0 0;opacity:.85;transition:height 600ms cubic-bezier(.22,1,.36,1);}
+.wf-funnel-bar.drop{background:#e0857f;}
+.wf-funnel-lbl{font-family:var(--font-mono);font-size:8px;color:var(--text-tertiary,#888);text-align:center;margin-top:4px;}
+
+/* session table + segment (checkbox select → replay list) */
+.wf-tbl{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.wf-row{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--text-secondary,#aaa);background:var(--bg-raised,#1e1c1a);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:8px;padding:8px 12px;transition:all 250ms;}
+.wf-row.sel{border-color:var(--accent);background:var(--accent-dim,rgba(217,119,87,.12));}
+.wf-cb{width:14px;height:14px;border-radius:4px;border:1.5px solid var(--border,rgba(255,255,255,.08));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--accent);}
+.wf-ud{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.wf-meta{margin-left:auto;color:var(--text-tertiary,#888);font-size:10px;font-family:var(--font-mono);}
+.wf-chip{display:inline-block;font-family:var(--font-mono);font-size:10.5px;color:var(--accent);background:var(--accent-dim,rgba(217,119,87,.12));border-radius:100px;padding:5px 12px;opacity:0;transform:translateY(4px);transition:all 350ms;margin-bottom:12px;}
+.wf-chip.in{opacity:1;transform:none;}
+.wf-replist{display:flex;flex-direction:column;gap:5px;}
+.wf-rep{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary,#888);background:var(--bg-raised,#1e1c1a);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:6px;padding:6px 10px;opacity:0;transform:translateY(4px);transition:all 300ms;}
+.wf-rep.in{opacity:1;transform:none;}
+
+/* dual parallel paths (by-hand vs AI, converging) */
+.wf-paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.wf-path{background:var(--bg-raised,#1e1c1a);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:12px;padding:14px;}
+.wf-path-h{font-size:10.5px;font-weight:700;color:var(--text-secondary,#aaa);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.wf-art{width:100%;height:44px;background:#151513;border:1px solid rgba(255,255,255,0.06);border-radius:5px;margin-bottom:6px;opacity:0;transform:translateY(6px);transition:all 350ms;position:relative;}
+.wf-art.in{opacity:1;transform:none;}
+.wf-art i{position:absolute;background:rgba(255,255,255,0.14);border-radius:2px;}
+.wf-tree{font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary,#888);display:flex;flex-direction:column;gap:5px;}
+.wf-tree div{opacity:0;transition:opacity 300ms;}
+.wf-tree div.in{opacity:1;}
+.wf-tree .ok{color:#4ade80;}
+.wf-merge{background:var(--accent-dim,rgba(217,119,87,.12));border:1px solid var(--accent);border-radius:10px;padding:12px;text-align:center;opacity:0;transform:scale(.96);transition:all 400ms;}
+.wf-merge.in{opacity:1;transform:none;}
+.wf-merge-badge{font-family:var(--font-mono);font-size:9px;color:var(--accent);font-weight:700;letter-spacing:.06em;}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-card-3d{transition:none !important;}
+  .wf-cur,.wf-vcur,.wf-cur-ring{animation:none !important;transition:none !important;}
+}

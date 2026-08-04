@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EY Fabric (Globant) — Federico Monroy</title>
   <link rel="stylesheet" href="../assets/shared.css" />
+  <script src="../assets/demo-kit.js"></script>
   <script src="../js/theme.js"></script>
   <style>
     :root{
@@ -73,6 +74,95 @@
     .eyw-panel-d{color:var(--text-secondary);line-height:1.6;margin-bottom:18px;}
     .eyw-panel-list{display:flex;flex-direction:column;gap:9px;}
     .eyw-panel-item{display:flex;align-items:flex-start;gap:10px;font-size:.92rem;color:var(--text-secondary);}
+
+    /* ===== Measure demo — wireframe recreation of the real catalog flow ===== */
+    .eym-wrap{position:relative;background:#0b0b0a;border-radius:14px;overflow:hidden;height:340px;margin-bottom:22px;}
+    .eym-screen{position:absolute;inset:0;opacity:0;transition:opacity 500ms ease;display:flex;flex-direction:column;}
+    .eym-screen.on{opacity:1;}
+    .eym-topbar{display:flex;align-items:center;gap:8px;padding:8px 14px;background:#151513;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;}
+    .eym-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);}
+    .eym-line{height:7px;border-radius:4px;background:rgba(255,255,255,0.14);}
+    .eym-line.lg{height:10px;}
+    .eym-line.accent{background:var(--accent);opacity:.85;}
+    .eym-body{flex:1;padding:16px;overflow:hidden;position:relative;}
+    .eym-btn{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:9.5px;font-weight:600;
+      background:var(--accent);color:var(--on-accent);border-radius:5px;padding:5px 11px;}
+    .eym-btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);}
+    /* home screen */
+    .eym-hero{height:100%;border-radius:8px;background:linear-gradient(115deg,#151513 40%,rgba(217,119,87,0.18),rgba(90,150,220,0.14));
+      display:flex;flex-direction:column;justify-content:center;gap:10px;padding:22px;}
+    /* catalog grid */
+    .eym-cat{display:flex;gap:12px;height:100%;}
+    .eym-cat-side{width:76px;flex-shrink:0;display:flex;flex-direction:column;gap:8px;}
+    .eym-cat-side .eym-line{width:100%;}
+    .eym-cat-side .eym-side-item{padding:5px 6px;border-radius:4px;}
+    .eym-cat-side .eym-side-item.active{background:rgba(217,119,87,0.14);}
+    .eym-cat-grid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:start;}
+    .eym-card{background:#151513;border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:9px;
+      display:flex;flex-direction:column;gap:6px;transition:opacity 300ms,transform 300ms;}
+    .eym-card-ic{width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.1);}
+    /* form steps */
+    .eym-form{display:flex;flex-direction:column;gap:11px;max-width:280px;}
+    .eym-step-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+    .eym-step-n{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.12);flex-shrink:0;}
+    .eym-step-n.done{background:var(--accent);}
+    .eym-step-track{flex:1;height:2px;background:rgba(255,255,255,0.1);}
+    .eym-field label{display:block;}
+    .eym-field .eym-line{margin-bottom:6px;width:40%;}
+    .eym-input{height:22px;border-radius:5px;background:#151513;border:1px solid rgba(255,255,255,0.08);}
+    /* confirmation */
+    .eym-confirm{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;}
+    .eym-check{width:40px;height:40px;border-radius:50%;background:rgba(74,222,128,0.15);display:flex;align-items:center;justify-content:center;}
+    /* visitor cursor */
+    .eym-cur{position:absolute;width:16px;height:16px;pointer-events:none;z-index:9;transition:left 700ms cubic-bezier(.4,0,.2,1),top 700ms cubic-bezier(.4,0,.2,1),opacity 300ms;opacity:0;}
+    .eym-cur.show{opacity:1;}
+    .eym-cur-ring{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--accent);animation:eymPulse 1.4s ease-out infinite;}
+    .eym-cur-dot{width:100%;height:100%;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(217,119,87,0.7);}
+    @keyframes eymPulse{0%{transform:scale(.6);opacity:.9;}100%{transform:scale(2.2);opacity:0;}}
+    /* funnel */
+    .eym-funnel{display:flex;align-items:flex-end;gap:6px;height:64px;padding:0 6px;}
+    .eym-funnel-bar{flex:1;background:var(--accent);border-radius:3px 3px 0 0;opacity:.85;transition:height 600ms cubic-bezier(.22,1,.36,1);}
+    .eym-funnel-bar.drop{background:#e0857f;}
+    .eym-funnel-lbl{font-family:var(--font-mono);font-size:8px;color:var(--text-tertiary);text-align:center;margin-top:4px;}
+
+    /* ===== Analyze — multi-user cursors on the catalog (like home's Usage Tracking) ===== */
+    .eya-wrap{position:relative;background:#0b0b0a;border-radius:14px;height:280px;overflow:hidden;margin-bottom:22px;padding:16px;}
+    .eya-cur{position:absolute;width:13px;height:13px;z-index:10;opacity:0;transition:left 750ms cubic-bezier(.4,0,.2,1),top 750ms cubic-bezier(.4,0,.2,1),opacity 400ms;}
+    .eya-cur.show{opacity:1;}
+    .eya-cur svg{width:100%;height:100%;}
+    .eya-tag{position:absolute;top:13px;left:10px;font-family:var(--font-mono);font-size:8.5px;color:#0c0c0c;border-radius:4px;padding:1px 5px;white-space:nowrap;font-weight:600;}
+    .eya-qmark{position:absolute;font-weight:700;font-size:13px;color:#e5b567;z-index:11;opacity:0;transition:opacity 250ms;}
+    .eya-counter{position:absolute;top:10px;right:10px;font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);background:rgba(255,255,255,0.04);border-radius:6px;padding:5px 9px;}
+    .eya-counter b{color:var(--accent);}
+    .eya-card{position:absolute;width:64px;height:48px;border-radius:6px;background:#151513;border:1px solid rgba(255,255,255,0.08);}
+
+    /* ===== Research — session table + segment (like home's Segmentation & Replay) ===== */
+    .eyre-tbl{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+    .eyre-row{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--text-secondary);background:var(--bg-raised);border:1px solid var(--border);border-radius:8px;padding:8px 12px;transition:all 250ms;}
+    .eyre-row.sel{border-color:var(--accent);background:var(--accent-dim);}
+    .eyre-cb{width:14px;height:14px;border-radius:4px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--accent);}
+    .eyre-ud{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .eyre-meta{margin-left:auto;color:var(--text-tertiary);font-size:10px;font-family:var(--font-mono);}
+    .eyre-chip{display:inline-block;font-family:var(--font-mono);font-size:10.5px;color:var(--accent);background:var(--accent-dim);border-radius:100px;padding:5px 12px;opacity:0;transform:translateY(4px);transition:all 350ms;margin-bottom:12px;}
+    .eyre-chip.in{opacity:1;transform:none;}
+    .eyre-replist{display:flex;flex-direction:column;gap:5px;}
+    .eyre-rep{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);background:var(--bg-raised);border:1px solid var(--border);border-radius:6px;padding:6px 10px;opacity:0;transform:translateY(4px);transition:all 300ms;}
+    .eyre-rep.in{opacity:1;transform:none;}
+
+    /* ===== Design — two parallel paths (like home's Parallel Design) ===== */
+    .eyde-paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+    .eyde-path{background:var(--bg-raised);border:1px solid var(--border);border-radius:12px;padding:14px;}
+    .eyde-path-h{font-size:10.5px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+    .eyde-art{width:100%;height:44px;background:#151513;border:1px solid rgba(255,255,255,0.06);border-radius:5px;margin-bottom:6px;opacity:0;transform:translateY(6px);transition:all 350ms;position:relative;}
+    .eyde-art.in{opacity:1;transform:none;}
+    .eyde-art i{position:absolute;background:rgba(255,255,255,0.14);border-radius:2px;}
+    .eyde-tree{font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);display:flex;flex-direction:column;gap:5px;}
+    .eyde-tree div{opacity:0;transition:opacity 300ms;}
+    .eyde-tree div.in{opacity:1;}
+    .eyde-tree .ok{color:#4ade80;}
+    .eyde-merge{background:var(--accent-dim);border:1px solid var(--accent);border-radius:10px;padding:12px;text-align:center;opacity:0;transform:scale(.96);transition:all 400ms;}
+    .eyde-merge.in{opacity:1;transform:none;}
+    .eyde-merge-badge{font-family:var(--font-mono);font-size:9px;color:var(--accent);font-weight:700;letter-spacing:.06em;}
     .eyw-panel-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
 
     /* ===== Mini visual demos ===== */
@@ -231,11 +321,12 @@
     </section>
 
     <section class="eyw" aria-labelledby="eyw-h">
-      <h2 class="eyw-h2" id="eyw-h">See each layer of the workflow</h2>
-      <p class="eyw-sub">One loop, no handoffs — from behavioral signal to shipped improvement.</p>
+      <h2 class="eyw-h2" id="eyw-h">A catalog with 300+ items — and no way to see where people got stuck.</h2>
+      <p class="eyw-sub">Teams request services, licenses, and starter kits from a shared workspace catalog. Nobody could see where that journey broke down — so I instrumented it, end to end, myself.</p>
       <div class="eyw-tabs" id="eywTabs" role="tablist"></div>
       <div id="eywPanels"></div>
     </section>
+    <p style="max-width:1024px;margin:-40px auto 64px;padding:0 24px;font-size:.8rem;color:var(--text-tertiary);">UI shown is a recreated, anonymized wireframe of the real EY Fabric catalog experience — content abstracted, no client or internal data shown.</p>
 
     <section class="eyi">
       <div class="eyi-box">
@@ -281,17 +372,20 @@
 
   <script>
   (function(){
+    document.querySelectorAll('.eys-card').forEach(function(el){ DemoKit.tilt3D(el, {maxX:4, maxY:5}); });
     var STAGES=[
-      {t:'Instrument',d:'Tag every meaningful interaction.',long:'Before any analytics exist, someone has to define the events. I coordinate with UI and engineers to name events consistently and map them to user stories — across 90+ marketplace assets.',
-        items:['Custom event schema across 90+ assets','Funnels, paths, journeys, segments','Pendo guides shipped alongside features']},
-      {t:'Understand',d:'Watch the signal, not the guess.',long:'Live sessions, drop-off points, and friction surface on their own — Pendo dashboards run continuously, no need to wait for a scheduled research sprint.',
-        items:['Real-time funnels across the XDA marketplace','In-app surveys triggered by behavior, not a calendar','Friction flagged before it becomes a ticket']},
-      {t:'Synthesize',d:'AI handles the volume, I keep the judgment.',long:'Copilot connects directly to EY\'s SharePoint source of truth — pulling prior research, tickets, and context so synthesis starts from what the org already knows.',
-        items:['Themes clustered from research + analytics together','Every insight traced back to its evidence','Prioritized by reach and severity, not recency']},
-      {t:'Act',d:'Design, tickets, or a research brief — routed by what the evidence calls for.',long:'Findings don\'t all need the same fix. Some become Figma proposals already wired to the design system; others become prioritized ADO tickets with evidence attached; others need more research first.',
-        items:['Figma proposals — DS-connected, code-ready','ADO tickets with behavioral evidence attached','Research briefs queued for next sprint']},
-      {t:'Measure',d:'Ship it, then watch if it actually worked.',long:'A shipped fix isn\'t the end of the loop — it\'s tagged and watched like everything else, closing the cycle back into Instrument.',
-        items:['Post-launch funnels compared against baseline','Adoption tracked per instrumented asset','Loop restarts automatically on new signal']}
+      {t:'Measure',d:'Watch the real journey — funnels, paths, journeys.',long:'Before anything else, I instrumented the catalog experience myself with Pendo — every step from browsing to submitting a request, tagged and tracked in production.',
+        items:['Funnels across the full request journey','Paths & journeys mapped from real sessions','Every screen tagged — no guessing where people are']},
+      {t:'Analyze',d:'Feedback and past campaigns, side by side.',long:'Pendo data alone tells you where people stopped. It doesn\'t tell you why. I pulled in feedback from past in-app campaigns to start narrowing down the likely cause.',
+        items:['In-app feedback compared against funnel drop-off','Past campaign responses re-examined','Patterns flagged before a single interview']},
+      {t:'Research',d:'Reach the people who actually hit the wall.',long:'With Pendo and Qualtrics together, I could target the exact segment that dropped off at a specific step — not a random sample, the actual people who struggled.',
+        items:['Qualtrics surveys targeted at the drop-off segment','Pendo guides recruiting real strugglers','Direct line to the touchpoint that failed']},
+      {t:'Understand',d:'A UX audit, evidence-first.',long:'Before touching any screen, I ran a full UX audit of the flow — this time with the evidence already in hand, not just heuristics.',
+        items:['Heuristic audit cross-checked against real behavior','Friction points ranked by actual impact','Root cause separated from surface symptom']},
+      {t:'Design',d:'Insights become forms that work — or a clear brief.',long:'Findings didn\'t all need the same fix. Some became direct form redesigns; others became actionable briefs hand-off to the right owner.',
+        items:['Form flows redesigned from audit findings','Actionable insight briefs for teams I don\'t own','Every change traced back to its evidence']},
+      {t:'Govern',d:'One Hub, always watching.',long:'Everything above lives in one place — a Behavioral Analytics & UX Research Hub, so the next drop-off gets caught in days, not quarters.',
+        items:['Behavioral Analytics Hub — live, not a quarterly deck','UX research repository, searchable by anyone','New signal reopens the loop automatically']}
     ];
     var tabsEl=document.getElementById('eywTabs'), panelsEl=document.getElementById('eywPanels');
     tabsEl.innerHTML=STAGES.map(function(s,i){return '<button class="eyw-tab'+(i===0?' on':'')+'" data-i="'+i+'" role="tab" aria-selected="'+(i===0?'true':'false')+'">0'+(i+1)+' · '+s.t+'</button>';}).join('');
@@ -305,80 +399,154 @@
     }).join('');
 
     var demoTimers=[];
-    function clearDemoTimers(){demoTimers.forEach(clearTimeout);demoTimers=[];}
+    var activeDemoTimers=[];
+    function clearDemoTimers(){demoTimers.forEach(clearTimeout);demoTimers=[];activeDemoTimers.forEach(function(t){t.clear();});activeDemoTimers=[];}
     function after(ms,fn){demoTimers.push(setTimeout(fn,ms));}
+    function makeDemoTimers(){return DemoKit.makeTimers();}
 
     function runDemo(i){
       clearDemoTimers();
       var body=document.getElementById('eydBody'+i);
       if(!body) return;
-      if(i===0){ // Instrument — form fills in, event tags appear
-        body.innerHTML='<div class="eyd-field" id="ef0">Service tier</div><div class="eyd-field" id="ef1">Volume / month</div><div class="eyd-field" id="ef2">Region</div><div class="eyd-evrow" id="efev"></div>';
-        var fields=[['ef0','✓ Production'],['ef1','✓ 10k calls · $450'],['ef2','✓ US East']];
-        fields.forEach(function(f,fi){
-          after(500+fi*550,function(){
-            var el=document.getElementById(f[0]); if(!el) return;
-            el.classList.add('filled'); el.textContent=f[1];
-            var ev=document.getElementById('efev'); if(!ev) return;
-            var tag=document.createElement('span'); tag.className='eyd-ev'; tag.textContent='ACT · event';
-            ev.appendChild(tag); requestAnimationFrame(function(){requestAnimationFrame(function(){tag.classList.add('in');});});
+
+      if(i===0){ // Measure — recreated catalog flow, wireframe style, visitor cursor
+        body.innerHTML=
+          '<div class="eym-wrap" id="eymWrap">'+
+            '<div class="eym-screen on" data-s="home"><div class="eym-topbar"><span class="eym-dot"></span><span class="eym-dot"></span><span class="eym-dot"></span><div class="eym-line" style="width:60px;margin-left:8px"></div></div>'+
+              '<div class="eym-body"><div class="eym-hero"><div class="eym-line" style="width:40%"></div><div class="eym-line lg" style="width:65%"></div><div class="eym-line lg" style="width:50%"></div><div class="eym-line" style="width:75%;opacity:.5"></div><span class="eym-btn" id="eymHomeBtn">Explore Catalog</span></div></div></div>'+
+            '<div class="eym-screen" data-s="cat"><div class="eym-topbar"><span class="eym-dot"></span><span class="eym-dot"></span><span class="eym-dot"></span><div class="eym-line" style="width:60px;margin-left:8px"></div></div>'+
+              '<div class="eym-body"><div class="eym-cat"><div class="eym-cat-side">'+
+                ['All Items','Services','Licenses','Kits'].map(function(l,li){return '<div class="eym-side-item'+(li===1?' active':'')+'" id="eymSide'+li+'"><div class="eym-line" style="width:'+(70-li*8)+'%"></div></div>';}).join('')+
+              '</div><div class="eym-cat-grid" id="eymGrid">'+
+                Array(6).fill(0).map(function(_,ci){return '<div class="eym-card"><div class="eym-card-ic"></div><div class="eym-line" style="width:80%"></div><div class="eym-line" style="width:55%;opacity:.5"></div></div>';}).join('')+
+              '</div></div></div></div>'+
+            '<div class="eym-screen" data-s="form1"><div class="eym-topbar"><span class="eym-dot"></span><span class="eym-dot"></span><span class="eym-dot"></span><div class="eym-line" style="width:60px;margin-left:8px"></div></div>'+
+              '<div class="eym-body"><div class="eym-step-row"><span class="eym-step-n done"></span><div class="eym-step-track"></div><span class="eym-step-n"></span><div class="eym-step-track"></div><span class="eym-step-n"></span></div>'+
+              '<div class="eym-form">'+Array(4).fill(0).map(function(_,fi){return '<div class="eym-field"><div class="eym-line"></div><div class="eym-input"></div></div>';}).join('')+
+              '<span class="eym-btn" id="eymF1Btn" style="align-self:flex-start;margin-top:4px">Continue</span></div></div></div>'+
+            '<div class="eym-screen" data-s="form2"><div class="eym-topbar"><span class="eym-dot"></span><span class="eym-dot"></span><span class="eym-dot"></span><div class="eym-line" style="width:60px;margin-left:8px"></div></div>'+
+              '<div class="eym-body"><div class="eym-step-row"><span class="eym-step-n done"></span><div class="eym-step-track" style="background:var(--accent)"></div><span class="eym-step-n done"></span><div class="eym-step-track"></div><span class="eym-step-n"></span></div>'+
+              '<div class="eym-form"><div class="eym-field"><div class="eym-line" style="width:50%"></div><div class="eym-input"></div></div>'+
+              Array(3).fill(0).map(function(_,fi){return '<div class="eym-line" style="width:'+(85-fi*10)+'%;height:18px;border-radius:5px;background:#151513;border:1px solid rgba(255,255,255,0.06)"></div>';}).join('')+
+              '<span class="eym-btn" id="eymF2Btn" style="align-self:flex-start;margin-top:4px">Continue</span></div></div></div>'+
+            '<div class="eym-screen" data-s="confirm"><div class="eym-topbar"><span class="eym-dot"></span><span class="eym-dot"></span><span class="eym-dot"></span><div class="eym-line" style="width:60px;margin-left:8px"></div></div>'+
+              '<div class="eym-body"><div class="eym-confirm"><div class="eym-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><div class="eym-line lg" style="width:140px"></div><div class="eym-line" style="width:100px;opacity:.5"></div></div></div></div>'+
+            '<div class="eym-cur" id="eymCur"><span class="eym-cur-ring"></span><span class="eym-cur-dot"></span></div>'+
+          '</div>'+
+          '<div id="eymFunnelWrap" style="display:none;">'+
+            '<p style="font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Where they dropped off</p>'+
+            '<div id="eymFunnelHost"></div>'+
+          '</div>';
+
+        var wrap=document.getElementById('eymWrap'), cur=document.getElementById('eymCur');
+        function moveCur(x,y){cur.style.left=x+'px'; cur.style.top=y+'px'; cur.classList.add('show');}
+        function showScreen(name){wrap.querySelectorAll('.eym-screen').forEach(function(s){s.classList.toggle('on', s.dataset.s===name);});}
+
+        moveCur(60,300);
+        after(200,function(){ var b=document.getElementById('eymHomeBtn'); if(b) moveCur(b.offsetLeft+40, b.offsetTop+280); });
+        after(1100,function(){ showScreen('cat'); });
+        after(1900,function(){ var s=document.getElementById('eymSide1'); if(s){var r=s.getBoundingClientRect(),wr=wrap.getBoundingClientRect(); moveCur(r.left-wr.left+30,r.top-wr.top+8);} });
+        after(2700,function(){ var grid=document.getElementById('eymGrid'); if(grid) Array.prototype.slice.call(grid.children,3).forEach(function(c){c.style.opacity='.25';c.style.transform='scale(.96)';}); });
+        after(3500,function(){ var c=wrap.querySelector('[data-s="cat"] .eym-card'); if(c){var r=c.getBoundingClientRect(),wr=wrap.getBoundingClientRect(); moveCur(r.left-wr.left+40,r.top-wr.top+40);} });
+        after(4200,function(){ showScreen('form1'); moveCur(150,250); });
+        after(5600,function(){ var b=document.getElementById('eymF1Btn'); if(b) moveCur(b.offsetLeft+30,b.offsetTop+134); });
+        after(6300,function(){ showScreen('form2'); moveCur(150,220); });
+        after(7500,function(){ var b=document.getElementById('eymF2Btn'); if(b) moveCur(b.offsetLeft+30,b.offsetTop+150); });
+        after(8200,function(){ showScreen('confirm'); cur.classList.remove('show'); });
+        after(9000,function(){
+          var fw=document.getElementById('eymFunnelWrap'), host=document.getElementById('eymFunnelHost');
+          if(!fw||!host) return;
+          fw.style.display='block';
+          DemoKit.funnel(host, [100,88,74,41,36], ['Home','Catalog','Filter','Configure','Confirm'], 3, {after:after});
+        });
+      }
+
+      if(i===1){ // Analyze — multiple visitors moving through the catalog live, one drops off confused
+        body.innerHTML='<div class="eya-wrap" id="eyaWrap">'+
+            '<div class="eya-counter">clicks <b id="eyaClk">0</b> · views <b id="eyaPv">0</b></div>'+
+            Array(6).fill(0).map(function(_,ci){return '<div class="eya-card" style="left:'+(20+ (ci%3)*90)+'px;top:'+(50+Math.floor(ci/3)*70)+'px;" id="eyaC'+ci+'"></div>';}).join('')+
+          '</div>';
+        var wrap=document.getElementById('eyaWrap');
+        var clk=0,pv=0;
+        function bump(c,p){clk+=c;pv+=p;var ce=document.getElementById('eyaClk'),pe=document.getElementById('eyaPv');if(ce)ce.textContent=clk;if(pe)pe.textContent=pv;}
+        function mkCur(color,label){
+          var u=document.createElement('div'); u.className='eya-cur';
+          u.innerHTML='<svg viewBox="0 0 24 24" fill="'+color+'"><path d="M4 2l16 8-7 2-2 7z"/></svg><span class="eya-tag" style="background:'+color+'">'+label+'</span>';
+          wrap.appendChild(u); return u;
+        }
+        function moveTo(u,card,cb){
+          var r=card.getBoundingClientRect(), wr=wrap.getBoundingClientRect();
+          u.style.left=(r.left-wr.left+20)+'px'; u.style.top=(r.top-wr.top+16)+'px'; u.classList.add('show');
+          after(750,function(){if(cb)cb();});
+        }
+        var u1=mkCur('#7ba7f0','visitor_A'), u2=mkCur('#e5b567','visitor_B'), u3=mkCur('#8fd4a8','visitor_C');
+        after(400,function(){ moveTo(u1,document.getElementById('eyaC0'),function(){bump(1,1);
+          after(600,function(){ moveTo(u1,document.getElementById('eyaC3'),function(){bump(1,1);}); }); }); });
+        after(900,function(){ moveTo(u2,document.getElementById('eyaC1'),function(){bump(1,1);
+          after(600,function(){ moveTo(u2,document.getElementById('eyaC4'),function(){bump(1,1);
+            after(700,function(){ dropOff(u2,document.getElementById('eyaC4')); }); }); }); }); });
+        after(1500,function(){ moveTo(u3,document.getElementById('eyaC2'),function(){bump(1,1);}); });
+        function dropOff(u,card){
+          var r=card.getBoundingClientRect(), wr=wrap.getBoundingClientRect();
+          var q=document.createElement('span'); q.className='eya-qmark'; q.textContent='???';
+          q.style.left=(r.left-wr.left+30)+'px'; q.style.top=(r.top-wr.top-16)+'px';
+          wrap.appendChild(q); requestAnimationFrame(function(){requestAnimationFrame(function(){q.style.opacity='1';});});
+          after(900,function(){u.style.opacity='0';});
+        }
+      }
+
+      if(i===2){ // Research — check off the strugglers, build a segment, reveal replays (via shared DemoKit)
+        var t2=makeDemoTimers();
+        DemoKit.segmentTable(body,
+          [
+            {id:'r0',color:'#e5b567',name:'visitor_B',meta:'drop-off · configure · 3 retries'},
+            {id:'r1',color:'#8fd4a8',name:'visitor_D',meta:'drop-off · configure · 40s idle'},
+            {id:'r2',color:'#7ba7f0',name:'visitor_E',meta:'drop-off · configure · rage ×4'},
+            {id:'r3',color:'var(--text-tertiary)',name:'visitor_A',meta:'completed · 92s'}
+          ],
+          ['r0','r1','r2'],
+          'segment: configure strugglers (3)',
+          ['visitor_B · 02:14 · configure','visitor_E · 01:47 · configure','visitor_D · 03:02 · configure'],
+          t2
+        );
+        activeDemoTimers.push(t2);
+      }
+
+      if(i===3){ // Understand — UX audit checklist
+        body.innerHTML='<div id="euaList" style="display:flex;flex-direction:column;gap:9px;"></div>';
+        var ITEMS=['Field count vs. task complexity','Error messaging clarity','Cost visibility before commit','Back-navigation availability','Label consistency'];
+        var list=document.getElementById('euaList');
+        ITEMS.forEach(function(txt,ii){
+          after(300+ii*300,function(){
+            var row=document.createElement('div');
+            row.style.cssText='display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-secondary);opacity:0;transform:translateX(-6px);transition:all 350ms;';
+            row.innerHTML='<span style="width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;" id="euac'+ii+'"></span>'+txt;
+            list.appendChild(row);
+            requestAnimationFrame(function(){requestAnimationFrame(function(){row.style.opacity='1';row.style.transform='none';});});
+            after(260,function(){ var c=document.getElementById('euac'+ii); if(c){c.style.background='var(--accent)';c.style.borderColor='var(--accent)';c.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><polyline points="20 6 9 17 4 12"/></svg>';} });
           });
         });
       }
-      if(i===1){ // Understand — counters tick up
-        body.innerHTML='<div class="eyd-counters"><div class="eyd-counter"><div class="eyd-counter-v" id="ec0">0</div><div class="eyd-counter-l">Sessions</div></div><div class="eyd-counter"><div class="eyd-counter-v" id="ec1">0</div><div class="eyd-counter-l">Drop-off</div></div><div class="eyd-counter"><div class="eyd-counter-v" id="ec2">0</div><div class="eyd-counter-l">Friction</div></div></div>';
-        var targets=[2841,68,31];
-        targets.forEach(function(t,ti){
-          var el=document.getElementById('ec'+ti);
-          var steps=16, cur=0;
-          for(var st=1; st<=steps; st++){
-            (function(st){ after(400+st*45,function(){
-              if(!el) return;
-              var v=Math.round(t*(st/steps));
-              el.textContent=(ti===1?v+'%':v.toLocaleString());
-            }); })(st);
-          }
-        });
+
+      if(i===4){ // Design — two paths in parallel, converging (via shared DemoKit)
+        var t4=makeDemoTimers();
+        var figmaIcon='<svg width="13" height="13" viewBox="0 0 38 57"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg>';
+        var copilotIcon='<svg width="13" height="13" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#0F6CBD"/><path d="M12 5l5.5 3.2v7.6L12 19 6.5 15.8V8.2z" fill="#fff" opacity=".92"/></svg>';
+        DemoKit.dualPath(body, {
+          handLabel: figmaIcon+'By hand · Figma',
+          aiLabel: copilotIcon+'With AI · Copilot',
+          handArtboards: 2,
+          aiTree: ['audit-findings.md <span class="ok">✓</span>','form-v2.figma <span class="ok">✓</span>','insight-brief.md <span class="ok">✓ ready</span>'],
+          mergeBadge: 'READY TO SHIP',
+          mergeText: 'Form redesign · −41% fields · handed to platform team'
+        }, t4);
+        activeDemoTimers.push(t4);
       }
-      if(i===2){ // Synthesize — chips clustering
-        body.innerHTML='<div class="eyd-chips" id="esch"></div><div class="eyd-clusters" id="escl"></div>';
-        var CHIPS=['confusing label','missing export','slow load','duplicate step','unclear pricing','missing filter'];
-        var chipsEl=document.getElementById('esch');
-        CHIPS.forEach(function(c,ci){
-          after(300+ci*180,function(){
-            var s=document.createElement('span'); s.className='eyd-chip'; s.textContent=c; chipsEl.appendChild(s);
-            requestAnimationFrame(function(){requestAnimationFrame(function(){s.classList.add('in');});});
-          });
-        });
-        after(300+CHIPS.length*180+300,function(){
-          var clEl=document.getElementById('escl'); if(!clEl) return;
-          [['Design · 4','#22c55e'],['Ticket · 2','#7ba7f0']].forEach(function(c,ci){
-            after(ci*250,function(){
-              var d=document.createElement('div'); d.className='eyd-cluster';
-              d.style.cssText='background:'+c[1]+'1a;color:'+c[1]+';border:1px solid '+c[1]+'40;';
-              d.textContent=c[0]; clEl.appendChild(d);
-              requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('in');});});
-            });
-          });
-        });
-      }
-      if(i===3){ // Act — routing paths, one selected
-        body.innerHTML='<div id="eap"></div>';
-        var PATHS=[['Design','Figma · DS-connected','8 proposals'],['Ticket','ADO · with evidence','14 items'],['Research','Brief · next sprint','3 briefs']];
-        var pEl=document.getElementById('eap');
-        PATHS.forEach(function(p,pi){
-          after(300+pi*280,function(){
-            var d=document.createElement('div'); d.className='eyd-path';
-            d.innerHTML='<span class="eyd-path-label">'+p[0]+'</span><span class="eyd-path-n">'+p[1]+' · '+p[2]+'</span>';
-            pEl.appendChild(d);
-            if(pi===0) after(500,function(){d.classList.add('sel');});
-          });
-        });
-      }
-      if(i===4){ // Measure — before/after bars
+
+      if(i===5){ // Govern — Hub before/after
         body.innerHTML='<div class="eyd-bars"><div class="eyd-bar-row"><span class="eyd-bar-label">Before</span><div class="eyd-bar-track"><div class="eyd-bar-fill before" id="emb1"></div></div></div><div class="eyd-bar-row"><span class="eyd-bar-label">After</span><div class="eyd-bar-track"><div class="eyd-bar-fill after" id="emb2"></div></div></div></div>';
-        after(300,function(){var e=document.getElementById('emb1'); if(e) e.style.width='38%';});
-        after(500,function(){var e=document.getElementById('emb2'); if(e) e.style.width='82%';});
+        after(300,function(){var e=document.getElementById('emb1'); if(e) e.style.width='36%';});
+        after(500,function(){var e=document.getElementById('emb2'); if(e) e.style.width='81%';});
       }
     }
     runDemo(0);

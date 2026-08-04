@@ -1,93 +1,102 @@
-## Skills — always load before any CSS, JS, or HTML change
-- https://raw.githubusercontent.com/fedemon16i/federico-skills/main/design-system-discipline.md
-- https://raw.githubusercontent.com/fedemon16i/federico-skills/main/accessibility-standards.md
-- https://raw.githubusercontent.com/fedemon16i/federico-skills/main/mobile-first-resilience.md
-
 Federico Monroy — Portfolio
+
 Stack
 Pure HTML + CSS + Vanilla JS. No frameworks. No build step.
 
-## Git workflow — CRITICAL
-Always commit and push DIRECTLY to `main`. NEVER create a branch, NEVER open
-a Pull Request, NEVER wait for manual merge. Every task ends with:
-  git add .
-  git commit -m "..."
-  git push origin main
-This is the only workflow. No exceptions, no branches, no PRs — ever.
+## CRITICAL — Git rules
+Push DIRECTO a main. Nunca crear un branch. Nunca abrir un PR.
+Usar: git add -A && git commit -m "..." && git push origin main
+(Esto es instrucción explícita y confirmada de Federico — si en algún
+momento aparece otra regla de git contradictoria en algún doc viejo,
+esta es la vigente. Borrar la vieja, no al revés.)
 
-assets/shared.css — design system (CSS variables, all components)
+## ⭐ DESIGN SYSTEM — leer antes de tocar cualquier cosa visual
+Antes de crear una card, una animación, o tocar colores, revisar:
+- `context/DESIGN-SYSTEM.md` — tokens, cards 3D, kit de animación wireframe,
+  reglas de color por categoría, curvas de easing (bounce/spring vs ease).
+- `context/ANTI-SLOP.md` — checklist para que nada se sienta genérico /
+  hecho con IA sin criterio (gradientes sin propósito, copy con buzzwords,
+  todo metido en cards porque sí).
+- `assets/shared.css` — el CSS compartido real (cards 3D, `.wf-*` wireframe).
+- `assets/demo-kit.js` — el motor de animaciones compartido (`DemoKit.tilt3D`,
+  `DemoKit.cursor`, `DemoKit.funnel`, `DemoKit.segmentTable`, `DemoKit.dualPath`).
+Si el patrón que necesitás ya existe ahí, usarlo — no reinventar.
+
+### Reglas de animación (no negociables)
+- Todo lo que CREZCA (cards, paneles) usa `var(--spring)` = 
+  `cubic-bezier(.34,1.56,.64,1)` — tiene que rebotar un poco, nunca una
+  curva de ease plana sin overshoot. Ya pasó 2 veces que un componente
+  nuevo se armó con `cubic-bezier(.22,1,.36,1)` (sin rebote) por error —
+  revisar la curva de cualquier `transition` nueva contra esto.
+- Hover con estados que cambian de tamaño (cards que crecen): agregar
+  SIEMPRE un pequeño debounce (~70ms) en el `pointerleave` — si no, el
+  cambio de layout durante la animación puede disparar un
+  pointerenter/pointerleave falso en cascada cuando el cursor queda cerca
+  del borde. Ya se encontró y arregló este bug una vez, no reintroducir.
+- Colores de card: por defecto SÓLIDOS (o un tinte muy sutil), el
+  degradado + glow/neon aparece SOLO en hover — nunca degradado como
+  estado de reposo.
+- Categorías de skill cards tienen su propio color, y el de diseño (UXR)
+  tiene más presencia (glow más fuerte, violeta `#c084fc`) — las demás
+  categorías (analytics, product, ai-dev) tienen su color pero más
+  discreto.
+
+assets/shared.css — design system (CSS variables, cards 3D, wireframe kit)
+assets/demo-kit.js — motor de animaciones compartido (ver arriba)
 assets/main.js — nav dropdown, keyboard nav, mobile menu, scroll animations
 Fonts: Syne (display) + DM Sans (body) via Google Fonts <link>
 
 File Map
 /
-├── index.html
+├── index.html                    ← home (skill cards + project cards)
+├── design-system.html            ← showcase en vivo del design system
 ├── about.html
-├── resume.html                  ← PDF embed, asset: assets/Federico_Monroy_CV.pdf
+├── resume.html                   ← PDF embed, asset: assets/Federico_Monroy_CV.pdf
 ├── contact.html
+├── context/
+│   ├── DESIGN-SYSTEM.md
+│   ├── ANTI-SLOP.md
+│   └── (otros docs de sesión)
 ├── projects/
-│   ├── ey-fabric.html           accent: #c8a84b
-│   ├── blockchain.html          accent: #22d4c8
-│   ├── customs.html             accent: #e05c4a
-│   ├── chek.html                accent: #9b6cff
-│   ├── dollarcity.html          accent: #f4c842
-│   ├── taxsynapse.html          accent: #5fe6a0
-│   ├── industrial-design-thesis.html  accent: #8ba8c8
-│   ├── depure.html              accent: #8ba8c8
-│   └── layer-ey.html            accent: #8ba8c8
+│   ├── ey-fabric.html            accent: #ffe600 — migrado al shared design system
+│   ├── blockchain.html           accent: #22d4c8
+│   ├── customs.html              accent: #e05c4a
+│   ├── chek.html                 accent: #9b6cff / #7a3be0
+│   ├── dollarcity.html           accent: #00a650
+│   └── forecast.html             accent: #5b9bd0
 └── assets/
     ├── shared.css
+    ├── demo-kit.js
     ├── main.js
     ├── Federico_Monroy_CV.pdf
-    ├── ASSETS_PLAN.md
-    └── images/                  ← project screenshots go here
+    └── images/
+
 Image Paths by Project
-
 Chek images: ../chek/IMG_37XX.jpeg
-DollarCity images: ../dollarcity/IMG_XXXX.jpeg (when added)
-
-Chek image map
-
-../chek/IMG_3773.jpeg → Hi-Fi annotated screens 1
-../chek/IMG_3774.jpeg → Hi-Fi annotated screens 2
-../chek/IMG_3775.jpeg → Design System
-../chek/IMG_0159.jpeg → Wireframe grid
-
-Chek — images already replaced by coded HTML (never re-add these)
-
-IMG_3769 → replaced by Benchmarking section
-IMG_3771 → replaced by HEARTS table
-IMG_3772 → replaced by Event Tracking section
-IMG_3776 → replaced by Key Learnings section
-IMG_3768 → replaced by Research section
-IMG_3770 → replaced by Solutions section
-
+DollarCity images: ../dollarcity/IMG_XXXX.jpeg
 
 Design System — Never Break
-
 Font weight min: 400 body / 600 headers / 700–800 display
 NO font-weight: 300 anywhere
-All colors via CSS vars — never hardcode hex in HTML inline
-Dark only: --bg-base: #0c0c0c
+All colors via CSS vars — never hardcode hex in HTML inline (excepción:
+colores de marca real por proyecto — logos, accent — esos sí van literales
+porque son identidad de marca, no tokens del sistema)
+Dark only en la mayoría de páginas de proyecto: --bg-base: #0c0c0c
+El home (index.html) SÍ tiene modo claro/oscuro con toggle — ver
+`--nav-bg`, `--stage-bg`, `--capbar-fade` en su <style> inline para el
+patrón de variables que cambian por tema.
 Project accent override per page: :root { --accent: var(--accent-[project]); }
 No dark-green-on-dark combos
 
-
 Accessibility — Non-Negotiable
-
 First child of <body> on every page: <a class="skip-link" href="#main">Skip to main content</a>
 Every <img> needs descriptive alt
 Nav dropdown: aria-expanded, aria-haspopup, role="menu", role="menuitem"
-prefers-reduced-motion handled in shared.css — no inline animations
-No overflow-x on body
-
-## Accessibility Rules
-- All text must meet WCAG AA contrast: 4.5:1 for body text, 3:1 for large text and UI components.
-- This applies in BOTH dark and light themes — always verify light mode contrast, not just dark.
-- All interactive elements must have :focus-visible styles.
-- No horizontal overflow on any viewport.
-- Always include @media (prefers-reduced-motion: reduce) in shared.css.
-
+prefers-reduced-motion handled globally — todas las animaciones nuevas
+tienen que respetar esto automáticamente (el selector universal
+`*,*::before,*::after{transition-duration:.01ms!important}` ya lo cubre
+en el home; en shared.css hay un bloque equivalente)
+No overflow-x en body — rompe el sidebar sticky del home
 
 CSS Conventions
 .container            max-width wrapper
@@ -95,59 +104,59 @@ CSS Conventions
 .section-alt          bg: var(--bg-surface)
 .section-eyebrow      accent label with line
 .project-card         professional grid card (fully clickable)
-.personal-tile        image tile (personal grid, hover overlay)
-.card-image-placeholder   shimmer placeholder → replace with real <img>
-.evidence-placeholder     screenshot placeholder in project pages
+.card-tool             tool chip con logo real inline (nunca ícono genérico)
 .btn .btn-primary .btn-outline .btn-accent
 .tag .tag-accent
 
-## CSS Safety Rules
-- NEVER use `[class*="X"]`, `[class^="X"]`, or `[class$="X"]` selectors for padding, margin, height, or min-height. Always use explicit class names like `.project-card`.
-- NEVER control the same CSS property (e.g. display) from both a stylesheet rule AND inline JS on the same element. Pick one source of truth.
-- NEVER hardcode `--bg-base`, `--text-primary`, `--border`, or `--shadow` as hex values. Always use CSS variables.
-- Always use 4-value padding (top right bottom left) — never shorthand that collapses vertical spacing.
-- Use min-height as floor on cards, never fixed height.
-- Before editing `assets/shared.css`, list every selector the change will affect.
-- After any `shared.css` edit, verify card heights in `index.html` are uniform and no child element has inherited unexpected padding or margin.
-
-## JS Safety Rules
-- Theme toggle: `js/theme.js` is the ONLY place that controls theme state and icon visibility. No inline script blocks in HTML files should reference theme or toggle.
-- Always use root-relative paths for shared scripts: `/js/theme.js`, `/css/shared.css` — never relative paths like `../js/` in project subpages.
-- Always check `document.readyState` before attaching DOMContentLoaded listeners.
-
 Nav — Consistent on Every Page
-Desktop: logo | Projects (dropdown) | Resume | About | Contact
-Dropdown group 1 "Relevant / Professional": EY Fabric, Blockchain, Customs, Chek, DollarCity, TaxSynapse
-Dropdown group 2 "Personal / Independent": Industrial Design Thesis, Depure, LayerEY
-Mobile: hamburger → full-screen panel
-
-Project Page Structure (universal)
-
-Progress bar (#progress-bar)
-Skip link
-Nav (identical across all pages, paths: ../assets/, ../index.html)
-<header class="project-hero"> — breadcrumb, role badge, eyebrow, title, hook, tags, stat row
-<div class="project-content"> — What I Owned → Approach steps → Evidence grid → Tools → Prev/Next nav
-Footer
-
+Desktop: logo | Home | Projects (dropdown) | Design System | Resume | About | Contact
+Dropdown de Projects: EY Fabric, Blockchain 3D, Chek, DollarCity, Customs ES, Forecast
+Mobile: hamburguesa → panel full-screen
+⚠️ El botón de tema (sol/luna) SIEMPRE con SVG real — nunca emoji (☀☾). Ya
+pasó una vez que se coló un emoji, Federico lo notó enseguida.
 
 Edit Philosophy — Critical
 Always UPDATE, never replace.
-
 Find the existing element and modify it in place
 Preserve surrounding HTML structure, classes, IDs
 Never delete a section to rewrite it from scratch
 If something is missing → insert after the nearest logical sibling
 If something is wrong → fix only that element, leave everything else untouched
-When in doubt: make the smallest possible change that achieves the goal
+When in duda: make the smallest possible change that achieves the goal
 
 Order of operations:
+1. Read the full file first
+2. Identify exactly what needs to change
+3. Make surgical edits only
+4. Verify nothing else broke — correr un barrido de anchos (320/375/768/1024/1440/1920)
+   y las interacciones principales antes de dar algo por terminado
 
-Read the full file first
-Identify exactly what needs to change
-Make surgical edits only
-Verify nothing else broke
-
+## Bugs recurrentes — ya pasaron más de una vez, no reintroducir
+1. **Colisión de nombres de clase**: antes de nombrar un componente nuevo,
+   `grep` el nombre en el archivo — ya pasó que `.pcard` se usó dos veces
+   para cosas distintas, y la regla que está más abajo en el CSS le gana
+   a la de arriba silenciosamente.
+2. **Código nuevo cayendo dentro de un bloque `if(!reduced &&
+   matchMedia('(pointer:fine)').matches){...}` sin querer**: pasó 2 veces
+   (el hamburger menu, el tap-to-expand de proyectos) — cualquier
+   funcionalidad que DEBE andar en mobile/touch no puede vivir adentro de
+   ese bloque, que es específicamente para mejoras solo-mouse.
+3. **CSS muerto que colisiona**: antes de escribir CSS nuevo para un
+   componente, verificar que no exista ya un bloque de un intento anterior
+   con el mismo nombre de clase (buscar comentarios tipo "horizontal
+   project strip" o similar — señal de que quedó algo de una iteración
+   vieja sin borrar).
+4. **`position:fixed` + `transform` en offsets extremos** puede afectar
+   `document.scrollWidth` en algunos navegadores de forma inesperada —
+   si hay overflow y no se explica por el layout visible, bisectar por
+   `scrollWidth` de cada contenedor padre (`body > *`, después sus hijos,
+   etc.) hasta encontrar la fuente real, en vez de asumir por inspección
+   visual de elementos individuales (puede llevar a pistas falsas).
+5. **Media queries compartidas entre efectos distintos**: si un mismo
+   `@media(max-width:Xpx)` resetea DOS cosas distintas (ej. rotación del
+   abanico Y el layout de grid), extender el rango para arreglar una cosa
+   puede romper la otra sin querer. Verificar qué más vive en esa media
+   query antes de cambiar su threshold.
 
 Available Libraries (CDN — only add when needed)
 html<!-- Animate.css — entrance animations -->
@@ -161,112 +170,36 @@ html<!-- Animate.css — entrance animations -->
 Use Iconify: <span class="iconify" data-icon="mdi:phone"></span>
 When to use: wireframe icons → Iconify, entrance animations → Animate.css, flow transitions → Motion One, simple transitions → native CSS (preferred).
 
-Wireframe Style Guide
-Phone frame: 260px wide, 520px tall, border-radius 36px, border 3px solid #1a1a1a, CSS only — no images inside.
-Flow layout: phones side by side on desktop with → arrow, stacked on mobile with ↓ arrow.
-Annotations: display:none below 768px.
-Educational callouts inside wireframes:
-
-Positive: background:#f0fdf4; border-left:3px solid #16a34a
-Warning: background:#fffbeb; border-left:3px solid #d97706
-Info: background:#eff6ff; border-left:3px solid #3b82f6
-
-
-Pages Status
-
-projects/chek.html → active, in progress
-projects/dollarcity.html → to be built (accent #f4c842, SaaS fraud platform)
-resume.html → PENDING — needs real content, CV PDF exists at assets/Federico_Monroy_CV.pdf
-about.html → exists, review needed
-
-
 Do Not
-
 Add new CSS frameworks or JS libraries (except CDN libs listed above when needed)
 Change font families
 Add font-weight: 300
-Hardcode colors outside CSS variables
+Hardcode colors outside CSS variables (excepto colores de marca real, ver arriba)
 Remove ARIA attributes from nav
 Break the --accent override pattern in project pages
-
-## UI Symmetry Rules — Apply to ALL components
-
-### Cards & boxes
-- min-height on sibling cards: always equal. Use `align-items:stretch` on grid/flex parent.
-- padding: minimum var(--space-20) all sides. Text must never touch a border.
-- If cards have icons + title + body: use `display:flex; flex-direction:column; gap:var(--space-12)`
-- Multi-col card grids: `align-items:stretch` so all cards in a row match height.
-
-### Text inside boxes
-- If text risks touching a border: add `padding-left: var(--space-16)` minimum.
-- Bullet lists inside cards: `padding-left: var(--space-16); line-height:1.6`
-- If a card has fewer bullets than its sibling, add a filler rule or set `justify-content:space-between`
-
-### Tables
-- All td/th: `padding: 14px 20px; line-height:1.6`
-- No text should start at the cell edge.
-
-### Images in grids
-- Sibling images: same height via `height:Xpx; object-fit:cover`
-- Never mix fixed-height and auto-height siblings in the same row.
-
-### Spacing between sections
-- Every .project-section: `margin-bottom: var(--space-64)`
-- Every h2 inside a section: `margin-bottom: var(--space-24)`
-- Every eyebrow label: `margin-bottom: var(--space-8)`
-
-### Global rule
-- Before finishing any edit, scan for: text touching borders, unequal sibling heights, missing padding, images without consistent height. Fix all before committing.
-Replace sections from scratch — always update in place
-Re-add images that have been replaced by coded HTML sections
+Reemplazar el emoji del theme-toggle — siempre SVG
+Reintroducir cualquiera de los 5 bugs recurrentes de la sección de arriba
 
 ## Universal Layout & Symmetry System
+Card & box grids — siempre auto-fit, nunca columnas fijas:
+display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--col-min, 200px), 1fr)); gap: var(--space-24); align-items: stretch;
 
-### Core principle
-Every component must breathe equally at every size.
-If content grows, the container grows. If siblings share a row, they share the same height.
-Never clip, never crowd, never orphan.
-
-### Card & box grids — always auto-fit
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(var(--col-min, 200px), 1fr));
-gap: var(--space-24);
-align-items: stretch;
-This handles 2, 3, 4, 5, N cards automatically. Last row fills. Never use fixed column counts.
-
-### Card internal structure — always flex column
+Card internal structure — siempre flex column:
 display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-20);
-Icon/label: flex-shrink:0. Body text: flex-grow:1. Footer/CTA: margin-top:auto.
 
-### Tables
-Every th, td: padding: 14px 20px; line-height: 1.6; vertical-align: top;
-No cell content should start at the cell edge. Min-width on columns with short labels.
-Alternating rows or clear borders — never ambiguous row separation.
+Tables: todo th/td con padding: 14px 20px; line-height: 1.6; vertical-align: top;
 
-### Images in grids
-Siblings: same height via height:Xpx; object-fit:cover; object-position:top;
-Never mix fixed-height and auto-height siblings in the same row.
-Solo images: max-width:100%; height:auto; display:block;
+Images en grids: mismo height + object-fit:cover entre hermanas, nunca mezclar
+fixed-height con auto-height en la misma fila.
 
-### Typography spacing
-h2 inside section: margin-bottom: var(--space-24)
-Eyebrow label: margin-bottom: var(--space-8)
-Body paragraph after heading: margin-top: 0
-Last element inside any box: no bottom margin (let padding handle it)
+Responsive: bajo 768px todo a 1 columna. Bajo 480px padding reduce a
+var(--space-16). Nunca horizontal scroll salvo que sea un patrón
+explícitamente pedido (ej. las project cards del home, que son
+intencionalmente una fila horizontal en desktop).
 
-### Section spacing
-Every .project-section: margin-bottom: var(--space-64)
-Nested subsections: margin-bottom: var(--space-40)
-
-### Text never touches borders
-All boxes: padding minimum var(--space-20) all sides
-Left-border accent: padding-left: var(--space-20) on inner content
-Bullet lists: padding-left: var(--space-16); line-height: 1.6
-
-### Responsive breakpoints
-Below 768px: single column for all grids. Font sizes scale down max 2 steps.
-Below 480px: padding reduces to var(--space-16) on cards and sections.
-No horizontal scroll at any viewport.
-
-### Pre-commit scan — mandatory
+Pre-commit scan — mandatory
 1. Text touching a border → fix
+2. Alturas desiguales entre hermanas → fix
+3. Cualquier animación nueva → ¿tiene bounce/spring donde corresponde?
+   ¿respeta prefers-reduced-motion? ¿tiene debounce si cambia tamaño en hover?
+4. Barrido de anchos 320/375/768/1024/1440/1920 antes de dar por terminado

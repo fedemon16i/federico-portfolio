@@ -25,7 +25,6 @@
     --acc-ey:#ffe600; --acc-bc:#22d4c8; --acc-cus:#e05c4a; --acc-chek:#7a3be0; --acc-dc:#00a650; --acc-fc:#5b9bd0;
     --font-display:'Space Grotesk',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
     --ease:cubic-bezier(.65,0,.35,1); --spring:cubic-bezier(.34,1.56,.64,1);
-    --nav-bg:rgba(14,13,12,0.85); --stage-bg:#201e1b; --capbar-fade:rgba(32,30,27,.9);
   }
   html[data-theme="light"]{
     --bg:#f7f5f2; --bg-surface:#ffffff; --bg-raised:#eeece7;
@@ -33,7 +32,6 @@
     --border:rgba(0,0,0,0.10); --border-soft:rgba(0,0,0,0.06);
     --accent:#a84928; --accent-dim:rgba(168,73,40,0.10); --on-accent:#ffffff;
     --ok:#1f7a45; --warn:#a06a12; --bad:#b8352b;
-    --nav-bg:rgba(247,245,242,0.85); --stage-bg:#e6e2da; --capbar-fade:rgba(230,226,218,.92);
   }
   html{transition:background 300ms ease;}
   body{transition:background 300ms ease,color 300ms ease;}
@@ -46,48 +44,10 @@
   .skip-link:focus{top:12px;}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
 
-  .home{display:grid;grid-template-columns:380px minmax(0,1fr);min-height:100vh;padding-top:64px;}
+  .home{display:grid;grid-template-columns:380px minmax(0,1fr);min-height:100vh;}
 
   /* ============ LEFT ============ */
-  .bio{border-right:1px solid var(--border);padding:44px 32px 32px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto;display:flex;flex-direction:column;gap:22px;scrollbar-width:thin;}
-
-  /* ===== Top nav — shared pattern with project pages ===== */
-  .top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;background:var(--nav-bg);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-soft);}
-  .top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1440px;margin-inline:auto;padding-inline:24px;}
-  .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--text-primary);letter-spacing:-.02em;}
-  .top-nav-logo span{color:var(--accent);}
-  .top-nav-links{display:flex;align-items:center;gap:26px;}
-  .top-nav-link{font-size:13px;color:var(--text-secondary);font-weight:500;transition:color 200ms;}
-  .top-nav-link:hover,.top-nav-link.active{color:var(--accent);}
-  .top-nav-dropdown{position:relative;}
-  .top-nav-drop-toggle{display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text-secondary);background:none;border:none;cursor:pointer;font-family:inherit;font-weight:500;}
-  .top-nav-drop-toggle:hover{color:var(--accent);}
-  .top-nav-drop-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);
-    background:var(--bg-surface);border:1px solid var(--border);border-radius:12px;padding:8px;min-width:170px;
-    display:flex;flex-direction:column;gap:2px;opacity:0;pointer-events:none;transition:all 200ms;box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);}
-  .top-nav-dropdown:hover .top-nav-drop-menu,.top-nav-drop-toggle[aria-expanded="true"] + .top-nav-drop-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);}
-  .top-nav-drop-menu a{font-size:13px;color:var(--text-secondary);padding:8px 12px;border-radius:7px;transition:all 150ms;}
-  .top-nav-drop-menu a:hover{background:var(--bg-raised);color:var(--accent);}
-  .top-nav-theme{width:34px;height:34px;border-radius:50%;background:var(--bg-surface);border:1px solid var(--border);
-    color:var(--text-secondary);font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;
-    transition:all 200ms;margin-left:8px;flex-shrink:0;}
-  .top-nav-theme:hover{border-color:var(--accent);color:var(--accent);}
-  .top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:8px;}
-  .top-nav-hamburger span{width:20px;height:2px;background:var(--text-primary);border-radius:1px;}
-  @media (max-width:900px){
-    .top-nav-links{display:none;}
-    .top-nav-hamburger{display:flex;}
-  }
-  .top-nav-mobile{position:fixed;top:0;left:100%;width:100%;bottom:0;z-index:1100;background:var(--bg);visibility:hidden;transition:left 300ms ease,visibility 0s 300ms;overflow-y:auto;}
-  .top-nav-mobile.on{left:0;visibility:visible;transition:left 300ms ease;}
-  .top-nav-mobile.on{transform:translateX(0);}
-  .top-nav-mobile-inner{padding:24px;display:flex;flex-direction:column;gap:4px;position:relative;padding-top:64px;}
-  .top-nav-mobile-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--bg-surface);
-    border:1px solid var(--border);color:var(--text-primary);font-size:16px;display:flex;align-items:center;justify-content:center;}
-  .top-nav-mobile-link{font-size:16px;color:var(--text-primary);font-weight:600;padding:12px 4px;border-bottom:1px solid var(--border-soft);}
-  .top-nav-mobile-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);margin:16px 0 4px;}
-  @media (min-width:901px){.top-nav-mobile{display:none;}}
+  .bio{border-right:1px solid var(--border);padding:44px 32px 32px;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;gap:22px;scrollbar-width:thin;}
   .bio-top{display:flex;align-items:center;gap:16px;}
   .bio-photo{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,var(--accent-dim),var(--bg-raised));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:20px;color:var(--accent);flex-shrink:0;}
   .bio-name{font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.2;}
@@ -142,7 +102,7 @@
   @media (max-width:760px){.stage-nav-arrow{width:36px;height:36px;font-size:18px;}
     .stage-nav-arrow.left{left:6px;} .stage-nav-arrow.right{right:6px;}}
   #playBtn.is-playing{color:var(--accent);border-color:var(--accent);}
-  .stage{position:relative;height:100%;min-height:min(500px,46vh);background:var(--stage-bg);border:1px solid var(--border);border-radius:18px;overflow:hidden;transform-style:preserve-3d;transition:transform 600ms var(--ease);box-shadow:0 30px 80px -30px rgba(0,0,0,.6);}
+  .stage{position:relative;height:100%;min-height:min(500px,46vh);background:#201e1b;border:1px solid var(--border);border-radius:18px;overflow:hidden;transform-style:preserve-3d;transition:transform 600ms var(--ease);box-shadow:0 30px 80px -30px rgba(0,0,0,.6);}
   .stage::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:60;border-radius:18px;background:radial-gradient(420px circle at var(--lx,30%) var(--ly,20%),rgba(255,255,255,.05),transparent 60%);opacity:0;transition:opacity 400ms;}
   .stage.lit::after{opacity:1;}
   @keyframes idleFloat{0%,100%{transform:rotateX(1deg) rotateY(-.8deg)}50%{transform:rotateX(-.6deg) rotateY(.8deg) translateY(-3px)}}
@@ -165,7 +125,7 @@
   .tool-chip.lit{border-color:var(--accent);color:var(--text-secondary);}
 
   .ui-body{flex:1;position:relative;overflow:hidden;}
-  .capbar{position:absolute;left:0;right:0;bottom:0;z-index:50;padding:16px 26px 18px;font-size:16px;color:var(--text-primary);min-height:46px;display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none;background:linear-gradient(to top,var(--capbar-fade) 40%,transparent);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
+  .capbar{position:absolute;left:0;right:0;bottom:0;z-index:50;padding:16px 26px 18px;font-size:16px;color:var(--text-primary);min-height:46px;display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none;background:linear-gradient(to top,rgba(14,13,12,.9) 40%,transparent);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
   .capbar .cap-txt{flex:none;max-width:86%;text-shadow:0 1px 4px rgba(0,0,0,.6);}
   .capbar .hl{color:var(--accent);font-weight:700;}
   .caret{display:inline-block;width:2px;height:14px;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle;}
@@ -439,7 +399,7 @@
     box-shadow:0 0 0 1px rgba(217,119,87,.15),0 20px 50px -24px rgba(217,119,87,.35);}
   .gc-hub::after{content:'always on';position:absolute;bottom:14px;right:16px;z-index:4;
     font-family:var(--font-mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.8;}
-  .gcard{position:relative;flex:1 1 155px;max-width:215px;min-width:86px;min-height:260px;border-radius:22px;
+  .gcard{position:relative;flex:1 1 130px;max-width:190px;min-width:76px;min-height:260px;border-radius:22px;
     transform:rotate(var(--fan-rot,0deg)) translateY(var(--fan-ty,0px));transform-origin:center 130%;
     background:linear-gradient(165deg,var(--bg-surface),var(--bg-raised));border:1px solid var(--border-soft);
     overflow:hidden;padding:0;display:flex;flex-direction:column;text-align:left;cursor:pointer;
@@ -448,49 +408,16 @@
     box-shadow:0 26px 54px -18px rgba(0,0,0,.6),0 0 0 1px var(--accent);z-index:20;}
   .gc-cat{position:absolute;top:14px;right:14px;z-index:4;font-family:var(--font-mono);font-size:8.5px;letter-spacing:.06em;
     color:var(--text-tertiary);border:1px solid var(--border);border-radius:100px;padding:3px 10px;background:var(--bg);white-space:nowrap;transition:all 300ms;}
-  .gc-ai{position:absolute;top:14px;left:14px;z-index:4;width:15px;height:15px;color:var(--text-tertiary);opacity:.45;transition:all 300ms;}
-  .gcard.gc-hover .gc-ai{opacity:.9;color:var(--accent);}
-  .cat-uxr.gc-hover .gc-ai,.cat-uxr .gc-ai{color:#c084fc;}
-  .beat-connector{display:flex;align-items:center;justify-content:center;flex:0 0 16px;color:var(--text-tertiary);opacity:.4;align-self:center;margin-top:60px;}
-  .beat-connector svg{width:16px;height:10px;}
-  @media(max-width:610px){.beat-connector{display:none;}}
-  .beat-axis{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;position:relative;
-    margin:28px auto 0;padding-top:20px;max-width:720px;}
-  .beat-axis-line{position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:1px;
-    background:linear-gradient(to right,transparent,var(--border) 15%,var(--border) 85%,transparent);}
-  .beat-axis-label{font-family:var(--font-mono);font-weight:700;font-size:10px;letter-spacing:.08em;color:var(--accent);
-    background:var(--bg);padding:0 8px;}
-  .beat-axis-item{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);white-space:nowrap;}
-  .beat-axis-dot{width:3px;height:3px;border-radius:50%;background:var(--text-tertiary);opacity:.5;}
-  @media(max-width:610px){
-    .beat-axis{flex-direction:column;gap:6px;margin-top:20px;padding-top:0;padding-left:20px;align-items:flex-start;}
-    .beat-axis-line{top:0;bottom:0;left:8px;width:1px;height:auto;transform:none;
-      background:linear-gradient(to bottom,transparent,var(--border) 15%,var(--border) 85%,transparent);}
-    .beat-axis-label{padding:2px 0;}
-    .beat-axis-dot{display:none;}
-  }
   .gc-cat b{font-weight:600;color:var(--text-secondary);}
   .gcard.gc-hover .gc-cat{color:var(--accent);border-color:var(--accent);}
   .gcard.gc-hover .gc-cat b{color:var(--accent);}
-  .cat-uxr .gc-cat{color:#c084fc;border-color:#c084fc;}
+  .cat-uxr .gc-cat{color:var(--accent);border-color:var(--accent);}
   .cat-analytics .gc-cat{color:#8fb4d4;border-color:rgba(143,180,212,.5);}
   .cat-product .gc-cat{color:#c9a877;border-color:rgba(201,168,119,.5);}
   .cat-aidev .gc-cat{color:#9d8cd9;border-color:rgba(157,140,217,.5);}
-  .cat-uxr{background:color-mix(in srgb,#c084fc 13%,var(--bg-raised));border-color:rgba(192,132,252,.25) !important;transition:background 350ms;}
-  .cat-analytics{background:color-mix(in srgb,#8fb4d4 14%,var(--bg-raised));transition:background 350ms;}
-  .cat-product{background:color-mix(in srgb,#c9a877 13%,var(--bg-raised));transition:background 350ms;}
-  .cat-aidev{background:color-mix(in srgb,#9d8cd9 14%,var(--bg-raised));transition:background 350ms;}
-  .cat-uxr.gc-hover{background:linear-gradient(165deg,rgba(192,132,252,.30),var(--bg-raised));}
-  .cat-analytics.gc-hover{background:linear-gradient(165deg,rgba(143,180,212,.34),var(--bg-raised));}
-  .cat-product.gc-hover{background:linear-gradient(165deg,rgba(201,168,119,.32),var(--bg-raised));}
-  .cat-aidev.gc-hover{background:linear-gradient(165deg,rgba(157,140,217,.34),var(--bg-raised));}
   .gc-primary{border-color:rgba(217,119,87,.4);}
   .beatcards:hover .gcard{flex-grow:0.4;}
-  .gcard.gc-hover{flex:2.2 0 230px !important;z-index:30;box-shadow:0 0 0 1px rgba(168,73,40,.4),0 0 26px -4px rgba(168,73,40,.45),0 20px 40px -16px rgba(0,0,0,.5);}
-  .cat-analytics.gc-hover{box-shadow:0 0 0 1px rgba(143,180,212,.45),0 0 26px -4px rgba(143,180,212,.5),0 20px 40px -16px rgba(0,0,0,.5);}
-  .cat-product.gc-hover{box-shadow:0 0 0 1px rgba(201,168,119,.45),0 0 26px -4px rgba(201,168,119,.5),0 20px 40px -16px rgba(0,0,0,.5);}
-  .cat-aidev.gc-hover{box-shadow:0 0 0 1px rgba(157,140,217,.45),0 0 26px -4px rgba(157,140,217,.5),0 20px 40px -16px rgba(0,0,0,.5);}
-  .cat-uxr.gc-hover{box-shadow:0 0 0 1.5px #c084fc,0 0 18px 2px rgba(192,132,252,.55),0 0 42px -6px rgba(192,132,252,.6),0 20px 40px -16px rgba(0,0,0,.5);}
+  .gcard.gc-hover{flex:2.2 0 230px !important;z-index:30;}
 
   /* the visual zone — icon at rest, description on hover. ONLY this area is covered; gc-body below always stays visible */
   .gc-visual{position:relative;flex:1;min-height:105px;}
@@ -505,9 +432,8 @@
     transition:opacity 380ms var(--ease),transform 420ms var(--ease),border-color 300ms;}
   .gcard.gc-hover .gc-ring,.gcard:focus-visible .gc-ring{opacity:0;transform:scale(.7);}
   .gcard.gc-hover .gc-icon-wrap,.gcard:focus-visible .gc-icon-wrap{opacity:0;transform:translateY(-32px) scale(.6);}
-  .gc-icon{width:72px;height:72px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
-    transition:transform 450ms var(--spring),stroke 300ms;}
-  .cat-uxr .gc-icon{stroke:#c084fc;}
+  .gc-icon{width:60px;height:60px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+    transition:transform 450ms var(--spring);}
   @keyframes iconWiggle{
     0%{transform:scale(1) rotate(0deg) translateY(0);}
     60%{transform:scale(1.12) rotate(-4deg) translateY(-4px);}
@@ -543,42 +469,16 @@
   .gc-cta{display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:10.5px;
     border-top:1px solid var(--border-soft);padding-top:9px;margin-top:2px;}
   .gc-cta .expand-hint{color:var(--accent);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  @keyframes gcIconBreathe{0%,100%{transform:scale(1);opacity:.9;}50%{transform:scale(1.08);opacity:1;}}
-  @media (max-width:1024px){
+  @media (max-width:999px){
     .gcard{--fan-rot:0deg !important;--fan-ty:0px !important;}
   }
-  @media (max-width:610px){.beatcards{flex-wrap:wrap;gap:8px;}
-    .gcard{flex-basis:calc(50% - 4px);max-width:calc(50% - 4px);min-width:0;min-height:auto;}
-    .gc-visual{min-height:auto;padding:16px 10px 2px;display:flex;align-items:center;justify-content:center;}
-    .gc-overlay{position:static;opacity:1;transform:none;background:none;padding:0;pointer-events:auto;display:flex;flex-direction:column;align-items:center;}
-    .gc-icon-wrap{position:static;inset:auto;display:flex;align-items:center;justify-content:center;padding:0;animation:gcIconBreathe 3.2s ease-in-out infinite;}
-    .gc-icon{width:48px;height:48px;}
-    .gc-ring{display:none;}
-    .gc-steps,.gc-d{display:none;}
-    .gc-body{padding:6px 8px 10px;text-align:center;}
-    .gc-t{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .gc-tools{gap:6px;margin-top:8px;justify-content:center;}
-    .gc-tools svg{width:20px;height:20px;filter:none;opacity:1;}
-    .gc-cat,.gc-num{font-size:8px;padding:3px 7px;}
-    .expand-hint{display:block;font-size:10px;color:var(--accent);margin-top:8px;opacity:0.85;text-align:center;}}
-
-  /* Tablet tier — comfortable wrapping grid (2-3 per row), not squeezed into one row.
-     Accordion hover-grow doesn't make sense once cards wrap to multiple rows, so this
-     range gets a calmer static layout instead, matching mobile's approach at a bigger size. */
-  @media (min-width:611px) and (max-width:1024px){
-    .beatcards{flex-wrap:wrap;}
-    .beat-connector{display:none;}
-    .gcard{flex-basis:220px;max-width:260px;min-height:auto;}
-    .gcard.gc-hover{flex:1 1 220px !important;transform:none;}
-    .gc-visual{min-height:auto;padding:14px 16px 0;}
-    .gc-overlay{position:static;opacity:1;transform:none;background:none;padding:8px 0 0;pointer-events:auto;}
-    .gc-icon-wrap{position:static;inset:auto;display:block;padding:0 0 8px;}
-    .gc-icon{width:28px;height:28px;}
-    .gc-ring{display:none;}
+  @media (max-width:610px){.beatcards{flex-wrap:wrap;}
+    .gcard{flex-basis:100%;max-width:340px;min-height:auto;}
+    .gc-visual{min-height:130px;}
+    .gc-overlay{position:static;opacity:1;transform:none;background:none;padding:12px 18px 0;pointer-events:auto;}
+    .gc-icon-wrap{padding-top:14px;opacity:1;transform:none;position:absolute;}
     .gc-d,.gc-steps{opacity:1;transform:none;}
-    .gc-d{font-size:12.5px;-webkit-line-clamp:2;}
-    .gc-steps{font-size:11px;}
-  }
+    .gc-d{font-size:13.5px;-webkit-line-clamp:3;}}
 
 
   /* ═══ RESTORED — controls bar + beat pills ═══ */
@@ -592,7 +492,7 @@
   .beatcards.hidden{display:none!important;}
 
   /* ═══ RESTORED — stage takeover container ═══ */
-  .stagezone{display:none;position:fixed;inset:0;z-index:2000;align-items:center;justify-content:center;padding:min(5vw,40px);background:rgba(8,7,6,0);backdrop-filter:blur(0px);transition:background 320ms ease,backdrop-filter 320ms ease;}
+  .stagezone{display:none;position:fixed;inset:0;z-index:300;align-items:center;justify-content:center;padding:min(5vw,40px);background:rgba(8,7,6,0);backdrop-filter:blur(0px);transition:background 320ms ease,backdrop-filter 320ms ease;}
   .stagezone.open{display:flex;background:rgba(8,7,6,.86);backdrop-filter:blur(10px);}
   .stage-panel{width:min(980px,94vw);max-height:90vh;background:var(--bg);border:1px solid var(--border);border-radius:24px;
     padding:20px;display:flex;flex-direction:column;overflow-y:auto;box-shadow:0 60px 130px -24px rgba(0,0,0,.7);
@@ -659,7 +559,7 @@
   .me-more:hover{border-color:var(--accent);color:var(--accent);}
 
   /* ═══ "more about me" drawer — expands to the RIGHT, over the main content ═══ */
-  .me-modal{display:none;position:fixed;inset:0;z-index:2000;background:var(--bg);}
+  .me-modal{display:none;position:fixed;inset:0;z-index:300;background:var(--bg);}
   .me-modal.on{display:flex;}
   .me-modal-panel{width:100%;height:100%;overflow-y:auto;background:var(--bg-surface);
     padding:40px 36px 48px;position:relative;transform:translateX(4%);opacity:0;}
@@ -679,17 +579,7 @@
   .mg-slide.on{opacity:1;transform:scale(1);}
   .mg-slide .me-photo{position:static;width:100%;height:100%;display:flex;align-items:center;justify-content:center;
     font-family:var(--font-display);font-weight:700;font-size:44px;color:var(--accent);}
-  .mg-caption{font-size:16px;font-weight:500;color:var(--text-primary);min-height:26px;line-height:1.4;flex:1;}
-  .mg-controls-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;}
-  .mg-playbtn{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--bg-surface);border:1px solid var(--border);
-    color:var(--text-secondary);font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 200ms;}
-  .mg-playbtn:hover{border-color:var(--accent);color:var(--accent);}
-  .mg-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:32px;height:32px;border-radius:50%;
-    background:rgba(14,13,12,0.55);border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:18px;line-height:1;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 200ms;backdrop-filter:blur(4px);}
-  .mg-arrow:hover{background:rgba(14,13,12,0.8);border-color:var(--accent);}
-  .mg-arrow.left{left:8px;}
-  .mg-arrow.right{right:8px;}
+  .mg-caption{font-size:16px;font-weight:500;color:var(--text-primary);min-height:26px;line-height:1.4;margin-bottom:14px;}
   .mg-caption .mg-cursor{display:inline-block;width:2px;height:16px;background:var(--accent);margin-left:2px;
     vertical-align:middle;animation:mgBlink 800ms steps(1) infinite;}
   @keyframes mgBlink{50%{opacity:0;}}
@@ -747,94 +637,70 @@
   .section{padding:80px 44px 0;}
   .sec-eyebrow{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
   .sec-h{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.25;margin-bottom:8px;}
-  .sec-narrative{color:var(--text-primary);font-family:var(--font-display);font-weight:600;font-size:19px;line-height:1.4;
-    max-width:640px;margin-bottom:10px;}
   .sec-sub{color:var(--text-secondary);font-size:14px;max-width:580px;margin-bottom:28px;}
   .gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;perspective:1200px;}
 
   /* ═══ project cards — real UI teaser always visible, description revealed on hover (same pattern as skills) ═══ */
-  /* ===== Vertical accordion timeline (projects) ===== */
-  .ptl{position:relative;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px;padding-left:22px;}
-  .ptl::before{content:'';position:absolute;left:5px;top:14px;bottom:14px;width:1px;background:var(--border);}
-  .ptl-item{position:relative;background:var(--bg-surface);border:1px solid var(--border);border-left:3px solid var(--acc);
-    border-radius:12px;overflow:hidden;transition:border-color 300ms;}
-  .ptl-item::before{content:'';position:absolute;left:-27px;top:19px;width:9px;height:9px;border-radius:50%;
-    background:var(--acc);box-shadow:0 0 0 3px var(--bg);}
-  .ptl-head{width:100%;display:flex;align-items:center;gap:12px;padding:16px 18px;background:none;border:none;cursor:pointer;text-align:left;}
-  .ptl-logo{width:28px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .ptl-meta{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;}
-  .ptl-meta b{font-family:var(--font-display);font-weight:700;font-size:14.5px;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .ptl-meta small{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);}
-  .ptl-chev{width:12px;height:12px;color:var(--text-tertiary);flex-shrink:0;transition:transform 300ms;}
-  .ptl-item.ptl-open .ptl-chev{transform:rotate(180deg);color:var(--acc);}
-  .ptl-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows 420ms cubic-bezier(.22,1,.36,1);}
-  .ptl-item.ptl-open .ptl-body{grid-template-rows:1fr;}
-  .ptl-body-in{overflow:hidden;min-height:0;}
-  .ptl-graphic{position:relative;height:200px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .ptl-desc{padding:16px 20px 4px;font-size:.88rem;line-height:1.55;color:var(--text-secondary);}
-  .ptl-foot{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 18px;}
-  .ptl-stat{font-family:var(--font-mono);font-size:12px;color:var(--acc);font-weight:600;}
-  .ptl-stat em{font-style:normal;color:var(--text-tertiary);font-weight:400;}
-  .ptl-cta{font-size:.82rem;color:var(--text-secondary);font-weight:500;transition:color 200ms;}
-  .ptl-cta:hover{color:var(--acc);}
-  @media(max-width:520px){
-    .ptl{padding-left:16px;}
-    .ptl::before{left:3px;}
-    .ptl-item::before{left:-19px;width:7px;height:7px;}
-    .ptl-head{padding:13px 14px;gap:10px;}
-    .ptl-graphic{height:150px;}
-    .ptl-desc{padding:12px 16px 2px;font-size:.82rem;}
-    .ptl-foot{padding:10px 16px 14px;}
-  }
+  .projgrid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:flex-start;}
   .g.gm{flex:1 1 240px;max-width:270px;transition:transform 350ms var(--spring),border-color 250ms,box-shadow 320ms,z-index 0s;}
-
-  /* ===== Projects — vertical solid-color hover/tap cards (Supabase-style) ===== */
-  .pcrow{display:flex;gap:8px;height:420px;max-width:1100px;margin:0 auto;}
-  .pcard{position:relative;flex:0 1 72px;min-width:72px;background:var(--pc-bg);color:var(--pc-txt);border-radius:18px;
-    overflow:hidden;contain:layout paint;transition:flex 480ms var(--spring);cursor:pointer;display:block;text-decoration:none;}
-  .pcard.pc-open{flex:6 1 380px;}
-  .pcard-head{position:absolute;top:22px;left:22px;z-index:3;}
-  .pcard-ai{position:absolute;top:22px;right:22px;z-index:3;width:15px;height:15px;opacity:.55;}
-  .pcard.pc-open .pcard-ai{opacity:.85;}
-  .pcard-name-v{position:absolute;top:60px;left:50%;transform:translateX(-50%) rotate(180deg);writing-mode:vertical-rl;
-    font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.02em;white-space:nowrap;
-    opacity:.92;transition:opacity 200ms;pointer-events:none;}
-  .pcard.pc-open .pcard-name-v{opacity:0;}
-  .pcard-body{position:absolute;inset:0;padding:64px 26px 26px;opacity:0;transition:opacity 250ms;pointer-events:none;
-    display:flex;flex-direction:column;height:100%;}
-  .pcard.pc-open .pcard-body{opacity:1;pointer-events:auto;transition:opacity 350ms 150ms;}
-  .pcard-top{display:flex;flex-direction:column;gap:3px;margin-bottom:16px;flex-shrink:0;}
-  .pcard-top b{font-family:var(--font-display);font-weight:700;font-size:1.15rem;white-space:nowrap;}
-  .pcard-top small{font-family:var(--font-mono);font-size:11px;opacity:.7;}
-  .pcard-graphic{flex:1;border-radius:12px;overflow:hidden;position:relative;margin-bottom:16px;min-height:100px;
-    display:flex;align-items:center;justify-content:center;}
-  .pcard-desc{font-size:.85rem;line-height:1.55;opacity:.9;margin-bottom:14px;flex-shrink:0;}
-  .pcard-cta{font-size:.82rem;font-weight:600;text-decoration:underline;flex-shrink:0;}
-  @media(max-width:820px){
-    .pcrow{flex-wrap:nowrap;height:360px;}
-    .pcard-body{padding:56px 18px 18px;}
-    .pcard-top b{font-size:1rem;}
-    .pcard-desc{font-size:.78rem;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
-  }
-  @media(max-width:520px){
-    .pcrow{height:320px;gap:4px;}
-    .pcard{flex-basis:44px;min-width:44px;border-radius:12px;}
-    .pcard-head{top:14px;left:14px;}
-    .pcard-body{padding:44px 12px 12px;}
-  }
   .g.gm:hover{transform:perspective(800px) rotateX(2deg) translateY(-8px) scale(1.045);z-index:10;
     box-shadow:0 26px 54px -18px rgba(0,0,0,.6);}
   .gm .g-stage{height:210px;position:relative;}
-  .g-hoverinfo{position:static;padding:14px 16px 4px;background:none;opacity:1;transform:none;pointer-events:auto;}
-  .g-hoverinfo .g-d{margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px;color:var(--text-secondary);}
-  .g-hoverinfo .g-link{font-family:var(--font-mono);font-size:11.5px;color:var(--g-acc,var(--accent));}
+  .g-hoverinfo{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:16px 16px 14px;
+    background:linear-gradient(to top,var(--g-bg,var(--bg)) 55%,transparent);
+    opacity:0;transform:translateY(10px);transition:opacity 320ms ease,transform 380ms var(--spring);pointer-events:none;}
+  .gm:hover .g-hoverinfo{opacity:1;transform:none;}
+  .g-hoverinfo .g-d{margin-bottom:6px;}
   @media (max-width:520px){
     .g.gm{flex-basis:100%;max-width:400px;}
-    .g-hoverinfo{padding:10px 14px 0;}
-    .g-hoverinfo .g-d{-webkit-line-clamp:2;font-size:12.5px;}
-    .g-tags{display:none !important;}
+    .g-hoverinfo{position:static;opacity:1;transform:none;background:none;padding:10px 0 0;pointer-events:auto;}
   }
 
+  /* ═══ horizontal project strip — same card language as skills, click goes straight to the case study ═══ */
+  .projstrip{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;}
+  .pcard{position:relative;flex:1 1 150px;max-width:170px;min-height:210px;border-radius:18px;text-decoration:none;
+    background:linear-gradient(165deg,var(--bg-surface),var(--bg-raised));border:1px solid var(--border-soft);
+    display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:20px 14px 16px;
+    transition:transform 320ms var(--spring),border-color 250ms,box-shadow 320ms,z-index 0s;overflow:hidden;}
+  .pcard::before{content:'';position:absolute;inset:0;background:radial-gradient(160px circle at 50% 0%,color-mix(in srgb,var(--p-acc) 16%,transparent),transparent 70%);opacity:0;transition:opacity 300ms;}
+  .pcard:hover{transform:perspective(700px) rotateX(3deg) translateY(-10px) scale(1.07);border-color:var(--p-acc);
+    box-shadow:0 22px 46px -18px rgba(0,0,0,.6);z-index:5;}
+  .pcard:hover::before{opacity:1;}
+  .pc-num{position:absolute;top:12px;left:12px;font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);}
+  .pc-logo{width:44px;height:44px;border-radius:12px;background:var(--p-bg);border:1px solid var(--border-soft);
+    display:flex;align-items:center;justify-content:center;margin-top:6px;transition:transform 320ms var(--spring);}
+  .pcard:hover .pc-logo{transform:scale(1.1) translateY(-2px);}
+  .pc-t{font-family:var(--font-display);font-weight:700;font-size:13.5px;color:var(--text-primary);line-height:1.25;}
+  .pc-y{font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary);}
+  .pc-tag{font-family:var(--font-mono);font-size:8.5px;color:var(--p-acc);opacity:0;transform:translateY(4px);
+    transition:all 250ms ease;line-height:1.3;}
+  .pcard:hover .pc-tag{opacity:1;transform:none;}
+  .pc-go{font-family:var(--font-mono);font-size:9.5px;color:var(--p-acc);margin-top:auto;opacity:0;transition:opacity 250ms ease 60ms;}
+  .pcard:hover .pc-go{opacity:1;}
+  @media (max-width:520px){.pcard{flex:1 1 42%;max-width:47%;min-height:170px;padding:16px 10px 12px;}
+    .pc-tag,.pc-go{opacity:1;transform:none;}}
+  /* chronological timeline of projects */
+  .tlwrap{position:relative;perspective:1200px;padding:8px 0;overflow:hidden;}
+  .tlwrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--border);transform:translateX(-50%);}
+  .tlwrap::after{content:'';position:absolute;left:50%;top:-90px;width:2px;height:90px;transform:translateX(-50%);
+    background:linear-gradient(to bottom,transparent,var(--accent) 50%,transparent);opacity:.8;
+    animation:tlPulse 5s linear infinite;pointer-events:none;z-index:1;}
+  @keyframes tlPulse{0%{top:-90px}100%{top:100%}}
+  .tl-era{position:relative;display:flex;justify-content:center;margin:26px 0;z-index:2;}
+  .tl-era span{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;color:var(--text-secondary);background:var(--bg-raised);border:1px solid var(--border);border-radius:100px;padding:7px 18px;}
+  .tl-item{position:relative;width:calc(50% - 42px);margin-bottom:30px;opacity:0;transform:translateY(28px);
+    transition:opacity 700ms var(--ease),transform 700ms var(--spring);}
+  .tl-item.in{opacity:1;transform:none;}
+  .tl-item.left{margin-right:auto;}
+  .tl-item.right{margin-left:auto;}
+  .tl-dot{position:absolute;top:26px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);z-index:2;transition:transform 400ms var(--spring);}
+  .tl-item.in .tl-dot{animation:tlDotPop 500ms var(--spring) 200ms both;}
+  @keyframes tlDotPop{0%{transform:scale(0)}60%{transform:scale(1.4)}100%{transform:scale(1)}}
+  .tl-item.left .tl-dot{right:-49px;}
+  .tl-item.right .tl-dot{left:-49px;}
+  .tl-when{display:block;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);margin-bottom:8px;}
+  .tl-item.right .tl-when{text-align:left;}
+  .tl-item .g{width:100%;}
   html{overflow-x:hidden;}
   body.modal-lock{overflow:hidden;}
   .sim-tag{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);margin:0 0 8px;}
@@ -872,8 +738,6 @@
   .g-stage{transition:filter 300ms;}
   .g-stage{height:250px;position:relative;overflow:hidden;background:var(--g-bg,var(--bg));border-bottom:1px solid var(--border);display:flex;flex-direction:column;}
   .g-head{position:relative;z-index:6;display:flex;align-items:center;gap:10px;padding:14px 16px 0;flex-shrink:0;min-height:30px;}
-  .g-date{margin-left:auto;font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.85);white-space:nowrap;
-    background:rgba(0,0,0,0.38);border-radius:100px;padding:3px 9px;}
   .g-stagebody{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-height:0;}
   .g-catpill{margin-left:auto;font-family:var(--font-mono);font-size:9px;letter-spacing:.07em;color:var(--g-acc);background:color-mix(in srgb,var(--g-acc) 14%,transparent);border:1px solid color-mix(in srgb,var(--g-acc) 45%,transparent);border-radius:100px;padding:3px 9px;white-space:nowrap;}
   /* clay device mockups */
@@ -1002,58 +866,6 @@
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<nav class="top-nav" id="topNav">
-  <div class="top-nav-inner">
-    <a href="index.html" class="top-nav-logo">FM<span>.</span></a>
-    <div class="top-nav-links">
-      <a href="index.html" class="top-nav-link active">Home</a>
-      <div class="top-nav-dropdown">
-        <button id="topNavDropToggle" class="top-nav-drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="topNavDropMenu">
-          Projects
-          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu" aria-label="Projects menu">
-          <a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
-          <a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
-          <a href="projects/chek.html" role="menuitem">Chek</a>
-          <a href="projects/dollarcity.html" role="menuitem">DollarCity</a>
-          <a href="projects/customs.html" role="menuitem">Customs ES</a>
-          <a href="projects/forecast.html" role="menuitem">Forecast</a>
-        </div>
-      </div>
-      <a href="resume.html" class="top-nav-link">Resume</a>
-      <a href="about.html" class="top-nav-link">About</a>
-      <a href="contact.html" class="top-nav-link">Contact</a>
-      <a href="design-system.html" class="top-nav-link" style="color:var(--accent);">Design System</a>
-    </div>
-    <button class="top-nav-theme" id="themeToggle" type="button" aria-label="Switch to light mode">
-      <svg id="themeIconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg id="themeIconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-    </button>
-    <button class="top-nav-hamburger" id="topNavHamburger" aria-expanded="false" aria-controls="topNavMobile" aria-label="Open navigation menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
-  <div class="top-nav-mobile-inner">
-    <button id="topNavMobileClose" class="top-nav-mobile-close" aria-label="Close navigation">✕</button>
-    <a href="index.html" class="top-nav-mobile-link">Home</a>
-    <a href="resume.html" class="top-nav-mobile-link">Resume</a>
-    <a href="about.html" class="top-nav-mobile-link">About</a>
-    <a href="contact.html" class="top-nav-mobile-link">Contact</a>
-    <a href="design-system.html" class="top-nav-mobile-link" style="color:var(--accent);">Design System</a>
-    <p class="top-nav-mobile-label">Projects</p>
-    <a href="projects/ey-fabric.html" class="top-nav-mobile-link">EY Fabric</a>
-    <a href="projects/blockchain.html" class="top-nav-mobile-link">Blockchain 3D</a>
-    <a href="projects/chek.html" class="top-nav-mobile-link">Chek</a>
-    <a href="projects/dollarcity.html" class="top-nav-mobile-link">DollarCity</a>
-    <a href="projects/customs.html" class="top-nav-mobile-link">Customs ES</a>
-    <a href="projects/forecast.html" class="top-nav-mobile-link">Forecast</a>
-  </div>
-</div>
-
 <div class="home">
 
 <!-- ================= LEFT ================= -->
@@ -1081,19 +893,6 @@
   </div>
   <button class="me-more" id="meMoreBtn" aria-expanded="false" aria-controls="meDrawer"><span>+ More photos &amp; story</span></button>
 
-
-  <div class="bio-actions">
-    <a class="ba primary" href="resume.html"><span>Resume / CV</span><span>↗</span></a>
-    <a class="ba" href="#loop-h"><span>How I work</span><span>↓</span></a>
-    <a class="ba" href="#projects"><span>See projects</span><span>↓</span></a>
-    <a class="ba" href="mailto:fedemon16i@gmail.com"><span>Email me</span><span>@</span></a>
-  </div>
-
-  <div class="bio-tools">
-    <div class="bt-cap">Daily stack</div>
-    <div class="bt-row" id="bioTools"></div>
-  </div>
-</aside>
   <div class="me-modal" id="meDrawer">
    <div class="me-modal-panel">
     <button class="me-drawer-close" id="meDrawerClose" aria-label="Close">✕</button>
@@ -1101,8 +900,6 @@
 
     <div class="me-gallery" id="meGallery">
       <div class="mg-stage">
-        <button class="mg-arrow left" id="mgPrevBtn" aria-label="Previous photo">‹</button>
-        <button class="mg-arrow right" id="mgNextBtn" aria-label="Next photo">›</button>
         <div class="mg-slide on" data-idx="0"><div class="me-photo">FM</div><!-- <img src="assets/me-1.jpg" alt="Federico Monroy"> --></div>
         <div class="mg-slide" data-idx="1"><div class="me-photo sm">01</div><!-- <img src="assets/me-2.jpg" alt=""> --></div>
         <div class="mg-slide" data-idx="2"><div class="me-photo sm">02</div><!-- <img src="assets/me-3.jpg" alt=""> --></div>
@@ -1110,10 +907,7 @@
         <div class="mg-slide" data-idx="4"><div class="me-photo sm">04</div><!-- <img src="assets/me-5.jpg" alt=""> --></div>
         <div class="mg-slide" data-idx="5"><div class="me-photo sm">05</div><!-- <img src="assets/me-6.jpg" alt=""> --></div>
       </div>
-      <div class="mg-controls-row">
-        <p class="mg-caption" id="mgCaption" aria-live="polite">&nbsp;</p>
-        <button class="mg-playbtn" id="mgPlayBtn" aria-label="Pause slideshow">❚❚</button>
-      </div>
+      <p class="mg-caption" id="mgCaption" aria-live="polite">&nbsp;</p>
       <div class="mg-dots" id="mgDots">
         <button class="mg-dot on" data-idx="0" aria-label="Photo 1"></button>
         <button class="mg-dot" data-idx="1" aria-label="Photo 2"></button>
@@ -1128,6 +922,20 @@
    </div>
   </div>
 
+  <div class="bio-actions">
+    <a class="ba primary" href="resume.html"><span>Resume / CV</span><span>↗</span></a>
+    <a class="ba" href="#loop-h"><span>How I work</span><span>↓</span></a>
+    <a class="ba" href="#projects"><span>See projects</span><span>↓</span></a>
+    <a class="ba" href="mailto:fedemon16i@gmail.com"><span>Email me</span><span>@</span></a>
+    <button class="ba theme-toggle" id="themeToggle" type="button"><span id="themeToggleLabel">Dark mode</span><span id="themeToggleIcon">☾</span></button>
+  </div>
+
+  <div class="bio-tools">
+    <div class="bt-cap">Daily stack</div>
+    <div class="bt-row" id="bioTools"></div>
+  </div>
+</aside>
+
 <!-- ================= RIGHT ================= -->
 <main id="main">
 <section class="proc" aria-labelledby="loop-h">
@@ -1136,16 +944,6 @@
   <p class="proc-sub">These are the services I offer inside a product team — not case studies, <b>representations of my actual process</b>. Design leads — analytics and research support it. Press a card to watch a step, rebuilt with the real UI patterns of the tools involved.</p>
 
   <div class="beatcards" id="beatCards" role="list" aria-label="Seven things I do"></div>
-  <div class="beat-axis" aria-hidden="true">
-    <span class="beat-axis-line"></span>
-    <span class="beat-axis-label">AI</span>
-    <span class="beat-axis-item">LLM</span><span class="beat-axis-dot"></span>
-    <span class="beat-axis-item">Agent</span><span class="beat-axis-dot"></span>
-    <span class="beat-axis-item">Memory</span><span class="beat-axis-dot"></span>
-    <span class="beat-axis-item">Automations</span><span class="beat-axis-dot"></span>
-    <span class="beat-axis-item">API</span><span class="beat-axis-dot"></span>
-    <span class="beat-axis-item">MCP</span>
-  </div>
 
   <div class="stagezone" id="stageZone">
    <div class="stage-panel" id="stagePanel">
@@ -1177,42 +975,40 @@
   </div>
 </section>
 
-<!-- ============ PROJECTS — vertical solid-color cards, Supabase-style hover/tap expand ============ -->
+<!-- ============ PROJECTS GALLERY ============ -->
 <section class="section" id="projects" aria-labelledby="pj-h">
   <div class="sec-eyebrow">Case studies</div>
   <h2 class="sec-h" id="pj-h">Where the loop ran.</h2>
-  <p class="sec-narrative">From deciding what to build with analytics on an internal software catalog, to a 3D map, to a fraud-monitoring system and a credit card.</p>
-  <p class="sec-sub">Hover a project — or tap it on mobile — to open it.</p>
+  <p class="sec-sub">Shorter case studies, more animation where it earns its place. Each one carries its client's real identity — and its own mini design system.</p>
 
-  <div class="pcrow" id="pcRow">
+  <div class="projgrid" id="projStrip">
 
-    <a class="pcard pc-open" href="projects/ey-fabric.html" id="pc0" style="--pc-bg:#ffe600;--pc-txt:#2b2600;">
-      <div class="pcard-head"><svg class="pcard-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-        <span class="pcard-logo"><svg width="30" height="22" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#2b2600"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#2b2600">EY</text></svg></span><span class="pcard-name-v">EY Fabric</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-top"><b>EY Fabric</b><small>Oct 2023 — Present</small></div>
-        <div class="pcard-graphic" style="background:#14130e;"><div class="ey-process">
-          <div class="ey-node ey-n0"><span>diagnose</span>&#9680;</div>
+    <a class="g gm" href="projects/ey-fabric.html" style="--g-acc:var(--acc-ey);--g-bg:#14130e;">
+      <div class="g-stage" aria-hidden="true">
+        <div class="g-head"><span class="lm-ey"><svg width="30" height="22" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#FFDB00"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#3a3a38">EY</text></svg></span></div>
+        <div class="g-stagebody"><div class="ey-process">
+          <div class="ey-node ey-n0"><span>diagnose</span>◐</div>
           <div class="ey-arrow ey-a0"></div>
-          <div class="ey-node ey-n1"><span>instrument</span>&#9681;</div>
+          <div class="ey-node ey-n1"><span>instrument</span>◑</div>
           <div class="ey-arrow ey-a1"></div>
-          <div class="ey-node ey-n2"><span>analyze</span>&#9682;</div>
+          <div class="ey-node ey-n2"><span>analyze</span>◒</div>
           <div class="ey-arrow ey-a2"></div>
-          <div class="ey-node ey-n3"><span>fix</span>&#10003;</div>
+          <div class="ey-node ey-n3"><span>fix</span>✓</div>
         </div></div>
-        <p class="pcard-desc">90+ internal assets, instrumented and mapped across 4 workflow stages — sentiment turned into a live dashboard.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
+      <div class="g-hoverinfo"><p class="g-d">90+ internal assets, instrumented and mapped across 4 workflow stages — sentiment turned into a live dashboard.</p>
+        <span class="g-link">Open case study →</span>
       </div>
+      </div>
+      <div class="g-body">
+        <div class="g-top"><span class="g-stat">90+ <em>assets</em></span><span class="g-badge">Analytics</span></div>
+        <div class="g-tags"><span class="g-tag t-analytics">Analytics</span><span class="g-tag t-uxr">UX Research</span></div>
+        </div>
     </a>
 
-    <a class="pcard" href="projects/blockchain.html" id="pc1" style="--pc-bg:#22d4c8;--pc-txt:#042e2a;">
-      <div class="pcard-head"><svg class="pcard-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-        <span class="pcard-logo"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#042e2a" stroke-width="1.6"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#042e2a"/></svg></span><span class="pcard-name-v">Blockchain</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-top"><b>Blockchains Inc.</b><small>Oct 2023 — Present</small></div>
-        <div class="pcard-graphic bc-scene" style="background:#0b1414;">
+    <a class="g gm" href="projects/blockchain.html" style="--g-acc:var(--acc-bc);--g-bg:#0b1414;">
+      <div class="g-stage bc-scene" aria-hidden="true">
+        <div class="g-head"><svg width="24" height="24" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#22d4c8" stroke-width="1.4"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#22d4c8" opacity=".85"/></svg><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:#22d4c8">Blockchains&nbsp;Inc.</span></div>
+        <div class="g-stagebody">
           <div class="bc-cube-mini">
             <div class="bc-face-mini" style="transform:translateZ(20px)"></div>
             <div class="bc-face-mini" style="transform:rotateY(90deg) translateZ(20px)"></div>
@@ -1221,86 +1017,109 @@
             <div class="bc-face-mini" style="transform:rotateX(90deg) translateZ(20px)"></div>
             <div class="bc-face-mini" style="transform:rotateX(-90deg) translateZ(20px)"></div>
           </div>
+          <div class="g-phone">
+            <div class="g-phone-screen">
+              <img src="POI%201%20-%20Map.png" alt="3D map with point of interest" style="width:100%;height:100%;object-fit:cover;">
+              <span class="mock-pin" style="left:52%;top:44%"></span>
+              <span class="mock-pin-ring" style="left:52%;top:44%"></span>
+              <span class="bc-flow-mini">
+                <i class="on"></i><i></i><i></i><i></i><i></i>
+              </span>
+            </div>
+          </div>
         </div>
-        <p class="pcard-desc">A working 3D prototype — 5 flows, real hotspots — bridging flat UI with an immersive map.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
+      <div class="g-hoverinfo"><p class="g-d">A working 3D prototype — 5 flows, real hotspots — bridging flat UI with an immersive map.</p>
+        <span class="g-link">Open case study →</span>
       </div>
+      </div>
+      <div class="g-body">
+        <div class="g-top"><span class="g-stat">2D/3D <em>map</em></span><span class="g-badge">2D × 3D</span></div>
+        <div class="g-tags"><span class="g-tag t-product">Product Design</span><span class="g-tag t-uxr">3D / UX</span></div>
+        </div>
     </a>
 
-    <a class="pcard" href="projects/customs.html" id="pc2" style="--pc-bg:#e05c4a;--pc-txt:#fff;">
-      <div class="pcard-head"><svg class="pcard-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M12 6l5 2.5v3c0 3.5-2 6-5 7-3-1-5-3.5-5-7v-3z" fill="none" stroke="#fff" stroke-width="1.5"/></svg></span><span class="pcard-name-v">Customs ES</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-top"><b>Customs ES</b><small>2021 — 2023</small></div>
-        <div class="pcard-graphic" style="background:#161010;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
+    <a class="g gm" href="projects/customs.html" style="--g-acc:var(--acc-cus);--g-bg:#161010;">
+      <div class="g-stage" aria-hidden="true">
+        <div class="g-head"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#5091db" stroke-width="1.6"/><path d="M12 6l5 2.5v3c0 3.5-2 6-5 7-3-1-5-3.5-5-7v-3z" fill="none" stroke="#5091db" stroke-width="1.4"/></svg><span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:#5091db">Customs&nbsp;ES</span></div>
+        <div class="g-stagebody"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
           <div class="g-browser-screen">
             <div class="cus-doc" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90px;height:100px;">
               <div class="cus-line" style="width:70%"></div>
               <div class="cus-line" style="width:90%"></div>
               <div class="cus-line" style="width:55%"></div>
-              <span class="cus-stamp">DIGITAL &#10003;</span>
+              <span class="cus-stamp">DIGITAL ✓</span>
             </div>
           </div>
         </div></div>
-        <p class="pcard-desc">5 analog processes digitized into an MVP that earned the budget for a full-scale rollout.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
+      <div class="g-hoverinfo"><p class="g-d">5 analog processes digitized into an MVP that earned the budget for a full-scale rollout.</p>
+        <span class="g-link">Open case study →</span>
       </div>
+      </div>
+      <div class="g-body">
+        <div class="g-top"><span class="g-stat">$500K <em>secured</em></span><span class="g-badge">Transformation</span></div>
+        <div class="g-tags"><span class="g-tag t-product">Product</span><span class="g-tag t-aidev">Digital Transformation</span></div>
+        </div>
     </a>
 
-    <a class="pcard" href="projects/forecast.html" id="pc3" style="--pc-bg:#5b9bd0;--pc-txt:#fff;">
-      <div class="pcard-head"><svg class="pcard-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-        <span class="pcard-logo" style="font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;">Fc</span><span class="pcard-name-v">Forecast</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-top"><b>Forecast</b><small>2023 — 2025</small></div>
-        <div class="pcard-graphic" style="background:#0d1218;">
+    <a class="g gm" href="projects/forecast.html" style="--g-acc:var(--acc-fc);--g-bg:#0d1218;">
+      <div class="g-stage" aria-hidden="true">
+        <div class="g-head"><span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:#5b9bd0">Forecast</span></div>
+        <div class="g-stagebody">
           <span class="fc-gantt" style="left:14%;top:30%;width:46%;animation-delay:0s"></span>
           <span class="fc-gantt" style="left:26%;top:48%;width:38%;animation-delay:.5s;opacity:.75"></span>
           <span class="fc-gantt" style="left:20%;top:66%;width:56%;animation-delay:1s;opacity:.5"></span>
         </div>
-        <p class="pcard-desc">Module design inside an established design system — pending assignments, timeframes, employee management.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
+      <div class="g-hoverinfo"><p class="g-d">Module design inside an established design system — pending assignments, timeframes, employee management.</p>
+        <span class="g-link">Open case study →</span>
       </div>
+      </div>
+      <div class="g-body">
+        <div class="g-top"><span class="g-badge">Workforce</span></div>
+        <div class="g-tags"><span class="g-tag t-product">Product Design</span></div>
+        </div>
     </a>
 
-    <a class="pcard" href="projects/chek.html" id="pc4" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
-      <div class="pcard-head"><svg class="pcard-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-        <span class="pcard-logo" style="font-family:var(--font-display);font-weight:800;font-size:15px;color:#fff;">cheK</span><span class="pcard-name-v">Chek</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-top"><b>Chek</b><small>2021 — 2023</small></div>
-        <div class="pcard-graphic" style="background:#120b1c;"><div class="g-phone">
+    <a class="g gm" href="projects/chek.html" style="--g-acc:var(--acc-chek);--g-bg:#120b1c;">
+      <div class="g-stage" aria-hidden="true">
+        <div class="g-head"><span style="font-family:var(--font-display);font-weight:800;font-size:16px;"><span style="color:#fff;">che</span><span style="color:#F5C842;">K</span></span><span class="lm-ripley">now Banco Ripley</span></div>
+        <div class="g-stagebody"><div class="g-phone">
           <div class="g-phone-screen">
             <img src="chek/IMG_0188.jpeg" alt="Chek home screen" style="width:100%;height:100%;object-fit:cover;">
-            <span class="mock-toast">&#10003; transaction</span>
+            <span class="mock-toast">✓ transaction</span>
             <span class="mock-tap"></span>
             <span class="mock-tap-ring"></span>
           </div>
         </div></div>
-        <p class="pcard-desc">A 5-flow interactive prototype for a virtual credit card — onboarding, funnels, and a system built from scratch.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
+      <div class="g-hoverinfo"><p class="g-d">A 5-flow interactive prototype for a virtual credit card — onboarding, funnels, and a system built from scratch.</p>
+        <span class="g-link">Open case study →</span>
       </div>
+      </div>
+      <div class="g-body">
+        <div class="g-top"><span class="g-stat">+15% <em>onboarding</em></span><span class="g-badge">Fintech</span></div>
+        <div class="g-tags"><span class="g-tag t-product">Product Growth</span><span class="g-tag t-uxr">UX / UI</span></div>
+        </div>
     </a>
 
-    <a class="pcard" href="projects/dollarcity.html" id="pc5" style="--pc-bg:#00a650;--pc-txt:#fff;">
-      <div class="pcard-head"><svg class="pcard-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#00a650">D</text></svg></span><span class="pcard-name-v">DollarCity</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-top"><b>Dollarama &#215; DollarCity</b><small>Jul — Dec 2023</small></div>
-        <div class="pcard-graphic" style="background:#e9e7df;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
+    <a class="g gm" href="projects/dollarcity.html" style="--g-acc:var(--acc-dc);--g-bg:#e9e7df;">
+      <div class="g-stage" aria-hidden="true">
+        <div class="g-head"><svg width="86" height="16" viewBox="0 0 172 32"><text x="0" y="24" font-family="Arial,sans-serif" font-weight="800" font-size="24" fill="#FEE60E" stroke="#003F24" stroke-width="1.2">Dollarama</text></svg><span class="lm-dollarama">× DollarCity</span></div>
+        <div class="g-stagebody"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
           <div class="g-browser-screen">
             <span class="dc-ba-mini"><i class="dc-ba-b">Before</i><i class="dc-ba-a">After</i></span>
             <span class="dc-row" style="top:38%"></span>
             <span class="dc-row" style="top:58%"></span>
             <span class="dc-scan"></span>
-            <span class="dc-flag">&#9873; flagged</span>
+            <span class="dc-flag">⚑ flagged</span>
           </div>
         </div></div>
-        <p class="pcard-desc">Fraud-monitoring SaaS for retail across Canada &amp; LATAM — real screens, before/after redesign, full research.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
+      <div class="g-hoverinfo"><p class="g-d">Fraud-monitoring SaaS for retail across Canada &amp; LATAM — real screens, before/after redesign, full research.</p>
+        <span class="g-link">Open case study →</span>
       </div>
+      </div>
+      <div class="g-body">
+        <div class="g-top"><span class="g-stat">-50% <em>task time</em></span><span class="g-badge">SaaS</span></div>
+        <div class="g-tags"><span class="g-tag t-uxr">UX Research</span><span class="g-tag t-product">Product</span></div>
+        </div>
     </a>
 
   </div>
@@ -2201,12 +2020,12 @@
     var fanStyle='--fan-rot:'+(off*2.1).toFixed(1)+'deg;--fan-ty:'+(Math.abs(off)*5).toFixed(0)+'px;';
     return '<button class="gcard cat-'+c.cat+(c.cat==='uxr'?' gc-primary':'')+(isHub?' gc-hub':'')+'" data-beat="'+i+'" role="listitem" style="'+fanStyle+'">'+
       '<span class="gc-cat"><b>0'+displayNum+'</b> · '+catLabel+'</span>'+
-      '<span class="gc-ai" title="Built with AI tooling"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg></span>'+
       '<div class="gc-visual">'+
         '<span class="gc-glow" aria-hidden="true"></span>'+
         '<div class="gc-icon-wrap"><span class="gc-ring" aria-hidden="true"></span><svg class="gc-icon" viewBox="0 0 24 24">'+c.ic+'</svg></div>'+
         '<div class="gc-overlay">'+
           '<div class="gc-d">'+c.long+'</div>'+
+          '<div class="gc-steps">'+parts.length+' steps · <span>'+parts[0]+'</span></div>'+
         '</div>'+
       '</div>'+
       '<div class="gc-body">'+
@@ -2246,14 +2065,12 @@
     if(typeof stopAutoplay==='function') stopAutoplay();
   }
   deck.querySelectorAll('.gcard').forEach(function(b){
-    var leaveTimer=null;
     b.addEventListener('pointerenter',function(){
-      clearTimeout(leaveTimer);
       deck.querySelectorAll('.gcard.gc-hover').forEach(function(other){ if(other!==b) other.classList.remove('gc-hover'); });
       b.classList.add('gc-hover');
     });
     b.addEventListener('pointerleave',function(){
-      leaveTimer=setTimeout(function(){ b.classList.remove('gc-hover'); },70);
+      b.classList.remove('gc-hover');
     });
     b.addEventListener('click',function(){
       var r=b.getBoundingClientRect();
@@ -2350,22 +2167,12 @@
       typeCaption(GALLERY_PHRASES[idx]);
     }
     function next(){ goTo((idx+1)%slides.length); }
-    function prev(){ goTo((idx-1+slides.length)%slides.length); }
     function startAuto(){
       clearInterval(advanceTimer);
       if(!reduced) advanceTimer=setInterval(next, 4200);
     }
-    var prevBtn=document.getElementById('mgPrevBtn'), nextBtn=document.getElementById('mgNextBtn');
-    var playBtn=document.getElementById('mgPlayBtn'), playing=true;
-    if(prevBtn) prevBtn.addEventListener('click',function(){ prev(); if(playing) startAuto(); });
-    if(nextBtn) nextBtn.addEventListener('click',function(){ next(); if(playing) startAuto(); });
-    if(playBtn) playBtn.addEventListener('click',function(){
-      playing=!playing;
-      if(playing){ playBtn.textContent='❚❚'; playBtn.setAttribute('aria-label','Pause slideshow'); startAuto(); }
-      else { playBtn.textContent='▶'; playBtn.setAttribute('aria-label','Play slideshow'); clearInterval(advanceTimer); }
-    });
     dots.forEach(function(d,i){
-      d.addEventListener('click',function(){ goTo(i); if(playing) startAuto(); });
+      d.addEventListener('click',function(){ goTo(i); startAuto(); });
     });
     goTo(0);
     startAuto();
@@ -2396,9 +2203,7 @@
       stage.style.transform=''; stage.classList.add('idle'); stage.classList.remove('lit');
     });
     /* gallery + skill cards: tilt + light following pointer */
-
-
-  document.querySelectorAll('.g').forEach(function(card){
+    document.querySelectorAll('.g').forEach(function(card){
       card.addEventListener('pointermove',function(e){
         var r=card.getBoundingClientRect();
         var px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
@@ -2409,54 +2214,6 @@
       card.addEventListener('pointerleave',function(){ card.style.transform=''; });
     });
   }
-
-  (function(){
-    var row = document.getElementById('pcRow');
-    if(!row) return;
-    var cards = row.querySelectorAll('.pcard');
-    function usesHoverNow(){
-      return matchMedia('(hover:hover) and (pointer:fine)').matches && window.innerWidth > 820;
-    }
-    cards.forEach(function(c){
-      c.addEventListener('pointerenter', function(){
-        if(!usesHoverNow()) return;
-        cards.forEach(function(o){ if(o!==c) o.classList.remove('pc-open'); });
-        c.classList.add('pc-open');
-      });
-      c.addEventListener('click', function(e){
-        if(usesHoverNow()) return; /* hover already handled it, let the click navigate normally */
-        if(!c.classList.contains('pc-open')){
-          e.preventDefault();
-          cards.forEach(function(o){ if(o!==c) o.classList.remove('pc-open'); });
-          c.classList.add('pc-open');
-        }
-        /* already open — let the tap through to navigate */
-      });
-    });
-  })();
-
-
-    /* Top nav — hamburger + dropdown */
-  (function(){
-    var hamburger=document.getElementById('topNavHamburger'), mobile=document.getElementById('topNavMobile'), close=document.getElementById('topNavMobileClose');
-    function openMobile(){ mobile.classList.add('on'); mobile.setAttribute('aria-hidden','false'); hamburger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
-    function closeMobile(){ mobile.classList.remove('on'); mobile.setAttribute('aria-hidden','true'); hamburger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
-    if(hamburger) hamburger.addEventListener('click',openMobile);
-    if(close) close.addEventListener('click',closeMobile);
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape' && mobile.classList.contains('on')) closeMobile(); });
-
-    var dropToggle=document.getElementById('topNavDropToggle');
-    if(dropToggle){
-      dropToggle.addEventListener('click',function(){
-        var open=dropToggle.getAttribute('aria-expanded')==='true';
-        dropToggle.setAttribute('aria-expanded', open?'false':'true');
-      });
-      document.addEventListener('click',function(e){
-        if(!dropToggle.parentElement.contains(e.target)) dropToggle.setAttribute('aria-expanded','false');
-      });
-    }
-  })();
-
 
   /* Blockchain card — cycle the 5-flow step indicator */
   (function(){
@@ -2507,12 +2264,12 @@
 
   /* light/dark theme toggle */
   var themeToggle=document.getElementById('themeToggle');
-  var iconMoon=document.getElementById('themeIconMoon'), iconSun=document.getElementById('themeIconSun');
+  var themeLabel=document.getElementById('themeToggleLabel');
+  var themeIcon=document.getElementById('themeToggleIcon');
   function syncThemeBtn(){
     var isLight = document.documentElement.getAttribute('data-theme')==='light';
-    if(iconMoon) iconMoon.style.display = isLight ? 'none' : 'block';
-    if(iconSun) iconSun.style.display = isLight ? 'block' : 'none';
-    themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+    themeLabel.textContent = isLight ? 'Light mode' : 'Dark mode';
+    themeIcon.textContent = isLight ? '☀' : '☾';
   }
   syncThemeBtn();
   themeToggle.addEventListener('click',function(){
