@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  (function(){
+    var saved = localStorage.getItem('theme');
+    var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    if(theme==='light') document.documentElement.setAttribute('data-theme','light');
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System — Federico Monroy</title>
+<meta name="description" content="The shared design system behind this portfolio — tokens, cards, and the wireframe animation kit used across every case study.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="assets/shared.css" />
+<script src="assets/demo-kit.js"></script>
+<script src="assets/main.js" defer></script>
+<style>
+  :root{ --accent:#7ba7f0; --accent-dim:rgba(123,167,240,0.12); }
+  .ds-hero{padding:calc(var(--nav-h) + 48px) 24px 56px;max-width:900px;margin:0 auto;}
+  .ds-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);
+    display:flex;align-items:center;gap:8px;margin-bottom:16px;}
+  .ds-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent);}
+  .ds-title{font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5.5vw,3.4rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:18px;}
+  .ds-sub{font-size:1.05rem;line-height:1.6;color:var(--text-secondary);max-width:600px;}
+  .ds-section{max-width:900px;margin:0 auto;padding:0 24px 72px;}
+  .ds-section-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:10px;}
+  .ds-section h2{font-family:var(--font-display);font-weight:700;font-size:1.6rem;margin-bottom:14px;}
+  .ds-section p.desc{color:var(--text-secondary);line-height:1.65;max-width:620px;margin-bottom:28px;}
+
+  .ds-swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;}
+  .ds-swatch{border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+  .ds-swatch-color{height:64px;}
+  .ds-swatch-label{padding:8px 10px;font-family:var(--font-mono);font-size:10.5px;background:var(--bg-surface);}
+  .ds-swatch-label b{display:block;font-size:11px;color:var(--text-primary);font-weight:600;}
+  .ds-swatch-label span{color:var(--text-tertiary);}
+
+  .ds-type-row{display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--border-soft);}
+  .ds-type-row:last-child{border-bottom:none;}
+  .ds-type-label{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);width:90px;flex-shrink:0;}
+
+  .ds-card-demo-wrap{perspective:1400px;max-width:280px;}
+  .ds-card-demo{background:var(--bg-surface);border:1px solid var(--border);border-radius:16px;padding:22px;
+    transition:transform 200ms ease,box-shadow 300ms ease;transform-style:preserve-3d;will-change:transform;cursor:pointer;}
+  .ds-card-demo-ic{width:32px;height:32px;color:var(--accent);margin-bottom:14px;}
+  .ds-card-demo h3{font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:6px;}
+  .ds-card-demo p{font-size:0.85rem;color:var(--text-tertiary);line-height:1.4;}
+  .ds-hint{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);margin-top:14px;}
+
+  .ds-wf-wrap{max-width:420px;}
+  .ds-pattern-list{display:flex;flex-direction:column;gap:10px;}
+  .ds-pattern-item{display:flex;align-items:flex-start;gap:12px;font-size:0.9rem;color:var(--text-secondary);line-height:1.5;}
+  .ds-pattern-item b{color:var(--text-primary);}
+  .ds-pattern-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div id="progress-bar" aria-hidden="true"></div>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
+    <div class="nav-links" role="menubar">
+      <a href="index.html" class="nav-link">Home</a>
+      <div class="nav-dropdown">
+        <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
+          Projects
+          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
+          <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
+          <a class="nav-dropdown-item" href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
+          <a class="nav-dropdown-item" href="projects/chek.html" role="menuitem">Chek</a>
+          <a class="nav-dropdown-item" href="projects/dollarcity.html" role="menuitem">DollarCity</a>
+          <a class="nav-dropdown-item" href="projects/customs.html" role="menuitem">Customs ES</a>
+          <a class="nav-dropdown-item" href="projects/forecast.html" role="menuitem">Forecast</a>
+        </div>
+      </div>
+      <a href="design-system.html" class="nav-link" style="color:var(--accent);">Design System</a>
+      <a href="resume.html" class="nav-link">Resume</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <header class="ds-hero">
+    <div class="ds-eyebrow">Reference · Living document</div>
+    <h1 class="ds-title">One system, <em>every</em> project.</h1>
+    <p class="ds-sub">The tokens, cards, and animation kit that power this whole portfolio — home, EY Fabric, and every case study after it. Built once, reused everywhere, so a fix here fixes it everywhere.</p>
+  </header>
+
+  <section class="ds-section">
+    <div class="ds-section-label">Colors</div>
+    <h2>Tokens, not hex codes</h2>
+    <p class="desc">Every color in this portfolio comes from a CSS variable — never a hardcoded hex in the middle of a component. Toggle light/dark above and watch these swatches update live.</p>
+    <div class="ds-swatches">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--bg)"></div><div class="ds-swatch-label"><b>--bg</b><span>Page background</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--bg-surface)"></div><div class="ds-swatch-label"><b>--bg-surface</b><span>Card surface</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--accent)"></div><div class="ds-swatch-label"><b>--accent</b><span>Per-project accent</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--text-primary)"></div><div class="ds-swatch-label"><b>--text-primary</b><span>Headings, body</span></div></div>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <div class="ds-section-label">Typography</div>
+    <h2>Two families, one job each</h2>
+    <p class="desc">Space Grotesk carries every headline. DM Sans carries every sentence. DM Mono marks anything meta — labels, stats, timestamps.</p>
+    <div>
+      <div class="ds-type-row"><span class="ds-type-label">Display</span><span style="font-family:var(--font-display);font-weight:800;font-size:1.8rem;">Space Grotesk</span></div>
+      <div class="ds-type-row"><span class="ds-type-label">Body</span><span style="font-family:var(--font-body,'DM Sans',sans-serif);font-size:1.05rem;color:var(--text-secondary);">DM Sans — every paragraph on the site</span></div>
+      <div class="ds-type-row"><span class="ds-type-label">Mono</span><span style="font-family:var(--font-mono);font-size:0.85rem;color:var(--text-tertiary);">01 · DM Mono for labels &amp; stats</span></div>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <div class="ds-section-label">Cards</div>
+    <h2>3D tilt + a light that follows you</h2>
+    <p class="desc">Move your mouse over the card below. The tilt and the soft glow are one shared function — <code>DemoKit.tilt3D()</code> — used on every skill card, prototype frame, and tool tile across the site.</p>
+    <div class="ds-card-demo-wrap">
+      <div class="ds-card-demo" id="dsCardDemo">
+        <svg class="ds-card-demo-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 21V9"/></svg>
+        <h3>Try me</h3>
+        <p>One function, reused on every card in this portfolio.</p>
+      </div>
+    </div>
+    <p class="ds-hint">DemoKit.tilt3D(el, &#123;maxX:4, maxY:5&#125;)</p>
+  </section>
+
+  <section class="ds-section">
+    <div class="ds-section-label">Animation kit</div>
+    <h2>Wireframes, not stock screenshots</h2>
+    <p class="desc">Every process animation in this portfolio — EY's catalog flow, the home page's "watch usage" beat — uses the same wireframe primitives: lines instead of real text, a visitor cursor, a funnel for drop-off. It protects confidential content and reads faster than a busy screenshot.</p>
+    <div class="ds-wf-wrap">
+      <div class="wf-wrap" id="dsWfDemo">
+        <div class="wf-screen on">
+          <div class="wf-topbar"><span class="wf-dot"></span><span class="wf-dot"></span><span class="wf-dot"></span></div>
+          <div class="wf-body">
+            <div class="wf-line lg" style="width:60%;margin-bottom:10px;"></div>
+            <div class="wf-line" style="width:85%;margin-bottom:6px;"></div>
+            <div class="wf-line" style="width:70%;opacity:.5;margin-bottom:16px;"></div>
+            <span class="wf-btn">Continue</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-pattern-list">
+      <div class="ds-pattern-item"><span class="ds-pattern-dot"></span><span><b>Lines, not text</b> — protects real client content while still reading as "a real screen."</span></div>
+      <div class="ds-pattern-item"><span class="ds-pattern-dot"></span><span><b>One visitor cursor style</b> — a pulsing ring, used everywhere someone needs to "walk through" a flow.</span></div>
+      <div class="ds-pattern-item"><span class="ds-pattern-dot"></span><span><b>Real tool logos only</b> — Figma, Pendo, Qualtrics as actual inline SVGs, never a generic icon-font glyph.</span></div>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <div class="ds-section-label">Discipline</div>
+    <h2>What we actively avoid</h2>
+    <p class="desc">This portfolio follows a short internal checklist before anything ships — no decorative gradients without a reason, no buzzword copy, no forcing content into a card just because that's the template. <a href="https://mcpmarket.com/es/tools/skills/design-anti-slop" style="color:var(--accent);">Read the full checklist ↗</a></p>
+  </section>
+
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Federico A. Monroy</p>
+      <a href="index.html" class="btn btn-outline" style="padding:var(--space-8) var(--space-16);font-size:0.75rem;">← Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var card = document.getElementById('dsCardDemo');
+    if(card && window.DemoKit) DemoKit.tilt3D(card, {maxX:5, maxY:6});
+  });
+</script>
+
+</body>
+</html>
