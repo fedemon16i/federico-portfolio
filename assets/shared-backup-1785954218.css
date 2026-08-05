@@ -1727,13 +1727,10 @@ button {
 
 /* ── Project hero: force white text always (dark bg) ─────── */
 .project-hero { color: rgba(255,255,255,0.95); }
-.project-hero .project-breadcrumb,
-.project-hero .project-breadcrumb span,
-.project-hero .project-hook-text,
-.project-hero .project-hook-text strong,
+.project-hero .breadcrumb,
+.project-hero .hero-hook,
 .project-hero .project-sub,
 .project-hero .project-body-text { color: rgba(255,255,255,0.7) !important; }
-.project-hero .project-hook-text strong { color: #ffffff !important; font-weight: 700; }
 .project-hero .project-title,
 .project-hero h1 { color: #ffffff !important; }
 .project-hero .section-eyebrow { color: rgba(255,255,255,0.6) !important; }

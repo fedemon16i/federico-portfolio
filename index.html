@@ -162,6 +162,10 @@
   .ts-big{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3.2vw,36px);line-height:1.25;max-width:660px;}
   .ts-big em{color:var(--accent);font-style:normal;}
   .ts-small{font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);margin-top:14px;min-height:18px;}
+  .ts-playbar{width:36px;flex-shrink:0;height:2px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:16px;}
+  .ts-playbar-fill{height:100%;width:0%;background:var(--accent);border-radius:2px;animation:tsPlayFill 2200ms linear forwards;animation-play-state:paused;}
+  @keyframes tsPlayFill{from{width:0%;}to{width:100%;}}
+  @media(prefers-reduced-motion:reduce){.ts-playbar-fill{animation:none;width:100%;}}
   .ts-dock{display:flex;gap:8px;margin-top:18px;}
 
   .browser-bar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--border);flex-shrink:0;}
@@ -175,6 +179,10 @@
 
   .ui-body{flex:1;position:relative;overflow:hidden;}
   .capbar{position:absolute;left:0;right:0;bottom:0;z-index:50;padding:16px 26px 18px;font-size:16px;color:var(--text-primary);min-height:46px;display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none;background:linear-gradient(to top,var(--capbar-fade) 40%,transparent);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);}
+  .cap-rec{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-right:9px;
+    animation:capRecPulse 1.6s ease-in-out infinite;}
+  @keyframes capRecPulse{0%,100%{opacity:.4;transform:scale(.85);}50%{opacity:1;transform:scale(1.15);}}
+  @media(prefers-reduced-motion:reduce){.cap-rec{animation:none;opacity:.8;}}
   .capbar .cap-txt{flex:none;max-width:86%;text-shadow:0 1px 4px rgba(0,0,0,.6);}
   .capbar .hl{color:var(--accent);font-weight:700;}
   .caret{display:inline-block;width:2px;height:14px;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle;}
@@ -542,9 +550,18 @@
     padding:18px;background:linear-gradient(165deg,var(--bg-raised) 0%,var(--bg-raised) 100%);
     opacity:0;transform:translateY(10px);transition:all 380ms var(--spring);pointer-events:none;}
   .gcard.gc-hover .gc-overlay,.gcard:focus-visible .gc-overlay{opacity:1;transform:none;}
-  .gc-d{font-size:13.5px;font-family:var(--font-body);font-weight:400;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;
+  .gc-d{font-size:13.5px;font-family:var(--font-body);font-weight:400;color:var(--text-secondary);line-height:1.5;margin-bottom:8px;
     display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
     opacity:0;transform:translateY(8px);transition:opacity 420ms var(--ease) 80ms,transform 420ms var(--spring) 80ms;}
+  .gc-d::after{content:'';display:inline-block;width:2px;height:12px;background:var(--accent);margin-left:2px;
+    vertical-align:middle;animation:gcCaretBlink 900ms step-end infinite;}
+  @keyframes gcCaretBlink{0%,100%{opacity:1;}50%{opacity:0;}}
+  .gc-playbar{height:2px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:10px;opacity:0;transition:opacity 300ms;}
+  .gcard.gc-hover .gc-playbar{opacity:1;}
+  .gc-playbar-fill{height:100%;width:0%;background:var(--accent);border-radius:2px;}
+  .gcard.gc-hover .gc-playbar-fill{animation:gcPlayFill 2600ms linear forwards;}
+  @keyframes gcPlayFill{from{width:0%;}to{width:100%;}}
+  @media(prefers-reduced-motion:reduce){.gc-d::after{animation:none;}.gc-playbar-fill{animation:none;width:100%;}}
   .gc-d strong{color:var(--accent);font-weight:600;}
   .gcard.gc-hover .gc-d,.gcard:focus-visible .gc-d{opacity:1;transform:none;}
   .gc-steps{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
@@ -1443,7 +1460,61 @@
     el.className='slide '+(cls||''); el.id='sl-'+id;
     if(CTA_MAP[id]) html+='<a class="ts-cta" href="'+CTA_MAP[id].h+'">'+CTA_MAP[id].l+'</a>';
     el.innerHTML=html;
-    stage.appendChild(el); return el;
+    stage.appendChild(el);
+    if(cls==='textslide' && window.anime && !reduced){
+      var big=el.querySelector('.ts-big'), small=el.querySelector('.ts-small');
+      if(big){
+        var bigHTML=big.innerHTML, smallHTML=small?small.innerHTML:'';
+        big.innerHTML=''; if(small) small.innerHTML='';
+        var bar=document.createElement('div'); bar.className='ts-playbar';
+        bar.innerHTML='<div class="ts-playbar-fill"></div>';
+        big.parentNode.insertBefore(bar, big);
+        var obs=new MutationObserver(function(){
+          if(el.classList.contains('show')){
+            obs.disconnect();
+            typeHtmlInto(big, bigHTML, 22, function(){
+              if(small) typeHtmlInto(small, smallHTML, 18);
+            });
+            bar.querySelector('.ts-playbar-fill').style.animationPlayState='running';
+          }
+        });
+        obs.observe(el, {attributes:true, attributeFilter:['class']});
+      }
+    }
+    return el;
+  }
+  function typeHtmlInto(el, html, speed, cb){
+    var tmp=document.createElement('div'); tmp.innerHTML=html;
+    var nodes=Array.prototype.slice.call(tmp.childNodes);
+    var ni=0;
+    function nextNode(){
+      if(ni>=nodes.length){ if(cb) cb(); return; }
+      var n=nodes[ni];
+      if(n.nodeType===3){ // text node — type it
+        var span=document.createElement('span'); el.appendChild(span);
+        var ci=0, text=n.textContent;
+        (function typeChar(){
+          span.textContent=text.slice(0,++ci);
+          if(ci<text.length){ timers.push(setTimeout(typeChar, reduced?1:speed)); }
+          else { ni++; nextNode(); }
+        })();
+      } else { // element (br, em) — insert instantly, recurse into its content if text
+        var clone=n.cloneNode(true);
+        if(clone.tagName==='EM' && clone.textContent){
+          var emText=clone.textContent; clone.textContent='';
+          el.appendChild(clone);
+          var ci2=0;
+          (function typeEm(){
+            clone.textContent=emText.slice(0,++ci2);
+            if(ci2<emText.length){ timers.push(setTimeout(typeEm, reduced?1:speed)); }
+            else { ni++; nextNode(); }
+          })();
+        } else {
+          el.appendChild(clone); ni++; nextNode();
+        }
+      }
+    }
+    nextNode();
   }
   function show(id){
     stage.querySelectorAll('.slide').forEach(function(s){s.classList.remove('show');});
@@ -1531,7 +1602,7 @@
         '</div>'+
         '<div class="mkt-foot"><span class="mkt-cta" id="'+idPrefix+'checkout">Go to checkout →</span></div>'+
       '</div></div>'+
-      '<div class="capbar"><span class="cap-txt" id="'+idPrefix+'cap"></span></div>';
+      '<div class="capbar"><span class="cap-rec" aria-hidden="true"></span><span class="cap-txt" id="'+idPrefix+'cap"></span></div>';
   }
 
   /* ============ BEAT 1 — Understand the product (marketplace → product form → submit) ============ */
@@ -1566,7 +1637,7 @@
           '</div>'+
         '</div>'+
       '</div></div>'+
-      '<div class="capbar"><span class="cap-txt" id="b1cap" role="status" aria-live="polite"></span></div>');
+      '<div class="capbar"><span class="cap-rec" aria-hidden="true"></span><span class="cap-txt" id="b1cap" role="status" aria-live="polite"></span></div>');
     show('t1'); setProgress(1,T);
     after(3200,function(){
       show('tag'); setProgress(2,T);
@@ -1757,7 +1828,7 @@
           '<div id="repList" style="display:flex;flex-direction:column;gap:4px;"></div>'+
         '</div>'+
       '</div></div>'+
-      '<div class="capbar"><span class="cap-txt" id="c3" role="status" aria-live="polite"></span></div>');
+      '<div class="capbar"><span class="cap-rec" aria-hidden="true"></span><span class="cap-txt" id="c3" role="status" aria-live="polite"></span></div>');
     function segrow(id,color,name,meta){
       return '<div class="seg-row" id="'+id+'"><span class="cb"></span><span class="ud" style="background:'+color+'"></span>'+name+'<span class="meta">'+meta+'</span></div>';
     }
@@ -1895,7 +1966,7 @@
           '<div class="act-row" id="a2"><span class="act-pri md">MD</span>Rename "Compute" — tested confusing<span class="act-src">tree test + NPS verbatims</span></div>'+
         '</div>'+
       '</div>'+
-      '<div class="capbar"><span class="cap-txt" id="c4" role="status" aria-live="polite"></span></div>');
+      '<div class="capbar"><span class="cap-rec" aria-hidden="true"></span><span class="cap-txt" id="c4" role="status" aria-live="polite"></span></div>');
     show('t4'); setProgress(1,T);
     after(3200,function(){
       show('lab'); setProgress(2,T);
@@ -2000,7 +2071,7 @@
           '<div class="proto-ds">✓ design system included — tokens · components · specs</div>'+
         '</div></div>'+
       '</div>'+
-      '<div class="capbar"><span class="cap-txt" id="c5" role="status" aria-live="polite"></span></div>');
+      '<div class="capbar"><span class="cap-rec" aria-hidden="true"></span><span class="cap-txt" id="c5" role="status" aria-live="polite"></span></div>');
     function artb(id,cap){
       return '<div class="art" id="'+id+'">'+
         '<i style="left:6px;top:6px;width:26px;height:4px"></i>'+
@@ -2066,7 +2137,7 @@
             '<span class="env" id="e0">dev ✓</span><span class="env" id="e1">staging ✓</span><span class="env" id="e2">production ✓</span>'+
           '</span></div>'+
         '</div></div></div>'+
-      '<div class="capbar"><span class="cap-txt" id="c6" role="status" aria-live="polite"></span></div>');
+      '<div class="capbar"><span class="cap-rec" aria-hidden="true"></span><span class="cap-txt" id="c6" role="status" aria-live="polite"></span></div>');
     show('t6'); setProgress(1,T);
     after(3200,function(){
       show('term'); setProgress(2,T);
@@ -2129,7 +2200,7 @@
           '<div id="alHost"></div>'+
         '</div>'+
       '</div></div>'+
-      '<div class="capbar"><span class="cap-txt" id="c7" role="status" aria-live="polite"></span></div>');
+      '<div class="capbar"><span class="cap-rec" aria-hidden="true"></span><span class="cap-txt" id="c7" role="status" aria-live="polite"></span></div>');
     function utr(id,mail,seen,plan,dev){
       return '<div class="ut-tr" id="'+id+'"><span>'+mail+'</span><span class="prop">'+seen+'</span><span class="prop">'+plan+'</span><span class="prop">'+dev+'</span></div>';
     }
@@ -2245,6 +2316,7 @@
         '<span class="gc-glow" aria-hidden="true"></span>'+
         '<div class="gc-icon-wrap"><span class="gc-ring" aria-hidden="true"></span><svg class="gc-icon" viewBox="0 0 24 24">'+c.ic+'</svg></div>'+
         '<div class="gc-overlay">'+
+          '<div class="gc-playbar"><div class="gc-playbar-fill"></div></div>'+
           '<div class="gc-d">'+c.long+'</div>'+
         '</div>'+
       '</div>'+

@@ -11,7 +11,30 @@
       --accent: var(--accent-blockchain);
       --accent-dim: rgba(34,212,200,0.12);
       --project-glow: rgba(34,212,200,0.08);
+      --tw30:rgba(255,255,255,0.3); --tw35:rgba(255,255,255,0.35); --tw40:rgba(255,255,255,0.4);
+      --tw45:rgba(255,255,255,0.45); --tw50:rgba(255,255,255,0.5); --tw55:rgba(255,255,255,0.55);
+      --tw60:rgba(255,255,255,0.6); --tw65:rgba(255,255,255,0.65); --tw70:rgba(255,255,255,0.7);
+      --tw80:rgba(255,255,255,0.8); --tw92:rgba(255,255,255,0.92);
     }
+    [data-theme="light"] {
+      --tw30:rgba(20,20,20,0.45); --tw35:rgba(20,20,20,0.5); --tw40:rgba(20,20,20,0.55);
+      --tw45:rgba(20,20,20,0.6); --tw50:rgba(20,20,20,0.65); --tw55:rgba(20,20,20,0.68);
+      --tw60:rgba(20,20,20,0.72); --tw65:rgba(20,20,20,0.75); --tw70:rgba(20,20,20,0.78);
+      --tw80:rgba(20,20,20,0.85); --tw92:rgba(20,20,20,0.92);
+    }
+    .bcn-track{display:flex;flex-direction:column;border-top:1px solid var(--border-subtle);}
+    .bcn-beat{display:grid;grid-template-columns:28px 1fr;gap:18px;padding:26px 0;border-bottom:1px solid var(--border-subtle);}
+    .bcn-beat-n{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);padding-top:3px;}
+    .bcn-playbar{width:32px;height:2px;border-radius:2px;background:var(--border-default);overflow:hidden;margin-bottom:12px;}
+    .bcn-playbar-fill{height:100%;width:0%;background:var(--accent);border-radius:2px;}
+    .bcn-playbar-fill.go{animation:bcnFill 1800ms linear forwards;}
+    @keyframes bcnFill{from{width:0%;}to{width:100%;}}
+    .bcn-big{font-family:var(--font-display);font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.35;margin-bottom:8px;min-height:1.35em;}
+    .bcn-big em{color:var(--accent);font-style:normal;}
+    .bcn-tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;opacity:0;transition:opacity 400ms;}
+    .bcn-tools.show{opacity:1;}
+    .bcn-tool-chip{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:100px;padding:4px 10px;}
+    @media(prefers-reduced-motion:reduce){.bcn-playbar-fill.go{animation:none;width:100%;}}
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
     }
@@ -194,6 +217,11 @@
       </div>
     </section>
 
+    <section style="max-width:1024px;margin:0 auto;padding:0 24px 56px;">
+      <p style="font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px;">How it actually happened</p>
+      <div class="bcn-track" id="bcnTrack"></div>
+    </section>
+
 
     <!-- ══ CONTEXT ══ -->
     <section class="bc-context">
@@ -351,7 +379,7 @@
               <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;position:relative;" id="bc-ref-strip">
                 <div id="bc-cur" class="finger-cur" style="left:0;top:0;">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 3v11.5a2.5 2.5 0 0 0 5 0V9a1.5 1.5 0 0 1 3 0v6" stroke="#111" stroke-width="1.6" fill="#fff"/></svg>
-                  <div id="bc-tooltip" style="position:absolute;left:26px;top:-6px;background:rgba(0,0,0,0.85);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 10px;white-space:normal;max-width:160px;font-size:0.62rem;color:rgba(255,255,255,0.92);opacity:0;transform:translateX(-4px);transition:all 250ms ease;pointer-events:none;line-height:1.4;backdrop-filter:blur(8px);"></div>
+                  <div id="bc-tooltip" style="position:absolute;left:26px;top:-6px;background:rgba(0,0,0,0.85);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 10px;white-space:normal;max-width:160px;font-size:0.62rem;color:var(--tw92);opacity:0;transform:translateX(-4px);transition:all 250ms ease;pointer-events:none;line-height:1.4;backdrop-filter:blur(8px);"></div>
                 </div>
                 <div class="bc-thumb" onclick="bcLbOpen(0)" role="button" aria-label="Open Space Owner screen" data-tip="View full size">
                   <div class="bc-thumb-shell"><div class="bc-thumb-inner"><img src="../Space with map (Owner).png" alt="Space owner view with 3D map"></div></div>
@@ -469,9 +497,9 @@
                       </div>
                       <!-- Nav bar -->
                       <div style="height:38px;background:#111827;display:flex;align-items:center;padding:0 13px;gap:8px;border-bottom:1px solid rgba(74,163,212,0.15);">
-                        <button id="bc-proto-back" onclick="bcProtoBack()" style="background:transparent;border:none;color:rgba(255,255,255,0.7);font-size:15px;padding:0;cursor:pointer;display:none;line-height:1;" data-click-sound="nav">&#8592;</button>
+                        <button id="bc-proto-back" onclick="bcProtoBack()" style="background:transparent;border:none;color:var(--tw70);font-size:15px;padding:0;cursor:pointer;display:none;line-height:1;" data-click-sound="nav">&#8592;</button>
                         <span id="bc-proto-nav-title" style="font-size:11px;font-weight:600;color:#fff;flex:1;letter-spacing:.03em;">MEGATON OUTDOOR ROUTINE</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--tw40)" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                       </div>
                       <!-- Screen body -->
                       <div id="bc-proto-body" style="min-height:400px;max-height:460px;overflow-y:auto;overflow-x:hidden;transition:opacity 220ms ease;position:relative;scrollbar-width:none;"></div>
@@ -501,7 +529,7 @@
                   <!-- Tap hint — shown once -->
                   <div id="bc-tap-hint" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:55;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);border:1px solid rgba(74,163,212,0.3);border-radius:100px;padding:5px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:opacity 400ms ease;pointer-events:none;">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-                    <span style="font-size:0.6rem;color:rgba(255,255,255,0.8);">Tap buttons &amp; pins to navigate</span>
+                    <span style="font-size:0.6rem;color:var(--tw80);">Tap buttons &amp; pins to navigate</span>
                   </div>
                 </div>
               </div>
@@ -596,8 +624,8 @@
                 <div style="width:12px;height:12px;border-radius:50%;background:#f4c842;"></div>
                 <div style="width:12px;height:12px;border-radius:50%;background:#5fe6a0;"></div>
                 <div style="flex:1;margin:0 12px;height:24px;background:rgba(255,255,255,0.05);border-radius:5px;display:flex;align-items:center;padding:0 10px;gap:6px;">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                  <span style="font-size:0.6rem;color:rgba(255,255,255,0.3);">app.blockchain-platform.io/spaces/megaton/dashboard</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--tw30)" stroke-width="1.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  <span style="font-size:0.6rem;color:var(--tw30);">app.blockchain-platform.io/spaces/megaton/dashboard</span>
                 </div>
               </div>
               <!-- App shell -->
@@ -608,25 +636,39 @@
                     <div style="font-size:0.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:4px;">Space</div>
                     <div style="font-size:0.78rem;font-weight:700;color:var(--text-primary);">Megaton Outdoor</div>
                   </div>
-                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;background:rgba(74,163,212,0.1);border-left:2px solid #4aa3d4;">
+                  <div id="bcNavDashboard" class="bc-nav-item" style="cursor:pointer;padding:7px var(--space-16);display:flex;align-items:center;gap:8px;background:rgba(74,163,212,0.1);border-left:2px solid #4aa3d4;">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
                     <span style="font-size:0.7rem;font-weight:600;color:#4aa3d4;">Dashboard</span>
                   </div>
-                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div id="bcNavMap" class="bc-nav-item" style="cursor:pointer;padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw35)" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span style="font-size:0.7rem;color:var(--text-secondary);">3D Map</span>
                   </div>
-                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                  <div id="bcNavAssets" class="bc-nav-item" style="cursor:pointer;padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw35)" stroke-width="1.5" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
                     <span style="font-size:0.7rem;color:var(--text-secondary);">Asset Library</span>
                   </div>
-                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  <div id="bcNavTeam" class="bc-nav-item" style="cursor:pointer;padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw35)" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                     <span style="font-size:0.7rem;color:var(--text-secondary);">Team</span>
                   </div>
-                  <div style="padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M4.93 4.93a10 10 0 000 14.14"/></svg>
+                  <div id="bcNavAnalytics" class="bc-nav-item" style="cursor:pointer;padding:7px var(--space-16);display:flex;align-items:center;gap:8px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw35)" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14"/><path d="M4.93 4.93a10 10 0 000 14.14"/></svg>
                     <span style="font-size:0.7rem;color:var(--text-secondary);">Analytics</span>
+                  </div>
+                </div>
+                <div id="bc-tab-map">
+                <!-- Mobile / Web toggle -->
+                <div style="display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--border-subtle);">
+                  <button id="bcViewMobile" class="bc-view-btn" style="font-family:var(--font-mono);font-size:10px;padding:5px 12px;border-radius:100px;border:1px solid var(--accent);background:var(--accent-dim);color:var(--accent);cursor:pointer;">Mobile — shipped design</button>
+                  <button id="bcViewWeb" class="bc-view-btn on" style="font-family:var(--font-mono);font-size:10px;padding:5px 12px;border-radius:100px;border:1px solid var(--border-default);background:transparent;color:var(--text-tertiary);cursor:pointer;">Web — my desktop prototype</button>
+                </div>
+                <!-- Mobile view: real shipped screen -->
+                <div id="bc-view-mobile-panel" style="display:none;padding:24px;align-items:center;justify-content:center;background:#0a0f1a;min-height:280px;">
+                  <div style="width:150px;background:linear-gradient(160deg,#2a2a2a,#1c1c1c,#111);border-radius:26px;padding:3px;box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+                    <div style="background:#000;border-radius:23px;overflow:hidden;">
+                      <img src="../Map view - POI icon - Initial selection - Tilted (dark).png" alt="Shipped mobile map screen with tilted dark POI view" style="width:100%;display:block;">
+                    </div>
                   </div>
                 </div>
                 <!-- Main: Three.js map -->
@@ -639,6 +681,22 @@
                     </svg>
                   </div>
                   <div id="bc-webapp-cur-lbl" style="position:absolute;pointer-events:none;z-index:50;padding:4px 9px;background:rgba(74,163,212,0.9);border-radius:5px;font-size:0.6rem;font-weight:700;color:#000;white-space:nowrap;opacity:0;transition:opacity 250ms ease;"></div>
+                </div>
+                </div>
+                <!-- Asset Library tab -->
+                <div id="bc-tab-assets" style="display:none;padding:20px;background:#0a0f1a;min-height:280px;">
+                  <div style="font-size:0.65rem;color:var(--tw50);margin-bottom:14px;">Searchable catalogue — attach any 3D object to a POI</div>
+                  <div id="bc-asset-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;"></div>
+                </div>
+                <!-- Team tab -->
+                <div id="bc-tab-team" style="display:none;padding:20px;background:#0a0f1a;min-height:280px;">
+                  <div style="font-size:0.65rem;color:var(--tw50);margin-bottom:14px;">Same components serve all three roles — no diverging UI branches.</div>
+                  <div id="bc-team-rows" style="display:flex;flex-direction:column;gap:8px;"></div>
+                </div>
+                <!-- Analytics tab -->
+                <div id="bc-tab-analytics" style="display:none;padding:20px;background:#0a0f1a;min-height:280px;">
+                  <div style="font-size:0.65rem;color:var(--tw50);margin-bottom:14px;">Space activity — POIs added, editors active, assets attached.</div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;" id="bc-analytics-stats"></div>
                 </div>
               </div>
             </div>
@@ -804,7 +862,7 @@
       var sheet=showSheet?
         '<div style="background:#111827;padding:10px 12px 0;border-top:1px solid rgba(74,163,212,0.15);">'+
           '<div style="font-size:11px;font-weight:700;color:#fff;margin-bottom:2px;text-transform:uppercase;letter-spacing:.03em;">'+sheetTitle+'</div>'+
-          (sheetSub?'<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:8px;display:flex;align-items:center;gap:4px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+sheetSub+'</div>':'')+
+          (sheetSub?'<div style="font-size:8px;color:var(--tw45);margin-bottom:8px;display:flex;align-items:center;gap:4px;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+sheetSub+'</div>':'')+
           '<div class="bc-cta" style="height:30px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;"'+(ctaFn?' onclick="'+ctaFn+'"':'')+' data-click-sound="tap">'+
             '<span style="font-size:9px;font-weight:600;color:#fff;">'+ctaLabel+'</span>'+
           '</div>'+
@@ -815,12 +873,12 @@
         '<div style="position:relative;height:'+h+'px;background:linear-gradient(180deg,#0d1929 0%,#0e2038 100%);overflow:hidden;">'+
           grid+pinsHtml+
           '<div style="position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:5px;">'+
-            ['<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
-             '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>',
-             '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>'
+            ['<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw50)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+             '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw50)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>',
+             '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw50)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>'
             ].map(function(ic){return '<div style="width:28px;height:28px;border-radius:8px;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;">'+ic+'</div>';}).join('')+
           '</div>'+
-          '<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:3px 8px;font-size:8px;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:.05em;white-space:nowrap;">MEGATON OUTDOOR ROUTINE</div>'+
+          '<div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:3px 8px;font-size:8px;font-weight:700;color:var(--tw80);letter-spacing:.05em;white-space:nowrap;">MEGATON OUTDOOR ROUTINE</div>'+
         '</div>'+
         sheet;
     }
@@ -852,13 +910,13 @@
             });
             el.innerHTML+='<div style="height:52px;background:#0a0f1a;border-top:1px solid rgba(255,255,255,0.06);display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;align-items:center;">'+
               [
-                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',l:'Profile'},
-                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',l:'Chat'},
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tw40)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',l:'Profile'},
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tw40)" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>',l:'Chat'},
                 {ic:'<div style="width:36px;height:36px;border-radius:50%;background:rgba(74,163,212,0.15);border:1.5px solid '+AC+';display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>',l:'AI',active:true},
-                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>',l:'Discover'},
-                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>',l:'More'},
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tw40)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>',l:'Discover'},
+                {ic:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--tw40)" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>',l:'More'},
               ].map(function(n){
-                return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;">'+n.ic+'<span style="font-size:7px;color:rgba(255,255,255,0.35);">'+n.l+'</span></div>';
+                return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;">'+n.ic+'<span style="font-size:7px;color:var(--tw35);">'+n.l+'</span></div>';
               }).join('')+
             '</div>';
           }
@@ -880,11 +938,11 @@
               overlay.style.cssText='background:#111827;border-radius:12px 12px 0 0;margin-top:-8px;padding:10px;position:relative;z-index:5;';
               overlay.innerHTML=
                 '<div style="height:36px;background:rgba(255,255,255,0.06);border:1.5px solid '+AC+';border-radius:9px;display:flex;align-items:center;padding:0 11px;gap:7px;margin-bottom:8px;">'+
-                  '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>'+
+                  '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--tw50)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>'+
                   '<span style="font-size:9px;color:#fff;font-family:var(--font-mono);">City</span>'+
                   '<span style="width:2px;height:13px;background:'+AC+';animation:dsPulse 1s ease-in-out infinite;display:inline-block;border-radius:1px;"></span>'+
                   '<div style="margin-left:auto;width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;">'+
-                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>'+
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--tw40)" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>'+
                   '</div>'+
                 '</div>'+
                 [
@@ -894,9 +952,9 @@
                   {t:'City Club LA',s:'Flower St, Los Angeles, CA, USA',hl:false},
                 ].map(function(r){
                   return '<div class="bc-result" style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:7px;background:'+(r.hl?'rgba(74,163,212,0.1)':'transparent')+';border:'+(r.hl?'1px solid rgba(74,163,212,0.25)':'1px solid transparent')+';cursor:pointer;margin-bottom:2px;"'+(r.hl?' onclick="bcProtoGoStep(\'addpoi\',1)" data-click-sound="success"':' data-click-sound="click"')+'>'+
-                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" style="margin-top:2px;flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
-                    '<div><div style="font-size:9px;color:'+(r.hl?'#fff':'rgba(255,255,255,0.6)')+';font-weight:'+(r.hl?'600':'400')+';">'+r.t+'</div>'+
-                    '<div style="font-size:7.5px;color:rgba(255,255,255,0.35);margin-top:1px;">'+r.s+'</div></div>'+
+                    '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--tw35)" stroke-width="1.5" style="margin-top:2px;flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
+                    '<div><div style="font-size:9px;color:'+(r.hl?'#fff':'var(--tw60)')+';font-weight:'+(r.hl?'600':'400')+';">'+r.t+'</div>'+
+                    '<div style="font-size:7.5px;color:var(--tw35);margin-top:1px;">'+r.s+'</div></div>'+
                   '</div>';
                 }).join('');
               el.appendChild(overlay);
@@ -935,22 +993,22 @@
               el.style.background='#111';
               el.innerHTML=
                 '<div style="padding:14px 14px 8px;">'+
-                  '<p style="font-size:9.5px;color:rgba(255,255,255,0.65);margin-bottom:16px;line-height:1.6;">Select how you want this point of interest to look on the map</p>'+
+                  '<p style="font-size:9.5px;color:var(--tw65);margin-bottom:16px;line-height:1.6;">Select how you want this point of interest to look on the map</p>'+
                   [
                     {l:'Icon',d:'Pick a custom icon to use as your POI indicator',sel:true,
-                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'},
+                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tw80)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'},
                     {l:'Image',d:'Pick an image to use as your POI indicator',sel:false,
-                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'},
+                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tw50)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>'},
                     {l:'3D Asset',d:'Pick a 3D object from the library as your POI',sel:false,
-                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>'},
+                     ic:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--tw50)" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>'},
                   ].map(function(o){
                     return '<div class="bc-option" style="display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:10px;background:'+(o.sel?'rgba(74,163,212,0.08)':'transparent')+';border:'+(o.sel?'1.5px solid rgba(74,163,212,0.3)':'1.5px solid rgba(255,255,255,0.06)')+';margin-bottom:8px;cursor:pointer;" data-click-sound="click">'+
                       '<div style="width:22px;height:22px;border-radius:50%;border:2px solid '+(o.sel?AC:'rgba(255,255,255,0.25)')+';background:'+(o.sel?AC:'transparent')+';flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+
                         (o.sel?'<div style="width:7px;height:7px;border-radius:50%;background:#fff;"></div>':'')+
                       '</div>'+
                       o.ic+
-                      '<div><div style="font-size:11px;font-weight:600;color:'+(o.sel?'#fff':'rgba(255,255,255,0.7)')+';">'+o.l+'</div>'+
-                      '<div style="font-size:8px;color:rgba(255,255,255,0.4);margin-top:2px;">'+o.d+'</div></div>'+
+                      '<div><div style="font-size:11px;font-weight:600;color:'+(o.sel?'#fff':'var(--tw70)')+';">'+o.l+'</div>'+
+                      '<div style="font-size:8px;color:var(--tw40);margin-top:2px;">'+o.d+'</div></div>'+
                     '</div>';
                   }).join('')+
                   '<div class="bc-cta" style="height:36px;background:'+AC+';border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:4px;" onclick="bcProtoGoStep(\'setpin\',1)" data-click-sound="success">'+
@@ -973,15 +1031,15 @@
                     '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="'+AC+'" stroke-width="1.2"><path d="M1 9l11-7 11 7v11a2 2 0 01-2 2H3a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'+
                   '</div>'+
                 '</div>'+
-                '<div style="padding:8px 14px 4px;font-size:8.5px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;"><span>Shapes</span><span style="color:'+AC+';">View All</span></div>'+
+                '<div style="padding:8px 14px 4px;font-size:8.5px;font-weight:700;color:var(--tw50);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;"><span>Shapes</span><span style="color:'+AC+';">View All</span></div>'+
                 '<div style="display:flex;gap:8px;padding:4px 14px 10px;overflow-x:auto;">'+
                   [
-                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" stroke="none"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>'},
-                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" stroke="none"><circle cx="12" cy="12" r="10"/></svg>'},
-                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)" stroke="none"><polygon points="12 2 22 22 2 22"/></svg>'},
+                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="var(--tw80)" stroke="none"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>'},
+                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="var(--tw80)" stroke="none"><circle cx="12" cy="12" r="10"/></svg>'},
+                    {ic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="var(--tw80)" stroke="none"><polygon points="12 2 22 22 2 22"/></svg>'},
                   ].map(function(s){return '<div style="width:56px;height:56px;border-radius:8px;background:rgba(255,255,255,0.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+s.ic+'</div>';}).join('')+
                 '</div>'+
-                '<div style="padding:4px 14px 4px;font-size:8.5px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;"><span>Architecture</span><span style="color:'+AC+';">View All</span></div>'+
+                '<div style="padding:4px 14px 4px;font-size:8.5px;font-weight:700;color:var(--tw50);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;"><span>Architecture</span><span style="color:'+AC+';">View All</span></div>'+
                 '<div style="display:flex;gap:8px;padding:4px 14px 10px;overflow-x:auto;">'+
                   [
                     {color:'#f4c842',active:false},{color:'#e05c4a',active:false},{color:AC,active:true},{color:'#f4c842',active:false},
@@ -1016,17 +1074,17 @@
               sheet.innerHTML=
                 '<div style="padding:8px 12px 0;">'+
                   '<div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;margin-bottom:2px;">WORKOUT CIRCUIT 1: YOGA</div>'+
-                  '<div style="font-size:8.5px;color:rgba(255,255,255,0.5);line-height:1.5;margin-bottom:6px;">Welcome to the 1st of 3 circuits… <span style="color:'+AC+';">More</span></div>'+
+                  '<div style="font-size:8.5px;color:var(--tw50);line-height:1.5;margin-bottom:6px;">Welcome to the 1st of 3 circuits… <span style="color:'+AC+';">More</span></div>'+
                   '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">'+
                     '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:6px;border-bottom:2px solid '+AC+';">FEED</div>'+
-                    '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',1)" data-click-sound="tap">ABOUT</div>'+
+                    '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:var(--tw40);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',1)" data-click-sound="tap">ABOUT</div>'+
                   '</div>'+
                   '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:6px;">'+
                     ['Warm up','Stretching','Cool down','Power','Balance','Yoga'].map(function(t,i){
                       var colors=['#4aa3d4','#4a7aa3','#1a3a5c','#2a5a7a','#0d2a44','#4aa3d4'];
                       return '<div class="bc-cta" style="aspect-ratio:1;border-radius:5px;background:linear-gradient(135deg,'+colors[i]+'44,'+colors[i]+'22);border:1px solid '+colors[i]+'44;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',2)" data-click-sound="click">'+
                         '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="'+colors[i]+'" stroke-width="1.3"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>'+
-                        '<span style="font-size:5.5px;color:rgba(255,255,255,0.5);">'+t+'</span>'+
+                        '<span style="font-size:5.5px;color:var(--tw50);">'+t+'</span>'+
                       '</div>';
                     }).join('')+
                   '</div>'+
@@ -1047,17 +1105,17 @@
               sheet.innerHTML=
                 '<div style="font-size:12px;font-weight:800;color:#fff;text-transform:uppercase;margin-bottom:4px;">WORKOUT CIRCUIT 1: YOGA</div>'+
                 '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:10px;">'+
-                  '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="tap">FEED</div>'+
+                  '<div class="bc-cta" style="flex:1;text-align:center;font-size:9px;font-weight:700;color:var(--tw40);padding-bottom:6px;border-bottom:2px solid transparent;cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="tap">FEED</div>'+
                   '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:6px;border-bottom:2px solid '+AC+';">ABOUT</div>'+
                 '</div>'+
                 '<div style="display:flex;align-items:flex-start;gap:8px;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px;">'+
                   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.5" style="flex-shrink:0;margin-top:1px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>'+
                   '<div>'+
                     '<div style="font-size:8px;color:#fff;font-weight:500;line-height:1.5;">Huntington Beach Central Park East</div>'+
-                    '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);">18002 Goldenwest St, CA 92647</div>'+
+                    '<div style="font-size:7.5px;color:var(--tw40);">18002 Goldenwest St, CA 92647</div>'+
                   '</div>'+
                 '</div>'+
-                '<div style="font-size:8px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:8px;">Welcome to the 1st of 3 circuits of workouts that will give you one of the most complete experiences…</div>'+
+                '<div style="font-size:8px;color:var(--tw55);line-height:1.6;margin-bottom:8px;">Welcome to the 1st of 3 circuits of workouts that will give you one of the most complete experiences…</div>'+
                 '<div style="display:flex;gap:5px;flex-wrap:wrap;">'+
                   ['Yoga','Exercise','Health','LA'].map(function(t){
                     return '<span style="padding:3px 8px;border-radius:100px;background:rgba(74,163,212,0.1);border:1px solid rgba(74,163,212,0.25);font-size:7.5px;color:#4aa3d4;">'+t+'</span>';
@@ -1065,12 +1123,12 @@
                 '</div>'+
                 '<div style="display:flex;justify-content:space-between;margin-top:10px;">'+
                   '<div class="bc-cta" style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;" onclick="bcProtoGoStep(\'visitor\',0)" data-click-sound="nav">'+
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>'+
-                    '<span style="font-size:8px;color:rgba(255,255,255,0.6);">Prev</span>'+
+                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tw60)" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>'+
+                    '<span style="font-size:8px;color:var(--tw60);">Prev</span>'+
                   '</div>'+
                   '<div class="bc-cta" style="display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;" onclick="bcProtoGoStep(\'feed\',0)" data-click-sound="nav">'+
-                    '<span style="font-size:8px;color:rgba(255,255,255,0.6);">Next</span>'+
-                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                    '<span style="font-size:8px;color:var(--tw60);">Next</span>'+
+                    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tw60)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
                   '</div>'+
                 '</div>';
               el.appendChild(sheet);
@@ -1091,7 +1149,7 @@
                     '</div>'+
                     '<div>'+
                       '<div style="font-size:11px;font-weight:700;color:#fff;">WARM UP ROUTINE</div>'+
-                      '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-top:1px;">Workout Circuit 1: Yoga · 10 posts · 59 subs</div>'+
+                      '<div style="font-size:8px;color:var(--tw45);margin-top:1px;">Workout Circuit 1: Yoga · 10 posts · 59 subs</div>'+
                     '</div>'+
                   '</div>'+
                   '<div class="bc-cta" style="height:32px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:10px;" data-click-sound="success">'+
@@ -1108,9 +1166,9 @@
                       '</div>'+
                       '<div style="flex:1;">'+
                         '<div style="font-size:8.5px;font-weight:600;color:#fff;">'+p.t+'</div>'+
-                        '<div style="font-size:7px;color:rgba(255,255,255,0.4);margin-top:1px;">'+p.d+'</div>'+
+                        '<div style="font-size:7px;color:var(--tw40);margin-top:1px;">'+p.d+'</div>'+
                       '</div>'+
-                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                      '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--tw30)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
                     '</div>';
                   }).join('')+
                 '</div>';
@@ -1134,13 +1192,13 @@
               sheet.style.cssText='background:#111827;position:relative;z-index:5;padding:8px 12px 0;';
               sheet.innerHTML=
                 '<div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:1px;">CENTRAL PARK NY</div>'+
-                '<div style="font-size:8px;color:rgba(255,255,255,0.45);margin-bottom:6px;">This is a great place to practice Yoga &amp; stretching.</div>'+
+                '<div style="font-size:8px;color:var(--tw45);margin-bottom:6px;">This is a great place to practice Yoga &amp; stretching.</div>'+
                 '<div style="display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:6px;">'+
                   '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:'+AC+';padding-bottom:5px;border-bottom:2px solid '+AC+';">Feed</div>'+
-                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:rgba(255,255,255,0.35);padding-bottom:5px;border-bottom:2px solid transparent;">About</div>'+
+                  '<div style="flex:1;text-align:center;font-size:9px;font-weight:700;color:var(--tw35);padding-bottom:5px;border-bottom:2px solid transparent;">About</div>'+
                 '</div>'+
                 '<div style="font-size:8.5px;font-weight:700;color:#fff;margin-bottom:2px;">YOGA IN THE PARK</div>'+
-                '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-bottom:6px;">Follow this yoga routine I prepared for you.</div>'+
+                '<div style="font-size:7.5px;color:var(--tw40);margin-bottom:6px;">Follow this yoga routine I prepared for you.</div>'+
                 [
                   {t:'Warm up routine',p:10,s:59},
                   {t:'Stretching routine',p:10,s:37},
@@ -1152,9 +1210,9 @@
                     '</div>'+
                     '<div style="flex:1;">'+
                       '<div style="font-size:9px;font-weight:600;color:#fff;">'+f.t+'</div>'+
-                      '<div style="font-size:7.5px;color:rgba(255,255,255,0.4);margin-top:2px;"><span style="color:'+AC+';font-weight:600;">POSTS </span>'+f.p+'  <span style="color:'+AC+';font-weight:600;">SUBS </span>'+f.s+'</div>'+
+                      '<div style="font-size:7.5px;color:var(--tw40);margin-top:2px;"><span style="color:'+AC+';font-weight:600;">POSTS </span>'+f.p+'  <span style="color:'+AC+';font-weight:600;">SUBS </span>'+f.s+'</div>'+
                     '</div>'+
-                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                    '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--tw30)" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
                   '</div>';
                 }).join('');
               el.appendChild(sheet);
@@ -1175,7 +1233,7 @@
                     '</div>'+
                     '<div style="flex:1;">'+
                       '<div style="font-size:11px;font-weight:700;color:#fff;">YOGA IN THE PARK</div>'+
-                      '<div style="font-size:8px;color:rgba(255,255,255,0.4);">3 posts · 59 subscribers</div>'+
+                      '<div style="font-size:8px;color:var(--tw40);">3 posts · 59 subscribers</div>'+
                     '</div>'+
                   '</div>'+
                   '<div class="bc-cta" style="height:30px;background:'+AC+';border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;cursor:pointer;" data-click-sound="success">'+
@@ -1193,9 +1251,9 @@
                       '</div>'+
                       '<div style="flex:1;">'+
                         '<div style="font-size:8.5px;font-weight:600;color:#fff;">'+p.t+'</div>'+
-                        '<div style="font-size:7px;color:rgba(255,255,255,0.4);">'+p.d+'</div>'+
+                        '<div style="font-size:7px;color:var(--tw40);">'+p.d+'</div>'+
                       '</div>'+
-                      '<span style="font-size:7.5px;color:rgba(255,255,255,0.3);font-family:var(--font-mono);">#'+p.n+'</span>'+
+                      '<span style="font-size:7.5px;color:var(--tw30);font-family:var(--font-mono);">#'+p.n+'</span>'+
                     '</div>';
                   }).join('')+
                 '</div>';
@@ -1255,11 +1313,11 @@
       list.innerHTML='';
       FLOWS.forEach(function(f,i){
         var b=document.createElement('button');
-        b.style.cssText='width:100%;display:flex;align-items:center;gap:10px;padding:9px 12px;background:'+(i===cur?'rgba(74,163,212,0.1)':'transparent')+';border:1px solid '+(i===cur?'rgba(74,163,212,0.3)':'rgba(255,255,255,0.06)')+';border-radius:8px;cursor:pointer;font-family:var(--font-display);text-align:left;transition:all 200ms ease;color:'+(i===cur?'#fff':'rgba(255,255,255,0.5)')+';font-size:0.72rem;font-weight:'+(i===cur?'600':'400')+';';
+        b.style.cssText='width:100%;display:flex;align-items:center;gap:10px;padding:9px 12px;background:'+(i===cur?'rgba(74,163,212,0.1)':'transparent')+';border:1px solid '+(i===cur?'rgba(74,163,212,0.3)':'rgba(255,255,255,0.06)')+';border-radius:8px;cursor:pointer;font-family:var(--font-display);text-align:left;transition:all 200ms ease;color:'+(i===cur?'#fff':'var(--tw50)')+';font-size:0.72rem;font-weight:'+(i===cur?'600':'400')+';';
         b.setAttribute('data-click-sound','tap');
         b.innerHTML='<div style="width:8px;height:8px;border-radius:50%;flex-shrink:0;background:'+(i===cur?'#4aa3d4':'rgba(255,255,255,0.15)')+'"></div>'+
           '<span style="flex:1;">'+f.label+'</span>'+
-          '<span style="font-size:0.58rem;color:rgba(255,255,255,0.35);font-family:var(--font-mono);">'+f.tag+'</span>';
+          '<span style="font-size:0.58rem;color:var(--tw35);font-family:var(--font-mono);">'+f.tag+'</span>';
         b.onclick=(function(fi){return function(){window.bcProtoGoStep(FLOWS[fi].id,0);};})(i);
         list.appendChild(b);
       });
@@ -1554,21 +1612,179 @@
   <script src="../assets/demo-kit.js"></script>
   <script>document.addEventListener("DOMContentLoaded",function(){ if(window.DemoKit){ document.querySelectorAll(".project-nav-card").forEach(function(el){ DemoKit.tilt3D(el,{maxX:4,maxY:5}); }); } });</script>
   <script src="../assets/main.js"></script>
+  <script>
+  (function(){
+    var navs = {dashboard:'bcNavDashboard', map:'bcNavMap', assets:'bcNavAssets', team:'bcNavTeam', analytics:'bcNavAnalytics'};
+    var panels = {dashboard:'bc-tab-map', map:'bc-tab-map', assets:'bc-tab-assets', team:'bc-tab-team', analytics:'bc-tab-analytics'};
+
+    // populate Asset Library grid
+    var grid = document.getElementById('bc-asset-grid');
+    if(grid){
+      var assets = ['Bench','Planter','Lamp Post','Kiosk','Fountain','Sign','Tree','Pavilion'];
+      grid.innerHTML = assets.map(function(a){
+        return '<div style="aspect-ratio:1;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:8px;display:flex;align-items:center;justify-content:center;">'+
+          '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4aa3d4" stroke-width="1.3"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg>'+
+          '</div><div style="grid-column:span 1;font-size:0.58rem;color:var(--tw40);text-align:center;margin-top:-4px;">'+a+'</div>';
+      }).join('');
+    }
+    // populate Team rows
+    var teamHost = document.getElementById('bc-team-rows');
+    if(teamHost){
+      var roles = [
+        ['Federico Monroy','Owner','Full access — billing, deletion, roles'],
+        ['M. Alvarez','Editor','Can add POIs, assets, edit map layout'],
+        ['J. Chen','Viewer','Read-only — sees the live space, no edits']
+      ];
+      teamHost.innerHTML = roles.map(function(r){
+        return '<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:8px;">'+
+          '<div style="width:26px;height:26px;border-radius:50%;background:rgba(74,163,212,0.2);display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;color:#4aa3d4;flex-shrink:0;">'+r[0][0]+'</div>'+
+          '<div style="flex:1;min-width:0;"><div style="font-size:0.72rem;font-weight:600;color:var(--text-primary);">'+r[0]+'</div><div style="font-size:0.62rem;color:var(--tw40);">'+r[2]+'</div></div>'+
+          '<span style="font-size:0.6rem;font-family:var(--font-mono);color:#4aa3d4;background:rgba(74,163,212,0.1);border-radius:100px;padding:3px 9px;flex-shrink:0;">'+r[1]+'</span>'+
+          '</div>';
+      }).join('');
+    }
+    // populate Analytics stats
+    var statsHost = document.getElementById('bc-analytics-stats');
+    if(statsHost){
+      var stats = [['24','POIs added'],['3','Active editors'],['9','3D assets attached']];
+      statsHost.innerHTML = stats.map(function(s){
+        return '<div style="padding:16px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:8px;text-align:center;">'+
+          '<div style="font-family:var(--font-display);font-weight:800;font-size:1.4rem;color:#4aa3d4;">'+s[0]+'</div>'+
+          '<div style="font-size:0.6rem;color:var(--tw40);margin-top:2px;">'+s[1]+'</div></div>';
+      }).join('');
+    }
+
+    function selectTab(key){
+      Object.keys(navs).forEach(function(k){
+        var el = document.getElementById(navs[k]);
+        if(!el) return;
+        var isMap = (key==='dashboard'||key==='map') && (k==='dashboard'||k==='map');
+        var active = (k===key) || isMap;
+        el.style.background = active ? 'rgba(74,163,212,0.1)' : 'transparent';
+        el.style.borderLeft = active ? '2px solid #4aa3d4' : 'none';
+        var span = el.querySelector('span');
+        if(span){ span.style.color = active ? '#4aa3d4' : 'var(--text-secondary)'; span.style.fontWeight = active ? '600' : '400'; }
+      });
+      Object.keys(panels).forEach(function(k){
+        var p = document.getElementById(panels[k]);
+        if(p) p.style.display = 'none';
+      });
+      var showId = panels[key];
+      var show = document.getElementById(showId);
+      if(show) show.style.display = 'block';
+    }
+    Object.keys(navs).forEach(function(k){
+      var el = document.getElementById(navs[k]);
+      if(el) el.addEventListener('click', function(){ selectTab(k); });
+    });
+  })();
+  </script>
+  <script>
+  (function(){
+    var mBtn=document.getElementById('bcViewMobile'), wBtn=document.getElementById('bcViewWeb');
+    var mPanel=document.getElementById('bc-view-mobile-panel'), wPanel=document.getElementById('bc-webapp-map');
+    if(!mBtn||!wBtn||!mPanel||!wPanel) return;
+    function setView(mode){
+      var mobile = mode==='mobile';
+      mPanel.style.display = mobile ? 'flex' : 'none';
+      wPanel.style.display = mobile ? 'none' : 'block';
+      mBtn.style.background = mobile ? 'var(--accent-dim)' : 'transparent';
+      mBtn.style.borderColor = mobile ? 'var(--accent)' : 'var(--border-default)';
+      mBtn.style.color = mobile ? 'var(--accent)' : 'var(--text-tertiary)';
+      wBtn.style.background = mobile ? 'transparent' : 'var(--accent-dim)';
+      wBtn.style.borderColor = mobile ? 'var(--border-default)' : 'var(--accent)';
+      wBtn.style.color = mobile ? 'var(--text-tertiary)' : 'var(--accent)';
+    }
+    mBtn.addEventListener('click', function(){ setView('mobile'); });
+    wBtn.addEventListener('click', function(){ setView('web'); });
+  })();
+  </script>
+  <script>
+  (function(){
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var track = document.getElementById('bcnTrack');
+    if(!track) return;
+    var BEATS = [
+      { big:'No precedent to copy. Mobile-first, but the map needed to <em>breathe on desktop</em>.', tools:['Figma'] },
+      { big:'I pioneered the spatial UI myself — flat map became a <em>3D scene</em>, hotspots and all.', tools:['3D / Spatial','Figma'] },
+      { big:'Client-led testing on real navigation — did people actually <em>understand the depth</em>?', tools:['User Testing'] },
+      { big:'5 flows, real hotspots, shipped as a <em>working prototype</em> — not a mockup.', tools:['3D / Spatial'] }
+    ];
+    track.innerHTML = BEATS.map(function(b,i){
+      return '<div class="bcn-beat" data-i="'+i+'">'+
+        '<div class="bcn-beat-n">0'+(i+1)+'</div>'+
+        '<div><div class="bcn-playbar"><div class="bcn-playbar-fill" id="bcnFill'+i+'"></div></div>'+
+        '<div class="bcn-big" id="bcnBig'+i+'"></div>'+
+        '<div class="bcn-tools" id="bcnTools'+i+'">'+b.tools.map(function(t){return '<span class="bcn-tool-chip">'+t+'</span>';}).join('')+'</div>'+
+        '</div></div>';
+    }).join('');
+
+    function typeHtmlInto(el, html, speed, cb){
+      var tmp=document.createElement('div'); tmp.innerHTML=html;
+      var nodes=Array.prototype.slice.call(tmp.childNodes);
+      var ni=0;
+      function nextNode(){
+        if(ni>=nodes.length){ if(cb) cb(); return; }
+        var n=nodes[ni];
+        if(n.nodeType===3){
+          var span=document.createElement('span'); el.appendChild(span);
+          var ci=0, text=n.textContent;
+          (function typeChar(){
+            span.textContent=text.slice(0,++ci);
+            if(ci<text.length){ setTimeout(typeChar, reduced?1:speed); }
+            else { ni++; nextNode(); }
+          })();
+        } else {
+          if(n.tagName==='EM' && n.textContent){
+            var emText=n.textContent, clone=document.createElement('em'); clone.className=n.className;
+            el.appendChild(clone);
+            var ci2=0;
+            (function typeEm(){
+              clone.textContent=emText.slice(0,++ci2);
+              if(ci2<emText.length){ setTimeout(typeEm, reduced?1:speed); }
+              else { ni++; nextNode(); }
+            })();
+          } else { el.appendChild(n.cloneNode(true)); ni++; nextNode(); }
+        }
+      }
+      nextNode();
+    }
+
+    var played = {};
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var i = en.target.dataset.i;
+        if(en.isIntersecting && !played[i]){
+          played[i] = true;
+          var big = document.getElementById('bcnBig'+i);
+          var fill = document.getElementById('bcnFill'+i);
+          var tools = document.getElementById('bcnTools'+i);
+          if(reduced){ big.innerHTML = BEATS[i].big; if(tools) tools.classList.add('show'); return; }
+          fill.classList.add('go');
+          typeHtmlInto(big, BEATS[i].big, 16, function(){
+            if(tools) tools.classList.add('show');
+          });
+        }
+      });
+    },{threshold:0.5});
+    track.querySelectorAll('.bcn-beat').forEach(function(b){ obs.observe(b); });
+  })();
+  </script>
   <style>
   .bc-arrow-nav{display:flex;align-items:center;gap:10px;margin-bottom:20px}
-  .bc-arrow{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.5);font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 200ms ease}
+  .bc-arrow{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:transparent;color:var(--tw50);font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 200ms ease}
   .bc-arrow:hover{border-color:#4aa3d4;color:#4aa3d4}
-  .bc-counter{font-size:0.65rem;color:rgba(255,255,255,0.3);font-family:var(--font-mono)}
+  .bc-counter{font-size:0.65rem;color:var(--tw30);font-family:var(--font-mono)}
   .bc-scene-wrap{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(74,163,212,0.2);box-shadow:0 0 60px rgba(74,163,212,0.06);margin-bottom:20px}
   .bc-canvas{width:100%;height:300px;display:block}
   .bc-scene-bar{position:absolute;top:12px;left:12px;right:12px;display:flex;align-items:center;justify-content:space-between;z-index:10;pointer-events:none}
-  .bc-scene-title{font-size:9px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:.06em;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);padding:4px 10px;border-radius:100px}
+  .bc-scene-title{font-size:9px;font-weight:700;color:var(--tw70);letter-spacing:.06em;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);padding:4px 10px;border-radius:100px}
   .bc-scene-badge{font-size:7px;color:#4aa3d4;background:rgba(74,163,212,0.1);border:1px solid #4aa3d4;padding:3px 8px;border-radius:100px}
   .bc-poi-label{position:absolute;background:rgba(0,0,0,0.82);backdrop-filter:blur(8px);border:1px solid rgba(74,163,212,0.4);border-radius:4px;padding:2px 7px;font-size:8px;font-weight:700;color:#4aa3d4;white-space:nowrap;box-shadow:0 0 10px rgba(74,163,212,0.25);opacity:0;transform:translateY(-6px);transition:all 400ms ease;pointer-events:none;z-index:10}
   .bc-poi-red{border-color:rgba(224,92,74,0.4);color:#e05c4a}
   .bc-poi-gold{border-color:rgba(244,200,66,0.4);color:#f4c842}
   .bc-poi-label.bc-visible{opacity:1;transform:translateY(0)}
-  .bc-toast{position:absolute;bottom:16px;left:12px;right:12px;background:rgba(10,20,30,0.95);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:6px 10px;font-size:8px;color:rgba(255,255,255,0.7);font-family:var(--font-mono);display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(10px);transition:all 400ms ease;z-index:10}
+  .bc-toast{position:absolute;bottom:16px;left:12px;right:12px;background:rgba(10,20,30,0.95);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:6px 10px;font-size:8px;color:var(--tw70);font-family:var(--font-mono);display:flex;align-items:center;gap:6px;opacity:0;transform:translateY(10px);transition:all 400ms ease;z-index:10}
   .bc-toast::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
   .bc-toast.bc-visible{opacity:1;transform:translateY(0)}
   .bc-content-row{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
@@ -1617,8 +1833,8 @@
   .bc-section-eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4aa3d4;margin-bottom:4px}
   .bc-annotation{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #4aa3d4;border-radius:6px;padding:8px 10px}
   .bc-ann-icon{font-size:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--accent)}
-  .bc-ann-title{font-size:7.5px;font-weight:700;color:rgba(255,255,255,0.7);margin-bottom:3px}
-  .bc-ann-body{font-size:6.5px;color:rgba(255,255,255,0.4);line-height:1.65}
+  .bc-ann-title{font-size:7.5px;font-weight:700;color:var(--tw70);margin-bottom:3px}
+  .bc-ann-body{font-size:6.5px;color:var(--tw40);line-height:1.65}
   .bc-search-mock{background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 12px;margin-bottom:8px}
   .bc-search-bar{height:22px;background:rgba(255,255,255,0.04);border-radius:4px;display:flex;align-items:center;padding:0 8px;gap:6px;border:1px solid rgba(255,255,255,0.08);margin-bottom:6px;transition:border-color 300ms}
   .bc-search-bar.bc-typing{border-color:#4aa3d4}
@@ -1626,21 +1842,21 @@
   .bc-search-text{color:#f0f0f0}
   .bc-cursor{color:#4aa3d4;animation:bcBlink 1s step-end infinite}
   .bc-search-results{background:rgba(0,0,0,0.4);border-radius:4px;overflow:hidden;margin-bottom:4px}
-  .bc-result{padding:4px 8px;font-size:8px;color:rgba(255,255,255,0.5)}
+  .bc-result{padding:4px 8px;font-size:8px;color:var(--tw50)}
   .bc-result--sel{background:rgba(74,163,212,0.12);color:#4aa3d4;font-weight:700}
   .bc-search-confirm{padding:6px 8px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:4px;font-size:8px;color:rgba(34,197,94,0.8)}
   .bc-pin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;margin-bottom:16px}
   .bc-pin-card{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;transform:translateY(10px);transition:all 450ms cubic-bezier(0.34,1.1,0.64,1)}
   .bc-pin-card.bc-visible{opacity:1;transform:translateY(0)}
   .bc-pin-dot{width:8px;height:8px;border-radius:50%}
-  .bc-pin-desc{font-size:7px;color:rgba(255,255,255,0.4);font-weight:600;text-align:center}
+  .bc-pin-desc{font-size:7px;color:var(--tw40);font-weight:600;text-align:center}
   .bc-pin-desc--accent{color:#4aa3d4}
   .bc-decision-box{background:rgba(74,163,212,0.04);border:1px solid rgba(74,163,212,0.15);border-radius:8px;padding:10px 14px;margin-bottom:16px}
   #bc-feed{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
   .bc-feed-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:6px;opacity:0;transform:translateX(-6px);transition:all 350ms ease}
   .bc-feed-item.bc-visible{opacity:1;transform:translateX(0)}
   .bc-feed-thumb{width:28px;height:28px;border-radius:4px;background:rgba(74,163,212,0.12);flex-shrink:0}
-  .bc-feed-title{font-size:8px;font-weight:600;color:rgba(255,255,255,0.7)}
+  .bc-feed-title{font-size:8px;font-weight:600;color:var(--tw70)}
   .bc-feed-meta{font-size:7px;color:#4aa3d4;font-family:var(--font-mono)}
   .bc-feed-arrow{color:#4aa3d4;font-size:14px;margin-left:auto}
   .bc-flow-diagram{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06)}
@@ -1648,7 +1864,7 @@
   .bc-flow-node{display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);min-width:52px;transition:all 300ms ease}
   .bc-flow-node--active{background:rgba(74,163,212,0.12);border-color:#4aa3d4}
   .bc-flow-node-icon{font-size:14px}
-  .bc-flow-node-label{font-size:6px;font-weight:700;color:rgba(255,255,255,0.4);text-align:center}
+  .bc-flow-node-label{font-size:6px;font-weight:700;color:var(--tw40);text-align:center}
   .bc-flow-node--active .bc-flow-node-label{color:#4aa3d4}
   .bc-flow-line{width:16px;height:1px;background:rgba(255,255,255,0.1);flex-shrink:0}
   .bc-flow-line--done{background:#4aa3d4}

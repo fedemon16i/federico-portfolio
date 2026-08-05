@@ -11,11 +11,32 @@
       --accent: var(--accent-chek);
       --accent-dim: rgba(155,108,255,0.12);
       --project-glow: rgba(155,108,255,0.08);
+      --tw45:rgba(255,255,255,0.45); --tw50:rgba(255,255,255,0.5); --tw55:rgba(255,255,255,0.55);
+      --tw60:rgba(255,255,255,0.6); --tw70:rgba(255,255,255,0.7); --tw80:rgba(255,255,255,0.8);
+      --tw85:rgba(255,255,255,0.85); --tw90:rgba(255,255,255,0.9);
     }
-    [data-theme="light"] { --accent: #5b34d4; --accent-dim: rgba(91,52,212,0.12); }
+    [data-theme="light"] {
+      --accent: #5b34d4; --accent-dim: rgba(91,52,212,0.12);
+      --tw45:rgba(20,20,20,0.6); --tw50:rgba(20,20,20,0.65); --tw55:rgba(20,20,20,0.68);
+      --tw60:rgba(20,20,20,0.72); --tw70:rgba(20,20,20,0.78); --tw80:rgba(20,20,20,0.85);
+      --tw85:rgba(20,20,20,0.88); --tw90:rgba(20,20,20,0.9);
+    }
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) { --accent: #5b34d4; --accent-dim: rgba(91,52,212,0.12); }
     }
+    .chn-track{display:flex;flex-direction:column;border-top:1px solid var(--border-subtle);}
+    .chn-beat{display:grid;grid-template-columns:28px 1fr;gap:18px;padding:26px 0;border-bottom:1px solid var(--border-subtle);}
+    .chn-beat-n{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);padding-top:3px;}
+    .chn-playbar{width:32px;height:2px;border-radius:2px;background:var(--border-default);overflow:hidden;margin-bottom:12px;}
+    .chn-playbar-fill{height:100%;width:0%;background:var(--accent);border-radius:2px;}
+    .chn-playbar-fill.go{animation:chnFill 1800ms linear forwards;}
+    @keyframes chnFill{from{width:0%;}to{width:100%;}}
+    .chn-big{font-family:var(--font-display);font-weight:700;font-size:clamp(18px,2.4vw,24px);line-height:1.35;margin-bottom:8px;min-height:1.35em;}
+    .chn-big em{color:var(--accent);font-style:normal;}
+    .chn-tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;opacity:0;transition:opacity 400ms;}
+    .chn-tools.show{opacity:1;}
+    .chn-tool-chip{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:100px;padding:4px 10px;}
+    @media(prefers-reduced-motion:reduce){.chn-playbar-fill.go{animation:none;width:100%;}}
     #progress-bar {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width 100ms linear;
     }
@@ -1179,7 +1200,7 @@
           <span class="project-role-badge">Lead UX Designer</span>
           <span class="project-timeline">2021–2023 · Applaudo Studios</span>
         </div>
-        <div class="section-eyebrow" data-anim style="color:rgba(255,255,255,0.55);">Fintech · Digital Wallet · South America</div>
+        <div class="section-eyebrow" data-anim style="color:var(--tw55);">Fintech · Digital Wallet · South America</div>
         <div data-anim style="margin:14px 0 20px;">
           <div style="display:inline-flex;align-items:baseline;gap:2px;line-height:1;">
             <span style="font-size:clamp(2.6rem,6vw,4rem);font-weight:800;color:#ffffff;letter-spacing:-0.04em;font-family:var(--font-display);">che</span>
@@ -1490,12 +1511,12 @@
                         </div>
                         <div style="height:22px;background:#1e4d7a;display:flex;align-items:center;padding:0 7px;gap:3px;">
                           <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                          <span style="font-size:6.5px;color:rgba(255,255,255,0.85);">serfinsa.gob.sv</span>
+                          <span style="font-size:6.5px;color:var(--tw85);">serfinsa.gob.sv</span>
                         </div>
                         <div style="background:#eef2f7;padding:5px 6px;min-height:204px;position:relative;">
                           <div style="background:#1e4d7a;border-radius:3px;padding:5px;text-align:center;margin-bottom:5px;">
                             <div style="font-size:7px;font-weight:700;color:#fff;">SERFINSA</div>
-                            <div style="font-size:5.5px;color:rgba(255,255,255,0.7);">National Identity System</div>
+                            <div style="font-size:5.5px;color:var(--tw70);">National Identity System</div>
                           </div>
                           <div style="font-size:6.5px;color:#555;margin-bottom:4px;font-weight:500;">Verify your identity</div>
                           <div style="height:15px;background:#fff;border:1px solid #ccc;border-radius:3px;margin-bottom:3px;"></div>
@@ -1741,6 +1762,11 @@
         <!-- ==============================
              SECTION 3.5 — Wireframes
              ============================== -->
+        <div class="project-section" data-anim>
+          <div class="project-section-label">How it actually happened</div>
+          <div class="chn-track" id="chnTrack"></div>
+        </div>
+
         <div class="project-section" data-anim id="chek-proto-section">
           <div class="project-section-label">Interactive Prototype</div>
           <h2 class="project-section-title">Try the Flows</h2>
@@ -1779,7 +1805,7 @@
                   </div>
                   <!-- Purple nav bar -->
                   <div style="height:38px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;position:relative;" id="chek-proto-nav">
-                    <button onclick="chekProtoBack()" id="chek-proto-back-btn" style="background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,0.8);font-size:16px;padding:0;display:none;line-height:1;" aria-label="Back">←</button>
+                    <button onclick="chekProtoBack()" id="chek-proto-back-btn" style="background:transparent;border:none;cursor:pointer;color:var(--tw80);font-size:16px;padding:0;display:none;line-height:1;" aria-label="Back">←</button>
                     <span id="chek-proto-nav-title" style="font-size:11px;font-weight:600;color:#fff;flex:1;">Chek Credit Card</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
                   </div>
@@ -1797,7 +1823,7 @@
                 <div id="chek-proto-ring" class="finger-ring"></div>
                 <div class="finger-circle"></div>
                 <!-- Contextual tooltip -->
-                <div id="chek-proto-tooltip" style="position:absolute;left:32px;top:-6px;background:rgba(0,0,0,0.85);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 10px;white-space:nowrap;font-size:0.6rem;color:rgba(255,255,255,0.9);opacity:0;transform:translateX(-4px);transition:all 250ms ease;pointer-events:none;max-width:160px;white-space:normal;line-height:1.4;backdrop-filter:blur(8px);"></div>
+                <div id="chek-proto-tooltip" style="position:absolute;left:32px;top:-6px;background:rgba(0,0,0,0.85);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:5px 10px;white-space:nowrap;font-size:0.6rem;color:var(--tw90);opacity:0;transform:translateX(-4px);transition:all 250ms ease;pointer-events:none;max-width:160px;white-space:normal;line-height:1.4;backdrop-filter:blur(8px);"></div>
               </div>
               <!-- Click ripple -->
               <div id="chek-proto-rpl" style="position:absolute;pointer-events:none;z-index:49;opacity:0;transform:translate(-50%,-50%);">
@@ -1902,7 +1928,7 @@
                   </div>
                   <!-- Nav bar — English -->
                   <div style="height:38px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;">
-                    <span style="font-size:13px;color:rgba(255,255,255,0.8);">←</span>
+                    <span style="font-size:13px;color:var(--tw80);">←</span>
                     <span style="font-size:10px;font-weight:600;color:#fff;flex:1;">Credit Card Hub</span>
                   </div>
                   <!-- Screen body — same min-height as proto -->
@@ -2120,13 +2146,13 @@
             '<div style="margin:0 10px 8px;" class="chek-card-mock">'+
               '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">'+
                 '<div class="chek-logo">che<span>K</span></div>'+
-                '<div style="text-align:right;"><div style="font-size:8px;font-weight:700;color:#fff;">cheK</div><div style="font-size:6px;color:rgba(255,255,255,0.6);">Cr&#233;dito</div></div>'+
+                '<div style="text-align:right;"><div style="font-size:8px;font-weight:700;color:#fff;">cheK</div><div style="font-size:6px;color:var(--tw60);">Cr&#233;dito</div></div>'+
               '</div>'+
-              '<div style="font-size:7px;color:rgba(255,255,255,0.5);letter-spacing:.06em;margin-bottom:5px;">N&#218;MERO DE TARJETA</div>'+
-              '<div style="font-size:9px;color:rgba(255,255,255,0.85);font-family:monospace;letter-spacing:.1em;margin-bottom:6px;">&#x2022; &#x2022; &#x2022; &#x2022;  &#x2022; &#x2022; &#x2022; &#x2022;  &#x2022; &#x2022; &#x2022; &#x2022;  7335</div>'+
+              '<div style="font-size:7px;color:var(--tw50);letter-spacing:.06em;margin-bottom:5px;">N&#218;MERO DE TARJETA</div>'+
+              '<div style="font-size:9px;color:var(--tw85);font-family:monospace;letter-spacing:.1em;margin-bottom:6px;">&#x2022; &#x2022; &#x2022; &#x2022;  &#x2022; &#x2022; &#x2022; &#x2022;  &#x2022; &#x2022; &#x2022; &#x2022;  7335</div>'+
               '<div style="display:flex;gap:14px;">'+
-                '<div><div style="font-size:6px;color:rgba(255,255,255,0.45);">FECHA EXPIRACI&#211;N</div><div style="font-size:8px;color:rgba(255,255,255,0.8);font-family:monospace;">&#x2022;&#x2022; / &#x2022;&#x2022;</div></div>'+
-                '<div><div style="font-size:6px;color:rgba(255,255,255,0.45);">CVV</div><div style="font-size:8px;color:rgba(255,255,255,0.8);font-family:monospace;">&#x2022;&#x2022;&#x2022;</div></div>'+
+                '<div><div style="font-size:6px;color:var(--tw45);">FECHA EXPIRACI&#211;N</div><div style="font-size:8px;color:var(--tw80);font-family:monospace;">&#x2022;&#x2022; / &#x2022;&#x2022;</div></div>'+
+                '<div><div style="font-size:6px;color:var(--tw45);">CVV</div><div style="font-size:8px;color:var(--tw80);font-family:monospace;">&#x2022;&#x2022;&#x2022;</div></div>'+
               '</div>'+
               '<div style="position:absolute;bottom:10px;right:12px;display:flex;"><div style="width:16px;height:16px;border-radius:50%;background:#EB001B;opacity:0.9;"></div><div style="width:16px;height:16px;border-radius:50%;background:#F79E1B;opacity:0.9;margin-left:-6px;"></div></div>'+
             '</div>'+
@@ -3284,7 +3310,8 @@
       function next(){
         if(!isAuto)return;
         var step=autoSequence[autoIdx%autoSequence.length];
-        window.chekProtoGoStep(step[0],step[1]);
+        var f=flowIndex[step[0]];
+        if(f){ currentFlow=FLOWS.indexOf(f); currentStep=step[1]||0; renderProto(true); }
         autoIdx++;
       }
       next();
@@ -3296,7 +3323,11 @@
     if(sec){
       renderProto(false);
       var obs=new IntersectionObserver(function(e){
-        if(e[0].isIntersecting){ pSch(function(){runCursorAnim(FLOWS[0].steps[0]);},300); obs.disconnect(); }
+        if(e[0].isIntersecting){
+          if(window.innerWidth<=640){ pSch(function(){window.chekProtoAutoPlay();},400); }
+          else { pSch(function(){runCursorAnim(FLOWS[0].steps[0]);},300); }
+          obs.disconnect();
+        }
       },{threshold:0.1});
       obs.observe(sec);
     }
@@ -3327,6 +3358,77 @@
     lb.addEventListener('click', close);
     document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
     function close(){ lb.style.display = 'none'; document.body.style.overflow = ''; }
+  })();
+  </script>
+  <script>
+  (function(){
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var track = document.getElementById('chnTrack');
+    if(!track) return;
+    var BEATS = [
+      { big:'5 designers, 1 credit card, and a <em>34% drop-off</em> nobody could explain.', tools:['Qualtrics'] },
+      { big:'I mapped every flow before touching a screen — then built the <em>system</em> that would carry all of them.', tools:['Figma'] },
+      { big:'Maze caught the exact step where people quit. <em>The fix was one screen away.</em>', tools:['Maze'] },
+      { big:'Onboarding up <em>15%</em>. Pendo funnels keep watching for the next drop.', tools:['Pendo'] }
+    ];
+    track.innerHTML = BEATS.map(function(b,i){
+      return '<div class="chn-beat" data-i="'+i+'">'+
+        '<div class="chn-beat-n">0'+(i+1)+'</div>'+
+        '<div><div class="chn-playbar"><div class="chn-playbar-fill" id="chnFill'+i+'"></div></div>'+
+        '<div class="chn-big" id="chnBig'+i+'"></div>'+
+        '<div class="chn-tools" id="chnTools'+i+'">'+b.tools.map(function(t){return '<span class="chn-tool-chip">'+t+'</span>';}).join('')+'</div>'+
+        '</div></div>';
+    }).join('');
+
+    function typeHtmlInto(el, html, speed, cb){
+      var tmp=document.createElement('div'); tmp.innerHTML=html;
+      var nodes=Array.prototype.slice.call(tmp.childNodes);
+      var ni=0;
+      function nextNode(){
+        if(ni>=nodes.length){ if(cb) cb(); return; }
+        var n=nodes[ni];
+        if(n.nodeType===3){
+          var span=document.createElement('span'); el.appendChild(span);
+          var ci=0, text=n.textContent;
+          (function typeChar(){
+            span.textContent=text.slice(0,++ci);
+            if(ci<text.length){ setTimeout(typeChar, reduced?1:speed); }
+            else { ni++; nextNode(); }
+          })();
+        } else {
+          if(n.tagName==='EM' && n.textContent){
+            var emText=n.textContent, clone=document.createElement('em'); clone.className=n.className;
+            el.appendChild(clone);
+            var ci2=0;
+            (function typeEm(){
+              clone.textContent=emText.slice(0,++ci2);
+              if(ci2<emText.length){ setTimeout(typeEm, reduced?1:speed); }
+              else { ni++; nextNode(); }
+            })();
+          } else { el.appendChild(n.cloneNode(true)); ni++; nextNode(); }
+        }
+      }
+      nextNode();
+    }
+
+    var played = {};
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var i = en.target.dataset.i;
+        if(en.isIntersecting && !played[i]){
+          played[i] = true;
+          var big = document.getElementById('chnBig'+i);
+          var fill = document.getElementById('chnFill'+i);
+          var tools = document.getElementById('chnTools'+i);
+          if(reduced){ big.innerHTML = BEATS[i].big; if(tools) tools.classList.add('show'); return; }
+          fill.classList.add('go');
+          typeHtmlInto(big, BEATS[i].big, 16, function(){
+            if(tools) tools.classList.add('show');
+          });
+        }
+      });
+    },{threshold:0.5});
+    track.querySelectorAll('.chn-beat').forEach(function(b){ obs.observe(b); });
   })();
   </script>
 
