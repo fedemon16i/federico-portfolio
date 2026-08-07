@@ -202,7 +202,7 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 /* Process mini stages */
 .proc-grid{display:grid;gap:28px}
 @media(min-width:800px){.proc-grid{grid-template-columns:1fr}}
-.mini-stage{min-height:0;height:auto;padding-bottom:8px}
+.mini-stage{min-height:0!important;height:auto!important;padding:12px!important;margin-bottom:0!important}
 .figma-bar{height:36px;background:#2c2c2c;display:flex;align-items:center;gap:8px;padding:0 10px;border-bottom:1px solid #1a1a1a}
 .figma-bar .logo{width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#f24e1e,#a259ff,#0acf83)}
 .figma-canvas{position:relative;height:300px;background:#1c1c1c;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:14px 14px;overflow:hidden}
@@ -2898,6 +2898,116 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 }
 #stage, .pi-visual .stage{ max-width: var(--stage-max) !important; margin-left:auto; margin-right:auto; }
 
+
+/* Atomic: tool chips (shared with EY) */
+.stack-cap{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#a6a29a);margin:16px 0 8px}
+.tools-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;position:relative;z-index:5}
+.tool-chip.ico-only{
+  position:relative;width:36px;height:36px;padding:0;border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--bg-surface,#171614);border:1px solid var(--border,rgba(255,255,255,.12));
+  cursor:pointer;color:var(--text);
+}
+.tool-chip.ico-only:hover,.tool-chip.tip-on{border-color:var(--accent,#22d4c8)}
+.tool-chip .chip-tip{
+  position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);
+  min-width:180px;max-width:220px;padding:10px 12px;border-radius:10px;
+  background:var(--bg-surface,#171614);border:1px solid var(--border,rgba(255,255,255,.12));
+  font-size:12px;line-height:1.4;color:var(--muted,#a6a29a);text-align:left;
+  opacity:0;visibility:hidden;pointer-events:none;z-index:20;
+  box-shadow:0 12px 28px rgba(0,0,0,.35);
+}
+.tool-chip .chip-tip strong{display:block;color:var(--text,#f2f0ec);margin-bottom:4px;font-size:12.5px}
+.tool-chip.ico-only:hover .chip-tip,.tool-chip.tip-on .chip-tip{
+  opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);
+}
+
+/* === ATOMIC MOTION + SURFACE (aligned with home skills) === */
+:root{
+  --spring: cubic-bezier(.34, 1.32, .64, 1);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --surface: var(--bg-surface, #171614);
+  --border-soft: var(--border, rgba(255,255,255,.1));
+}
+html[data-theme="light"]{
+  --surface: #fff;
+  --border-soft: rgba(0,0,0,.08);
+}
+/* Shared card surface */
+.gcard, .pcard, .ff-step, .sch-step, .job-card, .sk, .story-tab, .tl,
+.tool-chip.ico-only, .ctl, .tag{
+  transition: transform 380ms var(--spring), border-color 220ms var(--ease), box-shadow 380ms var(--ease), background 220ms ease;
+}
+.pcard, .ff-step, .job-card{
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+.pcard:hover, .ff-step:hover, .job-card:hover{
+  border-color: var(--accent);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 44px -18px rgba(0,0,0,.45), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+/* Scheme / job icons — stroke like skill icons */
+.sch-step .ic svg, .ff-ic svg, .scheme-steps .ic svg{
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 420ms var(--spring), stroke 220ms ease;
+}
+.sch-step:hover .ic svg, .sch-step.in .ic svg, .sch-step.on .ic svg{
+  transform: scale(1.08);
+  animation: iconWiggle 380ms var(--ease) both;
+}
+.ff-step:hover .ff-ic svg{
+  transform: scale(1.08);
+  animation: iconWiggle 380ms var(--ease) both;
+}
+@keyframes iconWiggle{
+  0%{ transform: scale(1) rotate(0); }
+  30%{ transform: scale(1.12) rotate(-6deg); }
+  60%{ transform: scale(1.06) rotate(4deg); }
+  100%{ transform: scale(1.08) rotate(0); }
+}
+/* Tool chips — skill-adjacent */
+.tool-chip.ico-only{
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+.tool-chip.ico-only:hover, .tool-chip.tip-on{
+  border-color: var(--accent);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+/* Timeline chips / story tabs */
+.tl, .story-tab, .ctl{
+  border-radius: 100px;
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  color: var(--muted, #a6a29a);
+}
+.tl:hover, .story-tab:hover, .ctl:hover,
+.tl.on, .story-tab.on, .ctl.is-playing{
+  border-color: var(--accent);
+  color: var(--text, #f2f0ec);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+/* Project cards on listings */
+.pcard:hover{ transform: translateY(-5px); }
+/* Stage frame */
+#stage, #demoStage, .stage{
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 24px 48px -24px rgba(0,0,0,.5);
+}
+/* Soft glow accent for active narrative steps */
+.sch-step.in, .sch-step.on{
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border-soft));
+}
+
 </style>
 </head>
 <body>
@@ -2967,11 +3077,12 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
           <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4Z"/></svg></span><span class="reel-n">UI</span></div><div class="reel-l">Sheets over chrome while editing</div></div>
         </div>
       </div>
-      <div class="tags" role="list">
-        <span class="tag" role="listitem">Figma</span>
-        <span class="tag" role="listitem">Spline</span>
-        <span class="tag" role="listitem">Unity</span>
-        <span class="tag" role="listitem">Three.js</span>
+      <p class="stack-cap">Stack used · tap a logo</p>
+      <div class="tools-row" id="heroTools" role="list">
+        <button type="button" class="tool-chip ico-only" data-tool="figma" role="listitem" aria-label="Figma"><svg viewBox="0 0 38 57" width="16" height="16"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg><span class="chip-tip"><strong>Figma</strong>Screens, flows, and the UI language of the map product.</span></button>
+        <button type="button" class="tool-chip ico-only" data-tool="spline" role="listitem" aria-label="Spline"><svg viewBox="0 0 24 24" width="16" height="16"><rect width="24" height="24" rx="6" fill="#5B21B6"/><path d="M7 15c2-4 4-6 5-6s3 2 5 6" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="12" cy="9" r="2" fill="#C4B5FD"/></svg><span class="chip-tip"><strong>Spline</strong>Spatial 3D language and the living city surface.</span></button>
+        <button type="button" class="tool-chip ico-only" data-tool="unity" role="listitem" aria-label="Unity"><svg viewBox="0 0 24 24" width="16" height="16"><rect width="24" height="24" rx="6" fill="#111"/><path d="M6 8l6-3 6 3v6l-6 3-6-3V8z" stroke="#fff" stroke-width="1.5" fill="none"/></svg><span class="chip-tip"><strong>Unity</strong>Prototype runtime for interaction and device tests.</span></button>
+        <button type="button" class="tool-chip ico-only" data-tool="three" role="listitem" aria-label="Three.js"><svg viewBox="0 0 24 24" width="16" height="16"><rect width="24" height="24" rx="6" fill="#049EF4"/><path d="M12 5l7 12H5L12 5z" fill="#fff"/></svg><span class="chip-tip"><strong>Three.js</strong>Web 3D for the portfolio reenactment of the map.</span></button>
       </div>
     </div>
   </div>
@@ -2989,9 +3100,9 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 <!-- JOB -->
 <section class="sec" id="job">
   <div class="wrap">
-    <p class="eyebrow"><span class="eyebrow-num">02</span> Job</p>
-    <h2>What this designs</h2>
-    <p class="lede" style="margin-bottom:8px">A continuous loop from a map you shaped to media a visitor opens — not a flat pin.</p>
+    <p class="eyebrow"><span class="eyebrow-num">02</span> Spatial</p>
+    <h2>Codename Spatial</h2>
+    <p class="lede" style="margin-bottom:8px">A social experiment: visit <em>3D spaces</em>, enter an object that holds a <em>map</em>, and leave stories inside it — not a flat pin on a 2D surface.</p>
     <div class="scheme-steps" id="schemeSteps" style="margin-top:28px">
       <div class="sch-step" data-s="0"><div class="ic"><svg viewBox="0 0 48 48"><path class="draw" pathLength="1" d="M6 12 L6 40 L16 34 L32 42 L42 34 L42 6 L32 12 L16 4 Z"/><path class="draw" pathLength="1" d="M16 4 V34"/><path class="draw" pathLength="1" d="M32 12 V42"/></svg></div><span class="sch-label">Map you shaped</span></div>
       <div class="sch-step" data-s="1"><div class="ic"><svg viewBox="0 0 48 48"><path class="draw" pathLength="1" d="M24 6 C16 6 10 13 10 20 C10 30 24 42 24 42 C24 42 38 30 38 20 C38 13 32 6 24 6 Z"/><circle class="draw" pathLength="1" cx="24" cy="20" r="5"/></svg></div><span class="sch-label">Plant a POI</span></div>
@@ -3339,69 +3450,7 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 
 
 <!-- DESIGN SYSTEM (optional accordion) -->
-<section class="sec" id="design-system">
-  <div class="wrap">
-    <p class="eyebrow"><span class="eyebrow-num">05</span> System</p>
-    <h2>Design system &amp; framework</h2>
-    <p class="lede" style="margin-bottom:20px">Tokens and patterns used on this case — optional detail for design leads reviewing the work.</p>
-    <details class="ds-acc">
-      <summary>
-        <span>Tokens, motion, components</span>
-        <span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
-      </summary>
-      <div class="ds-body">
-        <div class="ds-grid">
-          <div class="ds-block">
-            <h3>Color</h3>
-            <div class="ds-swatches">
-              <div class="ds-swatch"><i style="background:#0e0d0c"></i><span>--bg</span></div>
-              <div class="ds-swatch"><i style="background:#171614"></i><span>--bg-surface</span></div>
-              <div class="ds-swatch"><i style="background:#f2f0ec"></i><span>--text</span></div>
-              <div class="ds-swatch"><i style="background:#a6a29a"></i><span>--muted</span></div>
-              <div class="ds-swatch"><i style="background:#22d4c8"></i><span>--accent</span></div>
-              <div class="ds-swatch"><i style="background:#4aa3d4"></i><span>--ac</span></div>
-              <div class="ds-swatch"><i style="background:#c4a5ff"></i><span>--visitor</span></div>
-            </div>
-          </div>
-          <div class="ds-block">
-            <h3>Type (fluid clamp)</h3>
-            <div class="ds-type-row">
-              <div style="font-size:var(--text-3xl);font-weight:800">Display H1</div>
-              <div style="font-size:var(--text-2xl);font-weight:800">Section H2</div>
-              <div style="font-size:var(--text-lg)">Body / lead</div>
-              <div class="ds-mono" style="font-size:var(--label-size);letter-spacing:var(--label-track);text-transform:uppercase;color:var(--accent)">Section label</div>
-            </div>
-          </div>
-          <div class="ds-block">
-            <h3>Motion</h3>
-            <ul class="ds-list">
-              <li><span class="ds-mono">--spring-snappy</span> · cubic-bezier(0.34, 1.56, 0.64, 1)</li>
-              <li><span class="ds-mono">--spring-soft</span> · cubic-bezier(0.22, 1.2, 0.36, 1)</li>
-              <li><span class="ds-mono">--spring-press</span> · cubic-bezier(0.33, 1.4, 0.68, 1)</li>
-              <li>Text-first stage → device · sheet covers tab bar</li>
-              <li>Scroll-gated loops (scheme, constraints, demo)</li>
-            </ul>
-          </div>
-          <div class="ds-block">
-            <h3>Framework</h3>
-            <ul class="ds-list">
-              <li>Layout: CSS Grid + fluid type tokens</li>
-              <li>3D: Three.js (PCF soft shadows, short massing)</li>
-              <li>Proto: sequenced beats, dock hints outside device</li>
-              <li>Shared with: home skills modals · EY Fabric stages</li>
-              <li>Buttons: <span class="ds-mono">btn-ds</span> / accent / visitor</li>
-            </ul>
-            <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px">
-              <span class="btn-ds btn-ds--accent" style="pointer-events:none">Accent</span>
-              <span class="btn-ds btn-ds--visitor" style="pointer-events:none">Visitor</span>
-              <span class="btn-ds" style="pointer-events:none">Ghost</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </details>
-  </div>
-</section>
+<!-- design-system section removed: lives on site design-system.html -->
 
 <section class="sec" id="next" style="border-bottom:none;padding-top:24px">
   <div class="wrap">
@@ -4132,6 +4181,46 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   if(hamburger) hamburger.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
   if(closeBtn) closeBtn.addEventListener('click', closeM);
   if(mobile) mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
+})();
+</script>
+
+
+<script>
+/* chip-tip bind BC */
+(function(){
+  document.querySelectorAll('#heroTools .tool-chip').forEach(function(chip){
+    chip.addEventListener('click', function(e){
+      e.preventDefault();
+      var on=chip.classList.contains('tip-on');
+      document.querySelectorAll('#heroTools .tool-chip').forEach(function(c){c.classList.remove('tip-on');});
+      if(!on) chip.classList.add('tip-on');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('#heroTools')) document.querySelectorAll('#heroTools .tool-chip').forEach(function(c){c.classList.remove('tip-on');});
+  });
+})();
+</script>
+
+
+<script>
+/* SCHEME_SCROLL — animate job steps when in view, faster cascade */
+(function(){
+  var root=document.getElementById('schemeSteps');
+  if(!root) return;
+  var steps=root.querySelectorAll('.sch-step');
+  function run(){
+    steps.forEach(function(s,i){
+      setTimeout(function(){ s.classList.add('in','on'); }, i*120);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var once=false;
+    new IntersectionObserver(function(en){
+      if(!en[0].isIntersecting||once) return;
+      once=true; run();
+    },{threshold:0.35}).observe(root);
+  } else run();
 })();
 </script>
 

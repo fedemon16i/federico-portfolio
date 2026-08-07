@@ -1073,6 +1073,113 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 }
 #stage, .pi-visual .stage{ max-width: var(--stage-max) !important; margin-left:auto; margin-right:auto; }
 
+
+/* Fabric role schematic */
+.fabric-flow{
+  display:flex; flex-wrap:wrap; align-items:stretch; gap:12px;
+  margin-top:22px; max-width:40rem;
+}
+.ff-step{
+  flex:1 1 140px; min-width:120px;
+  padding:14px 14px 16px; border-radius:14px;
+  border:1px solid var(--border,rgba(255,255,255,.12));
+  background:var(--bg-surface,#171614);
+}
+.ff-ic{ color:var(--accent,#ffe600); margin-bottom:10px; }
+.ff-t{ font-weight:700; font-size:14px; margin-bottom:4px; }
+.ff-d{ font-size:12.5px; color:var(--muted,#a6a29a); line-height:1.45; }
+.ff-arrow{ display:flex; align-items:center; color:var(--muted,#a6a29a); font-size:18px; padding:0 2px; }
+@media (max-width:700px){ .ff-arrow{ display:none; } }
+/* PI: animation column only stage */
+.pi-visual .controls{ display:none; }
+.pi-copy .controls{ display:flex; }
+
+/* === ATOMIC MOTION + SURFACE (aligned with home skills) === */
+:root{
+  --spring: cubic-bezier(.34, 1.32, .64, 1);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --surface: var(--bg-surface, #171614);
+  --border-soft: var(--border, rgba(255,255,255,.1));
+}
+html[data-theme="light"]{
+  --surface: #fff;
+  --border-soft: rgba(0,0,0,.08);
+}
+/* Shared card surface */
+.gcard, .pcard, .ff-step, .sch-step, .job-card, .sk, .story-tab, .tl,
+.tool-chip.ico-only, .ctl, .tag{
+  transition: transform 380ms var(--spring), border-color 220ms var(--ease), box-shadow 380ms var(--ease), background 220ms ease;
+}
+.pcard, .ff-step, .job-card{
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+.pcard:hover, .ff-step:hover, .job-card:hover{
+  border-color: var(--accent);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 44px -18px rgba(0,0,0,.45), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+/* Scheme / job icons — stroke like skill icons */
+.sch-step .ic svg, .ff-ic svg, .scheme-steps .ic svg{
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 420ms var(--spring), stroke 220ms ease;
+}
+.sch-step:hover .ic svg, .sch-step.in .ic svg, .sch-step.on .ic svg{
+  transform: scale(1.08);
+  animation: iconWiggle 380ms var(--ease) both;
+}
+.ff-step:hover .ff-ic svg{
+  transform: scale(1.08);
+  animation: iconWiggle 380ms var(--ease) both;
+}
+@keyframes iconWiggle{
+  0%{ transform: scale(1) rotate(0); }
+  30%{ transform: scale(1.12) rotate(-6deg); }
+  60%{ transform: scale(1.06) rotate(4deg); }
+  100%{ transform: scale(1.08) rotate(0); }
+}
+/* Tool chips — skill-adjacent */
+.tool-chip.ico-only{
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+.tool-chip.ico-only:hover, .tool-chip.tip-on{
+  border-color: var(--accent);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+/* Timeline chips / story tabs */
+.tl, .story-tab, .ctl{
+  border-radius: 100px;
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  color: var(--muted, #a6a29a);
+}
+.tl:hover, .story-tab:hover, .ctl:hover,
+.tl.on, .story-tab.on, .ctl.is-playing{
+  border-color: var(--accent);
+  color: var(--text, #f2f0ec);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+/* Project cards on listings */
+.pcard:hover{ transform: translateY(-5px); }
+/* Stage frame */
+#stage, #demoStage, .stage{
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 24px 48px -24px rgba(0,0,0,.5);
+}
+/* Soft glow accent for active narrative steps */
+.sch-step.in, .sch-step.on{
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border-soft));
+}
+
 </style>
 </head>
 <body>
@@ -1188,86 +1295,33 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 
   <!-- CONTEXT -->
   <section class="sec" id="problem">
-    <h2 class="h2">A catalog with <em>300+ items</em> — and no way to see where people got stuck.</h2>
+    <h2 class="h2">EY Fabric is a <em>catalog</em> — <em>300+ items</em> that consultants pull into their workspace.</h2>
     <p class="lead">
-      Teams request services and licenses from Fabric. After migration, fewer made it through.
-      Product felt the demand. They could not point to <b>the step that broke</b>.
+      Publishers list software and starter kits. Approvers clear the path. Consumers acquire what they need for a project.
+      With that much supply, the journey gets noisy — and after migration, product could not see <b>where people dropped</b>.
     </p>
-
-    <div class="story" id="story">
-      <div class="story-nav" role="tablist">
-        <button type="button" class="story-tab on" data-s="0" role="tab" aria-selected="true">Replays</button>
-        <button type="button" class="story-tab" data-s="1" role="tab" aria-selected="false">Funnels</button>
-        <button type="button" class="story-tab" data-s="2" role="tab" aria-selected="false">Publishers</button>
+    <div class="fabric-flow" aria-label="Fabric roles">
+      <div class="ff-step">
+        <div class="ff-ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><rect x="4" y="15" width="16" height="6" rx="1"/></svg></div>
+        <div class="ff-t">Publishers</div>
+        <div class="ff-d">Upload items to the shared catalog</div>
       </div>
-      <div class="story-stage">
-        <div class="story-panel on" data-p="0">
-          <div class="sp-ui">
-            <div class="rpl">
-              <div class="rpl-top"><span class="rpl-rec"></span> REPLAY · visitor_B · configure <span class="rpl-t" id="rplT">00:00</span></div>
-              <div class="rpl-body">
-                <div class="rpl-ui" style="width:42%"></div>
-                <div class="rpl-ui" style="width:64%"></div>
-                <div class="rpl-ui" id="rplStuck"></div>
-                <div class="rpl-dot" id="rplDot"></div>
-              </div>
-              <div class="rpl-tl"><i id="rplPh"></i><b style="left:22%"></b><b class="bad" style="left:68%"></b></div>
-            </div>
-          </div>
-          <div class="sp-copy">
-            <p class="sp-k pink">Session Replay</p>
-            <h3>Replays showed the cliff</h3>
-            <p>On configure and billing people paused, retried fields, then left. Same pattern across sessions.</p>
-          </div>
-        </div>
-        <div class="story-panel" data-p="1">
-          <div class="sp-ui">
-            <div class="fnl">
-              <div class="fnl-h">Acquisition funnel · post-migration</div>
-              <div class="fnl-bars">
-                <div class="fnl-col"><i data-h="100"></i><span>Home</span></div>
-                <div class="fnl-col"><i data-h="86"></i><span>Catalog</span></div>
-                <div class="fnl-col"><i data-h="70"></i><span>Item</span></div>
-                <div class="fnl-col drop"><i data-h="34"></i><span>Configure</span></div>
-                <div class="fnl-col"><i data-h="26"></i><span>Submit</span></div>
-              </div>
-              <div class="fnl-note">↓ drop at configure</div>
-            </div>
-          </div>
-          <div class="sp-copy">
-            <p class="sp-k violet">Funnels</p>
-            <h3>Funnels confirmed it</h3>
-            <p>After migration the drop sat on the same two steps. Traffic held; completion did not.</p>
-          </div>
-        </div>
-        <div class="story-panel" data-p="2">
-          <div class="sp-ui">
-            <div class="pub">
-              <div class="pub-row">
-                <div class="pub-item thin">
-                  <div class="pub-ic"></div>
-                  <div class="pub-lines"><b style="width:70%"></b><b style="width:40%"></b></div>
-                  <div class="pub-score low">42</div>
-                </div>
-                <div class="pub-arrow">→</div>
-                <div class="pub-item rich">
-                  <div class="pub-ic ok"></div>
-                  <div class="pub-lines"><b style="width:90%"></b><b style="width:75%"></b><b style="width:55%"></b></div>
-                  <div class="pub-score high">91</div>
-                </div>
-              </div>
-              <div class="pub-meter"><i id="pubFill"></i></div>
-              <div class="pub-cap">~50% quality ↑ after findings</div>
-            </div>
-          </div>
-          <div class="sp-copy">
-            <p class="sp-k green">Publishers</p>
-            <h3>Publishers were part of it</h3>
-            <p>Thin catalog items made the UI harder to trust. After findings landed, item quality moved about ~50%.</p>
-          </div>
-        </div>
+      <div class="ff-arrow" aria-hidden="true">→</div>
+      <div class="ff-step">
+        <div class="ff-ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div class="ff-t">Approvers</div>
+        <div class="ff-d">Validate what enters the workspace path</div>
+      </div>
+      <div class="ff-arrow" aria-hidden="true">→</div>
+      <div class="ff-step">
+        <div class="ff-ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6h12v12H6z"/><path d="M9 12h6"/></svg></div>
+        <div class="ff-t">Consumers</div>
+        <div class="ff-d">Find, configure, and acquire items</div>
       </div>
     </div>
+    <p class="lead" style="margin-top:18px;max-width:38rem">
+      <b>300+ items</b> without a closed loop on behavior means the cliff stays invisible — that is the problem this case owns.
+    </p>
   </section>
 
   <!-- PRODUCT INTELLIGENCE -->
@@ -1300,7 +1354,7 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
       </div>
     </div>
     </div><!-- pi-visual -->
-    <p class="note" style="grid-column:1/-1">Anonymized Fabric catalog & workbench — skill-modal stage pattern.</p>
+    <p class="note">Anonymized Fabric catalog &amp; workbench — skill-modal stage pattern.</p>
     </div><!-- pi-split -->
   </section>
 
