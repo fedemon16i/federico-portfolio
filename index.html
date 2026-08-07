@@ -1500,9 +1500,9 @@ html[data-theme="light"] .top-nav{ background:#f7f5f2; }
 :root{
   --max: 920px;
   --pad: clamp(16px, 3vw, 28px);
-  --modal-max: min(680px, 92vw);
+  --modal-max: min(920px, 96vw);
   --nav-h: 64px;
-  --stage-max: min(560px, 100%);
+  --stage-max: min(780px, 100%);
 }
 html{ scrollbar-width: none; -ms-overflow-style: none; }
 html::-webkit-scrollbar, body::-webkit-scrollbar{ width:0; height:0; display:none; }
@@ -1653,6 +1653,152 @@ html[data-theme="light"]{
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border-soft));
 }
 
+
+/* === VIEWPORT-SAFE STAGES + NAV BRIDGE + HOME BIO === */
+:root{
+  --max: 920px;
+  --pad: clamp(16px, 3vw, 28px);
+  /* Wide monitors, short height: prefer height budget over width lock */
+  --modal-max: min(920px, 96vw);
+  --stage-max: min(780px, 100%);
+  --stage-h: min(520px, calc(100vh - 220px));
+  --nav-h: 64px;
+}
+
+/* Skill / case stages: never clip the prototype frame */
+.modal-panel, .modal-inner, .skill-modal-panel{
+  max-width: min(960px, 96vw) !important;
+  width: 100% !important;
+}
+.modal-stage, .sm-stage, .skill-stage, #stage, #demoStage, .stage, .pi-visual .stage{
+  max-width: var(--stage-max) !important;
+  width: 100% !important;
+  height: var(--stage-h) !important;
+  min-height: 280px !important;
+  max-height: calc(100vh - 180px) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+/* Inner window fills stage without page scroll */
+#win, .stage-window, #demoStage .device-wrap, #demoStage .phone-frame{
+  max-height: 100% !important;
+  box-sizing: border-box !important;
+}
+@media (max-height: 720px){
+  :root{ --stage-h: min(420px, calc(100vh - 160px)); }
+  .modal-panel{ padding-top: 16px !important; padding-bottom: 16px !important; }
+}
+@media (max-height: 600px){
+  :root{ --stage-h: min(340px, calc(100vh - 120px)); }
+}
+
+/* Projects dropdown — larger hit / bridge so it does not close early */
+.top-nav-dropdown{ position: relative; padding-bottom: 12px; margin-bottom: -12px; }
+.top-nav-drop-menu{
+  top: calc(100% - 4px) !important;
+  padding-top: 16px !important; /* invisible bridge */
+  min-width: 220px !important;
+}
+.top-nav-drop-menu::before{
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  left: 0; right: 0; top: -14px;
+  height: 18px !important;
+  background: transparent !important;
+}
+
+/* HOME bio: no dead gap under nav; compact actions */
+body.page-home .home{
+  padding-top: 0 !important;
+  min-height: calc(100vh - var(--nav-h));
+}
+body.page-home .bio{
+  position: sticky !important;
+  top: var(--nav-h) !important;
+  height: calc(100vh - var(--nav-h)) !important;
+  max-height: calc(100vh - var(--nav-h)) !important;
+  overflow-y: auto !important; /* allow tiny scroll inside bio if needed, not empty gap */
+  padding-top: 20px !important;
+  scrollbar-width: none;
+}
+body.page-home .bio::-webkit-scrollbar{ display:none; }
+body.page-home .bio-actions{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+body.page-home .bio-actions .ba{
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 8px 12px !important;
+  font-size: 12px !important;
+  border-radius: 999px !important;
+  justify-content: center !important;
+}
+body.page-home .bio-actions .ba span:last-child{ display:none; } /* hide arrows for compact */
+body.page-home .bio-actions .ba.primary{
+  flex: 1 1 100%;
+}
+@media (max-width: 900px){
+  body.page-home .bio{
+    position: relative !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+}
+
+/* EY PI: copy left, stage right — stage must not sit under copy on wide screens */
+@media (min-width: 1024px){
+  .pi-split, .demo-split{
+    display: grid !important;
+    grid-template-columns: minmax(240px, 0.9fr) minmax(320px, 1.2fr) !important;
+    gap: 28px !important;
+    align-items: start !important;
+  }
+  .pi-visual, .demo-visual{
+    position: sticky;
+    top: calc(var(--nav-h) + 12px);
+  }
+  .pi-visual .stage, .demo-visual #demoStage, .demo-visual .stage{
+    height: var(--stage-h) !important;
+    max-height: calc(100vh - 140px) !important;
+  }
+}
+/* On stacked layout, still height-budgeted */
+.pi-split, .demo-split{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Project cards — restore accent identity */
+.pcard[data-case="ey"], .pcard.ey{ --pc: #ffe600; }
+.pcard[data-case="bc"], .pcard.bc, .pcard[data-case="blockchain"]{ --pc: #22d4c8; }
+.pcard[data-case="chek"], .pcard.chek{ --pc: #7a3be0; }
+.pcard{
+  border-color: color-mix(in srgb, var(--pc, var(--accent)) 25%, var(--border, rgba(255,255,255,.1))) !important;
+}
+.pcard:hover{
+  border-color: var(--pc, var(--accent)) !important;
+  box-shadow: 0 20px 44px -18px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--pc, var(--accent)) 40%, transparent) !important;
+}
+.pcard-name, .pcard-name-v, .pcard-top b{
+  color: var(--pc, var(--text)) !important;
+}
+
+/* Blockchains mini canvas quality */
+.bc-mini-gl, .pcard-graphic canvas, .bc-scene canvas{
+  image-rendering: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.pcard-graphic.bc-scene, .bc-scene{
+  min-height: 160px !important;
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 </head>
@@ -1730,11 +1876,11 @@ html[data-theme="light"]{
   <button class="me-more" id="meMoreBtn" aria-expanded="false" aria-controls="meDrawer"><span>+ More photos &amp; story</span></button>
 
 
-  <div class="bio-actions">
-    <a class="ba primary" href="resume.html"><span>Resume / CV</span><span>↗</span></a>
-    <a class="ba" href="#loop-h"><span>How I work</span><span>↓</span></a>
-    <a class="ba" href="#projects"><span>See projects</span><span>↓</span></a>
-    <a class="ba" href="mailto:fedemon16i@gmail.com"><span>Email me</span><span>@</span></a>
+  <div class="bio-actions" role="navigation" aria-label="Quick links">
+    <a class="ba primary" href="resume.html"><span>CV</span></a>
+    <a class="ba" href="mailto:fedemon16i@gmail.com"><span>Email</span></a>
+    <a class="ba" href="#projects"><span>Projects</span></a>
+    <a class="ba" href="#loop-h"><span>How I work</span></a>
   </div>
 
   <div class="bio-tools">

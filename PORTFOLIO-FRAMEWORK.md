@@ -84,3 +84,10 @@ Subtle, under nav: `Home / Projects / Case` — no heavy styling.
 - Hover: translateY + scale + accent border + soft glow
 - `iconWiggle` on icon hover/active for scheme steps, fabric-flow, skill-adjacent UI
 - Tool chips: 36×36, radius 10, tip on tap/hover
+
+
+## Viewport-safe stages (wide + short screens)
+- `--stage-h: min(520px, calc(100vh - 220px))` — height follows the machine, not only width.
+- Skill modals max ~960px; stages max ~780px but always `max-height: calc(100vh - 180px)`.
+- Prefer scaling the stage surface over forcing horizontal scroll or clipped UI.
+- Projects dropdown uses a 16px hover bridge so the menu does not close early.
