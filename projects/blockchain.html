@@ -13,7 +13,7 @@
   --stage-bg:#201e1b;--stage-grid:rgba(255,255,255,.045);
   --font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;
   --spring:cubic-bezier(.34,1.32,.64,1);--ease:cubic-bezier(.65,0,.35,1);
-  --ok:#3dd68c;--pad:clamp(24px,4vw,48px);--max:1440px;
+  --ok:#3dd68c;--pad:clamp(24px,4vw,48px);--max:1100px;
   /* Fluid type — min accessible, max director-grade */
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
   --text-sm: clamp(0.875rem, 0.82rem + 0.3vw, 0.9375rem);
@@ -24,13 +24,14 @@
   --text-3xl: clamp(2rem, 1.6rem + 2vw, 3rem);
   --label-size: clamp(0.75rem, 0.7rem + 0.35vw, 0.8125rem);
   --label-track: 0.16em;
-  --space-section: clamp(4.5rem, 6vw, 7.5rem);
+  --space-section: clamp(3.5rem, 5vw, 5.5rem);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{overflow-x:hidden}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:var(--text-lg);line-height:1.65}
 a{color:var(--accent)}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.wrap{max-width:min(var(--max),100%);margin:0 auto;padding:0 var(--pad);width:100%}
 .sec{padding:var(--space-section) 0;border-bottom:1px solid var(--border)}
 .sec:last-child{border-bottom:none}
 .eyebrow{
@@ -50,7 +51,7 @@ h2,.h2{font-family:var(--font-display);font-weight:800;font-size:var(--text-2xl)
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;
   background:var(--bg);border-bottom:1px solid var(--border);
   isolation:isolate;transform:translateZ(0)}
-.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1440px;margin-inline:auto;padding-inline:24px;gap:12px}
+.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
 .top-nav-links{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
 .top-nav-link{
@@ -226,8 +227,9 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 /* Hero 3D buildings background */
 
 /* Fabric-like hero shell */
-.hero-shell{position:relative;min-height:clamp(320px, 52vh, 480px);display:flex;align-items:flex-end;padding:72px 0 40px;overflow:hidden}
-.hero-shell .hero-3d{position:absolute;inset:0;z-index:0}
+.hero-shell{position:relative;min-height:clamp(300px,42vh,420px);max-height:520px;display:flex;align-items:flex-end;padding:64px 0 36px;overflow:hidden}
+.hero-shell .hero-3d{position:absolute;inset:0;z-index:0;overflow:hidden}
+#glHero{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 .hero-shell .hero-3d canvas{opacity:.42}
 .hero-shell .hero-fade{
   position:absolute;inset:0;z-index:1;
@@ -316,8 +318,9 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 .figma-tools-col span.on{background:#0d99ff;color:#fff}
 .figma-layout{display:grid;grid-template-columns:44px 1fr;height:320px}
 
-.hero-sec{position:relative;overflow:hidden;padding-top:120px;padding-bottom:100px;min-height:min(88vh,720px);display:flex;flex-direction:column;justify-content:flex-end}
-.hero-3d{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-sec{position:relative;overflow:hidden;padding-top:64px;padding-bottom:56px;min-height:auto;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-3d{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#glHero{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 .hero-3d canvas{width:100%!important;height:100%!important;display:block;opacity:.55}
 .hero-fade{
   position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -734,7 +737,7 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
   /* keep phone centered; leave left gutter for dock on desktop */
 }
 @media(min-width:641px){
-  .device-layer{padding-left:min(140px,26%)}
+  .device-layer{padding-left:min(120px,18%)}
 }
 
 
@@ -1349,7 +1352,7 @@ html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
 .top-nav-inner{
   display:flex;align-items:center;justify-content:space-between;height:100%;
-  max-width:1440px;margin-inline:auto;padding-inline:24px;gap:12px;
+  max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px;
 }
 .top-nav-logo{
   font-family:var(--font-display);font-weight:800;font-size:18px;
@@ -1392,7 +1395,7 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.05)}
   isolation:isolate;transform:translateZ(0)}
 html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
-.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1440px;margin-inline:auto;padding-inline:24px;gap:8px}
+.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:8px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;margin-right:auto}
 .top-nav-logo span{color:var(--accent)}
 .top-nav-links{display:flex;align-items:center;gap:8px}
@@ -2640,39 +2643,284 @@ html[data-theme="light"] .tag{color:var(--muted)}
 
 .foot{padding:48px 0;text-align:center;font-family:var(--font-mono);font-size:11px;color:var(--dim)}
 .foot a{margin:0 10px}
+
+/* === Layout lock: hero + phone proportions (do not deform) === */
+#hero .hero-shell{
+  min-height: clamp(280px, 38vh, 400px) !important;
+  max-height: 440px !important;
+  padding: 56px 0 32px !important;
+}
+#glHero{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+/* Phone: always iPhone aspect; size by width only */
+#demoStage .iphone,
+.iphone.on,
+.iphone{
+  aspect-ratio: 9 / 19.5 !important;
+  width: min(220px, 72vw) !important;
+  height: auto !important;
+  max-height: none !important;
+  max-width: 220px !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+}
+@media (min-width: 900px){
+  /* On desktop, mobile prototype stays mobile-sized — does not stretch to stage */
+  body[data-view="mobile"] #demoStage .iphone,
+  #demoStage[data-view="mobile"] .iphone,
+  .tabs-mode + * .iphone,
+  #demoStage .iphone{
+    width: 220px !important;
+    max-width: 220px !important;
+    height: auto !important;
+    aspect-ratio: 9 / 19.5 !important;
+  }
+  /* Web uses #desk — never stretch #phone into landscape */
+  body[data-view="web"] #demoStage .iphone,
+  #demoStage[data-view="web"] .iphone{
+    display: none !important;
+  }
+  body[data-view="mobile"] #demoStage .desk,
+  #demoStage[data-view="mobile"] .desk{
+    display: none !important;
+  }
+}
+#demoStage .desk,
+#desk{
+  aspect-ratio: 16 / 10 !important;
+  width: min(520px, 92%) !important;
+  max-width: 560px !important;
+  height: auto !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+@media (max-width: 899px){
+  /* On small screens web desk still capped — does not fill viewport width badly */
+  #demoStage .desk,
+  #desk{
+    width: min(100%, 420px) !important;
+  }
+}
+
+@media (max-width: 899px){
+  /* Mobile viewport: only phone proportions */
+  #demoStage .iphone,
+  .iphone{
+    width: min(200px, 68vw) !important;
+    max-width: 200px !important;
+    aspect-ratio: 9 / 19.5 !important;
+    height: auto !important;
+    border-radius: 36px !important;
+  }
+}
+#demoStage .device-layer{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+  inset: 48px 16px 16px !important;
+  left: 16px !important;
+  right: 16px !important;
+}
+@media (min-width: 900px){
+  #demoStage .device-layer{
+    inset: 52px 24px 20px !important;
+    left: 24px !important;
+    right: 24px !important;
+  }
+}
+
+
+/* === Mobile-only demo (web mode removed) === */
+.tabs-mode{display:none!important}
+#desk,.desk,#demoStage .desk{display:none!important}
+#phone.iphone,#demoStage #phone,#demoStage .iphone,.iphone{
+  display:flex!important;
+  aspect-ratio:9/19.5!important;
+  width:min(220px,72vw)!important;
+  max-width:220px!important;
+  height:auto!important;
+  margin:0 auto;
+}
+
+
+/* === Visibility restore after fixes === */
+#phone, #demoStage #phone, #demoStage .iphone.on, #demoStage .iphone {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+#desk, .desk { display: none !important; }
+.tabs-mode { display: none !important; }
+
+/* === UNIFIED LAYOUT (home parity) === */
+:root{
+  --nav-h: 64px;
+  --max: 1100px;
+  --pad: clamp(20px, 4vw, 40px);
+  --space-section: clamp(3.5rem, 5vw, 5.5rem);
+}
+body{
+  padding-top: var(--nav-h) !important;
+  overflow-x: hidden;
+}
+.wrap, .top-nav-inner{
+  max-width: var(--max) !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+  width: 100%;
+  box-sizing: border-box;
+}
+/* Section rhythm */
+.sec, .project-section, section.sec{
+  padding-top: var(--space-section) !important;
+  padding-bottom: var(--space-section) !important;
+  margin-bottom: 0 !important;
+}
+/* Hero: same gap under nav */
+#hero, .hero, .hero-shell, .hero-sec, header.hero{
+  padding-top: 28px !important;
+}
+.hero-shell{
+  min-height: auto !important;
+  max-height: none !important;
+  padding-bottom: 28px !important;
+}
+/* No empty end scroll */
+html, body{ min-height: 0; }
+body{ min-height: auto !important; }
+.page, main, .main{
+  padding-bottom: 48px !important;
+  min-height: auto !important;
+}
+footer, .nav-case, .case-nav, .foot{
+  margin-bottom: 0 !important;
+  padding-bottom: 32px !important;
+}
+/* Breadcrumbs */
+.bc-crumbs{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 12px var(--pad) 0;
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: var(--dim, #6e6a63);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.bc-crumbs a{ color: var(--muted, #a6a29a); text-decoration: none; }
+.bc-crumbs a:hover{ color: var(--text, #f2f0ec); }
+.bc-crumbs .sep{ opacity: .45; }
+.bc-crumbs .here{ color: var(--text, #f2f0ec); }
+
+
+/* === HOME NAV (shared) === */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:var(--bg,#0e0d0c);border-bottom:1px solid var(--border,rgba(255,255,255,.1));isolation:isolate}
+html[data-theme="light"] .top-nav{background:#f7f5f2}
+.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1100px;margin:0 auto;padding:0 clamp(20px,4vw,40px);gap:12px;width:100%;box-sizing:border-box}
+.top-nav-logo{font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--text,#f2f0ec);text-decoration:none;margin-right:auto}
+.top-nav-logo span{color:var(--nav-accent, var(--accent,#d97757))}
+.top-nav-links{display:flex;align-items:center;gap:8px}
+.top-nav-link,.top-nav-drop-toggle{
+  font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted,#a6a29a);padding:8px 12px;border-radius:6px;text-decoration:none;
+  background:none;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px;
+  transition:color .2s,background .2s
+}
+.top-nav-link:hover,.top-nav-link.active,.top-nav-drop-toggle:hover,.top-nav-drop-toggle[aria-expanded="true"]{
+  color:var(--text,#f2f0ec);background:var(--bg-raised,#1c1b19)
+}
+.top-nav-dropdown{position:relative}
+.top-nav-drop-menu{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);
+  min-width:200px;padding:8px;border-radius:12px;border:1px solid var(--border,rgba(255,255,255,.12));
+  background:var(--bg-surface,#171614);box-shadow:0 16px 40px rgba(0,0,0,.35);
+  opacity:0;pointer-events:none;visibility:hidden;transition:opacity .2s,transform .2s;z-index:10001
+}
+.top-nav-dropdown:hover .top-nav-drop-menu,
+.top-nav-dropdown:focus-within .top-nav-drop-menu,
+.top-nav-drop-toggle[aria-expanded="true"] + .top-nav-drop-menu{
+  opacity:1;pointer-events:auto;visibility:visible;transform:translateX(-50%) translateY(0)
+}
+.top-nav-drop-menu a{
+  display:block;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:600;
+  color:var(--muted,#a6a29a);text-decoration:none
+}
+.top-nav-drop-menu a:hover{background:var(--bg-raised,#1c1b19);color:var(--text,#f2f0ec)}
+.top-nav-drop-menu a.is-current{color:var(--nav-accent, var(--accent))}
+.top-nav-theme{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border,rgba(255,255,255,.12));
+  background:var(--bg-surface,#171614);color:var(--muted,#a6a29a);display:grid;place-items:center;cursor:pointer;flex-shrink:0
+}
+.top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:8px;cursor:pointer}
+.top-nav-hamburger span{display:block;width:20px;height:2px;background:var(--text,#f2f0ec)}
+.top-nav-mobile{
+  display:none;position:fixed;inset:0;z-index:10000;background:var(--bg,#0e0d0c);padding:72px 24px 24px;overflow:auto
+}
+.top-nav-mobile.on{display:block}
+.top-nav-mobile a{display:block;padding:14px 0;border-bottom:1px solid var(--border,rgba(255,255,255,.1));font-weight:700;font-size:1.1rem;color:var(--text,#f2f0ec);text-decoration:none}
+.top-nav-mobile .mob-sub{font-size:.95rem;font-weight:600;color:var(--muted,#a6a29a);padding-left:12px}
+@media(max-width:900px){
+  .top-nav-links{display:none}
+  .top-nav-hamburger{display:flex}
+}
+
 </style>
 </head>
 <body>
-<nav class="top-nav" id="topNav" aria-label="Primary">
+<nav class="top-nav" id="topNav" style="--nav-accent:#22d4c8">
   <div class="top-nav-inner">
-    <a href="index.html" class="top-nav-logo">FM<span>.</span></a>
+    <a href="../index.html" class="top-nav-logo">FM<span>.</span></a>
     <div class="top-nav-links">
-      <a href="index.html" class="top-nav-link">Home</a>
-      <a href="#demo" class="top-nav-link">Demo</a>
-      <a href="#process" class="top-nav-link">Process</a>
-      <a href="#design-system" class="top-nav-link">System</a>
-      <a href="ey-fabric.html" class="top-nav-link">EY Fabric</a>
+      <a href="../index.html" class="top-nav-link">Home</a>
+      <div class="top-nav-dropdown">
+        <button type="button" id="topNavDropToggle" class="top-nav-drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="topNavDropMenu">
+          Projects
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu" aria-label="Projects menu">
+          <a href="../projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="../projects/ey-fabric.html" role="menuitem">EY Fabric</a><a href="../projects/blockchain.html" role="menuitem" class="is-current">Blockchain 3D</a><a href="../projects/chek.html" role="menuitem">Chek</a><a href="../projects/dollarcity.html" role="menuitem">DollarCity</a><a href="../projects/customs.html" role="menuitem">Customs ES</a><a href="../projects/forecast.html" role="menuitem">Forecast</a>
+        </div>
+      </div>
+      <a href="../resume.html" class="top-nav-link">Resume</a>
+      <a href="../about.html" class="top-nav-link">About</a>
+      <a href="../contact.html" class="top-nav-link">Contact</a>
+      <a href="../design-system.html" class="top-nav-link">Design System</a>
     </div>
-    <button class="top-nav-theme" id="themeToggle" type="button" aria-label="Switch color mode">
-      <svg id="themeIconMoon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg id="themeIconSun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    <button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
-    <button class="top-nav-hamburger" id="topNavHamburger" type="button" aria-expanded="false" aria-controls="topNavMobile" aria-label="Open menu">
+    <button class="top-nav-hamburger" id="topNavHamburger" type="button" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
-<div id="topNavMobile" class="top-nav-mobile" aria-hidden="true" hidden>
-  <div class="top-nav-mobile-inner">
-    <button type="button" id="topNavMobileClose" class="top-nav-mobile-close" aria-label="Close">Close</button>
-    <a href="index.html" class="top-nav-mobile-link">Home</a>
-    <a href="#problem" class="top-nav-mobile-link">Problem</a>
-    <a href="#demo" class="top-nav-mobile-link">Demo</a>
-    <a href="#process" class="top-nav-mobile-link">Process</a>
-    <a href="#design-system" class="top-nav-mobile-link">Design System</a>
-    <a href="ey-fabric.html" class="top-nav-mobile-link">EY Fabric</a>
-    <a href="chek.html" class="top-nav-mobile-link">Chek</a>
-  </div>
+<div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
+  <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;font-size:1rem;cursor:pointer">Close</button>
+  <a href="../index.html">Home</a>
+  <a href="../projects.html">All Projects</a>
+  <a class="mob-sub" href="../projects/ey-fabric.html">EY Fabric</a>
+  <a class="mob-sub" href="../projects/blockchain.html">Blockchain 3D</a>
+  <a class="mob-sub" href="../projects/chek.html">Chek</a>
+  <a class="mob-sub" href="../projects/dollarcity.html">DollarCity</a>
+  <a class="mob-sub" href="../projects/customs.html">Customs ES</a>
+  <a class="mob-sub" href="../projects/forecast.html">Forecast</a>
+  <a href="../resume.html">Resume</a>
+  <a href="../about.html">About</a>
+  <a href="../contact.html">Contact</a>
+  <a href="../design-system.html">Design System</a>
+</div>
+
+<nav class="bc-crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="sep" aria-hidden="true">/</span><a href="../projects.html">Projects</a><span class="sep" aria-hidden="true">/</span><span class="here">Blockchains</span></nav>
+
 </div>
 
 <!-- HERO (Fabric-like) -->
@@ -2774,11 +3022,7 @@ html[data-theme="light"] .tag{color:var(--muted)}
   <div class="wrap">
     <p class="eyebrow"><span class="eyebrow-num">03</span> Demo</p>
     <h2>The flow — owner to visitor</h2>
-    <p class="lede" style="margin-bottom:16px">Text first, then the device. Sheet covers the tab bar while editing. Mobile TAP · Web cursor.</p>
-    <div class="tabs-mode">
-      <button type="button" class="on" data-v="mobile">Mobile</button>
-      <button type="button" data-v="web">Web</button>
-    </div>
+    <p class="lede" style="margin-bottom:16px">Text first, then the device. Sheet covers the tab bar while editing — TAP interactions on mobile.</p>
     <div class="chip-flow" id="flow">
       <button type="button" class="on" data-b="0"><span class="n">01</span>Onboard</button>
       <span class="sep">→</span>
@@ -3343,15 +3587,20 @@ var BEATS=[
     ]}
 ];
 
-var mode='mobile', bi=0, playing=true, timers=[], typing=null; /* autoplay on */
+var mode='mobile';
+var bi=0, playing=true, timers=[], typing=null; /* autoplay on */
 function clearAll(){ timers.forEach(clearTimeout); timers=[]; if(typing) clearInterval(typing); }
 
 document.querySelectorAll('.tabs-mode button').forEach(function(t){
   t.onclick=function(){
     document.querySelectorAll('.tabs-mode button').forEach(function(x){x.classList.remove('on')});
-    t.classList.add('on'); mode=t.dataset.v;
-    document.getElementById('phone').classList.toggle('on',mode==='mobile');
-    document.getElementById('desk').classList.toggle('on',mode==='web');
+    t.classList.add('on'); mode='mobile';
+    var stage=document.getElementById('demoStage');
+    if(stage) stage.setAttribute('data-view', mode);
+    document.body.setAttribute('data-view', mode);
+    var ph=document.getElementById('phone'), dk=document.getElementById('desk');
+    if(ph) ph.classList.toggle('on',mode==='mobile');
+    if(dk) dk.classList.toggle('on',mode==='web');
     runBeat(bi,true);
   };
 });
@@ -3732,6 +3981,50 @@ document.getElementById('btnPause').onclick=function(){ playing=!playing; this.t
   if(mob) mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
 })();
 
+
+(function bootMobileOnly(){
+  try{
+    var stage=document.getElementById('demoStage');
+    if(stage) stage.setAttribute('data-view','mobile');
+    document.body.setAttribute('data-view','mobile');
+    var ph=document.getElementById('phone');
+    if(ph) ph.classList.add('on');
+    var dk=document.getElementById('desk');
+    if(dk){ dk.classList.remove('on'); dk.style.display='none'; }
+  }catch(e){}
+})();
+
 </script>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var btn=document.getElementById('themeToggle');
+  function apply(t){ root.setAttribute('data-theme',t); try{localStorage.setItem('theme',t)}catch(e){} }
+  var s=null; try{s=localStorage.getItem('theme')}catch(e){}
+  apply(s==='light'?'light':'dark');
+  if(btn) btn.addEventListener('click',function(){ apply(root.getAttribute('data-theme')==='dark'?'light':'dark'); });
+  var drop=document.getElementById('topNavDropToggle');
+  if(drop){
+    drop.addEventListener('click',function(e){
+      e.stopPropagation();
+      var open=drop.getAttribute('aria-expanded')==='true';
+      drop.setAttribute('aria-expanded', open?'false':'true');
+    });
+    document.addEventListener('click',function(e){
+      if(drop.parentElement && !drop.parentElement.contains(e.target))
+        drop.setAttribute('aria-expanded','false');
+    });
+  }
+  var ham=document.getElementById('topNavHamburger');
+  var mob=document.getElementById('topNavMobile');
+  var close=document.getElementById('topNavMobileClose');
+  function openM(){ if(!mob) return; mob.classList.add('on'); mob.setAttribute('aria-hidden','false'); }
+  function closeM(){ if(!mob) return; mob.classList.remove('on'); mob.setAttribute('aria-hidden','true'); }
+  if(ham) ham.addEventListener('click',openM);
+  if(close) close.addEventListener('click',closeM);
+})();
+</script>
+
 </body>
 </html>
