@@ -1,0 +1,61 @@
+Federico Monroy
+Senior UX / Product Designer | Behavioral Analytics | Product Research
+Cordoba, Argentina | Remote | fedemon16i@gmail.com
+Portfolio: https://fedemon16i.github.io/federico-portfolio/
+GitHub: https://github.com/fedemon16i
+
+SUMMARY
+Product designer and UX strategist with 5+ years shipping user-centered products across enterprise, fintech, retail, and government. Owns the full loop: research, behavioral analytics (Pendo), design interventions based on measured outcomes, and re-measurement after ship. Collaborates tightly with product and engineering. Open to remote and LATAM contractor roles.
+
+CORE SKILLS
+Behavioral analytics, Pendo instrumentation, UX research, usability testing, product strategy, design systems, Figma, journey mapping, funnel analysis, 3D/spatial UX (Spline, Unity, Three.js), stakeholder alignment, design leadership.
+
+AI / BUILDER STACK
+Figma Make, Claude, Claude Code, Replit, Factory.ai, v0, Bolt, GitHub — design and ship interventions from analytics findings, then instrument again.
+
+EXPERIENCE
+
+EMPLOYER: Globant
+Role: Sr. UX / Product Strategist
+October 2023 – Present | Hybrid
+
+Client: Ernst & Young (EY Fabric) — Internal development / services portal
+- Began with end-to-end research on 90+ internal developer assets (Microsoft Dynamics, Copilot, sentiment analysis) and UI audits on key consumption journeys.
+- Became the sole Pendo practitioner on the XDA team: instrumented a 300+ item shared catalog end to end, linking experience signals to product and engineering priorities.
+- Closed the loop in practice: designed interventions from measured findings (drop-offs, adoption gaps), shipped UI with Figma Make, Replit, and Factory.ai, then re-measured impact in Pendo.
+- Operationalized Qualtrics + Pendo for funnels, usage, and feedback at scale on a platform migration.
+
+Client: Blockchains Inc. — 3D immersive map product
+- Started by adapting mobile-first experiences to desktop and pioneering a 2D/3D map feature validated with client-led user testing (Figma + 3D prototyping).
+- Expanded into immersive product design: place POIs in a live 3D city, publish media, and support an owner-to-visitor loop (Figma, Spline, Unity, Three.js).
+
+EMPLOYER: Applaudo Studios
+Role: Product Designer (external consultant)
+September 2021 – July 2025 | Remote
+
+DollarCity / Dollarama — Retail surveillance monitoring SaaS
+- Reduced task completion time by ~50% for telemarketer workflows through contextual inquiry and usability testing; defined 3 personas for non-technical users.
+
+Chek (Banco Ripley) — Digital wallet
+- Led a 4-designer team on virtual credit card launch (+15% onboarding); event-tracking funnels; design system across 10+ features.
+
+General Directorate of Customs, El Salvador — Digital transformation
+- Digitized 5 analog processes into an MVP that unlocked ~$500K expansion; managed 5 designers; PrimeNG design system in Figma.
+
+Forecast — Workforce platform
+- Designed workforce modules within an established design system under sprint constraints.
+
+EMPLOYER: Taxsynapse
+Role: Product Designer
+March 2021 – October 2022 | Remote
+- Led design of 3 government SaaS MVPs (Buenos Aires, Jujuy, Misiones); design system reduced iteration ~20%; usability testing for public-sector standards.
+
+EDUCATION
+Bachelor’s Degree, Industrial Design — National University of Cordoba (Argentina), 2020
+
+CERTIFICATIONS
+Interaction Design Foundation — UX Design, Design Thinking, HCI, User Research Methods
+HAZ! Product Design Program | Uxcel UX/UI Foundations | Design Labs Advanced UX
+
+LANGUAGES
+Spanish — Native | English — C2 Proficient
