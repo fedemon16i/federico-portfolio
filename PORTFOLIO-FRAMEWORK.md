@@ -48,3 +48,39 @@ Subtle, under nav: `Home / Projects / Case` — no heavy styling.
 - `index.html`, `projects.html`, `contact.html`, `design-system.html`, `resume.html`
 - `projects/ey-fabric.html`, `projects/blockchain.html`, `projects/chek.html`
 - This doc: `PORTFOLIO-FRAMEWORK.md`
+
+
+## Atomic components (site-wide)
+
+### Tool chips (`tool-chip ico-only`)
+- Source of truth: EY Fabric hero stack + Blockchains hero (same pattern).
+- Logo-only square chip + tooltip on tap/hover (`chip-tip`).
+- Caption: `.stack-cap` — “Stack used · tap a logo”.
+
+### Role / flow schematic (`.fabric-flow`)
+- Used for EY problem: Publishers → Approvers → Consumers.
+- Prefer schematic over tabbed “AI card” story panels for context sections.
+
+### Narrative player split (web ≥1024)
+- Left: eyebrow, title, lede, step chips, play controls.
+- Right: **stage only** (animation surface).
+
+### Job / concept icons (`.scheme-steps`)
+- Icon cascade on scroll into view (IntersectionObserver), faster stagger (~120ms).
+
+### About bio (home)
+- `.bio` sticky under nav, **no internal scroll** on desktop.
+- ≤900px: stacks to mobile (relative, full width).
+- **No breadcrumbs on home.**
+
+### Removed from case pages
+- Blockchains no longer embeds a Design System section — use `/design-system.html`.
+
+
+## Motion tokens (Home skills → entire site)
+- `--spring: cubic-bezier(.34, 1.32, .64, 1)`
+- `--ease: cubic-bezier(.22, 1, .36, 1)`
+- Icon stroke uses `--accent` (per-page accent)
+- Hover: translateY + scale + accent border + soft glow
+- `iconWiggle` on icon hover/active for scheme steps, fabric-flow, skill-adjacent UI
+- Tool chips: 36×36, radius 10, tip on tap/hover

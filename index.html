@@ -1542,10 +1542,121 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 }
 #stage, .pi-visual .stage{ max-width: var(--stage-max) !important; margin-left:auto; margin-right:auto; }
 
+
+/* Bio about panel — fixed, no internal scroll */
+.bio{
+  position: sticky !important;
+  top: 64px !important;
+  height: calc(100vh - 64px) !important;
+  max-height: calc(100vh - 64px) !important;
+  overflow: hidden !important;
+  overflow-y: hidden !important;
+}
+@media (max-width: 900px){
+  .home{ grid-template-columns: 1fr !important; }
+  .bio{
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border-right: none !important;
+  }
+}
+
+body.page-home .bc-crumbs{ display:none !important; height:0 !important; padding:0 !important; margin:0 !important; overflow:hidden !important; }
+body.page-home .home{ padding-top: 0 !important; }
+
+/* === ATOMIC MOTION + SURFACE (aligned with home skills) === */
+:root{
+  --spring: cubic-bezier(.34, 1.32, .64, 1);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --surface: var(--bg-surface, #171614);
+  --border-soft: var(--border, rgba(255,255,255,.1));
+}
+html[data-theme="light"]{
+  --surface: #fff;
+  --border-soft: rgba(0,0,0,.08);
+}
+/* Shared card surface */
+.gcard, .pcard, .ff-step, .sch-step, .job-card, .sk, .story-tab, .tl,
+.tool-chip.ico-only, .ctl, .tag{
+  transition: transform 380ms var(--spring), border-color 220ms var(--ease), box-shadow 380ms var(--ease), background 220ms ease;
+}
+.pcard, .ff-step, .job-card{
+  border-radius: 18px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+.pcard:hover, .ff-step:hover, .job-card:hover{
+  border-color: var(--accent);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 44px -18px rgba(0,0,0,.45), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+/* Scheme / job icons — stroke like skill icons */
+.sch-step .ic svg, .ff-ic svg, .scheme-steps .ic svg{
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 420ms var(--spring), stroke 220ms ease;
+}
+.sch-step:hover .ic svg, .sch-step.in .ic svg, .sch-step.on .ic svg{
+  transform: scale(1.08);
+  animation: iconWiggle 380ms var(--ease) both;
+}
+.ff-step:hover .ff-ic svg{
+  transform: scale(1.08);
+  animation: iconWiggle 380ms var(--ease) both;
+}
+@keyframes iconWiggle{
+  0%{ transform: scale(1) rotate(0); }
+  30%{ transform: scale(1.12) rotate(-6deg); }
+  60%{ transform: scale(1.06) rotate(4deg); }
+  100%{ transform: scale(1.08) rotate(0); }
+}
+/* Tool chips — skill-adjacent */
+.tool-chip.ico-only{
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+.tool-chip.ico-only:hover, .tool-chip.tip-on{
+  border-color: var(--accent);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+/* Timeline chips / story tabs */
+.tl, .story-tab, .ctl{
+  border-radius: 100px;
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  color: var(--muted, #a6a29a);
+}
+.tl:hover, .story-tab:hover, .ctl:hover,
+.tl.on, .story-tab.on, .ctl.is-playing{
+  border-color: var(--accent);
+  color: var(--text, #f2f0ec);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+/* Project cards on listings */
+.pcard:hover{ transform: translateY(-5px); }
+/* Stage frame */
+#stage, #demoStage, .stage{
+  border-radius: 16px;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 24px 48px -24px rgba(0,0,0,.5);
+}
+/* Soft glow accent for active narrative steps */
+.sch-step.in, .sch-step.on{
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border-soft));
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 </head>
-<body>
+<body class="page-home">
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <nav class="top-nav" id="topNav" style="--nav-accent:#d97757">
@@ -1588,9 +1699,6 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
   <a href="contact.html">Contact</a>
   <a href="design-system.html">Design System</a>
 </div>
-
-<nav class="bc-crumbs" aria-label="Breadcrumb"><span class="here">Home</span></nav>
-
 
 </div>
 
