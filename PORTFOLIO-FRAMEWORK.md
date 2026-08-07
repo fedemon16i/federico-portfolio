@@ -91,3 +91,28 @@ Subtle, under nav: `Home / Projects / Case` — no heavy styling.
 - Skill modals max ~960px; stages max ~780px but always `max-height: calc(100vh - 180px)`.
 - Prefer scaling the stage surface over forcing horizontal scroll or clipped UI.
 - Projects dropdown uses a 16px hover bridge so the menu does not close early.
+
+
+## Viewport & 3D quality
+
+### CSS
+- `--stage-h: min(520px, calc(100vh - 220px))`
+- Stage hosts: `container-type: size`
+- Phone aspect `9 / 19.5`; web frame `16 / 10`
+- Scale to fit with max-width/max-height — **never** change the aspect of a running prototype
+
+### Three.js
+```js
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, simple ? 1.75 : 2));
+renderer.setSize(w, h, false); // false = CSS size separate from buffer
+// on resize: setPixelRatio again, then setSize
+```
+- Mini cards (home project strip): DPR cap **1.75**, antialias **on**
+- Full demo city: DPR cap **2**, shadow map **1024** when not `simple`
+
+### Device policy
+| Surface | Rule |
+|---------|------|
+| Mobile prototype | Always phone chrome + TAP language |
+| Web prototype | Always desktop frame + cursor language |
+| Short + wide OS scale | Reduce `--stage-h`, keep aspect |
