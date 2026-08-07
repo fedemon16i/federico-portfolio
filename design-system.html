@@ -269,23 +269,171 @@ section>.sub{color:var(--muted);margin-bottom:18px;max-width:40rem}
   .state-table th, .state-table td, .a11y-table th, .a11y-table td { white-space: nowrap; }
 }
 
+
+/* === UNIFIED LAYOUT (home parity) === */
+:root{
+  --nav-h: 64px;
+  --max: 1100px;
+  --pad: clamp(20px, 4vw, 40px);
+  --space-section: clamp(3.5rem, 5vw, 5.5rem);
+}
+body{
+  padding-top: var(--nav-h) !important;
+  overflow-x: hidden;
+}
+.wrap, .top-nav-inner{
+  max-width: var(--max) !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+  width: 100%;
+  box-sizing: border-box;
+}
+/* Section rhythm */
+.sec, .project-section, section.sec{
+  padding-top: var(--space-section) !important;
+  padding-bottom: var(--space-section) !important;
+  margin-bottom: 0 !important;
+}
+/* Hero: same gap under nav */
+#hero, .hero, .hero-shell, .hero-sec, header.hero{
+  padding-top: 28px !important;
+}
+.hero-shell{
+  min-height: auto !important;
+  max-height: none !important;
+  padding-bottom: 28px !important;
+}
+/* No empty end scroll */
+html, body{ min-height: 0; }
+body{ min-height: auto !important; }
+.page, main, .main{
+  padding-bottom: 48px !important;
+  min-height: auto !important;
+}
+footer, .nav-case, .case-nav, .foot{
+  margin-bottom: 0 !important;
+  padding-bottom: 32px !important;
+}
+/* Breadcrumbs */
+.bc-crumbs{
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 12px var(--pad) 0;
+  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: var(--dim, #6e6a63);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.bc-crumbs a{ color: var(--muted, #a6a29a); text-decoration: none; }
+.bc-crumbs a:hover{ color: var(--text, #f2f0ec); }
+.bc-crumbs .sep{ opacity: .45; }
+.bc-crumbs .here{ color: var(--text, #f2f0ec); }
+
+
+/* === HOME NAV (shared) === */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:var(--bg,#0e0d0c);border-bottom:1px solid var(--border,rgba(255,255,255,.1));isolation:isolate}
+html[data-theme="light"] .top-nav{background:#f7f5f2}
+.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1100px;margin:0 auto;padding:0 clamp(20px,4vw,40px);gap:12px;width:100%;box-sizing:border-box}
+.top-nav-logo{font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--text,#f2f0ec);text-decoration:none;margin-right:auto}
+.top-nav-logo span{color:var(--nav-accent, var(--accent,#d97757))}
+.top-nav-links{display:flex;align-items:center;gap:8px}
+.top-nav-link,.top-nav-drop-toggle{
+  font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted,#a6a29a);padding:8px 12px;border-radius:6px;text-decoration:none;
+  background:none;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px;
+  transition:color .2s,background .2s
+}
+.top-nav-link:hover,.top-nav-link.active,.top-nav-drop-toggle:hover,.top-nav-drop-toggle[aria-expanded="true"]{
+  color:var(--text,#f2f0ec);background:var(--bg-raised,#1c1b19)
+}
+.top-nav-dropdown{position:relative}
+.top-nav-drop-menu{
+  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);
+  min-width:200px;padding:8px;border-radius:12px;border:1px solid var(--border,rgba(255,255,255,.12));
+  background:var(--bg-surface,#171614);box-shadow:0 16px 40px rgba(0,0,0,.35);
+  opacity:0;pointer-events:none;visibility:hidden;transition:opacity .2s,transform .2s;z-index:10001
+}
+.top-nav-dropdown:hover .top-nav-drop-menu,
+.top-nav-dropdown:focus-within .top-nav-drop-menu,
+.top-nav-drop-toggle[aria-expanded="true"] + .top-nav-drop-menu{
+  opacity:1;pointer-events:auto;visibility:visible;transform:translateX(-50%) translateY(0)
+}
+.top-nav-drop-menu a{
+  display:block;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:600;
+  color:var(--muted,#a6a29a);text-decoration:none
+}
+.top-nav-drop-menu a:hover{background:var(--bg-raised,#1c1b19);color:var(--text,#f2f0ec)}
+.top-nav-drop-menu a.is-current{color:var(--nav-accent, var(--accent))}
+.top-nav-theme{
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border,rgba(255,255,255,.12));
+  background:var(--bg-surface,#171614);color:var(--muted,#a6a29a);display:grid;place-items:center;cursor:pointer;flex-shrink:0
+}
+.top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:8px;cursor:pointer}
+.top-nav-hamburger span{display:block;width:20px;height:2px;background:var(--text,#f2f0ec)}
+.top-nav-mobile{
+  display:none;position:fixed;inset:0;z-index:10000;background:var(--bg,#0e0d0c);padding:72px 24px 24px;overflow:auto
+}
+.top-nav-mobile.on{display:block}
+.top-nav-mobile a{display:block;padding:14px 0;border-bottom:1px solid var(--border,rgba(255,255,255,.1));font-weight:700;font-size:1.1rem;color:var(--text,#f2f0ec);text-decoration:none}
+.top-nav-mobile .mob-sub{font-size:.95rem;font-weight:600;color:var(--muted,#a6a29a);padding-left:12px}
+@media(max-width:900px){
+  .top-nav-links{display:none}
+  .top-nav-hamburger{display:flex}
+}
+
 </style>
 </head>
 <body>
-<nav class="top-nav"><div class="top-nav-inner">
-<a class="top-nav-logo" href="index.html">FM<span>.</span></a>
-<div class="top-nav-links">
-<a class="top-nav-link" href="index.html">Home</a>
-<a class="top-nav-link" href="projects.html">Projects</a>
-<a class="top-nav-link active" href="design-system.html">System</a>
-<a class="top-nav-link" href="contact.html">Contact</a>
+<nav class="top-nav" id="topNav" style="--nav-accent:#d97757">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-logo">FM<span>.</span></a>
+    <div class="top-nav-links">
+      <a href="index.html" class="top-nav-link">Home</a>
+      <div class="top-nav-dropdown">
+        <button type="button" id="topNavDropToggle" class="top-nav-drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="topNavDropMenu">
+          Projects
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu" aria-label="Projects menu">
+          <a href="projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a><a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a><a href="projects/chek.html" role="menuitem">Chek</a><a href="projects/dollarcity.html" role="menuitem">DollarCity</a><a href="projects/customs.html" role="menuitem">Customs ES</a><a href="projects/forecast.html" role="menuitem">Forecast</a>
+        </div>
+      </div>
+      <a href="resume.html" class="top-nav-link">Resume</a>
+      <a href="about.html" class="top-nav-link">About</a>
+      <a href="contact.html" class="top-nav-link">Contact</a>
+      <a href="design-system.html" class="top-nav-link">Design System</a>
+    </div>
+    <button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="top-nav-hamburger" id="topNavHamburger" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
+  <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;font-size:1rem;cursor:pointer">Close</button>
+  <a href="index.html">Home</a>
+  <a href="projects.html">All Projects</a>
+  <a class="mob-sub" href="projects/ey-fabric.html">EY Fabric</a>
+  <a class="mob-sub" href="projects/blockchain.html">Blockchain 3D</a>
+  <a class="mob-sub" href="projects/chek.html">Chek</a>
+  <a class="mob-sub" href="projects/dollarcity.html">DollarCity</a>
+  <a class="mob-sub" href="projects/customs.html">Customs ES</a>
+  <a class="mob-sub" href="projects/forecast.html">Forecast</a>
+  <a href="resume.html">Resume</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="design-system.html">Design System</a>
 </div>
-<button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
-<button class="top-nav-hamburger" id="ham" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
-</div></nav>
-<div class="mobile" id="mobile">
-<a href="index.html">Home</a><a href="projects.html">Projects</a><a href="design-system.html">System</a><a href="contact.html">Contact</a>
-</div>
+
+<nav class="bc-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="sep" aria-hidden="true">/</span><span class="here">Design system</span></nav>
 
 <main class="wrap">
 <p class="eyebrow">Consistency pass</p>
@@ -643,6 +791,37 @@ Selected = inset ring. Player = icon circle. No emoji in production controls (us
     sk.onclick=function(){ go(+sk.dataset.i,{manual:true}); };
   });
   go(0,{manual:true});
+})();
+</script>
+
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var btn=document.getElementById('themeToggle');
+  function apply(t){ root.setAttribute('data-theme',t); try{localStorage.setItem('theme',t)}catch(e){} }
+  var s=null; try{s=localStorage.getItem('theme')}catch(e){}
+  apply(s==='light'?'light':'dark');
+  if(btn) btn.addEventListener('click',function(){ apply(root.getAttribute('data-theme')==='dark'?'light':'dark'); });
+  var drop=document.getElementById('topNavDropToggle');
+  if(drop){
+    drop.addEventListener('click',function(e){
+      e.stopPropagation();
+      var open=drop.getAttribute('aria-expanded')==='true';
+      drop.setAttribute('aria-expanded', open?'false':'true');
+    });
+    document.addEventListener('click',function(e){
+      if(drop.parentElement && !drop.parentElement.contains(e.target))
+        drop.setAttribute('aria-expanded','false');
+    });
+  }
+  var ham=document.getElementById('topNavHamburger');
+  var mob=document.getElementById('topNavMobile');
+  var close=document.getElementById('topNavMobileClose');
+  function openM(){ if(!mob) return; mob.classList.add('on'); mob.setAttribute('aria-hidden','false'); }
+  function closeM(){ if(!mob) return; mob.classList.remove('on'); mob.setAttribute('aria-hidden','true'); }
+  if(ham) ham.addEventListener('click',openM);
+  if(close) close.addEventListener('click',closeM);
 })();
 </script>
 
