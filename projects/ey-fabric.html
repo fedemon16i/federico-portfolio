@@ -948,187 +948,63 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
   .slide{transition:opacity 200ms}
 }
 
-/* === HOME NAV (shared) === */
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:var(--bg,#0e0d0c);border-bottom:1px solid var(--border,rgba(255,255,255,.1));isolation:isolate}
-html[data-theme="light"] .top-nav{background:#f7f5f2}
-.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1100px;margin:0 auto;padding:0 clamp(20px,4vw,40px);gap:12px;width:100%;box-sizing:border-box}
-.top-nav-logo{font-weight:800;font-size:18px;letter-spacing:-.02em;color:var(--text,#f2f0ec);text-decoration:none;margin-right:auto}
-.top-nav-logo span{color:var(--nav-accent, var(--accent,#d97757))}
-.top-nav-links{display:flex;align-items:center;gap:8px}
-.top-nav-link,.top-nav-drop-toggle{
-  font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--muted,#a6a29a);padding:8px 12px;border-radius:6px;text-decoration:none;
-  background:none;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px;
-  transition:color .2s,background .2s
-}
-.top-nav-link:hover,.top-nav-link.active,.top-nav-drop-toggle:hover,.top-nav-drop-toggle[aria-expanded="true"]{
-  color:var(--text,#f2f0ec);background:var(--bg-raised,#1c1b19)
-}
-.top-nav-dropdown{position:relative}
-.top-nav-drop-menu{
-  position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);
-  min-width:200px;padding:8px;border-radius:12px;border:1px solid var(--border,rgba(255,255,255,.12));
-  background:var(--bg-surface,#171614);box-shadow:0 16px 40px rgba(0,0,0,.35);
-  opacity:0;pointer-events:none;visibility:hidden;transition:opacity .2s,transform .2s;z-index:10001
-}
-.top-nav-dropdown:hover .top-nav-drop-menu,
-.top-nav-dropdown:focus-within .top-nav-drop-menu,
-.top-nav-drop-toggle[aria-expanded="true"] + .top-nav-drop-menu{
-  opacity:1;pointer-events:auto;visibility:visible;transform:translateX(-50%) translateY(0)
-}
-.top-nav-drop-menu a{
-  display:block;padding:10px 12px;border-radius:8px;font-size:13px;font-weight:600;
-  color:var(--muted,#a6a29a);text-decoration:none
-}
-.top-nav-drop-menu a:hover{background:var(--bg-raised,#1c1b19);color:var(--text,#f2f0ec)}
-.top-nav-drop-menu a.is-current{color:var(--nav-accent, var(--accent))}
-.top-nav-theme{
-  width:34px;height:34px;border-radius:50%;border:1px solid var(--border,rgba(255,255,255,.12));
-  background:var(--bg-surface,#171614);color:var(--muted,#a6a29a);display:grid;place-items:center;cursor:pointer;flex-shrink:0
-}
-.top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:8px;cursor:pointer}
-.top-nav-hamburger span{display:block;width:20px;height:2px;background:var(--text,#f2f0ec)}
-.top-nav-mobile{
-  display:none;position:fixed;inset:0;z-index:10000;background:var(--bg,#0e0d0c);padding:72px 24px 24px;overflow:auto
-}
-.top-nav-mobile.on{display:block}
-.top-nav-mobile a{display:block;padding:14px 0;border-bottom:1px solid var(--border,rgba(255,255,255,.1));font-weight:700;font-size:1.1rem;color:var(--text,#f2f0ec);text-decoration:none}
-.top-nav-mobile .mob-sub{font-size:.95rem;font-weight:600;color:var(--muted,#a6a29a);padding-left:12px}
-@media(max-width:900px){
-  .top-nav-links{display:none}
-  .top-nav-hamburger{display:flex}
-}
 
+/* === EY restore layer (minimal) === */
+:root{ --max:920px; }
+.wrap,.top-nav-inner,.bc-crumbs{ max-width:920px; margin-left:auto; margin-right:auto; }
+.page{ max-width:920px !important; }
 
-
-/* === SITE SHELL (single source) === */
-:root{
-  --max: 920px;
-  --pad: clamp(18px, 3.5vw, 32px);
-  --read: 40rem;
-  --nav-h: 64px;
-}
-body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
-.wrap,
-.top-nav-inner,
-.bc-crumbs{
-  max-width: var(--max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
-.lede, .hero-sub, .sec .lede, .player-body, .own-item p, .prob p, .pcard-desc{
-  max-width: var(--read) !important;
-}
-/* Hero BC */
-#hero .hero-shell, .hero-shell{
-  min-height: 260px !important;
-  max-height: 360px !important;
-  padding: 20px 0 16px !important;
-  overflow: hidden !important;
-}
-#hero .wrap.hero-copy, .hero-copy.wrap, .wrap.hero-copy{
-  max-width: var(--max) !important;
-}
-#glHero{
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-}
-/* Demo stage: never use grid — absolute device layout */
-#demoStage, .stage{
-  display: block !important;
-  position: relative !important;
-  max-width: 100% !important;
-  min-height: 420px !important;
-}
-#demoStage .device-layer, .device-layer{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: absolute !important;
-  inset: 48px 16px 16px !important;
-  padding: 0 !important;
-}
-#demoStage #phone,
-#demoStage .iphone,
-#phone{
-  display: flex !important;
-  flex-direction: column !important;
-  width: 220px !important;
-  max-width: min(220px, 72vw) !important;
-  height: 476px !important; /* 220 * 19.5/9 */
-  max-height: 100% !important;
-  aspect-ratio: auto !important;
-  margin: 0 auto !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  overflow: hidden !important;
-  flex-shrink: 0 !important;
-}
-#desk, .desk, .tabs-mode{ display: none !important; }
-/* Sections rhythm */
-.sec, section.sec{
-  padding-top: clamp(2.75rem, 4vw, 4rem) !important;
-  padding-bottom: clamp(2.75rem, 4vw, 4rem) !important;
-}
-
-
-
-
-
-/* === Stage split align + size (web ≥1024) === */
-.pi-split,.loop-split,.demo-split,.proc-split{
-  display:flex;flex-direction:column;gap:20px;width:100%;
-}
-.pi-copy,.loop-copy,.demo-copy,.proc-copy{max-width:36rem}
-.pi-visual,.loop-visual,.demo-visual,.proc-visual{
-  width:100%;
-  margin:0;padding:0;
-}
+/* Product intelligence split — web only */
 @media (min-width:1024px){
-  .pi-split,.loop-split,.demo-split,.proc-split{
+  .pi-split{
     display:grid !important;
-    grid-template-columns: minmax(220px, 0.75fr) minmax(300px, 1.35fr);
-    gap: clamp(16px, 2.5vw, 28px);
-    align-items: start !important; /* top of text = top of stage */
+    grid-template-columns: minmax(220px,0.8fr) minmax(300px,1.3fr);
+    gap:24px;
+    align-items:start;
   }
-  .pi-copy,.loop-copy,.demo-copy,.proc-copy{
-    max-width: 24rem;
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-  }
-  .pi-visual,.demo-visual,.loop-visual,.proc-visual{
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    align-self: start;
-  }
-  /* Stage fills right column, top-aligned with title block */
-  .pi-visual .stage,
-  .demo-visual #demoStage,
-  .demo-visual .stage,
-  .loop-visual .player{
-    position: relative !important; /* no sticky — stays level with text start */
-    top: auto !important;
-    width: 100% !important;
-    min-height: 420px !important;
-    margin: 0 !important;
-  }
-  /* Phone centered inside stage, not floating in empty void */
-  #demoStage .device-layer{
-    inset: 52px 20px 20px !important;
-    display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-  }
-  #demoStage #phone, #demoStage .iphone{
-    width: 200px !important;
-    height: 430px !important;
-    max-width: 200px !important;
-  }
+  .pi-copy{ max-width:26rem; }
+}
+.pi-split{ display:flex; flex-direction:column; gap:16px; }
+
+/* Stage MUST have height for absolute .stage-window */
+#stage{
+  position:relative !important;
+  min-height:480px !important;
+  height:480px !important;
+  display:block !important;
+  overflow:hidden !important;
+  width:100% !important;
+}
+#win, #stage .stage-window{
+  position:absolute !important;
+  inset:16px 16px 52px !important;
+  display:block !important;
+  overflow:hidden !important;
+  z-index:2 !important;
+}
+#win .slide{
+  position:absolute !important;
+  inset:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+#win .slide.show{
+  opacity:1 !important;
+  transform:none !important;
+  pointer-events:auto !important;
+}
+.timeline{ display:flex !important; flex-wrap:wrap !important; gap:8px !important; visibility:visible !important; }
+.tl{ display:inline-flex !important; visibility:visible !important; }
+
+/* Reel must be able to move */
+.reel-wrap{ overflow:hidden !important; }
+#reel, .reel{ will-change:transform; }
+
+/* Nav dropdown bridge */
+.top-nav-drop-menu{ padding-top:12px !important; top:100% !important; }
+.top-nav-dropdown:hover .top-nav-drop-menu,
+.top-nav-drop-toggle[aria-expanded="true"] + .top-nav-drop-menu{
+  opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
 }
 
 </style>
@@ -1178,8 +1054,6 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
 </div>
 
 <nav class="bc-crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="sep" aria-hidden="true">/</span><a href="../projects.html">Projects</a><span class="sep" aria-hidden="true">/</span><span class="here">EY Fabric</span></nav>
-
-</div>
 
 <div class="page">
   <!-- HERO -->
@@ -1348,8 +1222,8 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
     </div>
     </div>
     <div class="pi-visual">
-    <div class="stage" id="stage">
-      <div class="stage-window" id="win"></div>
+    <div class="stage" id="stage" style="position:relative;min-height:520px;height:520px;width:100%;overflow:hidden;display:block;">
+      <div class="stage-window" id="win" style="position:absolute;inset:16px 16px 56px;display:flex;flex-direction:column;overflow:hidden;background:rgba(20,18,16,.95);z-index:2;"></div>
       <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt"></span></div>
       <div class="wf-cur" id="cur"><svg viewBox="0 0 24 24" fill="#f5d100"><path d="M4 2l16 8-7 2-2 7z"/></svg></div>
       <div class="stage-arrows">
@@ -1381,9 +1255,6 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
       <span class="pl-name"><em>Blockchains</em></span>
     </a>
   </nav>
-
-</div>
-
 <script>
 (function(){
   var reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -1490,35 +1361,39 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
 
   /* metrics reel */
   (function(){
+    try{
     var track=document.getElementById('reel');
-    if(!track) return;
+    if(!track || !track.parentElement) return;
     var html=track.innerHTML; track.innerHTML=html+html;
     var items=track.querySelectorAll('.reel-item');
     var x=0,half=0,paused=false,frame=0,lastActive=null;
-    function measure(){half=track.scrollWidth/2;}
+    function measure(){half=track.scrollWidth/2 || 1;}
     measure();
+    window.addEventListener('resize', measure);
     function tick(){
+      try{
       if(!paused&&!reduced&&half>0){
         x-=0.72; if(-x>=half) x+=half;
         track.style.transform='translate3d('+x+'px,0,0)';
-        if((++frame&3)===0){
-          var focus=-x+track.parentElement.clientWidth*0.42;
+        if((++frame&3)===0 && track.parentElement){
+          if(!track.parentElement) return; var focus=-x+track.parentElement.clientWidth*0.42;
           var pos=((focus%half)+half)%half,acc=0,idx=0,halfN=items.length/2;
-          for(var i=0;i<halfN;i++){var w=items[i].offsetWidth;if(pos<acc+w){idx=i;break;}acc+=w;idx=i;}
+          for(var i=0;i<halfN;i++){var w=items[i].offsetWidth||1;if(pos<acc+w){idx=i;break;}acc+=w;idx=i;}
           if(lastActive!==idx){
             items.forEach(function(it){it.classList.remove('is-active');});
-            items[idx].classList.add('is-active');
+            if(items[idx]) items[idx].classList.add('is-active');
             if(items[idx+halfN]) items[idx+halfN].classList.add('is-active');
             lastActive=idx;
           }
         }
       }
+      }catch(e){}
       requestAnimationFrame(tick);
     }
-    track.parentElement.addEventListener('pointerenter',function(){paused=true;});
-    track.parentElement.addEventListener('pointerleave',function(){paused=false;});
+    if(track.parentElement){ track.parentElement.addEventListener('pointerenter',function(){paused=true;}); track.parentElement.addEventListener('pointerleave',function(){paused=false;}); }
     if(!reduced) requestAnimationFrame(tick);
     else items.forEach(function(it,i){if(i<4)it.classList.add('is-active');});
+    }catch(e){ console.warn('reel', e); }
   })();
 
 
@@ -1526,7 +1401,8 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
   (function(){
     var frame=document.querySelector('.hbg-frame');
     var cur=document.getElementById('hbgCur');
-    if(!frame||reduced) return;
+    if(!frame) return;
+    if(reduced){ /* still show first screen */ try{ var s0=frame.querySelector('[data-scr="home"]'); if(s0) s0.classList.add('on'); }catch(e){} return; }
     var screens={
       home:frame.querySelector('[data-scr="home"]'),
       cat:frame.querySelector('[data-scr="cat"]'),
@@ -1715,9 +1591,9 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
   }
 
   var win=document.getElementById('win'),cur=document.getElementById('cur'),stage=document.getElementById('stage'),slides={};
-  function slide(id,html,cls){var el=document.createElement('div');el.className='slide'+(cls?' '+cls:'');el.id=id;el.innerHTML=html;win.appendChild(el);slides[id]=el;bindToolTips(el);return el;}
-  function show(id){Object.keys(slides).forEach(function(k){slides[k].classList.remove('show');});if(slides[id])slides[id].classList.add('show');}
-  function wipe(){win.innerHTML='';slides={};cur.classList.remove('show');}
+  function slide(id,html,cls){if(!win){win=document.getElementById('win');} if(!win){console.warn('slide: no win');return null;} var el=document.createElement('div');el.className='slide'+(cls?' '+cls:'');el.id=id;el.innerHTML=html;win.appendChild(el);slides[id]=el; try{bindToolTips(el);}catch(e){} return el;}
+  function showSlide(id){Object.keys(slides).forEach(function(k){slides[k].classList.remove('show');});if(slides[id])slides[id].classList.add('show');}
+  function wipe(){if(!win){win=document.getElementById('win');} if(!win){console.warn('no win');return;} win.innerHTML='';slides={}; if(cur) cur.classList.remove('show');}
   function cursorTo(el,cb){
     if(!el||reduced){if(cb)cb();return;}
     var sr=stage.getBoundingClientRect(),r=el.getBoundingClientRect();
@@ -1731,12 +1607,12 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
     wipe();
     slide('t0','<div class="ts-big" id="ts0"></div><div class="ts-dock" id="dock0">'+dockHtml([['pendo','Pendo'],['ga4','GA4'],['pendo','Paths']])+'</div>','textslide');
     slide('m0','<div class="fab-nav"><span class="logo">Pendo · Fabric</span><span class="search"></span></div><div class="meas"><div class="meas-pane"><div class="meas-h">Features tagged</div><div class="feat" id="mf0"><span class="dot"></span> Catalog · home</div><div class="feat" id="mf1"><span class="dot"></span> Catalog · services</div><div class="feat" id="mf2"><span class="dot"></span> Item · Get Started</div><div class="feat" id="mf3"><span class="dot"></span> Workbench · configure</div><div class="feat" id="mf4"><span class="dot"></span> Workbench · required svc</div><div class="feat" id="mf5"><span class="dot"></span> Workbench · submit</div></div><div class="meas-pane"><div class="meas-h">Reports</div><div class="rep" id="mr0"><div class="rh">Feature adoption</div><div class="bars"><i data-h="55"></i><i data-h="80"></i><i data-h="45"></i><i data-h="30"></i></div></div><div class="rep" id="mr1"><div class="rh">Funnel · acquisition</div><div class="bars"><i data-h="95"></i><i data-h="78"></i><i data-h="52"></i><i data-h="28"></i></div></div><div class="rep" id="mr2"><div class="rh">Journeys · top paths</div><div class="bars"><i data-h="70"></i><i data-h="50"></i><i data-h="85"></i><i data-h="35"></i></div></div></div></div>');
-    show('t0');
+    showSlide('t0');
     typeTitle(document.getElementById('ts0'),'Before I can find problems,<br>I <em>map the product</em>.',28,function(){
       var d=document.getElementById('dock0');if(d)d.classList.add('show');
     });
-    after(3800,function(){
-      show('m0');
+    after(2200,function(){
+      showSlide('m0');
       typeInto(document.getElementById('capTxt'),[{t:'Tag the full path — '},{t:'features, funnels, journeys',hl:true},{t:'.'}],16);
       [0,1,2,3,4,5].forEach(function(i){after(160+i*190,function(){var f=document.getElementById('mf'+i);f.classList.add('in');after(90,function(){f.classList.add('tagged');});});});
       after(1400,function(){[0,1,2].forEach(function(i){after(i*240,function(){var r=document.getElementById('mr'+i);r.classList.add('in');r.querySelectorAll('.bars i').forEach(function(b){after(60,function(){b.style.height=b.getAttribute('data-h')+'%';b.classList.add('on');});});});});});
@@ -1752,26 +1628,26 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
     slide('a2','<div class="fab-nav"><span class="logo">EY Fabric</span><div class="links"><span>Workbench</span></div><span class="search"></span></div><div class="wb" style="grid-template-columns:1fr"><div class="wb-l"><div class="wb-steps"><span class="s done">ok</span><span class="ln"></span><span class="s on">2</span><span class="ln"></span><span class="s">3</span></div><div class="wb-card"><h4> Configure Your Instance</h4><div class="wb-lab">Friendly Instance Name</div><div class="wb-inp filled">xdatest</div><div class="wb-lab">Location</div><div class="wb-inp filled">westus2</div></div><div class="wb-card"><h4>Billing · required service</h4><div class="wb-lab">Choose at least one service</div><div class="wb-inp stuck" id="aStuck"></div><div class="wb-warn">Required — choose at least one service for this instance</div></div></div></div>');
     /* funnel as its own full scene */
     slide('a3','<div class="fab-nav"><span class="logo">Pendo · Funnel</span><span class="search"></span></div><div class="funnel-scene"><div class="funnel-h">Acquisition funnel · where they dropped</div><div class="funnel-big" id="funnelBig"><div class="funnel-bar" data-h="100"><span>Home</span></div><div class="funnel-bar" data-h="86"><span>Catalog</span></div><div class="funnel-bar" data-h="70"><span>Item</span></div><div class="funnel-bar drop" data-h="34"><span>Configure</span></div><div class="funnel-bar" data-h="26"><span>Submit</span></div></div><div class="funnel-callout">↓ cliff at configure — same step in replays</div></div>');
-    show('t1');
+    showSlide('t1');
     typeTitle(document.getElementById('ts1'),'Real users come in.<br>Follow one path to the <em>drop-off</em>.',24,function(){
       var d=document.getElementById('dock1');if(d)d.classList.add('show');
     });
     after(3800,function(){
-      show('a0');
+      showSlide('a0');
       typeInto(document.getElementById('capTxt'),[{t:'CTA into the catalog — '},{t:'the journey starts here',hl:true},{t:'.'}],16);
       var cta=document.getElementById('aCta');cta.classList.add('pulse');
       after(500,function(){cursorTo(cta,function(){
         after(350,function(){
-          show('a1');
+          showSlide('a1');
           typeInto(document.getElementById('capTxt'),[{t:'Filter Services — '},{t:'157 offerings',hl:true},{t:' after migration.'}],16);
           after(500,function(){cursorTo(document.getElementById('aCard0'),function(){
             document.getElementById('aCard0').classList.add('hot');
             after(600,function(){
-              show('a2');
+              showSlide('a2');
               typeInto(document.getElementById('capTxt'),[{t:'Configure is the cliff — '},{t:'required service empty',hl:true},{t:'.'}],16);
               after(400,function(){cursorTo(document.getElementById('aStuck'),function(){
                 after(900,function(){
-                  show('a3');
+                  showSlide('a3');
                   typeInto(document.getElementById('capTxt'),[{t:'Funnel confirms it — '},{t:'replays show the leave',hl:true},{t:'.'}],16);
                   document.querySelectorAll('#funnelBig .funnel-bar').forEach(function(b,i){
                     after(i*140,function(){
@@ -1818,12 +1694,12 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
           '<div class="rw-h">Usability · workbench</div>'+
           '<div class="ut-screen"><span class="ut-el" style="left:8px;top:8px;width:60px;height:6px"></span><span class="ut-el" style="left:8px;top:20px;width:90px;height:6px"></span><span class="ut-el" id="utBtn" style="right:8px;bottom:8px;width:44px;height:16px;border:1px solid var(--accent);background:var(--accent-dim)"></span><span class="ut-dot" id="utDot" style="left:10px;top:34px"></span></div></div>'+
       '</div></div>');
-    show('t2');
+    showSlide('t2');
     typeTitle(document.getElementById('ts2'),'Analytics say <em>where</em>.<br>Research says <em>why</em>.',24,function(){
       var d=document.getElementById('dock2');if(d)d.classList.add('show');
     });
     after(3800,function(){
-      show('r0');
+      showSlide('r0');
       typeInto(document.getElementById('capTxt'),[{t:'Segment → interviews, surveys, tests, '},{t:'replays',hl:true},{t:'.'}],16);
       [0,1,2,3].forEach(function(i){
         after(200+i*220,function(){
@@ -1860,12 +1736,12 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
         '<div class="task p1" id="tk2"><span class="tb a11y">A11y</span><div><div class="tt">Required fields poorly announced</div><div class="td">Error state late; focus & labeling gaps on billing step</div></div><span class="pri">P1</span></div>'+
         '<div class="task p1" id="tk3"><span class="tb des">Design</span><div><div class="tt">Order panel doesn’t reflect blockers</div><div class="td">Submit looks available while required service is empty</div></div><span class="pri">P1</span></div>'+
       '</div>');
-    show('t3');
+    showSlide('t3');
     typeTitle(document.getElementById('ts3'),'Not opinions.<br><em>Evidence → tasks.</em>',24,function(){
       var d=document.getElementById('dock3');if(d)d.classList.add('show');
     });
     after(3800,function(){
-      show('u0');
+      showSlide('u0');
       typeInto(document.getElementById('capTxt'),[{t:'Actionables for '},{t:'UX, product, a11y, design',hl:true},{t:'.'}],16);
       [0,1,2,3].forEach(function(i){after(180+i*200,function(){document.getElementById('tk'+i).classList.add('in');});});
     });
@@ -1918,12 +1794,12 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
           '<div class="proto-ds"> design system — tokens · components · specs</div>'+
         '</div></div>'+
       '</div>');
-    show('t4');
+    showSlide('t4');
     typeTitle(document.getElementById('ts4'),'Design — <em>by hand</em><br>and <em>with AI</em>. At the same time.',24,function(){
       var d=document.getElementById('dock4');if(d)d.classList.add('show');
     });
     after(3800,function(){
-      show('d0');
+      showSlide('d0');
       typeInto(document.getElementById('capTxt'),[{t:'Both paths in parallel — '},{t:'craft where it matters, AI where it’s faster',hl:true},{t:'.'}],16);
       ['ab0','ab1','ab2'].forEach(function(id,i){
         after(400+i*550,function(){var el=document.getElementById(id);if(el)el.classList.add('in');});
@@ -1973,12 +1849,12 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
           '</div>'+
         '</div>'+
       '</div>');
-    show('t5');
+    showSlide('t5');
     typeTitle(document.getElementById('ts5'),'One <em>Product Analytics Hub</em><br>overseeing the whole cycle.',24,function(){
       var d=document.getElementById('dock5');if(d)d.classList.add('show');
     });
     after(3800,function(){
-      show('g0');
+      showSlide('g0');
       typeInto(document.getElementById('capTxt'),[{t:'Instrument → segment → ticket → '},{t:'re-measure',hl:true},{t:'.'}],16);
       function spark(id,n){
         var el=document.getElementById(id); if(!el) return;
@@ -2015,31 +1891,32 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
     {n:'06',name:'Hub',fn:beatGovern,ms:12000}
   ];
   var tl=document.getElementById('timeline');
-  BEATS.forEach(function(b,i){
+  if(tl){ BEATS.forEach(function(b,i){
     var btn=document.createElement('button');btn.type='button';btn.className='tl'+(i===0?' on':'');
     btn.innerHTML='<span class="n">'+b.n+'</span> '+b.name;btn.onclick=function(){go(i,true);};tl.appendChild(btn);
-  });
+  }); }
   var idx=0,playing=false,autoT=null;
   function go(i,manual){
     clearT();if(autoT){clearTimeout(autoT);autoT=null;}
     idx=i;
     document.querySelectorAll('.tl').forEach(function(t,ti){t.classList.toggle('on',ti===i);});
-    document.getElementById('capn').textContent=(i+1)+' / '+BEATS.length;
-    document.getElementById('prog').style.width=((i+1)/BEATS.length*100)+'%';
-    document.getElementById('capTxt').innerHTML='';
-    BEATS[i].fn();
+    var capn=document.getElementById('capn'); if(capn) capn.textContent=(i+1)+' / '+BEATS.length;
+    var prog=document.getElementById('prog'); if(prog) prog.style.width=((i+1)/BEATS.length*100)+'%';
+    var capTxt=document.getElementById('capTxt'); if(capTxt) capTxt.innerHTML='';
+    if(BEATS[i] && typeof BEATS[i].fn==='function'){ try{ BEATS[i].fn(); }catch(err){ console.warn('beat', i, err); } }
+
     if(playing&&!manual) autoT=setTimeout(function(){if(idx<BEATS.length-1)go(idx+1);else stop();},BEATS[i].ms);
   }
-  function stop(){playing=false;if(autoT){clearTimeout(autoT);autoT=null;}var pb=document.getElementById('playBtn');pb.classList.remove('is-playing');pb.innerHTML='<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg> play';}
-  document.getElementById('playBtn').onclick=function(){if(playing){stop();return;}playing=true;this.classList.add('is-playing');this.innerHTML='<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg> stop';go(idx);};
-  document.getElementById('replayBtn').onclick=function(){stop();go(idx,true);};
+  function stop(){playing=false;if(autoT){clearTimeout(autoT);autoT=null;}var pb=document.getElementById('playBtn');if(pb){pb.classList.remove('is-playing');pb.innerHTML='<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg> play';}}
+  var __pb=document.getElementById('playBtn'); if(__pb) __pb.onclick=function(){if(playing){stop();return;}playing=true;this.classList.add('is-playing');this.innerHTML='<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg> stop';go(idx);};
+  var __rb=document.getElementById('replayBtn'); if(__rb) __rb.onclick=function(){stop();go(idx,true);};
   var started=false;
   function startPi(){
     if(started) return;
     started=true;
     try{
       go(0,true);
-      after(500,function(){
+      after(350,function(){
         if(!playing){
           playing=true;
           var pb=document.getElementById('playBtn');
@@ -2047,20 +1924,20 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
             pb.classList.add('is-playing');
             pb.innerHTML='<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg> stop';
           }
-          go(0);
+          autoT=setTimeout(function(){ if(idx<BEATS.length-1) go(idx+1); else stop(); }, BEATS[idx].ms);
         }
       });
-    }catch(err){ console && console.warn('PI start', err); }
+    }catch(err){ console.warn('PI start', err); }
   }
   var stageEl=document.getElementById('stage');
   if(stageEl && 'IntersectionObserver' in window){
     new IntersectionObserver(function(en){
       if(en[0].isIntersecting) startPi();
-    },{threshold:0.08, rootMargin:'0px 0px -10% 0px'}).observe(stageEl);
+    },{threshold:0.15}).observe(stageEl);
   }
-  /* fallback if IO never fires (layout/split) */
-  after(1200, startPi);
-  document.addEventListener('visibilitychange', function(){ if(!document.hidden) startPi(); });
+  after(800, function(){ if(!started) startPi(); });
+
+
 
 
   /* stage arrows */
@@ -2071,7 +1948,7 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
     if(next) next.disabled = idx>=BEATS.length-1;
   }
   var _go=go;
-  go=function(i,manual){ _go(i,manual); syncArrows(); };
+  go=function(i,manual){ _go(i,manual); syncArrows(); }; window.__eyGo=go;
   var sp=document.getElementById('stagePrev');
   var sn=document.getElementById('stageNext');
   if(sp) sp.onclick=function(){ if(idx>0){ stop(); go(idx-1,true);} };
@@ -2133,6 +2010,66 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
 <script>
 (function(){
   window.__keepPlayerText = function(){ return window.matchMedia && window.matchMedia('(min-width:900px)').matches; };
+})();
+</script>
+
+
+<script>
+(function(){
+  /* Dropdown: click toggles sticky open; hover still works via CSS */
+  var drop=document.getElementById('topNavDropToggle');
+  var menu=document.getElementById('topNavDropMenu');
+  if(drop){
+    drop.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var open=drop.getAttribute('aria-expanded')==='true';
+      drop.setAttribute('aria-expanded', open?'false':'true');
+    });
+    document.addEventListener('click',function(e){
+      if(!drop.parentElement) return;
+      if(!drop.parentElement.contains(e.target))
+        drop.setAttribute('aria-expanded','false');
+    });
+  }
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+(function(){
+  function ensure(){
+    var win=document.getElementById('win');
+    var tl=document.getElementById('timeline');
+    var stage=document.getElementById('stage');
+    if(stage){ stage.style.minHeight='480px'; stage.style.height='480px'; }
+    if(tl && tl.children.length===0 && window.__eyGo){
+      /* timeline empty = main script failed before BEATS; cannot recover full beats */
+      console.warn('EY: timeline empty');
+    }
+    if(typeof window.__eyGo==='function'){
+      try{ window.__eyGo(0,true); }catch(e){ console.warn(e); }
+    }
+    if(win && !win.querySelector('.slide')){
+      win.innerHTML='<div class="slide show textslide" style="opacity:1;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#f2f0ec"><div><div style="color:#ffe600;font-size:11px;letter-spacing:.12em;margin-bottom:8px">01 MEASURE</div><div style="font-size:1.35rem;font-weight:700;line-height:1.35">Before I can find problems,<br><span style="color:#ffe600">I map the product</span>.</div></div></div>';
+    }
+  }
+  window.addEventListener('load', function(){ setTimeout(ensure, 900); });
 })();
 </script>
 
