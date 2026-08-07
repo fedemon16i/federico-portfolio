@@ -1326,6 +1326,76 @@ body.page-home .bio-actions .ba.primary{
   min-height: 160px !important;
 }
 
+
+/* === CONTAINER QUERIES + ASPECT LOCKS === */
+/* Stages are containers: size the surface, never stretch the prototype */
+.pi-visual, .demo-visual, .modal-stage, .skill-stage, .stage-host{
+  container-type: size;
+  container-name: stagehost;
+}
+#stage, #demoStage, .stage{
+  container-type: size;
+  container-name: stagesurf;
+  width: 100%;
+  max-width: var(--stage-max, 780px);
+  margin-inline: auto;
+  /* Height from viewport budget; width from container */
+  height: var(--stage-h, min(520px, calc(100vh - 220px)));
+  max-height: calc(100vh - 160px);
+  aspect-ratio: auto;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+/* Phone / device mock: fixed aspect, scale to fit host */
+.phone-frame, .device-frame, .device-wrap, .iphone-frame{
+  aspect-ratio: 9 / 19.5;
+  height: min(100%, calc(var(--stage-h, 520px) - 64px));
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+}
+/* Web prototype frames stay landscape-ish when marked */
+.web-frame, .desktop-frame{
+  aspect-ratio: 16 / 10;
+  width: min(100%, 100cqi);
+  height: auto;
+  max-height: 100%;
+}
+@container stagesurf (max-height: 420px){
+  .phone-frame, .device-frame, .device-wrap{
+    height: 90%;
+  }
+}
+@container stagesurf (max-width: 360px){
+  .phone-frame, .device-frame{
+    width: 92%;
+    height: auto;
+  }
+}
+/* Home project mini-3D: sharper canvas */
+.pcard-graphic.bc-scene, .bc-scene{
+  container-type: size;
+  min-height: 180px;
+  aspect-ratio: 16 / 10;
+}
+.bc-mini-gl, .pcard-graphic canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  image-rendering: auto;
+}
+
+/* Device policy: mobile keeps mobile chrome; web keeps web chrome */
+@media (max-width: 900px){
+  .web-only{ display: none !important; }
+}
+@media (min-width: 901px){
+  .mobile-only{ display: none !important; }
+}
+
 </style>
 </head>
 <body>
