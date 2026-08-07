@@ -13,7 +13,7 @@
   --stage-bg:#201e1b;--stage-grid:rgba(255,255,255,.045);
   --font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;
   --spring:cubic-bezier(.34,1.32,.64,1);--ease:cubic-bezier(.65,0,.35,1);
-  --ok:#3dd68c;--pad:clamp(24px,4vw,48px);--max:1100px;
+  --ok:#3dd68c;--pad:clamp(24px,4vw,48px);--max:920px;
   /* Fluid type — min accessible, max director-grade */
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
   --text-sm: clamp(0.875rem, 0.82rem + 0.3vw, 0.9375rem);
@@ -227,7 +227,7 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 /* Hero 3D buildings background */
 
 /* Fabric-like hero shell */
-.hero-shell{position:relative;min-height:clamp(300px,42vh,420px);max-height:520px;display:flex;align-items:flex-end;padding:64px 0 36px;overflow:hidden}
+.hero-shell{position:relative;min-height:280px;max-height:380px;display:flex;align-items:flex-end;padding:24px 0 20px;overflow:hidden}
 .hero-shell .hero-3d{position:absolute;inset:0;z-index:0;overflow:hidden}
 #glHero{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 .hero-shell .hero-3d canvas{opacity:.42}
@@ -318,7 +318,7 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 .figma-tools-col span.on{background:#0d99ff;color:#fff}
 .figma-layout{display:grid;grid-template-columns:44px 1fr;height:320px}
 
-.hero-sec{position:relative;overflow:hidden;padding-top:64px;padding-bottom:56px;min-height:auto;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-sec{position:relative;overflow:hidden;padding-top:24px;padding-bottom:28px;min-height:auto;display:flex;flex-direction:column;justify-content:flex-end}
 .hero-3d{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 #glHero{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
 .hero-3d canvas{width:100%!important;height:100%!important;display:block;opacity:.55}
@@ -2644,184 +2644,6 @@ html[data-theme="light"] .tag{color:var(--muted)}
 .foot{padding:48px 0;text-align:center;font-family:var(--font-mono);font-size:11px;color:var(--dim)}
 .foot a{margin:0 10px}
 
-/* === Layout lock: hero + phone proportions (do not deform) === */
-#hero .hero-shell{
-  min-height: clamp(280px, 38vh, 400px) !important;
-  max-height: 440px !important;
-  padding: 56px 0 32px !important;
-}
-#glHero{
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;
-}
-/* Phone: always iPhone aspect; size by width only */
-#demoStage .iphone,
-.iphone.on,
-.iphone{
-  aspect-ratio: 9 / 19.5 !important;
-  width: min(220px, 72vw) !important;
-  height: auto !important;
-  max-height: none !important;
-  max-width: 220px !important;
-  flex-shrink: 0 !important;
-  box-sizing: border-box !important;
-}
-@media (min-width: 900px){
-  /* On desktop, mobile prototype stays mobile-sized — does not stretch to stage */
-  body[data-view="mobile"] #demoStage .iphone,
-  #demoStage[data-view="mobile"] .iphone,
-  .tabs-mode + * .iphone,
-  #demoStage .iphone{
-    width: 220px !important;
-    max-width: 220px !important;
-    height: auto !important;
-    aspect-ratio: 9 / 19.5 !important;
-  }
-  /* Web uses #desk — never stretch #phone into landscape */
-  body[data-view="web"] #demoStage .iphone,
-  #demoStage[data-view="web"] .iphone{
-    display: none !important;
-  }
-  body[data-view="mobile"] #demoStage .desk,
-  #demoStage[data-view="mobile"] .desk{
-    display: none !important;
-  }
-}
-#demoStage .desk,
-#desk{
-  aspect-ratio: 16 / 10 !important;
-  width: min(520px, 92%) !important;
-  max-width: 560px !important;
-  height: auto !important;
-  border-radius: 12px !important;
-  overflow: hidden;
-}
-@media (max-width: 899px){
-  /* On small screens web desk still capped — does not fill viewport width badly */
-  #demoStage .desk,
-  #desk{
-    width: min(100%, 420px) !important;
-  }
-}
-
-@media (max-width: 899px){
-  /* Mobile viewport: only phone proportions */
-  #demoStage .iphone,
-  .iphone{
-    width: min(200px, 68vw) !important;
-    max-width: 200px !important;
-    aspect-ratio: 9 / 19.5 !important;
-    height: auto !important;
-    border-radius: 36px !important;
-  }
-}
-#demoStage .device-layer{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 16px !important;
-  inset: 48px 16px 16px !important;
-  left: 16px !important;
-  right: 16px !important;
-}
-@media (min-width: 900px){
-  #demoStage .device-layer{
-    inset: 52px 24px 20px !important;
-    left: 24px !important;
-    right: 24px !important;
-  }
-}
-
-
-/* === Mobile-only demo (web mode removed) === */
-.tabs-mode{display:none!important}
-#desk,.desk,#demoStage .desk{display:none!important}
-#phone.iphone,#demoStage #phone,#demoStage .iphone,.iphone{
-  display:flex!important;
-  aspect-ratio:9/19.5!important;
-  width:min(220px,72vw)!important;
-  max-width:220px!important;
-  height:auto!important;
-  margin:0 auto;
-}
-
-
-/* === Visibility restore after fixes === */
-#phone, #demoStage #phone, #demoStage .iphone.on, #demoStage .iphone {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-#desk, .desk { display: none !important; }
-.tabs-mode { display: none !important; }
-
-/* === UNIFIED LAYOUT (home parity) === */
-:root{
-  --nav-h: 64px;
-  --max: 1100px;
-  --pad: clamp(20px, 4vw, 40px);
-  --space-section: clamp(3.5rem, 5vw, 5.5rem);
-}
-body{
-  padding-top: var(--nav-h) !important;
-  overflow-x: hidden;
-}
-.wrap, .top-nav-inner{
-  max-width: var(--max) !important;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--pad);
-  padding-right: var(--pad);
-  width: 100%;
-  box-sizing: border-box;
-}
-/* Section rhythm */
-.sec, .project-section, section.sec{
-  padding-top: var(--space-section) !important;
-  padding-bottom: var(--space-section) !important;
-  margin-bottom: 0 !important;
-}
-/* Hero: same gap under nav */
-#hero, .hero, .hero-shell, .hero-sec, header.hero{
-  padding-top: 28px !important;
-}
-.hero-shell{
-  min-height: auto !important;
-  max-height: none !important;
-  padding-bottom: 28px !important;
-}
-/* No empty end scroll */
-html, body{ min-height: 0; }
-body{ min-height: auto !important; }
-.page, main, .main{
-  padding-bottom: 48px !important;
-  min-height: auto !important;
-}
-footer, .nav-case, .case-nav, .foot{
-  margin-bottom: 0 !important;
-  padding-bottom: 32px !important;
-}
-/* Breadcrumbs */
-.bc-crumbs{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 12px var(--pad) 0;
-  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
-  font-size: 11px;
-  letter-spacing: .04em;
-  color: var(--dim, #6e6a63);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-}
-.bc-crumbs a{ color: var(--muted, #a6a29a); text-decoration: none; }
-.bc-crumbs a:hover{ color: var(--text, #f2f0ec); }
-.bc-crumbs .sep{ opacity: .45; }
-.bc-crumbs .here{ color: var(--text, #f2f0ec); }
-
-
 /* === HOME NAV (shared) === */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:var(--bg,#0e0d0c);border-bottom:1px solid var(--border,rgba(255,255,255,.1));isolation:isolate}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
@@ -2871,6 +2693,108 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
 @media(max-width:900px){
   .top-nav-links{display:none}
   .top-nav-hamburger{display:flex}
+}
+
+
+
+/* === SITE SHELL (single source) === */
+:root{
+  --max: 920px;
+  --pad: clamp(18px, 3.5vw, 32px);
+  --read: 40rem;
+  --nav-h: 64px;
+}
+body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
+.wrap,
+.top-nav-inner,
+.bc-crumbs{
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+.lede, .hero-sub, .sec .lede, .player-body, .own-item p, .prob p, .pcard-desc{
+  max-width: var(--read) !important;
+}
+/* Hero BC */
+#hero .hero-shell, .hero-shell{
+  min-height: 260px !important;
+  max-height: 360px !important;
+  padding: 20px 0 16px !important;
+  overflow: hidden !important;
+}
+#hero .wrap.hero-copy, .hero-copy.wrap, .wrap.hero-copy{
+  max-width: var(--max) !important;
+}
+#glHero{
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+/* Demo stage: never use grid — absolute device layout */
+#demoStage, .stage{
+  display: block !important;
+  position: relative !important;
+  max-width: 100% !important;
+  min-height: 420px !important;
+}
+#demoStage .device-layer, .device-layer{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  inset: 48px 16px 16px !important;
+  padding: 0 !important;
+}
+#demoStage #phone,
+#demoStage .iphone,
+#phone{
+  display: flex !important;
+  flex-direction: column !important;
+  width: 220px !important;
+  max-width: min(220px, 72vw) !important;
+  height: 476px !important; /* 220 * 19.5/9 */
+  max-height: 100% !important;
+  aspect-ratio: auto !important;
+  margin: 0 auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+#desk, .desk, .tabs-mode{ display: none !important; }
+/* Sections rhythm */
+.sec, section.sec{
+  padding-top: clamp(2.75rem, 4vw, 4rem) !important;
+  padding-bottom: clamp(2.75rem, 4vw, 4rem) !important;
+}
+
+
+
+/* === Stage split (web ≥1024): readable left, motion right — NOT 50/50 === */
+.pi-split,.loop-split,.demo-split,.proc-split{
+  display:flex;flex-direction:column;gap:20px;width:100%;
+}
+.pi-copy,.loop-copy,.demo-copy,.proc-copy{max-width:36rem}
+@media (min-width:1024px){
+  .pi-split,.loop-split,.demo-split,.proc-split{
+    display:grid;
+    grid-template-columns:minmax(240px,.8fr) minmax(300px,1.3fr);
+    gap:clamp(20px,3vw,36px);
+    align-items:start;
+  }
+  .pi-copy,.loop-copy,.demo-copy,.proc-copy{max-width:26rem}
+  .pi-visual .stage,
+  .loop-visual .player,
+  .demo-visual #demoStage,
+  .demo-visual .stage,
+  .proc-visual .mini-stage,
+  .proc-visual .stage{
+    position:sticky;top:80px;width:100%;
+  }
 }
 
 </style>
@@ -3020,6 +2944,8 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
 <!-- DEMO PROTO -->
 <section class="sec" id="demo">
   <div class="wrap">
+    <div class="demo-split">
+    <div class="demo-copy">
     <p class="eyebrow"><span class="eyebrow-num">03</span> Demo</p>
     <h2>The flow — owner to visitor</h2>
     <p class="lede" style="margin-bottom:16px">Text first, then the device. Sheet covers the tab bar while editing — TAP interactions on mobile.</p>
@@ -3032,8 +2958,8 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
       <span class="sep">→</span>
       <button type="button" class="v" data-b="3"><span class="n">04</span>Visitor</button>
     </div>
-    <div class="demo-layout">
-<div class="demo-stage-wrap">
+    </div><!-- demo-copy -->
+    <div class="demo-visual">
     <div class="stage" id="demoStage">
       <div class="stage-top">
         <span class="label" id="stageLabel"><b>01</b> · Enter map</span>
@@ -3060,7 +2986,7 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
         <div class="sub" id="sub"></div>
       </div>
       <div class="device-layer" id="deviceLayer">
-        <div class="iphone on" id="phone">
+        <div class="iphone on" id="phone" class="iphone on">
           <div class="island"></div>
           <div class="p-nav"><span class="back" id="navBack">←</span><div class="title" id="navTitle">MEGATON OUTDOOR</div></div>
           <div class="p-body">
@@ -3195,21 +3121,27 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
     </div>
     </div></div>
   </div>
+
+    </div><!-- demo-visual -->
+    </div><!-- demo-split -->
+  </div>
 </section>
 
 <!-- PROCESS -->
 <section class="sec" id="process">
   <div class="wrap">
+    <div class="proc-split">
+    <div class="proc-copy">
     <p class="eyebrow"><span class="eyebrow-num">04</span> Process</p>
     <h2>How it was shaped</h2>
     <p class="lede" style="margin-bottom:16px">Figma for the screens, Spline for spatial 3D language, prototype for the loop you just played.</p>
-
     <div class="story-nav" role="tablist" id="procTabs">
       <button type="button" class="story-tab on" data-p="figma" role="tab" aria-selected="true">Figma</button>
       <button type="button" class="story-tab" data-p="spline" role="tab" aria-selected="false">Spline</button>
       <button type="button" class="story-tab" data-p="proto" role="tab" aria-selected="false">Unity / Proto</button>
     </div>
-
+    </div><!-- proc-copy -->
+    <div class="proc-visual">
     <div class="story-panel on" id="panel-figma" data-p="figma">
     <p class="eyebrow" style="margin-top:4px">Design · Figma</p>
     <h2 style="font-size:1.1rem">Screens as iPhone frames</h2>
@@ -3304,6 +3236,9 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
     <p style="margin:16px 0 24px"><a href="#demo" style="font-family:var(--font-mono);font-size:13px">Open product demo ↑</a></p>
     </div>
   </div>
+
+    </div><!-- proc-visual -->
+    </div><!-- proc-split -->
 </section>
 
 
@@ -4023,6 +3958,16 @@ document.getElementById('btnPause').onclick=function(){ playing=!playing; this.t
   function closeM(){ if(!mob) return; mob.classList.remove('on'); mob.setAttribute('aria-hidden','true'); }
   if(ham) ham.addEventListener('click',openM);
   if(close) close.addEventListener('click',closeM);
+})();
+</script>
+
+
+<script>
+(function(){
+  function keepTextOnDesktop(){
+    return window.matchMedia && window.matchMedia('(min-width:900px)').matches;
+  }
+  window.__keepPlayerText = keepTextOnDesktop;
 })();
 </script>
 

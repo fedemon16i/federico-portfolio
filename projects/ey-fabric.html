@@ -948,72 +948,6 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
   .slide{transition:opacity 200ms}
 }
 
-/* === UNIFIED LAYOUT (home parity) === */
-:root{
-  --nav-h: 64px;
-  --max: 1100px;
-  --pad: clamp(20px, 4vw, 40px);
-  --space-section: clamp(3.5rem, 5vw, 5.5rem);
-}
-body{
-  padding-top: var(--nav-h) !important;
-  overflow-x: hidden;
-}
-.wrap, .top-nav-inner{
-  max-width: var(--max) !important;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--pad);
-  padding-right: var(--pad);
-  width: 100%;
-  box-sizing: border-box;
-}
-/* Section rhythm */
-.sec, .project-section, section.sec{
-  padding-top: var(--space-section) !important;
-  padding-bottom: var(--space-section) !important;
-  margin-bottom: 0 !important;
-}
-/* Hero: same gap under nav */
-#hero, .hero, .hero-shell, .hero-sec, header.hero{
-  padding-top: 28px !important;
-}
-.hero-shell{
-  min-height: auto !important;
-  max-height: none !important;
-  padding-bottom: 28px !important;
-}
-/* No empty end scroll */
-html, body{ min-height: 0; }
-body{ min-height: auto !important; }
-.page, main, .main{
-  padding-bottom: 48px !important;
-  min-height: auto !important;
-}
-footer, .nav-case, .case-nav, .foot{
-  margin-bottom: 0 !important;
-  padding-bottom: 32px !important;
-}
-/* Breadcrumbs */
-.bc-crumbs{
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 12px var(--pad) 0;
-  font-family: var(--font-mono, "IBM Plex Mono", ui-monospace, monospace);
-  font-size: 11px;
-  letter-spacing: .04em;
-  color: var(--dim, #6e6a63);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-}
-.bc-crumbs a{ color: var(--muted, #a6a29a); text-decoration: none; }
-.bc-crumbs a:hover{ color: var(--text, #f2f0ec); }
-.bc-crumbs .sep{ opacity: .45; }
-.bc-crumbs .here{ color: var(--text, #f2f0ec); }
-
-
 /* === HOME NAV (shared) === */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:var(--bg,#0e0d0c);border-bottom:1px solid var(--border,rgba(255,255,255,.1));isolation:isolate}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
@@ -1063,6 +997,109 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
 @media(max-width:900px){
   .top-nav-links{display:none}
   .top-nav-hamburger{display:flex}
+}
+
+
+
+/* === SITE SHELL (single source) === */
+:root{
+  --max: 920px;
+  --pad: clamp(18px, 3.5vw, 32px);
+  --read: 40rem;
+  --nav-h: 64px;
+}
+body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
+.wrap,
+.top-nav-inner,
+.bc-crumbs{
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+.lede, .hero-sub, .sec .lede, .player-body, .own-item p, .prob p, .pcard-desc{
+  max-width: var(--read) !important;
+}
+/* Hero BC */
+#hero .hero-shell, .hero-shell{
+  min-height: 260px !important;
+  max-height: 360px !important;
+  padding: 20px 0 16px !important;
+  overflow: hidden !important;
+}
+#hero .wrap.hero-copy, .hero-copy.wrap, .wrap.hero-copy{
+  max-width: var(--max) !important;
+}
+#glHero{
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+/* Demo stage: never use grid — absolute device layout */
+#demoStage, .stage{
+  display: block !important;
+  position: relative !important;
+  max-width: 100% !important;
+  min-height: 420px !important;
+}
+#demoStage .device-layer, .device-layer{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  inset: 48px 16px 16px !important;
+  padding: 0 !important;
+}
+#demoStage #phone,
+#demoStage .iphone,
+#phone{
+  display: flex !important;
+  flex-direction: column !important;
+  width: 220px !important;
+  max-width: min(220px, 72vw) !important;
+  height: 476px !important; /* 220 * 19.5/9 */
+  max-height: 100% !important;
+  aspect-ratio: auto !important;
+  margin: 0 auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+#desk, .desk, .tabs-mode{ display: none !important; }
+/* Sections rhythm */
+.sec, section.sec{
+  padding-top: clamp(2.75rem, 4vw, 4rem) !important;
+  padding-bottom: clamp(2.75rem, 4vw, 4rem) !important;
+}
+
+
+
+
+/* === Stage split (web ≥1024): readable left, motion right — NOT 50/50 === */
+.pi-split,.loop-split,.demo-split,.proc-split{
+  display:flex;flex-direction:column;gap:20px;width:100%;
+}
+.pi-copy,.loop-copy,.demo-copy,.proc-copy{max-width:36rem}
+@media (min-width:1024px){
+  .pi-split,.loop-split,.demo-split,.proc-split{
+    display:grid;
+    grid-template-columns:minmax(240px,.8fr) minmax(300px,1.3fr);
+    gap:clamp(20px,3vw,36px);
+    align-items:start;
+  }
+  .pi-copy,.loop-copy,.demo-copy,.proc-copy{max-width:26rem}
+  .pi-visual .stage,
+  .loop-visual .player,
+  .demo-visual #demoStage,
+  .demo-visual .stage,
+  .proc-visual .mini-stage,
+  .proc-visual .stage{
+    position:sticky;top:80px;width:100%;
+  }
 }
 
 </style>
@@ -1268,6 +1305,8 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
 
   <!-- PRODUCT INTELLIGENCE -->
   <section class="sec" id="pi">
+    <div class="pi-split">
+    <div class="pi-copy">
     <p class="eyebrow">Product Intelligence</p>
     <h2 class="h2">From <em>blind catalog</em> to a closed loop</h2>
     <p class="lead" style="margin-bottom:12px">Six beats — same stage language as Home skills. Text first, then the prototype moves.</p>
@@ -1278,6 +1317,8 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
       <span class="capn" id="capn">1 / 6</span>
       <div class="prog"><i id="prog"></i></div>
     </div>
+    </div>
+    <div class="pi-visual">
     <div class="stage" id="stage">
       <div class="stage-window" id="win"></div>
       <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt"></span></div>
@@ -1291,7 +1332,9 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
         </button>
       </div>
     </div>
-    <p class="note">Anonymized Fabric catalog & workbench — skill-modal stage pattern.</p>
+    </div><!-- pi-visual -->
+    <p class="note" style="grid-column:1/-1">Anonymized Fabric catalog & workbench — skill-modal stage pattern.</p>
+    </div><!-- pi-split -->
   </section>
 
   <div class="closing" id="closing">
@@ -2027,6 +2070,13 @@ html[data-theme="light"] .top-nav{background:#f7f5f2}
   function closeM(){ if(!mob) return; mob.classList.remove('on'); mob.setAttribute('aria-hidden','true'); }
   if(ham) ham.addEventListener('click',openM);
   if(close) close.addEventListener('click',closeM);
+})();
+</script>
+
+
+<script>
+(function(){
+  window.__keepPlayerText = function(){ return window.matchMedia && window.matchMedia('(min-width:900px)').matches; };
 })();
 </script>
 
