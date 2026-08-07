@@ -116,3 +116,11 @@ renderer.setSize(w, h, false); // false = CSS size separate from buffer
 | Mobile prototype | Always phone chrome + TAP language |
 | Web prototype | Always desktop frame + cursor language |
 | Short + wide OS scale | Reduce `--stage-h`, keep aspect |
+
+
+## FIT-DEMO rule (narrative stages)
+- Prefer **smaller and fully visible** over large + internal scroll.
+- `--stage-h` targets ~260–380px on notebook heights; mobile can use more of the viewport.
+- Stages and `#win` use `overflow: hidden` — no scrollbars inside the prototype frame.
+- Skill modal stage uses `--modal-stage-h` under the modal chrome.
+- Bio chips: never hide the only `<span>` label (`:last-child` traps).
