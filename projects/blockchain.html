@@ -2739,7 +2739,7 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
   display: block !important;
   position: relative !important;
   max-width: 100% !important;
-  min-height: 420px !important;
+  min-height: 380px !important;
 }
 #demoStage .device-layer, .device-layer{
   display: flex !important;
@@ -2774,26 +2774,55 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
 
 
 
-/* === Stage split (web ≥1024): readable left, motion right — NOT 50/50 === */
+
+/* === Stage split align + size (web ≥1024) === */
 .pi-split,.loop-split,.demo-split,.proc-split{
   display:flex;flex-direction:column;gap:20px;width:100%;
 }
 .pi-copy,.loop-copy,.demo-copy,.proc-copy{max-width:36rem}
+.pi-visual,.loop-visual,.demo-visual,.proc-visual{
+  width:100%;
+  margin:0;padding:0;
+}
 @media (min-width:1024px){
   .pi-split,.loop-split,.demo-split,.proc-split{
-    display:grid;
-    grid-template-columns:minmax(240px,.8fr) minmax(300px,1.3fr);
-    gap:clamp(20px,3vw,36px);
-    align-items:start;
+    display:grid !important;
+    grid-template-columns: minmax(220px, 0.75fr) minmax(300px, 1.35fr);
+    gap: clamp(16px, 2.5vw, 28px);
+    align-items: start !important; /* top of text = top of stage */
   }
-  .pi-copy,.loop-copy,.demo-copy,.proc-copy{max-width:26rem}
+  .pi-copy,.loop-copy,.demo-copy,.proc-copy{
+    max-width: 24rem;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  .pi-visual,.demo-visual,.loop-visual,.proc-visual{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    align-self: start;
+  }
+  /* Stage fills right column, top-aligned with title block */
   .pi-visual .stage,
-  .loop-visual .player,
   .demo-visual #demoStage,
   .demo-visual .stage,
-  .proc-visual .mini-stage,
-  .proc-visual .stage{
-    position:sticky;top:80px;width:100%;
+  .loop-visual .player{
+    position: relative !important; /* no sticky — stays level with text start */
+    top: auto !important;
+    width: 100% !important;
+    min-height: 420px !important;
+    margin: 0 !important;
+  }
+  /* Phone centered inside stage, not floating in empty void */
+  #demoStage .device-layer{
+    inset: 52px 20px 20px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }
+  #demoStage #phone, #demoStage .iphone{
+    width: 200px !important;
+    height: 430px !important;
+    max-width: 200px !important;
   }
 }
 
