@@ -1526,6 +1526,322 @@ body.page-home .bio-tools .bt-row > *{
   body.page-home .bio-claim, body.page-home .bio-sub{ display: none !important; }
 }
 
+
+/* === SKILL STAGE SPLIT + GLOBAL NO-OVERFLOW === */
+html, body{
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+body{ position: relative; }
+.home, .wrap, .page, .section, .pcrow, .stage-panel{
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Skill modal panel: split like EY/BC on desktop web */
+.stagezone{
+  padding: 12px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.stage-panel{
+  width: min(960px, calc(100vw - 24px)) !important;
+  max-height: min(92vh, 720px) !important;
+  overflow: hidden !important; /* no panel scroll */
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  padding: 14px 16px 12px !important;
+  box-sizing: border-box !important;
+}
+.stage-panel .sim-tag{
+  font-size: 10px !important;
+  opacity: 0.55 !important;
+  margin: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stage-panel .controls-top{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  align-items: center !important;
+}
+.stage-panel .stage-persp{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: auto !important;
+  perspective: none !important;
+}
+.stage-panel .stage,
+.stage-panel #stage{
+  position: relative !important;
+  width: 100% !important;
+  height: min(360px, calc(92vh - 200px)) !important;
+  max-height: min(360px, calc(92vh - 200px)) !important;
+  min-height: 180px !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+}
+.stage-panel .stage *{
+  scrollbar-width: none !important;
+}
+.stage-panel .stage *::-webkit-scrollbar{ display: none !important; width: 0 !important; height: 0 !important; }
+
+/* Desktop / landscape tablet: left chrome, right stage */
+@media (min-width: 960px) and (min-height: 600px){
+  .stage-panel{
+    display: grid !important;
+    grid-template-columns: minmax(200px, 280px) minmax(0, 1fr) !important;
+    grid-template-rows: auto auto 1fr auto !important;
+    grid-template-areas:
+      "tag tag"
+      "title stage"
+      "controls stage"
+      "meta meta" !important;
+    column-gap: 20px !important;
+    row-gap: 8px !important;
+    align-items: start !important;
+  }
+  .stage-panel .sim-tag{ grid-area: tag; }
+  .stage-panel .stage-title{ grid-area: title; margin: 0 !important; }
+  .stage-panel .controls-top{
+    grid-area: controls;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .stage-panel .controls-top .beatpills{ order: -1; margin-bottom: 4px; }
+  .stage-panel .stage-persp{
+    grid-area: stage !important;
+    height: 100% !important;
+    max-height: calc(92vh - 100px) !important;
+    align-self: stretch !important;
+  }
+  .stage-panel .stage,
+  .stage-panel #stage{
+    height: min(420px, calc(92vh - 120px)) !important;
+    max-height: min(420px, calc(92vh - 120px)) !important;
+    width: 100% !important;
+  }
+  .stage-panel .metabar{ grid-area: meta; }
+}
+
+/* Square-ish / short: stack, smaller stage */
+@media (max-width: 959px), (max-height: 599px){
+  .stage-panel{
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: 94vh !important;
+  }
+  .stage-panel .stage,
+  .stage-panel #stage{
+    height: min(280px, calc(94vh - 220px)) !important;
+    max-height: min(280px, calc(94vh - 220px)) !important;
+  }
+}
+
+/* EY + BC stages: same height budget, no inner scroll */
+.pi-split, .demo-split{
+  align-items: start !important;
+}
+#stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
+  height: min(360px, calc(100vh - 220px)) !important;
+  max-height: min(360px, calc(100vh - 220px)) !important;
+  min-height: 200px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+@media (min-width: 1024px){
+  #stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
+    height: min(400px, calc(100vh - 180px)) !important;
+    max-height: min(400px, calc(100vh - 180px)) !important;
+  }
+}
+#win, .stage-window{
+  inset: 8px !important;
+  overflow: hidden !important;
+}
+
+/* Home mobile: no horizontal scroll */
+@media (max-width: 900px){
+  .home{
+    display: block !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  .bio, .main, .home > *{
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .gcard, .pcard, .pcrow{
+    max-width: 100% !important;
+  }
+  .pcrow{ overflow-x: auto !important; }
+}
+
+/* Kill previous giant stage-h overrides that fight this */
+
+
+/* hide decorative AI stars on cards */
+.gc-ai, .pcard-ai, svg.gc-ai, svg.pcard-ai{ display:none !important; }
+
+/* Project cards — vivid solid identity */
+.pcard{
+  background: var(--pc-bg, #333) !important;
+  color: var(--pc-txt, #111) !important;
+  border: none !important;
+  box-shadow: 0 12px 32px -16px rgba(0,0,0,.55) !important;
+}
+.pcard .pcard-top b,
+.pcard .pcard-name,
+.pcard .pcard-name-v,
+.pcard .pcard-head,
+.pcard small,
+.pcard .pcard-body,
+.pcard a,
+.pcard .pcard-cta{
+  color: inherit !important;
+}
+.pcard small{ opacity: 0.75 !important; }
+.pcard:hover{
+  transform: translateY(-4px) scale(1.01) !important;
+  filter: brightness(1.05);
+  box-shadow: 0 20px 44px -14px rgba(0,0,0,.55) !important;
+}
+/* ensure case accents on home strip */
+.pcard[href*="ey-fabric"], .pcard.ey, #pc0{ --pc-bg:#ffe600 !important; --pc-txt:#2b2600 !important; }
+.pcard[href*="blockchain"], .pcard.bc{ --pc-bg:#22d4c8 !important; --pc-txt:#042e2a !important; }
+.pcard[href*="chek"], .pcard.chek{ --pc-bg:#7a3be0 !important; --pc-txt:#f5f0ff !important; }
+
+/* === SCALE-FIT STAGES (canvas + complete window/device) === */
+html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
+.stage-panel, .pi-split, .demo-split, #stage, #demoStage, .stage{
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+/* Skill modal: split + no overflow */
+.stagezone{ padding: 10px !important; }
+.stage-panel{
+  width: min(980px, calc(100vw - 16px)) !important;
+  height: min(560px, calc(100vh - 24px)) !important;
+  max-height: calc(100vh - 24px) !important;
+  overflow: hidden !important;
+  display: grid !important;
+  grid-template-columns: minmax(150px, 34%) minmax(0, 1fr) !important;
+  grid-template-rows: auto auto 1fr auto !important;
+  grid-template-areas:
+    "tag tag"
+    "title stage"
+    "controls stage"
+    "meta meta" !important;
+  gap: 8px 14px !important;
+  padding: 12px !important;
+}
+.stage-panel .sim-tag{ grid-area: tag; margin:0 !important; font-size:10px !important; opacity:.55; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.stage-panel .stage-title{ grid-area: title; margin:0 !important; }
+.stage-panel .controls-top{ grid-area: controls; flex-wrap: wrap !important; align-content: start !important; }
+.stage-panel .stage-persp{
+  grid-area: stage !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  position: relative !important;
+  perspective: none !important;
+  overflow: hidden !important;
+}
+.stage-panel .stage,
+.stage-panel #stage{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  /* canvas grid */
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    var(--bg-surface, #0c0b0a) !important;
+  background-size: 22px 22px, 22px 22px, auto !important;
+}
+.stage-panel .metabar{ grid-area: meta; }
+/* Inner design surface — JS will set --fit-s */
+.stage-panel #stage > .stage-window,
+.stage-panel #stage > #win,
+.stage-panel #stage > [data-fit],
+#stage > .slide-root,
+#win{
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) scale(var(--fit-s, 0.85)) !important;
+  transform-origin: center center !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+@media (max-width: 820px){
+  .stage-panel{
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto minmax(0,1fr) auto !important;
+    grid-template-areas:
+      "tag"
+      "title"
+      "stage"
+      "controls"
+      "meta" !important;
+    height: min(640px, calc(100vh - 12px)) !important;
+  }
+  .stage-panel .controls-top{ flex-direction: row !important; }
+}
+
+/* EY / BC stage hosts */
+.pi-visual, .demo-visual{
+  min-height: 0 !important;
+}
+#stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
+  position: relative !important;
+  overflow: hidden !important;
+  height: min(420px, calc(100vh - 200px)) !important;
+  max-height: min(420px, calc(100vh - 200px)) !important;
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    var(--bg-surface, #0c0b0a) !important;
+  background-size: 22px 22px, 22px 22px, auto !important;
+}
+@media (min-width: 1024px){
+  .pi-split, .demo-split{
+    display: grid !important;
+    grid-template-columns: minmax(160px, 34%) minmax(0, 1fr) !important;
+    gap: 16px !important;
+    align-items: stretch !important;
+  }
+  .pi-visual, .demo-visual{ height: min(480px, calc(100vh - 160px)) !important; }
+  #stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
+    height: 100% !important;
+    max-height: 100% !important;
+  }
+}
+@media (max-width: 820px){
+  .pi-split, .demo-split{ display: flex !important; flex-direction: column !important; }
+  #stage, #demoStage{
+    height: min(320px, 48vh) !important;
+    max-height: min(320px, 48vh) !important;
+  }
+}
+
+/* Mobile home — no horizontal scroll */
+@media (max-width: 900px){
+  .home{ display:block !important; width:100% !important; overflow-x:hidden !important; }
+  .bio, .home > *{ max-width:100% !important; width:100% !important; box-sizing:border-box !important; }
+  .gcard{ max-width:100% !important; }
+}
+
 </style>
 </head>
 <body>
@@ -2553,6 +2869,68 @@ body.page-home .bio-tools .bt-row > *{
   if(hamburger) hamburger.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
   if(closeBtn) closeBtn.addEventListener('click', closeM);
   if(mobile) mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
+})();
+</script>
+
+
+<script>
+/* FIT-SCALE: keep prototype window/device fully visible inside stage hosts */
+(function(){
+  function fitEl(host, target, dw, dh, pad){
+    if(!host || !target) return;
+    pad = pad == null ? 20 : pad;
+    var s = Math.min(
+      Math.max(host.clientWidth  - pad*2, 40) / dw,
+      Math.max(host.clientHeight - pad*2, 40) / dh
+    );
+    s = Math.min(Math.max(s, 0.12), 1.1);
+    target.style.setProperty('--fit-s', String(s));
+    if(!target.style.transform || target.style.transform.indexOf('scale')>=0 || true){
+      // prefer CSS var; also set transform if element is the design root
+      target.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+      target.style.left = '50%';
+      target.style.top = '50%';
+      target.style.position = target.style.position || 'absolute';
+    }
+  }
+  function fitAll(){
+    // Skill stage: scale #win or first major child if present
+    var skillStage = document.querySelector('.stage-panel #stage, #stageZone #stage');
+    if(skillStage){
+      var root = skillStage.querySelector('#win, .stage-window, [data-fit], .slide-root') || skillStage.firstElementChild;
+      // If animations paint into #stage directly, wrap logic is light — only scale known roots
+      if(root && root.id !== 'cur'){
+        // design size approximation for skill UIs
+        fitEl(skillStage, root, 640, 360, 18);
+      }
+    }
+    // EY stage
+    var ey = document.querySelector('#stage');
+    if(ey && !ey.closest('.stage-panel')){
+      var eyRoot = ey.querySelector('#win, .stage-window, [data-fit]') || ey.querySelector('.slide, .ui-frame, .window');
+      if(eyRoot) fitEl(ey, eyRoot, 640, 360, 18);
+    }
+    // BC phone
+    var demo = document.querySelector('#demoStage');
+    if(demo){
+      var phone = demo.querySelector('.phone-frame, .device, .device-wrap, [data-phone], .phone');
+      if(phone) fitEl(demo, phone, 390, 844, 16);
+    }
+  }
+  window.__portfolioFitScale = fitAll;
+  window.addEventListener('resize', fitAll);
+  if(window.ResizeObserver){
+    document.querySelectorAll('#stage, #demoStage, .stage-panel .stage').forEach(function(el){
+      try{ new ResizeObserver(fitAll).observe(el); }catch(e){}
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(fitAll, 50); });
+  else setTimeout(fitAll, 50);
+  // re-fit when skill modal opens
+  var zo = document.getElementById('stageZone');
+  if(zo && window.MutationObserver){
+    new MutationObserver(function(){ setTimeout(fitAll, 30); }).observe(zo, {attributes:true, attributeFilter:['class']});
+  }
 })();
 </script>
 
