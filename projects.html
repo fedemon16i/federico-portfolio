@@ -1,289 +1,450 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<script>
-  (function(){
-    var saved = localStorage.getItem('theme');
-    var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    if(theme==='light') document.documentElement.setAttribute('data-theme','light');
-  })();
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>All Projects — Federico Monroy</title>
-<meta name="description" content="Every case study, always expanded. A chronological look at where the loop ran — EY, Blockchain, Forecast, DollarCity, Chek, and Customs.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="assets/shared.css" />
-<script src="assets/demo-kit.js"></script>
-<script src="assets/main.js" defer></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projects — Federico Monroy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
-  :root{ --accent:#d97757; --nav-bg:rgba(14,13,12,0.85);
-    --acc-ey:#ffe600; --acc-bc:#22d4c8; --acc-cus:#e05c4a; --acc-dc:#00a650; --acc-fc:#5b9bd0; }
-  html[data-theme="light"]{ --accent:#a84928; --nav-bg:rgba(247,245,242,0.85); }
-  body{background:var(--bg);}
+:root{
+  --bg:#0e0d0c;--bg-raised:#171614;--text:#f2f0ec;--muted:#a6a29a;--dim:#6e6a63;
+  --border:rgba(255,255,255,.1);--accent:#d97757;
+  --font-display:"Instrument Sans",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+html[data-theme="light"]{
+  --bg:#f7f5f2;--bg-raised:#fff;--text:#1a1917;--muted:#55524c;--dim:#8a847a;
+  --border:rgba(0,0,0,.1);--accent:#a84928;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-display);font-size:clamp(16px,1.05vw,18px);line-height:1.6;padding-top:64px}
+a{color:inherit;text-decoration:none}
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:var(--bg);border-bottom:1px solid var(--border)}
+.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1440px;margin:0 auto;padding:0 24px;gap:8px}
+.top-nav-logo{font-weight:800;font-size:18px;margin-right:auto}.top-nav-logo span{color:var(--accent)}
+.top-nav-links{display:flex;gap:8px}
+.top-nav-link{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:8px 12px;border-radius:6px}
+.top-nav-link.active,.top-nav-link:hover{color:var(--text)}
+.top-nav-theme{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg-raised);color:var(--dim);display:grid;place-items:center;cursor:pointer;margin-left:8px}
+.top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:8px;cursor:pointer}
+.top-nav-hamburger span{width:20px;height:2px;background:var(--text);display:block}
+@media(max-width:900px){.top-nav-links{display:none}.top-nav-hamburger{display:flex}}
+.mobile{display:none;position:fixed;inset:0;z-index:10000;background:var(--bg);padding:72px 24px}.mobile.open{display:block}
+.mobile a{display:block;padding:12px 0;border-bottom:1px solid var(--border);font-weight:700;font-size:1.15rem}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px 88px}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+h1{font-weight:800;font-size:clamp(1.85rem,4vw,2.5rem);letter-spacing:-.03em;margin-bottom:10px}
+.lede{color:var(--muted);max-width:34rem;margin-bottom:28px}
 
-  /* ===== mini-graphic animations, reused from home's project cards ===== */
-  .g-phone{width:96px;height:172px;border-radius:20px;background:linear-gradient(160deg,#2a2a28,#141412);border:3px solid rgba(255,255,255,.08);box-shadow:0 14px 30px -10px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.3);position:relative;overflow:hidden;flex-shrink:0;}
-  .g-phone-screen{position:relative;inset:9px 5px;border-radius:13px;overflow:hidden;background:#111;height:100%;}
-  .g-browser{width:min(240px,84%);height:150px;border-radius:12px;background:linear-gradient(160deg,#2a2a28,#141412);border:3px solid rgba(255,255,255,.08);box-shadow:0 14px 30px -10px rgba(0,0,0,.5);overflow:hidden;position:relative;}
-  .g-browser-bar{height:20px;background:rgba(255,255,255,.06);display:flex;align-items:center;gap:4px;padding:0 8px;}
-  .g-browser-bar i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);}
-  .g-browser-screen{position:absolute;inset:20px 0 0;background:#111;overflow:hidden;}
+/* Same pcard language as home (always expanded here) */
+.stack{display:flex;flex-direction:column;gap:16px}
+.pcard{
+  display:block;border-radius:18px;overflow:hidden;text-decoration:none;
+  background:var(--pc-bg);color:var(--pc-txt);
+  box-shadow:0 14px 36px rgba(0,0,0,.28);
+  transition:transform .35s var(--spring), box-shadow .3s ease;
+}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(0,0,0,.34)}
+.pcard-head{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
+.pcard-name-v{font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase;opacity:.9}
+.pcard-body{padding:12px 18px 18px}
+.pcard-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:10px;flex-wrap:wrap}
+.pcard-top b{font-size:1.15rem;font-weight:800}
+.pcard-top small{font-family:var(--font-mono);font-size:11px;opacity:.75}
+.pcard-graphic{
+  height:200px;border-radius:14px;overflow:hidden;position:relative;
+  margin-bottom:14px;background:#0a121c;
+}
+.pcard-desc{font-size:15px;line-height:1.55;opacity:.9;margin-bottom:10px}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.pcard-tags span{
+  font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:100px;
+  border:1px solid rgba(0,0,0,.18);opacity:.85;
+}
+.pcard-cta{font-family:var(--font-mono);font-size:12px;opacity:.95}
 
-  .ey-process{display:flex;align-items:center;gap:0;}
-  .ey-node{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.06);border:1.5px solid rgba(43,38,0,.3);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:8px;color:rgba(43,38,0,.6);position:relative;flex-shrink:0;}
-  .ey-node span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:7.5px;white-space:nowrap;color:rgba(43,38,0,.7);}
-  .ey-arrow{width:16px;height:1.5px;background:rgba(43,38,0,.25);position:relative;flex-shrink:0;}
+.ey-graphic{background:#14120a;position:relative}
+.ey-wf{position:absolute;left:10%;right:10%;top:14%;bottom:12%;border:1px solid rgba(255,225,0,.28);border-radius:8px;background:rgba(0,0,0,.35);display:grid;grid-template-columns:26% 1fr}
+.ey-wf-side{border-right:1px solid rgba(255,225,0,.15);padding:8px;display:flex;flex-direction:column;gap:5px}
+.ey-wf-side b{height:5px;border-radius:3px;background:rgba(255,225,0,.22);display:block}
+.ey-wf-main{padding:8px;display:grid;grid-template-rows:20px 1fr;gap:6px}
+.ey-wf-banner{border-radius:4px;background:rgba(255,225,0,.16)}
+.ey-wf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+.ey-wf-grid span{border-radius:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,225,0,.12)}
+.ey-wf-cursor{position:absolute;width:9px;height:9px;border-radius:50%;background:#ffe600;box-shadow:0 0 12px #ffe600;animation:eyC 3.4s ease-in-out infinite}
+@keyframes eyC{0%{left:36%;top:38%}45%{left:64%;top:50%}100%{left:36%;top:38%}}
+.chek-g{background:linear-gradient(145deg,#1a0f2e,#0e0a18);position:relative}
+.chek-card{position:absolute;left:50%;top:50%;width:124px;height:74px;margin:-37px 0 0 -62px;border-radius:12px;background:linear-gradient(135deg,#7a3be0,#4b1f96);box-shadow:0 14px 28px rgba(122,59,224,.4);animation:fl 4s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.dc-g{background:#0c1410;position:relative}
+.dc-cam{position:absolute;inset:16px;border-radius:10px;background:#eef2ec;overflow:hidden}
+.dc-scan{position:absolute;left:10%;right:10%;height:2px;background:#00a650;animation:sc 3s ease-in-out infinite;box-shadow:0 0 10px #00a650}
+@keyframes sc{0%{top:18%}50%{top:78%}100%{top:18%}}
 
-  @keyframes cubeSpin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
-  .bc-cube-mini{width:38px;height:38px;position:relative;transform-style:preserve-3d;animation:cubeSpin 9s linear infinite;flex-shrink:0;}
-  .bc-face-mini{position:absolute;inset:0;border:1.5px solid var(--acc-bc);background:rgba(34,212,200,.07);border-radius:5px;}
-
-  .dc-row{position:absolute;left:12px;right:12px;height:9px;border-radius:3px;background:rgba(0,0,0,.08);}
-  .dc-ba-mini{position:absolute;left:12px;top:12px;display:flex;gap:2px;font-family:var(--font-mono);font-size:8px;border-radius:100px;overflow:hidden;border:1px solid rgba(0,0,0,.14);}
-  .dc-ba-mini i{font-style:normal;padding:3px 8px;color:rgba(0,0,0,.4);background:transparent;}
-  .dc-ba-mini i.on{background:var(--acc-dc);color:#fff;}
-  @keyframes scanline{0%{top:14%}50%{top:76%}100%{top:14%}}
-  .dc-scan{position:absolute;left:8px;right:8px;height:2px;background:var(--acc-dc);border-radius:2px;animation:scanline 3.4s ease-in-out infinite;box-shadow:0 0 10px rgba(0,166,80,.5);}
-  .dc-flag{position:absolute;right:16px;top:18px;font-family:var(--font-mono);font-size:10px;color:#b91c1c;background:rgba(185,28,28,.1);border:1px solid rgba(185,28,28,.35);border-radius:100px;padding:2px 7px;}
-
-  .cus-doc{position:absolute;left:50%;top:50%;width:96px;height:120px;margin:-60px 0 0 -48px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px 10px;}
-  .cus-line{height:6px;border-radius:3px;background:rgba(255,255,255,.1);margin-bottom:8px;}
-  @keyframes stampIn{0%,55%{opacity:0;transform:scale(1.6) rotate(-8deg)}70%,100%{opacity:1;transform:scale(1) rotate(-8deg)}}
-  .cus-stamp{position:absolute;right:-12px;bottom:8px;font-family:var(--font-mono);font-size:10.5px;color:var(--acc-cus);border:2px solid var(--acc-cus);border-radius:6px;padding:3px 8px;animation:stampIn 3.2s ease-in-out infinite;}
-
-  @keyframes ganttGrow{0%{transform:scaleX(0)}45%,100%{transform:scaleX(1)}}
-  .fc-gantt{position:absolute;height:12px;border-radius:4px;background:var(--acc-fc);transform-origin:left;animation:ganttGrow 3.6s ease-in-out infinite;}
-
-  .mock-toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%) translateY(8px);opacity:0;
-    font-family:var(--font-mono);font-size:9.5px;color:#8fd4a8;background:rgba(18,11,28,.92);border:1px solid rgba(143,212,168,.5);
-    border-radius:100px;padding:4px 11px;white-space:nowrap;animation:toastPop 3.6s ease-in-out infinite;}
-  @keyframes toastPop{0%,15%{opacity:0;transform:translateX(-50%) translateY(8px);}25%,70%{opacity:1;transform:translateX(-50%) translateY(0);}85%,100%{opacity:0;transform:translateX(-50%) translateY(-4px);}}
-  .mock-tap{position:absolute;left:50%;bottom:22%;width:9px;height:9px;border-radius:50%;background:#fff;
-    transform:translate(-50%,50%);box-shadow:0 0 6px rgba(255,255,255,.7);z-index:2;animation:tapFade 2.8s ease-in-out infinite;}
-  .mock-tap-ring{position:absolute;left:50%;bottom:22%;width:9px;height:9px;border-radius:50%;border:1.5px solid #fff;
-    transform:translate(-50%,50%);animation:tapRing 2.8s ease-out infinite;}
-  @keyframes tapFade{0%,60%{opacity:0}68%{opacity:1}82%{opacity:1}100%{opacity:0}}
-  @keyframes tapRing{0%,60%{opacity:0;transform:translate(-50%,50%) scale(1)}68%{opacity:.9;transform:translate(-50%,50%) scale(1)}100%{opacity:0;transform:translate(-50%,50%) scale(2.6)}}
-
-  @media(prefers-reduced-motion:reduce){
-    .bc-cube-mini,.dc-scan,.cus-stamp,.fc-gantt,.mock-toast,.mock-tap,.mock-tap-ring{animation:none !important;}
+  .bc-mini-tip{
+    position:absolute;z-index:2;left:12%;top:14%;
+    padding:6px 10px;border-radius:8px;
+    background:rgba(14,13,12,.92);border:1px solid rgba(34,212,200,.4);
+    color:#e8f7f5;font-family:var(--font-mono),ui-monospace,monospace;
+    font-size:10px;letter-spacing:.04em;pointer-events:none;
+    box-shadow:0 8px 22px rgba(0,0,0,.4);
+    animation:bcTipFloat 4s ease-in-out infinite;
   }
-  .pj-hero{padding:calc(var(--nav-h) + 48px) 24px 32px;max-width:900px;margin:0 auto;}
-  .pj-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);
-    display:flex;align-items:center;gap:8px;margin-bottom:16px;}
-  .pj-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent);}
-  .pj-title{font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5.5vw,3.4rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:14px;}
-  .pj-sub{font-size:1.05rem;line-height:1.6;color:var(--text-secondary);max-width:600px;}
-
-  .pj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px;max-width:1200px;margin:0 auto;padding:16px 24px 80px;}
-  .pj-card{position:relative;border-radius:20px;overflow:hidden;background:var(--pc-bg);color:var(--pc-txt);
-    display:flex;flex-direction:column;min-height:440px;text-decoration:none;
-    transition:transform 250ms cubic-bezier(.34,1.14,.64,1),box-shadow 300ms ease;}
-  .pj-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -16px rgba(0,0,0,.5);}
-  .pj-card-head{padding:22px 22px 0;display:flex;align-items:flex-start;justify-content:space-between;}
-  .pj-logo{flex-shrink:0;}
-  .pj-ai{width:15px;height:15px;opacity:.6;}
-  .pj-body{padding:14px 22px 22px;display:flex;flex-direction:column;flex:1;}
-  .pj-top{margin-bottom:14px;}
-  .pj-top b{display:block;font-family:var(--font-display);font-weight:700;font-size:1.2rem;margin-bottom:3px;}
-  .pj-top small{font-family:var(--font-mono);font-size:11px;opacity:.75;}
-  .pj-graphic{flex:1;border-radius:12px;overflow:hidden;position:relative;margin-bottom:16px;min-height:170px;
-    display:flex;align-items:center;justify-content:center;}
-  .pj-desc{font-size:.9rem;line-height:1.55;opacity:.92;margin-bottom:14px;}
-  .pj-cta{font-size:.85rem;font-weight:600;text-decoration:underline;align-self:flex-start;}
-
-  @media(max-width:600px){
-    .pj-hero{padding-top:calc(var(--nav-h) + 32px);}
-    .pj-grid{grid-template-columns:1fr;gap:16px;padding:12px 16px 60px;}
-    .pj-card{min-height:auto;}
+  .bc-mini-tip b{color:#22d4c8}
+  .bc-mini-tip::after{
+    content:"";position:absolute;left:16px;bottom:-5px;width:8px;height:8px;
+    background:rgba(14,13,12,.92);border-right:1px solid rgba(34,212,200,.4);
+    border-bottom:1px solid rgba(34,212,200,.4);transform:rotate(45deg);
   }
+  @keyframes bcTipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .pcard-graphic .bc-mini-gl, .bc-scene .bc-mini-gl{position:absolute;inset:0;width:100%;height:100%}
+
+.foot{text-align:center;padding:28px;font-family:var(--font-mono);font-size:11px;color:var(--dim)}.foot a{margin:0 10px}
+
+  .bc-mini-load{
+    position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;
+    background:#0a121c;transition:opacity .45s ease, visibility .45s;
+  }
+  .bc-mini-load.is-done{opacity:0;visibility:hidden;pointer-events:none}
+  .bc-mini-load .spin{
+    width:22px;height:22px;border-radius:50%;
+    border:2px solid rgba(34,212,200,.2);border-top-color:#22d4c8;
+    animation:bcSpin .7s linear infinite;
+  }
+  @keyframes bcSpin{to{transform:rotate(360deg)}}
+  .bc-mini-tip{
+    position:absolute;z-index:2;left:12%;top:14%;
+    padding:6px 10px;border-radius:8px;
+    background:rgba(14,13,12,.92);border:1px solid rgba(34,212,200,.4);
+    color:#e8f7f5;font-family:var(--font-mono),ui-monospace,monospace;
+    font-size:10px;letter-spacing:.04em;pointer-events:none;
+    box-shadow:0 8px 22px rgba(0,0,0,.4);
+    animation:bcTipFloat 4s ease-in-out infinite;
+  }
+  .bc-mini-tip b{color:#22d4c8}
+  .bc-mini-tip::after{
+    content:"";position:absolute;left:16px;bottom:-5px;width:8px;height:8px;
+    background:rgba(14,13,12,.92);border-right:1px solid rgba(34,212,200,.4);
+    border-bottom:1px solid rgba(34,212,200,.4);transform:rotate(45deg);
+  }
+  @keyframes bcTipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+
+.metric-reel{
+  display:flex;gap:8px;overflow:hidden;margin:0 0 12px;
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+}
+.metric-reel-track{
+  display:flex;gap:8px;animation:reelMove 22s linear infinite;
+  width:max-content;
+}
+@keyframes reelMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.metric-chip{
+  flex:0 0 auto;display:flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:12px;
+  background:rgba(0,0,0,.12);border:1px solid rgba(0,0,0,.14);
+  font-family:var(--font-mono);font-size:11px;white-space:nowrap;
+}
+.metric-chip b{font-size:14px;font-weight:800;letter-spacing:-.02em}
+.metric-chip span{opacity:.75;font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+
+
+.stack-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.icochip{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:9px;position:relative;
+  background:rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.12);
+  transition:border-color 200ms;cursor:default;
+}
+.icochip:hover{border-color:rgba(0,0,0,.35)}
+.icochip svg{width:15px;height:15px;transition:transform 300ms cubic-bezier(.34,1.56,.64,1),filter 300ms}
+.icochip:hover svg{transform:perspective(200px) rotateY(12deg) scale(1.12)}
+.icochip-name{
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(3px);
+  font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:6px;
+  background:#1c1b19;color:#f2f0ec;border:1px solid rgba(255,255,255,.1);
+  opacity:0;pointer-events:none;white-space:nowrap;transition:opacity 180ms,transform 180ms;z-index:3;
+}
+.icochip:hover .icochip-name{opacity:1;transform:translateX(-50%) translateY(0)}
+
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to main content</a>
-<div id="progress-bar" aria-hidden="true"></div>
+<nav class="top-nav"><div class="top-nav-inner">
+<a class="top-nav-logo" href="index.html">FM<span>.</span></a>
+<div class="top-nav-links">
+<a class="top-nav-link" href="index.html">Home</a>
+<a class="top-nav-link active" href="projects.html">Projects</a>
+<a class="top-nav-link" href="about.html">About</a>
+<a class="top-nav-link" href="contact.html">Contact</a>
+</div>
+<button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+<button class="top-nav-hamburger" id="ham" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="mobile" id="mobile">
+<a href="index.html">Home</a><a href="projects.html">Projects</a>
+<a href="projects/ey-fabric.html">EY Fabric</a><a href="projects/blockchain.html">Blockchains</a>
+<a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+<main class="wrap">
+<p class="eyebrow">Case studies</p>
+<h1>Projects</h1>
+<p class="lede">Same cards as home — expanded here with role, stack, and outcome so recruiters can scan without opening every case.</p>
+<div class="stack">
 
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
-    <div class="nav-links" role="menubar">
-      <a href="index.html" class="nav-link">Home</a>
-      <div class="nav-dropdown">
-        <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
-          Projects
-          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
-          <a class="nav-dropdown-item" href="projects.html" role="menuitem" style="color:var(--accent);font-weight:700;">All Projects ↗</a>
-          <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
-          <a class="nav-dropdown-item" href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
-          <a class="nav-dropdown-item" href="projects/chek.html" role="menuitem">Chek</a>
-          <a class="nav-dropdown-item" href="projects/dollarcity.html" role="menuitem">DollarCity</a>
-          <a class="nav-dropdown-item" href="projects/customs.html" role="menuitem">Customs ES</a>
-          <a class="nav-dropdown-item" href="projects/forecast.html" role="menuitem">Forecast</a>
-        </div>
-      </div>
-      <a href="design-system.html" class="nav-link">Design System</a>
-      <a href="resume.html" class="nav-link">Resume</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="contact.html" class="nav-link">Contact</a>
+  <a class="pcard" href="projects/ey-fabric.html" style="--pc-bg:#ffe600;--pc-txt:#2b2600;">
+    <div class="pcard-head">
+      <span class="pcard-logo"><svg width="30" height="22" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#2b2600"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#2b2600">EY</text></svg></span>
+      <span class="pcard-name-v">EY Fabric</span>
     </div>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-    <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+    <div class="pcard-body">
+      <div class="pcard-top"><b>EY Fabric</b><small>Oct 2023 — Present · Globant</small></div>
+      <div class="pcard-graphic ey-graphic">
+        <div class="ey-wf"><div class="ey-wf-side"><b></b><b></b><b></b><b></b></div><div class="ey-wf-main"><div class="ey-wf-banner"></div><div class="ey-wf-grid"><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div>
+        <span class="ey-wf-cursor"></span>
+      </div>
 
-<main id="main">
+      <div class="metric-reel" aria-hidden="true"><div class="metric-reel-track">
+        <div class="metric-chip"><b>90+</b><span>Assets instrumented</span></div>
+        <div class="metric-chip"><b>1</b><span>Pendo practitioner</span></div>
+        <div class="metric-chip"><b>5</b><span>Workflow stages</span></div>
+        <div class="metric-chip"><b>300+</b><span>Catalog items</span></div>
+        <div class="metric-chip"><b>90+</b><span>Assets instrumented</span></div>
+        <div class="metric-chip"><b>1</b><span>Pendo practitioner</span></div>
+        <div class="metric-chip"><b>5</b><span>Workflow stages</span></div>
+        <div class="metric-chip"><b>300+</b><span>Catalog items</span></div>
+      </div></div>
+      <p class="pcard-desc">Sole Pendo practitioner on the XDA team — instrumented a 300+ item catalog end to end, closed the loop between experience, product, and engineering.</p>
+      
+      <div class="stack-row" aria-label="Stack">
+        <span class="icochip" data-brand="pendo"><span class="icochip-name">Pendo</span><svg viewBox="0 0 24 24"><path fill="#EC5B33" d="M4 4h10.5a5.5 5.5 0 010 11H8v5H4V4zm4 4v3h6.5a1.5 1.5 0 000-3H8z"/></svg></span>
+        <span class="icochip" data-brand="figma"><span class="icochip-name">Figma</span><svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z"/><path fill="#FF7262" d="M4 12c0-2.2 1.8-4 4-4h4v8H8c-2.2 0-4-1.8-4-4z"/><path fill="#A259FF" d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z"/><path fill="#1ABCFE" d="M12 0h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4V0z"/><path fill="#0ACF83" d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z"/></svg></span>
+        <span class="icochip" data-brand="maze"><span class="icochip-name">Maze</span><svg viewBox="0 0 24 24"><path fill="#1a1917" d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm14.5 0L21 17.5 17.5 21 14 17.5 17.5 14z"/></svg></span>
+      </div>
+<div class="pcard-tags"><span>UXR</span><span>Behavioral analytics</span></div>
+      <span class="pcard-cta">Open case study →</span>
+    </div>
+  </a>
 
-  <header class="pj-hero">
-    <div class="pj-eyebrow">All case studies · Chronological</div>
-    <h1 class="pj-title">Every project, <em>always open</em>.</h1>
-    <p class="pj-sub">No hover, no click — the whole timeline, laid out. From an internal software catalog to a 3D map, a fraud-monitoring system, and a credit card.</p>
-  </header>
+  <a class="pcard" href="projects/blockchain.html" style="--pc-bg:#22d4c8;--pc-txt:#042e2a;">
+    <div class="pcard-head">
+      <span class="pcard-logo"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#042e2a" stroke-width="1.6"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#042e2a"/></svg></span>
+      <span class="pcard-name-v">Blockchain</span>
+    </div>
+    <div class="pcard-body">
+      <div class="pcard-top"><b>Blockchains Inc.</b><small>2023 — Present · 3D product</small></div>
+      <div class="pcard-graphic" style="background:#0a121c;position:relative;overflow:hidden;">
+        <canvas class="bc-mini-gl" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+        <div class="bc-mini-tip" aria-hidden="true"><b>POI</b> · Cafe row</div>
+      </div>
 
-  <div class="pj-grid">
+      <div class="metric-reel" aria-hidden="true"><div class="metric-reel-track">
+        <div class="metric-chip"><b>3D</b><span>Live city map</span></div>
+        <div class="metric-chip"><b>POI</b><span>Place &amp; publish</span></div>
+        <div class="metric-chip"><b>4</b><span>Demo beats</span></div>
+        <div class="metric-chip"><b>Owner</b><span>→ Visitor loop</span></div>
+        <div class="metric-chip"><b>3D</b><span>Live city map</span></div>
+        <div class="metric-chip"><b>POI</b><span>Place &amp; publish</span></div>
+        <div class="metric-chip"><b>4</b><span>Demo beats</span></div>
+        <div class="metric-chip"><b>Owner</b><span>→ Visitor loop</span></div>
+      </div></div>
+      <p class="pcard-desc">Immersive map product — place POIs in a live 3D city, publish media from device, and visit content on the ground plane. Same procedural city engine as the case demo.</p>
+      
+      <div class="stack-row" aria-label="Stack">
+        <span class="icochip"><span class="icochip-name">Figma</span><svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z"/><path fill="#FF7262" d="M4 12c0-2.2 1.8-4 4-4h4v8H8c-2.2 0-4-1.8-4-4z"/><path fill="#A259FF" d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z"/><path fill="#1ABCFE" d="M12 0h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4V0z"/><path fill="#0ACF83" d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z"/></svg></span>
+        <span class="icochip"><span class="icochip-name">Spline</span><svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5" fill="#5B21B6"/><circle cx="16" cy="8" r="2.5" fill="#7C3AED"/><circle cx="16" cy="16" r="2.5" fill="#A78BFA"/></svg></span>
+        <span class="icochip"><span class="icochip-name">Unity</span><svg viewBox="0 0 24 24"><path fill="#333" d="M10.1 2.2L2.5 6.6v10.8l7.6 4.4 7.6-4.4V6.6L10.1 2.2z"/></svg></span>
+        <span class="icochip"><span class="icochip-name">Three.js</span><svg viewBox="0 0 24 24"><path fill="#049EF4" d="M3 18L12 3l9 15H3zm3.2-1.5h11.6L12 7.2 6.2 16.5z"/></svg></span>
+      </div>
+<div class="pcard-tags"><span>3D UX</span></div>
+      <span class="pcard-cta">Open case study →</span>
+    </div>
+  </a>
 
-    <a class="pj-card" href="projects/ey-fabric.html" style="--pc-bg:#ffe600;--pc-txt:#2b2600;">
-      <div class="pj-card-head">
-        <span class="pj-logo"><svg width="34" height="25" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#2b2600"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#2b2600">EY</text></svg></span>
-        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-      </div>
-      <div class="pj-body">
-        <div class="pj-top"><b>EY Fabric</b><small>Oct 2023 — Present</small></div>
-        <div class="pj-graphic" style="background:#14130e;"><div class="ey-process">
-          <div class="ey-node ey-n0"><span>diagnose</span>&#9680;</div>
-          <div class="ey-arrow ey-a0"></div>
-          <div class="ey-node ey-n1"><span>instrument</span>&#9681;</div>
-          <div class="ey-arrow ey-a1"></div>
-          <div class="ey-node ey-n2"><span>analyze</span>&#9682;</div>
-          <div class="ey-arrow ey-a2"></div>
-          <div class="ey-node ey-n3"><span>fix</span>&#10003;</div>
-        </div></div>
-        <p class="pj-desc">90+ internal assets, instrumented and mapped across 4 workflow stages — sentiment turned into a live dashboard.</p>
-        <span class="pj-cta">Open case study &#8594;</span>
-      </div>
-    </a>
+  <a class="pcard" href="projects/chek.html" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
+    <div class="pcard-head"><span class="pcard-name-v">Chek</span></div>
+    <div class="pcard-body">
+      <div class="pcard-top"><b>Chek</b><small>Fintech · case study</small></div>
+      <div class="pcard-graphic chek-g"><div class="chek-card"></div></div>
+      <p class="pcard-desc">Fintech product surfaces and flows — next case to adopt the shared stage and sheet framework.</p>
+      <div class="pcard-tags"><span>Product</span><span>Mobile</span></div>
+      <span class="pcard-cta">Open case study →</span>
+    </div>
+  </a>
 
-    <a class="pj-card" href="projects/blockchain.html" style="--pc-bg:#22d4c8;--pc-txt:#042e2a;">
-      <div class="pj-card-head">
-        <span class="pj-logo"><svg width="26" height="26" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#042e2a" stroke-width="1.6"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#042e2a"/></svg></span>
-        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-      </div>
-      <div class="pj-body">
-        <div class="pj-top"><b>Blockchains Inc.</b><small>Oct 2023 — Present</small></div>
-        <div class="pj-graphic bc-scene" style="background:#0b1414;">
-          <div class="bc-cube-mini">
-            <div class="bc-face-mini" style="transform:translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateY(90deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateY(180deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateY(-90deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateX(90deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateX(-90deg) translateZ(20px)"></div>
-          </div>
-        </div>
-        <p class="pj-desc">A working 3D prototype — 5 flows, real hotspots — bridging flat UI with an immersive map.</p>
-        <span class="pj-cta">Open case study &#8594;</span>
-      </div>
-    </a>
+  <a class="pcard" href="projects/dollarcity.html" style="--pc-bg:#00a650;--pc-txt:#fff;">
+    <div class="pcard-head"><span class="pcard-name-v">DollarCity</span></div>
+    <div class="pcard-body">
+      <div class="pcard-top"><b>DollarCity</b><small>Retail · research</small></div>
+      <div class="pcard-graphic dc-g"><div class="dc-cam"><div class="dc-scan"></div></div></div>
+      <p class="pcard-desc">Retail research and service design — journey depth, alignment, and prototype validation.</p>
+      <div class="pcard-tags"><span>Research</span><span>Service design</span></div>
+      <span class="pcard-cta">Open case study →</span>
+    </div>
+  </a>
 
-    <a class="pj-card" href="projects/forecast.html" style="--pc-bg:#5b9bd0;--pc-txt:#fff;">
-      <div class="pj-card-head">
-        <span class="pj-logo" style="font-family:var(--font-display);font-weight:800;font-size:18px;color:#fff;">Forecast</span>
-        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-      </div>
-      <div class="pj-body">
-        <div class="pj-top"><b>Forecast</b><small>2023 — 2025</small></div>
-        <div class="pj-graphic" style="background:#0d1218;">
-          <span class="fc-gantt" style="left:14%;top:30%;width:46%;animation-delay:0s"></span>
-          <span class="fc-gantt" style="left:26%;top:48%;width:38%;animation-delay:.5s;opacity:.75"></span>
-          <span class="fc-gantt" style="left:20%;top:66%;width:56%;animation-delay:1s;opacity:.5"></span>
-        </div>
-        <p class="pj-desc">Module design inside an established design system — pending assignments, timeframes, employee management.</p>
-        <span class="pj-cta">Open case study &#8594;</span>
-      </div>
-    </a>
-
-    <a class="pj-card" href="projects/dollarcity.html" style="--pc-bg:#00a650;--pc-txt:#fff;">
-      <div class="pj-card-head">
-        <span class="pj-logo"><svg width="26" height="26" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#00a650">D</text></svg></span>
-        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-      </div>
-      <div class="pj-body">
-        <div class="pj-top"><b>Dollarama &#215; DollarCity</b><small>Jul — Dec 2023</small></div>
-        <div class="pj-graphic" style="background:#e9e7df;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
-          <div class="g-browser-screen">
-            <span class="dc-ba-mini"><i class="dc-ba-b">Before</i><i class="dc-ba-a on">After</i></span>
-            <span class="dc-row" style="top:38%"></span>
-            <span class="dc-row" style="top:58%"></span>
-            <span class="dc-scan"></span>
-            <span class="dc-flag">&#9873; flagged</span>
-          </div>
-        </div></div>
-        <p class="pj-desc">Fraud-monitoring SaaS for retail across Canada &amp; LATAM — real screens, before/after redesign, full research.</p>
-        <span class="pj-cta">Open case study &#8594;</span>
-      </div>
-    </a>
-
-    <a class="pj-card" href="projects/chek.html" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
-      <div class="pj-card-head">
-        <span class="pj-logo" style="font-family:var(--font-display);font-weight:800;font-size:19px;color:#fff;">cheK</span>
-        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-      </div>
-      <div class="pj-body">
-        <div class="pj-top"><b>Chek</b><small>2021 — 2023</small></div>
-        <div class="pj-graphic" style="background:#120b1c;"><div class="g-phone">
-          <div class="g-phone-screen">
-            <img src="chek/IMG_0188.jpeg" alt="Chek home screen" style="width:100%;height:100%;object-fit:cover;">
-            <span class="mock-toast">&#10003; transaction</span>
-            <span class="mock-tap"></span>
-            <span class="mock-tap-ring"></span>
-          </div>
-        </div></div>
-        <p class="pj-desc">A 5-flow interactive prototype for a virtual credit card — onboarding, funnels, and a system built from scratch.</p>
-        <span class="pj-cta">Open case study &#8594;</span>
-      </div>
-    </a>
-
-    <a class="pj-card" href="projects/customs.html" style="--pc-bg:#e05c4a;--pc-txt:#fff;">
-      <div class="pj-card-head">
-        <span class="pj-logo"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="1.8"/><path d="M12 6l5 2.5v3c0 3.5-2 6-5 7-3-1-5-3.5-5-7v-3z" fill="none" stroke="#fff" stroke-width="1.5"/></svg></span>
-        <svg class="pj-ai" viewBox="0 0 24 24" fill="currentColor" title="AI-assisted workflow"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg>
-      </div>
-      <div class="pj-body">
-        <div class="pj-top"><b>Customs ES</b><small>2021 — 2023</small></div>
-        <div class="pj-graphic" style="background:#161010;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
-          <div class="g-browser-screen">
-            <div class="cus-doc" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:90px;height:100px;">
-              <div class="cus-line" style="width:70%"></div>
-              <div class="cus-line" style="width:90%"></div>
-              <div class="cus-line" style="width:55%"></div>
-              <span class="cus-stamp">DIGITAL &#10003;</span>
-            </div>
-          </div>
-        </div></div>
-        <p class="pj-desc">5 analog processes digitized into an MVP that earned the budget for a full-scale rollout.</p>
-        <span class="pj-cta">Open case study &#8594;</span>
-      </div>
-    </a>
-
-  </div>
-
+</div>
 </main>
+<footer class="foot"><a href="index.html">Home</a><a href="projects/blockchain.html">Blockchains</a><a href="projects/ey-fabric.html">EY Fabric</a></footer>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('themeToggle');function a(t){r.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}}var s=null;try{s=localStorage.getItem('theme')}catch(e){}a(s==='light'?'light':'dark');if(b)b.onclick=function(){a(r.getAttribute('data-theme')==='dark'?'light':'dark')};var h=document.getElementById('ham'),m=document.getElementById('mobile');if(h&&m)h.onclick=function(){m.classList.toggle('open')}})();
+</script>
 
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Federico A. Monroy</p>
-      <a href="index.html" class="btn btn-outline" style="padding:var(--space-8) var(--space-16);font-size:0.75rem;">← Back to Home</a>
-    </div>
-  </div>
-</footer>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  /* Card city: InstancedMesh + distance LOD scales + visibility-gated RAF.
+     Full-case postprocessing (UnrealBloom etc.) stays on project pages only — too heavy for cards. */
+  function miniCity(canvas){
+    if(!canvas || !window.THREE) return;
+    var parent = canvas.parentElement;
+    if(!parent) return;
+    var loading = parent.querySelector('.bc-mini-load');
+    var W = Math.max(parent.clientWidth || 280, 120);
+    var H = Math.max(parent.clientHeight || 160, 100);
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:false, powerPreference:'low-power'});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.1));
+    renderer.setSize(W, H, false);
+    renderer.setClearColor(0x0a121c, 1);
+    var scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a121c, 0.048);
+    var camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 50);
+    scene.add(new THREE.AmbientLight(0x6a9bbb, 0.55));
+    var sun = new THREE.DirectionalLight(0xc8e0ff, 0.85);
+    sun.position.set(10, 14, 6);
+    scene.add(sun);
+    var ground = new THREE.Mesh(new THREE.PlaneGeometry(22, 22), new THREE.MeshLambertMaterial({color:0x121c28}));
+    ground.rotation.x = -Math.PI/2;
+    scene.add(ground);
+    var streetMat = new THREE.MeshLambertMaterial({color:0x2a4058, emissive:0x1a3048, emissiveIntensity:0.28});
+    for(var i=-6;i<=6;i+=3.5){
+      var r = new THREE.Mesh(new THREE.BoxGeometry(14, 0.04, 0.48), streetMat);
+      r.position.set(0, 0.03, i); scene.add(r);
+      var r2 = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.04, 14), streetMat);
+      r2.position.set(i, 0.03, 0); scene.add(r2);
+    }
+    var geo = new THREE.BoxGeometry(1, 1, 1);
+    geo.translate(0, 0.5, 0);
+    var matB = new THREE.MeshLambertMaterial({color:0x3a5a72});
+    var specs = [];
+    var step = 3.7;
+    for(var bx=-5; bx<=5; bx+=step){
+      for(var bz=-5; bz<=5; bz+=step){
+        if(Math.abs(bx)<0.75 || Math.abs(bz)<0.75) continue;
+        if(Math.random()<0.4) continue;
+        specs.push({
+          x:bx+(Math.random()-0.5)*0.3,
+          z:bz+(Math.random()-0.5)*0.3,
+          h:0.65+Math.random()*2.2,
+          s:0.78+Math.random()*0.35
+        });
+      }
+    }
+    var mesh = new THREE.InstancedMesh(geo, matB, specs.length);
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    mesh.frustumCulled = true;
+    var dummy = new THREE.Object3D();
+    var targets = [];
+    for(var k=0;k<specs.length;k++){
+      var s = specs[k];
+      targets.push(s.h);
+      dummy.position.set(s.x, 0, s.z);
+      dummy.scale.set(s.s, 0.04, s.s);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(k, dummy.matrix);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+    scene.add(mesh);
+    var pins = [{x:-1.8,z:1.3,c:0x22d4c8},{x:2.4,z:-0.9,c:0xe05c4a},{x:0.3,z:2.5,c:0x22d4c8}];
+    var pinMeshes = [];
+    pins.forEach(function(p){
+      var g = new THREE.CylinderGeometry(0.1, 0.02, 0.48, 6);
+      g.translate(0, 0.24, 0);
+      var m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({color:p.c}));
+      m.position.set(p.x, 0, p.z);
+      scene.add(m);
+      pinMeshes.push({mesh:m, base:p});
+    });
+    var ang = 0.85, elev = 4.8, dist = 12.8;
+    var t0 = performance.now();
+    var grown = false;
+    var visible = true;
+    var raf = 0;
+    var firstFrame = true;
+    var camPos = new THREE.Vector3();
+    function setHeights(e){
+      camPos.copy(camera.position);
+      for(var k=0;k<specs.length;k++){
+        var s = specs[k];
+        var dx = s.x - camPos.x, dz = s.z - camPos.z;
+        var d = Math.sqrt(dx*dx + dz*dz);
+        /* distance LOD: far instances flatten slightly (cheaper read, less aliasing) */
+        var lod = d > 16 ? 0.55 : d > 11 ? 0.78 : 1;
+        dummy.position.set(s.x, 0, s.z);
+        dummy.scale.set(s.s, Math.max(0.04, targets[k]*e*lod), s.s);
+        dummy.updateMatrix();
+        mesh.setMatrixAt(k, dummy.matrix);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+    }
+    function frame(now){
+      if(!visible){ raf = 0; return; }
+      var t = (now - t0) / 1000;
+      ang += 0.0026;
+      camera.position.set(Math.cos(ang)*dist, elev, Math.sin(ang)*dist);
+      camera.lookAt(0, 0.3, 0);
+      if(!grown){
+        var u = Math.min(1, t/1.9);
+        var e = 1 - Math.pow(1-u, 3);
+        setHeights(e);
+        if(u >= 1){ grown = true; setHeights(1); }
+      }
+      for(var i=0;i<pinMeshes.length;i++){
+        pinMeshes[i].mesh.position.y = Math.sin(t*2 + i)*0.06;
+      }
+      renderer.render(scene, camera);
+      if(firstFrame){
+        firstFrame = false;
+        if(loading) loading.classList.add('is-done');
+        parent.classList.add('bc-ready');
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function start(){ if(!raf && visible) raf = requestAnimationFrame(frame); }
+    function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          visible = en.isIntersecting;
+          if(visible) start(); else stop();
+        });
+      }, {threshold:0.1});
+      io.observe(parent);
+    } else start();
+    start();
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function(){
+        W = Math.max(parent.clientWidth||280,120);
+        H = Math.max(parent.clientHeight||160,100);
+        camera.aspect = W/H; camera.updateProjectionMatrix();
+        renderer.setSize(W, H, false);
+      }, 150);
+    });
+  }
+  function boot(){ document.querySelectorAll('canvas.bc-mini-gl').forEach(miniCity); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+
 
 </body>
 </html>

@@ -1,189 +1,649 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<script>
-  (function(){
-    var saved = localStorage.getItem('theme');
-    var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    if(theme==='light') document.documentElement.setAttribute('data-theme','light');
-  })();
-</script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Design System — Federico Monroy</title>
-<meta name="description" content="The shared design system behind this portfolio — tokens, cards, and the wireframe animation kit used across every case study.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="assets/shared.css" />
-<script src="assets/demo-kit.js"></script>
-<script src="assets/main.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
-  :root{ --accent:#7ba7f0; --accent-dim:rgba(123,167,240,0.12); }
-  .ds-hero{padding:calc(var(--nav-h) + 48px) 24px 56px;max-width:900px;margin:0 auto;}
-  .ds-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);
-    display:flex;align-items:center;gap:8px;margin-bottom:16px;}
-  .ds-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent);}
-  .ds-title{font-family:var(--font-display);font-weight:800;font-size:clamp(2.2rem,5.5vw,3.4rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:18px;}
-  .ds-sub{font-size:1.05rem;line-height:1.6;color:var(--text-secondary);max-width:600px;}
-  .ds-section{max-width:900px;margin:0 auto;padding:0 24px 72px;}
-  .ds-section-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:10px;}
-  .ds-section h2{font-family:var(--font-display);font-weight:700;font-size:1.6rem;margin-bottom:14px;}
-  .ds-section p.desc{color:var(--text-secondary);line-height:1.65;max-width:620px;margin-bottom:28px;}
+:root{
+  --bg:#0e0d0c;--bg-surface:#171614;--bg-raised:#1c1b19;
+  --text:#f2f0ec;--muted:#a6a29a;--dim:#6e6a63;
+  --border:rgba(255,255,255,.12);--border-soft:rgba(255,255,255,.08);
+  --accent:#d97757;
+  --acc-ey:#ffe600;--acc-bc:#22d4c8;--acc-chek:#7a3be0;
+  --font-display:"Instrument Sans",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --spring-soft:cubic-bezier(.22,1.2,.36,1);
+  --ease-out-expo:cubic-bezier(.16,1,.3,1);
+  --radius-card:18px;--radius-chip:10px;--nav-h:64px;
+}
+html[data-theme="light"]{
+  --bg:#f7f5f2;--bg-surface:#fff;--bg-raised:#f0eeea;
+  --text:#1a1917;--muted:#55524c;--dim:#8a847a;
+  --border:rgba(0,0,0,.1);--border-soft:rgba(0,0,0,.08);--accent:#a84928;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-display);font-size:clamp(16px,1.05vw,18px);line-height:1.6;padding-top:var(--nav-h)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border)}
+.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1440px;margin:0 auto;padding:0 24px;gap:8px}
+.top-nav-logo{font-weight:800;font-size:18px;margin-right:auto}.top-nav-logo span{color:var(--accent)}
+.top-nav-links{display:flex;gap:8px}
+.top-nav-link{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:8px 12px;border-radius:6px}
+.top-nav-link.active,.top-nav-link:hover{color:var(--text)}
+.top-nav-theme{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg-surface);color:var(--dim);display:grid;place-items:center;cursor:pointer;margin-left:8px}
+.top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:8px;cursor:pointer}
+.top-nav-hamburger span{width:20px;height:2px;background:var(--text);display:block}
+@media(max-width:900px){.top-nav-links{display:none}.top-nav-hamburger{display:flex}}
+.mobile{display:none;position:fixed;inset:0;z-index:10000;background:var(--bg);padding:72px 24px}.mobile.open{display:block}
+.mobile a{display:block;padding:12px 0;border-bottom:1px solid var(--border);font-weight:700;font-size:1.15rem}
 
-  .ds-swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;}
-  .ds-swatch{border-radius:12px;overflow:hidden;border:1px solid var(--border);}
-  .ds-swatch-color{height:64px;}
-  .ds-swatch-label{padding:8px 10px;font-family:var(--font-mono);font-size:10.5px;background:var(--bg-surface);}
-  .ds-swatch-label b{display:block;font-size:11px;color:var(--text-primary);font-weight:600;}
-  .ds-swatch-label span{color:var(--text-tertiary);}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 24px 100px}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+h1{font-weight:800;font-size:clamp(2rem,4.5vw,2.75rem);letter-spacing:-.03em;margin-bottom:12px}
+.lede{color:var(--muted);max-width:44rem;margin-bottom:28px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.toc a{font-family:var(--font-mono);font-size:11px;padding:6px 12px;border-radius:100px;border:1px solid var(--border);color:var(--dim)}
+.toc a:hover{color:var(--accent);border-color:var(--accent)}
+section{margin-bottom:64px;scroll-margin-top:88px}
+.level{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+section>h2{font-size:clamp(1.3rem,2.4vw,1.7rem);font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+section>.sub{color:var(--muted);margin-bottom:18px;max-width:40rem}
 
-  .ds-type-row{display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--border-soft);}
-  .ds-type-row:last-child{border-bottom:none;}
-  .ds-type-label{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);width:90px;flex-shrink:0;}
+/* shared: icochip */
+.stack-row{display:flex;flex-wrap:wrap;gap:8px}
+.icochip{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:var(--radius-chip);position:relative;
+  background:var(--bg-surface);border:1px solid var(--border-soft);cursor:pointer;
+  transition:border-color 200ms;
+}
+.icochip:hover{border-color:var(--accent)}
+.icochip svg{width:16px;height:16px;transition:transform 300ms var(--spring),filter 300ms}
+.icochip:hover svg{transform:perspective(200px) rotateY(12deg) scale(1.12);filter:drop-shadow(0 0 4px var(--accent))}
+.icochip-name{
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(3px);z-index:5;
+  font-family:var(--font-mono);font-size:10px;padding:4px 9px;border-radius:7px;white-space:nowrap;
+  background:var(--bg-raised);border:1px solid var(--border);color:var(--text);
+  opacity:0;pointer-events:none;transition:opacity 180ms,transform 180ms;
+}
+.icochip:hover .icochip-name{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  .ds-card-demo-wrap{perspective:1400px;max-width:280px;}
-  .ds-card-demo{background:var(--bg-surface);border:1px solid var(--border);border-radius:16px;padding:22px;
-    transition:transform 200ms ease,box-shadow 300ms ease;transform-style:preserve-3d;will-change:transform;cursor:pointer;}
-  .ds-card-demo-ic{width:32px;height:32px;color:var(--accent);margin-bottom:14px;}
-  .ds-card-demo h3{font-family:var(--font-display);font-weight:700;font-size:1rem;margin-bottom:6px;}
-  .ds-card-demo p{font-size:0.85rem;color:var(--text-tertiary);line-height:1.4;}
-  .ds-hint{font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);margin-top:14px;}
+/* shared: player / reproductor */
+.player{
+  border-radius:20px;border:1px solid var(--border);background:#12110f;
+  overflow:hidden;
+}
+.player-top{
+  display:flex;align-items:center;gap:10px;padding:12px 14px;
+  border-bottom:1px solid var(--border);flex-wrap:wrap;
+}
+.player-label{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-right:auto}
+.player-label b{color:var(--text)}
+.player-btn{
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--border);
+  background:var(--bg-surface);display:grid;place-items:center;cursor:pointer;
+  transition:transform .3s var(--spring),border-color .2s;
+}
+.player-btn:hover{border-color:var(--accent);transform:scale(1.06)}
+.player-btn:disabled{opacity:.35;pointer-events:none}
+.player-flow{
+  display:flex;gap:6px;overflow-x:auto;padding:10px 14px;
+  border-bottom:1px solid var(--border);scrollbar-width:none;
+}
+.player-flow::-webkit-scrollbar{display:none}
+.player-chip{
+  flex:0 0 auto;font-family:var(--font-mono);font-size:11px;
+  padding:6px 12px;border-radius:100px;border:1px solid var(--border);
+  background:transparent;color:var(--dim);cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s,transform .3s var(--spring);
+}
+.player-chip.on{
+  color:var(--text);border-color:var(--accent);background:rgba(217,119,87,.12);
+  transform:scale(1.04);
+}
+.player-stage{
+  position:relative;min-height:220px;padding:28px 20px;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.player-text{
+  max-width:28rem;margin:0 auto;text-align:center;
+  transition:opacity .4s var(--ease-out-expo), transform .5s var(--spring-soft);
+}
+.player-text.hide{opacity:0;transform:translateY(-12px);pointer-events:none;position:absolute;inset:28px 20px}
+.player-kicker{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:10px;opacity:0;transform:translateY(6px);
+  transition:opacity .35s, transform .45s var(--spring);
+}
+.player-kicker.on{opacity:1;transform:none}
+.player-body{font-size:clamp(1.05rem,2vw,1.25rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;min-height:2.8em}
+.player-sub{margin-top:10px;font-size:14px;color:var(--muted);opacity:0;transition:opacity .4s}
+.player-sub.on{opacity:1}
+.player-device{
+  opacity:0;transform:translateY(16px) scale(.96);
+  transition:opacity .5s var(--ease-out-expo), transform .55s var(--spring);
+  display:flex;justify-content:center;pointer-events:none;
+}
+.player-device.show{opacity:1;transform:none;pointer-events:auto}
+.player-device .phone{
+  width:120px;height:220px;border-radius:20px;border:3px solid #2c2c30;
+  background:#0a121c;box-shadow:0 18px 40px rgba(0,0,0,.45);position:relative;overflow:hidden;
+}
+.player-device .phone .ui{
+  position:absolute;left:10%;right:10%;top:18%;bottom:14%;
+  border-radius:8px;border:1px solid rgba(34,212,200,.3);background:rgba(34,212,200,.06);
+}
 
-  .ds-wf-wrap{max-width:420px;}
-  .ds-pattern-list{display:flex;flex-direction:column;gap:10px;}
-  .ds-pattern-item{display:flex;align-items:flex-start;gap:12px;font-size:0.9rem;color:var(--text-secondary);line-height:1.5;}
-  .ds-pattern-item b{color:var(--text-primary);}
-  .ds-pattern-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:8px;}
+/* skill card → expands */
+.skill-row{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.skill{
+  border-radius:16px;border:1px solid var(--border);background:var(--bg-surface);
+  padding:16px;cursor:pointer;text-align:left;
+  transition:transform .4s var(--spring), border-color .25s, box-shadow .35s;
+}
+.skill:hover,.skill.on{
+  transform:translateY(-5px);border-color:rgba(217,119,87,.5);
+  box-shadow:0 14px 32px rgba(0,0,0,.28);
+}
+.skill .ic{
+  width:36px;height:36px;border-radius:10px;margin-bottom:10px;
+  background:rgba(217,119,87,.12);display:grid;place-items:center;
+  transition:transform .4s var(--spring);
+}
+.skill:hover .ic,.skill.on .ic{transform:scale(1.08) rotate(-6deg)}
+.skill h3{font-size:14px;font-weight:700}
+.skill p{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* project card */
+.pcard{
+  display:block;border-radius:var(--radius-card);overflow:hidden;
+  background:var(--pc-bg,#22d4c8);color:var(--pc-txt,#042e2a);
+  transition:transform .4s var(--spring), box-shadow .35s;
+  box-shadow:0 12px 28px rgba(0,0,0,.22);
+}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(0,0,0,.3)}
+.pcard .inner{padding:16px}
+.pcard .viz{height:90px;border-radius:12px;background:rgba(0,0,0,.2);margin-bottom:10px}
+
+/* unique accents table */
+.unique{display:grid;gap:10px}
+@media(min-width:700px){.unique{grid-template-columns:1fr 1fr 1fr}}
+.unique article{padding:14px;border-radius:14px;border:1px solid var(--border);background:var(--bg-surface)}
+.unique .sw{height:8px;border-radius:4px;margin-bottom:10px}
+.unique h3{font-size:14px;margin-bottom:4px}
+.unique p{font-size:12px;color:var(--muted)}
+
+.rules{display:grid;gap:10px}
+@media(min-width:700px){.rules{grid-template-columns:1fr 1fr}}
+.rule{padding:16px;border-radius:14px;border:1px solid var(--border);background:var(--bg-surface)}
+.rule.do{border-color:rgba(34,212,200,.35)}
+.rule.dont{border-color:rgba(224,92,74,.35)}
+.rule h3{font-size:14px;margin-bottom:4px}
+.rule p{font-size:13px;color:var(--muted)}
+
+.code{font-family:var(--font-mono);font-size:11px;line-height:1.5;padding:14px;border-radius:12px;background:#12110f;border:1px solid var(--border);overflow:auto;color:#c8c4bc;margin-top:12px}
+.foot{text-align:center;padding:28px;font-family:var(--font-mono);font-size:11px;color:var(--dim)}.foot a{margin:0 10px}
+
+/* Microinteractions — chips & cards */
+.player-chip:active{transform:scale(.96)}
+.player-chip.on{box-shadow:inset 0 0 0 1px rgba(217,119,87,.35)}
+.icochip:active svg{transform:perspective(200px) rotateY(0deg) scale(.94)}
+.skill:active{transform:translateY(-2px) scale(.99)}
+.pcard:active{transform:translateY(-2px) scale(.99)}
+.player-btn:active{transform:scale(.92)}
+.toc a:focus-visible,.player-chip:focus-visible,.icochip:focus-visible,.skill:focus-visible,.player-btn:focus-visible,.top-nav-link:focus-visible,.top-nav-theme:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+/* WCAG helper */
+.a11y-table,.state-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.a11y-table th,.a11y-table td,.state-table th,.state-table td{
+  text-align:left;padding:10px 12px;border:1px solid var(--border);vertical-align:top;
+}
+.a11y-table th,.state-table th{font-family:var(--font-mono);font-size:11px;color:var(--dim);background:var(--bg-raised)}
+.ok{color:#3dd68c}.warn{color:#e8b84a}
+
+@keyframes reel{to{transform:translateX(-50%)}}
+.box{padding:20px}
+
+/* Advanced motion */
+@keyframes dsFadeUp {
+  from { opacity: 0; transform: translateY(12px); filter: blur(2px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes dsPulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(217,119,87,.45); }
+  100% { box-shadow: 0 0 0 12px rgba(217,119,87,0); }
+}
+@keyframes dsShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.player-kicker.on { animation: dsFadeUp .45s var(--ease-out-expo) both; }
+.player-chip.on { animation: dsPulseRing .9s var(--spring) 1; }
+.player-device.show .phone {
+  animation: dsFadeUp .55s var(--spring-soft) both;
+}
+.skill.on .ic { animation: dsPulseRing .8s ease-out 1; }
+/* Table structure */
+.state-table, .a11y-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.state-table th, .a11y-table th,
+.state-table td, .a11y-table td {
+  text-align: left;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.45;
+}
+.state-table th, .a11y-table th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: var(--bg-raised);
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+}
+.state-table tr:last-child td, .a11y-table tr:last-child td { border-bottom: none; }
+.state-table tbody tr:hover td, .a11y-table tbody tr:hover td {
+  background: rgba(217,119,87,.06);
+}
+@media (max-width: 720px) {
+  .state-table, .a11y-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .state-table th, .state-table td, .a11y-table th, .a11y-table td { white-space: nowrap; }
+}
+
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to main content</a>
-<div id="progress-bar" aria-hidden="true"></div>
+<nav class="top-nav"><div class="top-nav-inner">
+<a class="top-nav-logo" href="index.html">FM<span>.</span></a>
+<div class="top-nav-links">
+<a class="top-nav-link" href="index.html">Home</a>
+<a class="top-nav-link" href="projects.html">Projects</a>
+<a class="top-nav-link active" href="design-system.html">System</a>
+<a class="top-nav-link" href="contact.html">Contact</a>
+</div>
+<button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+<button class="top-nav-hamburger" id="ham" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="mobile" id="mobile">
+<a href="index.html">Home</a><a href="projects.html">Projects</a><a href="design-system.html">System</a><a href="contact.html">Contact</a>
+</div>
 
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
-    <div class="nav-links" role="menubar">
-      <a href="index.html" class="nav-link">Home</a>
-      <div class="nav-dropdown">
-        <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
-          Projects
-          <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
-          <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
-          <a class="nav-dropdown-item" href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
-          <a class="nav-dropdown-item" href="projects/chek.html" role="menuitem">Chek</a>
-          <a class="nav-dropdown-item" href="projects/dollarcity.html" role="menuitem">DollarCity</a>
-          <a class="nav-dropdown-item" href="projects/customs.html" role="menuitem">Customs ES</a>
-          <a class="nav-dropdown-item" href="projects/forecast.html" role="menuitem">Forecast</a>
-        </div>
-      </div>
-      <a href="design-system.html" class="nav-link" style="color:var(--accent);">Design System</a>
-      <a href="resume.html" class="nav-link">Resume</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-    </div>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-    <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<main class="wrap">
+<p class="eyebrow">Consistency pass</p>
+<h1>One system, local accents</h1>
+<p class="lede">Shared: nav, player (reproductor), typewriter → device, stack icochips, card motion. Unique: project color, case content, and 3D vs wireframe graphics — not a second component language.</p>
+<nav class="toc">
+  <a href="#player">Player</a>
+  <a href="#skills">Skills</a>
+  <a href="#pcards">Project cards</a>
+  <a href="#stack">Stack</a>
+  <a href="#unique">Unique accents</a>
+  <a href="#map">Where used</a>
+  <a href="#hero">Hero</a>
+  <a href="#icons">Icons</a>
+  <a href="#about">About</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#states">States</a>
+  <a href="#a11y">A11y</a>
+  <a href="#rules">Rules</a>
 </nav>
 
-<main id="main">
-
-  <header class="ds-hero">
-    <div class="ds-eyebrow">Reference · Living document</div>
-    <h1 class="ds-title">One system, <em>every</em> project.</h1>
-    <p class="ds-sub">The tokens, cards, and animation kit that power this whole portfolio — home, EY Fabric, and every case study after it. Built once, reused everywhere, so a fix here fixes it everywhere.</p>
-  </header>
-
-  <section class="ds-section">
-    <div class="ds-section-label">Colors</div>
-    <h2>Tokens, not hex codes</h2>
-    <p class="desc">Every color in this portfolio comes from a CSS variable — never a hardcoded hex in the middle of a component. Toggle light/dark above and watch these swatches update live.</p>
-    <div class="ds-swatches">
-      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--bg)"></div><div class="ds-swatch-label"><b>--bg</b><span>Page background</span></div></div>
-      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--bg-surface)"></div><div class="ds-swatch-label"><b>--bg-surface</b><span>Card surface</span></div></div>
-      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--accent)"></div><div class="ds-swatch-label"><b>--accent</b><span>Per-project accent</span></div></div>
-      <div class="ds-swatch"><div class="ds-swatch-color" style="background:var(--text-primary)"></div><div class="ds-swatch-label"><b>--text-primary</b><span>Headings, body</span></div></div>
+<section id="player-logic">
+  <p class="level">Logic</p>
+  <h2>Player state machine</h2>
+  <p class="sub">Guarded runs, timer cleanup, reduced motion, chip scroll only inside the row.</p>
+  <pre class="code">phases: idle → typing → holding → device → (auto next | idle)
+runId guards stale timeouts
+manual prev/next does not force playing
+play loops; pause clears timers
+prefers-reduced-motion: instant text, short delays</pre>
+</section>
+<section id="player">
+  <p class="level">Organism · shared</p>
+  <h2>Narrative player</h2>
+  <p class="sub">Same chrome for skill modals, EY Fabric stages, and Blockchains demo: label · prev/next · play · beat chips · text phase → device phase.</p>
+  <div class="player" id="demoPlayer">
+    <div class="player-top">
+      <div class="player-label"><b id="plLabel">01</b> · <span id="plTitle">Measure</span></div>
+      <button type="button" class="player-btn" id="plPrev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" class="player-btn" id="plPlay" aria-label="Play">play</button>
+      <button type="button" class="player-btn" id="plNext" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
     </div>
-  </section>
-
-  <section class="ds-section">
-    <div class="ds-section-label">Typography</div>
-    <h2>Two families, one job each</h2>
-    <p class="desc">Space Grotesk carries every headline. DM Sans carries every sentence. DM Mono marks anything meta — labels, stats, timestamps.</p>
-    <div>
-      <div class="ds-type-row"><span class="ds-type-label">Display</span><span style="font-family:var(--font-display);font-weight:800;font-size:1.8rem;">Space Grotesk</span></div>
-      <div class="ds-type-row"><span class="ds-type-label">Body</span><span style="font-family:var(--font-body,'DM Sans',sans-serif);font-size:1.05rem;color:var(--text-secondary);">DM Sans — every paragraph on the site</span></div>
-      <div class="ds-type-row"><span class="ds-type-label">Mono</span><span style="font-family:var(--font-mono);font-size:0.85rem;color:var(--text-tertiary);">01 · DM Mono for labels &amp; stats</span></div>
-    </div>
-  </section>
-
-  <section class="ds-section">
-    <div class="ds-section-label">Cards</div>
-    <h2>3D tilt + a light that follows you</h2>
-    <p class="desc">Move your mouse over the card below. The tilt and the soft glow are one shared function — <code>DemoKit.tilt3D()</code> — used on every skill card, prototype frame, and tool tile across the site.</p>
-    <div class="ds-card-demo-wrap">
-      <div class="ds-card-demo" id="dsCardDemo">
-        <svg class="ds-card-demo-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 21V9"/></svg>
-        <h3>Try me</h3>
-        <p>One function, reused on every card in this portfolio.</p>
+    <div class="player-flow" id="plFlow"></div>
+    <div class="player-stage">
+      <div class="player-text" id="plText">
+        <div class="player-kicker" id="plKicker">Stage</div>
+        <div class="player-body" id="plBody"></div>
+        <div class="player-sub" id="plSub"></div>
       </div>
-    </div>
-    <p class="ds-hint">DemoKit.tilt3D(el, &#123;maxX:4, maxY:5&#125;)</p>
-  </section>
-
-  <section class="ds-section">
-    <div class="ds-section-label">Animation kit</div>
-    <h2>Wireframes, not stock screenshots</h2>
-    <p class="desc">Every process animation in this portfolio — EY's catalog flow, the home page's "watch usage" beat — uses the same wireframe primitives: lines instead of real text, a visitor cursor, a funnel for drop-off. It protects confidential content and reads faster than a busy screenshot.</p>
-    <div class="ds-wf-wrap">
-      <div class="wf-wrap" id="dsWfDemo">
-        <div class="wf-screen on">
-          <div class="wf-topbar"><span class="wf-dot"></span><span class="wf-dot"></span><span class="wf-dot"></span></div>
-          <div class="wf-body">
-            <div class="wf-line lg" style="width:60%;margin-bottom:10px;"></div>
-            <div class="wf-line" style="width:85%;margin-bottom:6px;"></div>
-            <div class="wf-line" style="width:70%;opacity:.5;margin-bottom:16px;"></div>
-            <span class="wf-btn">Continue</span>
-          </div>
-        </div>
+      <div class="player-device" id="plDevice">
+        <div class="phone"><div class="ui"></div></div>
       </div>
-    </div>
-    <div class="ds-pattern-list">
-      <div class="ds-pattern-item"><span class="ds-pattern-dot"></span><span><b>Lines, not text</b> — protects real client content while still reading as "a real screen."</span></div>
-      <div class="ds-pattern-item"><span class="ds-pattern-dot"></span><span><b>One visitor cursor style</b> — a pulsing ring, used everywhere someone needs to "walk through" a flow.</span></div>
-      <div class="ds-pattern-item"><span class="ds-pattern-dot"></span><span><b>Real tool logos only</b> — Figma, Pendo, Qualtrics as actual inline SVGs, never a generic icon-font glyph.</span></div>
-    </div>
-  </section>
-
-  <section class="ds-section">
-    <div class="ds-section-label">Discipline</div>
-    <h2>What we actively avoid</h2>
-    <p class="desc">This portfolio follows a short internal checklist before anything ships — no decorative gradients without a reason, no buzzword copy, no forcing content into a card just because that's the template. <a href="https://mcpmarket.com/es/tools/skills/design-anti-slop" style="color:var(--accent);">Read the full checklist ↗</a></p>
-  </section>
-
-</main>
-
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Federico A. Monroy</p>
-      <a href="index.html" class="btn btn-outline" style="padding:var(--space-8) var(--space-16);font-size:0.75rem;">← Back to Home</a>
     </div>
   </div>
-</footer>
+  <pre class="code">Sequence (all cases):
+1. Kicker fades in  2. Typewriter body  3. Sub line
+4. Text hides  5. Device / UI canvas shows
+Controls: prev · play/pause · next · beat chips (horizontal scroll only, never page scroll)</pre>
+</section>
+
+<section id="skills">
+  <p class="level">Molecule → organism</p>
+  <h2>Skill cards → player</h2>
+  <p class="sub">Collapsed card lifts; open state feeds the same player (not a one-off modal skin).</p>
+  <div class="skill-row" id="skills">
+    <button type="button" class="skill on" data-i="0"><div class="ic">R</div><h3>Research</h3><p>Opens narrative beat 1</p></button>
+    <button type="button" class="skill" data-i="1"><div class="ic">A</div><h3>Analytics</h3><p>Opens narrative beat 2</p></button>
+    <button type="button" class="skill" data-i="2"><div class="ic">D</div><h3>Design</h3><p>Opens narrative beat 3</p></button>
+  </div>
+</section>
+
+<section id="pcards">
+  <p class="level">Molecule</p>
+  <h2>Project cards</h2>
+  <p class="sub">Same lift/spring everywhere. Graphic is the only unique surface (EY wireframe · BC Three city).</p>
+  <div style="display:grid;gap:12px;max-width:360px">
+    <a class="pcard" href="projects.html" style="--pc-bg:#ffe600;--pc-txt:#2b2600"><div class="inner"><div class="viz" style="background:#14120a"></div><strong>EY Fabric</strong></div></a>
+    <a class="pcard" href="projects.html" style="--pc-bg:#22d4c8;--pc-txt:#042e2a"><div class="inner"><div class="viz" style="background:#0a121c"></div><strong>Blockchains</strong></div></a>
+  </div>
+</section>
+
+<section id="stack">
+  <p class="level">Atom · mandatory</p>
+  <h2>Stack logos</h2>
+  <p class="sub">Tools = colored icochip + tooltip tilt. Categories may stay text pills.</p>
+  <div class="stack-row">
+    <button type="button" class="icochip" aria-label="Figma"><span class="icochip-name">Figma</span><svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z"/><path fill="#A259FF" d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z"/><path fill="#0ACF83" d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z"/></svg></button>
+    <button type="button" class="icochip" aria-label="Pendo"><span class="icochip-name">Pendo</span><svg viewBox="0 0 24 24"><path fill="#EC5B33" d="M4 4h10.5a5.5 5.5 0 010 11H8v5H4V4z"/></svg></button>
+    <button type="button" class="icochip" aria-label="Unity"><span class="icochip-name">Unity</span><svg viewBox="0 0 24 24"><path fill="#ccc" d="M10 2.5L3 6.5v11l7 4 7-4v-11L10 2.5z"/></svg></button>
+  </div>
+</section>
+
+<section id="unique">
+  <p class="level">What stays unique</p>
+  <h2>Accents, not forks</h2>
+  <div class="unique">
+    <article><div class="sw" style="background:var(--acc-ey)"></div><h3>EY Fabric</h3><p>Accent yellow · catalog wireframe · Pendo loop copy</p></article>
+    <article><div class="sw" style="background:var(--acc-bc)"></div><h3>Blockchains</h3><p>Teal · procedural Three city · owner→visitor demo</p></article>
+    <article><div class="sw" style="background:var(--acc-chek)"></div><h3>Chek (next)</h3><p>Violet · same player · fintech content only</p></article>
+  </div>
+</section>
+
+<section id="map">
+  <p class="level">Map</p>
+  <h2>Where each pattern lives</h2>
+  <pre class="code">Nav shell .......... every page
+Player chrome ...... skill modals · EY stages · BC demo
+Typewriter→device .. same three places
+Stack icochips ..... home about · case heroes · projects cards
+Project pcard ...... home · projects.html
+Metric reel ........ case heroes · projects cards (EY/BC)
+Section boxes ...... case narratives
+Unique ............. accent color · graphic engine · copy</pre>
+</section>
+
+
+
+<section id="hero">
+  <p class="level">Organism</p>
+  <h2>Hero pattern</h2>
+  <p class="sub">Eyebrow · title · lede · optional metric reel · stack icochips. Same on cases; home bio is a sibling pattern.</p>
+  <div class="box" style="padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--bg-surface)">
+    <div class="eyebrow">Case study</div>
+    <div style="font-weight:800;font-size:1.5rem;letter-spacing:-.03em;margin:6px 0 8px">Title</div>
+    <p style="color:var(--muted);font-size:15px;margin-bottom:12px">Lede stays readable — clamp body size.</p>
+    <div class="reel" style="overflow:hidden;margin-bottom:12px"><div class="reel-track" style="display:flex;gap:8px;width:max-content;animation:reel 16s linear infinite">
+      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>90+</b> Assets</span>
+      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>3D</b> City</span>
+      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>90+</b> Assets</span>
+      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>3D</b> City</span>
+    </div></div>
+    <p style="font-family:var(--font-mono);font-size:11px;color:var(--dim)">+ icochip stack row under hero</p>
+  </div>
+</section>
+
+<section id="icons">
+  <p class="level">Atoms · motion</p>
+  <h2>Animated icons</h2>
+  <p class="sub">Skills and EY problem rows share the same idea: rounded well + SVG that scales/rotates on hover or when the section is active. Stroke icons preferred for light/dark.</p>
+  <div class="skill-row" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))">
+    <div class="skill" style="pointer-events:auto"><div class="ic">◆</div><h3>Skill icon</h3><p>Tilt on card hover</p></div>
+    <div class="skill" style="pointer-events:auto"><div class="ic">●</div><h3>Problem icon</h3><p>Accent well, quiet pulse optional</p></div>
+  </div>
+</section>
+
+<section id="about">
+  <p class="level">Organism · home</p>
+  <h2>About me (home)</h2>
+  <p class="sub">Story + photos + stack. Stack must use <strong>icochips</strong>, same as case heroes — not a separate chip system.</p>
+  <pre class="code">About blocks:
+- Name / role line
+- Story paragraphs
+- Photo grid (existing assets)
+- Stack groups → .stack-row .icochip (Figma, Pendo, …)
+- Optional tool list from same atom</pre>
+</section>
+
+<section id="buttons">
+  <p class="level">Atoms</p>
+  <h2>Button inventory</h2>
+  <p class="sub">All actionable types used across the site.</p>
+  <div class="btn-row">
+    <button type="button" class="btn">Default</button>
+    <button type="button" class="btn on">Selected</button>
+    <button type="button" class="btn primary">Primary</button>
+    <button type="button" class="player-btn" aria-label="Demo"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+  </div>
+  <pre class="code">default | primary | selected(on) | player circle | nav link | invite CTA
+Selected = inset ring. Player = icon circle. No emoji in production controls (use SVG).</pre>
+</section>
+
+<section id="states">
+  <p class="level">States</p>
+  <h2>Hover / focus / active matrix</h2>
+  <p class="sub">Every card and chip type identified in the portfolio.</p>
+  <table class="state-table">
+    <thead><tr><th>Component</th><th>Default</th><th>Hover</th><th>Focus-visible</th><th>Active / On</th></tr></thead>
+    <tbody>
+      <tr><td>Skill card</td><td>Border soft, flat</td><td>Lift -5px, accent border, icon tilt</td><td>2px accent outline</td><td>Same as hover + pressed scale .99</td></tr>
+      <tr><td>Project pcard</td><td>Accent fill, graphic</td><td>Lift -5px, deeper shadow</td><td>Outline accent</td><td>Scale .99</td></tr>
+      <tr><td>Contact invite</td><td>Surface + logo</td><td>Lift, glow, arrow slide</td><td>Outline</td><td>Scale .99</td></tr>
+      <tr><td>Player chip</td><td>Muted mono pill</td><td>Border accent</td><td>Outline</td><td>on: fill tint + scale 1.04</td></tr>
+      <tr><td>Stack icochip</td><td>30–34px mark</td><td>Tilt SVG + tooltip name</td><td>Outline + tooltip</td><td>SVG scale .94</td></tr>
+      <tr><td>Player control</td><td>Circle button</td><td>Scale 1.06</td><td>Outline</td><td>Scale .92</td></tr>
+      <tr><td>Section box</td><td>Surface</td><td>Border slightly brighter</td><td>—</td><td>—</td></tr>
+      <tr><td>Nav link</td><td>Dim uppercase</td><td>Text primary</td><td>Outline</td><td>active: primary</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="a11y">
+  <p class="level">WCAG 2.2 · target AA</p>
+  <h2>Accessibility checklist</h2>
+  <p class="sub">Validated against patterns we ship — not a full audit tool run, but the rules we enforce.</p>
+  <table class="a11y-table">
+    <thead><tr><th>Criterion</th><th>Status</th><th>How we meet it</th></tr></thead>
+    <tbody>
+      <tr><td>1.4.3 Contrast (text)</td><td class="ok">Pass target</td><td>Body clamp ≥16px; muted not used for critical actions; accent on dark checked for large text</td></tr>
+      <tr><td>1.4.11 Non-text contrast</td><td class="ok">Pass target</td><td>Borders ≥3:1 vs surface; selected chips use inset ring + color</td></tr>
+      <tr><td>2.1.1 Keyboard</td><td class="ok">Pass target</td><td>Player, chips, icochips, skills are buttons; focus-visible rings</td></tr>
+      <tr><td>2.4.7 Focus visible</td><td class="ok">Pass target</td><td>2px accent outline offset 2px on interactive atoms</td></tr>
+      <tr><td>2.3.3 Animation from interactions</td><td class="warn">Partial</td><td>Prefer transform/opacity; respect prefers-reduced-motion next pass on Chek</td></tr>
+      <tr><td>4.1.2 Name role value</td><td class="ok">Pass target</td><td>aria-label on icon-only controls; icochip names in tooltip + aria-label</td></tr>
+      <tr><td>1.4.4 Resize text</td><td class="ok">Pass target</td><td>clamp() type; layouts flex/grid</td></tr>
+    </tbody>
+  </table>
+  <pre class="code">@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}</pre>
+</section>
+
+<section id="rules">
+  <p class="level">Governance</p>
+  <h2>Consistency rules</h2>
+  <div class="rules">
+    <div class="rule do"><h3>One player</h3><p>Skills, EY, Blockchains share prev/next/play/chips and text→device order.</p></div>
+    <div class="rule do"><h3>Stack = logos</h3><p>Brand tools always icochip; never mono-only for Figma/Pendo/Unity…</p></div>
+    <div class="rule dont"><h3>No parallel kits</h3><p>Chek must not invent new modal chrome or card physics.</p></div>
+    <div class="rule do"><h3>Unique safely</h3><p>Only accent, case graphic, and narrative content diverge.</p></div>
+  </div>
+</section>
+</main>
+<footer class="foot"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="contact.html">Contact</a></footer>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function(){
-    var card = document.getElementById('dsCardDemo');
-    if(card && window.DemoKit) DemoKit.tilt3D(card, {maxX:5, maxY:6});
+(function(){
+  var r=document.documentElement,b=document.getElementById('themeToggle');
+  function a(t){r.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}}
+  var s=null;try{s=localStorage.getItem('theme')}catch(e){}
+  a(s==='light'?'light':'dark');
+  if(b)b.onclick=function(){a(r.getAttribute('data-theme')==='dark'?'light':'dark')};
+  var h=document.getElementById('ham'),m=document.getElementById('mobile');
+  if(h&&m)h.onclick=function(){m.classList.toggle('open')};
+
+  /* —— Player state machine ——
+     idle → typing → holding → device → (auto) next | stop
+     Guards: ignore double-run, clear all timers, respect reduced motion */
+  var beats=[
+    {title:'Measure',kicker:'Product intelligence',text:'Instrument features and close the loop.',sub:'Reports · funnels · properties'},
+    {title:'Analyze',kicker:'Journey',text:'Follow the drop-off to the broken field.',sub:'Catalog → item → form'},
+    {title:'Design',kicker:'Intervention',text:'Ship the fix with the same player chrome.',sub:'UI reenacted, not screenshots only'}
+  ];
+  var bi=0, playing=false, phase='idle', timers=[], typeTimer=null, runId=0;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var flow=document.getElementById('plFlow');
+  if(flow){
+    flow.innerHTML='';
+    beats.forEach(function(bt,i){
+      var c=document.createElement('button');
+      c.type='button'; c.className='player-chip'+(i===0?' on':'');
+      c.setAttribute('aria-pressed', i===0?'true':'false');
+      c.textContent='0'+(i+1)+' '+bt.title;
+      c.onclick=function(){ go(i,{manual:true}); };
+      flow.appendChild(c);
+    });
+  }
+  function clearAll(){
+    timers.forEach(clearTimeout); timers=[];
+    if(typeTimer){ clearTimeout(typeTimer); typeTimer=null; }
+  }
+  function later(fn, ms){
+    if(reduce) ms=Math.min(ms, 40);
+    var id=setTimeout(fn, ms); timers.push(id); return id;
+  }
+  function setPhase(p){ phase=p; }
+  function typeText(str, done){
+    var el=document.getElementById('plBody');
+    if(!el){ if(done) done(); return; }
+    if(reduce){ el.textContent=str; if(done) done(); return; }
+    el.textContent='';
+    var i=0;
+    (function tick(){
+      if(phase!=='typing') return;
+      if(i<=str.length){
+        el.textContent=str.slice(0,i++);
+        typeTimer=setTimeout(tick, 16);
+      } else if(done) done();
+    })();
+  }
+  function scrollChipIntoRow(i){
+    var chip=flow && flow.children[i];
+    if(!chip || !flow) return;
+    var left=chip.offsetLeft - (flow.clientWidth - chip.clientWidth)/2;
+    flow.scrollTo({left:Math.max(0,left), behavior: reduce?'auto':'smooth'});
+  }
+  function go(i, opts){
+    opts=opts||{};
+    if(i<0 || i>=beats.length) return;
+    var id=++runId;
+    bi=i; clearAll(); setPhase('typing');
+    var st=beats[i];
+    var lab=document.getElementById('plLabel');
+    var title=document.getElementById('plTitle');
+    if(lab) lab.textContent='0'+(i+1);
+    if(title) title.textContent=st.title;
+    var prev=document.getElementById('plPrev'), next=document.getElementById('plNext');
+    if(prev) prev.disabled=i===0;
+    if(next) next.disabled=i===beats.length-1;
+    if(flow)[].forEach.call(flow.children,function(c,j){
+      c.classList.toggle('on', j===i);
+      c.setAttribute('aria-pressed', j===i?'true':'false');
+    });
+    scrollChipIntoRow(i);
+    document.querySelectorAll('#skills .skill').forEach(function(sk){
+      sk.classList.toggle('on', +sk.dataset.i===i);
+    });
+    var text=document.getElementById('plText');
+    var device=document.getElementById('plDevice');
+    var kicker=document.getElementById('plKicker');
+    var sub=document.getElementById('plSub');
+    if(text) text.classList.remove('hide');
+    if(device) device.classList.remove('show');
+    if(kicker){ kicker.classList.remove('on'); kicker.textContent=st.kicker; }
+    if(sub) sub.classList.remove('on');
+    later(function(){
+      if(id!==runId) return;
+      if(kicker) kicker.classList.add('on');
+    }, 40);
+    typeText(st.text, function(){
+      if(id!==runId) return;
+      setPhase('holding');
+      if(sub){ sub.textContent=st.sub; sub.classList.add('on'); }
+      later(function(){
+        if(id!==runId) return;
+        setPhase('device');
+        if(text) text.classList.add('hide');
+        if(device) device.classList.add('show');
+        if(playing && !opts.manual){
+          later(function(){
+            if(id!==runId || !playing) return;
+            go((bi+1) % beats.length, {manual:false});
+          }, reduce ? 600 : 3000);
+        } else {
+          setPhase('idle');
+        }
+      }, reduce ? 80 : 650);
+    });
+  }
+  var plPrev=document.getElementById('plPrev');
+  var plNext=document.getElementById('plNext');
+  var plPlay=document.getElementById('plPlay');
+  if(plPrev) plPrev.onclick=function(){ if(bi>0) go(bi-1,{manual:true}); };
+  if(plNext) plNext.onclick=function(){ if(bi<beats.length-1) go(bi+1,{manual:true}); };
+  if(plPlay) plPlay.onclick=function(){
+    playing=!playing;
+    this.textContent=playing?'pause':'play';
+    this.setAttribute('aria-pressed', playing?'true':'false');
+    if(playing) go(bi,{manual:false});
+    else { clearAll(); setPhase('idle'); }
+  };
+  document.querySelectorAll('#skills .skill').forEach(function(sk){
+    sk.onclick=function(){ go(+sk.dataset.i,{manual:true}); };
   });
+  go(0,{manual:true});
+})();
 </script>
 
 </body>

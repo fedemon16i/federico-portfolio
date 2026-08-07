@@ -1,241 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Contact Federico Monroy — UX / Product Experience Analyst based in Córdoba, Argentina." />
-  <title>Contact — Federico Monroy</title>
-  <link rel="stylesheet" href="assets/shared.css" />
-  <script src="js/theme.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-/* ── V2 CONTACT PREVIEW ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
-  opacity: 0.032;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 0;
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Contact — Federico Monroy</title>
+<meta name="description" content="Contact Federico Monroy — UX / Product Design."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0e0d0c;--bg-surface:#171614;--text:#f2f0ec;--muted:#a6a29a;--dim:#6e6a63;
+  --border:rgba(255,255,255,.1);--accent:#d97757;
+  --font-display:"Instrument Sans",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --spring:cubic-bezier(.34,1.56,.64,1);
 }
-:root {
-  --font-display: 'Space Grotesk', sans-serif;
+html[data-theme="light"]{
+  --bg:#f7f5f2;--bg-surface:#fff;--text:#1a1917;--muted:#55524c;--dim:#8a847a;
+  --border:rgba(0,0,0,.1);--accent:#a84928;
 }
-.kw {
-  display: inline-block;
-  color: var(--accent);
-  animation: kwGlow 3.5s ease-in-out infinite;
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-display);font-size:clamp(16px,1.05vw,18px);line-height:1.6;padding-top:64px;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:var(--bg);border-bottom:1px solid var(--border)}
+.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1440px;margin:0 auto;padding:0 24px;gap:8px}
+.top-nav-logo{font-weight:800;font-size:18px;margin-right:auto}.top-nav-logo span{color:var(--accent)}
+.top-nav-links{display:flex;gap:8px}
+.top-nav-link{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:8px 12px;border-radius:6px}
+.top-nav-link.active,.top-nav-link:hover{color:var(--text)}
+.top-nav-theme{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg-surface);color:var(--dim);display:grid;place-items:center;cursor:pointer;margin-left:8px}
+.top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:8px;cursor:pointer}
+.top-nav-hamburger span{width:20px;height:2px;background:var(--text);display:block}
+@media(max-width:900px){.top-nav-links{display:none}.top-nav-hamburger{display:flex}}
+.mobile{display:none;position:fixed;inset:0;z-index:10000;background:var(--bg);padding:72px 24px}.mobile.open{display:block}
+.mobile a{display:block;padding:12px 0;border-bottom:1px solid var(--border);font-weight:700;font-size:1.15rem}
+
+.hero{
+  position:relative;padding:72px 24px 48px;max-width:960px;margin:0 auto;
+  overflow:hidden;
 }
-@media (prefers-reduced-motion: reduce) { .kw { animation: none; } }
-@keyframes kwGlow {
-  0%,100% { text-shadow: none; opacity: 0.82; }
-  50% { text-shadow: 0 0 22px rgba(200,168,75,0.55), 0 0 48px rgba(200,168,75,0.1); opacity: 1; }
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;opacity:.35;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 20%, rgba(217,119,87,.25), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(34,212,200,.12), transparent 50%);
 }
-.v2-banner {
-  position: fixed;
-  bottom: 16px; right: 16px;
-  background: rgba(200,168,75,0.12);
-  border: 1px solid rgba(200,168,75,0.3);
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.68rem;
-  color: #c8a84b;
-  z-index: 9999;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-family: 'Space Grotesk', sans-serif;
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-weight:800;font-size:clamp(2.2rem,5vw,3.2rem);letter-spacing:-.04em;line-height:1.05;margin-bottom:14px}
+.lede{color:var(--muted);max-width:28rem;font-size:clamp(16px,1.1vw,18px);margin-bottom:8px}
+
+.grid{
+  max-width:960px;margin:0 auto;padding:0 24px 80px;
+  display:grid;gap:16px;
+  grid-template-columns:1fr;
 }
-.v2-banner a { color: #c8a84b; text-decoration: underline; margin-left: 8px; opacity: 0.7; }
-  </style>
+@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+
+.invite{
+  position:relative;display:flex;flex-direction:column;gap:14px;
+  padding:28px 24px;border-radius:20px;border:1px solid var(--border);
+  background:var(--bg-surface);overflow:hidden;
+  transition:transform .45s var(--spring), border-color .3s, box-shadow .35s;
+  min-height:180px;
+}
+.invite::before{
+  content:"";position:absolute;inset:0;opacity:0;
+  background:radial-gradient(circle at 30% 20%, var(--glow, rgba(217,119,87,.15)), transparent 55%);
+  transition:opacity .35s;
+}
+.invite:hover{
+  transform:translateY(-6px) scale(1.01);
+  border-color:var(--accent);
+  box-shadow:0 20px 48px rgba(0,0,0,.35);
+}
+.invite:hover::before{opacity:1}
+.invite:hover .arrow{transform:translateX(6px)}
+.invite:hover .logo-wrap{transform:scale(1.08) rotate(-4deg)}
+.logo-wrap{
+  width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  transition:transform .45s var(--spring);
+}
+.logo-wrap svg{width:26px;height:26px}
+.invite h2{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;position:relative}
+.invite p{color:var(--muted);font-size:15px;line-height:1.5;position:relative;flex:1}
+.cta-line{
+  display:flex;align-items:center;gap:8px;position:relative;
+  font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:.04em;
+}
+.arrow{transition:transform .35s var(--spring);display:inline-block}
+.invite.li{--glow:rgba(10,102,194,.2)}
+.invite.gh{--glow:rgba(255,255,255,.08)}
+.invite.ig{--glow:rgba(225,48,108,.18)}
+.invite.mail{--glow:rgba(34,212,200,.15)}
+
+.band{
+  max-width:960px;margin:0 auto 64px;padding:0 24px;
+}
+.band-inner{
+  border-radius:20px;border:1px solid var(--border);padding:28px 24px;
+  background:linear-gradient(135deg, rgba(217,119,87,.08), transparent 50%);
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
+}
+.band p{color:var(--muted);max-width:28rem;font-size:15px}
+.band a.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 18px;border-radius:12px;background:var(--accent);color:#1a100c;
+  font-weight:700;font-size:14px;transition:transform .3s var(--spring);
+}
+.band a.btn:hover{transform:scale(1.04)}
+
+.foot{text-align:center;padding:28px;font-family:var(--font-mono);font-size:11px;color:var(--dim)}.foot a{margin:0 10px}
+</style>
 </head>
 <body>
-<div class="v2-banner">V2 Preview <a href="contact.html">← Ver original</a></div>
+<nav class="top-nav"><div class="top-nav-inner">
+<a class="top-nav-logo" href="index.html">FM<span>.</span></a>
+<div class="top-nav-links">
+<a class="top-nav-link" href="index.html">Home</a>
+<a class="top-nav-link" href="projects.html">Projects</a>
+<a class="top-nav-link" href="about.html">About</a>
+<a class="top-nav-link active" href="contact.html">Contact</a>
+</div>
+<button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+<button class="top-nav-hamburger" id="ham" type="button" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="mobile" id="mobile">
+<a href="index.html">Home</a><a href="projects.html">Projects</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="design-system.html">Design system</a>
+</div>
 
-  <a class="skip-link" href="#main">Skip to main content</a>
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <p class="eyebrow">Contact</p>
+  <h1>Pick a door.<br/>I’ll meet you there.</h1>
+  <p class="lede">Open to remote and LATAM product / UX roles — analytics, research, and the loop between design and shipping.</p>
+</header>
 
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
-      <div class="nav-links" role="menubar">
-        <a href="index.html" class="nav-link">Home</a>
-        <div class="nav-dropdown">
-          <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
-            Projects
-            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div id="nav-dropdown-menu" class="nav-dropdown-menu" role="menu" aria-label="Projects menu">
-            <div class="nav-dropdown-group">
-              <div class="nav-dropdown-group-label">Relevant / Professional</div>
-              <a class="nav-dropdown-item" href="projects/ey-fabric.html" role="menuitem">EY Fabric (Globant)</a>
-              <a class="nav-dropdown-item" href="projects/blockchain.html" role="menuitem">Blockchain</a>
-              <a class="nav-dropdown-item" href="projects/customs.html" role="menuitem">Customs / Aduanas ES</a>
-              <a class="nav-dropdown-item" href="projects/chek.html" role="menuitem">Chek</a>
-              <a class="nav-dropdown-item" href="projects/dollarcity.html" role="menuitem">DollarCity</a>
-              <a class="nav-dropdown-item" href="projects/forecast.html" role="menuitem">Forecast</a>
-            </div>
-            <div class="nav-dropdown-group">
-              <div class="nav-dropdown-group-label">Personal / Independent</div>
-              <a class="nav-dropdown-item" href="projects/industrial-design-thesis.html" role="menuitem">Industrial Design Thesis</a>
-              <a class="nav-dropdown-item" href="projects/depure.html" role="menuitem">Depure</a>
-              <a class="nav-dropdown-item" href="projects/layer-ey.html" role="menuitem">LayerEY</a>
-            </div>
-          </div>
-        </div>
-        <a href="resume.html" class="nav-link">Resume</a>
-        <a href="about.html" class="nav-link">About</a>
-        <a href="contact.html" class="nav-link active" aria-current="page">Contact</a>
-      </div>
-
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-        <!-- Sun icon (shown in dark mode) -->
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <!-- Moon icon (shown in light mode) -->
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-
-      <button id="nav-hamburger" class="nav-hamburger" aria-expanded="false" aria-controls="nav-mobile" aria-label="Open navigation menu">
-        <span></span><span></span><span></span>
-      </button>
+<div class="grid">
+  <a class="invite li" href="https://www.linkedin.com/" target="_blank" rel="noopener">
+    <div class="logo-wrap" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.8v2.1h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V24h-4V8.5z"/></svg>
     </div>
-    <div id="nav-mobile" class="nav-mobile" role="dialog" aria-label="Mobile navigation">
-      <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close navigation menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Navigation</div>
-        <a href="index.html">Home</a>
-        <a href="resume.html">Resume</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Relevant / Professional</div>
-        <a href="projects/ey-fabric.html">EY Fabric (Globant)</a>
-        <a href="projects/blockchain.html">Blockchain</a>
-        <a href="projects/customs.html">Customs / Aduanas ES</a>
-        <a href="projects/chek.html">Chek</a>
-        <a href="projects/dollarcity.html">DollarCity</a>
-        <a href="projects/forecast.html">Forecast</a>
-      </div>
-      <div class="nav-mobile-section">
-        <div class="nav-mobile-label">Personal / Independent</div>
-        <a href="projects/industrial-design-thesis.html">Industrial Design Thesis</a>
-        <a href="projects/depure.html">Depure</a>
-        <a href="projects/layer-ey.html">LayerEY</a>
-      </div>
+    <h2>LinkedIn</h2>
+    <p>Roles, recommendations, and the long version of the work.</p>
+    <span class="cta-line">Open profile <span class="arrow">→</span></span>
+  </a>
+  <a class="invite gh" href="https://github.com/fedemon16i" target="_blank" rel="noopener">
+    <div class="logo-wrap" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.28-.01-1.02-.02-2-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013.01-.4c1.02 0 2.05.14 3.01.4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
     </div>
-  </nav>
-
-  <main id="main" class="contact-page">
-    <div class="container">
-
-      <div data-anim>
-        <div class="section-eyebrow" style="justify-content:center;">Contact</div>
-        <h1 class="contact-page-title">Let's <span class="kw">talk</span>.</h1>
-        <p class="contact-page-sub">I'm open to senior UX, product analytics, and consultancy opportunities. I work where the signal meets the decision — research, analytics, design, or all three. Based in Córdoba, Argentina. Remote-friendly worldwide.</p>
-
-        <div style="display:flex;gap:var(--space-12);justify-content:center;flex-wrap:wrap;" data-anim data-anim-delay="1">
-          <a href="https://linkedin.com/in/federicomonroy" target="_blank" rel="noopener noreferrer" class="btn btn-primary" aria-label="LinkedIn (opens in new tab)">
-            LinkedIn ↗
-          </a>
-          <a href="mailto:fedemon16i@gmail.com" class="btn btn-outline">
-            Email Me
-          </a>
-          <a href="resume.html" class="btn btn-outline">
-            View Resume
-          </a>
-        </div>
-      </div>
-
-      <div class="contact-methods" data-anim data-anim-delay="2">
-
-        <a
-          href="https://linkedin.com/in/federicomonroy"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="contact-method"
-          aria-label="LinkedIn profile (opens in new tab)"
-          style="--accent-dim:var(--accent-linkedin-dim);--accent:var(--accent-linkedin);"
-        >
-          <div class="contact-method-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-          </div>
-          <div class="contact-method-info">
-            <div class="contact-method-label">LinkedIn</div>
-            <div class="contact-method-value">linkedin.com/in/federicomonroy</div>
-          </div>
-          <span style="color:var(--text-tertiary);font-size:0.875rem;" aria-hidden="true">↗</span>
-        </a>
-
-        <a
-          href="mailto:fedemon16i@gmail.com"
-          class="contact-method"
-          aria-label="Send email to Federico"
-        >
-          <div class="contact-method-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          </div>
-          <div class="contact-method-info">
-            <div class="contact-method-label">Email</div>
-            <div class="contact-method-value">fedemon16i@gmail.com</div>
-          </div>
-        </a>
-
-        <a
-          href="resume.html"
-          class="contact-method"
-          aria-label="View resume"
-        >
-          <div class="contact-method-icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          </div>
-          <div class="contact-method-info">
-            <div class="contact-method-label">Resume</div>
-            <div class="contact-method-value">View my full resume & background</div>
-          </div>
-        </a>
-
-      </div>
-
-      <div style="text-align:center;margin-top:var(--space-64);" data-anim data-anim-delay="3">
-        <p style="font-size:0.875rem;color:var(--text-tertiary);">Based in Córdoba, Argentina · Available for remote work worldwide</p>
-      </div>
-
+    <h2>GitHub</h2>
+    <p>Repos, experiments, and the living portfolio source.</p>
+    <span class="cta-line">fedemon16i <span class="arrow">→</span></span>
+  </a>
+  <a class="invite ig" href="https://instagram.com/federicomonroy" target="_blank" rel="noopener">
+    <div class="logo-wrap" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
     </div>
-  </main>
-
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-bottom">
-        <p class="footer-copy">© 2025 Federico A. Monroy</p>
-        <div style="display:flex;gap:var(--space-16);">
-          <a href="index.html" style="font-size:0.8125rem;color:var(--text-tertiary);">Home</a>
-          <a href="about.html" style="font-size:0.8125rem;color:var(--text-tertiary);">About</a>
-          <a href="resume.html" style="font-size:0.8125rem;color:var(--text-tertiary);">Resume</a>
-        </div>
-      </div>
+    <h2>Instagram</h2>
+    <p>Process, adventure, and the non-slide-deck side.</p>
+    <span class="cta-line">@federicomonroy <span class="arrow">→</span></span>
+  </a>
+  <a class="invite mail" href="projects.html">
+    <div class="logo-wrap" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>
     </div>
-  </footer>
+    <h2>See the work first</h2>
+    <p>If you prefer proof before a message — start with the cases.</p>
+    <span class="cta-line">All projects <span class="arrow">→</span></span>
+  </a>
+</div>
 
-  <script src="assets/main.js"></script>
+<div class="band">
+  <div class="band-inner">
+    <p>Looking for a Pendo / analytics-minded product designer who can own the loop end to end.</p>
+    <a class="btn" href="projects/ey-fabric.html">Start with EY Fabric <span>→</span></a>
+  </div>
+</div>
 
+<footer class="foot"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="design-system.html">Design system</a></footer>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById('themeToggle');function a(t){r.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}}var s=null;try{s=localStorage.getItem('theme')}catch(e){}a(s==='light'?'light':'dark');if(b)b.onclick=function(){a(r.getAttribute('data-theme')==='dark'?'light':'dark')};var h=document.getElementById('ham'),m=document.getElementById('mobile');if(h&&m)h.onclick=function(){m.classList.toggle('open')}})();
+</script>
 </body>
 </html>

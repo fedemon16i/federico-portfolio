@@ -1108,6 +1108,37 @@
   .bc-cube-mini{width:38px;height:38px;position:relative;transform-style:preserve-3d;animation:cubeSpin 9s linear infinite;flex-shrink:0;}
   .bc-face-mini{position:absolute;inset:0;border:1.5px solid var(--acc-bc);background:rgba(34,212,200,.07);border-radius:5px;}
   a[href="projects/blockchain.html"] .g-stagebody{gap:22px;perspective:600px;}
+
+  /* Blockchain card — mini 3D map */
+  .bc-map{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(90deg, rgba(34,212,200,.07) 1px, transparent 1px),
+      linear-gradient(rgba(34,212,200,.07) 1px, transparent 1px),
+      linear-gradient(160deg,#071212,#0c1a1a);
+    background-size:18px 18px,18px 18px,auto;
+    overflow:hidden;
+  }
+  .bc-map .bc-bldg{
+    position:absolute;bottom:18%;background:rgba(34,212,200,.2);
+    border:1px solid rgba(34,212,200,.35);border-radius:2px 2px 0 0;
+    transform-origin:bottom center;
+    animation:bcGrow 3.2s ease-in-out infinite;
+  }
+  .bc-map .bc-bldg:nth-child(1){left:12%;width:14%;height:28%;animation-delay:0s}
+  .bc-map .bc-bldg:nth-child(2){left:32%;width:12%;height:40%;animation-delay:.4s}
+  .bc-map .bc-bldg:nth-child(3){left:52%;width:16%;height:32%;animation-delay:.8s}
+  .bc-map .bc-bldg:nth-child(4){left:74%;width:12%;height:44%;animation-delay:1.1s}
+  @keyframes bcGrow{0%,100%{transform:scaleY(.85)}50%{transform:scaleY(1)}}
+  .bc-map .bc-pin{
+    position:absolute;width:8px;height:8px;border-radius:50%;
+    background:#22d4c8;box-shadow:0 0 10px #22d4c8;
+    animation:bcPin 2.4s ease-in-out infinite;
+  }
+  .bc-map .bc-pin:nth-child(5){left:28%;top:42%;animation-delay:0s}
+  .bc-map .bc-pin:nth-child(6){left:58%;top:36%;animation-delay:.6s;background:#e05c4a;box-shadow:0 0 10px #e05c4a}
+  @keyframes bcPin{0%,100%{transform:translateY(0);opacity:.85}50%{transform:translateY(-4px);opacity:1}}
+
   @keyframes cardFloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(-3deg)}}
   .chek-card{position:absolute;left:50%;top:50%;width:120px;height:74px;margin:-37px 0 0 -60px;background:linear-gradient(135deg,#7a3be0,#4b1f96);border-radius:10px;animation:cardFloat 4s ease-in-out infinite;box-shadow:0 14px 30px rgba(122,59,224,.35);padding:10px;}
   .chek-chip{width:18px;height:13px;border-radius:3px;background:rgba(255,255,255,.4);}
@@ -1181,6 +1212,134 @@
     *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;}
     .stage.idle{animation:none;}
   }
+
+/* Shared BC map scene — hero language, no device */
+.bc3d{
+  position:absolute;inset:0;overflow:hidden;
+  background:linear-gradient(180deg,#0a1214 0%,#071010 100%);
+  perspective:480px;perspective-origin:50% 40%;
+}
+.bc3d-world{
+  position:absolute;left:50%;top:58%;width:140%;height:140%;
+  transform:translate(-50%,-50%) rotateX(58deg) rotateZ(-18deg);
+  transform-style:preserve-3d;
+  animation:bcWorldPan 14s ease-in-out infinite;
+}
+@keyframes bcWorldPan{
+  0%,100%{transform:translate(-50%,-50%) rotateX(58deg) rotateZ(-18deg) translate3d(0,0,0)}
+  50%{transform:translate(-50%,-50%) rotateX(56deg) rotateZ(-12deg) translate3d(-4%,2%,0)}
+}
+.bc3d-grid{
+  position:absolute;inset:-20%;
+  background:
+    linear-gradient(90deg,rgba(34,212,200,.14) 1px,transparent 1px),
+    linear-gradient(rgba(34,212,200,.14) 1px,transparent 1px);
+  background-size:28px 28px;
+  transform:translateZ(0);
+}
+.bc3d-b{
+  position:absolute;bottom:42%;
+  background:linear-gradient(180deg,rgba(34,212,200,.35),rgba(34,212,200,.08));
+  border:1px solid rgba(34,212,200,.4);
+  border-radius:2px 2px 0 0;
+  transform-origin:bottom center;
+  transform:translateZ(8px) scaleY(0.4);
+  animation:bcBuild 3.6s ease-in-out infinite;
+  box-shadow:0 0 12px rgba(34,212,200,.15);
+}
+.bc3d-b:nth-child(2){left:18%;width:7%;height:18%;animation-delay:0s}
+.bc3d-b:nth-child(3){left:28%;width:6%;height:28%;animation-delay:.25s}
+.bc3d-b:nth-child(4){left:38%;width:8%;height:22%;animation-delay:.5s}
+.bc3d-b:nth-child(5){left:50%;width:6%;height:32%;animation-delay:.75s}
+.bc3d-b:nth-child(6){left:60%;width:7%;height:20%;animation-delay:1s}
+.bc3d-b:nth-child(7){left:72%;width:6%;height:26%;animation-delay:1.2s}
+@keyframes bcBuild{
+  0%,100%{transform:translateZ(8px) scaleY(.45)}
+  40%,60%{transform:translateZ(8px) scaleY(1)}
+}
+.bc3d-pin{
+  position:absolute;width:10px;height:10px;margin-left:-5px;margin-top:-5px;
+  border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+  background:#22d4c8;box-shadow:0 0 14px #22d4c8;
+  animation:bcPinBob 2.4s ease-in-out infinite;
+}
+.bc3d-pin.alt{background:#e05c4a;box-shadow:0 0 14px #e05c4a}
+.bc3d-pin:nth-child(8){left:34%;top:48%;animation-delay:0s}
+.bc3d-pin:nth-child(9){left:54%;top:40%;animation-delay:.5s}
+.bc3d-pin:nth-child(10){left:66%;top:52%;animation-delay:1s}
+@keyframes bcPinBob{
+  0%,100%{transform:rotate(-45deg) translate(0,0)}
+  50%{transform:rotate(-45deg) translate(2px,-6px)}
+}
+.bc3d-tip{
+  position:absolute;z-index:3;left:42%;top:22%;
+  padding:6px 10px;border-radius:8px;
+  background:rgba(14,13,12,.92);border:1px solid rgba(34,212,200,.35);
+  color:#e8f7f5;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:.04em;white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.45);
+  animation:bcTip 5s ease-in-out infinite;
+  pointer-events:none;
+}
+.bc3d-tip::after{
+  content:"";position:absolute;left:18px;bottom:-6px;width:8px;height:8px;
+  background:rgba(14,13,12,.92);border-right:1px solid rgba(34,212,200,.35);
+  border-bottom:1px solid rgba(34,212,200,.35);transform:rotate(45deg);
+}
+@keyframes bcTip{
+  0%,100%{opacity:.9;transform:translateY(0)}
+  50%{opacity:1;transform:translateY(-4px)}
+}
+.bc3d-tip b{color:#22d4c8;font-weight:600}
+
+
+  .bc-mini-tip{
+    position:absolute;z-index:2;left:12%;top:14%;
+    padding:6px 10px;border-radius:8px;
+    background:rgba(14,13,12,.92);border:1px solid rgba(34,212,200,.4);
+    color:#e8f7f5;font-family:var(--font-mono),ui-monospace,monospace;
+    font-size:10px;letter-spacing:.04em;pointer-events:none;
+    box-shadow:0 8px 22px rgba(0,0,0,.4);
+    animation:bcTipFloat 4s ease-in-out infinite;
+  }
+  .bc-mini-tip b{color:#22d4c8}
+  .bc-mini-tip::after{
+    content:"";position:absolute;left:16px;bottom:-5px;width:8px;height:8px;
+    background:rgba(14,13,12,.92);border-right:1px solid rgba(34,212,200,.4);
+    border-bottom:1px solid rgba(34,212,200,.4);transform:rotate(45deg);
+  }
+  @keyframes bcTipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .pcard-graphic .bc-mini-gl, .bc-scene .bc-mini-gl{position:absolute;inset:0;width:100%;height:100%}
+
+
+  .bc-mini-load{
+    position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;
+    background:#0a121c;transition:opacity .45s ease, visibility .45s;
+  }
+  .bc-mini-load.is-done{opacity:0;visibility:hidden;pointer-events:none}
+  .bc-mini-load .spin{
+    width:22px;height:22px;border-radius:50%;
+    border:2px solid rgba(34,212,200,.2);border-top-color:#22d4c8;
+    animation:bcSpin .7s linear infinite;
+  }
+  @keyframes bcSpin{to{transform:rotate(360deg)}}
+  .bc-mini-tip{
+    position:absolute;z-index:2;left:12%;top:14%;
+    padding:6px 10px;border-radius:8px;
+    background:rgba(14,13,12,.92);border:1px solid rgba(34,212,200,.4);
+    color:#e8f7f5;font-family:var(--font-mono),ui-monospace,monospace;
+    font-size:10px;letter-spacing:.04em;pointer-events:none;
+    box-shadow:0 8px 22px rgba(0,0,0,.4);
+    animation:bcTipFloat 4s ease-in-out infinite;
+  }
+  .bc-mini-tip b{color:#22d4c8}
+  .bc-mini-tip::after{
+    content:"";position:absolute;left:16px;bottom:-5px;width:8px;height:8px;
+    background:rgba(14,13,12,.92);border-right:1px solid rgba(34,212,200,.4);
+    border-bottom:1px solid rgba(34,212,200,.4);transform:rotate(45deg);
+  }
+  @keyframes bcTipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 </head>
@@ -1421,15 +1580,10 @@
       </div>
       <div class="pcard-body">
         <div class="pcard-top"><b>Blockchains Inc.</b><small>Oct 2023 — Present</small></div>
-        <div class="pcard-graphic bc-scene" style="background:#0b1414;">
-          <div class="bc-cube-mini">
-            <div class="bc-face-mini" style="transform:translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateY(90deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateY(180deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateY(-90deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateX(90deg) translateZ(20px)"></div>
-            <div class="bc-face-mini" style="transform:rotateX(-90deg) translateZ(20px)"></div>
-          </div>
+        <div class="pcard-graphic bc-scene" style="background:#0a121c;position:relative;overflow:hidden;">
+          <canvas class="bc-mini-gl" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+          <div class="bc-mini-tip" aria-hidden="true"><b>POI</b> · Cafe row</div>
+
         </div>
         <p class="pcard-desc">A working 3D prototype — 5 flows, real hotspots — bridging flat UI with an immersive map.</p>
         <span class="pcard-cta">Open case study &#8594;</span>
@@ -2879,5 +3033,159 @@
   });
 })();
 </script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  /* Card city: InstancedMesh + distance LOD scales + visibility-gated RAF.
+     Full-case postprocessing (UnrealBloom etc.) stays on project pages only — too heavy for cards. */
+  function miniCity(canvas){
+    if(!canvas || !window.THREE) return;
+    var parent = canvas.parentElement;
+    if(!parent) return;
+    var loading = parent.querySelector('.bc-mini-load');
+    var W = Math.max(parent.clientWidth || 280, 120);
+    var H = Math.max(parent.clientHeight || 160, 100);
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:false, powerPreference:'low-power'});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.1));
+    renderer.setSize(W, H, false);
+    renderer.setClearColor(0x0a121c, 1);
+    var scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a121c, 0.048);
+    var camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 50);
+    scene.add(new THREE.AmbientLight(0x6a9bbb, 0.55));
+    var sun = new THREE.DirectionalLight(0xc8e0ff, 0.85);
+    sun.position.set(10, 14, 6);
+    scene.add(sun);
+    var ground = new THREE.Mesh(new THREE.PlaneGeometry(22, 22), new THREE.MeshLambertMaterial({color:0x121c28}));
+    ground.rotation.x = -Math.PI/2;
+    scene.add(ground);
+    var streetMat = new THREE.MeshLambertMaterial({color:0x2a4058, emissive:0x1a3048, emissiveIntensity:0.28});
+    for(var i=-6;i<=6;i+=3.5){
+      var r = new THREE.Mesh(new THREE.BoxGeometry(14, 0.04, 0.48), streetMat);
+      r.position.set(0, 0.03, i); scene.add(r);
+      var r2 = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.04, 14), streetMat);
+      r2.position.set(i, 0.03, 0); scene.add(r2);
+    }
+    var geo = new THREE.BoxGeometry(1, 1, 1);
+    geo.translate(0, 0.5, 0);
+    var matB = new THREE.MeshLambertMaterial({color:0x3a5a72});
+    var specs = [];
+    var step = 3.7;
+    for(var bx=-5; bx<=5; bx+=step){
+      for(var bz=-5; bz<=5; bz+=step){
+        if(Math.abs(bx)<0.75 || Math.abs(bz)<0.75) continue;
+        if(Math.random()<0.4) continue;
+        specs.push({
+          x:bx+(Math.random()-0.5)*0.3,
+          z:bz+(Math.random()-0.5)*0.3,
+          h:0.65+Math.random()*2.2,
+          s:0.78+Math.random()*0.35
+        });
+      }
+    }
+    var mesh = new THREE.InstancedMesh(geo, matB, specs.length);
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    mesh.frustumCulled = true;
+    var dummy = new THREE.Object3D();
+    var targets = [];
+    for(var k=0;k<specs.length;k++){
+      var s = specs[k];
+      targets.push(s.h);
+      dummy.position.set(s.x, 0, s.z);
+      dummy.scale.set(s.s, 0.04, s.s);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(k, dummy.matrix);
+    }
+    mesh.instanceMatrix.needsUpdate = true;
+    scene.add(mesh);
+    var pins = [{x:-1.8,z:1.3,c:0x22d4c8},{x:2.4,z:-0.9,c:0xe05c4a},{x:0.3,z:2.5,c:0x22d4c8}];
+    var pinMeshes = [];
+    pins.forEach(function(p){
+      var g = new THREE.CylinderGeometry(0.1, 0.02, 0.48, 6);
+      g.translate(0, 0.24, 0);
+      var m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({color:p.c}));
+      m.position.set(p.x, 0, p.z);
+      scene.add(m);
+      pinMeshes.push({mesh:m, base:p});
+    });
+    var ang = 0.85, elev = 4.8, dist = 12.8;
+    var t0 = performance.now();
+    var grown = false;
+    var visible = true;
+    var raf = 0;
+    var firstFrame = true;
+    var camPos = new THREE.Vector3();
+    function setHeights(e){
+      camPos.copy(camera.position);
+      for(var k=0;k<specs.length;k++){
+        var s = specs[k];
+        var dx = s.x - camPos.x, dz = s.z - camPos.z;
+        var d = Math.sqrt(dx*dx + dz*dz);
+        /* distance LOD: far instances flatten slightly (cheaper read, less aliasing) */
+        var lod = d > 16 ? 0.55 : d > 11 ? 0.78 : 1;
+        dummy.position.set(s.x, 0, s.z);
+        dummy.scale.set(s.s, Math.max(0.04, targets[k]*e*lod), s.s);
+        dummy.updateMatrix();
+        mesh.setMatrixAt(k, dummy.matrix);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+    }
+    function frame(now){
+      if(!visible){ raf = 0; return; }
+      var t = (now - t0) / 1000;
+      ang += 0.0026;
+      camera.position.set(Math.cos(ang)*dist, elev, Math.sin(ang)*dist);
+      camera.lookAt(0, 0.3, 0);
+      if(!grown){
+        var u = Math.min(1, t/1.9);
+        var e = 1 - Math.pow(1-u, 3);
+        setHeights(e);
+        if(u >= 1){ grown = true; setHeights(1); }
+      }
+      for(var i=0;i<pinMeshes.length;i++){
+        pinMeshes[i].mesh.position.y = Math.sin(t*2 + i)*0.06;
+      }
+      renderer.render(scene, camera);
+      if(firstFrame){
+        firstFrame = false;
+        if(loading) loading.classList.add('is-done');
+        parent.classList.add('bc-ready');
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function start(){ if(!raf && visible) raf = requestAnimationFrame(frame); }
+    function stop(){ if(raf){ cancelAnimationFrame(raf); raf = 0; } }
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          visible = en.isIntersecting;
+          if(visible) start(); else stop();
+        });
+      }, {threshold:0.1});
+      io.observe(parent);
+    } else start();
+    start();
+    var resizeTimer;
+    window.addEventListener('resize', function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function(){
+        W = Math.max(parent.clientWidth||280,120);
+        H = Math.max(parent.clientHeight||160,100);
+        camera.aspect = W/H; camera.updateProjectionMatrix();
+        renderer.setSize(W, H, false);
+      }, 150);
+    });
+  }
+  function boot(){ document.querySelectorAll('canvas.bc-mini-gl').forEach(miniCity); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+
+
 </body>
 </html>

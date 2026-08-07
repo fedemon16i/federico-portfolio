@@ -127,6 +127,24 @@
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;}
   }
+
+  .sec-h{position:relative;padding-bottom:10px}
+  .sec-h::after{content:"";position:absolute;left:0;bottom:0;width:48px;height:3px;background:var(--accent);border-radius:2px}
+  .job{border-left:2px solid var(--border);padding-left:18px;margin-left:4px}
+  .job:hover{border-left-color:var(--accent)}
+  .cl-t{border-bottom:1px solid var(--border-soft);padding-bottom:6px;margin-bottom:8px}
+  .sk{border-top:3px solid transparent;transition:border-color 200ms}
+  .sk:hover,.sk.in{border-top-color:var(--accent)}
+  .job{border-left:3px solid var(--accent);padding-left:20px;margin:0 0 36px 2px;position:relative}
+  .job + .job{padding-top:8px}
+  .job-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:4px}
+  .job-t{font-family:var(--font-display);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;color:var(--text-primary)}
+  .job-d{font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary)}
+  .job-r{font-size:15px;color:var(--accent);font-weight:600;margin-bottom:14px}
+  .cl{background:var(--bg-surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+  .cl-t{font-weight:600;font-size:14px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border-soft)}
+  .cl-t small{font-weight:400;color:var(--text-tertiary);margin-left:6px}
+  .job-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:6px}
 </style>
 </head>
 <body>
@@ -134,18 +152,18 @@
 <nav><div class="wrap nav-in">
   <a class="nav-back" href="index.html">← Home</a>
   <span class="nav-name">Resume</span>
-  <a class="dl" href="assets/Federico_Monroy_CV.pdf" download>Download PDF ↓</a>
+  <a class="dl" href="assets/Federico_Monroy_Resume_ATS.html" download>Download ATS resume ↓</a><a class="dl" href="assets/Federico_Monroy_Resume.txt" download style="margin-left:8px">TXT ↓</a>
 </div></nav>
 
 <main id="main">
 <header class="hero"><div class="wrap">
   <p class="hero-eyebrow">Sr. UX Strategist · Product Designer</p>
   <h1>Federico Monroy —<br>I build the <em>whole loop</em>.</h1>
-  <p class="hero-sub">5+ years shipping user-centered products across fintech, retail, gov and enterprise. Behavioral analytics, research, design, and deployment — one continuous cycle, run alongside product, engineering and stakeholders.</p>
+  <p class="hero-sub">5+ years shipping products across enterprise, fintech, retail, and government. From early research on EY’s internal assets to owning Pendo instrumentation end to end; from 2D/3D map features to immersive POI experiences — research, analytics, design, and handoff as one loop.</p>
   <div class="hero-meta">
     <span class="hm">Córdoba, Argentina · remote</span>
     <span class="hm"><a href="mailto:fedemon16i@gmail.com">fedemon16i@gmail.com</a></span>
-    <span class="hm"><a href="index.html">Portfolio ↗</a></span>
+    <span class="hm"><a href="https://fedemon16i.github.io/federico-portfolio/">Portfolio ↗</a></span>
   </div>
 </div></header>
 
@@ -166,43 +184,46 @@
   <h2 class="sec-h" id="xp-h">Where it shipped</h2>
   <div class="xp">
 
-    <div class="job">
+    <div class="job" data-employer="Globant">
+      <p class="job-label">Employer</p>
       <div class="job-h"><span class="job-t">Globant</span><span class="job-d">Oct 2023 — present · hybrid</span></div>
       <div class="job-r">Sr. UX / Product Strategist</div>
-      <div class="cl"><div class="cl-t">Blockchains Inc. <small>3D immersive experience startup</small></div><ul>
-        <li>Translated <b>mobile-first designs to desktop</b> for a 3D blockchain platform, applying spatial UI best practices benchmarked from immersive apps.</li>
-        <li>Pioneered a <b>2D/3D map feature</b> validated via client-led user testing — bridging Figma prototypes with 3D animation tools.</li>
+      <div class="cl"><p class="job-label">Client engagement</p><div class="cl-t">Ernst &amp; Young · EY Fabric <small>internal platform · services catalog</small></div><ul>
+        <li><b>Started here:</b> end-to-end research on <b>90+ internal assets</b> (Microsoft Dynamics, Copilot, sentiment) and UI audits on consumption journeys — turning qualitative signal into product insights.</li>
+        <li><b>Now:</b> sole <b>Pendo practitioner</b> on the XDA team — instrumented a <b>300+ item</b> shared catalog end to end; one person closing the loop between experience, product, and engineering (no cross-discipline handoffs).</li>
+        <li>Operationalized <b>behavioral analytics</b> for growth: funnels, drop-offs, and adoption monitoring with <b>Pendo + Qualtrics</b> on a platform migration.</li>
       </ul></div>
-      <div class="cl"><div class="cl-t">Ernst &amp; Young <small>internal development portal</small></div><ul>
-        <li>Led end-to-end research on <b>90+ internal developer assets</b> using Microsoft Dynamics and Copilot, turning sentiment analysis into actionable product insights.</li>
-        <li>Audited UI flows across key consumption journeys and proposed UX improvements to increase usability and adoption.</li>
-        <li>Designed feedback dashboards with <b>Qualtrics</b> and integrated <b>Pendo</b> to monitor usage and close the feedback loop at scale.</li>
+      <div class="cl"><p class="job-label">Client engagement</p><div class="cl-t">Blockchains Inc. <small>3D immersive map product</small></div><ul>
+        <li><b>Started here:</b> translated <b>mobile-first to desktop</b> and pioneered a <b>2D/3D map</b> feature validated with client-led testing — Figma prototypes bridged to 3D tools.</li>
+        <li><b>Now:</b> immersive product design for an <b>owner → visitor</b> loop — place POIs in a live 3D city, publish media, and prototype with <b>Figma, Spline, Unity, and Three.js</b>.</li>
       </ul></div>
     </div>
 
-    <div class="job">
+    <div class="job" data-employer="Applaudo Studios">
+      <p class="job-label">Employer</p>
       <div class="job-h"><span class="job-t">Applaudo Studios</span><span class="job-d">Sep 2021 — Jul 2025 · remote · ext. consultant</span></div>
       <div class="job-r">Product Designer</div>
-      <div class="cl"><div class="cl-t">Dollarama · DollarCity <small>surveillance monitoring SaaS — retail chain</small></div><ul>
+      <div class="cl"><p class="job-label">Client engagement</p><div class="cl-t">Dollarama · DollarCity <small>surveillance monitoring SaaS — retail chain</small></div><ul>
         <li>Reduced task completion time by <span class="pill">-50%</span> for telemarketer users by redesigning workflows from contextual inquiries and user testing.</li>
         <li>Identified <b>3 new user personas</b>, refining journeys to match the mental models of non-technical users.</li>
       </ul></div>
-      <div class="cl"><div class="cl-t">Chek <small>South American digital wallet — Banco Ripley</small></div><ul>
+      <div class="cl"><p class="job-label">Client engagement</p><div class="cl-t">Chek <small>South American digital wallet — Banco Ripley</small></div><ul>
         <li>Led a 4-designer team to launch a virtual credit card, increasing onboarding rates by <span class="pill">+15%</span> via streamlined flows.</li>
         <li>Built <b>event-tracking funnels</b> to measure feature adoption, informing post-launch iterations.</li>
         <li>Overhauled the app's design system, ensuring consistency across <b>10+ product features</b>.</li>
       </ul></div>
-      <div class="cl"><div class="cl-t">General Directorate of Customs, El Salvador <small>digital transformation</small></div><ul>
+      <div class="cl"><p class="job-label">Client engagement</p><div class="cl-t">General Directorate of Customs, El Salvador <small>digital transformation</small></div><ul>
         <li>Digitized <b>5 analog processes</b> into an MVP — securing the trust to expand into a <span class="pill">$500K</span> full-scale project.</li>
         <li>Managed <b>5 designers</b> converting user flows and sitemaps into developer-ready prototypes.</li>
         <li>Directed <b>PrimeNG design system</b> adoption and customization in Figma, applying brand guidelines across all screens.</li>
       </ul></div>
-      <div class="cl"><div class="cl-t">Forecast <small>workforce platform</small></div><ul>
+      <div class="cl"><p class="job-label">Client engagement</p><div class="cl-t">Forecast <small>workforce platform</small></div><ul>
         <li>Designed platform modules — pending assignments, timeframes, employee management — inside an <b>established design system</b>, under real sprint constraints.</li>
       </ul></div>
     </div>
 
-    <div class="job">
+    <div class="job" data-employer="Taxsynapse">
+      <p class="job-label">Employer</p>
       <div class="job-h"><span class="job-t">Taxsynapse</span><span class="job-d">Mar 2021 — Oct 2022 · remote</span></div>
       <div class="job-r">Product Designer</div>
       <div class="cl"><ul>
@@ -268,8 +289,8 @@
   var STACK=[
     ['Analytics — see what users actually do',[['pendo','Pendo'],['ga4','GA4'],['mixpanel','Mixpanel']],'Funnels, paths, custom events, session signal — problems surface before anyone reports them.'],
     ['Research — hear the people behind the data',[['maze','Maze'],['qualtrics','Qualtrics'],['ow','Optimal'],['useberry','Useberry'],['zoom','Zoom'],['miro','Miro'],['dynamics','Dynamics']],'Interviews, surveys, NPS/CSAT, tree &amp; usability tests — targeted at who the data flagged.'],
-    ['Design — craft and speed, together',[['figma','Figma'],['figma','Figma Make'],['claude','Claude']],'By hand where it matters, AI-accelerated where it\'s faster — converging into tokens + code.'],
-    ['Builders — ship it, measure it',[['claude','Claude Code'],['replit','Replit'],['factory','Factory.ai'],['github','GitHub'],['v0','v0'],['bolt','Bolt']],'Deployed across environments or handed off dev-ready — then instrumented from day one.']
+    ['Design — craft where it matters',[['figma','Figma'],['spline','Spline'],['unity','Unity']],'Product UI, spatial UX, and systems — hand craft where quality compounds.'],
+    ['AI stack — design from results, ship, measure again',[['figma','Figma Make'],['claude','Claude'],['claude','Claude Code'],['replit','Replit'],['factory','Factory.ai'],['v0','v0'],['bolt','Bolt'],['github','GitHub']],'EY Fabric practice: interventions from Pendo findings, rapid build, re-instrumentation.']
   ];
   document.getElementById('skGrid').innerHTML=STACK.map(function(g){
     return '<div class="sk"><div class="sk-k">'+g[0]+'</div><div class="sk-row">'+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Federico Monroy — Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --text:#1a1917;--muted:#55524c;--dim:#8a847a;
+    --accent:#a84928;--line:#e8e4dc;--bg:#f7f5f2;--surface:#fff;
+    --font:"Instrument Sans",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font);font-size:10.5pt;line-height:1.45;color:var(--text);max-width:8.5in;margin:0 auto;padding:0.55in 0.65in;background:var(--bg)}
+  .sheet{background:var(--surface);padding:0.45in 0.5in;border:1px solid var(--line);border-radius:4px}
+  h1{font-size:22pt;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:4pt}
+  .role{font-family:var(--mono);font-size:9pt;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:8pt}
+  .meta{font-size:9.5pt;color:var(--muted);margin-bottom:14pt}
+  .meta a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--mono);font-size:8.5pt;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:16pt 0 10pt;padding-bottom:4pt;border-bottom:2px solid var(--accent)}
+  .employer{margin:0 0 16pt;padding:12pt 14pt;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 6px 6px 0;background:#fafaf8}
+  .employer-name{font-size:13pt;font-weight:800;letter-spacing:-.02em;margin:0 0 2pt}
+  .employer-meta{font-size:9pt;color:var(--dim);margin:0 0 8pt}
+  .employer-role{font-size:10.5pt;font-weight:600;color:var(--accent);margin:0 0 10pt}
+  .client{margin:8pt 0 0;padding:8pt 0 0;border-top:1px solid var(--line)}
+  .client:first-of-type{border-top:none;padding-top:0}
+  .client-name{font-weight:700;font-size:10.5pt;margin:0 0 2pt}
+  .client-tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 4pt}
+  ul{margin:2pt 0 0 16pt}
+  li{margin:0 0 3pt}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14pt}
+  .skill-box{border:1px solid var(--line);border-radius:6px;padding:10pt 12pt;border-top:3px solid var(--accent)}
+  .skill-box h3{font-family:var(--mono);font-size:8pt;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 6pt}
+  .skill-box p{font-size:9.5pt;color:var(--muted);margin:0;line-height:1.4}
+  p{margin:0 0 6pt}
+  @media print{body{background:#fff;padding:0.4in}.sheet{border:none;padding:0}.employer{background:#fff}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <h1>Federico Monroy</h1>
+  <p class="role">Senior UX / Product Designer · Behavioral Analytics · Research</p>
+  <p class="meta">Cordoba, Argentina · Remote · <a href="mailto:fedemon16i@gmail.com">fedemon16i@gmail.com</a> · <a href="https://fedemon16i.github.io/federico-portfolio/">Portfolio</a> · <a href="https://github.com/fedemon16i">GitHub</a></p>
+
+  <h2>Summary</h2>
+  <p>Product designer and UX strategist with 5+ years across enterprise, fintech, retail, and government. Owns the loop: research, behavioral analytics (Pendo), design interventions from measured outcomes, and re-measurement after ship — with product and engineering.</p>
+
+  <h2>Skills</h2>
+  <div class="two">
+    <div class="skill-box">
+      <h3>Core</h3>
+      <p>Behavioral analytics · Pendo · UX research · Usability testing · Product strategy · Design systems · Figma · Journey mapping · Funnel analysis · Spatial / 3D UX (Spline, Unity, Three.js) · Stakeholder alignment</p>
+    </div>
+    <div class="skill-box">
+      <h3>AI / builder stack</h3>
+      <p>Figma Make · Claude · Claude Code · Replit · Factory.ai · v0 · Bolt · GitHub — design from findings, ship faster, instrument again (EY Fabric practice)</p>
+    </div>
+  </div>
+
+  <h2>Experience</h2>
+
+  <div class="employer">
+    <p class="employer-name">Globant</p>
+    <p class="employer-meta">October 2023 – Present · Hybrid</p>
+    <p class="employer-role">Sr. UX / Product Strategist</p>
+
+    <div class="client">
+      <p class="client-tag">Client engagement</p>
+      <p class="client-name">Ernst &amp; Young (EY Fabric) — Internal platform / services catalog</p>
+      <ul>
+        <li>Started with research on 90+ internal assets (Dynamics, Copilot, sentiment) and UI audits on key journeys.</li>
+        <li>Sole Pendo practitioner on XDA: instrumented a 300+ item catalog end to end; linked experience signals to product and engineering without handoffs.</li>
+        <li>Designed interventions from measured results (drop-offs, adoption), shipped UI with <strong>Figma Make, Replit, and Factory.ai</strong>, then re-measured impact in Pendo.</li>
+        <li>Qualtrics + Pendo for funnels, usage, and feedback at scale on a platform migration.</li>
+      </ul>
+    </div>
+    <div class="client">
+      <p class="client-tag">Client engagement</p>
+      <p class="client-name">Blockchains Inc. — 3D immersive map product</p>
+      <ul>
+        <li>Started with mobile-to-desktop adaptation and a 2D/3D map feature validated via client-led testing (Figma + 3D prototypes).</li>
+        <li>Expanded to immersive POI design: place points in a live 3D city, publish media, owner→visitor loop (Figma, Spline, Unity, Three.js).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="employer">
+    <p class="employer-name">Applaudo Studios</p>
+    <p class="employer-meta">September 2021 – July 2025 · Remote</p>
+    <p class="employer-role">Product Designer (External Consultant)</p>
+    <div class="client">
+      <p class="client-tag">Client engagement</p>
+      <p class="client-name">DollarCity / Dollarama</p>
+      <ul><li>~50% faster telemarketer task time; 3 personas for non-technical users.</li></ul>
+    </div>
+    <div class="client">
+      <p class="client-tag">Client engagement</p>
+      <p class="client-name">Chek (Banco Ripley)</p>
+      <ul><li>Led 4 designers; +15% onboarding on virtual card; funnels; design system across 10+ features.</li></ul>
+    </div>
+    <div class="client">
+      <p class="client-tag">Client engagement</p>
+      <p class="client-name">Customs El Salvador</p>
+      <ul><li>5 processes digitized to MVP → ~$500K expansion; managed 5 designers; PrimeNG in Figma.</li></ul>
+    </div>
+    <div class="client">
+      <p class="client-tag">Client engagement</p>
+      <p class="client-name">Forecast</p>
+      <ul><li>Workforce modules inside an established design system under sprint constraints.</li></ul>
+    </div>
+  </div>
+
+  <div class="employer">
+    <p class="employer-name">Taxsynapse</p>
+    <p class="employer-meta">March 2021 – October 2022 · Remote</p>
+    <p class="employer-role">Product Designer</p>
+    <ul>
+      <li>3 government SaaS MVPs (Buenos Aires, Jujuy, Misiones); design system ~−20% iteration time; public-sector usability testing.</li>
+    </ul>
+  </div>
+
+  <h2>Education &amp; languages</h2>
+  <p><strong>Industrial Design (Bachelor’s)</strong> — National University of Cordoba, Argentina, 2020.</p>
+  <p>IDF · HAZ! · Uxcel · Design Labs · Spanish native · English C2</p>
+</div>
+</body>
+</html>
