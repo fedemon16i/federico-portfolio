@@ -124,3 +124,10 @@ renderer.setSize(w, h, false); // false = CSS size separate from buffer
 - Stages and `#win` use `overflow: hidden` — no scrollbars inside the prototype frame.
 - Skill modal stage uses `--modal-stage-h` under the modal chrome.
 - Bio chips: never hide the only `<span>` label (`:last-child` traps).
+
+
+## Skill modal split (Home)
+- **≥960px wide + ≥600px tall:** CSS grid — left title/controls, right `#stage` only (same idea as EY PI / BC demo).
+- **Narrow or short:** stack; stage height `min(280px, 94vh - 220px)`.
+- Panel `overflow: hidden` — no scrollbars inside the modal chrome.
+- Global `overflow-x: hidden` on `html, body` to kill horizontal page scroll on iPhone.
