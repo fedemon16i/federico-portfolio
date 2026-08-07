@@ -949,63 +949,129 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
 }
 
 
-/* === EY restore layer (minimal) === */
-:root{ --max:920px; }
-.wrap,.top-nav-inner,.bc-crumbs{ max-width:920px; margin-left:auto; margin-right:auto; }
-.page{ max-width:920px !important; }
 
-/* Product intelligence split — web only */
-@media (min-width:1024px){
-  .pi-split{
-    display:grid !important;
-    grid-template-columns: minmax(220px,0.8fr) minmax(300px,1.3fr);
-    gap:24px;
-    align-items:start;
-  }
-  .pi-copy{ max-width:26rem; }
+/* === CANONICAL NAV (all pages) === */
+.top-nav{
+  position:fixed; top:0; left:0; right:0; z-index:9999;
+  height:64px; background:var(--bg,#0e0d0c);
+  border-bottom:1px solid var(--border,rgba(255,255,255,.1));
+  isolation:isolate;
 }
-.pi-split{ display:flex; flex-direction:column; gap:16px; }
-
-/* Stage MUST have height for absolute .stage-window */
-#stage{
-  position:relative !important;
-  min-height:480px !important;
-  height:480px !important;
-  display:block !important;
-  overflow:hidden !important;
-  width:100% !important;
+html[data-theme="light"] .top-nav{ background:#f7f5f2; }
+.top-nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  height:64px; max-width:920px; width:100%; margin:0 auto;
+  padding:0 clamp(16px,3vw,28px); gap:12px; box-sizing:border-box;
 }
-#win, #stage .stage-window{
-  position:absolute !important;
-  inset:16px 16px 52px !important;
-  display:block !important;
-  overflow:hidden !important;
-  z-index:2 !important;
+.top-nav-logo{
+  font-weight:800; font-size:18px; letter-spacing:-.02em;
+  color:var(--text,#f2f0ec); text-decoration:none; margin-right:auto;
 }
-#win .slide{
-  position:absolute !important;
-  inset:0 !important;
-  display:flex !important;
-  flex-direction:column !important;
+.top-nav-logo span{ color:var(--nav-accent, var(--accent,#d97757)); }
+.top-nav-links{ display:flex; align-items:center; gap:2px; }
+.top-nav-link, .top-nav-drop-toggle{
+  font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted,#a6a29a); padding:0 10px; height:36px; border-radius:6px;
+  text-decoration:none; background:none; border:none; cursor:pointer;
+  font-family:inherit; display:inline-flex; align-items:center; gap:4px;
+  transition:color .2s, background .2s;
 }
-#win .slide.show{
-  opacity:1 !important;
-  transform:none !important;
-  pointer-events:auto !important;
+.top-nav-link:hover, .top-nav-link.active,
+.top-nav-drop-toggle:hover, .top-nav-drop-toggle[aria-expanded="true"]{
+  color:var(--text,#f2f0ec); background:var(--bg-raised,#1c1b19);
 }
-.timeline{ display:flex !important; flex-wrap:wrap !important; gap:8px !important; visibility:visible !important; }
-.tl{ display:inline-flex !important; visibility:visible !important; }
-
-/* Reel must be able to move */
-.reel-wrap{ overflow:hidden !important; }
-#reel, .reel{ will-change:transform; }
-
-/* Nav dropdown bridge */
-.top-nav-drop-menu{ padding-top:12px !important; top:100% !important; }
+.top-nav-dropdown{ position:relative; z-index:10002; }
+.top-nav-drop-menu{
+  position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%);
+  min-width:200px; padding:8px; border-radius:12px;
+  border:1px solid var(--border,rgba(255,255,255,.12));
+  background:var(--bg-surface,#171614); box-shadow:0 16px 40px rgba(0,0,0,.35);
+  opacity:0; pointer-events:none; visibility:hidden; z-index:10003;
+  transition:opacity .15s, visibility .15s;
+}
 .top-nav-dropdown:hover .top-nav-drop-menu,
+.top-nav-dropdown:focus-within .top-nav-drop-menu,
 .top-nav-drop-toggle[aria-expanded="true"] + .top-nav-drop-menu{
-  opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+  opacity:1; pointer-events:auto; visibility:visible;
 }
+.top-nav-drop-menu a{
+  display:block; padding:10px 12px; border-radius:8px;
+  font-size:13px; font-weight:600; color:var(--muted,#a6a29a); text-decoration:none;
+}
+.top-nav-drop-menu a:hover{ background:var(--bg-raised,#1c1b19); color:var(--text,#f2f0ec); }
+.top-nav-drop-menu a.is-current{ color:var(--nav-accent, var(--accent,#d97757)); }
+.top-nav-theme{
+  width:34px; height:34px; border-radius:50%;
+  border:1px solid var(--border,rgba(255,255,255,.12));
+  background:var(--bg-surface,#171614); color:var(--muted,#a6a29a);
+  display:grid; place-items:center; cursor:pointer; flex-shrink:0; margin-left:4px;
+}
+.top-nav-hamburger{
+  display:none; flex-direction:column; gap:4px; background:none; border:none;
+  padding:8px; cursor:pointer; margin-left:4px;
+}
+.top-nav-hamburger span{ display:block; width:20px; height:2px; background:var(--text,#f2f0ec); }
+.top-nav-mobile{
+  display:none; position:fixed; inset:0; z-index:10000;
+  background:var(--bg,#0e0d0c); padding:72px 24px 24px; overflow:auto;
+}
+.top-nav-mobile.on{ display:block; }
+.top-nav-mobile a{
+  display:block; padding:14px 0; border-bottom:1px solid var(--border,rgba(255,255,255,.1));
+  font-weight:700; font-size:1.05rem; color:var(--text,#f2f0ec); text-decoration:none;
+}
+.top-nav-mobile .mob-sub{ font-size:.95rem; font-weight:600; color:var(--muted,#a6a29a); padding-left:12px; }
+@media (max-width:900px){
+  .top-nav-links{ display:none !important; }
+  .top-nav-hamburger{ display:flex !important; }
+}
+
+
+/* === SHELL — notebook-safe widths === */
+:root{
+  --max: 920px;
+  --pad: clamp(16px, 3vw, 28px);
+  --modal-max: min(680px, 92vw);
+  --nav-h: 64px;
+  --stage-max: min(560px, 100%);
+}
+html{ scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar{ width:0; height:0; display:none; }
+body{ padding-top: var(--nav-h); overflow-x: hidden; }
+.wrap, .top-nav-inner, .page{
+  max-width: var(--max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+.bc-crumbs{
+  max-width: var(--max) !important;
+  margin: 0 auto !important;
+  padding: 8px var(--pad) 0 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+  opacity: 0.65 !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  align-items: center !important;
+  background: transparent !important;
+  border: none !important;
+  font-family: inherit !important;
+}
+.bc-crumbs a{ color: var(--muted,#a6a29a) !important; text-decoration: none !important; }
+.bc-crumbs a:hover{ color: var(--text,#f2f0ec) !important; }
+.bc-crumbs .here{ color: var(--text,#f2f0ec) !important; }
+.bc-crumbs .sep{ opacity: 0.4; }
+/* stages / modals never full-bleed */
+#stage, .stage, #demoStage, .player, .skill-modal-panel, .modal-inner{
+  max-width: var(--modal-max) !important;
+}
+#stage, .pi-visual .stage{ max-width: var(--stage-max) !important; margin-left:auto; margin-right:auto; }
 
 </style>
 </head>
@@ -1020,12 +1086,11 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
           Projects
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu" aria-label="Projects menu">
-          <a href="../projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="../projects/ey-fabric.html" role="menuitem" class="is-current">EY Fabric</a><a href="../projects/blockchain.html" role="menuitem">Blockchain 3D</a><a href="../projects/chek.html" role="menuitem">Chek</a><a href="../projects/dollarcity.html" role="menuitem">DollarCity</a><a href="../projects/customs.html" role="menuitem">Customs ES</a><a href="../projects/forecast.html" role="menuitem">Forecast</a>
+        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu">
+          <a href="../projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="ey-fabric.html" role="menuitem" class="is-current">EY Fabric</a><a href="blockchain.html" role="menuitem">Blockchain 3D</a><a href="chek.html" role="menuitem">Chek</a><a href="dollarcity.html" role="menuitem">DollarCity</a><a href="customs.html" role="menuitem">Customs ES</a><a href="forecast.html" role="menuitem">Forecast</a>
         </div>
       </div>
       <a href="../resume.html" class="top-nav-link">Resume</a>
-      <a href="../about.html" class="top-nav-link">About</a>
       <a href="../contact.html" class="top-nav-link">Contact</a>
       <a href="../design-system.html" class="top-nav-link">Design System</a>
     </div>
@@ -1038,22 +1103,21 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
   </div>
 </nav>
 <div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
-  <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;font-size:1rem;cursor:pointer">Close</button>
+  <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;cursor:pointer;font-size:1rem">Close</button>
   <a href="../index.html">Home</a>
   <a href="../projects.html">All Projects</a>
-  <a class="mob-sub" href="../projects/ey-fabric.html">EY Fabric</a>
-  <a class="mob-sub" href="../projects/blockchain.html">Blockchain 3D</a>
-  <a class="mob-sub" href="../projects/chek.html">Chek</a>
-  <a class="mob-sub" href="../projects/dollarcity.html">DollarCity</a>
-  <a class="mob-sub" href="../projects/customs.html">Customs ES</a>
-  <a class="mob-sub" href="../projects/forecast.html">Forecast</a>
+  <a class="mob-sub" href="ey-fabric.html">EY Fabric</a>
+  <a class="mob-sub" href="blockchain.html">Blockchain 3D</a>
+  <a class="mob-sub" href="chek.html">Chek</a>
+  <a class="mob-sub" href="dollarcity.html">DollarCity</a>
+  <a class="mob-sub" href="customs.html">Customs ES</a>
+  <a class="mob-sub" href="forecast.html">Forecast</a>
   <a href="../resume.html">Resume</a>
-  <a href="../about.html">About</a>
   <a href="../contact.html">Contact</a>
   <a href="../design-system.html">Design System</a>
 </div>
 
-<nav class="bc-crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="sep" aria-hidden="true">/</span><a href="../projects.html">Projects</a><span class="sep" aria-hidden="true">/</span><span class="here">EY Fabric</span></nav>
+<nav class="bc-crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../projects.html">Projects</a><span class="sep">/</span><span class="here">EY Fabric</span></nav>
 
 <div class="page">
   <!-- HERO -->
@@ -1328,9 +1392,13 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
     bindToolTips(ht);
   }
 
-  document.getElementById('themeBtn').onclick=function(){
-    document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='light'?'dark':'light');
-  };
+  (function(){
+    var tb=document.getElementById('themeToggle')||document.getElementById('themeBtn');
+    if(!tb) return;
+    tb.onclick=function(){
+      document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='light'?'dark':'light');
+    };
+  })();
 
   /* top-nav mobile */
   (function(){
@@ -1641,7 +1709,7 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
           showSlide('a1');
           typeInto(document.getElementById('capTxt'),[{t:'Filter Services — '},{t:'157 offerings',hl:true},{t:' after migration.'}],16);
           after(500,function(){cursorTo(document.getElementById('aCard0'),function(){
-            document.getElementById('aCard0').classList.add('hot');
+            (function(){var __n=document.getElementById('aCard0');if(__n)__n.classList.add('hot');})();
             after(600,function(){
               showSlide('a2');
               typeInto(document.getElementById('capTxt'),[{t:'Configure is the cliff — '},{t:'required service empty',hl:true},{t:'.'}],16);
@@ -1805,7 +1873,7 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
         after(400+i*550,function(){var el=document.getElementById(id);if(el)el.classList.add('in');});
       });
       typeInto(document.getElementById('aiP'),[{t:'> Workbench v2 from insights — guard required service, clearer order state.'}],14,function(){
-        var rows=document.getElementById('ftree').children;
+        var rows=(document.getElementById('ftree')||{children:[]}).children;
         Array.prototype.forEach.call(rows,function(r,i){
           after(120+i*280,function(){r.classList.add('in');});
         });
@@ -1817,7 +1885,7 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
         after(480,function(){
           if(ph) ph.style.opacity='0';
           if(pa) pa.style.opacity='0';
-          document.getElementById('mergeUI').classList.add('in');
+          (function(){var __n=document.getElementById('mergeUI');if(__n)__n.classList.add('in');})();
           typeInto(document.getElementById('capTxt'),[{t:'The designs converge into '},{t:'one usable result',hl:true},{t:' — UI + tokens + code.'}],16);
           after(900,function(){
             var btn=document.getElementById('protoBtn');
@@ -1874,7 +1942,7 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
         spark('sp0',8);spark('sp1',8);spark('sp2',8);
       });
       after(900,function(){
-        document.getElementById('adopt').classList.add('in');
+        (function(){var __n=document.getElementById('adopt');if(__n)__n.classList.add('in');})();
         [['adA','78','adAv'],['adB','52','adBv'],['adC','26','adCv']].forEach(function(x,i){
           after(i*220,function(){document.getElementById(x[0]).style.width=x[1]+'%';document.getElementById(x[2]).textContent=x[1]+'%';});
         });
@@ -1914,6 +1982,19 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
   function startPi(){
     if(started) return;
     started=true;
+    /* TL_ENSURE */
+    try{
+      var tl=document.getElementById('timeline');
+      if(tl && !tl.children.length && typeof BEATS!=='undefined'){
+        BEATS.forEach(function(b,i){
+          var btn=document.createElement('button');btn.type='button';btn.className='tl'+(i===0?' on':'');
+          btn.innerHTML='<span class="n">'+b.n+'</span> '+b.name;
+          btn.onclick=function(){go(i,true);};
+          tl.appendChild(btn);
+        });
+      }
+    }catch(e){}
+
     try{
       go(0,true);
       after(350,function(){
@@ -1933,9 +2014,9 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
   if(stageEl && 'IntersectionObserver' in window){
     new IntersectionObserver(function(en){
       if(en[0].isIntersecting) startPi();
-    },{threshold:0.15}).observe(stageEl);
+    },{threshold:0.2, rootMargin:'0px'}).observe(stageEl);
   }
-  after(800, function(){ if(!started) startPi(); });
+  /* start only when stage is visible — IntersectionObserver above */
 
 
 
@@ -1976,35 +2057,7 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
 })();
 </script>
 
-<script>
-(function(){
-  var root=document.documentElement;
-  var btn=document.getElementById('themeToggle');
-  function apply(t){ root.setAttribute('data-theme',t); try{localStorage.setItem('theme',t)}catch(e){} }
-  var s=null; try{s=localStorage.getItem('theme')}catch(e){}
-  apply(s==='light'?'light':'dark');
-  if(btn) btn.addEventListener('click',function(){ apply(root.getAttribute('data-theme')==='dark'?'light':'dark'); });
-  var drop=document.getElementById('topNavDropToggle');
-  if(drop){
-    drop.addEventListener('click',function(e){
-      e.stopPropagation();
-      var open=drop.getAttribute('aria-expanded')==='true';
-      drop.setAttribute('aria-expanded', open?'false':'true');
-    });
-    document.addEventListener('click',function(e){
-      if(drop.parentElement && !drop.parentElement.contains(e.target))
-        drop.setAttribute('aria-expanded','false');
-    });
-  }
-  var ham=document.getElementById('topNavHamburger');
-  var mob=document.getElementById('topNavMobile');
-  var close=document.getElementById('topNavMobileClose');
-  function openM(){ if(!mob) return; mob.classList.add('on'); mob.setAttribute('aria-hidden','false'); }
-  function closeM(){ if(!mob) return; mob.classList.remove('on'); mob.setAttribute('aria-hidden','true'); }
-  if(ham) ham.addEventListener('click',openM);
-  if(close) close.addEventListener('click',closeM);
-})();
-</script>
+
 
 
 <script>
@@ -2014,23 +2067,45 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
 </script>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 (function(){
-  /* Dropdown: click toggles sticky open; hover still works via CSS */
-  var drop=document.getElementById('topNavDropToggle');
-  var menu=document.getElementById('topNavDropMenu');
-  if(drop){
-    drop.addEventListener('click',function(e){
+  var root=document.documentElement;
+  function apply(t){
+    if(t!=='light' && t!=='dark') t='dark';
+    root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('theme', t); }catch(e){}
+    var btn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
+    if(btn) btn.setAttribute('aria-label', t==='light'?'Switch to dark mode':'Switch to light mode');
+  }
+  var s=null; try{ s=localStorage.getItem('theme'); }catch(e){}
+  apply(s==='light'?'light':'dark');
+  var btn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
+  if(btn){
+    btn.onclick=function(e){
       e.preventDefault();
-      e.stopPropagation();
-      var open=drop.getAttribute('aria-expanded')==='true';
-      drop.setAttribute('aria-expanded', open?'false':'true');
-    });
-    document.addEventListener('click',function(e){
-      if(!drop.parentElement) return;
-      if(!drop.parentElement.contains(e.target))
-        drop.setAttribute('aria-expanded','false');
-    });
+      apply(root.getAttribute('data-theme')==='dark'?'light':'dark');
+    };
   }
 })();
 </script>
@@ -2039,37 +2114,45 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
+/* CANONICAL_NAV */
 (function(){
-  function ensure(){
-    var win=document.getElementById('win');
-    var tl=document.getElementById('timeline');
-    var stage=document.getElementById('stage');
-    if(stage){ stage.style.minHeight='480px'; stage.style.height='480px'; }
-    if(tl && tl.children.length===0 && window.__eyGo){
-      /* timeline empty = main script failed before BEATS; cannot recover full beats */
-      console.warn('EY: timeline empty');
-    }
-    if(typeof window.__eyGo==='function'){
-      try{ window.__eyGo(0,true); }catch(e){ console.warn(e); }
-    }
-    if(win && !win.querySelector('.slide')){
-      win.innerHTML='<div class="slide show textslide" style="opacity:1;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;color:#f2f0ec"><div><div style="color:#ffe600;font-size:11px;letter-spacing:.12em;margin-bottom:8px">01 MEASURE</div><div style="font-size:1.35rem;font-weight:700;line-height:1.35">Before I can find problems,<br><span style="color:#ffe600">I map the product</span>.</div></div></div>';
-    }
+  var root=document.documentElement;
+  function applyTheme(t){
+    if(t!=='light'&&t!=='dark') t='dark';
+    root.setAttribute('data-theme', t);
+    try{ localStorage.setItem('theme', t); }catch(e){}
   }
-  window.addEventListener('load', function(){ setTimeout(ensure, 900); });
+  try{ applyTheme(localStorage.getItem('theme')==='light'?'light':'dark'); }catch(e){ applyTheme('dark'); }
+  var themeBtn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
+  if(themeBtn){
+    themeBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');
+    });
+  }
+  var drop=document.getElementById('topNavDropToggle');
+  function closeDrop(){ if(drop) drop.setAttribute('aria-expanded','false'); }
+  if(drop){
+    drop.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var open=drop.getAttribute('aria-expanded')==='true';
+      drop.setAttribute('aria-expanded', open?'false':'true');
+    });
+    document.addEventListener('click', function(e){
+      if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
+    });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDrop(); });
+    window.addEventListener('scroll', closeDrop, {passive:true});
+  }
+  var hamburger=document.getElementById('topNavHamburger');
+  var mobile=document.getElementById('topNavMobile');
+  var closeBtn=document.getElementById('topNavMobileClose');
+  function openM(){ if(!mobile) return; mobile.classList.add('on'); mobile.setAttribute('aria-hidden','false'); }
+  function closeM(){ if(!mobile) return; mobile.classList.remove('on'); mobile.setAttribute('aria-hidden','true'); }
+  if(hamburger) hamburger.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
+  if(closeBtn) closeBtn.addEventListener('click', closeM);
+  if(mobile) mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
 })();
 </script>
 
