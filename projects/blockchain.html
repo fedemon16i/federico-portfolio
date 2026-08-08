@@ -4093,6 +4093,103 @@ section.sec > .wrap,
   transform-origin: center center !important;
 }
 
+
+/* === STAGE PRINCIPLE v2 (BC) — 920 grid, full narrative, big phone === */
+:root{ --max: 920px; }
+.wrap{
+  max-width: min(var(--max), 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+@media (min-width: 1024px){
+  .demo-split{
+    display: grid !important;
+    grid-template-columns: minmax(180px, 30%) minmax(0, 1fr) !important;
+    gap: 18px !important;
+    align-items: stretch !important;
+    max-width: min(var(--max), 100%) !important;
+    margin-inline: auto !important;
+  }
+  .demo-visual{
+    min-height: 0 !important;
+    height: min(520px, calc(100dvh - 140px)) !important;
+  }
+}
+/* Stage fills the visual column — NOT max 420px */
+#demoStage{
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: min(420px, 55vh) !important;
+  max-height: min(520px, calc(100dvh - 140px)) !important;
+  aspect-ratio: auto !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(rgba(34,212,200,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,212,200,.05) 1px, transparent 1px),
+    #070b10 !important;
+  background-size: 22px 22px, 22px 22px, auto !important;
+}
+/* Narrative owns full stage — no inner card look */
+#demoStage .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 25 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: clamp(20px, 4vw, 40px) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+#demoStage .text-phase .main{
+  max-width: min(28rem, 92%) !important;
+  font-size: clamp(18px, 2.8vw, 26px) !important;
+}
+#demoStage.show-device .text-phase,
+#demoStage .text-phase.hide{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+/* Device layer fills stage; phone scales up */
+#demoStage .device-layer{
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+#demoStage.show-device .device-layer{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+#demoStage #phone,
+#demoStage .iphone{
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  width: 390px !important;
+  height: 844px !important;
+  transform: scale(var(--fit-s, 0.55)) !important;
+  transform-origin: center center !important;
+  flex-shrink: 0 !important;
+}
+#demoStage .stage-top,
+#demoStage .stage-arrows{ z-index: 30 !important; }
+
 </style>
 </head>
 <body>
@@ -5344,76 +5441,47 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 
 
 
+
+
+
+
 <script>
-/* Full-UI fit: scale design root to host so ALL mock UI is visible (no inner scroll) */
+/* Stage principle v2: phone/mock fit — never shrink #win */
 (function(){
-  function fitHost(host, root, dw, dh, pad){
-    if(!host || !root) return;
-    pad = pad == null ? 0.06 : pad;
-    var s = Math.min(
-      (Math.max(host.clientWidth, 40) * (1 - pad)) / dw,
-      (Math.max(host.clientHeight, 40) * (1 - pad)) / dh
-    );
-    if(!isFinite(s) || s <= 0) s = 0.2;
-    s = Math.min(Math.max(s, 0.1), 1.08);
-    root.style.setProperty('--fit-s', String(s));
-    // only set transform if root is marked data-fit-root
-    if(root.hasAttribute('data-fit-root') || root.id === 'phone' || root.classList.contains('iphone')){
-      if(root.id === 'phone' || root.classList.contains('iphone')){
-        root.style.transform = 'scale(' + s + ')';
-        root.style.transformOrigin = 'center center';
-      } else {
-        root.style.position = 'absolute';
-        root.style.left = '50%';
-        root.style.top = '50%';
-        root.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
-        root.style.transformOrigin = 'center center';
-      }
-    }
-  }
-  function fitAll(){
-    // Explicit fit roots
-    document.querySelectorAll('[data-fit-host]').forEach(function(host){
-      var root = host.querySelector('[data-fit-root]');
-      if(!root) return;
-      var dw = parseFloat(root.getAttribute('data-dw') || 640);
-      var dh = parseFloat(root.getAttribute('data-dh') || 360);
-      fitHost(host, root, dw, dh, 0.06);
-    });
-    // BC phone when visible
+  function fitPhone(){
     var demo = document.getElementById('demoStage');
     var phone = document.getElementById('phone');
-    if(demo && phone && demo.classList.contains('show-device')){
-      fitHost(demo, phone, 390, 844, 0.08);
-    }
+    if(!demo || !phone) return;
+    if(!demo.classList.contains('show-device')) return;
+    var pad = 0.08;
+    var s = Math.min(
+      (demo.clientWidth * (1 - pad)) / 390,
+      (demo.clientHeight * (1 - pad)) / 844
+    );
+    if(!isFinite(s) || s <= 0) s = 0.35;
+    s = Math.min(Math.max(s, 0.2), 1);
+    phone.style.setProperty('--fit-s', String(s));
+    phone.style.transform = 'scale(' + s + ')';
   }
-  window.__fitScaleAll = fitAll;
-  window.addEventListener('resize', fitAll);
+  function syncDevice(){
+    var demo = document.getElementById('demoStage');
+    var text = document.getElementById('textPhase');
+    if(!demo || !text) return;
+    var hide = text.classList.contains('hide') || text.classList.contains('out');
+    demo.classList.toggle('show-device', hide);
+    fitPhone();
+  }
+  window.addEventListener('resize', fitPhone);
   if(window.ResizeObserver){
-    document.querySelectorAll('[data-fit-host], #demoStage, .stage-panel #stage').forEach(function(el){
-      try{ new ResizeObserver(fitAll).observe(el); }catch(e){}
-    });
-  }
-  setTimeout(fitAll, 60);
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(fitAll, 60); });
-})();
-</script>
-<script>
-/* BC: text phase → show-device */
-(function(){
-  var demo = document.getElementById('demoStage');
-  var text = document.getElementById('textPhase');
-  if(!demo || !text) return;
-  function sync(){
-    var hide = text.classList.contains('hide') || text.classList.contains('out') || getComputedStyle(text).opacity === '0';
-    // also if typewriter finished and device should show - rely on hide class from existing player
-    demo.classList.toggle('show-device', text.classList.contains('hide'));
-    if(window.__fitScaleAll) window.__fitScaleAll();
+    var d = document.getElementById('demoStage');
+    if(d) try{ new ResizeObserver(fitPhone).observe(d); }catch(e){}
   }
   if(window.MutationObserver){
-    new MutationObserver(sync).observe(text, {attributes:true, attributeFilter:['class']});
+    var text = document.getElementById('textPhase');
+    if(text) new MutationObserver(syncDevice).observe(text, {attributes:true, attributeFilter:['class']});
   }
-  setInterval(sync, 800);
+  setInterval(syncDevice, 600);
+  setTimeout(fitPhone, 80);
 })();
 </script>
 
