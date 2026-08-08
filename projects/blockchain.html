@@ -51,7 +51,7 @@ h2,.h2{font-family:var(--font-display);font-weight:800;font-size:var(--text-2xl)
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;
   background:var(--bg);border-bottom:1px solid var(--border);
   isolation:isolate;transform:translateZ(0)}
-.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:920px;margin-inline:auto;padding-inline:24px;gap:12px}
+.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
 .top-nav-links{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
 .top-nav-link{
@@ -1346,7 +1346,7 @@ html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
 .top-nav-inner{
   display:flex;align-items:center;justify-content:space-between;height:100%;
-  max-width:920px;margin-inline:auto;padding-inline:24px;gap:12px;
+  max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px;
 }
 .top-nav-logo{
   font-family:var(--font-display);font-weight:800;font-size:18px;
@@ -1389,7 +1389,7 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.05)}
   isolation:isolate;transform:translateZ(0)}
 html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
-.top-nav-inner{display:flex;align-items:center;height:100%;max-width:920px;margin-inline:auto;padding-inline:24px;gap:8px}
+.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:8px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;margin-right:auto}
 .top-nav-logo span{color:var(--accent)}
 .top-nav-links{display:flex;align-items:center;gap:8px}
@@ -4096,180 +4096,120 @@ section.sec > .wrap,
 
 
 
-/* === FIX 2026-08-08c measure + players === */
+/* === MEASURE SYNC v2 — single pad, BC law === */
 :root{
-  --fw-max: 920px !important;
-  --fw-pad: 20px !important;
+  --max: 920px !important;
+  --pad: 20px !important;
   --nav-h: 64px !important;
 }
-@media (min-width: 900px){
-  :root{ --fw-pad: 28px !important; }
+@media (min-width: 768px){
+  :root{ --pad: 28px !important; }
 }
 html body{
   padding-top: var(--nav-h) !important;
-  overflow-x: hidden !important;
 }
-html body .page,
-html body .wrap{
-  max-width: var(--fw-max) !important;
+/* ONE content column */
+html body .page{
+  max-width: var(--max) !important;
   width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
-  padding-left: var(--fw-pad) !important;
-  padding-right: var(--fw-pad) !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+/* wraps inside page: no extra horizontal pad (prevents double inset) */
+html body .page .wrap,
+html body .page .hero-copy,
+html body .page .demo-split,
+html body .page .proc-split,
+html body .page .pi-split{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   box-sizing: border-box !important;
 }
 html body .crumbs,
 html body nav.crumbs{
-  max-width: var(--fw-max) !important;
+  max-width: var(--max) !important;
   margin-left: auto !important;
   margin-right: auto !important;
-  padding-left: var(--fw-pad) !important;
-  padding-right: var(--fw-pad) !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
   box-sizing: border-box !important;
 }
-html body #hero,
-html body .page > #hero{
+html body #hero{
   padding-top: 20px !important;
 }
-
-/* BC DEMO — fluid stage, full phone visible */
-html body #demo .wrap,
-html body #process .wrap{
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-@media (min-width: 900px){
-  html body .demo-split,
-  html body .proc-split{
-    display: grid !important;
-    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
-    gap: 16px !important;
-    width: 100% !important;
-  }
-}
-@media (max-width: 899px){
-  html body .demo-split,
-  html body .proc-split{
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-  }
-}
-
-html body #demoStage,
-html body .demo-visual{
-  position: relative !important;
+/* === DEMO stage fluid (keep player class hooks) === */
+html body #demoStage{
   width: 100% !important;
   max-width: 100% !important;
   aspect-ratio: auto !important;
-  height: min(480px, calc(100dvh - 150px)) !important;
-  min-height: 340px !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  border-radius: 14px !important;
-  display: block !important;
-  background:
-    linear-gradient(rgba(34,212,200,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,212,200,.05) 1px, transparent 1px),
-    #070b10 !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
+  height: min(480px, calc(100dvh - 160px)) !important;
+  min-height: 320px !important;
+  max-height: none !important;
 }
 @media (max-width: 899px){
-  html body #demoStage, html body .demo-visual{
-    height: min(380px, 55dvh) !important;
+  html body #demoStage{
+    height: min(400px, 58dvh) !important;
     min-height: 300px !important;
   }
 }
-
-html body #demoStage .text-phase{
-  position: absolute !important; inset: 0 !important; z-index: 6 !important;
-  display: flex !important; flex-direction: column !important;
-  align-items: center !important; justify-content: center !important;
-  text-align: center !important; padding: 20px !important;
-  background: transparent !important;
-}
-
-html body #demoStage .device-layer{
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 5 !important;
+/* Phone: only when player adds .on / layer.show — size to host */
+html body #demoStage .device-layer.show{
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 0 !important;
-  overflow: hidden !important;
+  padding: 8px !important;
+  inset: 0 !important;
+  position: absolute !important;
 }
-
-/* KILL fixed phone sizes + display:none */
-html body #demoStage #phone,
-html body #demoStage .iphone,
-html body #phone.iphone,
-html body .iphone#phone{
+html body #demoStage .iphone.on,
+html body #demoStage #phone.iphone.on{
   display: flex !important;
-  flex-direction: column !important;
-  visibility: visible !important;
-  opacity: 1 !important;
   position: relative !important;
   left: auto !important;
   top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  margin: 0 !important;
-  transform: none !important;
   width: auto !important;
   height: auto !important;
   max-width: none !important;
   max-height: none !important;
   aspect-ratio: 9 / 19.5 !important;
-  flex-shrink: 0 !important;
-  overflow: hidden !important;
-  border-radius: 36px !important;
-  box-sizing: border-box !important;
+  transform: none !important;
 }
 
-/* PROCESS — panels visible + stage fluid */
-html body .story-panel{
-  display: none !important;
+/* === PROCESS: give stage real height; panels use existing .on === */
+html body .proc-visual{
+  width: 100% !important;
+  min-width: 0 !important;
 }
 html body .story-panel.on{
   display: block !important;
-  width: 100% !important;
 }
-html body .proc-visual{
-  width: 100% !important;
-  min-height: min(420px, calc(100dvh - 160px)) !important;
-}
-html body .mini-stage,
-html body .proc-visual .stage,
-html body .proc-visual .mini-stage{
-  position: relative !important;
-  width: 100% !important;
-  height: min(420px, calc(100dvh - 180px)) !important;
-  min-height: 300px !important;
+html body .story-panel.on .mini-stage,
+html body .story-panel.on .stage.mini-stage,
+html body .mini-stage{
+  height: min(400px, calc(100dvh - 180px)) !important;
+  min-height: 280px !important;
   max-height: none !important;
-  aspect-ratio: auto !important;
-  margin: 0 !important;
-  padding: 12px !important;
+  width: 100% !important;
   overflow: hidden !important;
-  border-radius: 14px !important;
-  box-sizing: border-box !important;
-  background:
-    linear-gradient(rgba(34,212,200,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,212,200,.05) 1px, transparent 1px),
-    #070b10 !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
 }
 html body .figma-canvas{
-  height: 100% !important;
-  min-height: 260px !important;
-  position: relative !important;
+  height: calc(100% - 36px) !important;
+  min-height: 240px !important;
 }
-/* process phone-rich frames: scale inside canvas */
-html body .phone-rich{
-  transform: scale(var(--fit-s, 1));
-  transform-origin: center center;
+@media (min-width: 900px){
+  html body .proc-split{
+    display: grid !important;
+    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
+    gap: 16px !important;
+    align-items: start !important;
+  }
 }
 
 </style>
@@ -4457,7 +4397,7 @@ html body .phone-rich{
         <div class="sub" id="sub"></div>
       </div>
       <div class="device-layer" id="deviceLayer">
-        <div class="iphone on" id="phone">
+        <div class="iphone on" id="phone" class="iphone on">
           <div class="island"></div>
           <div class="p-nav"><span class="back" id="navBack">←</span><div class="title" id="navTitle">MEGATON OUTDOOR</div></div>
           <div class="p-body">
@@ -5530,131 +5470,81 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 
 
 
-
-
-
-
-
-
-
-
-
-
+<script>
+/* Phone: keep 9/19.5 — size by height budget only */
+(function(){
+  function fit(){
+    var demo = document.getElementById('demoStage');
+    var phone = document.getElementById('phone');
+    if(!demo || !phone) return;
+    var h = Math.min(demo.clientHeight * 0.9, 420);
+    var w = h * (9/19.5);
+    if(w > demo.clientWidth * 0.92){
+      w = demo.clientWidth * 0.92;
+      h = w * (19.5/9);
+    }
+    phone.style.height = h + 'px';
+    phone.style.width = w + 'px';
+    phone.style.transform = 'none';
+    phone.style.aspectRatio = '9 / 19.5';
+  }
+  function sync(){
+    var demo = document.getElementById('demoStage');
+    var text = document.getElementById('textPhase');
+    if(demo && text){
+      demo.classList.toggle('show-device', text.classList.contains('hide'));
+    }
+    fit();
+  }
+  window.addEventListener('resize', fit);
+  if(window.ResizeObserver){
+    var d=document.getElementById('demoStage');
+    if(d) try{new ResizeObserver(fit).observe(d);}catch(e){}
+  }
+  var text=document.getElementById('textPhase');
+  if(text && window.MutationObserver){
+    new MutationObserver(sync).observe(text,{attributes:true,attributeFilter:['class']});
+  }
+  setInterval(sync, 700);
+  setTimeout(fit, 50);
+})();
+</script>
 
 
 <script>
-/* FIX 2026-08-08c — phone full fit + mock window scale + process visible */
+/* Phone size only — does not toggle visibility (player owns .show / .on) */
 (function(){
-  function fitScale(host, el, dw, dh, pad){
-    if(!host || !el) return;
-    pad = pad == null ? 0.1 : pad;
-    var s = Math.min(
-      (Math.max(host.clientWidth,1)*(1-pad))/dw,
-      (Math.max(host.clientHeight,1)*(1-pad))/dh
-    );
-    if(!isFinite(s)||s<=0) s=0.25;
-    s = Math.min(Math.max(s,0.15),1.05);
-    el.style.setProperty('--fit-s', String(s));
-  }
-
-  function fitEY(){
-    var stage = document.getElementById('stage');
-    if(!stage) return;
-    stage.querySelectorAll('.slide:not(.textslide)').forEach(function(slide){
-      var child = slide.firstElementChild;
-      if(!child) return;
-      // design window size locked in CSS 560x300
-      fitScale(slide, child, 560, 300, 0.12);
-    });
-  }
-
   function fitPhone(){
     var host = document.getElementById('demoStage');
     var phone = document.getElementById('phone');
+    var layer = document.getElementById('deviceLayer') || (host && host.querySelector('.device-layer'));
     if(!host || !phone) return;
-    // force visible
-    phone.style.display = 'flex';
-    phone.style.visibility = 'visible';
-    phone.style.opacity = '1';
-    var layer = document.getElementById('deviceLayer') || host.querySelector('.device-layer');
-    if(layer){
-      layer.style.display = 'flex';
-      layer.style.alignItems = 'center';
-      layer.style.justifyContent = 'center';
-      layer.style.padding = '0';
-    }
-    var aw = host.clientWidth * 0.88;
-    var ah = host.clientHeight * 0.88;
-    if(aw < 50 || ah < 50) return;
+    if(layer && !layer.classList.contains('show')) return; // player not ready
+    if(!phone.classList.contains('on')) return;
+    var aw = host.clientWidth * 0.9;
+    var ah = host.clientHeight * 0.9;
+    if(aw < 40 || ah < 40) return;
     var ratio = 9/19.5;
     var h = ah, w = h * ratio;
     if(w > aw){ w = aw; h = w / ratio; }
     phone.style.width = Math.floor(w) + 'px';
     phone.style.height = Math.floor(h) + 'px';
-    phone.style.maxWidth = 'none';
-    phone.style.maxHeight = 'none';
-    phone.style.transform = 'none';
   }
-
-  function syncDevice(){
-    var host = document.getElementById('demoStage');
-    var text = document.getElementById('textPhase');
-    var layer = document.getElementById('deviceLayer') || (host && host.querySelector('.device-layer'));
-    if(!host) return;
-    var show = true;
-    if(text){
-      show = text.classList.contains('hide') || getComputedStyle(text).opacity === '0' || text.style.display === 'none';
-      // if typewriter still running, keep text; when hide, show phone
-      if(!text.classList.contains('hide') && getComputedStyle(text).visibility !== 'hidden'){
-        // still show phone under if already advanced — rely on hide class from player
-      }
-    }
-    if(text && text.classList.contains('hide')){
-      if(layer){ layer.style.opacity='1'; layer.style.visibility='visible'; }
-      if(text){ text.style.opacity='0'; text.style.visibility='hidden'; }
-    }
-    fitPhone();
-  }
-
-  function fitProcess(){
-    document.querySelectorAll('.proc-visual .mini-stage, .proc-visual .stage, #panel-figma .mini-stage').forEach(function(stage){
-      var canvas = stage.querySelector('.figma-canvas, .spline-canvas, .proto-canvas') || stage;
-      // scale phone-rich children as a group roughly
-      stage.querySelectorAll('.phone-rich').forEach(function(ph){
-        fitScale(stage, ph, 140, 280, 0.15);
-      });
-    });
-    // ensure active panel shown
-    var on = document.querySelector('.story-panel.on');
-    if(on){ on.style.display = 'block'; }
-  }
-
-  function all(){
-    fitEY();
-    syncDevice();
-    fitPhone();
-    fitProcess();
-  }
-
-  window.__fwFit = all;
-  window.addEventListener('resize', all);
+  window.addEventListener('resize', fitPhone);
   if(window.ResizeObserver){
-    ['stage','demoStage'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el) try{ new ResizeObserver(all).observe(el);}catch(e){}
-    });
+    var h = document.getElementById('demoStage');
+    if(h) try{ new ResizeObserver(fitPhone).observe(h); }catch(e){}
   }
-  var text = document.getElementById('textPhase');
-  if(text && window.MutationObserver){
-    new MutationObserver(all).observe(text,{attributes:true,attributeFilter:['class','style']});
+  var layer = document.getElementById('deviceLayer');
+  if(layer && window.MutationObserver){
+    new MutationObserver(fitPhone).observe(layer, {attributes:true, attributeFilter:['class']});
   }
-  // tab switches process
-  document.querySelectorAll('.story-tab, #procTabs button').forEach(function(btn){
-    btn.addEventListener('click', function(){ setTimeout(all, 50); });
-  });
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(all, 30); });
-  [30,100,300,800,2000].forEach(function(t){ setTimeout(all, t); });
-  setInterval(all, 1000);
+  var phone = document.getElementById('phone');
+  if(phone && window.MutationObserver){
+    new MutationObserver(fitPhone).observe(phone, {attributes:true, attributeFilter:['class']});
+  }
+  setInterval(fitPhone, 800);
+  setTimeout(fitPhone, 500);
 })();
 </script>
 
