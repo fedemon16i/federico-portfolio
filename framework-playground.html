@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Framework playground — all rules</title>
+<style>
+:root{
+  --fw-max: 920px;
+  --fw-pad: clamp(16px, 3vw, 28px);
+  --bg: #0e0d0c;
+  --text: #f2f0ec;
+  --muted: #a6a29a;
+  --accent: #ffe600;
+  --accent2: #22d4c8;
+  --border: rgba(255,255,255,.12);
+  --spring: cubic-bezier(.34,1.2,.64,1);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+.nav{
+  position:sticky;top:0;z-index:50;height:52px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--fw-pad);border-bottom:1px solid var(--border);
+  background:rgba(14,13,12,.92);backdrop-filter:blur(10px);
+  font-size:13px;
+}
+.nav b{letter-spacing:.04em}
+.nav .tabs{display:flex;gap:6px;flex-wrap:wrap}
+.nav button{
+  border:1px solid var(--border);background:transparent;color:var(--muted);
+  border-radius:999px;padding:5px 10px;font-size:11px;cursor:pointer;
+}
+.nav button.on{border-color:var(--accent);color:var(--accent)}
+
+.measure{
+  max-width: var(--fw-max);
+  margin: 0 auto;
+  padding: 20px var(--fw-pad) 80px;
+}
+.ruler{
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: 0 0 12px;
+  border-radius: 2px;
+}
+.ruler-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+
+.sec{padding: 28px 0;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+h1{font-size:clamp(1.5rem, 3vw, 2rem);margin:0 0 8px;line-height:1.15}
+h1 em{color:var(--accent);font-style:normal}
+h2{font-size:clamp(1.25rem, 2.4vw, 1.5rem);margin:0 0 8px}
+.lede{color:var(--muted);max-width:36rem;margin:0 0 14px;font-size:14px}
+
+/* PLAYER */
+.player{
+  display:grid;
+  grid-template-columns: minmax(140px, 30%) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+@media (max-width: 799px){
+  .player{grid-template-columns:1fr}
+}
+.chrome .pills{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+.pill{
+  border:1px solid var(--border);border-radius:999px;padding:5px 10px;
+  font-size:11px;color:var(--muted);background:transparent;cursor:pointer;
+}
+.pill.on{border-color:var(--accent);color:var(--accent)}
+.btn{
+  border:1px solid var(--border);background:transparent;color:var(--text);
+  border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer;margin-right:6px;
+}
+.btn.primary{border-color:var(--accent);color:var(--accent)}
+
+.stage{
+  position:relative;
+  height: min(420px, calc(100dvh - 180px));
+  min-height: 280px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+    #0c0b0a;
+  background-size: 20px 20px, 20px 20px, auto;
+}
+@media (max-width: 799px){
+  .stage{ height: min(340px, 52dvh); }
+}
+
+.phase-text{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:24px;
+  transition: opacity .35s ease;
+  z-index:2;
+}
+.phase-text h3{margin:0;font-size:clamp(1.15rem,2.5vw,1.45rem);line-height:1.3;max-width:16em}
+.phase-text em{color:var(--accent);font-style:normal}
+.phase-text .sub{margin-top:8px;font-size:12px;color:var(--muted)}
+
+.phase-ui{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  padding: 14px 14px 52px; opacity:0; pointer-events:none; transition: opacity .35s ease;
+  z-index:3; overflow:hidden;
+}
+.stage.show-ui .phase-text{opacity:0;pointer-events:none}
+.stage.show-ui .phase-ui{opacity:1;pointer-events:auto}
+.stage.show-ui .caption{opacity:1}
+
+/* Design-size mock — scaled by JS */
+.mock{
+  width: 560px;
+  height: 320px;
+  background: #171614;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 12px;
+  box-shadow: 0 18px 44px rgba(0,0,0,.45);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  padding: 12px;
+  transform: scale(var(--fit-s, 1));
+  transform-origin: center center;
+  flex-shrink: 0;
+}
+.mock .top{font-size:12px;display:flex;justify-content:space-between;padding-bottom:6px;border-bottom:1px solid #222}
+.mock .mid{display:grid;grid-template-columns:1.1fr .9fr;gap:8px;min-height:0}
+.mock .cell{background:#12110f;border-radius:8px;padding:10px;font-size:11px}
+.mock .cell b{display:block;margin-bottom:4px;font-size:12px}
+.mock .bars{display:flex;align-items:flex-end;gap:4px;height:52px;margin-top:6px}
+.mock .bars i{flex:1;background:var(--accent);border-radius:2px 2px 0 0;opacity:.85}
+.mock .foot{font-size:11px;color:#aaa;border-top:1px solid #222;padding-top:6px}
+
+.caption{
+  position:absolute;left:0;right:0;bottom:0;z-index:5;
+  padding: 28px 14px 12px; text-align:center; font-size:13px;
+  background: linear-gradient(to top, rgba(12,11,10,.94) 30%, transparent);
+  backdrop-filter: blur(10px);
+  opacity:0; transition: opacity .35s ease;
+  pointer-events:none;
+}
+.caption em{color:var(--accent);font-style:normal}
+.caption .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:middle}
+
+.fit-meta{font-size:10px;color:var(--accent);font-family:ui-monospace,monospace;margin-top:8px}
+
+/* PHONE demo */
+.stage-phone{ display:flex; align-items:center; justify-content:center; }
+.phone{
+  aspect-ratio: 9 / 19.5;
+  background:#0a1220;
+  border: 3px solid var(--accent2);
+  border-radius: 28px;
+  box-shadow: 0 16px 36px rgba(0,0,0,.45);
+  padding: 12% 8% 10%;
+  display:flex; flex-direction:column; gap:6px;
+  /* size set by JS */
+}
+.phone .map{flex:1;border-radius:12px;background:linear-gradient(160deg,#0d1a28,#152536)}
+.phone span{font-size:10px;color:#cde}
+
+/* Compare strip */
+.compare{
+  display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;
+}
+@media(max-width:700px){.compare{grid-template-columns:1fr}}
+.card{
+  border:1px solid var(--border); border-radius:12px; padding:12px; background:#12110f;
+  font-size:12px; color:var(--muted);
+}
+.card strong{display:block;color:var(--text);margin-bottom:4px;font-size:13px}
+.ok{color:#3dd68c}.bad{color:#f88}
+
+.panel{display:none}
+.panel.on{display:block}
+
+.footer-note{
+  margin-top:28px;padding:14px;border:1px dashed var(--border);border-radius:12px;
+  font-size:12px;color:var(--muted);
+}
+.footer-note code{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="nav">
+  <b>FM. · Framework playground</b>
+  <div class="tabs">
+    <button type="button" class="on" data-tab="measure">1 Measure</button>
+    <button type="button" data-tab="player">2 Player</button>
+    <button type="button" data-tab="phone">3 Phone</button>
+    <button type="button" data-tab="laws">4 Laws</button>
+  </div>
+</div>
+
+<div class="measure">
+  <div class="ruler"></div>
+  <div class="ruler-label">Content measure = min(920px) — same for EY · BC · Chek · Home · all future cases</div>
+
+  <!-- 1 MEASURE -->
+  <div class="panel on" id="panel-measure">
+    <section class="sec">
+      <p class="eyebrow">00 · Hero (case page)</p>
+      <h1>From <em>blind catalog</em> to a closed loop</h1>
+      <p class="lede">This left edge must match Blockchains hero, Demo, Process, and Home content. Resize the window — the column stays 920 max.</p>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">01 · Problem</p>
+      <h2>Same column</h2>
+      <p class="lede">No section invents its own full-bleed content width.</p>
+    </section>
+    <section class="sec">
+      <p class="eyebrow">02 · Product Intelligence / Demo</p>
+      <h2>Player sits inside the same measure</h2>
+      <p class="lede">Chrome + stage never escape the yellow ruler above.</p>
+    </section>
+  </div>
+
+  <!-- 2 PLAYER -->
+  <div class="panel" id="panel-player">
+    <section class="sec" style="border:none;padding-top:8px">
+      <p class="eyebrow">Skill modal · EY PI · future cases</p>
+      <h2>Text → UI window → caption</h2>
+      <p class="lede">Click play. On mobile/tablet the mock <b>scales</b> so ~90% of all UI stays visible (not cropped).</p>
+
+      <div class="player">
+        <div class="chrome">
+          <div class="pills">
+            <button type="button" class="pill on" data-beat="0">01 Measure</button>
+            <button type="button" class="pill" data-beat="1">02 Analyze</button>
+            <button type="button" class="pill" data-beat="2">03 Research</button>
+          </div>
+          <button type="button" class="btn primary" id="btnPlay">play</button>
+          <button type="button" class="btn" id="btnReset">reset text</button>
+          <div class="fit-meta" id="fitMeta">scale —</div>
+        </div>
+        <div>
+          <div class="stage" id="stage">
+            <div class="phase-text" id="phaseText">
+              <h3>Before I can find problems,<br/><em>I map the product.</em></h3>
+              <div class="sub">Narrative owns the full stage</div>
+            </div>
+            <div class="phase-ui" id="phaseUi">
+              <div class="mock" id="mock">
+                <div class="top"><span>Pendo · Fabric</span><span>FEATURES TAGGED</span></div>
+                <div class="mid">
+                  <div class="cell">
+                    <b>Features</b>
+                    Catalog · home<br/>Catalog · services<br/>Item · Get Started<br/>Workbench · configure<br/>Workbench · submit
+                  </div>
+                  <div class="cell">
+                    <b>Reports</b>
+                    Feature adoption
+                    <div class="bars">
+                      <i style="height:90%"></i><i style="height:70%"></i>
+                      <i style="height:45%"></i><i style="height:30%"></i>
+                    </div>
+                    Funnel · journeys
+                  </div>
+                </div>
+                <div class="foot">Deploy → footer must stay visible after scale</div>
+              </div>
+            </div>
+            <div class="caption"><span class="dot"></span>Tag the full path — <em>features, funnels, journeys.</em></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 3 PHONE -->
+  <div class="panel" id="panel-phone">
+    <section class="sec" style="border:none;padding-top:8px">
+      <p class="eyebrow" style="color:var(--accent2)">03 · Demo (Blockchains pattern)</p>
+      <h2>Fluid stage · full device</h2>
+      <p class="lede">Not a fixed square. Phone keeps <b>9∶19.5</b> and is sized to show the <b>entire</b> device.</p>
+      <div class="player">
+        <div class="chrome">
+          <p class="lede" style="margin:0">Same 30/70 split as EY. Stage height from viewport — like skills.</p>
+          <div class="fit-meta" id="phoneMeta">phone —</div>
+        </div>
+        <div class="stage stage-phone" id="phoneStage">
+          <div class="phone" id="phone">
+            <span>Add place</span>
+            <div class="map"></div>
+            <span>Long-press · full UI</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 4 LAWS -->
+  <div class="panel" id="panel-laws">
+    <section class="sec" style="border:none;padding-top:8px">
+      <p class="eyebrow">Framework laws</p>
+      <h2>One system for every future project</h2>
+      <div class="compare">
+        <div class="card"><strong>Measure</strong> <span class="ok">920 max</span> — BC is the reference. Home, EY, Chek, Contact, DS obey the same.</div>
+        <div class="card"><strong>Hero start</strong> Shared padding under nav so case titles align.</div>
+        <div class="card"><strong>Player</strong> Chrome + one stage. Text full stage → UI <em>window</em> → caption gradient/blur only.</div>
+        <div class="card"><strong>Fit scale</strong> <code>min(host/design)×~0.9</code> — ~90% of mock UI visible; no crop; not transparency.</div>
+        <div class="card"><strong>Mobile stage</strong> Explicit height (~52dvh). Never collapse to 0 (empty PI).</div>
+        <div class="card"><strong>Phone</strong> Ratio 9/19.5; size from host; entire device in view.</div>
+        <div class="card"><strong class="bad">Forbidden</strong> Full-bleed content width · solid gray caption bar · scale on stage host · fixed 420 square stage · independent width/height stretch on phone.</div>
+        <div class="card"><strong>Next cases</strong> Chek / DollarCity / etc. copy this player shell — only content changes.</div>
+      </div>
+      <div class="footer-note">
+        Resize this browser to tablet/mobile widths while on tab <b>2 Player</b> and <b>3 Phone</b>.
+        Scale readout must change; footer of the mock and full phone must remain visible.
+        When this playground matches production, ship Framework v4 HTML.
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+/* tabs */
+document.querySelectorAll('.nav button[data-tab]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.nav button[data-tab]').forEach(function(b){b.classList.remove('on')});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+    btn.classList.add('on');
+    document.getElementById('panel-' + btn.getAttribute('data-tab')).classList.add('on');
+    setTimeout(fitAll, 30);
+  });
+});
+
+/* player */
+var stage = document.getElementById('stage');
+var mock = document.getElementById('mock');
+document.getElementById('btnPlay').onclick = function(){ stage.classList.add('show-ui'); fitMock(); };
+document.getElementById('btnReset').onclick = function(){ stage.classList.remove('show-ui'); };
+
+document.querySelectorAll('.pill[data-beat]').forEach(function(p){
+  p.onclick = function(){
+    document.querySelectorAll('.pill[data-beat]').forEach(function(x){x.classList.remove('on')});
+    p.classList.add('on');
+  };
+});
+
+function fitMock(){
+  if(!stage || !mock) return;
+  var pad = 0.1;
+  var s = Math.min(
+    (stage.clientWidth * (1-pad)) / 560,
+    (stage.clientHeight * (1-pad)) / 320
+  );
+  if(!isFinite(s) || s <= 0) s = 0.25;
+  s = Math.min(Math.max(s, 0.15), 1.05);
+  mock.style.setProperty('--fit-s', s);
+  var meta = document.getElementById('fitMeta');
+  if(meta) meta.textContent = 'scale ' + s.toFixed(3) + ' · stage ' + stage.clientWidth + '×' + stage.clientHeight + ' · ~90% UI';
+}
+
+function fitPhone(){
+  var host = document.getElementById('phoneStage');
+  var phone = document.getElementById('phone');
+  if(!host || !phone) return;
+  var aw = host.clientWidth * 0.9, ah = host.clientHeight * 0.9;
+  var ratio = 9/19.5;
+  var h = ah, w = h * ratio;
+  if(w > aw){ w = aw; h = w / ratio; }
+  phone.style.width = Math.floor(w) + 'px';
+  phone.style.height = Math.floor(h) + 'px';
+  var meta = document.getElementById('phoneMeta');
+  if(meta) meta.textContent = 'phone ' + Math.floor(w) + '×' + Math.floor(h) + ' · full device · ratio 9:19.5';
+}
+
+function fitAll(){ fitMock(); fitPhone(); }
+window.addEventListener('resize', fitAll);
+if(window.ResizeObserver){
+  [stage, document.getElementById('phoneStage')].forEach(function(el){
+    if(el) try{ new ResizeObserver(fitAll).observe(el); }catch(e){}
+  });
+}
+fitAll();
+setTimeout(fitAll, 100);
+</script>
+</body>
+</html>
