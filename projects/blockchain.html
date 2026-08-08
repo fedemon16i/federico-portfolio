@@ -4303,6 +4303,114 @@ section.sec > .wrap,
   overflow: hidden !important;
 }
 
+
+/* === FORCE BC MEASURE + FULL PHONE 2026-08-08b === */
+html body .page,
+html body .wrap,
+html body #demo,
+html body #process,
+html body #hero,
+html body .sec{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+html body .page{
+  padding-left: clamp(16px, 3vw, 28px) !important;
+  padding-right: clamp(16px, 3vw, 28px) !important;
+}
+/* sections themselves shouldn't be 100vw */
+html body #demo,
+html body #process,
+html body section.sec{
+  width: 100% !important;
+  max-width: 920px !important;
+}
+
+html body #hero .hero-shell,
+html body .hero-shell{
+  overflow: visible !important;
+  max-height: none !important;
+}
+html body #hero .eyebrow,
+html body .hero-copy .eyebrow{
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 6 !important;
+  line-height: 1.45 !important;
+  padding-top: 4px !important;
+}
+
+@media (min-width: 1024px){
+  html body .demo-split,
+  html body .proc-split{
+    display: grid !important;
+    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+html body #demoStage{
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: min(440px, calc(100dvh - 170px)) !important;
+  min-height: 340px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  display: block !important;
+}
+
+html body #demoStage .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 6 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 20px !important;
+  background: transparent !important;
+}
+
+html body #demoStage .device-layer{
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 5 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+/* ENTIRE phone visible: size from host, ratio locked */
+html body #demoStage #phone,
+html body #demoStage .iphone{
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  aspect-ratio: 9 / 19.5 !important;
+  height: auto !important;
+  width: auto !important;
+  max-height: 88% !important;
+  max-width: 42% !important;
+  /* JS will set explicit px keeping ratio */
+  flex-shrink: 0 !important;
+  object-fit: contain !important;
+  overflow: hidden !important;
+  border-radius: 28px !important;
+}
+
 </style>
 </head>
 <body>
@@ -5561,43 +5669,60 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 
 
 
+
+
+
 <script>
-/* Phone: keep 9/19.5 — size by height budget only */
+/* Fit entire phone inside #demoStage — never clip, never deform */
 (function(){
-  function fit(){
-    var demo = document.getElementById('demoStage');
+  function fitPhone(){
+    var host = document.getElementById('demoStage');
     var phone = document.getElementById('phone');
-    if(!demo || !phone) return;
-    var h = Math.min(demo.clientHeight * 0.9, 420);
-    var w = h * (9/19.5);
-    if(w > demo.clientWidth * 0.92){
-      w = demo.clientWidth * 0.92;
-      h = w * (19.5/9);
+    if(!host || !phone) return;
+    var pad = 0.1;
+    var availW = host.clientWidth * (1 - pad);
+    var availH = host.clientHeight * (1 - pad);
+    var ratio = 9 / 19.5;
+    // height-first, then clamp width
+    var h = availH;
+    var w = h * ratio;
+    if(w > availW){
+      w = availW;
+      h = w / ratio;
     }
-    phone.style.height = h + 'px';
-    phone.style.width = w + 'px';
+    phone.style.width = Math.floor(w) + 'px';
+    phone.style.height = Math.floor(h) + 'px';
+    phone.style.maxWidth = 'none';
+    phone.style.maxHeight = 'none';
     phone.style.transform = 'none';
     phone.style.aspectRatio = '9 / 19.5';
   }
   function sync(){
-    var demo = document.getElementById('demoStage');
+    var host = document.getElementById('demoStage');
     var text = document.getElementById('textPhase');
-    if(demo && text){
-      demo.classList.toggle('show-device', text.classList.contains('hide'));
+    if(host && text){
+      var hide = text.classList.contains('hide');
+      host.classList.toggle('show-device', hide);
+      var layer = host.querySelector('.device-layer');
+      if(layer){
+        layer.style.opacity = hide ? '1' : '0';
+        layer.style.visibility = hide ? 'visible' : 'hidden';
+      }
     }
-    fit();
+    fitPhone();
   }
-  window.addEventListener('resize', fit);
+  window.addEventListener('resize', fitPhone);
   if(window.ResizeObserver){
-    var d=document.getElementById('demoStage');
-    if(d) try{new ResizeObserver(fit).observe(d);}catch(e){}
+    var h = document.getElementById('demoStage');
+    if(h) try{ new ResizeObserver(fitPhone).observe(h); }catch(e){}
   }
-  var text=document.getElementById('textPhase');
+  var text = document.getElementById('textPhase');
   if(text && window.MutationObserver){
-    new MutationObserver(sync).observe(text,{attributes:true,attributeFilter:['class']});
+    new MutationObserver(sync).observe(text, {attributes:true, attributeFilter:['class']});
   }
-  setInterval(sync, 700);
-  setTimeout(fit, 50);
+  setInterval(sync, 500);
+  setTimeout(fitPhone, 30);
+  setTimeout(fitPhone, 300);
 })();
 </script>
 

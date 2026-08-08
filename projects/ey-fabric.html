@@ -2497,6 +2497,156 @@ section.sec > .wrap,
   line-height: 1.35 !important;
 }
 
+
+/* === FORCE MEASURE + STAGE MODEL 2026-08-08b === */
+html body .page,
+html body #hero,
+html body .sec,
+html body .pi-split,
+html body .wrap{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+html body .page{
+  padding-left: clamp(16px, 3vw, 28px) !important;
+  padding-right: clamp(16px, 3vw, 28px) !important;
+}
+/* kill 1100 */
+html body .page{ max-width: 920px !important; }
+
+html body .hero-shell,
+html body #hero .hero-shell{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+@media (min-width: 1024px){
+  html body .pi-split{
+    display: grid !important;
+    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+  html body .pi-visual{
+    height: min(460px, calc(100dvh - 160px)) !important;
+    min-height: 320px !important;
+  }
+}
+
+html body #stage,
+html body .pi-visual .stage{
+  position: relative !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 320px !important;
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    #0c0b0a !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+
+html body #win,
+html body #stage > #win,
+html body .stage-window{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  transform: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+html body #win .slide{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+/* text phase */
+html body #win .slide.textslide{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 24px !important;
+  background: transparent !important;
+}
+
+/* prototype: center a WINDOW — not full bleed gray */
+html body #win .slide:not(.textslide){
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px 20px 64px !important;
+  background: transparent !important;
+}
+html body #win .slide:not(.textslide) > *{
+  width: min(520px, 92%) !important;
+  max-height: min(340px, 100%) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 48px rgba(0,0,0,.5) !important;
+  overflow: hidden !important;
+  background: #171614 !important;
+}
+
+/* CAPBAR: kill solid gray box — gradient text only */
+html body .capbar,
+html body #stage .capbar,
+html body .cap-bar{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 32px 16px 14px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: linear-gradient(to top, rgba(12,11,10,.95) 25%, rgba(12,11,10,0)) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  text-align: center !important;
+  z-index: 30 !important;
+  pointer-events: none !important;
+}
+html body .capbar .cap-txt,
+html body #capTxt{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #f2f0ec !important;
+  font-size: 13px !important;
+}
+html body .cap-rec{
+  display: inline-block !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: #ffe600 !important;
+  margin-right: 8px !important;
+  vertical-align: middle !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 </style>
 </head>
 <body>
@@ -2658,7 +2808,7 @@ section.sec > .wrap,
     </div>
     <div class="pi-visual">
     <div class="stage" id="stage" data-fit-host style="position:relative;min-height:280px;height:var(--stage-h,360px);width:100%;overflow:hidden;display:block;">
-      <div class="stage-window" id="win" class="stage-window" style="position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:transparent;z-index:2;"></div>
+      <div class="stage-window" id="win" class="stage-window"></div>
       <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt"></span></div>
       <div class="wf-cur" id="cur"><svg viewBox="0 0 24 24" fill="#f5d100"><path d="M4 2l16 8-7 2-2 7z"/></svg></div>
       <div class="stage-arrows">
