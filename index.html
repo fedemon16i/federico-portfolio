@@ -2944,6 +2944,32 @@ section.sec > .wrap,
   transform-origin: center center !important;
 }
 
+
+/* === Skill modal stage fill (reduce caption offset) === */
+html body .stage-panel{
+  max-width: min(920px, 94vw) !important;
+  box-sizing: border-box !important;
+}
+html body .stage-panel #stage,
+html body .stagezone #stage,
+html body .stage-panel .stage{
+  position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+html body .stage-panel .capbar,
+html body .capbar{
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  border: none !important;
+  background: linear-gradient(to top, rgba(12,11,10,.95) 40%, transparent) !important;
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 </head>
