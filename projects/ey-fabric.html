@@ -2265,399 +2265,17 @@ section.sec > .wrap,
 }
 
 
-/* === STAGE PRINCIPLE v2 (EY) — fill stage, no mini-card === */
-:root{ --max: 920px; }
-.wrap{
-  max-width: min(var(--max), 100%) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-/* PI player: skill-modal proportions */
-@media (min-width: 1024px){
-  .pi-split{
-    display: grid !important;
-    grid-template-columns: minmax(180px, 30%) minmax(0, 1fr) !important;
-    gap: 18px !important;
-    align-items: stretch !important;
-    max-width: min(var(--max), 100%) !important;
-    margin-inline: auto !important;
-  }
-  .pi-visual{
-    min-height: 0 !important;
-    height: min(520px, calc(100dvh - 140px)) !important;
-  }
-}
-.pi-visual .stage,
-#stage{
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: min(420px, 55vh) !important;
-  max-height: min(520px, calc(100dvh - 140px)) !important;
-  overflow: hidden !important;
-  /* canvas */
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
-    var(--bg-surface, #0c0b0a) !important;
-  background-size: 22px 22px, 22px 22px, auto !important;
-}
-/* CRITICAL: #win fills the stage — NO centered scale shrink */
-#stage > #win,
-#win.stage-window,
-.stage-window#win,
-#win{
-  position: absolute !important;
-  inset: 0 !important;
-  left: 0 !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-  transform: none !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-  z-index: 2 !important;
-}
-/* Slides fill win */
-#win .slide,
-.stage-window .slide{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-  box-sizing: border-box !important;
-}
-/* Narrative textslide = full stage, not a card */
-#win .slide.textslide,
-.slide.textslide{
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: clamp(20px, 4vw, 40px) !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-#win .ts-big,
-.ts-big{
-  max-width: min(34rem, 92%) !important;
-  font-size: clamp(22px, 3.2vw, 34px) !important;
-  margin: 0 auto !important;
-}
-/* Prototype slides: content uses almost all of stage */
-#win .slide:not(.textslide){
-  padding: 12px !important;
-}
-#win .fab-nav,
-#win .meas,
-#win .fab-cat,
-#win .des,
-#win .wb{
-  max-width: 100% !important;
-}
 
-
-/* === ALIGN 2026-08-08: measure + skill stage model === */
-:root{ --max: 920px !important; }
-.page{
-  max-width: min(var(--max), 100%) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: clamp(16px, 3vw, 24px) !important;
-  padding-right: clamp(16px, 3vw, 24px) !important;
-  box-sizing: border-box !important;
-}
-.wrap{
-  max-width: min(var(--max), 100%) !important;
-  margin-inline: auto !important;
-  width: 100% !important;
-}
-/* Hero same measure — no wider than PI */
-#hero, #hero .hero-shell, .hero-shell{
-  max-width: 100% !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-.hero-copy{
-  max-width: min(36rem, 100%) !important;
-}
-
-/* PI split inside page measure */
-@media (min-width: 1024px){
-  .pi-split{
-    display: grid !important;
-    grid-template-columns: minmax(180px, 30%) minmax(0, 1fr) !important;
-    gap: 18px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  .pi-visual{
-    height: min(480px, calc(100dvh - 150px)) !important;
-    min-height: 0 !important;
-  }
-}
-
-/* Stage = canvas */
-#stage, .pi-visual .stage{
-  position: relative !important;
-  overflow: hidden !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: min(400px, 50vh) !important;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
-    var(--bg-surface, #0c0b0a) !important;
-  background-size: 22px 22px, 22px 22px, auto !important;
-}
-
-/* #win fills stage as layer host */
-#win, .stage-window#win, #stage > #win{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  transform: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  overflow: hidden !important;
-}
-
-/* Narrative: full stage text */
-#win .slide.textslide, .slide.textslide{
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: clamp(20px, 4vw, 36px) !important;
-  background: transparent !important;
-}
-#win .ts-big, .ts-big{
-  max-width: min(34rem, 92%) !important;
-  font-size: clamp(22px, 3vw, 32px) !important;
-}
-
-/* Prototype slides: content sits in a UI WINDOW on the canvas */
-#win .slide:not(.textslide){
-  inset: 0 !important;
-  padding: 16px 16px 56px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: transparent !important;
-}
-/* Inner mock chrome acts as the window */
-#win .slide:not(.textslide) > .fab-nav,
-#win .slide:not(.textslide) > .meas,
-#win .slide:not(.textslide) > .fab-cat,
-#win .slide:not(.textslide) > .des,
-#win .slide:not(.textslide) > .wb,
-#win .slide:not(.textslide) > .funnel,
-#win .slide:not(.textslide) > .hub,
-#win .slide:not(.textslide) > div:first-child{
-  width: min(100%, 560px) !important;
-  max-height: 100% !important;
-  border-radius: 12px !important;
-  box-shadow: 0 20px 48px rgba(0,0,0,.4) !important;
-}
-
-/* Caption bar = skill-modal style blur */
-.capbar, #stage .capbar{
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  z-index: 20 !important;
-  padding: 20px 16px 14px !important;
-  text-align: center !important;
-  background: linear-gradient(to top, rgba(12,11,10,.94) 35%, transparent) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-.capbar .cap-txt, #capTxt{
-  font-size: 13px !important;
-  line-height: 1.35 !important;
-}
-
-
-/* === FORCE MEASURE + STAGE MODEL 2026-08-08b === */
-html body .page,
-html body #hero,
-html body .sec,
-html body .pi-split,
-html body .wrap{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
-}
-html body .page{
-  padding-left: clamp(16px, 3vw, 28px) !important;
-  padding-right: clamp(16px, 3vw, 28px) !important;
-}
-/* kill 1100 */
-html body .page{ max-width: 920px !important; }
-
-html body .hero-shell,
-html body #hero .hero-shell{
-  max-width: 100% !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-@media (min-width: 1024px){
-  html body .pi-split{
-    display: grid !important;
-    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
-    gap: 16px !important;
-  }
-  html body .pi-visual{
-    height: min(460px, calc(100dvh - 160px)) !important;
-    min-height: 320px !important;
-  }
-}
-
-html body #stage,
-html body .pi-visual .stage{
-  position: relative !important;
-  overflow: hidden !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 320px !important;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
-    #0c0b0a !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
-}
-
-html body #win,
-html body #stage > #win,
-html body .stage-window{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-  transform: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-}
-
-html body #win .slide{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  box-sizing: border-box !important;
-}
-
-/* text phase */
-html body #win .slide.textslide{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 24px !important;
-  background: transparent !important;
-}
-
-/* prototype: center a WINDOW — not full bleed gray */
-html body #win .slide:not(.textslide){
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 20px 20px 64px !important;
-  background: transparent !important;
-}
-html body #win .slide:not(.textslide) > *{
-  width: min(520px, 92%) !important;
-  max-height: min(340px, 100%) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 20px 48px rgba(0,0,0,.5) !important;
-  overflow: hidden !important;
-  background: #171614 !important;
-}
-
-/* CAPBAR: kill solid gray box — gradient text only */
-html body .capbar,
-html body #stage .capbar,
-html body .cap-bar{
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  height: auto !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 32px 16px 14px !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  background: linear-gradient(to top, rgba(12,11,10,.95) 25%, rgba(12,11,10,0)) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-  text-align: center !important;
-  z-index: 30 !important;
-  pointer-events: none !important;
-}
-html body .capbar .cap-txt,
-html body #capTxt{
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  color: #f2f0ec !important;
-  font-size: 13px !important;
-}
-html body .cap-rec{
-  display: inline-block !important;
-  width: 6px !important;
-  height: 6px !important;
-  border-radius: 50% !important;
-  background: #ffe600 !important;
-  margin-right: 8px !important;
-  vertical-align: middle !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-
-/* === FRAMEWORK v3 — one measure, one player, mobile stage visible === */
+/* === FRAMEWORK v4.1 — single player law (skills ≡ PI ≡ Demo ≡ Process) === */
 :root{
-  --fw-max: 920px;
-  --fw-pad: clamp(16px, 3vw, 28px);
+  --fw-max: 920px !important;
+  --fw-pad: clamp(16px, 3vw, 28px) !important;
+  --fw-hero-pad-top: 24px !important;
+  --fw-stage-h: min(460px, calc(100dvh - 160px)) !important;
+  --fw-stage-h-m: min(360px, 52dvh) !important;
   --fw-chrome: minmax(160px, 30%);
-  --fw-stage-h-desktop: min(460px, calc(100dvh - 160px));
-  --fw-stage-h-mobile: min(360px, 52dvh);
 }
 
-/* PAGE MEASURE — identical on EY and BC */
 html body .page,
 html body .wrap{
   max-width: var(--fw-max) !important;
@@ -2680,8 +2298,27 @@ html body .sec{
   margin-right: auto !important;
   box-sizing: border-box !important;
 }
+html body .crumbs,
+html body nav.crumbs,
+html body .breadcrumb{
+  max-width: var(--fw-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--fw-pad) !important;
+  padding-right: var(--fw-pad) !important;
+  box-sizing: border-box !important;
+}
+html body .page > #hero,
+html body #hero{
+  padding-top: var(--fw-hero-pad-top) !important;
+}
+html body #hero .hero-shell,
+html body .hero-shell{
+  overflow: visible !important;
+  max-height: none !important;
+}
 
-/* PLAYER SPLIT */
+/* Shared player grid */
 @media (min-width: 900px){
   html body .pi-split,
   html body .demo-split,
@@ -2689,18 +2326,11 @@ html body .sec{
     display: grid !important;
     grid-template-columns: var(--fw-chrome) minmax(0, 1fr) !important;
     gap: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
     align-items: start !important;
-    width: 100% !important;
-  }
-  html body .pi-visual,
-  html body .demo-visual,
-  html body .proc-visual{
-    min-width: 0 !important;
-    width: 100% !important;
   }
 }
-
-/* MOBILE: stack chrome then STAGE with explicit height (was collapsing to 0) */
 @media (max-width: 899px){
   html body .pi-split,
   html body .demo-split,
@@ -2708,52 +2338,55 @@ html body .sec{
     display: flex !important;
     flex-direction: column !important;
     gap: 12px !important;
-    width: 100% !important;
-  }
-  html body .pi-visual,
-  html body .demo-visual,
-  html body .proc-visual,
-  html body #stage,
-  html body #demoStage{
-    display: block !important;
-    width: 100% !important;
-    min-height: var(--fw-stage-h-mobile) !important;
-    height: var(--fw-stage-h-mobile) !important;
-    max-height: none !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-  html body .pi-copy,
-  html body .demo-copy,
-  html body .proc-copy{
-    width: 100% !important;
   }
 }
 
-/* STAGE SURFACE */
+/* ONE stage surface language */
 html body #stage,
 html body #demoStage,
-html body .pi-visual .stage{
+html body .pi-visual,
+html body .pi-visual .stage,
+html body .demo-visual,
+html body .proc-visual,
+html body .proc-visual .stage,
+html body .stage-panel #stage,
+html body .stagezone #stage{
   position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: auto !important;
+  height: var(--fw-stage-h) !important;
+  min-height: 280px !important;
+  margin: 0 !important;
   overflow: hidden !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
   background:
     linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
     #0c0b0a !important;
   background-size: 20px 20px, 20px 20px, auto !important;
-  border-radius: 14px !important;
 }
-@media (min-width: 900px){
+@media (max-width: 899px){
   html body #stage,
+  html body #demoStage,
   html body .pi-visual,
-  html body #demoStage{
-    height: var(--fw-stage-h-desktop) !important;
-    min-height: 320px !important;
+  html body .pi-visual .stage,
+  html body .demo-visual,
+  html body .proc-visual,
+  html body .stage-panel #stage,
+  html body .stagezone #stage{
+    display: block !important;
+    height: var(--fw-stage-h-m) !important;
+    min-height: var(--fw-stage-h-m) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 
-/* EY win host */
-html body #win{
+/* Stage host layers transparent */
+html body #win,
+html body .stage-window{
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
@@ -2764,41 +2397,56 @@ html body #win{
   border: none !important;
   overflow: hidden !important;
 }
-html body #win .slide.textslide{
+
+/* Narrative full stage */
+html body #win .slide.textslide,
+html body .slide.textslide,
+html body #demoStage .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
   display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
   padding: 20px !important;
   background: transparent !important;
 }
+
+/* Prototype slides: center window, scale via --fit-s */
 html body #win .slide:not(.textslide){
+  position: absolute !important;
+  inset: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 16px 16px 56px !important;
+  padding: 12px 12px 52px !important;
   background: transparent !important;
+  overflow: hidden !important;
 }
-html body #win .slide:not(.textslide) > *{
-  width: min(520px, 94%) !important;
-  max-height: 100% !important;
+html body #win .slide:not(.textslide) > div:first-child{
+  transform: scale(var(--fit-s, 1)) !important;
+  transform-origin: center center !important;
   border-radius: 12px !important;
   box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
-  overflow: hidden !important;
   background: #171614 !important;
 }
+
+/* Caption — gradient only */
 html body .capbar{
   position: absolute !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   padding: 28px 14px 12px !important;
   border: none !important;
+  box-shadow: none !important;
   background: linear-gradient(to top, rgba(12,11,10,.94) 30%, transparent) !important;
   backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   text-align: center !important;
   z-index: 20 !important;
 }
 
-/* BC PHONE — always fully inside stage */
+/* Phone */
 html body #demoStage .device-layer{
   position: absolute !important;
   inset: 0 !important;
@@ -2818,18 +2466,6 @@ html body #demoStage .iphone{
   flex-shrink: 0 !important;
   overflow: hidden !important;
   border-radius: 24px !important;
-  /* JS sets width/height */
-}
-
-/* Process visual not empty desert */
-html body .proc-visual,
-html body #process .stage{
-  min-height: var(--fw-stage-h-mobile) !important;
-}
-@media (min-width: 900px){
-  html body .proc-visual{
-    min-height: 360px !important;
-  }
 }
 
 </style>
@@ -3911,6 +3547,80 @@ html body #process .stage{
     new MutationObserver(sync).observe(text, {attributes:true, attributeFilter:['class']});
   }
   setInterval(sync, 800);
+})();
+</script>
+
+
+<script>
+/* Framework v4.1 — shared fit for PI / skills / phone */
+(function(){
+  function fit(host, root, dw, dh, pad){
+    if(!host || !root) return 1;
+    pad = pad == null ? 0.1 : pad;
+    var s = Math.min(
+      (Math.max(host.clientWidth,1) * (1-pad)) / dw,
+      (Math.max(host.clientHeight,1) * (1-pad)) / dh
+    );
+    if(!isFinite(s) || s <= 0) s = 0.2;
+    s = Math.min(Math.max(s, 0.12), 1.05);
+    root.style.setProperty('--fit-s', String(s));
+    return s;
+  }
+  function fitMocks(){
+    var stage = document.getElementById('stage');
+    if(stage){
+      stage.querySelectorAll('.slide:not(.textslide)').forEach(function(slide){
+        var child = slide.firstElementChild;
+        if(!child) return;
+        fit(slide, child, parseFloat(child.getAttribute('data-dw')||560), parseFloat(child.getAttribute('data-dh')||300), 0.12);
+      });
+    }
+    document.querySelectorAll('.stage-panel #stage, .stagezone #stage, [data-fit-host]').forEach(function(host){
+      var root = host.querySelector('[data-fit-root], .stage-window, #win, .ui-frame');
+      if(!root) return;
+      fit(host, root, parseFloat(root.getAttribute('data-dw')||640), parseFloat(root.getAttribute('data-dh')||360), 0.1);
+    });
+  }
+  function fitPhone(){
+    var host = document.getElementById('demoStage');
+    var phone = document.getElementById('phone');
+    if(!host || !phone) return;
+    var aw = host.clientWidth * 0.9, ah = host.clientHeight * 0.9;
+    if(aw < 40 || ah < 40) return;
+    var r = 9/19.5, h = ah, w = h * r;
+    if(w > aw){ w = aw; h = w / r; }
+    phone.style.width = Math.floor(w)+'px';
+    phone.style.height = Math.floor(h)+'px';
+    phone.style.maxWidth = 'none';
+    phone.style.maxHeight = 'none';
+    phone.style.transform = 'none';
+  }
+  function syncPhone(){
+    var host = document.getElementById('demoStage');
+    var text = document.getElementById('textPhase');
+    if(host && text){
+      var show = text.classList.contains('hide');
+      host.classList.toggle('show-device', show);
+      var layer = host.querySelector('.device-layer');
+      if(layer){
+        layer.style.opacity = show ? '1' : '0';
+        layer.style.visibility = show ? 'visible' : 'hidden';
+      }
+    }
+    fitPhone();
+  }
+  function all(){ fitMocks(); syncPhone(); }
+  window.__fwFit = all;
+  window.addEventListener('resize', all);
+  if(window.ResizeObserver){
+    ['stage','demoStage'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) try{ new ResizeObserver(all).observe(el); }catch(e){}
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(all, 40); });
+  [40,200,600,1500].forEach(function(t){ setTimeout(all, t); });
+  setInterval(all, 1500);
 })();
 </script>
 

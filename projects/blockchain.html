@@ -51,7 +51,7 @@ h2,.h2{font-family:var(--font-display);font-weight:800;font-size:var(--text-2xl)
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;
   background:var(--bg);border-bottom:1px solid var(--border);
   isolation:isolate;transform:translateZ(0)}
-.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px}
+.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:920px;margin-inline:auto;padding-inline:24px;gap:12px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
 .top-nav-links{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
 .top-nav-link{
@@ -1346,7 +1346,7 @@ html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
 .top-nav-inner{
   display:flex;align-items:center;justify-content:space-between;height:100%;
-  max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px;
+  max-width:920px;margin-inline:auto;padding-inline:24px;gap:12px;
 }
 .top-nav-logo{
   font-family:var(--font-display);font-weight:800;font-size:18px;
@@ -1389,7 +1389,7 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.05)}
   isolation:isolate;transform:translateZ(0)}
 html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
-.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:8px}
+.top-nav-inner{display:flex;align-items:center;height:100%;max-width:920px;margin-inline:auto;padding-inline:24px;gap:8px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;margin-right:auto}
 .top-nav-logo span{color:var(--accent)}
 .top-nav-links{display:flex;align-items:center;gap:8px}
@@ -4094,334 +4094,17 @@ section.sec > .wrap,
 }
 
 
-/* === STAGE PRINCIPLE v2 (BC) — 920 grid, full narrative, big phone === */
-:root{ --max: 920px; }
-.wrap{
-  max-width: min(var(--max), 100%) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-@media (min-width: 1024px){
-  .demo-split{
-    display: grid !important;
-    grid-template-columns: minmax(180px, 30%) minmax(0, 1fr) !important;
-    gap: 18px !important;
-    align-items: stretch !important;
-    max-width: min(var(--max), 100%) !important;
-    margin-inline: auto !important;
-  }
-  .demo-visual{
-    min-height: 0 !important;
-    height: min(520px, calc(100dvh - 140px)) !important;
-  }
-}
-/* Stage fills the visual column — NOT max 420px */
-#demoStage{
-  position: relative !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  height: 100% !important;
-  min-height: min(420px, 55vh) !important;
-  max-height: min(520px, calc(100dvh - 140px)) !important;
-  aspect-ratio: auto !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  border-radius: 14px !important;
-  background:
-    linear-gradient(rgba(34,212,200,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34,212,200,.05) 1px, transparent 1px),
-    #070b10 !important;
-  background-size: 22px 22px, 22px 22px, auto !important;
-}
-/* Narrative owns full stage — no inner card look */
-#demoStage .text-phase{
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 25 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: clamp(20px, 4vw, 40px) !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-#demoStage .text-phase .main{
-  max-width: min(28rem, 92%) !important;
-  font-size: clamp(18px, 2.8vw, 26px) !important;
-}
-#demoStage.show-device .text-phase,
-#demoStage .text-phase.hide{
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-/* Device layer fills stage; phone scales up */
-#demoStage .device-layer{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 2 !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-#demoStage.show-device .device-layer{
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-#demoStage #phone,
-#demoStage .iphone{
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  width: 390px !important;
-  height: 844px !important;
-  transform: scale(var(--fit-s, 0.55)) !important;
-  transform-origin: center center !important;
-  flex-shrink: 0 !important;
-}
-#demoStage .stage-top,
-#demoStage .stage-arrows{ z-index: 30 !important; }
 
-
-/* === ALIGN 2026-08-08: same measure · demo/process · phone ratio · hero clip === */
-:root{ --max: 920px !important; }
-.page, .wrap{
-  max-width: min(var(--max), 100%) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-.page{
-  padding-left: clamp(16px, 3vw, 24px) !important;
-  padding-right: clamp(16px, 3vw, 24px) !important;
-}
-
-/* Hero: stop clipping eyebrow title */
-#hero .hero-shell, .hero-shell{
-  overflow: visible !important;
-  max-height: none !important;
-  min-height: 280px !important;
-  padding-top: 12px !important;
-}
-#hero .hero-copy, .hero-copy{
-  overflow: visible !important;
-  padding-top: 8px !important;
-}
-#hero .eyebrow, .hero-copy .eyebrow{
-  margin-top: 0 !important;
-  margin-bottom: 12px !important;
-  position: relative !important;
-  z-index: 5 !important;
-  overflow: visible !important;
-  line-height: 1.4 !important;
-}
-
-/* Demo + Process: same split language inside wrap (not full-bleed) */
-#demo .wrap, #process .wrap{
-  max-width: min(var(--max), 100%) !important;
-}
-@media (min-width: 1024px){
-  .demo-split, .proc-split{
-    display: grid !important;
-    grid-template-columns: minmax(180px, 30%) minmax(0, 1fr) !important;
-    gap: 18px !important;
-    align-items: start !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  .demo-visual, .proc-visual{
-    min-width: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-}
-
-/* Demo stage fills column only */
-#demoStage{
-  position: relative !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  height: min(480px, calc(100dvh - 160px)) !important;
-  min-height: 360px !important;
-  aspect-ratio: auto !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  border-radius: 14px !important;
-}
-
-/* Text phase full stage */
-#demoStage .text-phase{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: clamp(16px, 3vw, 32px) !important;
-  background: transparent !important;
-  z-index: 5 !important;
-}
-
-/* Phone: FIXED aspect ratio — scale only */
-#demoStage .device-layer{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 4 !important;
-}
-#demoStage #phone,
-#demoStage .iphone{
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  aspect-ratio: 9 / 19.5 !important;
-  height: min(90%, 420px) !important;
-  width: auto !important;
-  max-width: min(46%, 220px) !important;
-  max-height: 90% !important;
-  transform: none !important; /* size via height/width auto — no stretch */
-  flex-shrink: 0 !important;
-  object-fit: contain !important;
-}
-
-/* Process stage host if present */
-#process .stage, #procStage, .proc-visual .stage{
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow: hidden !important;
-}
-
-
-/* === FORCE BC MEASURE + FULL PHONE 2026-08-08b === */
-html body .page,
-html body .wrap,
-html body #demo,
-html body #process,
-html body #hero,
-html body .sec{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
-}
-html body .page{
-  padding-left: clamp(16px, 3vw, 28px) !important;
-  padding-right: clamp(16px, 3vw, 28px) !important;
-}
-/* sections themselves shouldn't be 100vw */
-html body #demo,
-html body #process,
-html body section.sec{
-  width: 100% !important;
-  max-width: 920px !important;
-}
-
-html body #hero .hero-shell,
-html body .hero-shell{
-  overflow: visible !important;
-  max-height: none !important;
-}
-html body #hero .eyebrow,
-html body .hero-copy .eyebrow{
-  overflow: visible !important;
-  position: relative !important;
-  z-index: 6 !important;
-  line-height: 1.45 !important;
-  padding-top: 4px !important;
-}
-
-@media (min-width: 1024px){
-  html body .demo-split,
-  html body .proc-split{
-    display: grid !important;
-    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
-    gap: 16px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-}
-
-html body #demoStage{
-  position: relative !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  height: min(440px, calc(100dvh - 170px)) !important;
-  min-height: 340px !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  border-radius: 14px !important;
-  display: block !important;
-}
-
-html body #demoStage .text-phase{
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 6 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 20px !important;
-  background: transparent !important;
-}
-
-html body #demoStage .device-layer{
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 5 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-}
-
-/* ENTIRE phone visible: size from host, ratio locked */
-html body #demoStage #phone,
-html body #demoStage .iphone{
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  margin: 0 !important;
-  transform: none !important;
-  aspect-ratio: 9 / 19.5 !important;
-  height: auto !important;
-  width: auto !important;
-  max-height: 88% !important;
-  max-width: 42% !important;
-  /* JS will set explicit px keeping ratio */
-  flex-shrink: 0 !important;
-  object-fit: contain !important;
-  overflow: hidden !important;
-  border-radius: 28px !important;
-}
-
-
-/* === FRAMEWORK v3 — one measure, one player, mobile stage visible === */
+/* === FRAMEWORK v4.1 — single player law (skills ≡ PI ≡ Demo ≡ Process) === */
 :root{
-  --fw-max: 920px;
-  --fw-pad: clamp(16px, 3vw, 28px);
+  --fw-max: 920px !important;
+  --fw-pad: clamp(16px, 3vw, 28px) !important;
+  --fw-hero-pad-top: 24px !important;
+  --fw-stage-h: min(460px, calc(100dvh - 160px)) !important;
+  --fw-stage-h-m: min(360px, 52dvh) !important;
   --fw-chrome: minmax(160px, 30%);
-  --fw-stage-h-desktop: min(460px, calc(100dvh - 160px));
-  --fw-stage-h-mobile: min(360px, 52dvh);
 }
 
-/* PAGE MEASURE — identical on EY and BC */
 html body .page,
 html body .wrap{
   max-width: var(--fw-max) !important;
@@ -4444,8 +4127,27 @@ html body .sec{
   margin-right: auto !important;
   box-sizing: border-box !important;
 }
+html body .crumbs,
+html body nav.crumbs,
+html body .breadcrumb{
+  max-width: var(--fw-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--fw-pad) !important;
+  padding-right: var(--fw-pad) !important;
+  box-sizing: border-box !important;
+}
+html body .page > #hero,
+html body #hero{
+  padding-top: var(--fw-hero-pad-top) !important;
+}
+html body #hero .hero-shell,
+html body .hero-shell{
+  overflow: visible !important;
+  max-height: none !important;
+}
 
-/* PLAYER SPLIT */
+/* Shared player grid */
 @media (min-width: 900px){
   html body .pi-split,
   html body .demo-split,
@@ -4453,18 +4155,11 @@ html body .sec{
     display: grid !important;
     grid-template-columns: var(--fw-chrome) minmax(0, 1fr) !important;
     gap: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
     align-items: start !important;
-    width: 100% !important;
-  }
-  html body .pi-visual,
-  html body .demo-visual,
-  html body .proc-visual{
-    min-width: 0 !important;
-    width: 100% !important;
   }
 }
-
-/* MOBILE: stack chrome then STAGE with explicit height (was collapsing to 0) */
 @media (max-width: 899px){
   html body .pi-split,
   html body .demo-split,
@@ -4472,52 +4167,55 @@ html body .sec{
     display: flex !important;
     flex-direction: column !important;
     gap: 12px !important;
-    width: 100% !important;
-  }
-  html body .pi-visual,
-  html body .demo-visual,
-  html body .proc-visual,
-  html body #stage,
-  html body #demoStage{
-    display: block !important;
-    width: 100% !important;
-    min-height: var(--fw-stage-h-mobile) !important;
-    height: var(--fw-stage-h-mobile) !important;
-    max-height: none !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-  html body .pi-copy,
-  html body .demo-copy,
-  html body .proc-copy{
-    width: 100% !important;
   }
 }
 
-/* STAGE SURFACE */
+/* ONE stage surface language */
 html body #stage,
 html body #demoStage,
-html body .pi-visual .stage{
+html body .pi-visual,
+html body .pi-visual .stage,
+html body .demo-visual,
+html body .proc-visual,
+html body .proc-visual .stage,
+html body .stage-panel #stage,
+html body .stagezone #stage{
   position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: auto !important;
+  height: var(--fw-stage-h) !important;
+  min-height: 280px !important;
+  margin: 0 !important;
   overflow: hidden !important;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
   background:
     linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
     #0c0b0a !important;
   background-size: 20px 20px, 20px 20px, auto !important;
-  border-radius: 14px !important;
 }
-@media (min-width: 900px){
+@media (max-width: 899px){
   html body #stage,
+  html body #demoStage,
   html body .pi-visual,
-  html body #demoStage{
-    height: var(--fw-stage-h-desktop) !important;
-    min-height: 320px !important;
+  html body .pi-visual .stage,
+  html body .demo-visual,
+  html body .proc-visual,
+  html body .stage-panel #stage,
+  html body .stagezone #stage{
+    display: block !important;
+    height: var(--fw-stage-h-m) !important;
+    min-height: var(--fw-stage-h-m) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 
-/* EY win host */
-html body #win{
+/* Stage host layers transparent */
+html body #win,
+html body .stage-window{
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
@@ -4528,41 +4226,56 @@ html body #win{
   border: none !important;
   overflow: hidden !important;
 }
-html body #win .slide.textslide{
+
+/* Narrative full stage */
+html body #win .slide.textslide,
+html body .slide.textslide,
+html body #demoStage .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
   display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   text-align: center !important;
   padding: 20px !important;
   background: transparent !important;
 }
+
+/* Prototype slides: center window, scale via --fit-s */
 html body #win .slide:not(.textslide){
+  position: absolute !important;
+  inset: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 16px 16px 56px !important;
+  padding: 12px 12px 52px !important;
   background: transparent !important;
+  overflow: hidden !important;
 }
-html body #win .slide:not(.textslide) > *{
-  width: min(520px, 94%) !important;
-  max-height: 100% !important;
+html body #win .slide:not(.textslide) > div:first-child{
+  transform: scale(var(--fit-s, 1)) !important;
+  transform-origin: center center !important;
   border-radius: 12px !important;
   box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
-  overflow: hidden !important;
   background: #171614 !important;
 }
+
+/* Caption — gradient only */
 html body .capbar{
   position: absolute !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   padding: 28px 14px 12px !important;
   border: none !important;
+  box-shadow: none !important;
   background: linear-gradient(to top, rgba(12,11,10,.94) 30%, transparent) !important;
   backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   text-align: center !important;
   z-index: 20 !important;
 }
 
-/* BC PHONE — always fully inside stage */
+/* Phone */
 html body #demoStage .device-layer{
   position: absolute !important;
   inset: 0 !important;
@@ -4582,18 +4295,6 @@ html body #demoStage .iphone{
   flex-shrink: 0 !important;
   overflow: hidden !important;
   border-radius: 24px !important;
-  /* JS sets width/height */
-}
-
-/* Process visual not empty desert */
-html body .proc-visual,
-html body #process .stage{
-  min-height: var(--fw-stage-h-mobile) !important;
-}
-@media (min-width: 900px){
-  html body .proc-visual{
-    min-height: 360px !important;
-  }
 }
 
 </style>
@@ -5860,27 +5561,54 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 
 
 
+
+
+
 <script>
-/* Framework v3 phone fit — full device always visible */
+/* Framework v4.1 — shared fit for PI / skills / phone */
 (function(){
+  function fit(host, root, dw, dh, pad){
+    if(!host || !root) return 1;
+    pad = pad == null ? 0.1 : pad;
+    var s = Math.min(
+      (Math.max(host.clientWidth,1) * (1-pad)) / dw,
+      (Math.max(host.clientHeight,1) * (1-pad)) / dh
+    );
+    if(!isFinite(s) || s <= 0) s = 0.2;
+    s = Math.min(Math.max(s, 0.12), 1.05);
+    root.style.setProperty('--fit-s', String(s));
+    return s;
+  }
+  function fitMocks(){
+    var stage = document.getElementById('stage');
+    if(stage){
+      stage.querySelectorAll('.slide:not(.textslide)').forEach(function(slide){
+        var child = slide.firstElementChild;
+        if(!child) return;
+        fit(slide, child, parseFloat(child.getAttribute('data-dw')||560), parseFloat(child.getAttribute('data-dh')||300), 0.12);
+      });
+    }
+    document.querySelectorAll('.stage-panel #stage, .stagezone #stage, [data-fit-host]').forEach(function(host){
+      var root = host.querySelector('[data-fit-root], .stage-window, #win, .ui-frame');
+      if(!root) return;
+      fit(host, root, parseFloat(root.getAttribute('data-dw')||640), parseFloat(root.getAttribute('data-dh')||360), 0.1);
+    });
+  }
   function fitPhone(){
     var host = document.getElementById('demoStage');
     var phone = document.getElementById('phone');
     if(!host || !phone) return;
-    var availW = host.clientWidth * 0.9;
-    var availH = host.clientHeight * 0.9;
-    if(availW < 40 || availH < 40) return;
-    var ratio = 9 / 19.5;
-    var h = availH, w = h * ratio;
-    if(w > availW){ w = availW; h = w / ratio; }
-    phone.style.boxSizing = 'border-box';
-    phone.style.width = Math.floor(w) + 'px';
-    phone.style.height = Math.floor(h) + 'px';
+    var aw = host.clientWidth * 0.9, ah = host.clientHeight * 0.9;
+    if(aw < 40 || ah < 40) return;
+    var r = 9/19.5, h = ah, w = h * r;
+    if(w > aw){ w = aw; h = w / r; }
+    phone.style.width = Math.floor(w)+'px';
+    phone.style.height = Math.floor(h)+'px';
     phone.style.maxWidth = 'none';
     phone.style.maxHeight = 'none';
     phone.style.transform = 'none';
   }
-  function sync(){
+  function syncPhone(){
     var host = document.getElementById('demoStage');
     var text = document.getElementById('textPhase');
     if(host && text){
@@ -5890,22 +5618,22 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
       if(layer){
         layer.style.opacity = show ? '1' : '0';
         layer.style.visibility = show ? 'visible' : 'hidden';
-        layer.style.pointerEvents = show ? 'auto' : 'none';
       }
     }
     fitPhone();
   }
-  window.addEventListener('resize', function(){ fitPhone(); });
+  function all(){ fitMocks(); syncPhone(); }
+  window.__fwFit = all;
+  window.addEventListener('resize', all);
   if(window.ResizeObserver){
-    var h = document.getElementById('demoStage');
-    if(h) try{ new ResizeObserver(fitPhone).observe(h); }catch(e){}
+    ['stage','demoStage'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) try{ new ResizeObserver(all).observe(el); }catch(e){}
+    });
   }
-  var text = document.getElementById('textPhase');
-  if(text && window.MutationObserver){
-    new MutationObserver(sync).observe(text,{attributes:true,attributeFilter:['class']});
-  }
-  setInterval(sync, 400);
-  [30,100,400,1000].forEach(function(t){ setTimeout(fitPhone, t); });
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(all, 40); });
+  [40,200,600,1500].forEach(function(t){ setTimeout(all, t); });
+  setInterval(all, 1500);
 })();
 </script>
 
