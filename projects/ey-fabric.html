@@ -2267,7 +2267,11 @@ section.sec > .wrap,
 
 
 
-/* === MEASURE SYNC v2 — single pad, BC law === */
+
+/* === LAYOUT LAW v1 (QA-verified) ===
+   BC has no .page wrapper; EY has .page.
+   Constrain the real content roots on BOTH pages to the same measure.
+*/
 :root{
   --max: 920px !important;
   --pad: 20px !important;
@@ -2276,11 +2280,26 @@ section.sec > .wrap,
 @media (min-width: 768px){
   :root{ --pad: 28px !important; }
 }
+
 html body{
   padding-top: var(--nav-h) !important;
+  overflow-x: hidden !important;
 }
-/* ONE content column */
-html body .page{
+
+/* Content column: EY .page AND BC sections/wraps */
+html body .page,
+html body .top-nav-inner,
+html body .crumbs,
+html body nav.crumbs,
+html body #hero,
+html body #demo,
+html body #process,
+html body #pi,
+html body section.sec,
+html body .sec,
+html body .closing,
+html body .proj-nav,
+html body .legal-note{
   max-width: var(--max) !important;
   width: 100% !important;
   margin-left: auto !important;
@@ -2289,12 +2308,16 @@ html body .page{
   padding-right: var(--pad) !important;
   box-sizing: border-box !important;
 }
-/* wraps inside page: no extra horizontal pad (prevents double inset) */
+
+/* Inner wraps: full width of parent column, no second pad */
 html body .page .wrap,
-html body .page .hero-copy,
-html body .page .demo-split,
-html body .page .proc-split,
-html body .page .pi-split{
+html body #hero .wrap,
+html body #hero .hero-copy,
+html body #demo .wrap,
+html body #process .wrap,
+html body .demo-split,
+html body .proc-split,
+html body .pi-split{
   max-width: 100% !important;
   width: 100% !important;
   margin-left: 0 !important;
@@ -2303,18 +2326,41 @@ html body .page .pi-split{
   padding-right: 0 !important;
   box-sizing: border-box !important;
 }
-html body .crumbs,
-html body nav.crumbs{
-  max-width: var(--max) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
+
+/* Hero start — same on EY & BC */
 html body #hero{
   padding-top: 20px !important;
 }
+
+/* Kill the rule that set .page { max-width:100% } from winning on EY */
+html body .page{
+  max-width: var(--max) !important;
+}
+
+
+/* === EY no double-pad inside .page === */
+html body .page #hero,
+html body .page .sec,
+html body .page section.sec,
+html body .page #pi,
+html body .page .closing,
+html body .page .proj-nav,
+html body .page .legal-note{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+/* page itself is the only horizontal inset */
+html body .page{
+  max-width: var(--max) !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+}
+
 </style>
 </head>
 <body>
