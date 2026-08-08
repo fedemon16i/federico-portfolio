@@ -2144,6 +2144,134 @@ section.sec > .wrap,
 #demoStage .stage-top,
 #demoStage .stage-arrows{ z-index: 5 !important; }
 
+
+/* === STAGE FULL-UI SCALE (no inner scroll) === */
+.stagezone, #stageZone{ z-index: 12000 !important; }
+.top-nav, #topNav{ z-index: 900 !important; }
+
+/* Skill modal proportions */
+@media (min-width: 821px){
+  .stage-panel{
+    width: min(1000px, calc(100vw - 16px)) !important;
+    height: min(580px, calc(100dvh - 24px)) !important;
+    max-height: calc(100dvh - 24px) !important;
+    display: grid !important;
+    grid-template-columns: minmax(150px, 30%) minmax(0, 1fr) !important;
+    grid-template-rows: auto auto minmax(0,1fr) auto !important;
+    grid-template-areas: "tag tag" "title stage" "controls stage" "meta meta" !important;
+    gap: 8px 14px !important;
+    overflow: hidden !important;
+    padding: 12px !important;
+  }
+  .stage-panel .sim-tag{ grid-area: tag; }
+  .stage-panel .stage-title{ grid-area: title; }
+  .stage-panel .controls-top{ grid-area: controls; }
+  .stage-panel .stage-persp{ grid-area: stage; min-height: 0 !important; height: 100% !important; position: relative !important; overflow: hidden !important; }
+  .stage-panel #stage, .stage-panel .stage{
+    position: absolute !important; inset: 0 !important;
+    width: 100% !important; height: 100% !important;
+    overflow: hidden !important;
+  }
+}
+@media (max-width: 820px){
+  .stage-panel{
+    width: calc(100vw - 10px) !important;
+    height: calc(100dvh - 10px) !important;
+    max-height: calc(100dvh - 10px) !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto minmax(0,1fr) auto auto !important;
+    grid-template-areas: "tag" "title" "stage" "controls" "meta" !important;
+    overflow: hidden !important;
+  }
+  .stage-panel .stage-persp{ grid-area: stage; min-height: 0 !important; }
+  .stage-panel .controls-top{ grid-area: controls; }
+}
+
+/* Reading width restore */
+.wrap{
+  max-width: min(var(--max, 920px), 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* EY PI split like skills */
+@media (min-width: 1024px){
+  .pi-split{
+    display: grid !important;
+    grid-template-columns: minmax(170px, 30%) minmax(0, 1fr) !important;
+    gap: 16px !important;
+    align-items: stretch !important;
+    max-width: min(var(--max,920px),100%) !important;
+    margin-inline: auto !important;
+  }
+  .pi-visual{
+    min-height: 0 !important;
+    height: min(460px, calc(100dvh - 160px)) !important;
+  }
+  .pi-visual .stage, .pi-split #stage{
+    height: 100% !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+}
+/* kill inner scroll on stage mocks */
+#stage, .stage, #demoStage, .pi-visual .stage{
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+#stage::-webkit-scrollbar, .stage::-webkit-scrollbar, #demoStage::-webkit-scrollbar{ display:none !important; }
+
+/* BC widths + square stage + text then device */
+.demo-split{
+  max-width: min(var(--max,920px), 100%) !important;
+  margin-inline: auto !important;
+}
+@media (min-width: 1024px){
+  .demo-split{
+    display: grid !important;
+    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+#demoStage{
+  position: relative !important;
+  width: 100% !important;
+  max-width: min(420px, 100%) !important;
+  margin-inline: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  max-height: min(480px, calc(100dvh - 160px)) !important;
+  overflow: hidden !important;
+}
+#demoStage .text-phase{
+  position: absolute !important; inset: 0 !important;
+  display: flex !important; flex-direction: column !important;
+  align-items: center !important; justify-content: center !important;
+  text-align: center !important; padding: 16px !important; z-index: 3 !important;
+}
+#demoStage.show-device .text-phase,
+#demoStage .text-phase.hide{
+  opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
+}
+#demoStage .device-layer{
+  position: absolute !important; inset: 0 !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  opacity: 0 !important; visibility: hidden !important; z-index: 2 !important;
+}
+#demoStage.show-device .device-layer{
+  opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
+}
+#demoStage #phone, #demoStage .iphone{
+  position: relative !important;
+  left: auto !important; top: auto !important;
+  transform: scale(var(--fit-s, 0.5)) !important;
+  transform-origin: center center !important;
+}
+
 </style>
 </head>
 <body>
@@ -3203,46 +3331,79 @@ section.sec > .wrap,
 </script>
 
 
+
+
+
 <script>
-/* fitScale: only elements with [data-fit-root] inside [data-fit-host] */
+/* Full-UI fit: scale design root to host so ALL mock UI is visible (no inner scroll) */
 (function(){
-  function fitOne(host){
-    if(!host) return;
-    var root = host.querySelector('[data-fit-root]');
-    if(!root) return;
-    var dw = parseFloat(root.getAttribute('data-dw') || root.dataset.dw || 640);
-    var dh = parseFloat(root.getAttribute('data-dh') || root.dataset.dh || 360);
-    var pad = parseFloat(root.getAttribute('data-pad') || 0.06);
+  function fitHost(host, root, dw, dh, pad){
+    if(!host || !root) return;
+    pad = pad == null ? 0.06 : pad;
     var s = Math.min(
-      (host.clientWidth * (1 - pad)) / dw,
-      (host.clientHeight * (1 - pad)) / dh
+      (Math.max(host.clientWidth, 40) * (1 - pad)) / dw,
+      (Math.max(host.clientHeight, 40) * (1 - pad)) / dh
     );
     if(!isFinite(s) || s <= 0) s = 0.2;
-    s = Math.min(Math.max(s, 0.1), 1.15);
+    s = Math.min(Math.max(s, 0.1), 1.08);
     root.style.setProperty('--fit-s', String(s));
+    // only set transform if root is marked data-fit-root
+    if(root.hasAttribute('data-fit-root') || root.id === 'phone' || root.classList.contains('iphone')){
+      if(root.id === 'phone' || root.classList.contains('iphone')){
+        root.style.transform = 'scale(' + s + ')';
+        root.style.transformOrigin = 'center center';
+      } else {
+        root.style.position = 'absolute';
+        root.style.left = '50%';
+        root.style.top = '50%';
+        root.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+        root.style.transformOrigin = 'center center';
+      }
+    }
   }
   function fitAll(){
-    document.querySelectorAll('[data-fit-host]').forEach(fitOne);
-    // BC phone: host is #demoStage when show-device
+    // Explicit fit roots
+    document.querySelectorAll('[data-fit-host]').forEach(function(host){
+      var root = host.querySelector('[data-fit-root]');
+      if(!root) return;
+      var dw = parseFloat(root.getAttribute('data-dw') || 640);
+      var dh = parseFloat(root.getAttribute('data-dh') || 360);
+      fitHost(host, root, dw, dh, 0.06);
+    });
+    // BC phone when visible
     var demo = document.getElementById('demoStage');
     var phone = document.getElementById('phone');
     if(demo && phone && demo.classList.contains('show-device')){
-      var s = Math.min(
-        (demo.clientWidth * 0.92) / 390,
-        (demo.clientHeight * 0.92) / 844
-      );
-      if(isFinite(s) && s > 0) phone.style.setProperty('--fit-s', String(Math.min(Math.max(s, 0.12), 1)));
+      fitHost(demo, phone, 390, 844, 0.08);
     }
   }
   window.__fitScaleAll = fitAll;
   window.addEventListener('resize', fitAll);
   if(window.ResizeObserver){
-    document.querySelectorAll('[data-fit-host], #demoStage').forEach(function(el){
+    document.querySelectorAll('[data-fit-host], #demoStage, .stage-panel #stage').forEach(function(el){
       try{ new ResizeObserver(fitAll).observe(el); }catch(e){}
     });
   }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(fitAll, 40); });
-  else setTimeout(fitAll, 40);
+  setTimeout(fitAll, 60);
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(fitAll, 60); });
+})();
+</script>
+<script>
+/* BC: text phase → show-device */
+(function(){
+  var demo = document.getElementById('demoStage');
+  var text = document.getElementById('textPhase');
+  if(!demo || !text) return;
+  function sync(){
+    var hide = text.classList.contains('hide') || text.classList.contains('out') || getComputedStyle(text).opacity === '0';
+    // also if typewriter finished and device should show - rely on hide class from existing player
+    demo.classList.toggle('show-device', text.classList.contains('hide'));
+    if(window.__fitScaleAll) window.__fitScaleAll();
+  }
+  if(window.MutationObserver){
+    new MutationObserver(sync).observe(text, {attributes:true, attributeFilter:['class']});
+  }
+  setInterval(sync, 800);
 })();
 </script>
 
