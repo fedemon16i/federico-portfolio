@@ -4190,6 +4190,119 @@ section.sec > .wrap,
 #demoStage .stage-top,
 #demoStage .stage-arrows{ z-index: 30 !important; }
 
+
+/* === ALIGN 2026-08-08: same measure · demo/process · phone ratio · hero clip === */
+:root{ --max: 920px !important; }
+.page, .wrap{
+  max-width: min(var(--max), 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.page{
+  padding-left: clamp(16px, 3vw, 24px) !important;
+  padding-right: clamp(16px, 3vw, 24px) !important;
+}
+
+/* Hero: stop clipping eyebrow title */
+#hero .hero-shell, .hero-shell{
+  overflow: visible !important;
+  max-height: none !important;
+  min-height: 280px !important;
+  padding-top: 12px !important;
+}
+#hero .hero-copy, .hero-copy{
+  overflow: visible !important;
+  padding-top: 8px !important;
+}
+#hero .eyebrow, .hero-copy .eyebrow{
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
+  position: relative !important;
+  z-index: 5 !important;
+  overflow: visible !important;
+  line-height: 1.4 !important;
+}
+
+/* Demo + Process: same split language inside wrap (not full-bleed) */
+#demo .wrap, #process .wrap{
+  max-width: min(var(--max), 100%) !important;
+}
+@media (min-width: 1024px){
+  .demo-split, .proc-split{
+    display: grid !important;
+    grid-template-columns: minmax(180px, 30%) minmax(0, 1fr) !important;
+    gap: 18px !important;
+    align-items: start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .demo-visual, .proc-visual{
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Demo stage fills column only */
+#demoStage{
+  position: relative !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: min(480px, calc(100dvh - 160px)) !important;
+  min-height: 360px !important;
+  aspect-ratio: auto !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+}
+
+/* Text phase full stage */
+#demoStage .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: clamp(16px, 3vw, 32px) !important;
+  background: transparent !important;
+  z-index: 5 !important;
+}
+
+/* Phone: FIXED aspect ratio — scale only */
+#demoStage .device-layer{
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 4 !important;
+}
+#demoStage #phone,
+#demoStage .iphone{
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  aspect-ratio: 9 / 19.5 !important;
+  height: min(90%, 420px) !important;
+  width: auto !important;
+  max-width: min(46%, 220px) !important;
+  max-height: 90% !important;
+  transform: none !important; /* size via height/width auto — no stretch */
+  flex-shrink: 0 !important;
+  object-fit: contain !important;
+}
+
+/* Process stage host if present */
+#process .stage, #procStage, .proc-visual .stage{
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
 </style>
 </head>
 <body>
@@ -5445,43 +5558,46 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 
 
 
+
+
+
 <script>
-/* Stage principle v2: phone/mock fit — never shrink #win */
+/* Phone: keep 9/19.5 — size by height budget only */
 (function(){
-  function fitPhone(){
+  function fit(){
     var demo = document.getElementById('demoStage');
     var phone = document.getElementById('phone');
     if(!demo || !phone) return;
-    if(!demo.classList.contains('show-device')) return;
-    var pad = 0.08;
-    var s = Math.min(
-      (demo.clientWidth * (1 - pad)) / 390,
-      (demo.clientHeight * (1 - pad)) / 844
-    );
-    if(!isFinite(s) || s <= 0) s = 0.35;
-    s = Math.min(Math.max(s, 0.2), 1);
-    phone.style.setProperty('--fit-s', String(s));
-    phone.style.transform = 'scale(' + s + ')';
+    var h = Math.min(demo.clientHeight * 0.9, 420);
+    var w = h * (9/19.5);
+    if(w > demo.clientWidth * 0.92){
+      w = demo.clientWidth * 0.92;
+      h = w * (19.5/9);
+    }
+    phone.style.height = h + 'px';
+    phone.style.width = w + 'px';
+    phone.style.transform = 'none';
+    phone.style.aspectRatio = '9 / 19.5';
   }
-  function syncDevice(){
+  function sync(){
     var demo = document.getElementById('demoStage');
     var text = document.getElementById('textPhase');
-    if(!demo || !text) return;
-    var hide = text.classList.contains('hide') || text.classList.contains('out');
-    demo.classList.toggle('show-device', hide);
-    fitPhone();
+    if(demo && text){
+      demo.classList.toggle('show-device', text.classList.contains('hide'));
+    }
+    fit();
   }
-  window.addEventListener('resize', fitPhone);
+  window.addEventListener('resize', fit);
   if(window.ResizeObserver){
-    var d = document.getElementById('demoStage');
-    if(d) try{ new ResizeObserver(fitPhone).observe(d); }catch(e){}
+    var d=document.getElementById('demoStage');
+    if(d) try{new ResizeObserver(fit).observe(d);}catch(e){}
   }
-  if(window.MutationObserver){
-    var text = document.getElementById('textPhase');
-    if(text) new MutationObserver(syncDevice).observe(text, {attributes:true, attributeFilter:['class']});
+  var text=document.getElementById('textPhase');
+  if(text && window.MutationObserver){
+    new MutationObserver(sync).observe(text,{attributes:true,attributeFilter:['class']});
   }
-  setInterval(syncDevice, 600);
-  setTimeout(fitPhone, 80);
+  setInterval(sync, 700);
+  setTimeout(fit, 50);
 })();
 </script>
 
