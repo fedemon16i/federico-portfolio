@@ -2268,76 +2268,6 @@ section.sec > .wrap,
 
 
 
-/* === LAYOUT LAW v1 (QA-verified) ===
-   BC has no .page wrapper; EY has .page.
-   Constrain the real content roots on BOTH pages to the same measure.
-*/
-:root{
-  --max: 920px !important;
-  --pad: 20px !important;
-  --nav-h: 64px !important;
-}
-@media (min-width: 768px){
-  :root{ --pad: 28px !important; }
-}
-
-html body{
-  padding-top: var(--nav-h) !important;
-  overflow-x: hidden !important;
-}
-
-/* Content column: EY .page AND BC sections/wraps */
-html body .page,
-html body .top-nav-inner,
-html body .crumbs,
-html body nav.crumbs,
-html body #hero,
-html body #demo,
-html body #process,
-html body #pi,
-html body section.sec,
-html body .sec,
-html body .closing,
-html body .proj-nav,
-html body .legal-note{
-  max-width: var(--max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
-
-/* Inner wraps: full width of parent column, no second pad */
-html body .page .wrap,
-html body #hero .wrap,
-html body #hero .hero-copy,
-html body #demo .wrap,
-html body #process .wrap,
-html body .demo-split,
-html body .proc-split,
-html body .pi-split{
-  max-width: 100% !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
-}
-
-/* Hero start — same on EY & BC */
-html body #hero{
-  padding-top: 20px !important;
-}
-
-/* Kill the rule that set .page { max-width:100% } from winning on EY */
-html body .page{
-  max-width: var(--max) !important;
-}
-
-
 /* === EY no double-pad inside .page === */
 html body .page #hero,
 html body .page .sec,
@@ -2359,6 +2289,131 @@ html body .page{
   max-width: var(--max) !important;
   padding-left: var(--pad) !important;
   padding-right: var(--pad) !important;
+}
+
+
+/* === SHARED NAV = EY source of truth === */
+html body .top-nav{
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  z-index: 9999 !important;
+  height: 64px !important;
+  background: #0e0d0c !important;
+  border-bottom: 1px solid rgba(255,255,255,.1) !important;
+}
+html body .top-nav-inner{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 64px !important;
+  max-width: 920px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 clamp(16px, 3vw, 28px) !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+}
+html body .top-nav-links{
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  white-space: nowrap !important;
+}
+html body .top-nav-link,
+html body .top-nav-drop-toggle{
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  height: 36px !important;
+  padding: 0 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+html body .top-nav-drop-menu{
+  position: absolute !important;
+  top: calc(100% + 6px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  min-width: 200px !important;
+  white-space: normal !important;
+  z-index: 10003 !important;
+}
+html body .top-nav-drop-menu a{
+  display: block !important;
+  white-space: nowrap !important;
+  padding: 8px 12px !important;
+}
+
+/* === EY PI stage language (window on canvas) === */
+html body .pi-visual,
+html body #stage{
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    #0c0b0a !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+/* Host transparent — not a second gray box */
+html body #win{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+/* Narrative full stage */
+html body #win .slide.textslide{
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+/* Prototype: centered floating window */
+html body #win .slide:not(.textslide){
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px 16px 56px !important;
+  box-sizing: border-box !important;
+}
+html body #win .slide:not(.textslide) > div:first-child{
+  border-radius: 12px !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.5) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  max-width: min(560px, 92%) !important;
+  max-height: min(320px, 78%) !important;
+  overflow: hidden !important;
+  background: #171614 !important;
+}
+/* Caption: gradient only — kill solid gray bar */
+html body .capbar{
+  position: absolute !important;
+  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  z-index: 50 !important;
+  padding: 32px 16px 14px !important;
+  min-height: 0 !important;
+  border: none !important;
+  border-top: none !important;
+  background: linear-gradient(to top, rgba(12,11,10,.96) 35%, transparent) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  pointer-events: none !important;
 }
 
 </style>

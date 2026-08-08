@@ -4165,139 +4165,6 @@ html body .figma-canvas{
 }
 
 
-/* === LAYOUT LAW v1 (QA-verified) ===
-   BC has no .page wrapper; EY has .page.
-   Constrain the real content roots on BOTH pages to the same measure.
-*/
-:root{
-  --max: 920px !important;
-  --pad: 20px !important;
-  --nav-h: 64px !important;
-}
-@media (min-width: 768px){
-  :root{ --pad: 28px !important; }
-}
-
-html body{
-  padding-top: var(--nav-h) !important;
-  overflow-x: hidden !important;
-}
-
-/* Content column: EY .page AND BC sections/wraps */
-html body .page,
-html body .top-nav-inner,
-html body .crumbs,
-html body nav.crumbs,
-html body #hero,
-html body #demo,
-html body #process,
-html body #pi,
-html body section.sec,
-html body .sec,
-html body .closing,
-html body .proj-nav,
-html body .legal-note{
-  max-width: var(--max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
-
-/* Inner wraps: full width of parent column, no second pad */
-html body .page .wrap,
-html body #hero .wrap,
-html body #hero .hero-copy,
-html body #demo .wrap,
-html body #process .wrap,
-html body .demo-split,
-html body .proc-split,
-html body .pi-split{
-  max-width: 100% !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
-}
-
-/* Hero start — same on EY & BC */
-html body #hero{
-  padding-top: 20px !important;
-}
-
-/* Kill the rule that set .page { max-width:100% } from winning on EY */
-html body .page{
-  max-width: var(--max) !important;
-}
-
-
-/* === DEMO phone fit v2 (QA: must be shorter than stage) === */
-html body #demoStage{
-  width: 100% !important;
-  max-width: 100% !important;
-  aspect-ratio: auto !important;
-  height: min(520px, calc(100dvh - 140px)) !important;
-  min-height: 340px !important;
-  overflow: hidden !important;
-  position: relative !important;
-}
-@media (max-width: 899px){
-  html body #demoStage{
-    height: min(420px, 60dvh) !important;
-    min-height: 300px !important;
-  }
-}
-html body #demoStage .device-layer,
-html body #demoStage #deviceLayer{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  box-sizing: border-box !important;
-  padding: 12px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  /* visibility still controlled by opacity/player when needed */
-}
-html body #demoStage .device-layer:not(.show){
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-html body #demoStage .device-layer.show{
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-/* Kill fixed 220×476 — phone must fit inside stage */
-html body #demoStage #phone,
-html body #demoStage .iphone,
-html body #demoStage #phone.iphone.on,
-html body #demoStage .iphone.on{
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  margin: 0 auto !important;
-  max-width: min(100%, 280px) !important;
-  max-height: 100% !important;
-  width: auto !important;
-  height: 100% !important;
-  aspect-ratio: 9 / 19.5 !important;
-  transform: none !important;
-  flex-shrink: 1 !important;
-  box-sizing: border-box !important;
-}
-html body #demoStage .iphone.on,
-html body #demoStage #phone.iphone.on{
-  display: flex !important;
-}
 /* === PROCESS stage height === */
 @media (min-width: 900px){
   html body .proc-split{
@@ -4332,15 +4199,103 @@ html body .figma-canvas{
 
 
 
-/* === PHONE ABSOLUTE CENTER + JS SIZE === */
+
+/* === SHARED NAV = EY source of truth === */
+html body .top-nav{
+  position: fixed !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  z-index: 9999 !important;
+  height: 64px !important;
+  background: #0e0d0c !important;
+  border-bottom: 1px solid rgba(255,255,255,.1) !important;
+}
+html body .top-nav-inner{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 64px !important;
+  max-width: 920px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 clamp(16px, 3vw, 28px) !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+}
+html body .top-nav-links{
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  white-space: nowrap !important;
+}
+html body .top-nav-link,
+html body .top-nav-drop-toggle{
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  height: 36px !important;
+  padding: 0 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+html body .top-nav-drop-menu{
+  position: absolute !important;
+  top: calc(100% + 6px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  min-width: 200px !important;
+  white-space: normal !important;
+  z-index: 10003 !important;
+}
+html body .top-nav-drop-menu a{
+  display: block !important;
+  white-space: nowrap !important;
+  padding: 8px 12px !important;
+}
+
+/* === BC HERO — no clip === */
+html body #hero .hero-shell,
+html body .hero-shell{
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  padding: 12px 0 8px !important;
+  align-items: flex-start !important;
+}
+html body #hero{
+  padding-top: 16px !important;
+  overflow: visible !important;
+}
+html body #hero .hero-copy{
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* === BC DEMO containment === */
 html body #demoStage{
   position: relative !important;
-  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: auto !important;
   height: min(480px, calc(100dvh - 140px)) !important;
-  min-height: 300px !important;
+  min-height: 320px !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(rgba(34,212,200,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,212,200,.05) 1px, transparent 1px),
+    #070b10 !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
 }
 @media (max-width: 899px){
-  html body #demoStage{ height: min(400px, 58dvh) !important; min-height: 280px !important; }
+  html body #demoStage{
+    height: min(400px, 58dvh) !important;
+    min-height: 280px !important;
+  }
 }
 html body #demoStage .device-layer,
 html body #demoStage #deviceLayer{
@@ -4348,7 +4303,6 @@ html body #demoStage #deviceLayer{
   inset: 0 !important;
   display: block !important;
   padding: 0 !important;
-  min-height: 0 !important;
 }
 html body #demoStage .device-layer:not(.show){
   opacity: 0 !important;
@@ -4366,17 +4320,63 @@ html body #demoStage .iphone.on{
   position: absolute !important;
   left: 50% !important;
   top: 50% !important;
-  right: auto !important;
-  bottom: auto !important;
   transform: translate(-50%, -50%) !important;
   margin: 0 !important;
   min-width: 0 !important;
   min-height: 0 !important;
-  max-width: none !important;
-  max-height: none !important;
-  flex: none !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
+}
+
+/* === BC PROCESS containment === */
+@media (min-width: 900px){
+  html body .proc-split{
+    display: grid !important;
+    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
+    gap: 16px !important;
+    width: 100% !important;
+    align-items: start !important;
+  }
+}
+html body .proc-visual{
+  width: 100% !important;
+  min-width: 0 !important;
+  display: block !important;
+}
+html body .story-panel{ display: none !important; }
+html body .story-panel.on{
+  display: block !important;
+  width: 100% !important;
+  animation: none !important; /* keep visible; don't fight */
+}
+/* Kill height:auto that collapsed the canvas */
+html body .mini-stage,
+html body .story-panel.on .mini-stage,
+html body .story-panel.on .stage.mini-stage{
+  display: block !important;
+  width: 100% !important;
+  height: min(420px, calc(100dvh - 160px)) !important;
+  min-height: 300px !important;
+  max-height: none !important;
+  padding: 12px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(rgba(34,212,200,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,212,200,.05) 1px, transparent 1px),
+    #070b10 !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+html body .figma-canvas,
+html body .figma-layout{
+  height: calc(100% - 36px) !important;
+  min-height: 240px !important;
+  position: relative !important;
+}
+html body .phone-rich{
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 </style>
@@ -5731,6 +5731,9 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 
 
 
+
+
+
 <script>
 (function(){
   function fit(){
@@ -5740,9 +5743,8 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
     var aw = Math.max(host.clientWidth - 24, 40);
     var ah = Math.max(host.clientHeight - 24, 40);
     var ratio = 9/19.5;
-    var h = ah * 0.95;
-    var w = h * ratio;
-    if(w > aw * 0.95){ w = aw * 0.95; h = w / ratio; }
+    var h = ah * 0.92, w = h * ratio;
+    if(w > aw * 0.92){ w = aw * 0.92; h = w / ratio; }
     phone.style.setProperty('width', Math.floor(w)+'px', 'important');
     phone.style.setProperty('height', Math.floor(h)+'px', 'important');
     phone.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
@@ -5752,8 +5754,8 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
     var h=document.getElementById('demoStage');
     if(h) try{new ResizeObserver(fit).observe(h);}catch(e){}
   }
-  setInterval(fit, 300);
-  [0,100,400,1200].forEach(function(t){setTimeout(fit,t);});
+  setInterval(fit, 400);
+  [0,200,800].forEach(function(t){setTimeout(fit,t);});
 })();
 </script>
 
