@@ -1128,6 +1128,182 @@ body{ position: relative; }
   }
 }
 
+
+/* === CHECKLIST PASS: modal frame · fit-root · widths · BC text-first === */
+
+/* Restore reading width on case pages (undo 100% !important blowout) */
+.wrap{
+  max-width: min(var(--max, 920px), 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  box-sizing: border-box !important;
+}
+.sec > .wrap,
+section.sec > .wrap,
+.hero-copy.wrap,
+.hero .wrap{
+  max-width: min(var(--max, 920px), 100%) !important;
+}
+
+/* Skill modal — fixed frame mobile; controls always visible */
+@media (max-width: 820px){
+  .stagezone, #stageZone{
+    padding: 6px !important;
+    align-items: stretch !important;
+  }
+  .stage-panel{
+    width: calc(100vw - 12px) !important;
+    height: calc(100dvh - 12px) !important;
+    max-height: calc(100dvh - 12px) !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto !important;
+    grid-template-areas:
+      "tag"
+      "title"
+      "stage"
+      "controls"
+      "meta" !important;
+    overflow: hidden !important;
+  }
+  .stage-panel .stage-persp{
+    grid-area: stage !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+  .stage-panel #stage,
+  .stage-panel .stage{
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+  .stage-panel .controls-top{
+    grid-area: controls !important;
+  }
+}
+
+/* data-fit-root: uniform scale inside host (descale, not mask) */
+[data-fit-host]{
+  position: relative !important;
+  overflow: hidden !important;
+}
+[data-fit-root]{
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) scale(var(--fit-s, 1)) !important;
+  transform-origin: center center !important;
+  will-change: transform;
+}
+
+/* EY stage host — fill, scale children marked data-fit-root */
+.pi-visual .stage,
+#stage{
+  position: relative !important;
+  overflow: hidden !important;
+}
+@media (min-width: 1024px){
+  .pi-split{
+    display: grid !important;
+    grid-template-columns: minmax(180px, 32%) minmax(0, 1fr) !important;
+    gap: 20px !important;
+    align-items: stretch !important;
+    max-width: min(var(--max, 920px), 100%) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .pi-visual{
+    min-height: 0 !important;
+    height: min(480px, calc(100vh - 160px)) !important;
+  }
+  .pi-visual .stage, #stage{
+    height: 100% !important;
+    max-height: 100% !important;
+  }
+}
+
+/* BC demo — contained width; square-ish stage; text then device on narrow */
+.demo-split, #demo, section#demo .wrap, section.sec#demo{
+  max-width: min(var(--max, 920px), 100%) !important;
+}
+@media (min-width: 1024px){
+  .demo-split{
+    display: grid !important;
+    grid-template-columns: minmax(160px, 32%) minmax(0, 1fr) !important;
+    gap: 18px !important;
+    align-items: stretch !important;
+  }
+}
+#demoStage{
+  position: relative !important;
+  overflow: hidden !important;
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: min(520px, calc(100vh - 180px)) !important;
+  margin-inline: auto !important;
+}
+@media (min-width: 1024px){
+  #demoStage{
+    aspect-ratio: 1 / 1 !important;
+    max-height: min(480px, calc(100vh - 140px)) !important;
+  }
+}
+/* Text phase fills stage; device centered when active */
+#demoStage .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 20px !important;
+  z-index: 3 !important;
+  transition: opacity 280ms ease, visibility 280ms ease !important;
+}
+#demoStage .text-phase.hide,
+#demoStage.show-device .text-phase{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+#demoStage .device-layer{
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  transition: opacity 280ms ease, visibility 280ms ease !important;
+}
+#demoStage.show-device .device-layer{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+#demoStage #phone,
+#demoStage .iphone{
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: scale(var(--fit-s, 0.42)) !important;
+  transform-origin: center center !important;
+  max-height: none !important;
+}
+/* Keep arrows/hints usable */
+#demoStage .stage-top,
+#demoStage .stage-arrows{ z-index: 5 !important; }
+
 </style>
 </head>
 <body>
