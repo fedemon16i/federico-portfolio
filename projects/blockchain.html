@@ -4379,6 +4379,99 @@ html body .phone-rich{
   opacity: 1 !important;
 }
 
+
+/* === PROCESS CANVAS WIDTH FIX (QA: layout was 44px, canvas 0) === */
+html body .story-panel.on .mini-stage,
+html body .mini-stage{
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: min(440px, calc(100dvh - 150px)) !important;
+  min-height: 320px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  background: #1c1c1c !important;
+}
+html body .figma-bar{
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  height: 36px !important;
+  padding: 0 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: #2c2c2c !important;
+  border-bottom: 1px solid #1e1e1e !important;
+}
+html body .figma-layout{
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: calc(100% - 36px) !important;
+  min-height: 280px !important;
+  box-sizing: border-box !important;
+}
+html body .figma-tools-col{
+  width: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+}
+html body .figma-canvas,
+html body #figCanvas{
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  min-height: 280px !important;
+  overflow: hidden !important;
+  background: #1c1c1c !important;
+  background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1px) !important;
+  background-size: 14px 14px !important;
+}
+html body .phone-rich{
+  position: absolute !important;
+  display: flex !important;
+  flex-direction: column !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 2 !important;
+  box-sizing: border-box !important;
+}
+html body .phone-rich.dim{
+  opacity: 0.4 !important;
+}
+
+
+/* === DEMO split alignment === */
+@media (min-width: 900px){
+  html body .demo-split{
+    display: grid !important;
+    grid-template-columns: minmax(180px, 32%) minmax(0, 1fr) !important;
+    gap: 20px !important;
+    align-items: start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  html body .demo-copy{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  html body .demo-visual{
+    width: 100% !important;
+    min-width: 0 !important;
+    position: relative !important;
+    top: auto !important;
+  }
+}
+html body #demoStage{
+  width: 100% !important;
+  margin: 0 !important;
+}
+
 </style>
 </head>
 <body>
@@ -4724,11 +4817,11 @@ html body .phone-rich{
     <p class="eyebrow" style="margin-top:4px">Design · Figma</p>
     <h2 style="font-size:1.1rem">Screens as iPhone frames</h2>
     <p class="lede" style="margin-bottom:12px;font-size:14px">Same navigation language as the demo — top nav, map, drawers, CTAs, tab bar. Tap the tabs above to switch tools.</p>
-    <div class="stage mini-stage" style="min-height:0;margin-bottom:0;height:auto;padding:0;overflow:hidden">
+    <div class="stage mini-stage">
       <div class="figma-bar"><div class="logo"></div><span style="font-family:var(--font-mono);font-size:11px;color:#aaa">blockchains-poi · Drafts</span></div>
       <div class="figma-layout">
         <div class="figma-tools-col"><span class="on">V</span><span>F</span><span>R</span><span>T</span></div>
-        <div class="figma-canvas" id="figCanvas" style="height:320px;position:relative">
+        <div class="figma-canvas" id="figCanvas" class="figma-canvas">
           <!-- Map / Owner — matches proto nav -->
           <div class="phone-rich" id="pm1" style="left:6%;top:8%;width:28%;height:86%">
             <span class="fl">Map / Owner</span>

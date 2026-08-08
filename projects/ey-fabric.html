@@ -2416,6 +2416,39 @@ html body .capbar{
   pointer-events: none !important;
 }
 
+
+/* === EY PI mobile stage must exist + play === */
+@media (max-width: 899px){
+  html body .pi-split{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  html body .pi-visual,
+  html body #stage{
+    display: block !important;
+    width: 100% !important;
+    height: min(360px, 55dvh) !important;
+    min-height: 280px !important;
+    max-height: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: hidden !important;
+  }
+  html body #win{
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  html body #win .slide:not(.textslide){
+    padding: 10px 10px 48px !important;
+  }
+  html body #win .slide:not(.textslide) > div:first-child{
+    max-width: 94% !important;
+    max-height: 85% !important;
+  }
+}
+
 </style>
 </head>
 <body>
