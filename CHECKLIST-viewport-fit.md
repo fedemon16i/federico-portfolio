@@ -1,50 +1,66 @@
-# Portfolio fix checklist (2026-08-07)
+# Portfolio viewport checklist (updated)
 
-## Rules (non-negotiable)
+## Principle: full UI, not transparency
 
-1. **Descalar ≠ máscara**
-   - El UI de animación se diseña a tamaño fijo.
-   - Se aplica `scale = min(hostW/designW, hostH/designH)` (con pad chico ~4–8%).
-   - Debe verse **~90%+ del UI completo**, no un recorte con `overflow:hidden` como máscara.
+**Desescala (~90% del host)** = el mock/ventana de animación se **escala de forma uniforme** para que **todos sus elementos** (chrome, campos, botones, footer del mock) queden **visibles a la vez**.
 
-2. **Modal / stage mobile (skills, EY, BC, futuros)**
-   - Un **frame fijo** (casi viewport): siempre el mismo alto/ancho de panel.
-   - Controles + close **siempre visibles**.
-   - El contenido de adentro escala; el frame **no cambia** según el beat.
+- No es opacidad / fade.
+- No es recortar con `overflow: hidden` como máscara.
+- No es scroll interno dentro del mock (“hay que bajar para ver Deploy”).
+- Preferible **más chico y completo** que grande e incompleto.
 
-3. **Skills home**
-   - Web: OK (split).
-   - Mobile: aplicar regla 2.
+```
+scale = min(hostW / designW, hostH / designH)   // pad ~4–8%
+```
 
-4. **EY Fabric**
-   - Quitar el “cuadro interior” que limita el UI.
-   - Restaurar **ancho de página** al grid del home (`--max` / wrap coherente).
-   - Stage: desescalar el mock al host (regla 1).
+## Real viewports (recruiters)
 
-5. **Blockchains**
-   - Restaurar **ancho de secciones** (solo el hero se veía bien).
-   - Demo mobile: host **más cuadrado**.
-   - En el recuadro del demo: **texto primero a pantalla completa del stage**, después la animación del phone (no texto al lado en mobile).
+| Context | Reality |
+|---------|---------|
+| **Mac** | Más alto útil → stages pueden verse generosos |
+| **Windows Full HD** | A menudo **barra de tareas** + **Chrome con marcadores** → menos altura útil |
+| Target | Mac: excelente · Windows: **todo legible y completo**, aunque el mock sea menor |
 
-6. **Home bio (izquierda) — WEB**
-   - `position: sticky` / fixed bajo el nav.
-   - **Nunca desaparece** al scrollear.
-   - **Sin scroll interno**.
-   - Si baja el alto del viewport → **achicar** fotos, chips, gaps (scale/compact), no ocultar la columna.
+Usar **altura de viewport real** (`100dvh` / `100vh`) y presupuestos del tipo:
 
-## Preview map
+- Stage host ≈ `min(design ideal, 100dvh − nav − chrome del player − margen)`
+- Nunca asumir 1080px libres.
 
-| File | What to validate |
-|------|------------------|
-| `preview-G-descale-not-mask.html` | UI full via scale inside canvas |
-| `preview-H-mobile-modal-frame.html` | Fixed mobile modal frame + controls |
-| `preview-I-bc-text-then-device.html` | Text phase full stage → then phone |
-| `preview-J-bio-fixed-scale.html` | Bio stays; shrinks with height |
+## 1. Home · bio (web)
 
-## Implementation order (after previews OK)
+- [ ] Columna **fija**; solo scrollea la derecha
+- [ ] Ancho estable en FHD Windows (~240–280px)
+- [ ] Sin scroll interno; si baja el alto → comprimir componentes
+- [ ] Mobile: bio en flujo; fotos/story en **modal con close**
 
-1. Bio fixed + height-compact CSS on `index.html`
-2. Skill modal mobile frame lock
-3. Shared `fitScale(host, root, dw, dh, padRatio)` only on marked `[data-fit-root]`
-4. EY width + stage fit
-5. BC section width + text-then-device + square host
+## 2. Home · skill modals
+
+- [ ] Web: split chrome ~28–34% · stage el resto (ya cerca)
+- [ ] Mobile: **frame fijo**; close + play + pills siempre visibles
+- [ ] Mock dentro del stage: **UI completo** vía scale (sin scroll interno)
+
+## 3. EY Fabric · Product Intelligence
+
+- [ ] Proporción tipo skill modal (chrome izq · stage der en web)
+- [ ] Sin “cajita” de texto que robe espacio al mock dentro del canvas
+- [ ] Mock **completo** en el stage (desescala, no máscara)
+- [ ] Ancho de página = grid del sitio (`--max` ~920)
+
+## 4. Blockchains · demo
+
+- [ ] Secciones con wrap ~920 (no full-bleed roto)
+- [ ] Stage no “desierto” ancho → phone diminuto
+- [ ] Phone **grande y completo** (scale al host)
+- [ ] Texto **primero** a full stage → después device
+- [ ] Controles siempre usables
+
+## 5. Global stages (skills / EY / BC / futuros)
+
+- [ ] Frame estable en mobile (no cambia por beat)
+- [ ] Controles + close siempre visibles
+- [ ] **Cero scroll interno** en el UI animado
+- [ ] Presupuesto de altura pensando en **Windows + Chrome bookmarks**
+
+## Out of scope (unless asked)
+
+Chek · design-system page polish · resume · contact
