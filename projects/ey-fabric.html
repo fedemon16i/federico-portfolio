@@ -2349,108 +2349,6 @@ html body .top-nav-drop-menu a{
   padding: 8px 12px !important;
 }
 
-/* === EY PI stage language (window on canvas) === */
-html body .pi-visual,
-html body #stage{
-  position: relative !important;
-  overflow: hidden !important;
-  border-radius: 14px !important;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
-    #0c0b0a !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
-}
-/* Host transparent — not a second gray box */
-html body #win{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-}
-/* Narrative full stage */
-html body #win .slide.textslide{
-  background: transparent !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-}
-/* Prototype: centered floating window */
-html body #win .slide:not(.textslide){
-  background: transparent !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 16px 16px 56px !important;
-  box-sizing: border-box !important;
-}
-html body #win .slide:not(.textslide) > div:first-child{
-  border-radius: 12px !important;
-  box-shadow: 0 18px 48px rgba(0,0,0,.5) !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  max-width: min(560px, 92%) !important;
-  max-height: min(320px, 78%) !important;
-  overflow: hidden !important;
-  background: #171614 !important;
-}
-/* Caption: gradient only — kill solid gray bar */
-html body .capbar{
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  z-index: 50 !important;
-  padding: 32px 16px 14px !important;
-  min-height: 0 !important;
-  border: none !important;
-  border-top: none !important;
-  background: linear-gradient(to top, rgba(12,11,10,.96) 35%, transparent) !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  pointer-events: none !important;
-}
-
-
-/* === EY PI mobile stage must exist + play === */
-@media (max-width: 899px){
-  html body .pi-split{
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-  }
-  html body .pi-visual,
-  html body #stage{
-    display: block !important;
-    width: 100% !important;
-    height: min(360px, 55dvh) !important;
-    min-height: 280px !important;
-    max-height: none !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    overflow: hidden !important;
-  }
-  html body #win{
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
-  html body #win .slide:not(.textslide){
-    padding: 10px 10px 48px !important;
-  }
-  html body #win .slide:not(.textslide) > div:first-child{
-    max-width: 94% !important;
-    max-height: 85% !important;
-  }
-}
-
-
-
 /* =====================================================================
    DESIGN SYSTEM TOKENS — Portfolio animation motor
    Source of truth for skills · EY PI · Demo · Process
@@ -3023,6 +2921,471 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
     min-height: 200px !important;
     width: 100% !important;
   }
+}
+
+
+/* =====================================================================
+   MOTOR FINAL OVERRIDE v4 — center + SCALE to show full UI
+   ===================================================================== */
+
+/* Measure */
+html body .page,
+html body .top-nav-inner,
+html body .wrap{
+  max-width: 920px !important;
+  box-sizing: border-box !important;
+}
+
+/* Stage shell */
+html body #stage.stage,
+html body .pi-visual,
+html body #demoStage{
+  position: relative !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  box-sizing: border-box !important;
+  background:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+    #0c0b0a !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+
+/* Caption flush */
+html body .capbar,
+html body #stage .capbar{
+  position: absolute !important;
+  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100% !important; margin: 0 !important; border: 0 !important;
+  box-sizing: border-box !important;
+  padding: 36px 16px 14px !important;
+  text-align: center !important;
+  z-index: 60 !important;
+  pointer-events: none !important;
+  background: linear-gradient(to top, rgba(12,11,10,.98) 0%, rgba(12,11,10,.9) 42%, transparent 100%) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* DEMO text-phase: FULL stage width, content centered — never max-width on the layer */
+html body #textPhase,
+html body .text-phase{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  inset: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 28px 24px !important;
+  box-sizing: border-box !important;
+  z-index: 25 !important;
+}
+html body #textPhase.hide,
+html body .text-phase.hide{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html body #textPhase .main,
+html body .text-phase .main{
+  max-width: min(36rem, 92%) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  font-size: clamp(16px, 2.6vw, 22px) !important;
+  line-height: 1.4 !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+html body #textPhase .sub,
+html body .text-phase .sub{
+  max-width: min(32rem, 90%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+html body #textPhase .kicker,
+html body .text-phase .kicker{
+  text-align: center !important;
+}
+
+/* Fit host for scalable UI (skills + EY) */
+html body #stage .slide,
+html body .stage .slide,
+html body #win .slide:not(.textslide){
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 12px 58px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+/* Scale target: keep intrinsic size, JS applies transform scale */
+html body #stage .slide > [data-fit],
+html body #stage .slide > .fit-target,
+html body #win .slide:not(.textslide) > div:first-child{
+  transform-origin: center center !important;
+  max-width: none !important;
+  max-height: none !important;
+  /* JS sets --fit-s; fallback mild contain */
+  transform: scale(var(--fit-s, 1)) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  background: #171614 !important;
+}
+html body #win{
+  position: absolute !important; inset: 0 !important;
+  background: transparent !important; border: 0 !important; box-shadow: none !important;
+}
+
+/* Prog */
+html body .prog{
+  flex: 0 0 auto !important;
+  height: 3px !important; max-height: 3px !important; min-height: 3px !important;
+  width: 100% !important;
+}
+
+/* DEMO layout */
+html body .demo-split{
+  display: grid !important;
+  grid-template-columns: minmax(150px, 28%) minmax(0, 1fr) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+  width: 100% !important;
+}
+html body .demo-visual{
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: min(460px, calc(100dvh - 150px)) !important;
+}
+html body #demoStage{
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px !important;
+}
+html body #deviceLayer{
+  position: absolute !important;
+  left: 0 !important; right: 0 !important;
+  top: 36px !important; bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+html body #deviceLayer:not(.show){
+  opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
+}
+html body #deviceLayer.show{
+  opacity: 1 !important; visibility: visible !important;
+}
+html body #phone,
+html body #phone.iphone.on{
+  position: relative !important;
+  left: auto !important; top: auto !important;
+  transform: scale(var(--phone-s, 1)) !important;
+  transform-origin: center center !important;
+  aspect-ratio: 9 / 19.5 !important;
+  height: auto !important;
+  width: min(260px, 70%) !important;
+  border-radius: 36px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #0a0f1a !important;
+  box-shadow: 0 0 0 2px #1a1a1a, 0 0 0 4px rgba(255,255,255,.06), 0 20px 40px rgba(0,0,0,.45) !important;
+  box-sizing: border-box !important;
+}
+
+/* Process */
+html body .figma-layout{
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) !important;
+  width: 100% !important;
+  min-height: 280px !important;
+}
+html body .figma-canvas{ width: 100% !important; min-width: 0 !important; height: 100% !important; position: relative !important; }
+html body .phone-rich{ position: absolute !important; display: flex !important; opacity: 1 !important; visibility: visible !important; }
+
+@media (max-width: 899px){
+  html body .demo-split{ display: flex !important; flex-direction: column !important; }
+  html body .demo-visual, html body #demoStage{
+    height: min(420px, 58dvh) !important; min-height: 280px !important;
+  }
+  html body .stage-arrow, html body .stage-nav-arrow{
+    width: 28px !important; height: 28px !important; opacity: 0.5 !important;
+    background: rgba(14,13,12,.4) !important;
+  }
+  html body .pi-visual, html body #stage{
+    height: min(320px, 48dvh) !important; min-height: 240px !important;
+  }
+}
+
+
+/* =====================================================================
+   MOTOR FINAL OVERRIDE v5 — uniform scale + row controls + flush caption
+   ===================================================================== */
+html body .page, html body .top-nav-inner, html body .wrap{
+  max-width: 920px !important; box-sizing: border-box !important;
+}
+
+/* Stage */
+html body #stage.stage, html body .pi-visual, html body #demoStage{
+  position: relative !important; padding: 0 !important; overflow: hidden !important;
+  border-radius: 16px !important; box-sizing: border-box !important;
+  background:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+    #0c0b0a !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+
+/* Caption flush */
+html body .capbar, html body #stage .capbar{
+  position: absolute !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100% !important; margin: 0 !important; border: 0 !important;
+  box-sizing: border-box !important; padding: 36px 16px 14px !important;
+  text-align: center !important; z-index: 60 !important; pointer-events: none !important;
+  background: linear-gradient(to top, rgba(12,11,10,.98) 0%, rgba(12,11,10,.9) 42%, transparent 100%) !important;
+  backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* Text phase full width centered */
+html body #textPhase, html body .text-phase{
+  position: absolute !important; inset: 0 !important; width: 100% !important; max-width: none !important;
+  display: flex !important; flex-direction: column !important; align-items: center !important;
+  justify-content: center !important; text-align: center !important;
+  padding: 28px 24px !important; box-sizing: border-box !important; z-index: 25 !important;
+  margin: 0 !important;
+}
+html body #textPhase.hide, html body .text-phase.hide{
+  opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
+}
+html body #textPhase .main, html body .text-phase .main{
+  max-width: min(36rem, 92%) !important; width: 100% !important; margin: 0 auto !important;
+  font-size: clamp(16px, 2.6vw, 22px) !important; line-height: 1.4 !important; text-align: center !important;
+}
+
+/* Slides center content */
+html body #stage .slide, html body .stage .slide, html body #win .slide:not(.textslide){
+  position: absolute !important; inset: 0 !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  padding: 12px 12px 58px !important; box-sizing: border-box !important; overflow: hidden !important;
+  background: transparent !important;
+}
+html body #win{ position: absolute !important; inset: 0 !important; background: transparent !important; border: 0 !important; box-shadow: none !important; }
+
+/* Scale targets — natural size, JS sets uniform scale */
+html body #win .slide:not(.textslide) > div:first-child,
+html body #stage .slide > div:not(.capbar):not(.cur):not(#cur){
+  transform-origin: center center !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+}
+
+/* Prog 3px */
+html body .prog{
+  flex: 0 0 auto !important; height: 3px !important; max-height: 3px !important; min-height: 3px !important; width: 100% !important;
+}
+
+/* Controls ROW — not stacked */
+html body .controls-top,
+html body .controls{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+html body .controls-top .ctl,
+html body .controls .ctl,
+html body .ctl{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
+  padding: 0 14px !important;
+  font-size: 12px !important;
+  border-radius: 100px !important;
+}
+html body .controls-top .beatpills,
+html body .beatpills{
+  display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; gap: 6px !important;
+}
+
+/* Stage arrows — subtle, not huge */
+html body .stage-arrow,
+html body .stage-nav-arrow{
+  width: 28px !important; height: 28px !important;
+  opacity: 0.55 !important;
+  background: rgba(14,13,12,.45) !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+}
+html body .btn-pause,
+html body #btnPause{
+  font-size: 11px !important;
+  height: 28px !important;
+  padding: 0 12px !important;
+  opacity: 0.85 !important;
+}
+
+/* DEMO */
+html body .demo-split{
+  display: grid !important;
+  grid-template-columns: minmax(150px, 28%) minmax(0, 1fr) !important;
+  gap: 16px !important; align-items: stretch !important; width: 100% !important;
+}
+html body .demo-visual{
+  position: relative !important; width: 100% !important; min-width: 0 !important;
+  height: min(460px, calc(100dvh - 150px)) !important;
+}
+html body #demoStage{ position: relative !important; width: 100% !important; height: 100% !important; min-height: 300px !important; }
+html body #deviceLayer{
+  position: absolute !important; left: 0 !important; right: 0 !important; top: 36px !important; bottom: 0 !important;
+  display: flex !important; align-items: center !important; justify-content: center !important; overflow: hidden !important;
+}
+html body #deviceLayer:not(.show){ opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+html body #deviceLayer.show{ opacity: 1 !important; visibility: visible !important; }
+html body #phone, html body #phone.iphone.on{
+  position: relative !important; left: auto !important; top: auto !important;
+  transform-origin: center center !important;
+  aspect-ratio: 9 / 19.5 !important;
+  width: 220px !important; height: auto !important;
+  border-radius: 36px !important; overflow: hidden !important;
+  display: flex !important; flex-direction: column !important;
+  background: #0a0f1a !important;
+  box-shadow: 0 0 0 2px #1a1a1a, 0 0 0 4px rgba(255,255,255,.06), 0 20px 40px rgba(0,0,0,.45) !important;
+  box-sizing: border-box !important;
+}
+
+/* Process */
+html body .figma-layout{
+  display: grid !important; grid-template-columns: 44px minmax(0, 1fr) !important;
+  width: 100% !important; min-height: 280px !important;
+}
+html body .figma-canvas{ width: 100% !important; min-width: 0 !important; height: 100% !important; position: relative !important; }
+html body .phone-rich{ position: absolute !important; display: flex !important; opacity: 1 !important; visibility: visible !important; }
+
+@media (max-width: 899px){
+  html body .demo-split{ display: flex !important; flex-direction: column !important; }
+  html body .demo-visual, html body #demoStage{ height: min(420px, 58dvh) !important; min-height: 280px !important; }
+  html body .pi-visual, html body #stage{ height: min(320px, 48dvh) !important; min-height: 240px !important; }
+}
+/* Skill panel: keep controls as row even on desktop grid */
+@media (min-width: 960px){
+  html body .controls-top{
+    flex-direction: row !important; flex-wrap: wrap !important;
+  }
+}
+
+
+
+/* --- unit scale: radius+chrome scale with transform (v5.2) --- */
+html body #win .slide:not(.textslide){
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 12px 58px !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+html body #win .slide:not(.textslide) > div:first-child{
+  /* fixed natural design size — do NOT shrink width in layout */
+  width: 400px !important;
+  height: 300px !important;
+  max-width: none !important;
+  max-height: none !important;
+  aspect-ratio: auto !important;
+  border-radius: 12px !important;
+  transform-origin: center center !important;
+  /* --fit-s set by JS; entire unit including radius scales */
+  transform: scale(var(--fit-s, 1)) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+html body #phone,
+html body #phone.iphone.on{
+  width: 220px !important;
+  height: auto !important;
+  aspect-ratio: 9 / 19.5 !important;
+  border-radius: 36px !important;
+  transform-origin: center center !important;
+  transform: scale(var(--phone-s, 1)) !important;
+  flex-shrink: 0 !important;
+}
+
+
+/* --- radii tokens + clamp + mq (v5.3) --- */
+:root{
+  /* Natural design radii (inside scaled units these scale via transform) */
+  --r-window: 12px;
+  --r-phone: 36px;
+  --r-win-cell: 8px;
+  --r-traffic: 10px;
+  /* Stage / page chrome — clamp so they ease on small viewports without transform */
+  --r-stage: clamp(10px, 1.2vw + 8px, 16px);
+  --r-panel: clamp(12px, 1.4vw + 10px, 20px);
+  --r-pill: clamp(14px, 1vw + 12px, 100px);
+  --r-arrow: clamp(14px, 0.8vw + 12px, 28px);
+}
+@media (max-width: 600px){
+  :root{
+    --r-stage: 12px;
+    --r-panel: 14px;
+    /* natural unit radii stay; scale() handles visual size */
+  }
+}
+@media (min-width: 1400px){
+  :root{
+    --r-stage: 16px;
+    --r-panel: 20px;
+  }
+}
+
+/* Apply tokens to stage chrome */
+html body #stage.stage,
+html body .pi-visual,
+html body #demoStage{
+  border-radius: var(--r-stage) !important;
+}
+html body .stage-panel{
+  border-radius: var(--r-panel) !important;
+}
+html body .ctl,
+html body .controls .ctl,
+html body .controls-top .ctl{
+  border-radius: var(--r-pill) !important;
+}
+html body .stage-arrow,
+html body .stage-nav-arrow{
+  width: var(--r-arrow) !important;
+  height: var(--r-arrow) !important;
+  border-radius: 50% !important;
+}
+
+/* Scaled units: fixed natural radius — transform scales them visually */
+html body #win .slide:not(.textslide) > div:first-child{
+  border-radius: var(--r-window) !important;
+}
+html body #phone,
+html body #phone.iphone.on{
+  border-radius: var(--r-phone) !important;
 }
 
 </style>
@@ -4104,6 +4467,59 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
     new MutationObserver(sync).observe(text, {attributes:true, attributeFilter:['class']});
   }
   setInterval(sync, 800);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+(function(){
+  function fitUnit(el, host, padY, cssVar){
+    if(!el || !host) return;
+    // measure at scale 1
+    el.style.setProperty(cssVar || '--fit-s', '1');
+    el.style.setProperty('transform', 'scale(1)', 'important');
+    var rw = el.offsetWidth;
+    var rh = el.offsetHeight;
+    if(rw < 8 || rh < 8) return;
+    var aw = Math.max(host.clientWidth - 20, 40);
+    var ah = Math.max(host.clientHeight - (padY || 56), 40);
+    var s = Math.min(1, aw / rw, ah / rh);
+    if(s < 0.35) s = 0.35;
+    el.style.setProperty(cssVar || '--fit-s', String(s));
+    el.style.setProperty('transform', 'scale(' + s + ')', 'important');
+    el.style.setProperty('transform-origin', 'center center', 'important');
+  }
+  function fitAll(){
+    document.querySelectorAll('#win .slide:not(.textslide)').forEach(function(slide){
+      var t = slide.firstElementChild;
+      if(t) fitUnit(t, slide, 64, '--fit-s');
+    });
+    document.querySelectorAll('#stage .slide').forEach(function(slide){
+      var t = null;
+      for(var i=0;i<slide.children.length;i++){
+        var c = slide.children[i];
+        if(c.classList.contains('capbar') || c.classList.contains('cur') || c.id==='cur') continue;
+        t = c; break;
+      }
+      if(t) fitUnit(t, slide, 64, '--fit-s');
+    });
+    var layer = document.getElementById('deviceLayer');
+    var phone = document.getElementById('phone');
+    if(layer && phone) fitUnit(phone, layer, 12, '--phone-s');
+  }
+  window.__fitStages = fitAll;
+  window.addEventListener('resize', fitAll);
+  setInterval(fitAll, 700);
+  [0,150,400,900,1800].forEach(function(t){ setTimeout(fitAll, t); });
+  if(window.MutationObserver){
+    try{ new MutationObserver(function(){ setTimeout(fitAll, 40); }).observe(document.body,{attributes:true,childList:true,subtree:true}); }catch(e){}
+  }
 })();
 </script>
 
