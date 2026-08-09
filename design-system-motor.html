@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Design System — Motion</title>
+<style>
+:root{--bg:#0e0d0c;--text:#f2f0ec;--muted:#a6a29a;--bc:#22d4c8;--accent:#e8a87c;--border:rgba(255,255,255,.1)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,sans-serif;padding:32px 20px 80px;max-width:820px;margin-inline:auto;line-height:1.55}
+.kicker{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:28px;margin:8px 0 12px;letter-spacing:-.02em}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--bc);margin:36px 0 12px;padding-top:8px;border-top:1px solid var(--border)}
+p,li{font-size:14px;color:#c8c4bc}
+code{font-size:12px;color:var(--bc)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0 8px}
+th,td{border:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:500}
+.tag{display:inline-block;font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--border);color:var(--muted);margin-right:6px}
+</style></head><body>
+<p class="kicker">Design system · motion</p>
+<h1>Animation motor</h1>
+<p>One CSS marker per page: <code>MOTOR SAFE v6</code>. Skills, EY, and Blockchains share caption language; each keeps its own animation engine.</p>
+
+<h2>Shared rules</h2>
+<ul>
+<li><b>Caption</b> — <code>left/right/bottom: 0</code>, gradient + blur, stage <code>padding: 0</code>.</li>
+<li><b>Measure</b> — content max <code>920px</code>.</li>
+<li><b>Controls</b> — row, ~32px pills, arrows ~28px @ 55% opacity, prog 3px.</li>
+<li><b>Viewport</b> — <code>width=device-width, initial-scale=1, viewport-fit=cover</code>.</li>
+</ul>
+
+<h2>Per surface</h2>
+<table>
+<tr><th>Surface</th><th>Does</th><th>Must not</th></tr>
+<tr>
+  <td>Home skills <code>#stage</code></td>
+  <td>Caption flush, control row, prog 3px</td>
+  <td>Any <code>transform</code> / fixed size on slide UI (breaks skill animations)</td>
+</tr>
+<tr>
+  <td>EY PI <code>#win</code></td>
+  <td>Canvas grid, caption, soft max-width/height on mocks</td>
+  <td>Forced 400×300 or <code>scale()</code> on mocks</td>
+</tr>
+<tr>
+  <td>BC Demo</td>
+  <td>Full-stage text phase, phone 9∶19.5, subtle arrows</td>
+  <td><code>max-width:420px</code> on text layer; hijack phone motion</td>
+</tr>
+<tr>
+  <td>BC Process</td>
+  <td>Canvas grid <code>44px minmax(0,1fr)</code></td>
+  <td>Rewrite Process player</td>
+</tr>
+</table>
+
+<h2>Tokens</h2>
+<table>
+<tr><th>Token</th><th>Use</th></tr>
+<tr><td>Stage radius</td><td>~16px</td></tr>
+<tr><td>Window radius</td><td>12px</td></tr>
+<tr><td>Phone radius</td><td>36px</td></tr>
+<tr><td>Phone ratio</td><td>9 / 19.5</td></tr>
+</table>
+
+<h2>Incident log</h2>
+<p>Stacked global overrides applied <code>transform: scale</code> to skill slide children and hid animations. Safe v6 scopes rules per page and never touches skill transforms.</p>
+
+<p><span class="tag">skills</span><span class="tag">ey-fabric</span><span class="tag">blockchains</span></p>
+</body></html>
