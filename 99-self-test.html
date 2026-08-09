@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Motor self-test</title>
+<style>
+body{margin:0;background:#0e0d0c;color:#f2f0ec;font-family:system-ui;padding:16px}
+h1{font-size:14px;color:#a6a29a;text-transform:uppercase;letter-spacing:.08em}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:960px}
+@media(max-width:700px){.row{grid-template-columns:1fr}}
+.stage{position:relative;height:360px;border-radius:16px;overflow:hidden;padding:0;margin:0;
+  background:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px),#0c0b0a;background-size:20px 20px}
+.win{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);max-width:90%;max-height:70%;
+  width:min(420px,90%);background:#171614;border:1px solid rgba(255,255,255,.14);border-radius:12px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5);overflow:hidden}
+.win-h{height:28px;background:#1c1b19;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px;color:#888;display:flex;align-items:center;padding:0 10px}
+.win-b{padding:16px;font-size:12px;color:#a6a29a}
+.cap{position:absolute;left:0;right:0;bottom:0;width:100%;margin:0;border:0;box-sizing:border-box;
+  padding:36px 18px 16px;text-align:center;font-size:14px;
+  background:linear-gradient(to top,rgba(12,11,10,.98) 0%,rgba(12,11,10,.92) 40%,transparent 100%);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.cap b{color:#e8a87c}
+.demo{display:grid;grid-template-columns:28% 1fr;gap:16px;max-width:920px;margin-top:24px}
+.demo-vis{height:400px;position:relative}
+.phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);aspect-ratio:9/19.5;height:88%;width:auto;
+  border-radius:36px;background:#0a0f1a;box-shadow:0 0 0 2px #1a1a1a,0 0 0 4px rgba(255,255,255,.06),0 20px 40px rgba(0,0,0,.45);
+  display:flex;align-items:center;justify-content:center;font-size:11px;color:#22d4c8}
+.ok{color:#3dd68c;font-size:12px;margin-top:8px}
+</style></head><body>
+<h1>Self-test — caption flush + window contain + phone ratio</h1>
+<div class="row">
+  <div>
+    <div class="stage" id="s1">
+      <div class="win"><div class="win-h">product · /deploy</div><div class="win-b">Instance · Region · Deploy — all fields visible</div></div>
+      <div class="cap">Each field is a <b>measurable</b> step.</div>
+    </div>
+    <p class="ok" id="r1">measuring…</p>
+  </div>
+  <div>
+    <div class="stage" id="s2">
+      <div class="phone">9∶19.5</div>
+    </div>
+    <p class="ok" id="r2">measuring…</p>
+  </div>
+</div>
+<script>
+function box(el){const r=el.getBoundingClientRect();return {l:r.left,r:r.right,t:r.top,b:r.bottom,w:r.width,h:r.height}}
+const s1=document.getElementById('s1'), cap=s1.querySelector('.cap'), win=s1.querySelector('.win');
+const bs=box(s1), bc=box(cap), bw=box(win);
+const flushLeft = Math.abs(bc.l - bs.l) < 2;
+const flushBottom = Math.abs(bc.b - bs.b) < 2;
+const winInside = bw.l >= bs.l-1 && bw.r <= bs.r+1 && bw.b <= bc.t+4;
+document.getElementById('r1').textContent =
+  (flushLeft?'✓ cap left flush':'✗ cap left offset '+Math.round(bc.l-bs.l))+' · '+
+  (flushBottom?'✓ cap bottom flush':'✗ gap under cap '+Math.round(bs.b-bc.b))+' · '+
+  (winInside?'✓ win inside stage':'✗ win overflows');
+const phone=document.querySelector('.phone'), sp=box(document.getElementById('s2')), bp=box(phone);
+const ratio = bp.h/bp.w;
+document.getElementById('r2').textContent =
+  'ratio '+ratio.toFixed(2)+' (target ~2.17) · '+
+  (ratio>2.0 && ratio<2.4?'✓ phone proportion':'✗ bad proportion')+' · '+
+  (bp.h <= sp.h*0.95?'✓ fits stage':'✗ taller than stage');
+</script>
+</body></html>
