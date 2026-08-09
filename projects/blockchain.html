@@ -4497,6 +4497,27 @@ html body #demoStage #phone.iphone.on{
   box-sizing: border-box !important;
 }
 
+
+/* === DEMO PHONE RATIO FIX === */
+html body #demoStage #phone,
+html body #demoStage #phone.iphone.on,
+html body #demoStage .iphone.on{
+  display: flex !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  aspect-ratio: 9 / 19.5 !important;
+  border-radius: 36px !important; /* iPhone-like, not stadium */
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  background: #0a0f1a !important;
+  box-shadow:
+    0 0 0 2px #1a1a1a,
+    0 0 0 4px rgba(255,255,255,.06),
+    0 24px 48px rgba(0,0,0,.45) !important;
+}
+
 </style>
 </head>
 <body>

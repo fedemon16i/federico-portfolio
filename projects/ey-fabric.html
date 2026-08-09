@@ -2515,6 +2515,56 @@ html body .capbar{
   }
 }
 
+
+/* === EY PI UI WINDOW (must be a window, not edge-bleed) === */
+html body #win .slide:not(.textslide){
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px 16px 52px !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+html body #win .slide:not(.textslide) > div:first-child{
+  width: min(560px, 92%) !important;
+  max-height: min(300px, 80%) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,.55) !important;
+  overflow: hidden !important;
+  background: #171614 !important;
+  box-sizing: border-box !important;
+}
+html body #win{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+html body .pi-visual,
+html body #stage{
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    #0c0b0a !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+html body .capbar{
+  background: linear-gradient(to top, rgba(12,11,10,.96) 35%, transparent) !important;
+  border: none !important;
+}
+@media (max-width: 899px){
+  html body .pi-visual,
+  html body #stage{
+    height: min(340px, 52dvh) !important;
+    min-height: 260px !important;
+    width: 100% !important;
+  }
+  html body #win .slide:not(.textslide) > div:first-child{
+    width: 94% !important;
+    max-height: 78% !important;
+  }
+}
+
 </style>
 </head>
 <body>
