@@ -1,37 +1,21 @@
-# Animation motor — current rules
+# Animation motor — SAFE v6
 
-## Unit scale (window + phone)
+## Diagnostic result (pre-fix)
 
-Fixed natural size. Fit only with:
+- Multiple leftover `#win .slide > div:first-child` rules with aspect/transform from older motors.
+- Skills broke when transforms were applied to `#stage` slide children.
+- Caption misaligned from competing `.capbar` blocks.
 
-```
-s = min(1, availW/natW, availH/natH)
-transform: scale(s)
-```
+## Policy
 
-| Unit | Natural | `--r-*` |
-|------|---------|---------|
-| Window | 400×300 (4∶3) | `--r-window: 12px` |
-| Phone | 220px · 9∶19.5 | `--r-phone: 36px` |
+| Page | Marker | Scope |
+|------|--------|--------|
+| `index.html` | MOTOR SAFE v6 — HOME SKILLS | caption, prog, controls only |
+| `ey-fabric.html` | MOTOR SAFE v6 — EY FABRIC PI | stage, caption, soft contain |
+| `blockchain.html` | MOTOR SAFE v6 — BLOCKCHAINS DEMO | text-phase, phone aspect, process grid |
 
-Radius/chrome **inside** the unit scale via `transform` (visual radius ≈ `12 × s`).  
-Do not shrink layout width while leaving radius fixed in px.
+**Never** force `transform` on Home skill slide UI.
 
-## Stage chrome radii (not inside scaled unit)
+## Design system page
 
-```css
---r-stage: clamp(10px, 1.2vw + 8px, 16px);
---r-panel: clamp(12px, 1.4vw + 10px, 20px);
---r-pill: clamp(14px, 1vw + 12px, 100px);
---r-arrow: clamp(14px, 0.8vw + 12px, 28px);
-```
-
-Media queries nudge stage/panel on very small or very large viewports. They do **not** replace unit `scale(s)`.
-
-## Caption · text phase · controls · measure
-
-Unchanged: flush caption, full-stage text, row controls + pause, 920px max, `s ≤ 1` on hi-DPI.
-
-## Previews
-
-`R00-index`, `ALL-RULES`, `R01`…`R08`, `R03b-radius-scales`, `R03c-radius-tokens`.
+Use `design-system-motor.html` content under Design System → Motion (or replace that section).
