@@ -9,7 +9,7 @@
   })();
 </script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Federico Monroy — UX Strategist &amp; Behavioral Analytics</title>
 <meta name="description" content="Sr. UX Strategist. I understand the product first, find what breaks with analytics, research who it breaks for, design by hand or with AI, ship it, and keep measuring.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2946,31 +2946,171 @@ section.sec > .wrap,
 
 
 
-/* === SKILL MODAL FIX v2 — prog bar + stage fill === */
-html body .stagezone{
-  padding: 12px !important;
+
+/* =====================================================================
+   DESIGN SYSTEM TOKENS — Portfolio animation motor
+   Source of truth for skills · EY PI · Demo · Process
+   ===================================================================== */
+:root{
+  /* Measure */
+  --ds-max: 920px;
+  --ds-pad-x: clamp(20px, 4vw, 28px);
+  --ds-section-y: clamp(48px, 8vw, 88px);
+
+  /* Surfaces */
+  --ds-bg: #0e0d0c;
+  --ds-panel: #141210;
+  --ds-stage: #0c0b0a;
+  --ds-raised: #1c1b19;
+  --ds-border: rgba(255,255,255,.12);
+  --ds-border-soft: rgba(255,255,255,.08);
+
+  /* Type */
+  --ds-text: #f2f0ec;
+  --ds-muted: #a6a29a;
+  --ds-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ds-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Accents */
+  --ds-accent: #e8a87c;
+  --ds-ey: #ffe600;
+  --ds-bc: #22d4c8;
+  --ds-danger: #e05c4a;
+  --ds-ok: #3dd68c;
+
+  /* Stage / window */
+  --ds-stage-radius: 16px;
+  --ds-win-radius: 12px;
+  --ds-win-ratio: 16 / 10;
+  --ds-phone-ratio: 9 / 19.5;
+  --ds-phone-radius: 36px;
+  --ds-grid-size: 20px;
+
+  /* Motion */
+  --ds-ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ds-ease-spring: cubic-bezier(.34, 1.3, .64, 1);
+  --ds-dur-fast: 220ms;
+  --ds-dur: 480ms;
+  --ds-dur-slow: 720ms;
+
+  /* Caption */
+  --ds-cap-pad: 32px 16px 14px;
+  --ds-cap-fade: rgba(12,11,10,.97);
+}
+
+/* ---- Global measure ---- */
+html body .page,
+html body .top-nav-inner{
+  max-width: var(--ds-max) !important;
   box-sizing: border-box !important;
 }
-html body .stage-panel{
-  width: min(920px, 96vw) !important;
-  max-width: 96vw !important;
-  max-height: min(90vh, 900px) !important;
-  padding: 16px !important;
-  box-sizing: border-box !important;
+html body .top-nav-inner{
+  padding-left: var(--ds-pad-x) !important;
+  padding-right: var(--ds-pad-x) !important;
+}
+html body .nav-projects-btn,
+html body .nav-projects-toggle{
+  white-space: nowrap !important;
+}
+
+/* ---- Stage canvas language ---- */
+.ds-stage,
+html body #stage.stage,
+html body .pi-visual,
+html body #demoStage{
+  position: relative !important;
   overflow: hidden !important;
+  border-radius: var(--ds-stage-radius) !important;
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    var(--ds-stage) !important;
+  background-size: var(--ds-grid-size) var(--ds-grid-size), var(--ds-grid-size) var(--ds-grid-size), auto !important;
 }
-/* CRITICAL: prog must NOT flex-grow when controls stack */
+
+/* Product UI window — proportional, not edge-bleed */
+.ds-win,
+html body #win .slide:not(.textslide) > div:first-child{
+  aspect-ratio: var(--ds-win-ratio);
+  width: min(560px, 82%) !important;
+  max-height: 62% !important;
+  height: auto !important;
+  border-radius: var(--ds-win-radius) !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,.55) !important;
+  background: #171614 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+html body #win .slide:not(.textslide){
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px 16px 56px !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+html body #win{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Caption — gradient + blur (skills + EY) */
+html body .capbar,
+html body #stage .capbar,
+html body .cap{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  border: none !important;
+  box-sizing: border-box !important;
+  padding: var(--ds-cap-pad) !important;
+  text-align: center !important;
+  pointer-events: none !important;
+  background: linear-gradient(to top, var(--ds-cap-fade) 32%, transparent) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  z-index: 50 !important;
+}
+
+/* Phone device */
+html body #demoStage #phone,
+html body #demoStage #phone.iphone.on,
+html body #demoStage .iphone.on{
+  display: flex !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  aspect-ratio: var(--ds-phone-ratio) !important;
+  border-radius: var(--ds-phone-radius) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  background: #0a0f1a !important;
+  box-shadow:
+    0 0 0 2px #1a1a1a,
+    0 0 0 4px rgba(255,255,255,.06),
+    0 24px 48px rgba(0,0,0,.45) !important;
+}
+
+/* Skill modal — prog never grows */
 html body .prog,
 html body .controls-top .prog,
 html body .controls .prog{
   flex: 0 0 auto !important;
   width: 100% !important;
-  max-width: 100% !important;
   height: 3px !important;
   min-height: 3px !important;
   max-height: 3px !important;
-  align-self: stretch !important;
-  background: var(--bg-raised, #2a2826) !important;
+  background: var(--ds-raised, #2a2826) !important;
   border-radius: 2px !important;
   overflow: hidden !important;
 }
@@ -2979,34 +3119,16 @@ html body #progBar{
   display: block !important;
   height: 100% !important;
   max-height: 3px !important;
-  background: var(--accent, #e8a87c) !important;
 }
-html body .controls-top{
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: stretch !important;
-  gap: 8px !important;
-  flex-wrap: nowrap !important;
-}
-html body .controls-top .ctl{
-  width: 100% !important;
-  justify-content: center !important;
-  box-sizing: border-box !important;
-}
-html body .beatpills{
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  flex: 0 0 auto !important;
-}
-html body .step-cap{
-  flex: 0 0 auto !important;
-  font-size: 12px !important;
-}
+
+/* Skill panel grid */
 @media (min-width: 960px) and (min-height: 600px){
   html body .stage-panel{
     display: grid !important;
-    grid-template-columns: minmax(180px, 260px) minmax(0, 1fr) !important;
+    width: min(var(--ds-max), 96vw) !important;
+    max-height: min(90vh, 900px) !important;
+    overflow: hidden !important;
+    grid-template-columns: minmax(180px, 250px) minmax(0, 1fr) !important;
     grid-template-rows: auto auto minmax(0, 1fr) auto !important;
     grid-template-areas:
       "tag tag"
@@ -3023,40 +3145,113 @@ html body .step-cap{
     display: flex !important;
     flex-direction: column !important;
   }
-  html body #stage.stage,
-  html body .stage-persp #stage{
+  html body #stage.stage{
     flex: 1 1 auto !important;
     width: 100% !important;
     height: 100% !important;
     min-height: 0 !important;
     max-height: none !important;
-    margin: 0 !important;
   }
 }
-html body #stage.stage,
-html body .stage{
+html body .stage-panel{ overflow: hidden !important; }
+html body #stage .slide{ position: absolute !important; inset: 0 !important; box-sizing: border-box !important; }
+
+/* Process — canvas never 0 width */
+html body .figma-layout{
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) !important;
+  width: 100% !important;
+  height: calc(100% - 36px) !important;
+  min-height: 280px !important;
+}
+html body .figma-canvas,
+html body #figCanvas{
   position: relative !important;
   width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  min-height: 280px !important;
   overflow: hidden !important;
-  border-radius: 16px !important;
-  box-sizing: border-box !important;
 }
-html body #stage .slide,
-html body .stage .slide{
+html body .phone-rich{
+  position: absolute !important;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 2 !important;
+}
+html body .phone-rich.dim{ opacity: 0.4 !important; }
+html body .story-panel.on .mini-stage,
+html body .mini-stage{
+  display: block !important;
+  width: 100% !important;
+  height: min(440px, calc(100dvh - 150px)) !important;
+  min-height: 320px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  background: #1c1c1c !important;
+}
+
+/* Demo stage host */
+html body #demoStage{
+  position: relative !important;
+  width: 100% !important;
+  height: min(480px, calc(100dvh - 140px)) !important;
+  min-height: 320px !important;
+  overflow: hidden !important;
+}
+html body #demoStage .device-layer,
+html body #demoStage #deviceLayer{
   position: absolute !important;
   inset: 0 !important;
-  box-sizing: border-box !important;
 }
-html body #stage .capbar,
+html body #demoStage .device-layer:not(.show){
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html body #demoStage .device-layer.show{
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Advanced motion tokens for stage enters */
+@keyframes ds-win-in{
+  from{ opacity: 0; transform: translate(-50%, -46%) scale(.96); }
+  to{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes ds-cap-in{
+  from{ opacity: 0; transform: translateY(10px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+@keyframes ds-phone-in{
+  from{ opacity: 0; transform: translate(-50%, -48%) scale(.92); }
+  to{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+html body #win .slide:not(.textslide) > div:first-child{
+  animation: ds-win-in var(--ds-dur) var(--ds-ease-out) both;
+}
 html body .capbar{
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important;
-  margin: 0 !important;
-  border: none !important;
-  box-sizing: border-box !important;
-  padding: 28px 16px 14px !important;
-  background: linear-gradient(to top, rgba(12,11,10,.96) 35%, transparent) !important;
+  animation: ds-cap-in var(--ds-dur-fast) ease both;
+}
+html body #demoStage #phone.iphone.on{
+  animation: ds-phone-in var(--ds-dur-slow) var(--ds-ease-out) both;
+}
+
+/* Mobile stage heights */
+@media (max-width: 899px){
+  html body .pi-visual,
+  html body #stage{
+    height: min(340px, 52dvh) !important;
+    min-height: 260px !important;
+    width: 100% !important;
+  }
+  html body #win .slide:not(.textslide) > div:first-child{
+    width: 90% !important;
+    max-height: 72% !important;
+  }
 }
 @media (max-width: 959px){
   html body .stage-panel{
@@ -3064,20 +3259,23 @@ html body .capbar{
     flex-direction: column !important;
     max-height: min(92vh, 900px) !important;
   }
-  html body .stage-persp{
-    flex: 1 1 auto !important;
-    min-height: 200px !important;
-    width: 100% !important;
-  }
   html body #stage.stage{
     width: 100% !important;
     height: min(300px, 40vh) !important;
     min-height: 200px !important;
   }
-  /* Scale slides to fit mobile stage */
-  html body #stage .slide{
-    transform-origin: center center !important;
-  }
+}
+
+/* Content width for BC sections without .page */
+html body #hero,
+html body #demo,
+html body #process,
+html body .sec,
+html body .story-block{
+  max-width: var(--ds-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
 }
 
 </style>
