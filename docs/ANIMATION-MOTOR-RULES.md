@@ -1,23 +1,37 @@
-# Animation motor — rules (v3)
+# Animation motor — current rules
 
-## Visual contract
+## Unit scale (window + phone)
 
-1. **Stage** = one box, `padding:0`, grid canvas background.
-2. **Caption** = `left:0; right:0; bottom:0; width:100%` — gradient + blur. **No** inset, **no** gap under the stage.
-3. **UI window** = contained with `max-width` / `max-height` inside stage (padding bottom for caption). **Do not** force a ratio that crops controls. Intrinsic layout of the mock is preserved; the window is limited so everything stays visible.
-4. **Phone** = `aspect-ratio 9/19.5`, radius 36px, sized to **90%** of the device layer. Layer is the stage area under the top label.
-5. **Demo** = `demo-split` copy | visual; `#demoStage` fills `.demo-visual`; phone lives only inside `#deviceLayer`.
-6. **Process** = `44px minmax(0,1fr)` + width 100%.
-7. **Prog** = 3px, `flex: 0 0 auto`.
-8. **Mobile arrows** = 28px, opacity ~0.55.
-9. **Measure** = 920px.
-10. **Viewport** = `width=device-width, initial-scale=1, viewport-fit=cover`.
+Fixed natural size. Fit only with:
 
-## Self-test
+```
+s = min(1, availW/natW, availH/natH)
+transform: scale(s)
+```
 
-Open `previews/99-self-test.html` after deploy. It reports flush caption and phone ratio.
+| Unit | Natural | `--r-*` |
+|------|---------|---------|
+| Window | 400×300 (4∶3) | `--r-window: 12px` |
+| Phone | 220px · 9∶19.5 | `--r-phone: 36px` |
 
-## Files
+Radius/chrome **inside** the unit scale via `transform` (visual radius ≈ `12 × s`).  
+Do not shrink layout width while leaving radius fixed in px.
 
-- `index.html`, `projects/ey-fabric.html`, `projects/blockchain.html`
-- Override block title: `MOTOR FINAL OVERRIDE v3`
+## Stage chrome radii (not inside scaled unit)
+
+```css
+--r-stage: clamp(10px, 1.2vw + 8px, 16px);
+--r-panel: clamp(12px, 1.4vw + 10px, 20px);
+--r-pill: clamp(14px, 1vw + 12px, 100px);
+--r-arrow: clamp(14px, 0.8vw + 12px, 28px);
+```
+
+Media queries nudge stage/panel on very small or very large viewports. They do **not** replace unit `scale(s)`.
+
+## Caption · text phase · controls · measure
+
+Unchanged: flush caption, full-stage text, row controls + pause, 920px max, `s ≤ 1` on hi-DPI.
+
+## Previews
+
+`R00-index`, `ALL-RULES`, `R01`…`R08`, `R03b-radius-scales`, `R03c-radius-tokens`.
