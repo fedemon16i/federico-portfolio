@@ -66,7 +66,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
   .top-nav-links .top-nav-link:nth-child(n+3):not(:last-child){display:none}
 }
 
-
 /* Scheme */
 .scheme-steps{display:flex;align-items:flex-start;justify-content:center;gap:8px;flex-wrap:wrap;margin:28px 0 20px}
 .sch-step{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:88px}
@@ -116,7 +115,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 @keyframes blink{50%{opacity:0}}
 .text-phase .sub{margin-top:12px;font-size:14px;color:var(--muted);max-width:20rem;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
 .text-phase .sub.on{opacity:1;transform:none}
-
 
 .device-layer.show{display:flex;opacity:1;transform:none}
 
@@ -222,7 +220,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 .tool-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
 .tool-row span{font-family:var(--font-mono);font-size:10px;padding:5px 10px;border-radius:6px;border:1px solid var(--border);color:var(--dim)}
 .tool-row span.on{border-color:var(--accent);color:var(--accent)}
-
 
 /* Hero 3D buildings background */
 
@@ -330,7 +327,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 }
 .hero-content{position:relative;z-index:2}
 
-
 /* Metrics reel (EY Fabric language) */
 .reel-wrap{overflow:hidden;margin:22px 0 6px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .reel{display:flex;width:max-content;will-change:transform;animation:reelMove 28s linear infinite}
@@ -357,7 +353,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 .story-panel{display:none}
 .story-panel.on{display:block;animation:storyIn .45s var(--spring) both}
 @keyframes storyIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
 
 .constraint-block{margin-top:48px;padding-top:8px}
 .constraint-rail{
@@ -392,7 +387,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 }
 .c-step .c-copy{font-size:var(--text-md);color:var(--muted);line-height:1.6;max-width:36rem}
 @media(min-width:900px){.c-step{grid-template-columns:56px 1fr;padding:22px 0 22px 28px}}
-
 
 /* Narrative hints — distinct from UI chrome */
 .narr-hint{
@@ -463,8 +457,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 .maps-confirm .mc-btn.ok{background:#1a73e8;color:#fff}
 .maps-confirm .mc-btn.ok.pulse{animation:okPulse .6s var(--spring) 2}
 @keyframes okPulse{0%,100%{transform:scale(1)}40%{transform:scale(1.04)}}
-
-
 
 /* Figma-like cursor */
 .fig-cur{
@@ -560,7 +552,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.04)}
 }
 .unity-code .kw{color:#ff7b72}.unity-code .ty{color:#79c0ff}.unity-code .str{color:#a5d6ff}
 .unity-code .cm{color:#6e7681}
-
 
 /* Spring curves (Fabric / skills parity) */
 :root{
@@ -668,7 +659,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
 .proj-nav a .pn-t{font-family:var(--font-display);font-weight:700;font-size:1.05rem}
 .proj-nav a.next{text-align:right;margin-left:auto}
 
-
 /* Connector from dock to phone action */
 .hint-dock{min-height:200px}
 .hint-card{
@@ -709,7 +699,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
 .gesture-card .g-title{font-family:var(--font-display);font-weight:700;font-size:13px;color:#f5ecd2}
 .gesture-card .g-sub{font-family:var(--font-mono);font-size:10px;color:rgba(245,236,210,.55);margin-top:2px}
 
-
 /* Hints INSIDE stage, OUTSIDE phone mock */
 .demo-layout{display:block}
 .demo-stage-wrap{position:relative}
@@ -740,7 +729,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
   .device-layer{padding-left:min(120px,18%)}
 }
 
-
 .hero-stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .hero-stack .tag{
   display:inline-flex;align-items:center;gap:6px;
@@ -749,11 +737,9 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
 }
 .hero-stack .tag svg{opacity:.85;flex-shrink:0}
 
-
 .hint-card{font-size:11px;padding:10px 12px}
 .gesture-card{padding:10px 12px}
 .finger-ico{width:28px;height:28px}
-
 
 /* Hints: shrink-wrap to content */
 .hint-dock{
@@ -849,7 +835,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
 }
 .media-picker .mp.on{box-shadow:0 0 0 2px var(--accent)}
 .media-picker .mp .check{background:var(--accent);color:#0e0d0c}
-
 
 /* —— Proto UI polish: grid + transitions + buttons —— */
 .p-body{
@@ -981,7 +966,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
 .ds-list li{margin-bottom:4px}
 .ds-mono{font-family:var(--font-mono);font-size:11px;color:var(--dim)}
 
-
 /* Floating hints follow action — absolute within stage */
 .hint-dock{
   position:absolute;inset:0;z-index:30;width:auto;max-width:none;
@@ -1006,7 +990,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
   opacity:0;transition:opacity .6s;
 }
 .street-label.on{opacity:1}
-
 
 .empty-feed{display:none;padding:4px 0 8px}
 .empty-feed.on{display:block;animation:storyIn .45s var(--spring-soft) both}
@@ -1042,7 +1025,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
   transition:transform .4s var(--spring-snappy), border-color .25s, background .25s, box-shadow .3s;
 }
 .pin-icons span.on{box-shadow:0 0 0 2px rgba(34,212,200,.35)}
-
 
 /* In-app long-press notice (only internal gesture) */
 .hold-toast{
@@ -1105,7 +1087,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
   border:1px solid var(--border);color:var(--dim);white-space:nowrap;
 }
 .ios-gallery .ig-albums b.on{border-color:var(--accent);color:var(--accent)}
-
 
 .onboard{
   justify-content:center;padding:48px 14px 24px;
@@ -1170,7 +1151,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
 .source-list button span{display:block;font-family:var(--font-mono);font-size:9px;color:var(--dim);margin-top:2px}
 .source-list button svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.5;flex-shrink:0}
 
-
 /* Final polish: no user scroll inside proto; chips inline; EY tags */
 .p-sheet{
   overflow:hidden!important;
@@ -1202,7 +1182,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
   padding:4px 11px;color:var(--muted);background:transparent;
 }
 .hero-stack .tag svg{display:none}
-
 
 /* Final: step transitions + tall drawer + 3d perf notes in CSS */
 .device-layer{
@@ -1241,7 +1220,6 @@ html[data-theme="light"] .fig-cur .fc-ring{border-color:rgba(0,0,0,.45)}
 }
 .tags.hero-stack .tag:hover{border-color:var(--accent);color:var(--accent)}
 
-
 html[data-theme="light"]{
   --bg:#f4f2ee;--bg-surface:#ffffff;--text:#1a1816;--muted:#5c574f;--dim:#8a847a;
   --border:rgba(0,0,0,.1);--accent:#0d9e94;--ac:#2a7ab0;--visitor:#7c5cbf;
@@ -1271,7 +1249,6 @@ html[data-theme="light"] .hero-shell .hero-fade{
 }
 .theme-toggle:hover{color:var(--accent);border-color:var(--accent)}
 
-
 /* Sheet overlays map — does not reflow/deform 3D */
 .p-body{
   display:flex!important;flex-direction:column!important;
@@ -1294,7 +1271,6 @@ html[data-theme="light"] .hero-shell .hero-fade{
 .p-sheet.is-tall{max-height:94%!important}
 .p-tabbar{position:relative;z-index:20}
 .p-body.sheet-open .p-tabbar{opacity:0;visibility:hidden;pointer-events:none}
-
 
 /* —— Prototype device: readable iPhone proportions, always fully visible —— */
 .demo-stage-wrap{min-height:0}
@@ -1382,7 +1358,6 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.05)}
   .device-layer{inset:44px 8px 10px}
 }
 
-
 /* ===== SITE NAV (match home / EY) ===== */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;
   background:var(--bg);border-bottom:1px solid var(--border);
@@ -1465,7 +1440,6 @@ html[data-theme="light"] .iphone{
   .device-layer{inset:52px 20px 18px!important}
 }
 
-
 /* Device fully inside stage frame */
 .stage{
   position:relative!important;
@@ -1500,7 +1474,6 @@ html[data-theme="light"] .iphone{
 /* Sheet stays inside phone only */
 .p-sheet{max-height:88%!important}
 .p-sheet.is-tall{max-height:92%!important}
-
 
 /* ===== OVERFLOW CASCADE (authoritative) ===== */
 .stage{
@@ -1542,7 +1515,6 @@ html[data-theme="light"] .iphone{
   overflow-x:auto!important;
   overflow-y:hidden!important;
 }
-
 
 /* ===== APP INSIDE DEVICE: nothing clipped ===== */
 .iphone{
@@ -1663,7 +1635,6 @@ html[data-theme="light"] .iphone{
 .media-picker{gap:4px!important;margin:6px 0!important}
 .pin-icons{gap:6px!important}
 .empty-feed .ef-av{width:36px!important;height:36px!important}
-
 
 /* ========== DEMO DEVICE GEOMETRY (final override) ========== */
 #demoStage {
@@ -1914,7 +1885,6 @@ html[data-theme="light"] #demoStage .iphone {
   overflow: hidden !important;
 }
 
-
 /* Add-content drawer: near full-screen, no horizontal overflow */
 #demoStage .p-sheet.is-tall {
   max-height: 94% !important;
@@ -2004,12 +1974,10 @@ html[data-theme="light"] #demoStage .iphone {
   box-sizing: border-box !important;
 }
 
-
 #demoStage .p-sheet.is-content {
   max-height: 94% !important;
   top: 6% !important;
 }
-
 
 /* Padding + map not stretched + animated sheet scroll */
 #demoStage .p-sheet {
@@ -2038,7 +2006,6 @@ html[data-theme="light"] #demoStage .iphone {
   margin-top: 12px !important;
   z-index: 2 !important;
 }
-
 
 /* Final media + sources UI consistency */
 #demoStage .source-list {
@@ -2103,7 +2070,6 @@ html[data-theme="light"] #demoStage .iphone {
   from { transform: scale(0); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-
 
 /* Step 2 pin/style buttons — never overflow drawer */
 #demoStage .pin-ui {
@@ -2180,7 +2146,6 @@ html[data-theme="light"] #demoStage .iphone {
   max-width: 100% !important;
   box-sizing: border-box !important;
 }
-
 
 /* Screenshots fix: full pin sheet + gallery grid visible */
 #demoStage .p-sheet {
@@ -2291,12 +2256,10 @@ html[data-theme="light"] #demoStage .iphone {
   top: 4% !important;
 }
 
-
 #demoStage .p-sheet.is-pin {
   max-height: 90% !important;
   top: 8% !important;
 }
-
 
 /* Fit 100%: compact sheet UI, no clipped buttons */
 #demoStage .p-sheet {
@@ -2476,7 +2439,6 @@ html[data-theme="light"] #demoStage .iphone {
   margin-top: 6px !important;
 }
 
-
 #demoStage .pin-ui .pin-sec{display:none!important;width:100%!important;box-sizing:border-box!important}
 #demoStage .pin-ui .pin-sec.on{display:block!important}
 #demoStage .p-sheet.is-pin{
@@ -2491,7 +2453,6 @@ html[data-theme="light"] #demoStage .iphone {
 #demoStage .cols i{width:24px!important;height:24px!important;min-width:24px!important;flex:0 0 24px!important}
 #demoStage .assets{gap:8px!important;margin-top:4px!important}
 #demoStage .assets span{padding:10px 6px!important;font-size:10px!important}
-
 
 /* Active glow must not clip — pad cells, no scale beyond box */
 #demoStage .p-sheet,
@@ -2612,7 +2573,6 @@ html[data-theme="light"] #demoStage .iphone {
   overflow-y: auto !important;
 }
 
-
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
 .tag{font-family:var(--font-mono);font-size:10.5px;border:1px solid var(--border);border-radius:100px;padding:4px 11px;color:var(--muted)}
 html[data-theme="light"] .tag{color:var(--muted)}
@@ -2695,9 +2655,6 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
   padding-bottom: clamp(2.75rem, 4vw, 4rem) !important;
 }
 
-
-
-
 /* === Stage split align + size (web ≥1024) === */
 .pi-split,.loop-split,.demo-split,.proc-split{
   display:flex;flex-direction:column;gap:20px;width:100%;
@@ -2748,8 +2705,6 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
     max-width: 200px !important;
   }
 }
-
-
 
 /* === CANONICAL NAV (all pages) === */
 .top-nav{
@@ -2827,7 +2782,6 @@ html[data-theme="light"] .top-nav{ background:#f7f5f2; }
   .top-nav-hamburger{ display:flex !important; }
 }
 
-
 /* === SHELL — notebook-safe widths === */
 :root{
   --max: 920px;
@@ -2873,7 +2827,6 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
   max-width: var(--modal-max) !important;
 }
 #stage, .pi-visual .stage{ max-width: var(--stage-max) !important; margin-left:auto; margin-right:auto; }
-
 
 /* Atomic: tool chips (shared with EY) */
 .stack-cap{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#a6a29a);margin:16px 0 8px}
@@ -2983,7 +2936,6 @@ html[data-theme="light"]{
 .sch-step.in, .sch-step.on{
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border-soft));
 }
-
 
 /* === VIEWPORT-SAFE STAGES + NAV BRIDGE + HOME BIO === */
 :root{
@@ -3127,7 +3079,6 @@ body.page-home .bio-actions .ba.primary{
   min-height: 160px !important;
 }
 
-
 /* DEMO_STAGE_H */
 #demoStage, .demo-visual .stage, .demo-visual #demoStage{
   height: var(--stage-h) !important;
@@ -3208,7 +3159,6 @@ body.page-home .bio-actions .ba.primary{
 @media (min-width: 901px){
   .mobile-only{ display: none !important; }
 }
-
 
 /* === FIT-DEMO: never force scroll inside narrative stages === */
 :root{
@@ -3339,197 +3289,6 @@ body.page-home .bio-tools .bt-row > *{
   body.page-home .bio-claim, body.page-home .bio-sub{ display: none !important; }
 }
 
-
-/* === SKILL STAGE SPLIT + GLOBAL NO-OVERFLOW === */
-html, body{
-  overflow-x: hidden !important;
-  max-width: 100vw !important;
-}
-body{ position: relative; }
-.home, .wrap, .page, .section, .pcrow, .stage-panel{
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-/* Skill modal panel: split like EY/BC on desktop web */
-.stagezone{
-  padding: 12px !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-.stage-panel{
-  width: min(960px, calc(100vw - 24px)) !important;
-  max-height: min(92vh, 720px) !important;
-  overflow: hidden !important; /* no panel scroll */
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-  padding: 14px 16px 12px !important;
-  box-sizing: border-box !important;
-}
-.stage-panel .sim-tag{
-  font-size: 10px !important;
-  opacity: 0.55 !important;
-  margin: 0 !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.stage-panel .controls-top{
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  align-items: center !important;
-}
-.stage-panel .stage-persp{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  height: auto !important;
-  perspective: none !important;
-}
-.stage-panel .stage,
-.stage-panel #stage{
-  position: relative !important;
-  width: 100% !important;
-  height: min(360px, calc(92vh - 200px)) !important;
-  max-height: min(360px, calc(92vh - 200px)) !important;
-  min-height: 180px !important;
-  overflow: hidden !important;
-  margin: 0 auto !important;
-}
-.stage-panel .stage *{
-  scrollbar-width: none !important;
-}
-.stage-panel .stage *::-webkit-scrollbar{ display: none !important; width: 0 !important; height: 0 !important; }
-
-/* Desktop / landscape tablet: left chrome, right stage */
-@media (min-width: 960px) and (min-height: 600px){
-  .stage-panel{
-    display: grid !important;
-    grid-template-columns: minmax(200px, 280px) minmax(0, 1fr) !important;
-    grid-template-rows: auto auto 1fr auto !important;
-    grid-template-areas:
-      "tag tag"
-      "title stage"
-      "controls stage"
-      "meta meta" !important;
-    column-gap: 20px !important;
-    row-gap: 8px !important;
-    align-items: start !important;
-  }
-  .stage-panel .sim-tag{ grid-area: tag; }
-  .stage-panel .stage-title{ grid-area: title; margin: 0 !important; }
-  .stage-panel .controls-top{
-    grid-area: controls;
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-  .stage-panel .controls-top .beatpills{ order: -1; margin-bottom: 4px; }
-  .stage-panel .stage-persp{
-    grid-area: stage !important;
-    height: 100% !important;
-    max-height: calc(92vh - 100px) !important;
-    align-self: stretch !important;
-  }
-  .stage-panel .stage,
-  .stage-panel #stage{
-    height: min(420px, calc(92vh - 120px)) !important;
-    max-height: min(420px, calc(92vh - 120px)) !important;
-    width: 100% !important;
-  }
-  .stage-panel .metabar{ grid-area: meta; }
-}
-
-/* Square-ish / short: stack, smaller stage */
-@media (max-width: 959px), (max-height: 599px){
-  .stage-panel{
-    display: flex !important;
-    flex-direction: column !important;
-    max-height: 94vh !important;
-  }
-  .stage-panel .stage,
-  .stage-panel #stage{
-    height: min(280px, calc(94vh - 220px)) !important;
-    max-height: min(280px, calc(94vh - 220px)) !important;
-  }
-}
-
-/* EY + BC stages: same height budget, no inner scroll */
-.pi-split, .demo-split{
-  align-items: start !important;
-}
-#stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
-  height: min(360px, calc(100vh - 220px)) !important;
-  max-height: min(360px, calc(100vh - 220px)) !important;
-  min-height: 200px !important;
-  overflow: hidden !important;
-  width: 100% !important;
-  max-width: 100% !important;
-}
-@media (min-width: 1024px){
-  #stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
-    height: min(400px, calc(100vh - 180px)) !important;
-    max-height: min(400px, calc(100vh - 180px)) !important;
-  }
-}
-#win, .stage-window{
-  inset: 8px !important;
-  overflow: hidden !important;
-}
-
-/* Home mobile: no horizontal scroll */
-@media (max-width: 900px){
-  .home{
-    display: block !important;
-    width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  .bio, .main, .home > *{
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  .gcard, .pcard, .pcrow{
-    max-width: 100% !important;
-  }
-  .pcrow{ overflow-x: auto !important; }
-}
-
-/* Kill previous giant stage-h overrides that fight this */
-
-
-/* hide decorative AI stars on cards */
-.gc-ai, .pcard-ai, svg.gc-ai, svg.pcard-ai{ display:none !important; }
-
-/* Project cards — vivid solid identity */
-.pcard{
-  background: var(--pc-bg, #333) !important;
-  color: var(--pc-txt, #111) !important;
-  border: none !important;
-  box-shadow: 0 12px 32px -16px rgba(0,0,0,.55) !important;
-}
-.pcard .pcard-top b,
-.pcard .pcard-name,
-.pcard .pcard-name-v,
-.pcard .pcard-head,
-.pcard small,
-.pcard .pcard-body,
-.pcard a,
-.pcard .pcard-cta{
-  color: inherit !important;
-}
-.pcard small{ opacity: 0.75 !important; }
-.pcard:hover{
-  transform: translateY(-4px) scale(1.01) !important;
-  filter: brightness(1.05);
-  box-shadow: 0 20px 44px -14px rgba(0,0,0,.55) !important;
-}
-/* ensure case accents on home strip */
-.pcard[href*="ey-fabric"], .pcard.ey, #pc0{ --pc-bg:#ffe600 !important; --pc-txt:#2b2600 !important; }
-.pcard[href*="blockchain"], .pcard.bc{ --pc-bg:#22d4c8 !important; --pc-txt:#042e2a !important; }
-.pcard[href*="chek"], .pcard.chek{ --pc-bg:#7a3be0 !important; --pc-txt:#f5f0ff !important; }
-
 /* === SCALE-FIT STAGES (canvas + complete window/device) === */
 html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
 .stage-panel, .pi-split, .demo-split, #stage, #demoStage, .stage{
@@ -3655,7 +3414,6 @@ html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
   .gcard{ max-width:100% !important; }
 }
 
-
 /* === MODAL ABOVE NAV + TIGHT STAGE + SCROLL NAV === */
 .top-nav, nav.top-nav, #topNav{
   z-index: 900 !important;
@@ -3780,7 +3538,6 @@ html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
     max-width: min(100%, 240px) !important;
   }
 }
-
 
 /* BC_PHONE_RESTORE */
 #deviceLayer, .device-layer{ display:flex !important; opacity:1 !important; visibility:visible !important; }
@@ -3965,7 +3722,6 @@ section.sec > .wrap,
 #demoStage .stage-top,
 #demoStage .stage-arrows{ z-index: 5 !important; }
 
-
 /* === STAGE FULL-UI SCALE (no inner scroll) === */
 .stagezone, #stageZone{ z-index: 12000 !important; }
 .top-nav, #topNav{ z-index: 900 !important; }
@@ -4092,113 +3848,6 @@ section.sec > .wrap,
   transform: none !important;
   transform-origin: center center !important;
 }
-
-
-
-
-/* === DEMO stage fluid (keep player class hooks) === */
-html body #demoStage{
-  width: 100% !important;
-  max-width: 100% !important;
-  aspect-ratio: auto !important;
-  height: min(480px, calc(100dvh - 160px)) !important;
-  min-height: 320px !important;
-  max-height: none !important;
-}
-@media (max-width: 899px){
-  html body #demoStage{
-    height: min(400px, 58dvh) !important;
-    min-height: 300px !important;
-  }
-}
-/* Phone: only when player adds .on / layer.show — size to host */
-html body #demoStage .device-layer.show{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 8px !important;
-  inset: 0 !important;
-  position: absolute !important;
-}
-html body #demoStage .iphone.on,
-html body #demoStage #phone.iphone.on{
-  display: flex !important;
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  width: auto !important;
-  height: auto !important;
-  max-width: none !important;
-  max-height: none !important;
-  aspect-ratio: 9 / 19.5 !important;
-  transform: none !important;
-}
-
-/* === PROCESS: give stage real height; panels use existing .on === */
-html body .proc-visual{
-  width: 100% !important;
-  min-width: 0 !important;
-}
-html body .story-panel.on{
-  display: block !important;
-}
-html body .story-panel.on .mini-stage,
-html body .story-panel.on .stage.mini-stage,
-html body .mini-stage{
-  height: min(400px, calc(100dvh - 180px)) !important;
-  min-height: 280px !important;
-  max-height: none !important;
-  width: 100% !important;
-  overflow: hidden !important;
-}
-html body .figma-canvas{
-  height: calc(100% - 36px) !important;
-  min-height: 240px !important;
-}
-@media (min-width: 900px){
-  html body .proc-split{
-    display: grid !important;
-    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
-    gap: 16px !important;
-    align-items: start !important;
-  }
-}
-
-
-/* === PROCESS stage height === */
-@media (min-width: 900px){
-  html body .proc-split{
-    display: grid !important;
-    grid-template-columns: minmax(160px, 30%) minmax(0, 1fr) !important;
-    gap: 16px !important;
-    width: 100% !important;
-    align-items: start !important;
-  }
-}
-html body .proc-visual{
-  width: 100% !important;
-  min-width: 0 !important;
-}
-html body .story-panel.on{
-  display: block !important;
-  width: 100% !important;
-}
-html body .story-panel.on .mini-stage,
-html body .mini-stage{
-  width: 100% !important;
-  height: min(420px, calc(100dvh - 160px)) !important;
-  min-height: 280px !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-}
-html body .figma-canvas{
-  height: calc(100% - 40px) !important;
-  min-height: 220px !important;
-}
-
-
-
-
 
 /* === SHARED NAV = EY source of truth === */
 html body .top-nav{
@@ -4378,94 +4027,6 @@ html body .phone-rich{
   visibility: visible !important;
   opacity: 1 !important;
 }
-
-
-/* === DEMO split alignment === */
-@media (min-width: 900px){
-  html body .demo-split{
-    display: grid !important;
-    grid-template-columns: minmax(180px, 32%) minmax(0, 1fr) !important;
-    gap: 20px !important;
-    align-items: start !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-  }
-  html body .demo-copy{
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-  html body .demo-visual{
-    width: 100% !important;
-    min-width: 0 !important;
-    position: relative !important;
-    top: auto !important;
-  }
-}
-html body #demoStage{
-  width: 100% !important;
-  margin: 0 !important;
-}
-
-
-
-/* =====================================================================
-   DESIGN SYSTEM TOKENS — Portfolio animation motor
-   Source of truth for skills · EY PI · Demo · Process
-   ===================================================================== */
-:root{
-  /* Measure */
-  --ds-max: 920px;
-  --ds-pad-x: clamp(20px, 4vw, 28px);
-  --ds-section-y: clamp(48px, 8vw, 88px);
-
-  /* Surfaces */
-  --ds-bg: #0e0d0c;
-  --ds-panel: #141210;
-  --ds-stage: #0c0b0a;
-  --ds-raised: #1c1b19;
-  --ds-border: rgba(255,255,255,.12);
-  --ds-border-soft: rgba(255,255,255,.08);
-
-  /* Type */
-  --ds-text: #f2f0ec;
-  --ds-muted: #a6a29a;
-  --ds-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ds-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-  /* Accents */
-  --ds-accent: #e8a87c;
-  --ds-ey: #ffe600;
-  --ds-bc: #22d4c8;
-  --ds-danger: #e05c4a;
-  --ds-ok: #3dd68c;
-
-  /* Stage / window */
-  --ds-stage-radius: 16px;
-  --ds-win-radius: 12px;
-  --ds-win-ratio: 16 / 10;
-  --ds-phone-ratio: 9 / 19.5;
-  --ds-phone-radius: 36px;
-  --ds-grid-size: 20px;
-
-  /* Motion */
-  --ds-ease-out: cubic-bezier(.22, 1, .36, 1);
-  --ds-ease-spring: cubic-bezier(.34, 1.3, .64, 1);
-  --ds-dur-fast: 220ms;
-  --ds-dur: 480ms;
-  --ds-dur-slow: 720ms;
-
-  /* Caption */
-  --ds-cap-pad: 32px 16px 14px;
-  --ds-cap-fade: rgba(12,11,10,.97);
-}
-
-/* ---- Global measure ---- */
-html body .page,
-html body .top-nav-inner{
-  max-width: var(--ds-max) !important;
-  box-sizing: border-box !important;
-}
 html body .top-nav-inner{
   padding-left: var(--ds-pad-x) !important;
   padding-right: var(--ds-pad-x) !important;
@@ -4492,56 +4053,6 @@ html body #demoStage{
 
 /* Product UI window — proportional, not edge-bleed */
 .ds-win,
-html body #win .slide:not(.textslide) > div:first-child{
-  aspect-ratio: var(--ds-win-ratio);
-  width: min(560px, 82%) !important;
-  max-height: 62% !important;
-  height: auto !important;
-  border-radius: var(--ds-win-radius) !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  box-shadow: 0 20px 50px rgba(0,0,0,.55) !important;
-  background: #171614 !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-}
-html body #win .slide:not(.textslide){
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 16px 16px 56px !important;
-  background: transparent !important;
-  box-sizing: border-box !important;
-}
-html body #win{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* Caption — gradient + blur (skills + EY) */
-html body .capbar,
-html body #stage .capbar,
-html body .cap{
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  margin: 0 !important;
-  border: none !important;
-  box-sizing: border-box !important;
-  padding: var(--ds-cap-pad) !important;
-  text-align: center !important;
-  pointer-events: none !important;
-  background: linear-gradient(to top, var(--ds-cap-fade) 32%, transparent) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-  z-index: 50 !important;
-}
 
 /* Phone device */
 html body #demoStage #phone,
@@ -4678,28 +4189,13 @@ html body #demoStage .device-layer.show{
   opacity: 1 !important;
   visibility: visible !important;
 }
-
-/* Advanced motion tokens for stage enters */
-@keyframes ds-win-in{
-  from{ opacity: 0; transform: translate(-50%, -46%) scale(.96); }
   to{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
-@keyframes ds-cap-in{
-  from{ opacity: 0; transform: translateY(10px); }
+
   to{ opacity: 1; transform: translateY(0); }
 }
-@keyframes ds-phone-in{
-  from{ opacity: 0; transform: translate(-50%, -48%) scale(.92); }
+
   to{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-html body #win .slide:not(.textslide) > div:first-child{
-  animation: ds-win-in var(--ds-dur) var(--ds-ease-out) both;
-}
-html body .capbar{
-  animation: ds-cap-in var(--ds-dur-fast) ease both;
-}
-html body #demoStage #phone.iphone.on{
-  animation: ds-phone-in var(--ds-dur-slow) var(--ds-ease-out) both;
 }
 
 /* Mobile stage heights */
@@ -4710,10 +4206,7 @@ html body #demoStage #phone.iphone.on{
     min-height: 260px !important;
     width: 100% !important;
   }
-  html body #win .slide:not(.textslide) > div:first-child{
-    width: 90% !important;
-    max-height: 72% !important;
-  }
+  
 }
 @media (max-width: 959px){
   html body .stage-panel{
@@ -4739,11 +4232,6 @@ html body .story-block{
   margin-right: auto !important;
   box-sizing: border-box !important;
 }
-
-
-/* =====================================================================
-   MOTOR FINAL OVERRIDE v3 — single source, wins cascade
-   ===================================================================== */
 
 /* 1. Measure */
 html body .page,
@@ -4800,39 +4288,8 @@ html body .stage .capbar{
 }
 
 /* 4. UI window — CONTAIN, never crop. Scale inside stage. Keep natural ratio. */
-html body #win{
-  position: absolute !important;
-  inset: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  overflow: hidden !important;
-}
-html body #win .slide:not(.textslide){
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 12px 12px 64px !important; /* room for caption */
-  box-sizing: border-box !important;
-  background: transparent !important;
-  overflow: hidden !important;
-}
+
 /* The product mock itself: fit inside available area without clipping */
-html body #win .slide:not(.textslide) > div:first-child{
-  position: relative !important;
-  width: auto !important;
-  height: auto !important;
-  max-width: min(520px, 90%) !important;
-  max-height: min(280px, calc(100% - 8px)) !important;
-  aspect-ratio: unset !important; /* keep intrinsic layout of the mock */
-  transform: none !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  box-shadow: 0 18px 48px rgba(0,0,0,.5) !important;
-  overflow: hidden !important;
-  background: #171614 !important;
-  box-sizing: border-box !important;
-}
 
 /* 5. Skill slides fill stage */
 html body #stage .slide,
@@ -4963,10 +4420,7 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
     height: min(320px, 48dvh) !important;
     min-height: 240px !important;
   }
-  html body #win .slide:not(.textslide) > div:first-child{
-    max-width: 92% !important;
-    max-height: min(240px, 68%) !important;
-  }
+  
 }
 
 /* 10. Skill panel mobile stack */
@@ -4982,11 +4436,6 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
     width: 100% !important;
   }
 }
-
-
-/* =====================================================================
-   MOTOR FINAL OVERRIDE v4 — center + SCALE to show full UI
-   ===================================================================== */
 
 /* Measure */
 html body .page,
@@ -5081,36 +4530,15 @@ html body .text-phase .kicker{
 /* Fit host for scalable UI (skills + EY) */
 html body #stage .slide,
 html body .stage .slide,
-html body #win .slide:not(.textslide){
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 12px 12px 58px !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-  background: transparent !important;
-}
+
 /* Scale target: keep intrinsic size, JS applies transform scale */
-html body #stage .slide > [data-fit],
-html body #stage .slide > .fit-target,
-html body #win .slide:not(.textslide) > div:first-child{
-  transform-origin: center center !important;
-  max-width: none !important;
-  max-height: none !important;
-  /* JS sets --fit-s; fallback mild contain */
-  transform: scale(var(--fit-s, 1)) !important;
+/* removed */
   border-radius: 12px !important;
   border: 1px solid rgba(255,255,255,.12) !important;
   box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
   background: #171614 !important;
-}
-html body #win{
-  position: absolute !important; inset: 0 !important;
-  background: transparent !important; border: 0 !important; box-shadow: none !important;
 }
 
 /* Prog */
@@ -5197,14 +4625,6 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
   }
 }
 
-
-/* =====================================================================
-   MOTOR FINAL OVERRIDE v5 — uniform scale + row controls + flush caption
-   ===================================================================== */
-html body .page, html body .top-nav-inner, html body .wrap{
-  max-width: 920px !important; box-sizing: border-box !important;
-}
-
 /* Stage */
 html body #stage.stage, html body .pi-visual, html body #demoStage{
   position: relative !important; padding: 0 !important; overflow: hidden !important;
@@ -5243,21 +4663,11 @@ html body #textPhase .main, html body .text-phase .main{
 }
 
 /* Slides center content */
-html body #stage .slide, html body .stage .slide, html body #win .slide:not(.textslide){
-  position: absolute !important; inset: 0 !important;
-  display: flex !important; align-items: center !important; justify-content: center !important;
-  padding: 12px 12px 58px !important; box-sizing: border-box !important; overflow: hidden !important;
-  background: transparent !important;
-}
-html body #win{ position: absolute !important; inset: 0 !important; background: transparent !important; border: 0 !important; box-shadow: none !important; }
+html body #stage .slide, html body .stage .slide, 
 
 /* Scale targets — natural size, JS sets uniform scale */
 html body #win .slide:not(.textslide) > div:first-child,
-html body #stage .slide > div:not(.capbar):not(.cur):not(#cur){
-  transform-origin: center center !important;
-  border-radius: 12px !important;
-  box-sizing: border-box !important;
-}
+/* removed dangerous stage child rule */
 
 /* Prog 3px */
 html body .prog{
@@ -5353,99 +4763,154 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
   }
 }
 
-
-
-/* --- unit scale: radius+chrome scale with transform (v5.2) --- */
-html body #win .slide:not(.textslide){
+/* Text phase full stage — fix truncation */
+html body #textPhase,
+html body .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 28px 24px !important;
+  box-sizing: border-box !important;
+  z-index: 25 !important;
+}
+html body #textPhase .main,
+html body .text-phase .main{
+  max-width: min(36rem, 92%) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-size: clamp(16px, 2.6vw, 22px) !important;
+}
+html body #textPhase.hide,
+html body .text-phase.hide{
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html body #demoStage{
+  position: relative !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: var(--r-stage) !important;
+}
+html body #deviceLayer{
+  position: absolute !important;
+  left: 0 !important; right: 0 !important;
+  top: 36px !important; bottom: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 12px 12px 58px !important;
   overflow: hidden !important;
-  background: transparent !important;
-}
-html body #win .slide:not(.textslide) > div:first-child{
-  /* fixed natural design size — do NOT shrink width in layout */
-  width: 400px !important;
-  height: 300px !important;
-  max-width: none !important;
-  max-height: none !important;
-  aspect-ratio: auto !important;
-  border-radius: 12px !important;
-  transform-origin: center center !important;
-  /* --fit-s set by JS; entire unit including radius scales */
-  transform: scale(var(--fit-s, 1)) !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-  flex-shrink: 0 !important;
 }
 html body #phone,
 html body #phone.iphone.on{
-  width: 220px !important;
-  height: auto !important;
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  aspect-ratio: 9 / 19.5 !important;
+  border-radius: var(--r-phone) !important;
+  /* do not force transform here — Demo JS owns phone motion */
+}
+html body .stage-arrow{
+  width: 28px !important;
+  height: 28px !important;
+  opacity: 0.55 !important;
+}
+html body .btn-pause,
+html body #btnPause{
+  font-size: 11px !important;
+  height: 28px !important;
+  padding: 0 12px !important;
+}
+/* Process: only ensure canvas not collapsed — minimal */
+html body .figma-layout{
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) !important;
+  width: 100% !important;
+}
+html body .figma-canvas{
+  width: 100% !important;
+  min-width: 0 !important;
+  position: relative !important;
+}
+/* Remove broken max-width on text-phase if present in source */
+
+
+/* === MOTOR SAFE v6 — BLOCKCHAINS DEMO === */
+html body .wrap,
+html body .top-nav-inner{
+  max-width: 920px !important;
+  box-sizing: border-box !important;
+}
+html body #textPhase,
+html body .text-phase{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 28px 24px !important;
+  box-sizing: border-box !important;
+  z-index: 25 !important;
+}
+html body #textPhase .main,
+html body .text-phase .main{
+  max-width: min(36rem, 92%) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-size: clamp(16px, 2.6vw, 22px) !important;
+}
+html body #demoStage{
+  position: relative !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+}
+html body #deviceLayer{
+  position: absolute !important;
+  left: 0 !important; right: 0 !important;
+  top: 36px !important; bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+html body #phone,
+html body #phone.iphone.on{
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
   aspect-ratio: 9 / 19.5 !important;
   border-radius: 36px !important;
-  transform-origin: center center !important;
-  transform: scale(var(--phone-s, 1)) !important;
-  flex-shrink: 0 !important;
 }
-
-
-/* --- radii tokens + clamp + mq (v5.3) --- */
-:root{
-  /* Natural design radii (inside scaled units these scale via transform) */
-  --r-window: 12px;
-  --r-phone: 36px;
-  --r-win-cell: 8px;
-  --r-traffic: 10px;
-  /* Stage / page chrome — clamp so they ease on small viewports without transform */
-  --r-stage: clamp(10px, 1.2vw + 8px, 16px);
-  --r-panel: clamp(12px, 1.4vw + 10px, 20px);
-  --r-pill: clamp(14px, 1vw + 12px, 100px);
-  --r-arrow: clamp(14px, 0.8vw + 12px, 28px);
+html body .stage-arrow{
+  width: 28px !important;
+  height: 28px !important;
+  opacity: 0.55 !important;
 }
-@media (max-width: 600px){
-  :root{
-    --r-stage: 12px;
-    --r-panel: 14px;
-    /* natural unit radii stay; scale() handles visual size */
-  }
+/* Process — minimal, keep player */
+html body .figma-layout{
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) !important;
+  width: 100% !important;
 }
-@media (min-width: 1400px){
-  :root{
-    --r-stage: 16px;
-    --r-panel: 20px;
-  }
-}
-
-/* Apply tokens to stage chrome */
-html body #stage.stage,
-html body .pi-visual,
-html body #demoStage{
-  border-radius: var(--r-stage) !important;
-}
-html body .stage-panel{
-  border-radius: var(--r-panel) !important;
-}
-html body .ctl,
-html body .controls .ctl,
-html body .controls-top .ctl{
-  border-radius: var(--r-pill) !important;
-}
-html body .stage-arrow,
-html body .stage-nav-arrow{
-  width: var(--r-arrow) !important;
-  height: var(--r-arrow) !important;
-  border-radius: 50% !important;
-}
-
-/* Scaled units: fixed natural radius — transform scales them visually */
-html body #win .slide:not(.textslide) > div:first-child{
-  border-radius: var(--r-window) !important;
-}
-html body #phone,
-html body #phone.iphone.on{
-  border-radius: var(--r-phone) !important;
+html body .figma-canvas{
+  width: 100% !important;
+  min-width: 0 !important;
+  position: relative !important;
 }
 
 </style>
@@ -5888,7 +5353,6 @@ html body #phone.iphone.on{
     </div><!-- proc-split -->
 </section>
 
-
 <!-- DESIGN SYSTEM (optional accordion) -->
 <!-- design-system section removed: lives on site design-system.html -->
 
@@ -6071,7 +5535,6 @@ if(heroEl && heroWrap){
   if(window.cityH && window.cityH.lookAtPin) window.cityH.lookAtPin(-1);
 }
 
-
 /* Demo beats — condensed from approved proto */
 var BEATS=[
   {title:'Onboard',phase:'owner',kicker:'Welcome',text:'Welcome to your 3D map — content lives on places you own.',sub:'How it works, then we place a POI.',nav:'SPACE MAP',back:false,
@@ -6165,14 +5628,11 @@ function showHoldToast(){
 }
 function hideHoldToast(){ var t=document.getElementById('holdToast'); if(t) t.classList.remove('on'); }
 
-
 function liftSheet(amount){
   var sc=document.getElementById('sheetScroll');
   if(!sc) return;
   sc.style.transform='translateY('+(-(amount||0))+'px)';
 }
-
-
 
 function placeNearAction(el, x, y, slot){
   /* Always OUTSIDE phone frame — left or right gutter of stage */
@@ -6457,8 +5917,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   }
 })();
 
-
-
 /* Process tabs clickable */
 (function(){
   var tabs=document.querySelectorAll('#procTabs .story-tab');
@@ -6470,7 +5928,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
     });
   });
 })();
-
 
 /* Figma frame pulse */
 (function(){
@@ -6504,7 +5961,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   if(close) close.addEventListener('click', closeM);
   if(mob) mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
 })();
-
 
 (function bootMobileOnly(){
   try{
@@ -6550,7 +6006,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 })();
 </script>
 
-
 <script>
 (function(){
   function keepTextOnDesktop(){
@@ -6559,7 +6014,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   window.__keepPlayerText = keepTextOnDesktop;
 })();
 </script>
-
 
 <script>
 (function(){
@@ -6581,7 +6035,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   }
 })();
 </script>
-
 
 <script>
 /* CANONICAL_NAV */
@@ -6625,7 +6078,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 })();
 </script>
 
-
 <script>
 /* chip-tip bind BC */
 (function(){
@@ -6642,7 +6094,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   });
 })();
 </script>
-
 
 <script>
 /* SCHEME_SCROLL — animate job steps when in view, faster cascade */
@@ -6665,9 +6116,7 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 })();
 </script>
 
-
 <!-- FIT-SCALE removed: was breaking BC phone + skill stage layout -->
-
 
 <script>
 /* NAV: hide on scroll down, show on scroll up — never covers modals */
@@ -6692,19 +6141,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   }, {passive:true});
 })();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 /* Phone: keep 9/19.5 — size by height budget only */
@@ -6746,7 +6182,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 })();
 </script>
 
-
 <script>
 /* Phone size only — does not toggle visibility (player owns .show / .on) */
 (function(){
@@ -6781,83 +6216,6 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   }
   setInterval(fitPhone, 800);
   setTimeout(fitPhone, 500);
-})();
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>
-(function(){
-  function fitUnit(el, host, padY, cssVar){
-    if(!el || !host) return;
-    // measure at scale 1
-    el.style.setProperty(cssVar || '--fit-s', '1');
-    el.style.setProperty('transform', 'scale(1)', 'important');
-    var rw = el.offsetWidth;
-    var rh = el.offsetHeight;
-    if(rw < 8 || rh < 8) return;
-    var aw = Math.max(host.clientWidth - 20, 40);
-    var ah = Math.max(host.clientHeight - (padY || 56), 40);
-    var s = Math.min(1, aw / rw, ah / rh);
-    if(s < 0.35) s = 0.35;
-    el.style.setProperty(cssVar || '--fit-s', String(s));
-    el.style.setProperty('transform', 'scale(' + s + ')', 'important');
-    el.style.setProperty('transform-origin', 'center center', 'important');
-  }
-  function fitAll(){
-    document.querySelectorAll('#win .slide:not(.textslide)').forEach(function(slide){
-      var t = slide.firstElementChild;
-      if(t) fitUnit(t, slide, 64, '--fit-s');
-    });
-    document.querySelectorAll('#stage .slide').forEach(function(slide){
-      var t = null;
-      for(var i=0;i<slide.children.length;i++){
-        var c = slide.children[i];
-        if(c.classList.contains('capbar') || c.classList.contains('cur') || c.id==='cur') continue;
-        t = c; break;
-      }
-      if(t) fitUnit(t, slide, 64, '--fit-s');
-    });
-    var layer = document.getElementById('deviceLayer');
-    var phone = document.getElementById('phone');
-    if(layer && phone) fitUnit(phone, layer, 12, '--phone-s');
-  }
-  window.__fitStages = fitAll;
-  window.addEventListener('resize', fitAll);
-  setInterval(fitAll, 700);
-  [0,150,400,900,1800].forEach(function(t){ setTimeout(fitAll, t); });
-  if(window.MutationObserver){
-    try{ new MutationObserver(function(){ setTimeout(fitAll, 40); }).observe(document.body,{attributes:true,childList:true,subtree:true}); }catch(e){}
-  }
 })();
 </script>
 
