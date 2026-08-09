@@ -2449,6 +2449,72 @@ html body .capbar{
   }
 }
 
+
+/* === EY PI window + mobile playable === */
+html body .pi-visual,
+html body #stage{
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+    #0c0b0a !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+html body #win{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+html body #win .slide:not(.textslide){
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 14px 14px 52px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+}
+html body #win .slide:not(.textslide) > div:first-child{
+  max-width: min(560px, 94%) !important;
+  max-height: min(300px, 82%) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.5) !important;
+  overflow: hidden !important;
+  background: #171614 !important;
+}
+html body .capbar{
+  position: absolute !important;
+  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100% !important;
+  border: none !important;
+  background: linear-gradient(to top, rgba(12,11,10,.96) 35%, transparent) !important;
+  padding: 28px 14px 12px !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 899px){
+  html body .pi-split{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  html body .pi-visual,
+  html body #stage{
+    display: block !important;
+    width: 100% !important;
+    height: min(340px, 52dvh) !important;
+    min-height: 260px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
 </style>
 </head>
 <body>
