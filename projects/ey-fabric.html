@@ -2869,71 +2869,80 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
 }
 
 
-/* === MOTOR SAFE v6 — EY FABRIC PI === */
-html body .page,
-html body .top-nav-inner{
-  max-width: 920px !important;
-  box-sizing: border-box !important;
-}
-html body .pi-visual,
-html body #stage{
+
+/* === SOLID CONTAINER v1 — stage-body + win fill (production motion untouched) === */
+html body #stage[data-fit-host]{
   position: relative !important;
   padding: 0 !important;
   overflow: hidden !important;
-  border-radius: 16px !important;
   box-sizing: border-box !important;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
-    #0c0b0a !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
 }
-html body .capbar{
+/* Content band ABOVE caption — real size via insets */
+html body #stage .stage-body{
   position: absolute !important;
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important; margin: 0 !important; border: 0 !important;
-  box-sizing: border-box !important;
-  padding: 28px 16px 14px !important;
-  text-align: center !important;
-  z-index: 50 !important;
-  pointer-events: none !important;
-  background: linear-gradient(to top, rgba(12,11,10,.96) 0%, rgba(12,11,10,.88) 45%, transparent 100%) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
+  top: 12px !important;
+  left: 16px !important;
+  right: 16px !important;
+  bottom: 52px !important;
+  overflow: hidden !important;
+  z-index: 2 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  transform: none !important;
 }
-html body #win{
+/* Win fills stage-body completely */
+html body #stage #win{
   position: absolute !important;
   inset: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block !important;
+  overflow: hidden !important;
   background: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
+  transform: none !important;
 }
-html body #win .slide:not(.textslide){
+html body #stage #win .slide{
+  position: absolute !important;
+  inset: 0 !important;
+  box-sizing: border-box !important;
+}
+html body #stage #win .slide.show{
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+html body #stage #win .slide.textslide{
   display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 12px 12px 56px !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-  background: transparent !important;
+  text-align: center !important;
+  padding: 16px !important;
 }
-/* Soft contain only — no transform, no fixed 400x300 */
-html body #win .slide:not(.textslide) > div:first-child{
-  max-width: min(480px, 90%) !important;
-  max-height: min(300px, 78%) !important;
-  width: auto !important;
-  height: auto !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
+/* Caption flush stage bottom — outside stage-body */
+html body #stage .capbar{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  top: auto !important;
+  width: 100% !important;
+  margin: 0 !important;
+  transform: none !important;
+  z-index: 50 !important;
+  pointer-events: none !important;
 }
-@media (max-width: 899px){
-  html body .pi-visual,
-  html body #stage{
-    height: min(320px, 48dvh) !important;
-    min-height: 240px !important;
-    width: 100% !important;
-  }
+html body #stage .wf-cur,
+html body #cur{
+  position: absolute !important;
+  z-index: 40 !important;
+  pointer-events: none !important;
 }
 
 </style>
@@ -3096,8 +3105,10 @@ html body #win .slide:not(.textslide) > div:first-child{
     </div>
     </div>
     <div class="pi-visual">
-    <div class="stage" id="stage" data-fit-host style="position:relative;min-height:280px;height:var(--stage-h,360px);width:100%;overflow:hidden;display:block;">
-      <div class="stage-window" id="win" class="stage-window" style="position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:transparent;z-index:2;"></div>
+    <div class="stage" id="stage" data-fit-host style="position:relative;min-height:360px;height:min(420px,58vh);width:100%;overflow:hidden;display:block;padding:0;">
+      <div class="stage-body" id="stageBody">
+        <div class="stage-window" id="win"></div>
+      </div>
       <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt"></span></div>
       <div class="wf-cur" id="cur"><svg viewBox="0 0 24 24" fill="#f5d100"><path d="M4 2l16 8-7 2-2 7z"/></svg></div>
       <div class="stage-arrows">
