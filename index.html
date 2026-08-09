@@ -3278,6 +3278,249 @@ html body .story-block{
   box-sizing: border-box !important;
 }
 
+
+/* =====================================================================
+   MOTOR FINAL OVERRIDE v3 — single source, wins cascade
+   ===================================================================== */
+
+/* 1. Measure */
+html body .page,
+html body .top-nav-inner,
+html body .wrap{
+  max-width: 920px !important;
+  box-sizing: border-box !important;
+}
+html body .nav-projects-btn{ white-space: nowrap !important; }
+
+/* 2. Stage is ONE box — no internal pad that offsets caption */
+html body #stage.stage,
+html body .pi-visual,
+html body #demoStage{
+  position: relative !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 16px !important;
+  box-sizing: border-box !important;
+  background:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+    #0c0b0a !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+
+/* 3. Caption flush to stage edges — no left gap, no space under */
+html body .capbar,
+html body #stage .capbar,
+html body .stage .capbar{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  padding: 36px 18px 16px !important;
+  text-align: center !important;
+  pointer-events: none !important;
+  z-index: 60 !important;
+  background: linear-gradient(
+    to top,
+    rgba(12,11,10,.98) 0%,
+    rgba(12,11,10,.92) 40%,
+    rgba(12,11,10,0) 100%
+  ) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+/* 4. UI window — CONTAIN, never crop. Scale inside stage. Keep natural ratio. */
+html body #win{
+  position: absolute !important;
+  inset: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+html body #win .slide:not(.textslide){
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 12px 64px !important; /* room for caption */
+  box-sizing: border-box !important;
+  background: transparent !important;
+  overflow: hidden !important;
+}
+/* The product mock itself: fit inside available area without clipping */
+html body #win .slide:not(.textslide) > div:first-child{
+  position: relative !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: min(520px, 90%) !important;
+  max-height: min(280px, calc(100% - 8px)) !important;
+  aspect-ratio: unset !important; /* keep intrinsic layout of the mock */
+  transform: none !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.5) !important;
+  overflow: hidden !important;
+  background: #171614 !important;
+  box-sizing: border-box !important;
+}
+
+/* 5. Skill slides fill stage */
+html body #stage .slide,
+html body .stage .slide{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+/* 6. Prog bar never expands */
+html body .prog{
+  flex: 0 0 auto !important;
+  height: 3px !important;
+  max-height: 3px !important;
+  min-height: 3px !important;
+  width: 100% !important;
+}
+
+/* 7. DEMO — unified visual: copy | stage, stage owns phone */
+html body .demo-split{
+  display: grid !important;
+  grid-template-columns: minmax(160px, 28%) minmax(0, 1fr) !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+html body .demo-visual{
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: min(460px, calc(100dvh - 150px)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+html body #demoStage{
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px !important;
+  position: relative !important;
+}
+html body #demoStage .device-layer,
+html body #demoStage #deviceLayer{
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 36px !important; /* below stage-top label */
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+html body #demoStage .device-layer:not(.show){
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+html body #demoStage .device-layer.show{
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+html body #demoStage #phone,
+html body #demoStage #phone.iphone.on{
+  position: relative !important; /* flex-centered by parent */
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  aspect-ratio: 9 / 19.5 !important;
+  height: 90% !important;
+  width: auto !important;
+  max-height: 90% !important;
+  max-width: 92% !important;
+  border-radius: 36px !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  background: #0a0f1a !important;
+  box-shadow:
+    0 0 0 2px #1a1a1a,
+    0 0 0 4px rgba(255,255,255,.06),
+    0 20px 40px rgba(0,0,0,.45) !important;
+}
+
+/* 8. Process grid */
+html body .figma-layout{
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) !important;
+  width: 100% !important;
+  min-height: 280px !important;
+}
+html body .figma-canvas{ width: 100% !important; min-width: 0 !important; position: relative !important; height: 100% !important; }
+html body .phone-rich{ position: absolute !important; display: flex !important; opacity: 1 !important; visibility: visible !important; }
+
+/* 9. Mobile — subtler stage arrows */
+@media (max-width: 899px){
+  html body .demo-split{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  html body .demo-visual,
+  html body #demoStage{
+    height: min(420px, 58dvh) !important;
+    min-height: 280px !important;
+  }
+  html body .stage-arrow,
+  html body .stage-nav-arrow{
+    width: 28px !important;
+    height: 28px !important;
+    opacity: 0.55 !important;
+    background: rgba(14,13,12,.45) !important;
+    border-color: rgba(255,255,255,.1) !important;
+    backdrop-filter: blur(6px) !important;
+  }
+  html body .stage-arrow:active,
+  html body .stage-nav-arrow:active{
+    opacity: 0.9 !important;
+  }
+  html body .pi-visual,
+  html body #stage{
+    height: min(320px, 48dvh) !important;
+    min-height: 240px !important;
+  }
+  html body #win .slide:not(.textslide) > div:first-child{
+    max-width: 92% !important;
+    max-height: min(240px, 68%) !important;
+  }
+}
+
+/* 10. Skill panel mobile stack */
+@media (max-width: 959px){
+  html body .stage-panel{
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+  html body #stage.stage{
+    height: min(300px, 42vh) !important;
+    min-height: 200px !important;
+    width: 100% !important;
+  }
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 </head>
