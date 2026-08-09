@@ -2945,29 +2945,108 @@ section.sec > .wrap,
 }
 
 
-/* === Skill modal stage fill (reduce caption offset) === */
-html body .stage-panel{
-  max-width: min(920px, 94vw) !important;
+/* === SKILL MODAL STAGE ALIGN (fill grid cell, no offset) === */
+html body .stagezone{
+  padding: 12px !important;
   box-sizing: border-box !important;
 }
-html body .stage-panel #stage,
-html body .stagezone #stage,
-html body .stage-panel .stage{
+html body .stage-panel{
+  width: min(920px, 96vw) !important;
+  max-width: 96vw !important;
+  max-height: min(90vh, 900px) !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important; /* was overflow-y:auto — caused visual offset */
+  display: flex !important;
+  flex-direction: column !important;
+}
+@media (min-width: 960px) and (min-height: 600px){
+  html body .stage-panel{
+    display: grid !important;
+    grid-template-columns: minmax(180px, 260px) minmax(0, 1fr) !important;
+    grid-template-rows: auto auto minmax(0, 1fr) auto !important;
+    grid-template-areas:
+      "tag tag"
+      "title stage"
+      "controls stage"
+      "meta meta" !important;
+    column-gap: 16px !important;
+    row-gap: 8px !important;
+    align-items: stretch !important;
+  }
+  html body .stage-persp{
+    grid-area: stage !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    perspective: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  html body #stage.stage,
+  html body .stage-persp #stage{
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+/* Stage is the canvas */
+html body #stage.stage,
+html body .stage{
   position: relative !important;
   width: 100% !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
+  border-radius: 16px !important;
 }
-html body .stage-panel .capbar,
+/* Slides fill stage exactly */
+html body #stage .slide,
+html body .stage .slide{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+/* Caption edge-to-edge inside stage */
+html body #stage .capbar,
+html body .stage .capbar,
 html body .capbar{
+  position: absolute !important;
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
   width: 100% !important;
-  box-sizing: border-box !important;
   margin: 0 !important;
   border: none !important;
-  background: linear-gradient(to top, rgba(12,11,10,.95) 40%, transparent) !important;
+  box-sizing: border-box !important;
+  padding: 28px 16px 14px !important;
+  background: linear-gradient(to top, rgba(12,11,10,.96) 35%, transparent) !important;
+  pointer-events: none !important;
+}
+/* Mobile: stack, stage still full width */
+@media (max-width: 959px){
+  html body .stage-panel{
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: min(92vh, 900px) !important;
+  }
+  html body .stage-persp{
+    flex: 1 1 auto !important;
+    min-height: 220px !important;
+    width: 100% !important;
+  }
+  html body #stage.stage{
+    width: 100% !important;
+    height: min(320px, 42vh) !important;
+    min-height: 220px !important;
+    max-height: min(360px, 50vh) !important;
+  }
 }
 
 </style>
