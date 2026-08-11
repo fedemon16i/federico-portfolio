@@ -257,9 +257,29 @@ h1{font-size:19px;margin:5px 0;font-weight:700} h1 em{color:var(--accent);font-s
 .controls button { min-width: 44px; min-height: 44px; }
 .tl button { min-height: 36px; padding: 0 12px; }
 
+
+/* embed mode: hide page chrome when ?embed or #embed */
+html.embed .page > .kicker,
+html.embed .page > h1,
+html.embed .page > .lead,
+html.embed .page > p.note:last-of-type{ display:none !important; }
+html.embed .page{ padding: 8px 8px 12px !important; max-width: none !important; }
+html.embed .shell{ grid-template-columns: minmax(140px, 180px) 1fr; gap: 10px; }
+html.embed .frame{ height: min(520px, 70vh); min-height: 300px; }
+@media(max-width:720px){
+  html.embed .shell{ grid-template-columns: 1fr; }
+  html.embed .frame{ height: min(420px, 58vh); }
+}
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
+<script>
+(function(){
+  var embed = /(?:^|[?#&])embed/.test(location.search + location.hash);
+  if (embed) document.documentElement.classList.add('embed');
+})();
+</script>
 <div class="page">
   <p class="kicker">Skills · product services</p>
   <h1>Seven skills to <em>amplify product</em> and understand users</h1>
