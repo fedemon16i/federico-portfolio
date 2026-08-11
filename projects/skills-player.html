@@ -501,14 +501,14 @@ h1{font-size:19px;margin:5px 0;font-weight:700} h1 em{color:var(--accent);font-s
     {n:'04',name:'Research',fn:beatResearch},{n:'05',name:'Understand',fn:beatUnderstand},{n:'06',name:'Design',fn:beatDesign},{n:'07',name:'Hub',fn:beatHub}
   ];
   var tl=document.getElementById('tl');
-  BEATS.forEach(function(b,i){ var btn=document.createElement('button'); btn.type='button'; btn.textContent=b.n+' '+b.name; if(i===0) btn.className='on'; btn.onclick=function(){ go(i); }; tl.appendChild(btn); });
+  BEATS.forEach(function(b,i){ var btn=document.createElement('button'); btn.type='button'; btn.textContent=b.n+' '+b.name; if(i===0) btn.className='on'; btn.onclick=function(){ window.playBeat(i); }; tl.appendChild(btn); });
   function sync(){ Array.prototype.forEach.call(tl.children,function(b,i){ b.classList.toggle('on',i===idx); }); prog.style.width=((idx+1)/BEATS.length*100)+'%'; beatLab.textContent=BEATS[idx].n+' '+BEATS[idx].name; document.getElementById('btnPrev').disabled=idx===0; document.getElementById('btnNext').disabled=idx===BEATS.length-1; }
   window.playBeat = function go(i){ gen++; var my=gen; clearAll(); hideCursors(); hideCap(); idx=i; sync(); BEATS[i].fn(function(){ if(my!==gen||!playing) return; after(T.gap, function(){ go(idx<BEATS.length-1?idx+1:0); }); }); }
-  document.getElementById('play').onclick=function(){ playing=!playing; this.innerHTML=playing?'<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>':'<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'; if(playing) go(idx); };
-  document.getElementById('btnPrev').onclick=function(){ if(idx>0) go(idx-1); };
-  document.getElementById('btnNext').onclick=function(){ if(idx<BEATS.length-1) go(idx+1); };
-  document.getElementById('btnReplay').onclick=function(){ go(idx); };
-  go(0);
+  document.getElementById('play').onclick=function(){ playing=!playing; this.innerHTML=playing?'<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>':'<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'; if(playing) window.playBeat(idx); };
+  document.getElementById('btnPrev').onclick=function(){ if(idx>0) window.playBeat(idx-1); };
+  document.getElementById('btnNext').onclick=function(){ if(idx<BEATS.length-1) window.playBeat(idx+1); };
+  document.getElementById('btnReplay').onclick=function(){ window.playBeat(idx); };
+  window.playBeat(0);
 })();
 </script>
 
