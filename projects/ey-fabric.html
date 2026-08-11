@@ -2957,6 +2957,21 @@ html body #cur{
 @media (max-width: 720px) {
   .pi-iframe { height: min(560px, 75vh); min-height: 420px; }
 }
+
+/* pi-iframe free — no enclosure, part of page */
+#pi .pi-iframe, #pi iframe.pi-iframe{
+  width: 100% !important;
+  height: min(720px, 88vh) !important;
+  min-height: 520px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: block !important;
+}
+#pi .pi-visual{ width:100% !important; background:transparent !important; box-shadow:none !important; border:0 !important; padding:0 !important; }
+#pi .pi-copy{ display:none !important; }
+#pi .pi-split{ display:block !important; }
 </style>
 </head>
 <body>
@@ -3101,21 +3116,18 @@ html body #cur{
     </p>
   </section>
 
-  <!-- PRODUCT INTELLIGENCE — player owns title/description (no duplicate) -->
-  <section class="sec" id="pi">
-    <p class="eyebrow" style="margin-bottom:10px">Product Intelligence</p>
-    <div class="pi-visual" style="width:100%">
-      <iframe
-        class="pi-iframe"
-        id="piPlayerFrame"
-        src="ey-pi-player.html?embed=1"
-        title="Product Intelligence player"
-        loading="eager"
-        allow="autoplay"
-        style="width:100%;height:min(640px,82vh);min-height:480px;border:0;border-radius:14px;background:#0a0a0e;display:block;box-shadow:0 8px 32px rgba(0,0,0,.35)"
-      ></iframe>
-    </div>
-    <p class="note" style="margin-top:10px;opacity:.55">Anonymized Fabric catalog &amp; workbench patterns.</p>
+  <!-- PRODUCT INTELLIGENCE — full-bleed into page flow, player owns narrative -->
+  <section class="sec" id="pi" style="padding-top:8px">
+    <iframe
+      class="pi-iframe"
+      id="piPlayerFrame"
+      src="ey-pi-player.html?embed=1"
+      title="Product Intelligence player"
+      loading="eager"
+      allow="autoplay"
+      style="width:100%;height:min(720px,88vh);min-height:520px;border:0;border-radius:0;background:transparent;display:block;box-shadow:none"
+    ></iframe>
+    <p class="note" style="margin-top:12px;opacity:.5;font-size:12px">Anonymized Fabric catalog &amp; workbench patterns.</p>
   </section>
 
 <div class="closing" id="closing">
