@@ -2945,6 +2945,18 @@ html body #cur{
   pointer-events: none !important;
 }
 
+
+.pi-iframe {
+  width: 100%;
+  height: min(520px, 70vh);
+  min-height: 380px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+}
+@media (max-width: 720px) {
+  .pi-iframe { height: min(560px, 75vh); min-height: 420px; }
+}
 </style>
 </head>
 <body>
@@ -3092,40 +3104,28 @@ html body #cur{
   <!-- PRODUCT INTELLIGENCE -->
   <section class="sec" id="pi">
     <div class="pi-split">
-    <div class="pi-copy">
-    <p class="eyebrow">Product Intelligence</p>
-    <h2 class="h2">From <em>blind catalog</em> to a closed loop</h2>
-    <p class="lead" style="margin-bottom:12px">Six beats — same stage language as Home skills. Text first, then the prototype moves.</p>
-    <div class="timeline" id="timeline"></div>
-    <div class="controls">
-      <button class="ctl" id="playBtn" type="button"><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg> play</button>
-      <button class="ctl" id="replayBtn" type="button">replay</button>
-      <span class="capn" id="capn">1 / 6</span>
-      <div class="prog"><i id="prog"></i></div>
-    </div>
-    </div>
-    <div class="pi-visual">
-    <div class="stage" id="stage" data-fit-host style="position:relative;min-height:360px;height:min(420px,58vh);width:100%;overflow:hidden;display:block;padding:0;">
-      <div class="stage-body" id="stageBody">
-        <div class="stage-window" id="win"></div>
+      <div class="pi-copy">
+        <p class="eyebrow">Product Intelligence</p>
+        <h2 class="h2">From a <em>blind catalog</em> to a closed loop</h2>
+        <p class="lead" style="margin-bottom:12px">Behavioral analytics, research, and design as one practice — instrument the journey, prove the drop-off, and ship the fix with evidence.</p>
+        <p class="note" style="opacity:.7;font-size:12.5px;margin-top:8px">Six beats · same stage language as Home skills.</p>
       </div>
-      <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt"></span></div>
-      <div class="wf-cur" id="cur"><svg viewBox="0 0 24 24" fill="#f5d100"><path d="M4 2l16 8-7 2-2 7z"/></svg></div>
-      <div class="stage-arrows">
-        <button type="button" class="stage-arrow prev" id="stagePrev" aria-label="Previous stage">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button type="button" class="stage-arrow next" id="stageNext" aria-label="Next stage">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
+      <div class="pi-visual">
+        <iframe
+          class="pi-iframe"
+          id="piPlayerFrame"
+          src="ey-pi-player.html"
+          title="Product Intelligence player"
+          loading="eager"
+          allow="autoplay"
+          style="width:100%;height:min(560px,78vh);min-height:440px;border:0;border-radius:14px;background:#0a0a0e;display:block;box-shadow:0 8px 32px rgba(0,0,0,.35)"
+        ></iframe>
       </div>
     </div>
-    </div><!-- pi-visual -->
-    <p class="note">Anonymized Fabric catalog &amp; workbench — skill-modal stage pattern.</p>
-    </div><!-- pi-split -->
+    <p class="note" style="margin-top:10px;opacity:.55">Anonymized Fabric catalog &amp; workbench patterns.</p>
   </section>
 
-  <div class="closing" id="closing">
+<div class="closing" id="closing">
     <p class="closing-q">One person, one loop — from <em>signal</em> to <em>ship</em>, with the instrumentation still running.</p>
     <p class="closing-meta">EY Fabric · XDA · Product Intelligence</p>
   </div>
@@ -3988,5 +3988,19 @@ html body #cur{
 })();
 </script>
 
+<script>
+/* PI player moved to ey-pi-player.html iframe — disable legacy stage motor */
+(function(){
+  if (document.getElementById('piPlayerFrame')) {
+    try {
+      if (typeof BEATS !== 'undefined' && Array.isArray(BEATS)) {
+        BEATS.forEach(function(b){ b.fn = function(done){ if (done) done(); }; });
+      }
+      var stage = document.getElementById('stage');
+      if (stage) stage.style.display = 'none';
+    } catch (e) { console.warn('PI legacy guard', e); }
+  }
+})();
+</script>
 </body>
 </html>
