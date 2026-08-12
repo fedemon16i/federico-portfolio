@@ -4106,36 +4106,51 @@ html body .top-nav .top-nav-inner{
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 <style>
-/* === FINAL modal sizing (wins over prior !important grids) === */
+/* === FINAL skills modal: ONLY the player card (no host chrome) — match second photo === */
+html body .stagezone{
+  padding: 10px !important;
+}
 html body .stagezone.open .stage-panel{
-  width: min(1100px, calc(100vw - 20px)) !important;
-  height: min(720px, calc(100vh - 28px)) !important;
-  max-height: calc(100vh - 28px) !important;
+  width: min(1180px, calc(100vw - 20px)) !important;
+  height: min(860px, calc(100vh - 20px)) !important;
+  max-width: calc(100vw - 20px) !important;
+  max-height: calc(100vh - 20px) !important;
   display: flex !important;
   flex-direction: column !important;
   grid-template-columns: none !important;
   grid-template-rows: none !important;
   grid-template-areas: none !important;
   overflow: hidden !important;
-  padding: 12px !important;
+  padding: 0 !important;
   gap: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
 }
-html body .stagezone.open .stage-panel .controls-top{
-  flex: 0 0 auto !important;
-  display: flex !important;
+/* no host chrome left in markup; keep rules for safety */
+html body .stagezone.open .stage-panel .controls-top,
+html body .stagezone.open .stage-panel .sim-tag,
+html body .stagezone.open .stage-panel .stage-title{
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
 }
 html body .stagezone.open .stage-panel #skillsPlayerFrame,
 html body .stagezone.open .stage-panel .skills-player-frame{
   flex: 1 1 auto !important;
   width: 100% !important;
-  height: auto !important;
-  min-height: 360px !important;
+  height: 100% !important;
+  min-height: 0 !important;
   max-height: none !important;
   border: 0 !important;
+  border-radius: 16px !important;
   display: block !important;
-}
-html body .stagezone.open .stage-panel .sim-tag{
-  flex: 0 0 auto !important;
+  background: transparent !important;
 }
 </style>
 </head>
@@ -4276,23 +4291,14 @@ html body .stagezone.open .stage-panel .sim-tag{
 
   <div class="stagezone" id="stageZone">
    <div class="stage-panel" id="stagePanel">
-    <div class="controls controls-top" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px 6px">
-      <button class="ctl" id="closeBtn" type="button" style="font-weight:700">close</button>
-      <div class="stage-title" id="stageTitle" style="flex:1;min-width:120px">
-        <span class="stage-title-kind">Skill</span>
-        <span id="stageTitleName"></span>
-      </div>
-      <button class="ctl" id="prevArrowBtn" type="button" aria-label="Previous skill">‹</button>
-      <button class="ctl" id="nextArrowBtn" type="button" aria-label="Next skill">›</button>
-    </div>
+    <!-- Host chrome removed: skills-player (embed) owns title, X, pills, stage. Only the card shows. -->
     <iframe
       id="skillsPlayerFrame"
       class="skills-player-frame"
       title="Skills player"
       src="about:blank"
-      style="width:100%;flex:1;min-height:0;border:0;border-radius:12px;background:#0c0b0a;display:block"
+      style="width:100%;height:100%;flex:1;min-height:0;border:0;border-radius:16px;background:transparent;display:block"
     ></iframe>
-    <p class="sim-tag" style="padding:6px 12px 10px;opacity:.7">Process reenacted — tools and UI, not slides.</p>
    </div>
   </div>
 </section>
@@ -5427,10 +5433,6 @@ html body .stagezone.open .stage-panel .sim-tag{
     if (typeof deck!=='undefined' && deck) deck.classList.add('hidden');
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
-    try {
-      var nameEl=document.getElementById('stageTitleName');
-      if(nameEl && typeof CARDS!=='undefined' && CARDS[i]) nameEl.textContent=CARDS[i].t.replace(/&amp;/g,'&');
-    } catch(e){}
     var frame=document.getElementById('skillsPlayerFrame');
     if(frame){ frame.src='projects/skills-player.html?embed=1#beat='+i+'&t='+Date.now(); }
   }
@@ -5504,10 +5506,12 @@ html body .stagezone.open .stage-panel .sim-tag{
   /* click the backdrop (not the panel) to close */
   stageZone.addEventListener('click',function(e){ if(e.target===stageZone) closeStage(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && stageZone.classList.contains('open')) closeStage(); });
-  document.getElementById('closeBtn').addEventListener('click',closeStage);
+  /* player X (inside iframe) posts close — host chrome removed, card is sole chrome */
+  window.addEventListener('message', function(e){
+    if(e && e.data && e.data.type === 'skills-player-close') closeStage();
+  });
   var _rb=document.getElementById('replayBtn'); if(_rb)_rb.addEventListener('click',function(){if(stageZone.classList.contains('open'))playBeat(curBeat);});
-  document.getElementById('prevArrowBtn').addEventListener('click',function(){if(stageZone.classList.contains('open'))playBeat((curBeat-1+beats.length)%beats.length);});
-  document.getElementById('nextArrowBtn').addEventListener('click',function(){if(stageZone.classList.contains('open'))playBeat((curBeat+1)%beats.length);});
+  /* host prev/next/close removed — player pills + X handle navigation & close */
   var autoplayTimer=null;
   var playBtn=document.getElementById('playBtn');
   function stopAutoplay(){
