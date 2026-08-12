@@ -1685,6 +1685,92 @@ html.embed .frame {
   -webkit-text-fill-color: var(--accent) !important;
 }
 
+
+/* ===== LAYOUT PATCH: stages row + section chrome (no animation changes) ===== */
+html.embed body,
+html body {
+  background: transparent !important;
+}
+.page {
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  padding: 16px 14px 24px !important;
+  position: relative !important;
+  background: transparent !important;
+}
+/* Skills modal shell when not embed — soft modal card */
+
+/* EY PI: transparent player bg — inherits project page */
+html, body, .page, .shell, .stage-col, .frame, .unit {
+  background: transparent !important;
+}
+.frame {
+  border: none !important;
+  box-shadow: none !important;
+}
+.unit {
+  background: transparent !important;
+}
+
+/* Single column: stages above square (same as schema) */
+.shell {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  grid-template-columns: none !important;
+}
+.shell > div:first-child {
+  width: 100% !important;
+  order: 1 !important;
+}
+.shell .stage-col {
+  width: 100% !important;
+  order: 2 !important;
+}
+/* Hide duplicate side transport controls — chrome inside unit stays */
+.shell .controls {
+  display: none !important;
+}
+/* Stages: one row preferred; wrap detection via JS */
+.tl {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+}
+.tl button {
+  flex: 0 0 auto !important;
+  height: 26px !important;
+  padding: 0 10px !important;
+  white-space: nowrap !important;
+}
+.tl button .n { font-weight: 800 !important; margin-right: 3px !important; }
+/* Compact = numbers only when they don't fit one line */
+.tl.stages-compact button {
+  padding: 0 9px !important;
+  min-width: 28px !important;
+}
+.tl.stages-compact button .nm {
+  display: none !important;
+}
+.tl.stages-compact button .n {
+  margin-right: 0 !important;
+}
+/* Active still readable */
+.tl button.on {
+  font-weight: 700 !important;
+}
+/* When compact, show name only on active if desired — keep numbers only for consistency */
+
+
+/* spacing: title/lead → stages */
+.page .lead { margin-bottom: 14px !important; }
+.page h1 { margin-bottom: 8px !important; }
+.shell { margin-top: 4px !important; }
+.shell > div:first-child { margin-top: 2px !important; }
+.tl { margin-top: 4px !important; margin-bottom: 6px !important; }
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
@@ -1699,7 +1785,9 @@ html.embed .frame {
     var t = 'dark';
     try {
       var s = localStorage.getItem('theme');
+      // Standalone preview: only honor explicit light; default dark
       if (s === 'light' || s === 'dark') t = s;
+      if (!document.documentElement.classList.contains('embed') && s !== 'light' && s !== 'dark') t = 'dark';
     } catch(e) {}
     try {
       if (window.parent && window.parent !== window) {
@@ -2515,6 +2603,55 @@ function beatMeasure(done){
 </script>
 
 
+
+
+<script>
+(function(){
+  function fitStages(){
+    var tl = document.getElementById('tl');
+    if(!tl) return;
+    // Always measure with full names visible
+    tl.classList.remove('stages-compact');
+    // Force layout
+    void tl.offsetWidth;
+    var rowTop = null, wraps = false;
+    var btns = tl.querySelectorAll('button');
+    if(!btns.length) return;
+    for(var i=0;i<btns.length;i++){
+      var r = btns[i].getBoundingClientRect();
+      if(rowTop === null) rowTop = Math.round(r.top);
+      else if(Math.abs(Math.round(r.top) - rowTop) > 2){ wraps = true; break; }
+    }
+    // Also if overflow width
+    if(tl.scrollWidth > tl.clientWidth + 1) wraps = true;
+    if(wraps) tl.classList.add('stages-compact');
+  }
+  window.addEventListener('resize', function(){
+    clearTimeout(window.__fitStagesT);
+    window.__fitStagesT = setTimeout(fitStages, 80);
+  });
+  function boot(){
+    fitStages();
+    setTimeout(fitStages, 120);
+    setTimeout(fitStages, 400);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+
+  // Close: postMessage to parent (modal host) or history.back
+  var cx = document.getElementById('closeX');
+  if(cx){
+    cx.addEventListener('click', function(){
+      try {
+        if(window.parent && window.parent !== window){
+          window.parent.postMessage({ type: 'skills-player-close' }, '*');
+        }
+      } catch(e) {}
+      try { if(window.history.length > 1) history.back(); } catch(e) {}
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
