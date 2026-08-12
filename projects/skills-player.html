@@ -276,13 +276,10 @@ html.embed .page > h1,
 html.embed .page > .lead,
 html.embed .page > p.note{ display: none !important; }
 html.embed .shell{
-  grid-template-columns: minmax(140px, 180px) 1fr;
-  gap: 10px;
-}
-html.embed /* frame height via SHARED PLAYER GEOMETRY */
-@media(max-width:720px){
-  html.embed .shell{ grid-template-columns: 1fr; }
-  html.embed /* frame height via SHARED PLAYER GEOMETRY */
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 8px !important;
 }
 
 
@@ -1423,9 +1420,8 @@ html body {
   position: relative !important;
   background: transparent !important;
 }
-/* Skills modal shell when not embed — soft modal card */
-
-.page {
+/* Skills modal shell when NOT embed — soft modal card (standalone preview only) */
+html:not(.embed) .page {
   background: var(--bg-surface, #171614) !important;
   border: 1px solid var(--line) !important;
   border-radius: 16px !important;
@@ -1433,7 +1429,7 @@ html body {
   margin: 16px auto !important;
   padding: 18px 16px 20px !important;
 }
-.page .close-x {
+html:not(.embed) .page .close-x {
   position: absolute !important;
   top: 12px !important;
   right: 12px !important;
@@ -1452,8 +1448,66 @@ html body {
   line-height: 1 !important;
   padding: 0 !important;
 }
-.page .close-x:hover { color: var(--text) !important; background: rgba(255,255,255,.1) !important; }
-.page .kicker, .page h1, .page .lead { padding-right: 36px !important; }
+html:not(.embed) .page .close-x:hover { color: var(--text) !important; background: rgba(255,255,255,.1) !important; }
+html:not(.embed) .page .kicker, html:not(.embed) .page h1, html:not(.embed) .page .lead { padding-right: 36px !important; }
+
+/* ═══ EMBED: no second container — host modal is the only chrome ═══ */
+html.embed,
+html.embed body {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  height: 100% !important;
+}
+html.embed .page {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 8px 10px 10px !important;
+  max-width: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+}
+html.embed .page .close-x {
+  display: none !important;
+}
+html.embed .page > .kicker,
+html.embed .page > h1,
+html.embed .page > .lead,
+html.embed .page > p.note {
+  display: none !important;
+}
+html.embed .shell {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+html.embed .shell > div:first-child {
+  flex: 0 0 auto !important;
+}
+html.embed .stage-col {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+html.embed .frame {
+  flex: 1 1 auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  width: 100% !important;
+}
 
 /* Single column: stages above square (same as schema) */
 .shell {
