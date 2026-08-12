@@ -3623,28 +3623,60 @@ html body .stage-nav-arrow{ width:28px !important; height:28px !important; opaci
 }
 
 
-/* ========== HOME TEASER + SINGLE COLUMN (920 like projects) ========== */
+/* ========== HOME = same content width as EY Fabric / Blockchains ========== */
+html body.page-home{
+  --max: 920px;
+  --pad: clamp(16px, 3vw, 28px);
+}
 html body.page-home .home{
   display:block !important;
-  max-width:none !important;
-  width:100% !important;
-  margin:0 !important;
-  padding:0 !important;
-  min-height:auto !important;
-  position:relative !important;
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 var(--pad) 48px !important;
+  min-height: auto !important;
+  position: relative !important;
+  box-sizing: border-box !important;
 }
 html body.page-home aside.bio,
 html body.page-home .bio{
   display:none !important;
 }
-/* Skills + projects stay on the 920 project grid */
+/* main fills the same 920 shell — no second narrower column */
 html body.page-home #main,
 html body.page-home main#main{
-  max-width:920px !important;
-  margin:0 auto !important;
-  padding:0 20px 48px !important;
-  width:100% !important;
-  box-sizing:border-box !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 0 0 !important;
+  box-sizing: border-box !important;
+}
+/* hero + stack share the same width (no full-bleed wider than content) */
+html body.page-home .home-teaser{
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 72px 0 4px !important;
+  box-sizing: border-box !important;
+}
+html body.page-home .ht-grid-zone,
+html body.page-home .ht-meta,
+html body.page-home .ht-stack{
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+/* projects row also respects the shell */
+html body.page-home .pcrow{
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+html body.page-home .proc{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 /* Skill cards: keep production flex behavior; only cap width to fit 920 */
@@ -3704,7 +3736,7 @@ html body.page-home .gcard{
   overflow:visible;
   background:transparent;
   margin:0;
-  padding:72px 20px 4px;
+  padding: 72px 0 4px;
   width:100%;
   max-width:none;
   box-sizing:border-box;
