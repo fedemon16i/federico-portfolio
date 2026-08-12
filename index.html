@@ -58,7 +58,7 @@
   html[data-theme="dark"] .top-nav{background:#0e0d0c;}
   html[data-theme="light"] .top-nav{background:#f7f5f2;}
   .top-nav-mobile{position:fixed;top:0;left:0;width:100%;height:100%;height:100dvh;z-index:10000;background:var(--bg);}
-  .top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1440px;margin-inline:auto;padding-inline:24px;}
+  .top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:920px;margin-inline:auto;padding-inline:clamp(16px,3vw,28px);box-sizing:border-box;width:100%;}
   .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text-primary);letter-spacing:-.02em;}
   .top-nav-logo span{color:var(--accent);}
   .top-nav-links{display:flex;align-items:center;gap:26px;}
@@ -4074,6 +4074,33 @@ html body.page-home .beat-axis-label{
 }
 @media (prefers-reduced-motion: reduce){
   html body.page-home .beat-axis-track{ animation:none !important; }
+}
+
+
+/* ========== NAV: same content width as EY / Blockchains (web + mobile) ========== */
+html body .top-nav-inner{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(16px, 3vw, 28px) !important;
+  padding-right: clamp(16px, 3vw, 28px) !important;
+  box-sizing: border-box !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+/* kill the old 1440 shell */
+html body .top-nav .top-nav-inner{
+  max-width: 920px !important;
+}
+@media (max-width: 700px){
+  html body .top-nav-inner{
+    padding-left: clamp(16px, 4vw, 20px) !important;
+    padding-right: clamp(16px, 4vw, 20px) !important;
+  }
 }
 
 </style>
