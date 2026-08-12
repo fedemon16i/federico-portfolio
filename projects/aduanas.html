@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aduanas El Salvador — Federico Monroy</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../scripts.js" defer></script>
+  <style>
+    :root { --accent: #1071E5; --accent-2: #075bc0; }
+    .aduanas-hero .eyebrow { color: #1071E5; }
+    .aduanas-hero .role-badge { background: #1071E5; color: #fff; }
+    .aduanas-hero .case-title em { color: #1071E5; font-style: italic; }
+
+    .actors-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .actor-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 22px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #dce2ea);
+      border-radius: 12px;
+    }
+    .actor-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .actor-icon.importador { background: #e7f1ff; color: #0764c9; }
+    .actor-icon.agente     { background: #eeeaff; color: #6251c9; }
+    .actor-icon.conductor  { background: #fff0de; color: #a15c00; }
+    .actor-icon.control    { background: #e8f6ee; color: #087a42; }
+    .actor-card h3 { margin: 0 0 6px; font-size: 15px; }
+    .actor-card p { margin: 0 0 10px; color: var(--muted, #697185); font-size: 13px; line-height: 1.5; }
+    .actor-goal { color: #475467; font-size: 11px; font-weight: 600; }
+
+    .problem-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 24px;
+    }
+    .flow-scheme {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 24px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #dce2ea);
+      border-radius: 12px;
+    }
+    .scheme-step { text-align: center; flex: 1; }
+    .scheme-step i { display: block; font-size: 28px; margin-bottom: 8px; }
+    .scheme-step b { display: block; font-size: 13px; margin-bottom: 4px; }
+    .scheme-step span { font-size: 11px; color: var(--muted, #697185); }
+    .scheme-step.gap i { color: #d92727; }
+    .scheme-arrow { color: var(--muted, #697185); font-size: 18px; }
+
+    .approach-steps { display: grid; gap: 28px; margin-top: 28px; }
+    .approach-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .approach-step .step-num {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent, #1071E5);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .approach-step h3 { margin: 0 0 6px; font-size: 17px; }
+    .approach-step p { margin: 0; color: var(--muted, #697185); line-height: 1.6; }
+
+    .demo-tabs {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .demo-tab {
+      padding: 8px 16px;
+      border: 1px solid var(--border, #dce2ea);
+      border-radius: 8px;
+      background: var(--surface, #fff);
+      color: var(--muted, #697185);
+      font: 600 13px Inter, sans-serif;
+      cursor: pointer;
+    }
+    .demo-tab.is-active {
+      background: var(--accent, #1071E5);
+      color: #fff;
+      border-color: var(--accent, #1071E5);
+    }
+    .stage-host {
+      border: 1px solid var(--border, #dce2ea);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface, #fff);
+    }
+    .stage-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: #f7f9fb;
+      border-bottom: 1px solid var(--border, #dce2ea);
+      font-size: 12px;
+    }
+    .stage-label { color: var(--muted, #697185); font-weight: 600; }
+    .stage-link { color: var(--accent, #1071E5); text-decoration: none; font-weight: 600; }
+    .stage-frame iframe {
+      width: 100%;
+      height: min(640px, calc(100vh - 280px));
+      border: 0;
+      display: block;
+    }
+    .stage-frame[hidden] { display: none; }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 28px;
+    }
+    .process-card {
+      padding: 24px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #dce2ea);
+      border-radius: 12px;
+    }
+    .process-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #edf5ff;
+      color: var(--accent, #1071E5);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .process-card h3 { margin: 0 0 8px; font-size: 16px; }
+    .process-card p { margin: 0 0 12px; color: var(--muted, #697185); font-size: 13px; line-height: 1.6; }
+    .process-code {
+      display: block;
+      padding: 14px;
+      background: #f7f9fb;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 12px;
+      color: #475467;
+      line-height: 1.6;
+    }
+
+    .case-quote {
+      max-width: 780px;
+      margin: 24px auto 40px;
+      color: var(--ink, #303745);
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.03em;
+      text-align: center;
+    }
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      text-align: left;
+      margin-top: 20px;
+    }
+    .principle-card {
+      padding: 22px;
+      background: #f8fafc;
+      border-radius: 10px;
+    }
+    .principle-card b { font-size: 14px; }
+    .principle-card p { margin: 8px 0 0; color: var(--muted, #697185); font-size: 12px; line-height: 1.6; }
+
+    .owned-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .owned-item {
+      padding: 20px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #dce2ea);
+      border-radius: 10px;
+    }
+    .owned-item b { display: block; margin-bottom: 6px; font-size: 14px; }
+    .owned-item span { color: var(--muted, #697185); font-size: 13px; line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      .actors-grid, .problem-layout, .process-grid, .owned-grid, .principles-grid { grid-template-columns: 1fr; }
+      .approach-step { grid-template-columns: 40px 1fr; gap: 14px; }
+      .approach-step .step-num { width: 40px; height: 40px; font-size: 12px; }
+      .flow-scheme { flex-direction: column; gap: 16px; }
+      .scheme-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Canonical nav -->
+  <nav class="site-nav" id="siteNav">
+    <a class="nav-logo" href="../index.html" aria-label="Federico Monroy">
+      <span class="logo-mark">FM</span>
+    </a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropbtn active" aria-expanded="false">Projects▾</button>
+        <div class="nav-dropdown-content">
+          <a href="ey-fabric.html">EY Fabric</a>
+          <a href="blockchain.html">Blockchains</a>
+          <a href="chek.html">Chek</a>
+          <a href="aduanas.html" class="is-current">Aduanas</a>
+        </div>
+      </div>
+      <a href="../resume.html">Resume</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../design-system.html">Design System</a>
+    </div>
+    <div class="nav-actions">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">☾</button>
+      <button class="nav-hamburger" aria-label="Open menu">☰</button>
+    </div>
+  </nav>
+
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="../index.html">Home</a>
+    <span>/</span>
+    <a href="../projects.html">Projects</a>
+    <span>/</span>
+    <strong>Aduanas</strong>
+  </nav>
+
+  <header class="case-hero aduanas-hero">
+    <div class="hero-meta">
+      <span class="eyebrow">Aduanas El Salvador · Customs Digital Transformation</span>
+      <span class="role-badge">Lead UX Designer · 2024</span>
+    </div>
+    <h1 class="case-title">A customs platform that bridges <em>document management</em> with physical verification</h1>
+    <p class="case-lede">From ARIVU authorization to boarding pass validation — connecting four actors across two flows with a single source of truth. No information lost between the office and the border checkpoint.</p>
+
+    <div class="stack-block">
+      <span class="stack-cap">Stack used · tap a logo</span>
+      <div class="tool-chips" role="list">
+        <div class="tool-chip ico-only" role="listitem" data-tip="Figma — UI design, prototypes, and design system components">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h7v3.5a3.5 3.5 0 1 1-7 0V14z"/></svg>
+        </div>
+        <div class="tool-chip ico-only" role="listitem" data-tip="HTML/CSS/JS — Interactive prototypes and foundation system">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="tool-chip ico-only" role="listitem" data-tip="PrimeNG — Planned component library for Angular integration">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat"><b>4</b><span>Actors coordinated across the flow</span></div>
+      <div class="stat"><b>2</b><span>Connected flows: document → field</span></div>
+      <div class="stat"><b>4</b><span>Interactive demo prototypes</span></div>
+      <div class="stat"><b>6</b><span>Journey steps from request to release</span></div>
+    </div>
+  </header>
+
+  <main class="case-body">
+
+    <section class="case-section">
+      <span class="section-num">01</span>
+      <h2 class="section-title">What I owned</h2>
+      <div class="owned-grid">
+        <div class="owned-item">
+          <b>End-to-end document flow</b>
+          <span>Designed the complete ARIVU creation journey — from procedure selection through form completion, review, and document generation.</span>
+        </div>
+        <div class="owned-item">
+          <b>Operational mobile pattern</b>
+          <span>Built the boarding pass validation flow for field agents: scan, reject with cause, retry, approve — all with audit trail.</span>
+        </div>
+        <div class="owned-item">
+          <b>Visual foundation system</b>
+          <span>Created a token-based CSS foundation that maps directly to PrimeNG components, ensuring zero hardcoded values per screen.</span>
+        </div>
+        <div class="owned-item">
+          <b>Narrative storytelling layer</b>
+          <span>Structured a story page that explains the journey to stakeholders before they open the prototypes — actors, decisions, and principles.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <span class="section-num">02</span>
+      <h2 class="section-title">The problem</h2>
+      <p class="section-lede">A vehicle does not cross the border with a single click.</p>
+      <div class="problem-layout">
+        <div class="problem-text">
+          <p>Customs operations in El Salvador faced a critical gap: the administrative process (ARIVU document creation) and the physical control process (boarding pass validation at the border) were disconnected. Information entered in the office did not reliably reach the field agent's hands.</p>
+          <p>This meant <strong>duplicate data entry</strong>, <strong>lost authorizations</strong>, and <strong>no audit trail</strong> when a vehicle was rejected at the checkpoint. Four actors — importer, customs agent, driver, and control officer — each needed a different view of the same truth.</p>
+        </div>
+        <div class="problem-schematic">
+          <div class="flow-scheme">
+            <div class="scheme-step">
+              <i>&#128196;</i>
+              <b>Document created</b>
+              <span>ARIVU generated in office</span>
+            </div>
+            <div class="scheme-arrow">→</div>
+            <div class="scheme-step gap">
+              <i>&#9888;</i>
+              <b>Information gap</b>
+              <span>Data does not reach checkpoint</span>
+            </div>
+            <div class="scheme-arrow">→</div>
+            <div class="scheme-step">
+              <i>&#128683;</i>
+              <b>Field rejection</b>
+              <span>Agent cannot verify vehicle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Four actors, one operation</h2>
+      <p class="section-lede">Each actor needs a distinct view of the same truth. The system prevents information from getting lost between administrative management and physical control.</p>
+      <div class="actors-grid">
+        <article class="actor-card">
+          <span class="actor-icon importador">IM</span>
+          <div>
+            <h3>Importador</h3>
+            <p>Requests authorization and gathers vehicle, transport, and commercial operation data.</p>
+            <span class="actor-goal">Goal: initiate the procedure</span>
+          </div>
+        </article>
+        <article class="actor-card">
+          <span class="actor-icon agente">AA</span>
+          <div>
+            <h3>Agente aduanero</h3>
+            <p>Completes and reviews the ARIVU on behalf of the importer; fixes observations before submission.</p>
+            <span class="actor-goal">Goal: create a correct record</span>
+          </div>
+        </article>
+        <article class="actor-card">
+          <span class="actor-icon conductor">CM</span>
+          <div>
+            <h3>Conductor</h3>
+            <p>Transports the vehicle and presents the boarding pass at the control point.</p>
+            <span class="actor-goal">Goal: accredit entry</span>
+          </div>
+        </article>
+        <article class="actor-card">
+          <span class="actor-icon control">CA</span>
+          <div>
+            <h3>Control de Aduanas</h3>
+            <p>Verifies identity, selectivity, and documentation before authorizing the next movement.</p>
+            <span class="actor-goal">Goal: decide with evidence</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <span class="section-num">04</span>
+      <h2 class="section-title">How I worked</h2>
+      <div class="approach-steps">
+        <div class="approach-step">
+          <span class="step-num">01</span>
+          <div>
+            <h3>Foundation system</h3>
+            <p>Defined semantic tokens (color, spacing, radius, typography) that map to PrimeNG components. No hardcoded values per screen — every style resolves to a token.</p>
+          </div>
+        </div>
+        <div class="approach-step">
+          <span class="step-num">02</span>
+          <div>
+            <h3>Document flow</h3>
+            <p>Built the ARIVU creation flow as a 4-step stepper: selection → form → review → success. Pre-filled realistic data so stakeholders see the end state immediately.</p>
+          </div>
+        </div>
+        <div class="approach-step">
+          <span class="step-num">03</span>
+          <div>
+            <h3>Operational flow</h3>
+            <p>Designed the boarding pass as a condensed, field-ready view of the same record. Three critical states: ready → rejected → approved, with clear cause and retry path.</p>
+          </div>
+        </div>
+        <div class="approach-step">
+          <span class="step-num">04</span>
+          <div>
+            <h3>Storytelling layer</h3>
+            <p>Created a narrative page that walks stakeholders through the journey before they open prototypes — actors, decisions, and experience principles.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section demo-section">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Interactive prototypes</h2>
+      <p class="section-lede">Four self-contained demos. Each one is a working HTML prototype that runs directly in the browser — no build step, no dependencies except the shared CSS foundation.</p>
+
+      <div class="demo-tabs" role="tablist" aria-label="Prototype demos">
+        <button class="demo-tab is-active" data-demo="foundation" role="tab" aria-selected="true">Foundation</button>
+        <button class="demo-tab" data-demo="arivu" role="tab" aria-selected="false">ARIVU Flow</button>
+        <button class="demo-tab" data-demo="boarding" role="tab" aria-selected="false">Boarding Pass</button>
+        <button class="demo-tab" data-demo="story" role="tab" aria-selected="false">Story</button>
+      </div>
+
+      <div class="stage-host" id="stageHost">
+        <div class="stage-frame is-active" data-stage="foundation">
+          <div class="stage-toolbar">
+            <span class="stage-label">Foundation · Tokens & Components</span>
+            <a href="aduanas-demos/index.html" target="_blank" class="stage-link">Open in new tab →</a>
+          </div>
+          <iframe src="aduanas-demos/index.html" title="Aduanas Foundation" loading="lazy"></iframe>
+        </div>
+        <div class="stage-frame" data-stage="arivu" hidden>
+          <div class="stage-toolbar">
+            <span class="stage-label">ARIVU · 4-step document creation</span>
+            <a href="aduanas-demos/arivu.html" target="_blank" class="stage-link">Open in new tab →</a>
+          </div>
+          <iframe src="aduanas-demos/arivu.html" title="ARIVU Flow" loading="lazy"></iframe>
+        </div>
+        <div class="stage-frame" data-stage="boarding" hidden>
+          <div class="stage-toolbar">
+            <span class="stage-label">Boarding Pass · 3-state field validation</span>
+            <a href="aduanas-demos/boarding-pass.html" target="_blank" class="stage-link">Open in new tab →</a>
+          </div>
+          <iframe src="aduanas-demos/boarding-pass.html" title="Boarding Pass" loading="lazy"></iframe>
+        </div>
+        <div class="stage-frame" data-stage="story" hidden>
+          <div class="stage-toolbar">
+            <span class="stage-label">Story · Journey narrative for stakeholders</span>
+            <a href="aduanas-demos/story.html" target="_blank" class="stage-link">Open in new tab →</a>
+          </div>
+          <iframe src="aduanas-demos/story.html" title="Story Journey" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section">
+      <span class="section-num">06</span>
+      <h2 class="section-title">How it was shaped</h2>
+      <div class="process-grid">
+        <div class="process-card">
+          <span class="process-tag">Design</span>
+          <h3>Semantic tokens over hardcoded values</h3>
+          <p>Every color, spacing, and radius resolves to a CSS custom property. When PrimeNG components replace the HTML prototypes, the tokens map 1:1 to the design system — no visual regression.</p>
+          <code class="process-code">:root {<br>&nbsp;&nbsp;--primary: #1071E5;<br>&nbsp;&nbsp;--ink: #303745;<br>&nbsp;&nbsp;--canvas: #f6f8fb;<br>&nbsp;&nbsp;--radius-md: 10px;<br>}</code>
+        </div>
+        <div class="process-card">
+          <span class="process-tag">Prototype</span>
+          <h3>HTML prototypes with real data</h3>
+          <p>Pre-filled forms with realistic Salvadoran customs data — import companies, vehicle VINs, customs offices — so stakeholders immediately recognize the context.</p>
+        </div>
+        <div class="process-card">
+          <span class="process-tag">Theme</span>
+          <h3>Light / dark mode</h3>
+          <p>Dark theme uses the same structural tokens with a night-blue canvas (#212630) and adjusted surface colors. Toggle persists across demos via localStorage.</p>
+        </div>
+        <div class="process-card">
+          <span class="process-tag">Responsive</span>
+          <h3>Mobile-first operational views</h3>
+          <p>The boarding pass demo renders inside a phone chrome (390px) to simulate the field agent's actual device. The ARIVU flow scales to desktop admin screens.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section principle-section">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Experience principles</h2>
+      <blockquote class="case-quote">"The right screen is not the one most full of data: it is the one that gives each actor the decision they need to make."</blockquote>
+      <div class="principles-grid">
+        <div class="principle-card">
+          <b>Continuity</b>
+          <p>ARIVU and boarding pass share the same record. No repeated information between office and field.</p>
+        </div>
+        <div class="principle-card">
+          <b>Operational clarity</b>
+          <p>States indicate what happened, why, and what the next action is — in the field, with gloves on, under sun.</p>
+        </div>
+        <div class="principle-card">
+          <b>Traceability</b>
+          <p>Every advance leaves an understandable log for the next person in the chain. Rejection is not an end state — it is a step with a path forward.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="case-footer">
+    <a href="chek.html" class="footer-prev">← Chek</a>
+    <div class="footer-center">
+      <span class="footer-case">Aduanas El Salvador · Customs Digital Transformation</span>
+    </div>
+    <a href="../index.html" class="footer-next">Home →</a>
+  </footer>
+
+  <script>
+    (function() {
+      const tabs = document.querySelectorAll('.demo-tab');
+      const stages = document.querySelectorAll('.stage-frame');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.demo;
+          tabs.forEach(t => { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); });
+          tab.classList.add('is-active'); tab.setAttribute('aria-selected', 'true');
+          stages.forEach(s => {
+            if (s.dataset.stage === target) { s.hidden = false; s.classList.add('is-active'); }
+            else { s.hidden = true; s.classList.remove('is-active'); }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
