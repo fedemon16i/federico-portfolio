@@ -43,7 +43,7 @@ button{font:inherit;color:inherit}
 .mobile a{display:block;padding:12px 0;border-bottom:1px solid var(--border);font-weight:700;font-size:1.15rem}
 
 .wrap{max-width:920px;margin:0 auto;padding:40px 24px 100px}
-.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
 h1{font-weight:800;font-size:clamp(2rem,4.5vw,2.75rem);letter-spacing:-.03em;margin-bottom:12px}
 .lede{color:var(--muted);max-width:44rem;margin-bottom:28px}
 .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
@@ -406,13 +406,21 @@ html[data-theme="light"] .top-nav{ background:#f7f5f2; }
 .top-nav-hamburger{
   display:none; flex-direction:column; gap:4px; background:none; border:none;
   padding:8px; cursor:pointer; margin-left:4px;
+  z-index:1200; position:relative; min-width:44px; min-height:44px;
+  align-items:center; justify-content:center;
 }
-.top-nav-hamburger span{ display:block; width:20px; height:2px; background:var(--text,#f2f0ec); }
+.top-nav-hamburger span{ display:block; width:20px; height:2px; background:var(--text,#f2f0ec); border-radius:1px; }
 .top-nav-mobile{
-  display:none; position:fixed; inset:0; z-index:10000;
-  background:var(--bg,#0e0d0c); padding:72px 24px 24px; overflow:auto;
+  position:fixed; top:0; left:0; width:100%; height:100%; height:100dvh; z-index:10000;
+  background:var(--bg,#0e0d0c); padding:72px 24px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch;
+  transform:translateX(100%); visibility:hidden; pointer-events:none;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1), visibility 0s 320ms;
 }
-.top-nav-mobile.on{ display:block; }
+.top-nav-mobile.on{
+  transform:translateX(0); visibility:visible; pointer-events:auto;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1);
+}
+body.nav-open{ overflow:hidden; touch-action:none; }
 .top-nav-mobile a{
   display:block; padding:14px 0; border-bottom:1px solid var(--border,rgba(255,255,255,.1));
   font-weight:700; font-size:1.05rem; color:var(--text,#f2f0ec); text-decoration:none;
@@ -422,6 +430,7 @@ html[data-theme="light"] .top-nav{ background:#f7f5f2; }
   .top-nav-links{ display:none !important; }
   .top-nav-hamburger{ display:flex !important; }
 }
+@media (min-width:901px){ .top-nav-mobile{ display:none; } }
 
 
 /* === SHELL — notebook-safe widths === */
@@ -2113,17 +2122,30 @@ Selected = inset ring. Player = icon circle. No emoji in production controls (us
   var hamburger=document.getElementById('topNavHamburger');
   var mobile=document.getElementById('topNavMobile');
   var closeBtn=document.getElementById('topNavMobileClose');
-  function openM(){ if(!mobile) return; mobile.classList.add('on'); mobile.setAttribute('aria-hidden','false'); }
-  function closeM(){ if(!mobile) return; mobile.classList.remove('on'); mobile.setAttribute('aria-hidden','true'); }
+  function openM(){
+    if(!mobile) return;
+    mobile.classList.add('on');
+    mobile.setAttribute('aria-hidden','false');
+    if(hamburger) hamburger.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-open');
+  }
+  function closeM(){
+    if(!mobile) return;
+    mobile.classList.remove('on');
+    mobile.setAttribute('aria-hidden','true');
+    if(hamburger) hamburger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-open');
+  }
   if(hamburger) hamburger.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
   if(closeBtn) closeBtn.addEventListener('click', closeM);
   if(mobile) mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && mobile && mobile.classList.contains('on')) closeM(); });
 })();
 </script>
 
 
 <section class="wrap" id="ds-viewport" style="padding:56px 0 32px;max-width:920px;margin:0 auto">
-  <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.55">System · Viewport</p>
+  <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.55">System · Viewport</p>
   <h2 style="margin:8px 0 12px;font-size:1.5rem">Stages, aspect locks, 3D</h2>
   <div style="display:grid;gap:14px;max-width:40rem;line-height:1.55;opacity:.88;font-size:14px">
     <p><b>Height budget first.</b> Stages use <code>--stage-h: min(520px, 100vh - 220px)</code> so short notebook viewports shrink the surface instead of clipping UI.</p>
@@ -2161,7 +2183,7 @@ Selected = inset ring. Player = icon circle. No emoji in production controls (us
 
 
 <section id="fw-player" class="sec" style="max-width:920px;margin:40px auto;padding:0 20px 60px;color:inherit">
-  <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6">Framework</p>
+  <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6">Framework</p>
   <h2 style="font-size:1.5rem;margin:8px 0">Stage language (v4.1)</h2>
   <p style="opacity:.75;max-width:36rem;line-height:1.5">One law for Home skill modals, EY Product Intelligence, Blockchains Demo and Process, and every future case player.</p>
   <ul style="line-height:1.6;opacity:.85">

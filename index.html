@@ -612,7 +612,7 @@
   /* the body — title, "Skill" label, tools, CTA. Always fully visible, never covered by the hover overlay */
   .gc-body{position:relative;z-index:2;padding:10px 14px 12px;display:flex;flex-direction:column;gap:5px;
     border-top:1px solid var(--border-soft);}
-  .gc-kind{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);}
+  .gc-kind{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);}
   .gc-t{font-family:var(--font-display);font-weight:700;font-size:16px;line-height:1.2;letter-spacing:-.01em;}
   .gc-tools{display:flex;gap:7px;}
   .gc-tools svg{width:15px;height:15px;filter:grayscale(1);opacity:.55;transition:all 300ms;}
@@ -1001,7 +1001,7 @@
     display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .stage-title-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
   .stage-title-text{display:flex;flex-direction:column;gap:1px;}
-  .stage-title-kind{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);}
+  .stage-title-kind{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);}
   #stageTitleName{font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text-primary);letter-spacing:-.01em;}
 
   /* UX/UXR cards get a touch more lift in the fan */
@@ -1141,7 +1141,7 @@
   @keyframes cardFloat{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-8px) rotate(-3deg)}}
   .chek-card{position:absolute;left:50%;top:50%;width:120px;height:74px;margin:-37px 0 0 -60px;background:linear-gradient(135deg,#7a3be0,#4b1f96);border-radius:10px;animation:cardFloat 4s ease-in-out infinite;box-shadow:0 14px 30px rgba(122,59,224,.35);padding:10px;}
   .chek-chip{width:18px;height:13px;border-radius:3px;background:rgba(255,255,255,.4);}
-  .chek-num{font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.85);margin-top:18px;letter-spacing:.12em;}
+  .chek-num{font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.85);margin-top:18px;letter-spacing:.1em;}
   @keyframes scanline{0%{top:14%}50%{top:76%}100%{top:14%}}
   .dc-cam{position:absolute;inset:16px;background:#f4f2ec;border-radius:10px;overflow:hidden;}
   .dc-row{position:absolute;left:12px;right:12px;height:9px;border-radius:3px;background:rgba(0,0,0,.08);}
@@ -1471,13 +1471,21 @@ html[data-theme="light"] .top-nav{ background:#f7f5f2; }
 .top-nav-hamburger{
   display:none; flex-direction:column; gap:4px; background:none; border:none;
   padding:8px; cursor:pointer; margin-left:4px;
+  z-index:1200; position:relative; min-width:44px; min-height:44px;
+  align-items:center; justify-content:center;
 }
-.top-nav-hamburger span{ display:block; width:20px; height:2px; background:var(--text,#f2f0ec); }
+.top-nav-hamburger span{ display:block; width:20px; height:2px; background:var(--text,#f2f0ec); border-radius:1px; }
 .top-nav-mobile{
-  display:none; position:fixed; inset:0; z-index:10000;
-  background:var(--bg,#0e0d0c); padding:72px 24px 24px; overflow:auto;
+  position:fixed; top:0; left:0; width:100%; height:100%; height:100dvh; z-index:10000;
+  background:var(--bg,#0e0d0c); padding:72px 24px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch;
+  transform:translateX(100%); visibility:hidden; pointer-events:none;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1), visibility 0s 320ms;
 }
-.top-nav-mobile.on{ display:block; }
+.top-nav-mobile.on{
+  transform:translateX(0); visibility:visible; pointer-events:auto;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1);
+}
+body.nav-open{ overflow:hidden; touch-action:none; }
 .top-nav-mobile a{
   display:block; padding:14px 0; border-bottom:1px solid var(--border,rgba(255,255,255,.1));
   font-weight:700; font-size:1.05rem; color:var(--text,#f2f0ec); text-decoration:none;
@@ -1487,6 +1495,7 @@ html[data-theme="light"] .top-nav{ background:#f7f5f2; }
   .top-nav-links{ display:none !important; }
   .top-nav-hamburger{ display:flex !important; }
 }
+@media (min-width:901px){ .top-nav-mobile{ display:none; } }
 
 /* === SHELL — notebook-safe widths === */
 :root{
