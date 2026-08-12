@@ -1660,6 +1660,91 @@ html.embed .frame {
   min-height: 200px !important;
   max-height: none !important;
 }
+
+/* ═══ FINAL embed density: kill empty gap between pills and stage ═══ */
+html.embed .page {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  padding: 12px 12px 10px !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+}
+html.embed .page > .kicker {
+  margin: 0 0 4px !important;
+  flex: 0 0 auto !important;
+}
+html.embed .page > h1 {
+  margin: 0 0 6px !important;
+  flex: 0 0 auto !important;
+  font-size: clamp(16px, 4.2vw, 19px) !important;
+  line-height: 1.22 !important;
+}
+html.embed .page > .lead {
+  margin: 0 0 10px !important;
+  flex: 0 0 auto !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+  -webkit-line-clamp: 2;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+}
+html.embed .shell {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+html.embed .shell > div:first-child {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+}
+html.embed .tl {
+  margin: 0 !important;
+  gap: 5px !important;
+}
+html.embed .stage-col {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html.embed .frame {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  /* override any mobile fixed-height caps */
+  margin: 0 !important;
+}
+@media (max-width: 720px) {
+  html.embed .frame {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+  html.embed .page {
+    padding: 10px 10px 8px !important;
+  }
+  html.embed .page > .lead {
+    margin-bottom: 8px !important;
+  }
+}
+@media (max-width: 520px), (max-height: 740px) {
+  html.embed .frame {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+}
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
