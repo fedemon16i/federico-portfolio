@@ -1459,14 +1459,16 @@ html.embed body {
   padding: 0 !important;
   overflow: hidden !important;
   height: 100% !important;
+  width: 100% !important;
 }
 html.embed .page {
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+  outline: none !important;
   margin: 0 !important;
-  padding: 8px 10px 10px !important;
+  padding: 0 !important;
   max-width: none !important;
   width: 100% !important;
   height: 100% !important;
@@ -1475,13 +1477,19 @@ html.embed .page {
   flex-direction: column !important;
   position: relative !important;
 }
-html.embed .page .close-x {
+/* kill every chrome that belongs to standalone card */
+html.embed .page .close-x,
+html.embed .close-x {
   display: none !important;
 }
 html.embed .page > .kicker,
 html.embed .page > h1,
 html.embed .page > .lead,
-html.embed .page > p.note {
+html.embed .page > p.note,
+html.embed .kicker,
+html.embed h1.page-title,
+html.embed .page h1,
+html.embed .page .lead {
   display: none !important;
 }
 html.embed .shell {
@@ -1491,6 +1499,9 @@ html.embed .shell {
   flex-direction: column !important;
   gap: 8px !important;
   width: 100% !important;
+  margin: 0 !important;
+  padding: 6px 8px 8px !important;
+  box-sizing: border-box !important;
 }
 html.embed .shell > div:first-child {
   flex: 0 0 auto !important;
@@ -1615,7 +1626,7 @@ html.embed .frame {
 
 <script>
 (function(){
-  var embed = /(?:^|[?#&])embed/.test(location.search + location.hash);
+  var embed = /(?:^|[?#&])embed\b/.test(location.search + location.hash);
   if (embed) document.documentElement.classList.add('embed');
 })();
 </script>
