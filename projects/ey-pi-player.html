@@ -258,34 +258,6 @@ h1{font-size:19px;margin:5px 0;font-weight:700} h1 em{color:var(--accent);font-s
 .tl button { min-height: 36px; padding: 0 12px; }
 
 
-/* embed mode: fill modal, minimal chrome */
-html.embed, html.embed body{
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-html.embed .page{
-  padding: 4px 6px 8px !important;
-  max-width: none !important;
-  margin: 0 !important;
-  background: transparent !important;
-}
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead,
-html.embed .page > p.note{ display: none !important; }
-html.embed .shell{
-  grid-template-columns: minmax(140px, 180px) 1fr;
-  gap: 10px;
-}
-html.embed /* frame height via SHARED PLAYER GEOMETRY */
-@media(max-width:720px){
-  html.embed .shell{ grid-template-columns: 1fr; }
-  html.embed /* frame height via SHARED PLAYER GEOMETRY */
-}
-
-
 /* === MOBILE + SCALE RULES (no page scroll, full UI visible) === */
 html, body {
   overflow-x: hidden !important;
@@ -412,14 +384,6 @@ html[data-theme="light"] h1 { color: var(--text); }
 html[data-theme="light"] h1 em { color: var(--accent); }
 html[data-theme="light"] .prog { background: rgba(0,0,0,.08); }
 html[data-theme="light"] .prog i { background: var(--accent); }
-html.embed, html.embed body,
-html.embed[data-theme="light"], html.embed[data-theme="light"] body {
-  background: transparent !important;
-}
-html.embed .page,
-html.embed[data-theme="light"] .page {
-  background: transparent !important;
-}
 
 
 /* side arrows on stage (same as EY PI) */
@@ -532,8 +496,6 @@ html[data-theme="light"] .stage-arrow{
   .tl button .nm{ display: none !important; }
   .tl button{ padding: 0 9px !important; min-width: 34px !important; text-align: center !important; }
 }
-html.embed .tl button .nm{ display: none !important; }
-html.embed .tl button{ padding: 0 9px !important; min-width: 34px !important; }
 @media (max-width: 720px){
   .shell{ grid-template-columns: 1fr !important; }
   .tl{ justify-content: flex-start !important; }
@@ -578,12 +540,6 @@ html.embed .tl button{ padding: 0 9px !important; min-width: 34px !important; }
   .tl button .nm{ display: inline !important; opacity: .8 !important; }
   .tl button.on .nm{ opacity: 1 !important; }
 }
-html.embed .tl button .nm{ display: none !important; }
-html.embed .tl button.on .nm{ display: inline !important; }
-
-
-/* Top pad + corner stage badge (Blockchains-style) */
-html.embed .page{ padding-top: 12px !important; }
 .page{ padding-top: 20px !important; }
 .stage-col{ gap: 0 !important; }
 .stage-head{ display: none !important; } /* remove title above frame */
@@ -973,12 +929,6 @@ html, body{ margin:0 !important; }
   overflow: hidden !important;
   border-radius: 8px !important;
 }
-html.embed .page{ padding: 8px !important; max-width: none !important; }
-html.embed .frame{
-  height: 480px !important;
-  min-height: 480px !important;
-  max-height: 480px !important;
-}
 
 
 /* EY accent surface */
@@ -1311,42 +1261,6 @@ html, body {
     height: min(380px, calc(100vh - 160px)) !important;
     max-height: calc(100vh - 150px) !important;
   }
-}
-/* Embed / modal: no page scroll, only scaled stage */
-html.embed, html.embed body {
-  overflow: hidden !important;
-  height: 100% !important;
-  margin: 0 !important;
-}
-html.embed .page {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 8px !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-html.embed .kicker,
-html.embed h1,
-html.embed .lead {
-  display: none !important;
-}
-html.embed .shell {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-}
-html.embed .tl,
-html.embed .controls {
-  flex-shrink: 0 !important;
-}
-html.embed .frame {
-  flex: 1 1 auto !important;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
 }
 
 
@@ -1684,13 +1598,6 @@ html.embed .frame {
   color: var(--accent) !important;
   -webkit-text-fill-color: var(--accent) !important;
 }
-
-
-/* ===== LAYOUT PATCH: stages row + section chrome (no animation changes) ===== */
-html.embed body,
-html body {
-  background: transparent !important;
-}
 .page {
   max-width: 720px !important;
   margin: 0 auto !important;
@@ -1770,33 +1677,6 @@ html, body, .page, .shell, .stage-col, .frame, .unit {
 .shell { margin-top: 4px !important; }
 .shell > div:first-child { margin-top: 2px !important; }
 .tl { margin-top: 4px !important; margin-bottom: 6px !important; }
-
-
-/* EY case embed: transparent host, full width of parent (920 wrap) — 2026-08-12 */
-html.embed, html.embed body,
-html.embed[data-theme="light"], html.embed[data-theme="light"] body {
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-html.embed .page,
-html.embed[data-theme="light"] .page {
-  background: transparent !important;
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-}
-html.embed .shell {
-  width: 100% !important;
-  max-width: 100% !important;
-}
-html.embed .frame {
-  width: 100% !important;
-  max-width: 100% !important;
-}
 /* unit keeps own stage surface; page chrome stays invisible in embed */
 
 
@@ -1806,11 +1686,6 @@ html.embed .frame {
   .controls{ margin-top: 3px !important; margin-bottom: 0 !important; }
   .frame{ margin-top: 0 !important; }
 }
-/* embed: even denser */
-html.embed .shell{ gap: var(--player-rail-gap, 12px) !important; }
-html.embed .controls{ margin-top: 3px !important; }
-html.embed .stage-col{ gap: 0 !important; }
-html.embed .page{ padding-bottom: 8px !important; }
 /* page chrome under player — less dead space below frame */
 .page{ padding-bottom: 16px !important; }
 .page > p.note,
@@ -1859,11 +1734,6 @@ html.embed .page{ padding-bottom: 8px !important; }
   .stage-col{ padding-top: 0 !important; }
   .controls{ margin-top: 5px !important; }
 }
-/* embed modal: same rhythm */
-html.embed .shell{ gap: var(--player-chip-gap) !important; }
-html.embed .stage-col{ padding-top: 0 !important; }
-html.embed .page{ padding-bottom: 10px !important; }
-html.embed .controls{ margin-top: 5px !important; }
 /* kill previous ultra-dense lock if present */
 
 
@@ -1893,118 +1763,6 @@ html.embed .controls{ margin-top: 5px !important; }
   .controls{ margin-top: 6px !important; margin-bottom: 0 !important; }
   .stage-col{ margin-top: 2px !important; }
 }
-html.embed .shell{ gap: var(--player-rail-gap) !important; }
-html.embed .page{ padding-bottom: 10px !important; }
-html.embed .frame{ margin-top: 0 !important; }
-/* kill earlier ultra-tight 4px locks */
-
-
-
-
-
-
-/* modal air: top = after chips = below stage */
-  --sk-chip-gap: 16px;
-}
-html.embed,
-html.embed body{
-  height: 100% !important;
-  overflow: hidden !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-}
-html.embed .page{
-  height: 100% !important;
-  max-height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: var(--sk-pad) !important; /* equal air all sides */
-  gap: 0 !important;
-}
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead,
-html.embed .page > .close-x{
-  flex: 0 0 auto !important;
-}
-html.embed .page > .kicker{ margin: 0 0 4px !important; }
-html.embed .page > h1{ margin: 0 0 6px !important; }
-html.embed .page > .lead{
-  margin: 0 0 var(--sk-chip-gap) !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-}
-html.embed .shell{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  grid-template-columns: 1fr !important;
-  gap: var(--sk-chip-gap) !important; /* pills → stage = same as modal pad */
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-html.embed .shell > div:first-child{
-  flex: 0 0 auto !important;
-}
-html.embed .tl,
-html.embed .controls{ flex: 0 0 auto !important; margin: 0 !important; }
-html.embed .controls{ display: none !important; }
-html.embed .stage-col{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  padding-top: 0 !important;
-  overflow: hidden !important;
-}
-/* WEB (desktop): restore centered stage like before — not cut off */
-@media (min-width: 721px){
-  :root{ --sk-pad: 18px; --sk-chip-gap: 16px; }
-  html.embed .frame{
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-    align-items: center !important;      /* restore center */
-    justify-content: center !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-  }
-  html.embed .page > h1{ font-size: clamp(1.25rem, 1.5vw, 1.55rem) !important; }
-  html.embed .page > .lead{ -webkit-line-clamp: 3 !important; font-size: 14px !important; }
-}
-/* MOBILE / TABLET: pack from top, equal pad, no middle void */
-@media (max-width: 720px){
-  :root{ --sk-pad: 14px; --sk-chip-gap: 14px; }
-  html.embed .page{ padding: var(--sk-pad) !important; }
-  html.embed .page > h1{ font-size: 1.1rem !important; margin-bottom: 4px !important; }
-  html.embed .page > .lead{ font-size: 12px !important; margin-bottom: var(--sk-chip-gap) !important; }
-  html.embed .shell{ gap: var(--sk-chip-gap) !important; justify-content: flex-start !important; }
-  html.embed .frame{
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    display: flex !important;
-    align-items: flex-start !important;  /* no middle void */
-    justify-content: center !important;
-    overflow: hidden !important;
-  }
-  html.embed .unit{
-    margin-top: 0 !important;
-    max-height: 100% !important;
-  }
-}
 /* Stage title air from top edge of unit */
 .stage-chrome{
   padding: 16px 14px 12px !important;
@@ -2016,33 +1774,232 @@ html.embed .stage-col{
 }
 
 
-/* EY PI embed: no extra bottom air inside iframe */
-html.embed .page{
-  max-width: none !important;
+/* case page owns narrative; reduce iframe chrome */
+}
+
+
+/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
+   Tokens — use everywhere in the product system
+   --max            920px content
+   --pad            clamp(16px, 3vw, 28px) horizontal
+   --nav-h          64px
+   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
+   --stack-xs       6px
+   --stack-sm       10px
+   --stack-md       14px
+   --stack-lg       22px
+   --player-chip-gap 12px   chips → stage
+   --player-note-gap 10px   stage → caption/note
+   --modal-inset     16px–20px around skills modal card
+   ============================================================ */
+:root{
+  --max: 920px !important;
+  --pad: clamp(16px, 3vw, 28px) !important;
+  --nav-h: 64px !important;
+  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
+  --stack-xs: 6px !important;
+  --stack-sm: 10px !important;
+  --stack-md: 14px !important;
+  --stack-lg: 22px !important;
+  --player-chip-gap: 12px !important;
+  --player-note-gap: 10px !important;
+  --player-rail-gap: 12px !important;
+  --modal-inset: 18px !important;
+}
+.wrap,
+.top-nav-inner{
+  max-width: var(--max) !important;
   width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 8px 0 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
   box-sizing: border-box !important;
+}
+/* Section rhythm — kill 96px/huge asymmetric pads */
+.sec,
+section.sec,
+.section{
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+  box-sizing: border-box !important;
+}
+/* First content after fixed nav: don't double-pad absurdly */
+.sec:first-of-type,
+section.sec:first-of-type,
+#hero.sec,
+section#hero{
+  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
+}
+/* Closing / legal: tight, intentional */
+.closing,
+#closing{
+  margin-top: var(--stack-lg) !important;
+  margin-bottom: var(--stack-md) !important;
+  padding-top: var(--stack-md) !important;
+  padding-bottom: var(--stack-md) !important;
+}
+.legal-note,
+.proj-nav{
+  margin-top: var(--stack-md) !important;
+  padding-top: var(--stack-sm) !important;
+}
+/* Case players host */
+#demo .note,
+#pi .note,
+#pi p.note,
+.bc-player-iframe + .note,
+.pi-iframe + .note{
+  margin-top: var(--player-note-gap) !important;
+  margin-bottom: 0 !important;
+}
+#pi + .closing,
+#demo + .sec,
+#process{
+  margin-top: 0 !important;
+}
+/* Eyebrow → title → lede stack */
+.eyebrow,
+.sec-eyebrow,
+.proc-eyebrow,
+p.level{
+  margin-bottom: var(--stack-sm) !important;
+}
+h1, .h1, .proc-h, .sec-h{
+  margin-top: 0 !important;
+}
+.lede, .lead, .proc-sub, .sec-sub, .sub{
+  margin-top: var(--stack-sm) !important;
+  margin-bottom: var(--stack-md) !important;
+}
+/* Mobile: slightly tighter section, same pad token */
+@media (max-width: 720px){
+  :root{
+    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
+    --modal-inset: 12px !important;
+  }
+}
+
+/* Non-embed (standalone page): same column, comfortable pad */
+body:not(.embed) .shell,
+html:not(.embed) .shell{
   display: flex !important;
   flex-direction: column !important;
-  overflow: hidden !important;
+  grid-template-columns: none !important;
+  gap: 14px !important;
+  max-width: 920px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+html:not(.embed) .frame{
+  width: 100% !important;
+  min-height: min(560px, 70vh) !important;
+  height: min(560px, 70vh) !important;
+}
+html:not(.embed) .unit{
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  transform: none !important;
+}
+
+
+
+/* ========== EMBED SHELL (single source of truth) 2026-08-13v ==========
+   preview-unit-layers layout:
+   titles → pills → 10px → unit centered 560×410 scaled → done
+   ====================================================================== */
+html.embed, html.embed body{
+  margin:0!important; padding:0!important; width:100%!important; height:auto!important;
+  overflow:hidden!important; background:transparent!important;
+}
+html.embed .page{
+  width:100%!important; height:auto!important; max-width:none!important;
+  margin:0!important; padding:14px 16px 16px!important; box-sizing:border-box!important;
+  display:flex!important; flex-direction:column!important; gap:0!important;
+  background:transparent!important; overflow:visible!important;
+}
+html.embed .page > .close-x{display:none!important}
+html.embed .page > .kicker{margin:0 0 4px!important; font-size:10px!important; letter-spacing:.12em!important; text-transform:uppercase!important; opacity:.65!important}
+html.embed .page > h1{margin:0 0 6px!important; font-size:clamp(1.15rem,2.5vw,1.4rem)!important; line-height:1.2!important}
+html.embed .page > .lead{
+  margin:0 0 12px!important; font-size:12.5px!important; line-height:1.4!important; opacity:.75!important;
+  display:-webkit-box!important; -webkit-line-clamp:2!important; -webkit-box-orient:vertical!important; overflow:hidden!important;
 }
 html.embed .shell{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
+  display:flex!important; flex-direction:column!important;
+  grid-template-columns:none!important; gap:10px!important;
+  width:100%!important; margin:0!important; padding:0!important;
+  background:transparent!important; border:none!important; overflow:visible!important;
 }
-html.embed .frame,
+html.embed .shell > div:first-child{width:100%!important; flex:0 0 auto!important}
+html.embed .tl, html.embed #tl{display:flex!important; flex-wrap:nowrap!important; gap:6px!important; overflow-x:auto!important; scrollbar-width:none!important}
+html.embed .tl button, html.embed #tl button{flex:0 0 auto!important; width:auto!important; height:32px!important}
+html.embed .controls{display:none!important}
+
 html.embed .stage-col{
-  width: 100% !important;
-  max-width: none !important;
+  display:block!important; width:100%!important; margin:0!important; padding:0!important;
+  background:transparent!important; border:none!important; overflow:visible!important;
 }
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead{
-  display: none !important; /* case page owns narrative; reduce iframe chrome */
+html.embed .frame, html.embed #frame{
+  display:block!important; width:100%!important; height:auto!important;
+  margin:0!important; padding:0!important;
+  border:none!important; background:transparent!important; box-shadow:none!important;
+  overflow:visible!important; text-align:center!important; position:relative!important;
+}
+html.embed .unit, html.embed #unit{
+  display:inline-block!important; position:relative!important;
+  top:auto!important; left:auto!important; right:auto!important; bottom:auto!important;
+  width:560px!important; height:410px!important;
+  min-width:560px!important; min-height:410px!important;
+  max-width:560px!important; max-height:410px!important;
+  margin:0 auto!important; vertical-align:top!important;
+  box-sizing:border-box!important; transform-origin:top center!important;
+}
+@media(max-width:720px){
+  html.embed .page{padding:10px 12px 12px!important}
+  html.embed .page > .lead{-webkit-line-clamp:1!important; margin-bottom:8px!important}
+}
+
+
+/* height set by JS to 410*scale — rectangular */
+  overflow: hidden !important;
+  border: none !important;
+  background: transparent !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  /* kill any square aspect */
+  aspect-ratio: auto !important;
+}
+html.embed .unit, html.embed #unit{
+  /* position/size/transform set by JS */
+  box-sizing: border-box !important;
+  aspect-ratio: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+
+/* Side padding so unit rectangle is never edge-clipped */
+html.embed .page{
+  padding: 14px 20px 18px !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+html.embed .frame, html.embed #frame{
+  overflow: visible !important;
+}
+html.embed .shell, html.embed .stage-col{
+  overflow: visible !important;
+  padding: 0 !important;
+}
+html.embed, html.embed body{
+  overflow: hidden !important; /* clip page scroll, not unit */
+}
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px 14px 14px !important; }
 }
 
 </style>
@@ -2096,9 +2053,9 @@ html.embed .page > .lead{
 })();
 </script>
 <div class="page">
-  <p class="kicker">Skills · product services</p>
-  <h1>Seven skills to <em>amplify product</em> and understand users</h1>
-  <p class="lead">Map behavior, surface friction, research the why, and close the loop from evidence to shipped UX — the same craft applied across every engagement.</p>
+  <p class="kicker">Product Intelligence · EY Fabric</p>
+  <h1>From <em>signal</em> to decision in the catalog</h1>
+  <p class="lead">Instrument the journey, surface friction, and close the loop from evidence to shipped experience.</p>
   <div class="shell">
     <div>
       <div class="tl" id="tl"></div>
@@ -2154,8 +2111,7 @@ html.embed .page > .lead{
   function clearAll(){ timers.forEach(function(t){ clearTimeout(t); clearInterval(t); }); timers=[]; }
   function after(ms,fn){ return track(setTimeout(fn,ms)); }
   function el(id){ return document.getElementById(id); }
-  function fit(){
-    var fw = frame.clientWidth || 1;
+  function fit(){ if(document.documentElement.classList.contains("embed")) return; var fw = frame.clientWidth || 1;
     var fh = frame.clientHeight || 1;
     /* Uniform scale: entire 560×410 unit always fully visible inside frame — never scroll */
     var s = Math.min(fw / 560, fh / 410);
@@ -2923,6 +2879,124 @@ function beatMeasure(done){
       try { if(window.history.length > 1) history.back(); } catch(e) {}
     });
   }
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/* Landscape-only fit: scale by WIDTH only; height follows 410/560 */
+(function(){
+  if(!document.documentElement.classList.contains('embed')){
+    if(!/(?:^|[?&#])embed=1\b/.test(location.search+location.hash)) return;
+    document.documentElement.classList.add('embed');
+  }
+  var NW=560, NH=410, SIDE=12;
+  function fit(){
+    var unit=document.getElementById('unit');
+    var frame=document.getElementById('frame');
+    var page=document.querySelector('.page');
+    if(!unit||!frame) return;
+
+    var fw = frame.getBoundingClientRect().width || frame.clientWidth || (page&&page.clientWidth) || window.innerWidth;
+    var avail = Math.max(60, fw - SIDE*2);
+    /* WIDTH ONLY — never fit-to-height (that makes it square and crops sides) */
+    var s = avail / NW;
+    if(s > 1.0) s = 1.0;
+    if(s < 0.28) s = 0.28;
+
+    var visW = NW * s;
+    var visH = NH * s; /* always landscape ratio */
+
+    frame.style.setProperty('display','block','important');
+    frame.style.setProperty('position','relative','important');
+    frame.style.setProperty('width','100%','important');
+    frame.style.setProperty('max-width','100%','important');
+    frame.style.setProperty('height', visH+'px','important');
+    frame.style.setProperty('min-height', visH+'px','important');
+    frame.style.setProperty('max-height', visH+'px','important');
+    frame.style.setProperty('aspect-ratio', 'auto','important');
+    frame.style.setProperty('margin','0','important');
+    frame.style.setProperty('padding','0','important');
+    frame.style.setProperty('border','none','important');
+    frame.style.setProperty('background','transparent','important');
+    frame.style.setProperty('overflow','visible','important');
+    frame.style.setProperty('box-sizing','border-box','important');
+
+    var left = (fw - visW) / 2;
+    unit.style.setProperty('display','block','important');
+    unit.style.setProperty('position','absolute','important');
+    unit.style.setProperty('top','0','important');
+    unit.style.setProperty('left', left+'px','important');
+    unit.style.setProperty('width', NW+'px','important');
+    unit.style.setProperty('height', NH+'px','important');
+    unit.style.setProperty('margin','0','important');
+    unit.style.setProperty('box-sizing','border-box','important');
+    unit.style.setProperty('transform-origin','top left','important');
+    unit.style.setProperty('transform','scale('+s+')','important');
+    unit.style.setProperty('max-width','none','important');
+    unit.style.setProperty('max-height','none','important');
+
+    if(page){
+      var h=Math.ceil(page.getBoundingClientRect().height+4);
+      try{
+        if(window.parent&&window.parent!==window)
+          window.parent.postMessage({type:'skills-player-height',height:h},'*');
+      }catch(e){}
+    }
+  }
+  window.fit=fit; window.fitUnit=fit;
+  function boot(){ fit(); [40,120,300,600,1200].forEach(function(t){setTimeout(fit,t);}); }
+  window.addEventListener('resize',function(){ clearTimeout(window.__lf); window.__lf=setTimeout(fit,40); });
+  document.addEventListener('click',function(){ setTimeout(fit,50); },true);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
 </script>
 
