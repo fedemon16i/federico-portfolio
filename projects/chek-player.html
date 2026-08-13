@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script>if(/(?:^|[?&#])embed=1\b/.test(location.search+location.hash))document.documentElement.classList.add("embed");</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Chek · Features</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0e0d0c; --stage-bg:#201e1b;
+  --text:#f2f0ec; --muted:#8a8580; --dim:#5c5854;
+  --accent:#7a3be0; --accent-dim:rgba(122,59,224,.14);
+  --border:rgba(255,255,255,.08);
+  --capbar-fade:rgba(32,30,27,.92);
+  --font-sans:'DM Sans',system-ui,sans-serif;
+  --font-mono:'DM Mono',ui-monospace,monospace;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --tw80:rgba(255,255,255,.8);--tw90:rgba(255,255,255,.9);
+  --border-subtle:rgba(255,255,255,.08);
+  --text-primary:#f2f0ec;--text-secondary:#a6a29a;--text-tertiary:#918b81;
+  --bg-surface:#171614;
+  --spring:cubic-bezier(.34,1.2,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.45;padding:24px 16px 48px}
+html.embed body{padding:10px 10px 12px;min-height:100vh;display:flex;flex-direction:column}
+.wrap{max-width:920px;margin:0 auto;width:100%}
+html.embed .wrap{max-width:none;flex:1;display:flex;flex-direction:column;min-height:0}
+html.embed .page-chrome{display:none}
+
+/* Pills — number only; active = number + name */
+.timeline{display:flex;gap:6px;flex-wrap:nowrap;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.timeline::-webkit-scrollbar{display:none}
+.tl{
+  display:inline-flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:100px;
+  padding:0 12px;height:32px;font-size:12px;color:var(--muted);cursor:pointer;background:transparent;
+  transition:all 250ms;font-family:var(--font-mono);white-space:nowrap;flex:0 0 auto;
+}
+.tl .n{font-family:var(--font-mono);font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
+.tl .nm{display:none;margin-left:6px;font-size:12px;color:inherit}
+.tl.on{border-color:var(--accent);color:var(--text);background:var(--accent-dim)}
+.tl.on .n{color:var(--accent)}
+.tl.on .nm{display:inline;color:var(--text);font-weight:600}
+.tl:hover{border-color:rgba(255,255,255,.18);color:var(--text)}
+
+.stage{
+  position:relative;background:var(--stage-bg);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;
+  height:min(560px,72vh);min-height:420px;
+  display:flex;flex-direction:column;
+}
+html.embed .stage{flex:1;min-height:0;height:auto}
+
+.stage-top{
+  height:48px;flex-shrink:0;display:flex;align-items:center;gap:10px;
+  padding:0 14px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.22);z-index:40;
+}
+.stage-title{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-right:auto}
+.stage-title b{color:var(--text);font-weight:500}
+.stage-top-btns{display:flex;align-items:center;gap:6px}
+.st-btn{
+  width:32px;height:32px;border-radius:8px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;display:grid;place-items:center;font-size:14px;
+}
+.st-btn:hover{border-color:var(--accent);color:var(--accent)}
+.stage-count{font-family:var(--font-mono);font-size:11px;color:var(--dim);min-width:3.2rem;text-align:right}
+
+.stage-window{flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:12px 12px 64px}
+
+/* Centered typewriter INSIDE stage — Blockchains text-phase */
+.text-phase{
+  position:absolute;inset:0;z-index:30;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 28px;text-align:center;
+  background:rgba(14,13,12,.72);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  transition:opacity .45s, visibility .45s;
+}
+.text-phase.hide{opacity:0;visibility:hidden;pointer-events:none}
+.text-phase .kicker{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;opacity:0;transform:translateY(6px);
+  transition:opacity .4s, transform .45s var(--spring);
+}
+.text-phase .kicker.on{opacity:1;transform:none}
+.text-phase .main{
+  font-family:var(--font-display);font-size:clamp(1.2rem,2.4vw,1.55rem);font-weight:700;
+  letter-spacing:-.02em;line-height:1.3;max-width:22rem;color:var(--text);min-height:1.4em;
+}
+.text-phase .main .blink{
+  display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;
+  vertical-align:-2px;animation:blink 1s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.text-phase .sub{
+  margin-top:12px;font-size:14px;color:var(--muted);line-height:1.5;max-width:26rem;min-height:2.6em;
+  opacity:0;transition:opacity .4s;
+}
+.text-phase .sub.on{opacity:1}
+
+.phone-host{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .4s,filter .4s}
+.phone-host.dim{opacity:.25;filter:blur(2px)}
+.phone-scale{position:relative;width:240px;height:480px;transform-origin:center center}
+.ck-phone{
+  width:240px;height:480px;
+  background:linear-gradient(160deg,#2a2a2a 0%,#1c1c1c 50%,#111 100%);
+  border-radius:36px;padding:10px;
+  box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08);
+  position:relative;
+}
+.ck-phone-inner{background:#fff;border-radius:28px;overflow:hidden;height:100%;display:flex;flex-direction:column;position:relative}
+.ck-status{height:26px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:10px;color:#111;font-weight:600;flex-shrink:0}
+.ck-nav{height:36px;background:#6B21A8;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0}
+.ck-nav-title{font-size:11px;font-weight:600;color:#fff;flex:1}
+.ck-body{flex:1;min-height:0;overflow:hidden;background:#fff;position:relative}
+
+/* Capbar blur — bottom narration */
+.capbar{
+  position:absolute;left:0;right:0;bottom:0;z-index:50;padding:14px 22px 16px;min-height:56px;
+  display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none;
+  background:var(--capbar-fade);border-top:1px solid var(--border);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  font-size:14px;color:var(--muted);line-height:1.45;
+}
+.capbar b{color:var(--text);font-weight:600}
+.cap-rec{
+  width:6px;height:6px;border-radius:50%;background:#a855f7;margin-right:10px;flex-shrink:0;
+  animation:rec 1.2s ease infinite;
+}
+@keyframes rec{0%,100%{opacity:1}50%{opacity:.35}}
+.cap-txt{max-width:36rem}
+
+.ck2-btn{width:100%;display:flex;align-items:center;gap:10px;padding:9px 12px;background:transparent;border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;font-family:var(--font-display);text-align:left;transition:all 200ms ease;color:var(--text-secondary);}
+.ck2-btn:hover{border-color:rgba(107,33,168,0.4);background:rgba(107,33,168,0.05);}
+.ck2-btn.active{background:rgba(107,33,168,0.08);border-color:rgba(107,33,168,0.3);color:var(--text-primary);}
+.ck2-btn-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:rgba(107,33,168,0.2);transition:background 200ms ease;}
+.ck2-btn.active .ck2-btn-dot{background:#6B21A8;}
+.ck2-btn-label{font-size:0.72rem;font-weight:500;flex:1;}
+.ck2-btn-tag{font-size:0.58rem;color:var(--text-tertiary);font-family:var(--font-mono);}
+.ck2-step-dot{width:6px;height:6px;border-radius:50%;background:rgba(107,33,168,0.2);transition:all 250ms ease;cursor:pointer;border:none;padding:0;flex-shrink:0;}
+.ck2-step-dot.done{background:rgba(107,33,168,0.6);}
+.ck2-step-dot.current{background:#6B21A8;width:14px;border-radius:100px;}
+.ck2-card{background:linear-gradient(135deg,#6B21A8 0%,#4c1080 100%);margin:10px;border-radius:12px;padding:12px;color:#fff;position:relative;overflow:hidden;cursor:pointer;transition:transform 150ms ease;}
+.ck2-card:active{transform:scale(0.98);}
+.ck2-act-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:7px 8px;border-bottom:1px solid #f0f0f0;}
+.ck2-act{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.ck2-act-ic{width:28px;height:28px;border-radius:50%;background:#f4f4f8;border:1px solid transparent;display:flex;align-items:center;justify-content:center;transition:all 200ms ease;}
+.ck2-act:hover .ck2-act-ic,.ck2-act.hl .ck2-act-ic{background:rgba(107,33,168,0.1);border-color:rgba(107,33,168,0.3);}
+.ck2-act-lb{font-size:6.5px;color:#888;text-align:center;}
+.ck2-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:background 150ms ease;}
+.ck2-row:hover{background:#f9f9f9;}
+.ck2-chip{background:#6B21A8;color:#fff;font-size:7px;font-weight:600;padding:2px 8px;border-radius:100px;}
+.ck2-opt{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:background 150ms ease;}
+.ck2-opt:hover{background:#f9f9f9;}
+.ck2-radio{width:13px;height:13px;border-radius:50%;border:1.5px solid #ccc;flex-shrink:0;margin-top:1px;transition:all 200ms ease;}
+.ck2-radio.sel{border-color:#6B21A8;background:#6B21A8;box-shadow:inset 0 0 0 3px #fff;}
+.ck2-btn-cta{margin:8px 10px;height:32px;background:#6B21A8;border-radius:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity 200ms ease,transform 150ms ease;}
+.ck2-btn-cta:hover{opacity:0.9;transform:scale(0.99);}
+.ck2-btn-cta:active{transform:scale(0.97);}
+.ck2-tx{display:flex;align-items:center;gap:7px;padding:6px 10px;border-bottom:1px solid #f5f5f5;}
+.ck2-sec-opt{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;margin:0 8px 5px;cursor:pointer;transition:all 200ms ease;}
+.ck2-sec-opt:hover{filter:brightness(0.97);}
+.ck2-success{display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:9px;margin:8px;animation:ck2FadeUp 400ms ease;}
+.finger-cur{position:absolute;pointer-events:none;z-index:50;opacity:0;transition:top 480ms cubic-bezier(0.16,1,0.3,1),left 480ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;transform:translate(-50%,-50%)}
+.finger-circle{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.22);border:2px solid rgba(255,255,255,0.55);transition:transform 150ms ease,background 150ms ease}
+.finger-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);opacity:0;transition:opacity 200ms ease}
+.finger-cur{position:absolute;pointer-events:none;z-index:50;opacity:0;transition:top 480ms cubic-bezier(0.16,1,0.3,1),left 480ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;transform:translate(-50%,-50%);}
+.finger-circle{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.22);border:2px solid rgba(255,255,255,0.55);transition:transform 150ms ease,background 150ms ease;}
+.finger-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);opacity:0;transition:opacity 200ms ease;}
+.finger-cur{position:absolute;pointer-events:none;z-index:50;opacity:0;transition:top 480ms cubic-bezier(0.16,1,0.3,1),left 480ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;transform:translate(-50%,-50%)}
+.finger-circle{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.22);border:2px solid rgba(255,255,255,0.55)}
+.finger-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);opacity:0}
+.finger-cur{
+  position:absolute;pointer-events:none;z-index:50;opacity:0;
+  transition:top 480ms cubic-bezier(0.16,1,0.3,1),left 480ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;
+  transform:translate(-50%,-50%);
+  top:18%;left:50%;
+}
+.finger-circle{width:22px;height:22px;border-radius:50%;background:rgba(107,33,168,0.35);border:2px solid rgba(122,59,224,0.9);box-shadow:0 0 0 4px rgba(122,59,224,0.15)}
+.finger-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:2px solid rgba(122,59,224,0.5);opacity:0}
+.finger-cur{
+  position:absolute;pointer-events:none;z-index:50;opacity:0;
+  transition:top 480ms cubic-bezier(0.16,1,0.3,1),left 480ms cubic-bezier(0.16,1,0.3,1),opacity 250ms ease;
+  transform:translate(-50%,-50%);top:18%;left:50%;
+}
+.finger-circle{width:22px;height:22px;border-radius:50%;background:rgba(107,33,168,0.35);border:2px solid rgba(122,59,224,0.9);box-shadow:0 0 0 4px rgba(122,59,224,0.15)}
+.finger-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;border:2px solid rgba(122,59,224,0.5);opacity:0}
+#chek-proto-flows,#chek-proto-steps-row,#chek-try-badge{display:none!important}
+#chek-proto-tooltip{
+  position:absolute;z-index:60;background:rgba(0,0,0,0.88);border:1px solid rgba(255,255,255,0.12);
+  border-radius:7px;padding:5px 10px;font-size:0.6rem;color:#fff;opacity:0;pointer-events:none;
+  max-width:140px;line-height:1.35;transition:opacity 200ms;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-chrome" style="margin-bottom:16px">
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px">Chek · Features</div>
+    <h1 style="font-family:var(--font-display);font-size:1.55rem;font-weight:800;letter-spacing:-.03em">Core product flows</h1>
+  </div>
+
+  <div class="timeline" id="timeline" role="tablist" aria-label="Select a flow"></div>
+
+  <div class="stage" id="stage">
+    <div class="stage-top">
+      <div class="stage-title" id="stageTitle"><b>01</b> · Hub</div>
+      <div class="stage-top-btns">
+        <button type="button" class="st-btn" id="btnPrev" aria-label="Previous">‹</button>
+        <button type="button" class="st-btn" id="btnNext" aria-label="Next">›</button>
+        <button type="button" class="st-btn" id="btnPlay" aria-label="Auto-play">▶</button>
+        <button type="button" class="st-btn" id="btnReplay" aria-label="Replay" title="Replay">↻</button>
+      </div>
+      <span class="stage-count" id="stageCount">1 / 1</span>
+    </div>
+    <div class="stage-window">
+      <!-- Centered narrative INSIDE player -->
+      <div class="text-phase" id="textPhase">
+        <div class="kicker" id="kicker">Flow</div>
+        <div class="main"><span id="typeText"></span><span class="blink" id="blink"></span></div>
+        <div class="sub" id="sub"></div>
+      </div>
+
+      <div class="phone-host dim" id="phoneHost">
+        <div class="phone-scale" id="phoneScale">
+          <div class="ck-phone" id="ckPhone">
+            <div class="ck-phone-inner" id="ckPhoneInner">
+              <div class="ck-status"><span>9:41</span><span style="opacity:.55">●●●</span></div>
+              <div class="ck-nav">
+                <button type="button" id="chek-proto-back-btn" style="display:none;background:0;border:0;color:rgba(255,255,255,.9);font-size:16px;cursor:pointer;padding:0;line-height:1">←</button>
+                <span class="ck-nav-title" id="chek-proto-nav-title">Chek Credit Card</span>
+              </div>
+              <div class="ck-body" id="chek-proto-body"></div>
+              <div id="chek-proto-cur" class="finger-cur"><div class="finger-circle"></div><div class="finger-ring" id="chek-proto-ring"></div></div>
+              <div id="chek-proto-tooltip"></div>
+              <div id="chek-proto-rpl" style="position:absolute;pointer-events:none;z-index:49;opacity:0;transform:translate(-50%,-50%)"><div id="chek-proto-rpl-ring" style="width:28px;height:28px;border-radius:50%;border:2px solid rgba(122,59,224,0.5)"></div></div>
+              <div id="chek-proto-flash" style="position:absolute;inset:0;background:rgba(107,33,168,0.07);opacity:0;pointer-events:none;z-index:48"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt">Select a flow to walk the production prototype.</span></div>
+    </div>
+  </div>
+
+  <div style="display:none" aria-hidden="true">
+    <div id="chek-proto-section"></div>
+    <div id="chek-proto-step-tag"></div>
+    <div id="chek-proto-step-title"></div>
+    <div id="chek-proto-step-desc"></div>
+    <div id="chek-proto-flows"></div>
+    <div id="chek-proto-steps-row"></div>
+    <div id="chek-proto-wrap"></div>
+  </div>
+</div>
+
+<script>
+
+
+
+
+  /* ══════════════════════════════════════════
+     CHEK INTERACTIVE PROTOTYPE
+     5 flows, cursor animation, hover tooltips
+  ══════════════════════════════════════════ */
+  (function(){
+
+    /* ── Flow definitions ── */
+    
+    function movTabs(activeIdx){
+      var tabs=['Movements','Statements','Details'];
+      return '<div style="display:flex;gap:0;background:#f8f8f8;margin:8px;border-radius:8px;overflow:hidden;flex-shrink:0;">'+
+        tabs.map(function(t,i){
+          var on=i===activeIdx;
+          return '<div style="flex:1;padding:5px 0;text-align:center;font-size:8.5px;font-weight:'+(on?'600':'400')+';color:'+(on?'#6B21A8':'#888')+';background:'+(on?'#fff':'transparent')+';border-radius:7px;cursor:pointer;" onclick="chekProtoGoStep(\'movements\','+i+')">'+t+'</div>';
+        }).join('')+'</div>';
+    }
+
+    var FLOWS=[
+      {
+        id:'hub', label:'Credit Card Hub', tag:'Flow 1',
+        desc:'Main card screen — the entry point for all actions.',
+        steps:[
+          {
+            nav:'Chek Credit Card', back:false,
+            tag:'Step 1 — Home',
+            title:'Credit Card Hub',
+            desc:'All critical info at a glance. The user can show card data, pay, block, or explore movements from here.',
+            cursor:{x:'32%',y:'50%'},
+            tooltip:'Tap "Pay" to initiate a payment',
+            build:function(el,go){
+              el.innerHTML=
+                '<div class="ck2-card" onclick="'+go('payment')+'">'+
+                  '<div style="font-size:8px;opacity:0.7;margin-bottom:1px;">Hello, Catalina H.</div>'+
+                  '<div style="font-size:13px;font-weight:800;letter-spacing:-.5px;margin-bottom:7px;">cheK</div>'+
+                  '<div style="font-size:8px;opacity:0.55;font-family:monospace;letter-spacing:.12em;margin-bottom:4px;">•••• •••• •••• 7355</div>'+
+                  '<div style="display:flex;gap:10px;font-size:7px;opacity:0.55;"><span>EXP 09/27</span><span>CVV •••</span></div>'+
+                  '<div style="position:absolute;right:12px;bottom:12px;display:flex;"><div style="width:14px;height:14px;border-radius:50%;background:#e53e3e;"></div><div style="width:14px;height:14px;border-radius:50%;background:#ed8936;margin-left:-5px;"></div></div>'+
+                '</div>'+
+                '<div class="ck2-act-row">'+
+                  [
+                    {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',l:'Show',id:'act-show',flow:null},
+                    {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>',l:'Pay',id:'act-pay',flow:'payment'},
+                    {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>',l:'Block',id:'act-block',flow:'security'},
+                    {ic:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>',l:'More',id:'act-more',flow:null},
+                  ].map(function(a){
+                    return '<div class="ck2-act'+(a.id==='act-pay'?' hl':'')+'" id="'+a.id+'"'+(a.flow?' onclick="chekProtoGoStep(\''+a.flow+'\',0)"':'')+' data-tip="'+(a.id==='act-pay'?'Start payment flow':''+a.l+' action')+'">'+
+                      '<div class="ck2-act-ic">'+a.ic+'</div>'+
+                      '<div class="ck2-act-lb">'+a.l+'</div>'+
+                    '</div>';
+                  }).join('')+
+                '</div>'+
+                '<div class="ck2-row" onclick="chekProtoGoStep(\'credit\',0)" data-tip="See your credit limit breakdown">'+
+                  '<span style="font-size:9px;color:#888;">Available credit</span>'+
+                  '<span class="ck2-chip">$1,000,000 ›</span>'+
+                '</div>'+
+                '<div class="ck2-row" data-tip="View all your movements">'+
+                  '<span style="font-size:9px;color:#888;">Used</span>'+
+                  '<span style="font-size:9px;font-weight:500;color:#111;">$1,500</span>'+
+                '</div>'+
+                '<div style="font-size:8px;color:#6B21A8;padding:4px 10px;cursor:pointer;" onclick="chekProtoGoStep(\'movements\',0)" data-tip="Full movement history">View all movements ›</div>'+
+                '<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:4px 10px 8px;">'+
+                  '<div style="border:1px solid #e8e0f0;border-radius:6px;padding:5px;cursor:pointer;" data-tip="Next billing closes Sep 5th"><div style="font-size:6.5px;color:#aaa;">Next billing</div><div style="font-size:8.5px;font-weight:600;color:#222;">05 Sept</div></div>'+
+                  '<div style="border:1px solid #e8e0f0;border-radius:6px;padding:5px;cursor:pointer;" data-tip="Your minimum is due Sep 25th"><div style="font-size:6.5px;color:#aaa;">Due date</div><div style="font-size:8.5px;font-weight:600;color:#222;">25 Sept</div></div>'+
+                '</div>';
+            }
+          }
+        ]
+      },
+      {
+        id:'payment', label:'Pay Card Flow', tag:'Flow 2',
+        desc:'Full payment selection with financial education nudges.',
+        steps:[
+          {
+            nav:'View & Pay', back:true,
+            tag:'Step 1 — Select',
+            title:'Payment Selection',
+            desc:'4 options presented. Minimum payment shows projected interest to discourage under-payment.',
+            cursor:{x:'50%',y:'58%'},
+            tooltip:'Select minimum payment option',
+            build:function(el){
+              el.innerHTML=
+                '<div style="padding:8px 10px 4px;"><div style="font-size:8px;color:#888;">Payment selection · valid until 09/25/23</div></div>'+
+                [
+                  {l:'Full balance $1,000,000',s:'Covers 100% — no interest',sel:false,warn:false,tip:'Pay everything now'},
+                  {l:'Minimum $50,000',s:'Interest applies on $950k',sel:true,warn:true,tip:'Minimum required payment'},
+                  {l:'Custom amount',s:'',sel:false,warn:false,tip:'Enter your own amount'},
+                  {l:'Restructure debt',s:'',sel:false,warn:false,tip:'Talk to Chek support'},
+                ].map(function(o,i){
+                  return '<div class="ck2-opt" id="ck2opt'+i+'" onclick="chekProtoGoStep(\'payment\',1)" data-tip="'+o.tip+'">'+
+                    '<div class="ck2-radio'+(o.sel?' sel':'')+'"></div>'+
+                    '<div><div style="font-size:8.5px;font-weight:500;color:#222;">'+o.l+'</div>'+(o.s?'<div style="font-size:7.5px;color:'+(o.warn?'#f59e0b':'#888')+';">'+o.s+'</div>':'')+'</div>'+
+                  '</div>';
+                }).join('')+
+                '<div class="ck2-btn-cta" onclick="chekProtoGoStep(\'payment\',1)" data-tip="Confirm this payment selection">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Confirm Payment →</span>'+
+                '</div>'+
+                '<div style="text-align:center;padding:4px;font-size:8px;color:#aaa;cursor:pointer;">Cancel</div>';
+            }
+          },
+          {
+            nav:'Confirm Payment', back:true,
+            tag:'Step 2 — Confirm',
+            title:'Payment Summary',
+            desc:'Final summary before committing. Remaining balance shown to reinforce financial awareness.',
+            cursor:{x:'50%',y:'76%'},
+            tooltip:'Confirm and pay $50,000',
+            build:function(el){
+              el.innerHTML=
+                '<div style="background:#eaf0f8;border:1px solid #c5d8ea;border-radius:10px;padding:14px;margin:10px;text-align:center;">'+
+                  '<div style="font-size:8px;color:#666;margin-bottom:3px;">Payment amount</div>'+
+                  '<div style="font-size:22px;font-weight:700;color:#6B21A8;font-family:monospace;">$50,000</div>'+
+                  '<div style="font-size:7.5px;color:#888;margin-top:2px;">Minimum payment · Sep 25</div>'+
+                '</div>'+
+                '<div class="ck2-row"><span style="font-size:9px;color:#888;">From account</span><span style="font-size:9px;font-weight:500;">•••• 7355</span></div>'+
+                '<div class="ck2-row"><span style="font-size:9px;color:#888;">Processing</span><span style="font-size:9px;font-weight:500;">Immediate</span></div>'+
+                '<div class="ck2-row"><span style="font-size:9px;color:#888;">Remaining balance</span><span style="font-size:9px;font-weight:600;color:#e05c4a;">$950,000</span></div>'+
+                '<div class="ck2-btn-cta" style="margin-top:10px;" onclick="chekProtoGoStep(\'payment\',2)" data-tip="This action is irreversible">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Confirm & Pay</span>'+
+                '</div>'+
+                '<div style="text-align:center;padding:4px;font-size:8px;color:#aaa;cursor:pointer;" onclick="chekProtoGoStep(\'payment\',0)">Cancel</div>';
+            }
+          },
+          {
+            nav:'Payment Done', back:false,
+            tag:'Step 3 — Success',
+            title:'Payment Confirmed',
+            desc:'Immediate feedback, clear success state. Option to return to hub or view updated movements.',
+            cursor:{x:'50%',y:'70%'},
+            tooltip:'Return to the card hub',
+            build:function(el){
+              el.innerHTML=
+                '<div style="padding:20px 10px 10px;text-align:center;">'+
+                  '<div style="width:52px;height:52px;border-radius:50%;background:rgba(34,197,94,0.1);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">'+
+                    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>'+
+                  '</div>'+
+                  '<div style="font-size:12px;font-weight:700;color:#222;margin-bottom:3px;">Payment sent</div>'+
+                  '<div style="font-size:8.5px;color:#888;line-height:1.5;">$50,000 · Minimum payment<br>Sep 25 · Account •••• 7355</div>'+
+                '</div>'+
+                '<div style="margin:0 10px 8px;padding:8px 10px;background:#f5f3ff;border:1px solid #e9d5ff;border-radius:8px;">'+
+                  '<div style="font-size:7.5px;color:#6B21A8;font-weight:600;margin-bottom:2px;">Updated balance</div>'+
+                  '<div style="font-size:10px;font-weight:700;color:#222;">Available: $1,000,000</div>'+
+                  '<div style="font-size:8.5px;color:#888;">Used: $950,000</div>'+
+                '</div>'+
+                '<div class="ck2-btn-cta" onclick="chekProtoGoStep(\'hub\',0)" data-tip="Go back to your card hub">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Back to my card</span>'+
+                '</div>'+
+                '<div style="text-align:center;padding:5px;font-size:8px;color:#6B21A8;cursor:pointer;" onclick="chekProtoGoStep(\'movements\',0)" data-tip="See this payment in your movements">View movements ›</div>';
+            }
+          }
+        ]
+      },
+      {
+        id:'credit', label:'Credit Limit & Balance', tag:'Flow 3',
+        desc:'Transparency screen — users see exactly where their credit stands.',
+        steps:[
+          {
+            nav:'Credit Details', back:true,
+            tag:'Step 1 — Overview',
+            title:'Credit Limit & Available Balance',
+            desc:'Available vs used side by side. Progressive disclosure — extra details expandable.',
+            cursor:{x:'50%',y:'80%'},
+            tooltip:'Pay directly from here — no extra navigation',
+            build:function(el){
+              el.innerHTML=
+                '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #f0f0f0;">'+
+                  '<div style="padding:8px;text-align:center;border-right:1px solid #eee;border-bottom:2px solid #6B21A8;margin-bottom:-2px;cursor:pointer;" data-tip="Current balance view"><div style="font-size:7px;color:#6B21A8;">Balance</div></div>'+
+                  '<div style="padding:8px;text-align:center;cursor:pointer;" data-tip="See all credit details"><div style="font-size:7px;color:#aaa;">Details</div></div>'+
+                '</div>'+
+                '<div style="padding:6px 10px 3px;"><div style="font-size:8.5px;color:#666;">Your credit card balance</div></div>'+
+                '<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #eee;">'+
+                  '<div style="padding:9px;border-right:1px solid #eee;text-align:center;" data-tip="$780k available right now"><div style="font-size:7px;color:#6B21A8;">Available</div><div style="font-size:14px;font-weight:700;color:#222;">$780,000</div></div>'+
+                  '<div style="padding:9px;text-align:center;" data-tip="$220k used of your limit"><div style="font-size:7px;color:#888;">Used</div><div style="font-size:14px;font-weight:700;color:#222;">$220,000</div></div>'+
+                '</div>'+
+                '<div style="padding:5px 10px 2px;"><div style="font-size:8.5px;font-weight:600;color:#333;">Extra details</div></div>'+
+                [
+                  {ic:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',n:'Total credit line',v:'$1,000,000',tip:'Your total approved limit'},
+                  {ic:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',n:'Cash advance',v:'$100,000',tip:'Available for cash withdrawal'},
+                  {ic:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',n:'Billing date',v:'26th every month',tip:'When your statement closes'},
+                ].map(function(r){
+                  return '<div class="ck2-row" data-tip="'+r.tip+'">'+
+                    '<div style="display:flex;align-items:center;gap:6px;">'+
+                      '<div style="width:20px;height:20px;border-radius:50%;background:#f0e8f8;display:flex;align-items:center;justify-content:center;">'+r.ic+'</div>'+
+                      '<span style="font-size:9px;font-weight:500;color:#333;">'+r.n+'</span>'+
+                    '</div>'+
+                    '<span style="font-size:9px;color:#888;">'+r.v+'</span>'+
+                  '</div>';
+                }).join('')+
+                '<div class="ck2-btn-cta" style="margin-top:6px;" onclick="chekProtoGoStep(\'payment\',0)" data-tip="Go to payment selection">Pay Now →</div>';
+            }
+          }
+        ]
+      },
+      {
+        id:'movements', label:'Movements & Statements', tag:'Flow 4',
+        desc:'Transaction history with monthly statements.',
+        steps:[
+          {
+            nav:'Movements', back:true,
+            tag:'Step 1 — History',
+            title:'Transaction History',
+            desc:'All movements with merchant names. Tab switch reveals monthly PDF statements.',
+            cursor:{x:'65%',y:'35%'},
+            tooltip:'Switch to monthly statements view',
+            build:function(el){
+              el.innerHTML=
+                movTabs(0)+
+                '</div>'+
+                '<div style="padding:2px 10px 4px;"><div style="font-size:8.5px;color:#888;">Available <span style="color:#6B21A8;font-weight:600;">$780,000</span></div></div>'+
+                '<div style="font-size:8px;color:#6B21A8;padding:2px 10px 4px;cursor:pointer;" data-tip="See PDF statements by month">View statements ›</div>'+
+                '<div style="padding:2px 10px;"><div style="font-size:8.5px;font-weight:600;color:#333;">Movements · September 2022</div></div>'+
+                [
+                  {ic:'↙',bg:'#e8f5e9',n:'Monthly deposit',d:'Sep 19 · 14:40',a:'+$3,500,000',c:'#2e7d32',tip:'Regular salary deposit'},
+                  {ic:'↗',bg:'#fce8e8',n:'Unimarc',d:'Sep 18 · 12:30',a:'-$45,200',c:'#111',tip:'Supermarket purchase'},
+                  {ic:'↗',bg:'#fce8e8',n:'Netflix',d:'Sep 15 · 00:01',a:'-$12,990',c:'#111',tip:'Monthly subscription'},
+                  {ic:'↗',bg:'#fce8e8',n:'Shell',d:'Sep 10 · 08:15',a:'-$30,000',c:'#111',tip:'Gas station'},
+                  {ic:'↙',bg:'#e8f5e9',n:'Minimum payment',d:'Sep 05 · 09:00',a:'+$50,000',c:'#2e7d32',tip:'Your recent payment'},
+                ].map(function(t){
+                  return '<div class="ck2-tx" data-tip="'+t.tip+'">'+
+                    '<div style="width:24px;height:24px;border-radius:50%;background:'+t.bg+';display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;">'+t.ic+'</div>'+
+                    '<div style="flex:1;"><div style="font-size:9px;font-weight:500;color:#222;">'+t.n+'</div><div style="font-size:7.5px;color:#aaa;">'+t.d+'</div></div>'+
+                    '<span style="font-size:9px;font-weight:600;color:'+t.c+';">'+t.a+'</span>'+
+                  '</div>';
+                }).join('');
+            }
+          },
+          {
+            nav:'Monthly Statements', back:true,
+            tag:'Step 2 — Statements',
+            title:'Monthly Statements',
+            desc:'PDF statements organized by month. One tap to download.',
+            cursor:{x:'50%',y:'38%'},
+            tooltip:'Open the September PDF statement',
+            build:function(el){
+              el.innerHTML=movTabs(1)+
+                '<div style="padding:8px 10px 4px;"><div style="font-size:8.5px;font-weight:600;color:#333;">2022</div></div>'+
+                [
+                  {m:'September 2023',a:'$138,090',s:'Open',c:'#6B21A8',tip:'Most recent statement'},
+                  {m:'August 2023',a:'$112,450',s:'Paid',c:'#22c55e',tip:'Closed and paid'},
+                  {m:'July 2023',a:'$98,200',s:'Paid',c:'#22c55e',tip:'Closed and paid'},
+                  {m:'June 2023',a:'$74,100',s:'Paid',c:'#22c55e',tip:'Closed and paid'},
+                ].map(function(st){
+                  return '<div class="ck2-row" data-tip="'+st.tip+'">'+
+                    '<div style="display:flex;align-items:center;gap:7px;">'+
+                      '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>'+
+                      '<div><div style="font-size:9px;font-weight:500;color:#222;">'+st.m+'</div><div style="font-size:7.5px;color:#888;">'+st.a+'</div></div>'+
+                    '</div>'+
+                    '<span style="font-size:7.5px;padding:2px 7px;border-radius:100px;background:'+(st.s==='Open'?'rgba(107,33,168,0.1)':'rgba(34,197,94,0.1)')+';color:'+st.c+';font-weight:600;">'+st.s+'</span>'+
+                  '</div>';
+                }).join('');
+            }
+          }
+        
+          ,{
+            nav:'Movements', back:true,
+            tag:'Step 3 — Details',
+            title:'Movement detail',
+            desc:'Single transaction detail with merchant category and receipt metadata.',
+            cursor:{x:'50%',y:'40%'},
+            tooltip:'Back to movements list',
+            build:function(el){
+              el.innerHTML=movTabs(2)+
+                '<div style="padding:10px;">'+
+                  '<div style="font-size:8px;color:#888;margin-bottom:6px;">Sep 18 · 12:30</div>'+
+                  '<div style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px;">Unimarc</div>'+
+                  '<div style="font-size:18px;font-weight:800;color:#111;margin-bottom:12px;">-$45,200</div>'+
+                  '<div class="ck2-row"><span style="font-size:9px;color:#888;">Category</span><span style="font-size:9px;color:#222;">Groceries</span></div>'+
+                  '<div class="ck2-row"><span style="font-size:9px;color:#888;">Status</span><span style="font-size:9px;color:#22c55e;">Posted</span></div>'+
+                  '<div class="ck2-row"><span style="font-size:9px;color:#888;">Card</span><span style="font-size:9px;color:#222;">•••• 7355</span></div>'+
+                  '<div class="ck2-btn-cta" style="margin-top:14px;" onclick="chekProtoGoStep(\'movements\',0)">Back to movements</div>'+
+                '</div>';
+            }
+          }
+]
+      },
+      {
+        id:'security', label:'Security Help', tag:'Flow 5',
+        desc:'Reassurance-first design — emotional state before action options.',
+        steps:[
+          {
+            nav:'Security Help', back:true,
+            tag:'Step 1 — Choose',
+            title:'Security Help Flow',
+            desc:'Reassurance message appears first. Options are clearly separated by severity.',
+            cursor:{x:'50%',y:'54%'},
+            tooltip:'Block your card temporarily',
+            build:function(el){
+              el.innerHTML=
+                '<div style="text-align:center;padding:14px 10px 10px;">'+
+                  '<div style="width:46px;height:46px;border-radius:50%;background:rgba(107,33,168,0.1);border:1.5px solid rgba(107,33,168,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">'+
+                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'+
+                  '</div>'+
+                  '<div style="font-size:11px;font-weight:700;color:#222;margin-bottom:3px;">We\'ve got you covered</div>'+
+                  '<div style="font-size:8.5px;color:#888;line-height:1.5;">Your card is protected. Choose what you need.</div>'+
+                '</div>'+
+                '<div class="ck2-sec-opt" style="background:#fffbeb;border:1px solid rgba(245,158,11,0.4);" onclick="chekProtoGoStep(\'security\',1)" data-tip="Temporary — you can unblock anytime">'+
+                  '<div style="width:30px;height:30px;border-radius:50%;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>'+
+                  '</div>'+
+                  '<div style="flex:1;"><div style="font-size:10px;font-weight:600;color:#222;">Block card</div><div style="font-size:8px;color:#888;">Temporary — reversible anytime</div></div>'+
+                  '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                '</div>'+
+                '<div class="ck2-sec-opt" style="background:#fef2f2;border:1px solid rgba(239,68,68,0.3);" data-tip="Permanent block — requires card replacement">'+
+                  '<div style="width:30px;height:30px;border-radius:50%;background:rgba(239,68,68,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>'+
+                  '</div>'+
+                  '<div style="flex:1;"><div style="font-size:10px;font-weight:600;color:#222;">Report stolen</div><div style="font-size:8px;color:#888;">Permanent — new card issued</div></div>'+
+                  '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                '</div>'+
+                '<div class="ck2-sec-opt" style="background:#f5f3ff;border:1px solid rgba(107,33,168,0.2);" data-tip="Chek support will help you locate it">'+
+                  '<div style="width:30px;height:30px;border-radius:50%;background:rgba(107,33,168,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+
+                    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B21A8" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>'+
+                  '</div>'+
+                  '<div style="flex:1;"><div style="font-size:10px;font-weight:600;color:#222;">Lost my card</div><div style="font-size:8px;color:#888;">Help finding it</div></div>'+
+                  '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>'+
+                '</div>';
+            }
+          },
+          {
+            nav:'Card Blocked', back:false,
+            tag:'Step 2 — Blocked',
+            title:'Card Successfully Blocked',
+            desc:'Immediate confirmation. Clear path to unblock. Emotional reassurance maintained throughout.',
+            cursor:{x:'50%',y:'72%'},
+            tooltip:'Unblock anytime from settings',
+            build:function(el){
+              el.innerHTML=
+                '<div style="padding:20px 10px 10px;text-align:center;">'+
+                  '<div style="width:52px;height:52px;border-radius:50%;background:rgba(245,158,11,0.1);border:2px solid #f59e0b;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">'+
+                    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>'+
+                  '</div>'+
+                  '<div style="font-size:12px;font-weight:700;color:#222;margin-bottom:3px;">Card blocked</div>'+
+                  '<div style="font-size:8.5px;color:#888;line-height:1.5;">Card •••• 7355 is now blocked.<br>No transactions can be made.</div>'+
+                '</div>'+
+                '<div style="margin:0 10px 8px;padding:8px 10px;background:#fefce8;border:1px solid rgba(245,158,11,0.3);border-radius:8px;">'+
+                  '<div style="font-size:8px;color:#92400e;line-height:1.5;">You can unblock at any time from your card settings. All scheduled payments remain active.</div>'+
+                '</div>'+
+                '<div class="ck2-btn-cta" style="background:#f59e0b;" onclick="chekProtoGoStep(\'hub\',0)" data-tip="Unblock from settings anytime">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Back to my card</span>'+
+                '</div>'+
+                '<div style="text-align:center;padding:5px;font-size:8px;color:#6B21A8;cursor:pointer;" data-tip="Permanently block and order replacement">Report it as stolen instead ›</div>';
+            }
+          }
+        ]
+      }
+
+      ,
+      {
+        id:'onboarding', label:'Onboarding', tag:'Flow 6',
+        desc:'Good path — silent SINACOFI identity, user never leaves Chek.',
+        steps:[
+          {
+            nav:'Activate card', back:false,
+            tag:'Step 1 — Welcome',
+            title:'Start activation',
+            desc:'User begins from the hub. Identity stays inside Chek — no external WebView.',
+            cursor:{x:'50%',y:'78%'},
+            tooltip:'Tap to activate your card',
+            build:function(el,go){
+              el.innerHTML=
+                '<div style="padding:4px 0 8px;text-align:center">'+
+                  '<div style="font-size:9px;color:#6B21A8;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">New card</div>'+
+                  '<div style="font-size:13px;font-weight:700;color:#1a1028;line-height:1.25;margin-bottom:4px">Activate your<br>Chek Credit Card</div>'+
+                  '<div style="font-size:8px;color:#6b7280;line-height:1.4;margin-bottom:10px">We will verify your identity with SINACOFI without leaving the app.</div>'+
+                '</div>'+
+                '<div class="ck2-card" style="margin-bottom:8px">'+
+                  '<div style="font-size:8px;opacity:0.7;margin-bottom:2px">Hello, Catalina H.</div>'+
+                  '<div style="font-size:12px;font-weight:700">••••  ••••  ••••  4821</div>'+
+                  '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:7px;opacity:0.8"><span>Pending activation</span><span>Visa</span></div>'+
+                '</div>'+
+                '<div style="background:#f5f3ff;border:1px solid #e9e5f5;border-radius:8px;padding:8px;margin-bottom:8px">'+
+                  '<div style="font-size:8px;font-weight:600;color:#4c1d95;margin-bottom:3px">What we will check</div>'+
+                  '<div style="font-size:7.5px;color:#6b7280;line-height:1.45">• RUT / identity match<br>• Credit bureau (SINACOFI)<br>• No extra forms outside Chek</div>'+
+                '</div>'+
+                '<div class="ck2-btn-cta" onclick="chekProtoGoStep(\'onboarding\',1)" data-tip="Start silent identity check">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Activate card</span>'+
+                '</div>';
+            }
+          },
+          {
+            nav:'Identity', back:true,
+            tag:'Step 2 — Silent ID',
+            title:'SINACOFI in-flow',
+            desc:'Silent API check. User stays on Chek — progress and trust copy, no browser leave.',
+            cursor:{x:'50%',y:'62%'},
+            tooltip:'Verification runs in the background',
+            build:function(el,go){
+              el.innerHTML=
+                '<div style="padding:6px 0 4px;text-align:center">'+
+                  '<div style="width:36px;height:36px;border-radius:50%;border:2px solid #6B21A8;border-top-color:transparent;margin:0 auto 10px;animation:ckSpin 0.9s linear infinite"></div>'+
+                  '<div style="font-size:12px;font-weight:700;color:#1a1028;margin-bottom:4px">Verifying identity</div>'+
+                  '<div style="font-size:8px;color:#6b7280;line-height:1.4;margin-bottom:10px">Talking to SINACOFI securely.<br>You stay inside Chek.</div>'+
+                '</div>'+
+                '<div style="background:#fafafa;border-radius:8px;padding:8px;margin-bottom:6px">'+
+                  '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'+
+                    '<span style="font-size:8px;color:#6b7280">SINACOFI check</span>'+
+                    '<span style="font-size:8px;font-weight:600;color:#6B21A8">In progress</span>'+
+                  '</div>'+
+                  '<div style="height:4px;background:#e9e5f5;border-radius:2px;overflow:hidden"><div style="width:68%;height:100%;background:#6B21A8;border-radius:2px"></div></div>'+
+                '</div>'+
+                '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:8px;margin-bottom:8px">'+
+                  '<div style="font-size:8px;font-weight:600;color:#166534">No external browser</div>'+
+                  '<div style="font-size:7.5px;color:#4b5563;margin-top:2px">Unlike the old WebView path, this check never leaves the app.</div>'+
+                '</div>'+
+                '<div class="ck2-btn-cta" onclick="chekProtoGoStep(\'onboarding\',2)" data-tip="Continue when check completes">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Continue</span>'+
+                '</div>'+
+                '<style>@keyframes ckSpin{to{transform:rotate(360deg)}}</style>';
+            }
+          },
+          {
+            nav:'Activating', back:true,
+            tag:'Step 3 — Activating',
+            title:'Card coming online',
+            desc:'After identity passes, the virtual card is provisioned on the same screen stack.',
+            cursor:{x:'50%',y:'55%'},
+            tooltip:'Almost ready',
+            build:function(el,go){
+              el.innerHTML=
+                '<div style="padding:8px 0;text-align:center">'+
+                  '<div class="ck2-card" style="margin:0 auto 12px;opacity:0.95">'+
+                    '<div style="font-size:8px;opacity:0.7;margin-bottom:2px">Catalina H.</div>'+
+                    '<div style="font-size:12px;font-weight:700">••••  ••••  ••••  4821</div>'+
+                    '<div style="margin-top:8px;font-size:7px;opacity:0.85">Activating…</div>'+
+                  '</div>'+
+                  '<div style="font-size:11px;font-weight:700;color:#1a1028;margin-bottom:4px">Setting up your card</div>'+
+                  '<div style="font-size:8px;color:#6b7280;line-height:1.4;margin-bottom:10px">Limits, payments, and security controls are being enabled.</div>'+
+                '</div>'+
+                '<div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px">'+
+                  '<div style="display:flex;align-items:center;gap:6px;font-size:8px;color:#166534"><span style="width:12px;height:12px;border-radius:50%;background:#bbf7d0;display:grid;place-items:center;font-size:7px;color:#166534">✓</span> Identity verified</div>'+
+                  '<div style="display:flex;align-items:center;gap:6px;font-size:8px;color:#6B21A8"><span style="width:12px;height:12px;border-radius:50%;background:#ede9fe;display:grid;place-items:center;font-size:7px">…</span> Virtual card live</div>'+
+                  '<div style="display:flex;align-items:center;gap:6px;font-size:8px;color:#9ca3af"><span style="width:12px;height:12px;border-radius:50%;background:#f3f4f6;display:grid;place-items:center;font-size:7px">3</span> Security defaults</div>'+
+                '</div>'+
+                '<div class="ck2-btn-cta" onclick="chekProtoGoStep(\'onboarding\',3)" data-tip="Finish activation">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Finish</span>'+
+                '</div>';
+            }
+          },
+          {
+            nav:'You\'re ready', back:false,
+            tag:'Step 4 — Ready',
+            title:'Card active',
+            desc:'Onboarding complete. User lands on the hub with full controls — the +15% path.',
+            cursor:{x:'50%',y:'80%'},
+            tooltip:'Go to your card hub',
+            build:function(el,go){
+              el.innerHTML=
+                '<div style="padding:6px 0 8px;text-align:center">'+
+                  '<div style="width:40px;height:40px;border-radius:50%;background:#dcfce7;margin:0 auto 8px;display:grid;place-items:center;font-size:18px;color:#166534">✓</div>'+
+                  '<div style="font-size:13px;font-weight:700;color:#1a1028;margin-bottom:3px">You\'re ready</div>'+
+                  '<div style="font-size:8px;color:#6b7280;line-height:1.4;margin-bottom:10px">Your Chek Credit Card is active.<br>Pay, block, and track movements from the hub.</div>'+
+                '</div>'+
+                '<div class="ck2-card" style="margin-bottom:10px">'+
+                  '<div style="font-size:8px;opacity:0.7;margin-bottom:2px">Catalina H.</div>'+
+                  '<div style="font-size:12px;font-weight:700">••••  ••••  ••••  4821</div>'+
+                  '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:7px;opacity:0.85"><span>Available $2,840</span><span>Active</span></div>'+
+                '</div>'+
+                '<div class="ck2-btn-cta" onclick="chekProtoGoStep(\'hub\',0)" data-tip="Open credit card hub">'+
+                  '<span style="font-size:9px;font-weight:600;color:#fff;">Go to hub</span>'+
+                '</div>';
+            }
+          }
+        ]
+      }
+
+    ];
+
+    /* ── State ── */
+    var currentFlow=0,currentStep=0,autoInterval=null,isAuto=false;
+    var protoTids=[];
+    function pClr(){protoTids.forEach(clearTimeout);protoTids=[];}
+    function pSch(fn,ms){var id=setTimeout(fn,ms);protoTids.push(id);}
+
+    /* Build flow index for goStep */
+    var flowIndex={};
+    FLOWS.forEach(function(f){flowIndex[f.id]=f;});
+
+    /* ── Go to flow+step ── */
+    window.chekProtoGoStep=function(flowId,stepIdx){
+      pClr(); stopAuto();
+      var f=flowIndex[flowId];
+      if(!f)return;
+      currentFlow=FLOWS.indexOf(f);
+      currentStep=stepIdx||0;
+      renderProto(true);
+    };
+
+    /* ── Render ── */
+    function renderProto(animate){
+      var f=FLOWS[currentFlow];
+      var s=f.steps[currentStep];
+      var body=document.getElementById('chek-proto-body');
+      var navTitle=document.getElementById('chek-proto-nav-title');
+      var backBtn=document.getElementById('chek-proto-back-btn');
+      var stepTag=document.getElementById('chek-proto-step-tag');
+      var stepTitle=document.getElementById('chek-proto-step-title');
+      var stepDesc=document.getElementById('chek-proto-step-desc');
+
+      if(navTitle) navTitle.textContent=s.nav;
+      if(backBtn) backBtn.style.display=s.back?'block':'none';
+      if(stepTag) stepTag.textContent=f.tag+' · '+s.tag;
+      if(stepTitle) stepTitle.textContent=s.title;
+      if(stepDesc) stepDesc.textContent=s.desc;
+
+      if(body){
+        if(animate){
+          var fl=document.getElementById('chek-proto-flash');
+          if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';},110);}
+          body.style.opacity='0';
+          setTimeout(function(){
+            body.innerHTML='';
+            s.build(body,function(fId){return 'chekProtoGoStep(\''+fId+'\',0)';});
+            body.style.opacity='1';
+            attachTooltips();
+          },180);
+        } else {
+          body.innerHTML='';
+          s.build(body,function(fId){return 'chekProtoGoStep(\''+fId+'\',0)';});
+          attachTooltips();
+        }
+      }
+
+      renderFlowList();
+      renderStepDots();
+      if(!isAuto) pSch(function(){ runCursorAnim(s); },400);
+    }
+
+    /* ── Tooltip system ── */
+    function attachTooltips(){
+      var body=document.getElementById('chek-proto-body');
+      if(!body)return;
+      var tooltip=document.getElementById('chek-proto-tooltip');
+      var els=body.querySelectorAll('[data-tip]');
+      els.forEach(function(el){
+        el.addEventListener('mouseenter',function(e){
+          if(!tooltip)return;
+          tooltip.textContent=el.getAttribute('data-tip');
+          tooltip.style.opacity='1';
+          tooltip.style.transform='translateX(0)';
+          /* Position cursor at element */
+          var wrap=document.getElementById('phoneScale')||document.getElementById('chek-proto-wrap');
+          var cur=document.getElementById('chek-proto-cur');
+          if(!wrap||!cur)return;
+          var wr=wrap.getBoundingClientRect();
+          var er=el.getBoundingClientRect();
+          var cx=((er.left+er.width/2)-wr.left)/wr.width*100+'%';
+          var cy=((er.top+er.height/2)-wr.top)/wr.height*100+'%';
+          cur.style.opacity='0.7';
+          cur.style.left=cx; cur.style.top=cy;
+        });
+        el.addEventListener('mouseleave',function(){
+          if(!tooltip)return;
+          tooltip.style.opacity='0';
+          tooltip.style.transform='translateX(-4px)';
+          var cur=document.getElementById('chek-proto-cur');
+          if(cur) cur.style.opacity='0';
+        });
+      });
+    }
+
+    /* ── Finger cursor animation ── */
+    function runCursorAnim(s){
+      if(!s.cursor)return;
+      var c=document.getElementById('chek-proto-cur');
+      var ring=document.getElementById('chek-proto-ring');
+      var fc=c?c.querySelector('.finger-circle'):null;
+      var tooltip=document.getElementById('chek-proto-tooltip');
+      var rpl=document.getElementById('chek-proto-rpl');
+      var rplRing=document.getElementById('chek-proto-rpl-ring');
+      if(!c)return;
+      /* Appear at top center */
+      c.style.top='18%'; c.style.left='50%';
+      c.style.opacity='1';
+      /* Move to tap target */
+      pSch(function(){ c.style.top=s.cursor.y; c.style.left=s.cursor.x; },400);
+      /* Hover ring + tooltip */
+      pSch(function(){
+        if(ring) ring.style.opacity='1';
+        if(tooltip){ tooltip.textContent=s.tooltip; tooltip.style.opacity='1'; tooltip.style.transform='translateX(0)'; }
+      },950);
+      /* Tap: compress + ripple */
+      pSch(function(){
+        if(fc){ fc.style.transform='scale(0.7)'; fc.style.background='rgba(255,255,255,0.4)'; }
+        if(rpl){ rpl.style.left=s.cursor.x; rpl.style.top=s.cursor.y; rpl.style.opacity='1'; }
+        if(rplRing){ rplRing.style.animation='none'; void rplRing.offsetWidth; rplRing.style.animation='chekRpl 550ms ease-out forwards'; }
+      },1350);
+      /* Release */
+      pSch(function(){
+        if(fc){ fc.style.transform='scale(1)'; fc.style.background='rgba(255,255,255,0.22)'; }
+        if(ring) ring.style.opacity='0';
+      },1580);
+      /* Fade out */
+      pSch(function(){
+        c.style.opacity='0';
+        if(rpl) rpl.style.opacity='0';
+        if(tooltip){ tooltip.style.opacity='0'; tooltip.style.transform='translateX(-4px)'; }
+      },1950);
+    }
+
+    /* ── Flow list ── */
+    function renderFlowList(){
+      var list=document.getElementById('chek-proto-flows');
+      if(!list)return;
+      list.innerHTML='';
+      FLOWS.forEach(function(f,i){
+        var b=document.createElement('button');
+        b.className='ck2-btn'+(i===currentFlow?' active':'');
+        b.innerHTML=
+          '<div class="ck2-btn-dot"></div>'+
+          '<span class="ck2-btn-label">'+f.label+'</span>'+
+          '<span class="ck2-btn-tag">'+f.tag+'</span>';
+        b.onclick=(function(fi){return function(){window.chekProtoGoStep(FLOWS[fi].id,0);};})(i);
+        list.appendChild(b);
+      });
+    }
+
+    /* ── Step dots ── */
+    function renderStepDots(){
+      var row=document.getElementById('chek-proto-steps-row');
+      if(!row)return;
+      var f=FLOWS[currentFlow];
+      if(f.steps.length<=1){row.innerHTML='';return;}
+      row.innerHTML='';
+      f.steps.forEach(function(s,i){
+        var b=document.createElement('button');
+        b.className='ck2-step-dot'+(i<currentStep?' done':i===currentStep?' current':'');
+        b.setAttribute('aria-label','Step '+(i+1)+': '+s.title);
+        b.onclick=(function(si){return function(){window.chekProtoGoStep(f.id,si);};})(i);
+        row.appendChild(b);
+        if(i<f.steps.length-1){
+          var sep=document.createElement('div');
+          sep.style.cssText='height:1px;width:14px;background:'+(i<currentStep?'rgba(107,33,168,0.4)':'rgba(255,255,255,0.1)')+';flex-shrink:0;';
+          row.appendChild(sep);
+        }
+      });
+    }
+
+    /* ── Back ── */
+    window.chekProtoBack=function(){
+      if(currentStep>0){ window.chekProtoGoStep(FLOWS[currentFlow].id,currentStep-1); }
+      else { window.chekProtoGoStep('hub',0); }
+    };
+
+    /* ── Reset ── */
+    window.chekProtoReset=function(){
+      stopAuto(); window.chekProtoGoStep('hub',0);
+    };
+
+    /* ── Auto-play ── */
+    var autoSequence=[
+      ['hub',0],['payment',0],['payment',1],['payment',2],
+      ['credit',0],['movements',0],['movements',1],
+      ['security',0],['security',1]
+    ];
+    var autoIdx=0;
+    function stopAuto(){
+      isAuto=false; clearInterval(autoInterval);
+      var btn=document.getElementById('chek-proto-play-btn');
+      if(btn){ btn.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;"><polygon points="6,4 20,12 6,20"/></svg> Auto-play'; btn.style.background='var(--accent-dim)'; }
+    }
+    window.chekProtoAutoPlay=function(){
+      if(isAuto){stopAuto();return;}
+      isAuto=true; autoIdx=0;
+      var btn=document.getElementById('chek-proto-play-btn');
+      if(btn){ btn.innerHTML='<svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" style="display:inline-block;vertical-align:middle;margin-right:2px;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg> Stop'; btn.style.background='rgba(155,108,255,0.2)'; }
+      function next(){
+        if(!isAuto)return;
+        var step=autoSequence[autoIdx%autoSequence.length];
+        var f=flowIndex[step[0]];
+        if(f){ currentFlow=FLOWS.indexOf(f); currentStep=step[1]||0; renderProto(true); }
+        autoIdx++;
+      }
+      next();
+      autoInterval=setInterval(next,4000);
+    };
+
+    /* ── Init ── */
+    var sec=document.getElementById('chek-proto-section');
+    if(sec){
+      renderProto(false);
+      var obs=new IntersectionObserver(function(e){
+        if(e[0].isIntersecting){
+          if(window.innerWidth<=640){ pSch(function(){window.chekProtoAutoPlay();},400); }
+          else { pSch(function(){runCursorAnim(FLOWS[0].steps[0]);},300); }
+          obs.disconnect();
+        }
+      },{threshold:0.1});
+      obs.observe(sec);
+    }
+
+  })();
+  
+
+
+
+</script>
+<script>
+(function(){
+  var FLOW_META=[
+    {id:'hub', short:'Hub'},
+    {id:'payment', short:'Pay'},
+    {id:'credit', short:'Limit'},
+    {id:'movements', short:'Moves'},
+    {id:'security', short:'Security'},
+    {id:'onboarding', short:'Onboard'}
+  ];
+  var timeline=document.getElementById('timeline');
+  var stageTitle=document.getElementById('stageTitle');
+  var stageCount=document.getElementById('stageCount');
+  var textPhase=document.getElementById('textPhase');
+  var kicker=document.getElementById('kicker');
+  var typeText=document.getElementById('typeText');
+  var sub=document.getElementById('sub');
+  var blink=document.getElementById('blink');
+  var phoneHost=document.getElementById('phoneHost');
+  var capTxt=document.getElementById('capTxt');
+  var typeTimer=null;
+  var phaseTimer=null;
+
+  FLOW_META.forEach(function(f,i){
+    var b=document.createElement('button');
+    b.type='button'; b.className='tl'+(i===0?' on':'');
+    b.innerHTML='<span class="n">0'+(i+1)+'</span><span class="nm">'+f.short+'</span>';
+    b.addEventListener('click', function(){
+      stopAuto();
+      setPill(i);
+      playBeat(f.id, 0, i);
+    });
+    timeline.appendChild(b);
+  });
+  function setPill(i){
+    [].forEach.call(timeline.children, function(el,idx){ el.classList.toggle('on', idx===i); });
+  }
+
+  function fitPhone(){
+    var host=document.getElementById('phoneHost');
+    var scaleEl=document.getElementById('phoneScale');
+    if(!host||!scaleEl) return;
+    var s=Math.min(host.clientWidth/240, host.clientHeight/480)*0.94;
+    if(s>1.15) s=1.15; if(s<0.32) s=0.32;
+    scaleEl.style.transform='scale('+s+')';
+  }
+  window.addEventListener('resize', fitPhone);
+
+  function syncCount(){
+    var dots=document.querySelectorAll('#chek-proto-steps-row .ck2-step-dot');
+    if(dots.length){
+      var cur=0; dots.forEach(function(d,i){ if(d.classList.contains('current')) cur=i; });
+      stageCount.textContent=(cur+1)+' / '+dots.length;
+    } else stageCount.textContent='1 / 1';
+  }
+
+  function typeInto(el, text, speed, cb){
+    if(typeTimer) clearInterval(typeTimer);
+    el.textContent='';
+    if(!text){ if(cb) cb(); return; }
+    var i=0;
+    typeTimer=setInterval(function(){
+      el.textContent=text.slice(0,++i);
+      if(i>=text.length){ clearInterval(typeTimer); typeTimer=null; if(cb) cb(); }
+    }, speed||18);
+  }
+
+  function showTextPhase(tag, title, desc, then){
+    if(phaseTimer) clearTimeout(phaseTimer);
+    textPhase.classList.remove('hide');
+    phoneHost.classList.add('dim');
+    kicker.textContent = tag || '';
+    kicker.classList.remove('on');
+    sub.classList.remove('on');
+    sub.textContent = '';
+    typeText.textContent = '';
+    if(blink) blink.style.display = '';
+
+    // Kick in
+    requestAnimationFrame(function(){ kicker.classList.add('on'); });
+    typeInto(typeText, title || '', 18, function(){
+      if(blink) blink.style.display = 'none';
+      if(desc){
+        sub.textContent = desc;
+        sub.classList.add('on');
+      }
+      // Hold then reveal phone
+      phaseTimer = setTimeout(function(){
+        textPhase.classList.add('hide');
+        phoneHost.classList.remove('dim');
+        fitPhone();
+        if(then) then();
+      }, desc ? 1400 : 900);
+    });
+  }
+
+  function playBeat(flowId, stepIdx, flowIndex){
+    // Render first so hidden fields fill
+    if(window.chekProtoGoStep) window.chekProtoGoStep(flowId, stepIdx);
+    setTimeout(function(){
+      var tagEl=document.getElementById('chek-proto-step-tag');
+      var titleEl=document.getElementById('chek-proto-step-title');
+      var descEl=document.getElementById('chek-proto-step-desc');
+      var tag = tagEl && tagEl.textContent ? tagEl.textContent : ('Flow 0'+(flowIndex+1));
+      var title = titleEl && titleEl.textContent ? titleEl.textContent : FLOW_META[flowIndex].short;
+      var desc = descEl && descEl.textContent ? descEl.textContent : '';
+
+      if(stageTitle) stageTitle.innerHTML = '<b>0'+(flowIndex+1)+'</b> · '+FLOW_META[flowIndex].short;
+      if(capTxt) capTxt.innerHTML = '<b>'+tag+'</b> — '+(desc || title);
+      syncCount();
+
+      showTextPhase(tag, title, desc, function(){
+        // snap cursor after phone visible
+        setTimeout(snapCursor, 400);
+      });
+    }, 30);
+  }
+
+  function snapCursor(){
+    var cur = document.getElementById('chek-proto-cur');
+    var body = document.getElementById('chek-proto-body');
+    var inner = document.getElementById('ckPhoneInner');
+    if(!cur || !body) return;
+    if(inner && cur.parentElement !== inner) inner.appendChild(cur);
+    var target = body.querySelector('.ck2-act.hl, .ck2-btn-cta, .ck2-card, [onclick]');
+    if(target){
+      var ir = (inner || body).getBoundingClientRect();
+      var tr = target.getBoundingClientRect();
+      var x = ((tr.left + tr.width/2) - ir.left) / ir.width * 100;
+      var y = ((tr.top + tr.height/2) - ir.top) / ir.height * 100;
+      cur.style.opacity = '1';
+      cur.style.left = x + '%';
+      cur.style.top = y + '%';
+    }
+  }
+
+  // When production re-renders mid-flow (step change), update capbar only — don't re-run full text phase unless pill click
+  var body=document.getElementById('chek-proto-body');
+  if(body){
+    new MutationObserver(function(){
+      var tagEl=document.getElementById('chek-proto-step-tag');
+      var descEl=document.getElementById('chek-proto-step-desc');
+      var titleEl=document.getElementById('chek-proto-step-title');
+      if(capTxt && tagEl && tagEl.textContent){
+        var d = (descEl && descEl.textContent) || (titleEl && titleEl.textContent) || '';
+        capTxt.innerHTML = '<b>'+tagEl.textContent+'</b> — '+d;
+      }
+      syncCount();
+      var active=document.querySelector('#chek-proto-flows .ck2-btn.active');
+      if(active){
+        var labels=[].slice.call(document.querySelectorAll('#chek-proto-flows .ck2-btn'));
+        var idx=labels.indexOf(active);
+        if(idx>=0){
+          setPill(idx);
+          if(stageTitle) stageTitle.innerHTML='<b>0'+(idx+1)+'</b> · '+FLOW_META[idx].short;
+        }
+      }
+      fitPhone();
+    }).observe(body,{childList:true,subtree:false});
+  }
+
+  var autoOn=false;
+  function stopAuto(){
+    autoOn=false;
+    var bp=document.getElementById('btnPlay');
+    if(bp) bp.textContent='▶';
+  }
+  document.getElementById('btnPlay').addEventListener('click', function(){
+    if(autoOn){ stopAuto(); return; }
+    autoOn=true; this.textContent='❚❚';
+    if(window.chekProtoAutoPlay) window.chekProtoAutoPlay();
+  });
+  document.getElementById('btnPrev').addEventListener('click', function(){
+    stopAuto();
+    if(window.chekProtoBack) window.chekProtoBack();
+  });
+  var _br=document.getElementById('btnReplay');
+  if(_br) _br.addEventListener('click', function(){
+    stopAuto();
+    var on=timeline.querySelector('.tl.on');
+    var i=[].indexOf.call(timeline.children, on);
+    if(i<0) i=0;
+    playBeat(FLOW_META[i].id, 0, i);
+  });
+  document.getElementById('btnNext').addEventListener('click', function(){
+    stopAuto();
+    var dots=document.querySelectorAll('#chek-proto-steps-row .ck2-step-dot');
+    var cur=-1;
+    dots.forEach(function(d,i){ if(d.classList.contains('current')) cur=i; });
+    if(cur>=0 && cur<dots.length-1){ dots[cur+1].click(); return; }
+    var on=timeline.querySelector('.tl.on');
+    var next=on && on.nextElementSibling;
+    if(next) next.click();
+  });
+
+  setTimeout(function(){ playBeat('hub', 0, 0); fitPhone(); }, 80);
+  setTimeout(fitPhone, 300);
+})();
+</script>
+</body>
+</html>

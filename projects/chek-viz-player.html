@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Chek viz motor</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0e0d0c;--text:#f2f0ec;--muted:#8a8580;--dim:#5c5854;
+  --accent:#7a3be0;--accent-2:#a78bfa;--danger:#f87171;--ok:#3dd68c;
+  --border:rgba(255,255,255,.08);
+  --font-sans:'DM Sans',system-ui,sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --spring:cubic-bezier(.34,1.2,.64,1);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --capbar-fade:rgba(14,13,12,.92);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:var(--font-sans);height:100%;overflow:hidden}
+body{display:flex;flex-direction:column}
+html.embed,html.embed body{background:transparent}
+
+.motor{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;padding:0 0 0}
+
+/* Top bar — title + transport */
+.motor-top{
+  display:flex;align-items:center;gap:10px;
+  padding:4px 8px 10px;flex-shrink:0;
+}
+.motor-lab{
+  font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-right:auto;
+}
+.motor-lab b{color:var(--text);font-weight:600;margin-left:6px;font-family:var(--font-display);font-size:13px;letter-spacing:-.01em}
+.motor-nav{display:flex;gap:6px;align-items:center}
+.motor-nav button{
+  width:34px;height:34px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(0,0,0,.35);color:var(--muted);cursor:pointer;
+  display:grid;place-items:center;transition:border-color .2s,color .2s;
+}
+.motor-nav button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.motor-nav button:disabled{opacity:.35;cursor:default}
+.motor-nav button.on{border-color:var(--accent);color:var(--accent);background:rgba(122,59,224,.12)}
+.motor-nav svg{width:14px;height:14px}
+
+/* Stage with side arrows */
+.stage-wrap{
+  flex:1;min-height:0;display:grid;
+  grid-template-columns:40px 1fr 40px;
+  align-items:stretch;gap:0;
+}
+.side-btn{
+  border:0;background:transparent;color:var(--dim);cursor:pointer;
+  display:grid;place-items:center;padding:0;
+  transition:color .2s;
+}
+.side-btn:hover:not(:disabled){color:var(--accent)}
+.side-btn:disabled{opacity:.25;cursor:default}
+.side-btn svg{width:18px;height:18px}
+
+.stage{
+  position:relative;min-height:260px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.scene{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:opacity .4s var(--ease),transform .4s var(--ease);
+  padding:4px 8px 8px;
+}
+.scene.on{opacity:1;pointer-events:auto;transform:none}
+
+/* Capbar blur — Blockchains style */
+.capbar{
+  flex-shrink:0;
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;min-height:48px;
+  background:linear-gradient(180deg,transparent,var(--capbar-fade) 30%);
+  border-top:1px solid var(--border);
+  font-size:12px;color:var(--muted);line-height:1.4;
+}
+.capbar .cap-rec{
+  width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 3px rgba(122,59,224,.2);flex-shrink:0;
+}
+.capbar .cap-txt b{color:var(--text);font-weight:600}
+
+
+
+
+/* Phone */
+.ph{
+  width:112px;height:224px;border-radius:18px;padding:6px;flex-shrink:0;
+  background:linear-gradient(160deg,#2a2a2a,#0c0c0c);
+  box-shadow:0 16px 36px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);
+  position:relative;
+}
+.ph .in{background:#fff;border-radius:13px;height:100%;overflow:hidden;display:flex;flex-direction:column;color:#111;font-size:7px}
+.ph .st{height:13px;display:flex;justify-content:space-between;padding:0 8px;align-items:center;font-weight:600;font-size:6px;opacity:.55}
+.ph .nv{height:18px;background:#6B21A8;color:#fff;display:flex;align-items:center;padding:0 8px;font-weight:700;font-size:6.5px;gap:4px}
+.ph .nv .back{opacity:.7;font-size:8px}
+.ph .bd{flex:1;padding:7px;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+.ph .cd{background:linear-gradient(135deg,#6B21A8,#4c1d95);border-radius:6px;height:36px;color:#fff;padding:5px;font-size:6px}
+.ph .ln{height:6px;border-radius:3px;background:#e8e8e8}
+.ph .bt{margin-top:auto;height:15px;border-radius:5px;background:#6B21A8;color:#fff;display:grid;place-items:center;font-weight:600;font-size:6px}
+.ph.warn .nv,.ph.warn .bt{background:#b91c1c}
+.ph.ok .nv,.ph.ok .bt{background:#15803d}
+.ph.ok .cd{background:linear-gradient(135deg,#15803d,#166534)}
+.ph .xmark{
+  position:absolute;inset:0;display:grid;place-items:center;background:rgba(185,28,28,.55);
+  border-radius:18px;opacity:0;transition:opacity .35s;pointer-events:none;z-index:5;
+}
+.ph.drop .xmark{opacity:1}
+.ph .xmark svg{width:32px;height:32px;stroke:#fff;stroke-width:2.5;fill:none}
+
+.badge{
+  position:absolute;font-family:var(--font-mono);font-size:10px;padding:4px 10px;border-radius:100px;
+  border:1px solid rgba(248,113,113,.4);color:#f87171;background:rgba(185,28,28,.15);
+  opacity:0;transform:translateY(-6px);transition:opacity .35s,transform .35s var(--spring);z-index:6;
+}
+.badge.show{opacity:1;transform:none}
+.badge.ok{border-color:rgba(61,214,140,.4);color:#3dd68c;background:rgba(61,214,140,.12)}
+
+/* SINACOFI detailed frame */
+#sc-onb .frame{position:relative;width:min(440px,100%);height:250px;display:flex;align-items:center;justify-content:center}
+#sc-onb .ph{position:absolute;transition:opacity .5s,transform .5s var(--spring)}
+#sc-onb .ph.a{opacity:1;transform:translateX(0) scale(1);z-index:3}
+#sc-onb .ph.b{opacity:0;transform:translateX(48px) scale(.88);z-index:2}
+#sc-onb .ph.c{opacity:0;transform:translateX(48px) scale(.88);z-index:1}
+#sc-onb[data-step="1"] .ph.a{opacity:.25;transform:translateX(-56px) scale(.86)}
+#sc-onb[data-step="1"] .ph.b{opacity:1;transform:translateX(0) scale(1);z-index:3}
+#sc-onb[data-step="2"] .ph.a{opacity:0}
+#sc-onb[data-step="2"] .ph.b{opacity:.2;transform:translateX(-48px) scale(.86)}
+#sc-onb[data-step="2"] .ph.c{opacity:1;transform:translateX(0) scale(1);z-index:3}
+#sc-onb .badge{top:6px;right:8%}
+
+/* Clarity */
+#sc-clarity .ds{width:min(380px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#sc-clarity .tok{
+  height:48px;border-radius:10px;border:1px solid var(--border);
+  opacity:0;transform:scale(.8);transition:opacity .35s,transform .35s var(--spring);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:9px;color:var(--muted);
+}
+#sc-clarity .tok.on{opacity:1;transform:none}
+#sc-clarity .tok.sw{color:transparent}
+#sc-clarity .comp{
+  grid-column:span 2;height:40px;border-radius:8px;border:1px solid rgba(122,59,224,.35);
+  background:rgba(122,59,224,.12);opacity:0;transform:translateY(8px);
+  transition:opacity .35s,transform .35s var(--spring);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font-mono);font-size:10px;color:var(--accent-2);
+}
+#sc-clarity .comp.on{opacity:1;transform:none}
+#sc-clarity .comp i{width:18px;height:18px;border-radius:4px;background:var(--accent);display:block}
+
+/* Security */
+#sc-sec .sec-stage{position:relative;width:200px;height:220px;display:flex;align-items:center;justify-content:center}
+#sc-sec .dev{
+  width:120px;height:200px;border-radius:20px;padding:7px;
+  background:linear-gradient(160deg,#2a2a2a,#0c0c0c);
+  box-shadow:0 18px 40px rgba(0,0,0,.5);position:relative;z-index:2;
+  transition:opacity .4s,transform .4s var(--spring);
+}
+#sc-sec .dev .in{background:#0a0a0a;border-radius:14px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff}
+#sc-sec .bio{width:56px;height:56px;border-radius:50%;border:2px solid rgba(122,59,224,.5);display:grid;place-items:center;position:relative}
+#sc-sec .bio svg{width:28px;height:28px;stroke:var(--accent-2);fill:none;stroke-width:1.6}
+#sc-sec .bio .ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid transparent;border-top-color:var(--accent);animation:spin 1.2s linear infinite;opacity:0}
+#sc-sec[data-step="0"] .bio .ring{opacity:1}
+#sc-sec .icon-layer{
+  position:absolute;width:72px;height:72px;border-radius:18px;
+  background:linear-gradient(145deg,#1c1528,#121018);border:1px solid rgba(122,59,224,.4);
+  display:grid;place-items:center;opacity:0;transform:scale(.7);
+  transition:opacity .4s,transform .4s var(--spring);z-index:3;
+  box-shadow:0 12px 28px rgba(0,0,0,.4);
+}
+#sc-sec .icon-layer.on{opacity:1;transform:scale(1)}
+#sc-sec .icon-layer svg{width:32px;height:32px;stroke:var(--accent-2);fill:none;stroke-width:1.7}
+#sc-sec[data-step="1"] .dev{opacity:.35;transform:scale(.9)}
+#sc-sec[data-step="2"] .dev,#sc-sec[data-step="3"] .dev{opacity:.2;transform:scale(.85)}
+#sc-sec .sec-labels{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;justify-content:center}
+#sc-sec .sec-labels span{
+  font-family:var(--font-mono);font-size:10px;padding:4px 10px;border-radius:100px;
+  border:1px solid var(--border);color:var(--dim);opacity:0;transition:opacity .3s;
+}
+#sc-sec .sec-labels span.on{opacity:1;color:var(--muted)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Literacy */
+#sc-lit .lit-stage{position:relative;width:280px;height:200px;display:flex;align-items:center;justify-content:center}
+#sc-lit .card{
+  width:168px;height:104px;border-radius:14px;padding:12px 14px;
+  background:linear-gradient(135deg,#7a3be0 0%,#4c1d95 55%,#2e1065 100%);
+  box-shadow:0 20px 40px rgba(122,59,224,.35);position:relative;z-index:2;
+  color:#fff;display:flex;flex-direction:column;justify-content:space-between;
+  transform:rotate(-6deg);
+}
+#sc-lit .card .brand{font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.04em}
+#sc-lit .card .num{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;opacity:.85}
+#sc-lit .card .foot{display:flex;justify-content:space-between;font-size:9px;opacity:.75}
+#sc-lit .q{
+  position:absolute;font-family:var(--font-mono);font-size:11px;padding:7px 12px;border-radius:100px;
+  border:1px solid rgba(122,59,224,.4);background:rgba(28,21,40,.92);color:var(--accent-2);
+  opacity:0;transform:scale(.85);transition:opacity .4s,transform .4s var(--spring);white-space:nowrap;
+  box-shadow:0 8px 20px rgba(0,0,0,.35);
+}
+#sc-lit .q.on{opacity:1;transform:scale(1)}
+#sc-lit .q.q1{top:8px;left:0}
+#sc-lit .q.q2{top:20px;right:0}
+#sc-lit .q.q3{bottom:16px;left:20px}
+#sc-lit .q em{color:var(--muted);font-style:normal;margin-left:4px}
+
+/* Intel */
+#sc-intel .lab{width:min(400px,100%);display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#sc-intel .cell{
+  border-radius:12px;border:1px solid var(--border);background:rgba(0,0,0,.3);
+  padding:12px;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s var(--spring);
+  min-height:88px;
+}
+#sc-intel .cell.on{opacity:1;transform:none}
+#sc-intel .cell h4{font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+#sc-intel .quote{font-size:12px;color:var(--text);line-height:1.4;margin-bottom:4px}
+#sc-intel .quote .who{display:block;font-size:10px;color:var(--dim);margin-top:2px}
+#sc-intel .cause{grid-column:1/-1;border-color:rgba(248,113,113,.35);background:rgba(185,28,28,.08)}
+#sc-intel .cause .big{font-family:var(--font-display);font-weight:800;font-size:16px;color:#f87171;margin-top:4px}
+
+/* Signal funnel */
+#sc-funnel .funnel-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:min(400px,100%)}
+#sc-funnel .phones{display:flex;gap:10px;align-items:flex-end;position:relative;height:130px}
+#sc-funnel .phones .ph{width:72px;height:140px;transform-origin:bottom center}
+#sc-funnel .phones .ph .in{font-size:5px}
+#sc-funnel .phones .ph .nv{height:14px;font-size:5px}
+#sc-funnel .phones .ph .cd{height:24px}
+#sc-funnel .phones .ph.drop{transform:translateY(12px) scale(.92)}
+#sc-funnel .drop-lbl{position:absolute;top:-4px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:10px;color:#f87171;opacity:0;transition:opacity .4s}
+#sc-funnel .drop-lbl.on{opacity:1}
+#sc-funnel .chart{display:flex;align-items:flex-end;gap:8px;height:90px;width:100%;max-width:280px}
+#sc-funnel .bar{
+  flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#7a3be0,#4b1f96);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:6px;
+  font-family:var(--font-mono);font-size:9px;color:#fff;opacity:0;transform:scaleY(0);transform-origin:bottom;
+  transition:opacity .4s,transform .5s var(--spring);
+}
+#sc-funnel .bar.on{opacity:1;transform:scaleY(1)}
+#sc-funnel .bar.bad{background:linear-gradient(180deg,#dc2626,#7f1d1d)}
+#sc-funnel .bar.good{background:linear-gradient(180deg,#3dd68c,#166534)}
+#sc-funnel .bar span{margin-top:4px;color:var(--muted);font-size:8px}
+
+/* Tagging */
+#sc-tag .tag-stage{position:relative;width:260px;height:220px;display:flex;align-items:center;justify-content:center}
+#sc-tag .ph{z-index:2}
+#sc-tag .tg{
+  position:absolute;font-family:var(--font-mono);font-size:9px;padding:5px 9px;border-radius:7px;
+  border:1px solid rgba(122,59,224,.4);background:rgba(28,21,40,.95);color:var(--accent-2);
+  opacity:0;transform:scale(.5);transition:opacity .35s,transform .35s var(--spring);
+  white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,.35);
+}
+#sc-tag .tg.on{opacity:1;transform:scale(1)}
+#sc-tag .tg b{color:var(--accent);margin-right:3px}
+
+/* Pendo */
+#sc-pendo .rep{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:min(420px,100%)}
+#sc-pendo .panel{
+  border-radius:14px;border:1px solid rgba(122,59,224,.3);background:linear-gradient(160deg,#1c1528,#121018);
+  padding:14px;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s var(--spring);
+}
+#sc-pendo .panel.on{opacity:1;transform:none}
+#sc-pendo .panel.table{flex:1;min-width:180px}
+#sc-pendo .panel.fun{width:140px}
+#sc-pendo .ph-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+#sc-pendo .ph-h .logo{font-family:var(--font-display);font-weight:800;font-size:13px;color:#FF4A7D}
+#sc-pendo .ph-h .live{font-family:var(--font-mono);font-size:9px;padding:2px 7px;border-radius:100px;border:1px solid rgba(61,214,140,.4);color:#3dd68c}
+#sc-pendo table{width:100%;border-collapse:collapse;font-size:11px}
+#sc-pendo th{font-family:var(--font-mono);font-size:9px;color:var(--dim);text-align:left;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+#sc-pendo td{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted)}
+#sc-pendo td b{color:var(--text)}
+#sc-pendo .mini-fun{display:flex;flex-direction:column;gap:4px;align-items:center}
+#sc-pendo .mf{
+  border-radius:6px;background:rgba(122,59,224,.25);border:1px solid rgba(122,59,224,.3);
+  text-align:center;padding:6px;font-family:var(--font-mono);font-size:10px;color:var(--text);
+}
+
+/* Typewriter present phase — Blockchains pattern */
+.text-phase{
+  position:absolute;inset:0;z-index:30;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 28px;text-align:center;
+  background:rgba(14,13,12,.78);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  transition:opacity .45s,visibility .45s;
+}
+.text-phase.hide{opacity:0;visibility:hidden;pointer-events:none}
+.text-phase .kicker{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;opacity:0;transform:translateY(6px);
+  transition:opacity .35s,transform .35s;
+}
+.text-phase .kicker.on{opacity:1;transform:none}
+.text-phase .main{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(1.15rem,1rem+.8vw,1.45rem);
+  letter-spacing:-.02em;line-height:1.25;color:var(--text);max-width:22rem;
+  min-height:2.6em;
+}
+.text-phase .main .blink{
+  display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;
+  vertical-align:-2px;animation:blink 1s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.text-phase .sub{
+  margin-top:12px;font-size:13px;color:var(--muted);max-width:24rem;line-height:1.45;
+  opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;
+}
+.text-phase .sub.on{opacity:1;transform:none}
+
+</style>
+</head>
+<body>
+<div class="motor" id="motor">
+  <div class="motor-top">
+    <div class="motor-lab"><span id="labN">01</span><b id="labT">Onboarding</b></div>
+    <div class="motor-nav">
+      <button type="button" id="btnStop" aria-label="Stop" title="Stop">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+      </button>
+      <button type="button" id="btnReplay" aria-label="Replay" title="Replay">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+      </button>
+      <button type="button" id="btnPlay" class="on" aria-label="Play / Pause" title="Pause">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="stage-wrap">
+    <button type="button" class="side-btn" id="prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="stage" id="stage">
+      <div class="text-phase" id="textPhase">
+        <div class="kicker" id="tpKicker"></div>
+        <div class="main"><span id="tpType"></span><span class="blink" id="tpBlink"></span></div>
+        <div class="sub" id="tpSub"></div>
+      </div>
+    </div>
+    <button type="button" class="side-btn" id="next" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt">Loading…</span></div>
+  </div>
+<script>
+(function(){
+  try{ if(window.parent&&window.parent!==window) document.documentElement.classList.add('embed'); }catch(e){}
+  var params=new URLSearchParams(location.search);
+  var pack=params.get('pack')||'research';
+  var playing=true, autoTimer=null, timers=[], typeTimer=null, idx=0, gen=0;
+
+  function clearT(){timers.forEach(clearTimeout);timers=[]; if(typeTimer){clearTimeout(typeTimer);typeTimer=null}}
+  function after(ms,fn){timers.push(setTimeout(fn,ms))}
+  function el(id){return document.getElementById(id)}
+
+  function phone(cls, navHtml, bodyHtml, btnText){
+    return '<div class="ph '+(cls||'')+'"><div class="xmark"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div>'+
+      '<div class="in"><div class="st"><span>9:41</span><span>●●</span></div>'+
+      '<div class="nv">'+navHtml+'</div><div class="bd">'+bodyHtml+'</div>'+
+      (btnText?'<div class="bt">'+btnText+'</div>':'')+
+      '</div></div>';
+  }
+
+  /* Typewriter present — Blockchains style */
+  function showTextPhase(kicker, title, sub, done){
+    var tp=el('textPhase'), k=el('tpKicker'), t=el('tpType'), b=el('tpBlink'), s=el('tpSub');
+    if(!tp){ if(done) done(); return; }
+    tp.classList.remove('hide');
+    k.textContent=kicker; k.classList.remove('on');
+    t.textContent=''; s.textContent=sub||''; s.classList.remove('on');
+    if(b) b.style.display='inline-block';
+    after(80, function(){ k.classList.add('on'); });
+    var i=0;
+    function tick(){
+      if(i>=title.length){
+        if(b) b.style.display='none';
+        s.classList.add('on');
+        after(900, function(){
+          tp.classList.add('hide');
+          after(400, function(){ if(done) done(); });
+        });
+        return;
+      }
+      t.textContent=title.slice(0, ++i);
+      typeTimer=setTimeout(tick, 22);
+    }
+    after(200, tick);
+  }
+
+  function buildOnb(root){
+    var bodyA=
+      '<div style="font-size:8px;font-weight:700;color:#1a1028;margin-bottom:2px">Confirm your identity</div>'+
+      '<div style="font-size:6.5px;color:#6b7280;line-height:1.35;margin-bottom:6px">Required by the credit bureau before activation.</div>'+
+      '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:5px;padding:5px;margin-bottom:5px">'+
+        '<div style="font-size:6.5px;font-weight:700;color:#991b1b">Opens SINACOFI</div>'+
+        '<div style="font-size:6px;color:#7f1d1d;margin-top:1px">External browser · you leave Chek</div>'+
+      '</div>'+
+      '<div style="background:#f3f4f6;border-radius:5px;padding:5px;margin-bottom:4px">'+
+        '<div style="font-size:6px;color:#9ca3af;margin-bottom:2px">RUT</div>'+
+        '<div style="height:10px;background:#e5e7eb;border-radius:3px"></div>'+
+      '</div>'+
+      '<div style="background:#f3f4f6;border-radius:5px;padding:5px">'+
+        '<div style="font-size:6px;color:#9ca3af;margin-bottom:2px">Serial · document</div>'+
+        '<div style="height:10px;background:#e5e7eb;border-radius:3px;width:70%"></div>'+
+      '</div>';
+    var bodyB=
+      '<div style="text-align:center;padding-top:4px">'+
+        '<div style="font-size:7px;font-weight:700;color:#991b1b;margin-bottom:4px">SINACOFI</div>'+
+        '<div style="font-size:6px;color:#6b7280;line-height:1.35;margin-bottom:6px">Credit bureau verification<br>in an external window</div>'+
+        '<div style="height:28px;background:#fee2e2;border-radius:5px;margin-bottom:5px;display:grid;place-items:center;font-size:6px;color:#991b1b">WebView · loading…</div>'+
+        '<div style="font-size:6px;color:#9ca3af">Many users close here</div>'+
+      '</div>';
+    var bodyC=
+      '<div style="text-align:center;padding-top:2px">'+
+        '<div style="width:22px;height:22px;border-radius:50%;background:#dcfce7;margin:0 auto 6px;display:grid;place-items:center;font-size:11px;color:#166534">✓</div>'+
+        '<div style="font-size:8px;font-weight:700;color:#1a1028;margin-bottom:2px">Identity verified</div>'+
+        '<div style="font-size:6.5px;color:#6b7280;line-height:1.35;margin-bottom:6px">SINACOFI via silent API<br>You never left Chek</div>'+
+      '</div>'+
+      '<div class="cd">Card active · $2,840</div>'+
+      '<div class="ln" style="width:75%"></div>'+
+      '<div class="ln" style="width:50%"></div>';
+    root.innerHTML='<div class="frame">'+
+      '<span class="badge" id="onbBad">−34% at identity</span>'+
+      phone('a warn','Verify identity',bodyA,'Continue on SINACOFI')+
+      phone('b warn','SINACOFI',bodyB,'Cancel')+
+      phone('c ok','You\'re ready',bodyC,'Go to hub')+
+      '</div>';
+  }
+  function playOnb(){
+    var sc=el('sc-onb'); if(!sc) return;
+    sc.setAttribute('data-step','0');
+    var bad=el('onbBad'); if(bad){bad.classList.remove('show','ok');bad.textContent='−34% at identity'}
+    after(700,function(){ sc.setAttribute('data-step','1'); if(bad) bad.classList.add('show'); });
+    after(1600,function(){ var b=sc.querySelector('.ph.b'); if(b) b.classList.add('drop'); });
+    after(2600,function(){
+      sc.setAttribute('data-step','2');
+      var b=sc.querySelector('.ph.b'); if(b) b.classList.remove('drop');
+      if(bad){bad.textContent='+15% completion';bad.classList.add('ok')}
+    });
+  }
+
+  function buildClarity(root){
+    var toks=[['sw','#6B21A8'],['sw','#7a3be0'],['sw','#f2f0ec'],['sw','#111'],['','color'],['','radius'],['','space'],['','type'],['comp','Button'],['comp','Input'],['comp','Chip'],['comp','Card']];
+    var html='<div class="ds">';
+    toks.forEach(function(t,i){
+      if(t[0]==='sw') html+='<div class="tok sw" id="tk'+i+'" style="background:'+t[1]+'"></div>';
+      else if(t[0]==='comp') html+='<div class="comp" id="tk'+i+'"><i></i>'+t[1]+'</div>';
+      else html+='<div class="tok" id="tk'+i+'">'+t[1]+'</div>';
+    });
+    root.innerHTML=html+'</div>';
+  }
+  function playClarity(){for(var i=0;i<12;i++){(function(i){after(i*120,function(){var e=el('tk'+i);if(e)e.classList.add('on')})})(i)}}
+
+  function buildSec(root){
+    root.innerHTML='<div class="sec-stage">'+
+      '<div class="dev"><div class="in"><div class="bio"><div class="ring"></div><svg viewBox="0 0 24 24"><path d="M12 12a3 3 0 100-6 3 3 0 000 6z"/><path d="M6 18c1.5-3 4-4.5 6-4.5s4.5 1.5 6 4.5"/></svg></div><div style="font-size:9px;color:#8a8580">Biometric unlock</div></div></div>'+
+      '<div class="icon-layer" id="icoLock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>'+
+      '<div class="icon-layer" id="icoShield"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/></svg></div>'+
+      '<div class="icon-layer" id="icoCheck"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div>'+
+      '</div><div class="sec-labels"><span id="sl0">Entry only</span><span id="sl1">Data protected</span><span id="sl2">Verified</span></div>';
+  }
+  function playSec(){
+    var sc=el('sc-sec'); if(!sc) return;
+    sc.setAttribute('data-step','0');
+    ['icoLock','icoShield','icoCheck','sl0','sl1','sl2'].forEach(function(id){var e=el(id);if(e)e.classList.remove('on')});
+    after(900,function(){sc.setAttribute('data-step','1');el('icoLock').classList.add('on');el('sl0').classList.add('on')});
+    after(1800,function(){sc.setAttribute('data-step','2');el('icoLock').classList.remove('on');el('icoShield').classList.add('on');el('sl1').classList.add('on')});
+    after(2700,function(){sc.setAttribute('data-step','3');el('icoShield').classList.remove('on');el('icoCheck').classList.add('on');el('sl2').classList.add('on')});
+  }
+
+  function buildLit(root){
+    root.innerHTML='<div class="lit-stage">'+
+      '<div class="q q1" id="lq1">Cutoff?<em>what is it</em></div>'+
+      '<div class="q q2" id="lq2">Due date?<em>when</em></div>'+
+      '<div class="q q3" id="lq3">Min. pay?<em>how much</em></div>'+
+      '<div class="card"><div class="brand">cheK</div><div class="num">••••  ••••  ••••  4821</div><div class="foot"><span>Federico M.</span><span>12/28</span></div></div></div>';
+  }
+  function playLit(){
+    after(300,function(){el('lq1').classList.add('on')});
+    after(900,function(){el('lq2').classList.add('on')});
+    after(1500,function(){el('lq3').classList.add('on')});
+  }
+
+  function buildIntel(root){
+    root.innerHTML='<div class="lab">'+
+      '<div class="cell" id="ic0"><h4>Feedback</h4><p class="quote">“I don’t know what I’m paying.”<span class="who">— review · Maze</span></p></div>'+
+      '<div class="cell" id="ic1"><h4>Interaction</h4><p class="quote">Abandoned at identity · retries on amount<span class="who">— session path</span></p></div>'+
+      '<div class="cell cause" id="ic2"><h4>Root cause</h4><div class="big">NOT KNOWING</div><p class="quote" style="margin-top:6px">Cutoff · due · minimum never taught in-flow.</p></div></div>';
+  }
+  function playIntel(){
+    after(200,function(){el('ic0').classList.add('on')});
+    after(700,function(){el('ic1').classList.add('on')});
+    after(1300,function(){el('ic2').classList.add('on')});
+  }
+
+  function buildFunnel(root){
+    root.innerHTML='<div class="funnel-wrap"><div class="phones" id="fnPhones"><div class="drop-lbl" id="fnDrop">−34%</div>'+
+      phone('','Hub','<div class="cd"></div><div class="ln" style="width:70%"></div>','')+
+      phone('warn','Verify','<div class="cd" style="background:#b91c1c"></div>','')+
+      phone('ok','Ready','<div class="cd"></div>','')+
+      '</div><div class="chart" id="fnChart">'+
+      '<div class="bar" style="height:100%"><b>100%</b><span>Hub</span></div>'+
+      '<div class="bar bad" style="height:66%"><b>−34%</b><span>ID</span></div>'+
+      '<div class="bar" style="height:80%"><b>OK</b><span>Ready</span></div>'+
+      '<div class="bar good" style="height:92%"><b>+15%</b><span>Done</span></div></div></div>';
+  }
+  function playFunnel(){
+    after(400,function(){el('fnDrop').classList.add('on');var p=el('fnPhones').querySelectorAll('.ph');if(p[1])p[1].classList.add('drop')});
+    after(1000,function(){[].forEach.call(el('fnChart').children,function(b,i){after(i*150,function(){b.classList.add('on')})})});
+  }
+
+  function buildTag(root){
+    var tags=[
+      {id:'tg0',label:'<b>01</b> Hub view',style:'top:12px;left:0'},
+      {id:'tg1',label:'<b>02</b> Show data',style:'top:48px;left:-10px'},
+      {id:'tg2',label:'<b>03</b> Pay',style:'top:84px;left:4px'},
+      {id:'tg3',label:'<b>05</b> Block',style:'bottom:40px;left:0'},
+      {id:'tg4',label:'<b>07</b> Limit',style:'top:20px;right:0'},
+      {id:'tg5',label:'<b>08</b> Moves',style:'top:56px;right:-6px'},
+      {id:'tg6',label:'<b>11</b> Onboard',style:'bottom:36px;right:4px'}
+    ];
+    var html='<div class="tag-stage">'+phone('','Chek Credit Card','<div class="cd"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:55%"></div>','');
+    tags.forEach(function(t){html+='<div class="tg" id="'+t.id+'" style="'+t.style+'">'+t.label+'</div>'});
+    root.innerHTML=html+'</div>';
+  }
+  function playTag(){for(var i=0;i<7;i++){(function(i){after(200+i*180,function(){var e=el('tg'+i);if(e)e.classList.add('on')})})(i)}}
+
+  function buildPendo(root){
+    root.innerHTML='<div class="rep">'+
+      '<div class="panel table" id="pdTable"><div class="ph-h"><span class="logo">pendo</span><span class="live">Live</span></div>'+
+      '<table><thead><tr><th>Feature</th><th>Events</th><th>Trend</th></tr></thead><tbody>'+
+      '<tr><td><b>Hub view</b></td><td>12.4k</td><td style="color:#3dd68c">↑</td></tr>'+
+      '<tr><td><b>Pay confirm</b></td><td>3.1k</td><td style="color:#3dd68c">↑</td></tr>'+
+      '<tr><td><b>Block card</b></td><td>890</td><td style="color:#8a8580">—</td></tr>'+
+      '<tr><td><b>Onboarding</b></td><td>+15%</td><td style="color:#3dd68c">↑</td></tr>'+
+      '</tbody></table></div>'+
+      '<div class="panel fun" id="pdFun"><div class="ph-h"><span style="font-size:11px;color:#8a8580">Funnel</span></div>'+
+      '<div class="mini-fun"><div class="mf" style="width:100%">Hub 100%</div><div class="mf" style="width:78%">Verify 66%</div><div class="mf" style="width:62%">Ready 80%</div><div class="mf" style="width:55%;border-color:rgba(61,214,140,.4);background:rgba(61,214,140,.15)">Done +15%</div></div></div></div>';
+  }
+  function playPendo(){
+    after(200,function(){el('pdTable').classList.add('on')});
+    after(600,function(){el('pdFun').classList.add('on')});
+  }
+
+  /* present = typewriter intro; narrate = blur only */
+  var RESEARCH=[
+    {n:'01',t:'Onboarding',id:'sc-onb',
+      present:{k:'Research · 01', title:'Identity left the app', sub:'SINACOFI opened as an external WebView.'},
+      narrate:'Users dropped at the bureau handoff. Silent API kept them inside Chek — completion +15%.',
+      build:buildOnb,play:playOnb},
+    {n:'02',t:'Clarity',id:'sc-clarity',
+      present:{k:'Research · 02', title:'One system for every feature', sub:'Tokens and components replace one-off UI.'},
+      narrate:'Color, radius, space, type — then Button, Input, Chip, Card on the same foundation.',
+      build:buildClarity,play:playClarity},
+    {n:'03',t:'Security',id:'sc-sec',
+      present:{k:'Research · 03', title:'Entry is biometric. Data stays protected.', sub:'Lock → shield → verified — no emoji theater.'},
+      narrate:'Device unlock for access only. Lock, shield, and check mark the trust path.',
+      build:buildSec,play:playSec},
+    {n:'04',t:'Literacy',id:'sc-lit',
+      present:{k:'Research · 04', title:'Terms float as questions', sub:'Cutoff, due date, minimum payment — taught on the card.'},
+      narrate:'The product explains the language of credit instead of a PDF after the fact.',
+      build:buildLit,play:playLit},
+    {n:'05',t:'Intel',id:'sc-intel',
+      present:{k:'Research · 05', title:'Feedback becomes a root cause', sub:'Reviews, Maze, sessions — then NOT KNOWING.'},
+      narrate:'Signals → interaction patterns → the gap: people did not know what they were paying.',
+      build:buildIntel,play:playIntel}
+  ];
+  var SIGNAL=[
+    {n:'01',t:'Drop-off',id:'sc-funnel',
+      present:{k:'Signal · 01', title:'Watch the identity drop', sub:'Then the funnel after the silent-ID fix.'},
+      narrate:'Hub → verify (−34%) → ready → done (+15%). Measurement made the fix undeniable.',
+      build:buildFunnel,play:playFunnel},
+    {n:'02',t:'Tagging',id:'sc-tag',
+      present:{k:'Signal · 02', title:'Eleven events on the hub', sub:'Taxonomy mapped before launch so funnels could fire.'},
+      narrate:'Tags pop from the phone — hub, pay, block, movements, onboarding — funnel-ready.',
+      build:buildTag,play:playTag},
+    {n:'03',t:'Pendo',id:'sc-pendo',
+      present:{k:'Signal · 03', title:'Reports, not screenshots', sub:'Feature table and onboarding funnel in Pendo.'},
+      narrate:'Live feature events and the same +15% path, visible to product after ship.',
+      build:buildPendo,play:playPendo}
+  ];
+  var SCENES=pack==='signal'?SIGNAL:RESEARCH;
+  var stage=el('stage');
+
+  SCENES.forEach(function(s,i){
+    var sc=document.createElement('div');
+    sc.className='scene'+(i===0?' on':'');
+    sc.id=s.id;
+    s.build(sc);
+    stage.appendChild(sc);
+  });
+
+  function setPlayIcon(){
+    var b=el('btnPlay');
+    if(!b) return;
+    b.classList.toggle('on', playing);
+    b.innerHTML=playing
+      ?'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>'
+      :'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    b.title=playing?'Pause':'Play';
+  }
+
+  function scheduleAuto(){
+    clearTimeout(autoTimer);
+    if(!playing) return;
+    autoTimer=setTimeout(function(){
+      if(!playing||document.hidden) return;
+      go(idx<SCENES.length-1?idx+1:0);
+    }, 9000);
+  }
+
+  function go(i){
+    if(i<0||i>=SCENES.length) return;
+    clearT(); gen++; idx=i;
+    SCENES.forEach(function(s,j){
+      var sc=el(s.id); if(sc) sc.classList.toggle('on',j===i);
+    });
+    el('labN').textContent=SCENES[i].n;
+    el('labT').textContent=SCENES[i].t;
+    el('capTxt').textContent=SCENES[i].narrate; /* blur = narration only */
+    el('prev').disabled=i===0;
+    el('next').disabled=i===SCENES.length-1;
+    var sc=el(SCENES[i].id);
+    if(sc){
+      sc.querySelectorAll('.on').forEach(function(n){ if(!n.classList.contains('scene')) n.classList.remove('on')});
+      sc.querySelectorAll('.show').forEach(function(n){n.classList.remove('show')});
+      sc.querySelectorAll('.drop').forEach(function(n){n.classList.remove('drop')});
+    }
+    var p=SCENES[i].present;
+    showTextPhase(p.k, p.title, p.sub, function(){
+      SCENES[i].play();
+      scheduleAuto();
+    });
+  }
+
+  el('prev').onclick=function(){go(idx-1)};
+  el('next').onclick=function(){go(idx+1)};
+  el('btnReplay').onclick=function(){go(idx)};
+  el('btnStop').onclick=function(){playing=false;clearT();clearTimeout(autoTimer);setPlayIcon(); var tp=el('textPhase'); if(tp) tp.classList.add('hide');};
+  el('btnPlay').onclick=function(){
+    playing=!playing; setPlayIcon();
+    if(playing){ go(idx); } else { clearT(); clearTimeout(autoTimer); }
+  };
+
+  setPlayIcon();
+  go(0);
+})();
+</script>
+</script>
+</body>
+</html>
