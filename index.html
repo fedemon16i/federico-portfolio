@@ -4303,6 +4303,184 @@ html[data-theme="light"] .gc-cat{
   color: var(--muted) !important;
 }
 
+
+
+
+/* === Cards restore: centered icon, short copy, spring, contextual active 2026-08-13 === */
+:root{
+  --spring: cubic-bezier(.34, 1.32, .64, 1);
+  --spring-soft: cubic-bezier(.22, 1.2, .36, 1);
+}
+.gcard{
+  transition:
+    transform 420ms var(--spring),
+    box-shadow 420ms var(--spring-soft),
+    border-color 220ms ease,
+    flex-basis 420ms var(--spring),
+    flex-grow 420ms var(--spring),
+    max-width 420ms var(--spring),
+    background 280ms ease !important;
+}
+.gcard.gc-hover,
+.gcard:focus-visible{
+  transform: perspective(900px) rotateX(2deg) translateY(-6px) scale(1.04) !important;
+}
+/* Contextual active ring/glow by category (home) */
+.cat-product.gc-hover,
+.cat-product:focus-visible{
+  border-color: rgba(201,168,119,.75) !important;
+  box-shadow:
+    0 0 0 1px rgba(201,168,119,.35),
+    0 0 28px -4px rgba(201,168,119,.45),
+    0 22px 40px -16px rgba(0,0,0,.55) !important;
+}
+.cat-analytics.gc-hover,
+.cat-analytics:focus-visible{
+  border-color: rgba(143,180,212,.8) !important;
+  box-shadow:
+    0 0 0 1px rgba(143,180,212,.4),
+    0 0 28px -4px rgba(143,180,212,.5),
+    0 22px 40px -16px rgba(0,0,0,.55) !important;
+}
+.cat-uxr.gc-hover,
+.cat-uxr:focus-visible{
+  border-color: #c084fc !important;
+  box-shadow:
+    0 0 0 1.5px rgba(192,132,252,.7),
+    0 0 22px 2px rgba(192,132,252,.45),
+    0 22px 40px -16px rgba(0,0,0,.55) !important;
+}
+.cat-aidev.gc-hover,
+.cat-aidev:focus-visible{
+  border-color: rgba(157,140,217,.85) !important;
+  box-shadow:
+    0 0 0 1px rgba(157,140,217,.45),
+    0 0 28px -4px rgba(157,140,217,.5),
+    0 22px 40px -16px rgba(0,0,0,.55) !important;
+}
+/* Icon zone: large, centered (restore) */
+.gc-visual{
+  position: relative !important;
+  flex: 1 1 auto !important;
+  min-height: 120px !important;
+  padding: 28px 12px 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.gc-icon-wrap{
+  position: relative !important;
+  inset: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: transform 420ms var(--spring), opacity 280ms ease !important;
+}
+.gc-icon{
+  width: 56px !important;
+  height: 56px !important;
+  stroke-width: 1.6 !important;
+}
+.gcard.gc-hover .gc-icon-wrap,
+.gcard:focus-visible .gc-icon-wrap{
+  /* subtle lift, keep visible under short copy */
+  opacity: .2 !important;
+  transform: translateY(-10px) scale(.92) !important;
+}
+.gc-overlay{
+  padding: 12px 12px 10px !important;
+}
+.gc-d{
+  font-size: 12.5px !important;
+  line-height: 1.45 !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
+}
+.gc-d strong{ font-weight: 700 !important; }
+.gc-t{
+  font-size: 13.5px !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  -webkit-line-clamp: 2 !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+.gc-body{ padding: 8px 12px 10px !important; gap: 5px !important; }
+.gc-cta .expand-hint{ font-size: 10px !important; }
+.gc-cat{
+  background: rgba(14,13,12,.78) !important;
+  backdrop-filter: blur(6px) !important;
+}
+@media (min-width: 1025px){
+  .gcard{ min-height: 268px !important; max-width: 188px !important; }
+  .gcard.gc-hover,
+  .gcard:focus-visible{
+    flex: 2.2 0 240px !important;
+    max-width: 260px !important;
+    min-height: 300px !important;
+  }
+  .gcard.gc-hover .gc-d,
+  .gcard:focus-visible .gc-d{
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    -webkit-line-clamp: 4 !important;
+  }
+  .gc-icon{ width: 60px !important; height: 60px !important; }
+}
+/* Soft bounce on other home chips / buttons */
+.chip, .ba, .pcard, .tool-chip, .top-nav-link, .toc a{
+  transition: transform 380ms var(--spring), box-shadow 380ms var(--spring-soft), border-color 200ms ease, background 200ms ease !important;
+}
+.chip:hover, .tool-chip:hover{
+  transform: translateY(-2px) scale(1.04) !important;
+}
+.ba:hover{
+  transform: translateY(-2px) scale(1.015) !important;
+}
+.pcard:hover{
+  transform: translateY(-3px) !important;
+}
+/* Keep bio type readable (from prior pass, mild) */
+.bio-name{ font-size: clamp(1.3rem, 1.05rem + 1vw, 1.65rem) !important; font-weight: 800 !important; }
+.bio-photo{ width: clamp(68px, 11vw, 88px) !important; height: clamp(68px, 11vw, 88px) !important; }
+.me-drawer-story{ font-size: 16px !important; line-height: 1.7 !important; }
+.mg-stage{ height: clamp(260px, 40vh, 360px) !important; max-width: min(380px, 100%) !important; }
+
+/* Skills modal host: not edge-to-edge giant — slight margin */
+.stagezone{
+  padding: 16px !important;
+  box-sizing: border-box !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.stage-panel{
+  width: min(920px, calc(100vw - 32px)) !important;
+  height: min(640px, calc(100vh - 40px)) !important;
+  max-height: calc(100vh - 40px) !important;
+  margin: 0 auto !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+.stage-panel .skills-player-frame,
+.stage-panel #skillsPlayerFrame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+@media (max-width: 600px){
+  .stagezone{ padding: 10px !important; }
+  .stage-panel{
+    width: calc(100vw - 20px) !important;
+    height: min(620px, calc(100vh - 24px)) !important;
+    max-height: calc(100vh - 24px) !important;
+    border-radius: 16px !important;
+  }
+}
+
 </style>
 </head>
 <body class="page-home">
@@ -5507,25 +5685,25 @@ html[data-theme="light"] .gc-cat{
   var stageZone=document.getElementById('stageZone');
   var stagePanel=document.getElementById('stagePanel');
   var CARDS=[
-    {t:'Product Mapping',cat:'product',d:'Every page &amp; feature, tagged as an event.',long:'Every screen and feature turned into a <strong>named event</strong> I can query later.',
+    {t:'Product Mapping',cat:'product',d:'Every page &amp; feature, tagged as an event.',long:'Every screen → a <strong>named event</strong> I can query.',
      ic:'<path d="M9 20l-6-2V4l6 2 6-2 6 2v14l-6-2-6 2z"/><path d="M9 6v14M15 4v14"/>',
      tools:[['pendo','Pendo','tagging'],['ga4','GA4','traffic']],proj:'EY Fabric'},
-    {t:'Usage Tracking',cat:'analytics',d:'Clicks, drop-offs, and who is behind each one.',long:'Real sessions, counted live — I see <strong>who</strong> is struggling, not just an aggregate.',
+    {t:'Usage Tracking',cat:'analytics',d:'Clicks, drop-offs, and who is behind each one.',long:'Live sessions — see <strong>who</strong> drops, not only totals.',
      ic:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
      tools:[['pendo','Pendo','funnels'],['mixpanel','Mixpanel','events']],proj:'Chek'},
-    {t:'Segmentation &amp; Replay',cat:'uxr',d:'Strugglers grouped — worst sessions replayed.',long:'Strugglers get grouped, then their <strong>worst sessions</strong> play back frame by frame.',
+    {t:'Segmentation &amp; Replay',cat:'uxr',d:'Strugglers grouped — worst sessions replayed.',long:'<strong>Worst sessions</strong> replayed, group by struggle.',
      ic:'<path d="M22 3H2l8 9.5V19l4 2v-8.5z"/>',
      tools:[['pendo','Pendo','segments'],['qualtrics','Qualtrics','replay']],proj:'EY Fabric'},
-    {t:'Research Synthesis',cat:'uxr',d:'Interviews, surveys, tests — ranked into actions.',long:'Interviews, surveys, tests — synthesized into a <strong>ranked list</strong> of what to fix first.',
+    {t:'Research Synthesis',cat:'uxr',d:'Interviews, surveys, tests — ranked into actions.',long:'Talks + tests → a <strong>ranked list</strong> of what to fix.',
      ic:'<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4"/>',
      tools:[['zoom','Zoom','interviews'],['maze','Maze','usability'],['ow','Optimal','tree tests'],['claude','Claude','synthesis']],proj:'DollarCity'},
-    {t:'Parallel Design',cat:'uxr',d:'By hand in Figma, and generated with AI at once.',long:'<strong>Hand-crafted</strong> in Figma, <strong>AI-generated</strong> in parallel — merged into one system.',
+    {t:'Parallel Design',cat:'uxr',d:'By hand in Figma, and generated with AI at once.',long:'<strong>Figma craft</strong> + <strong>AI gen</strong> in one system.',
      ic:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>',
      tools:[['figma','Figma','craft'],['claude','Claude','generation']],proj:'Chek'},
-    {t:'Deployment',cat:'aidev',d:'Shipped to dev, staging, prod — or handed off.',long:'Pushed to <strong>dev, staging, production</strong> myself — or handed off developer-ready.',
+    {t:'Deployment',cat:'aidev',d:'Shipped to dev, staging, prod — or handed off.',long:'Ship to <strong>dev / staging / prod</strong> — or hand off clean.',
      ic:'<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>',
      tools:[['replit','Replit','deploy'],['github','GitHub','versioning'],['factory','Factory.ai','automation']],proj:'Customs · $500K'},
-    {t:'Analytics Hub',cat:'aidev',d:'The dashboard itself, built with Claude Code.',long:'<strong>Adoption, users, alarms</strong> — the dashboard itself is a product I built.',
+    {t:'Analytics Hub',cat:'aidev',d:'The dashboard itself, built with Claude Code.',long:'<strong>Adoption · users · alarms</strong> — the hub is a product.',
      ic:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
      tools:[['pendo','Pendo','data'],['claude','Claude','build']],proj:'EY Fabric'}
   ];
@@ -5585,7 +5763,7 @@ html[data-theme="light"] .gc-cat{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=13#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=14#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
