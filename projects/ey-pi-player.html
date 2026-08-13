@@ -1844,7 +1844,7 @@ html.embed .page{ padding-bottom: 8px !important; }
 .stage-col{
   gap: 0 !important;
   margin: 0 !important;
-  padding-top: var(--player-after-chips) !important;
+  padding-top: 0 !important;
 }
 .frame{
   margin-top: 0 !important;
@@ -1856,12 +1856,12 @@ html.embed .page{ padding-bottom: 8px !important; }
     --player-after-chips: 10px;
   }
   .shell{ gap: var(--player-chip-gap) !important; }
-  .stage-col{ padding-top: var(--player-after-chips) !important; }
+  .stage-col{ padding-top: 0 !important; }
   .controls{ margin-top: 5px !important; }
 }
 /* embed modal: same rhythm */
 html.embed .shell{ gap: var(--player-chip-gap) !important; }
-html.embed .stage-col{ padding-top: var(--player-after-chips) !important; }
+html.embed .stage-col{ padding-top: 0 !important; }
 html.embed .page{ padding-bottom: 10px !important; }
 html.embed .controls{ margin-top: 5px !important; }
 /* kill previous ultra-dense lock if present */
@@ -1899,86 +1899,100 @@ html.embed .frame{ margin-top: 0 !important; }
 /* kill earlier ultra-tight 4px locks */
 
 
-/* === EMBED LAYOUT FIX: kill void between chips and stage 2026-08-12 ===
-   Cause: shell first-child + frame flex:1 expanded into tall iframe host.
-   Chips rail must NOT grow; frame fills remaining space without empty band above unit.
+
+
+/* === NUCLEAR: pack chips → stage (no middle void) 2026-08-13 ===
+   Cause: stage-col/frame flex-grow + unit centered in tall iframe host.
+   Fix: content stacks from top; frame hugs unit; leftover space below stage only.
 */
 html.embed,
 html.embed body{
   height: 100% !important;
+  max-height: 100% !important;
   overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 html.embed .page{
   height: 100% !important;
   max-height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
-  padding: 12px 12px 10px !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  padding: 10px 12px 8px !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
-  gap: 0 !important;
 }
 html.embed .page > .kicker,
 html.embed .page > h1,
 html.embed .page > .lead,
-html.embed .page > p.note{
+html.embed .page > .close-x{
   flex: 0 0 auto !important;
-  margin-bottom: 6px !important;
 }
-html.embed .page > h1{ margin-top: 2px !important; margin-bottom: 4px !important; }
-html.embed .page > .lead{ margin-bottom: 8px !important; }
-/* shell: column in embed, chips then stage */
+html.embed .page > .kicker{ margin: 0 0 2px !important; }
+html.embed .page > h1{ margin: 0 0 4px !important; font-size: clamp(1.05rem, 2.8vw, 1.25rem) !important; }
+html.embed .page > .lead{ margin: 0 0 8px !important; font-size: 12px !important; line-height: 1.4 !important;
+  display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
 html.embed .shell{
   flex: 1 1 auto !important;
   min-height: 0 !important;
   display: flex !important;
   flex-direction: column !important;
   grid-template-columns: 1fr !important;
-  gap: 12px !important; /* fluid, not a void */
+  justify-content: flex-start !important;
   align-items: stretch !important;
+  gap: 10px !important;
   overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
-/* CRITICAL: chips/controls column must not grow */
 html.embed .shell > div:first-child{
   flex: 0 0 auto !important;
-  min-height: 0 !important;
+  height: auto !important;
   max-height: none !important;
-  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 html.embed .tl,
 html.embed .controls{
   flex: 0 0 auto !important;
   margin: 0 !important;
 }
-html.embed .controls{ margin-top: 6px !important; }
+html.embed .controls{ margin-top: 4px !important; display: none !important; } /* chrome inside unit */
 html.embed .stage-col{
   flex: 1 1 auto !important;
   min-height: 0 !important;
   display: flex !important;
   flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
   gap: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
+  padding-top: 0 !important;
   overflow: hidden !important;
 }
 html.embed .frame{
   flex: 1 1 auto !important;
   min-height: 0 !important;
-  height: auto !important;
-  max-height: none !important;
-  margin: 0 !important;
   width: 100% !important;
+  height: auto !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
   display: flex !important;
-  align-items: center !important;
+  align-items: flex-start !important; /* NOT center — kills middle void */
   justify-content: center !important;
   overflow: hidden !important;
 }
-/* unit scales inside frame — no extra top air from padding */
 html.embed .unit{
   margin: 0 !important;
+  flex-shrink: 1 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
 }
-/* neutralize older competing locks */
-html.embed .stage-col{ padding-top: 0 !important; }
 
 </style>
 </head>

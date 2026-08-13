@@ -6371,6 +6371,33 @@ iframe.bc-player-iframe{
 #demo .demo-split,
 #demo .demo-visual{ display: none !important; }
 
+
+
+/* BC demo host: full wrap width, single narrative title */
+#demo.sec{
+  max-width: none !important;
+}
+#demo .wrap{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(16px, 3vw, 28px) !important;
+  box-sizing: border-box !important;
+}
+#demo .bc-player-iframe,
+iframe#bcPlayerFrame{
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+  border: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  height: min(640px, 78vh) !important;
+  min-height: 480px !important;
+}
+#demo .lede{ margin-bottom: 10px !important; max-width: 40rem !important; }
+#demo .note{ margin-top: 10px !important; }
+
 </style>
 </head>
 <body>
@@ -6522,7 +6549,7 @@ iframe.bc-player-iframe{
     <iframe
       class="bc-player-iframe"
       id="bcPlayerFrame"
-      src="blockchain-player.html?embed=1"
+      src="blockchain-player.html?embed=1&v=13"
       title="Blockchains prototype player"
       loading="eager"
       allow="autoplay"

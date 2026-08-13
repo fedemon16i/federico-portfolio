@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+<script>if(/(?:^|[?&#])embed=1\b/.test(location.search+location.hash))document.documentElement.classList.add("embed");</script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Blockchains · Prototype Player</title>
@@ -617,6 +618,54 @@ h2, .h2, .sec h2 {
 }
 @media (max-width: 720px) {
   h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
+}
+
+
+
+/* BC embed: no duplicate title, full width of host 2026-08-13 */
+html.embed .eyebrow,
+html.embed h1,
+html.embed .lede,
+html.embed .wrap > .eyebrow,
+html.embed .wrap > h1,
+html.embed .wrap > .lede,
+html.embed .wrap > p.lede{
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+html.embed,
+html.embed body{
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+html.embed .wrap{
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 8px 0 0 !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+}
+html.embed .tl{
+  flex: 0 0 auto !important;
+  margin: 0 0 10px !important;
+  width: 100% !important;
+}
+html.embed .stage{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
 }
 
 </style>
