@@ -2124,47 +2124,56 @@ h1, .h1, .proc-h, .sec-h{
 
 
 
-/* EY PI embed layout = Blockchains (chips top, stage full width) — keeps internal beats */
-html.embed .shell{
-  display: flex !important;
-  flex-direction: column !important;
-  grid-template-columns: none !important;
-  grid-template-rows: none !important;
-  gap: 12px !important;
-  width: 100% !important;
-  max-width: none !important;
-  align-items: stretch !important;
-}
-html.embed .shell > div:first-child{
-  flex: 0 0 auto !important;
-  width: 100% !important;
-  max-width: none !important;
-}
-html.embed .tl{
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  gap: 6px !important;
-  width: 100% !important;
-  overflow-x: auto !important;
-}
-html.embed .stage-col,
-html.embed .frame{
-  width: 100% !important;
-  max-width: none !important;
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  min-width: 0 !important;
+
+/* === EY PI player embed: full-bleed stage like BC 2026-08-13e === */
+html.embed, html.embed body{
+  margin: 0 !important; padding: 0 !important;
+  width: 100% !important; height: 100% !important;
+  overflow: hidden !important; background: transparent !important;
 }
 html.embed .page{
-  max-width: none !important;
-  width: 100% !important;
-  padding: 8px 0 0 !important;
-  margin: 0 !important;
+  width: 100% !important; max-width: none !important;
+  height: 100% !important; margin: 0 !important;
+  padding: 0 !important; box-sizing: border-box !important;
+  display: flex !important; flex-direction: column !important;
 }
 html.embed .page > .kicker,
 html.embed .page > h1,
-html.embed .page > .lead{ display: none !important; }
+html.embed .page > .lead,
+html.embed .page > .close-x{ display: none !important; }
+html.embed .shell{
+  flex: 1 1 auto !important; min-height: 0 !important;
+  width: 100% !important; max-width: none !important;
+  display: flex !important; flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 10px !important; margin: 0 !important; padding: 0 !important;
+}
+html.embed .shell > div:first-child{
+  flex: 0 0 auto !important; width: 100% !important; max-width: none !important;
+}
+html.embed .tl{
+  display: flex !important; flex-wrap: nowrap !important;
+  gap: 6px !important; width: 100% !important; overflow-x: auto !important;
+  padding: 0 !important; margin: 0 !important;
+}
 html.embed .controls{ display: none !important; }
+html.embed .stage-col,
+html.embed .frame{
+  flex: 1 1 auto !important; min-height: 0 !important; min-width: 0 !important;
+  width: 100% !important; max-width: none !important;
+  margin: 0 !important; padding: 0 !important;
+}
+html.embed .frame{
+  display: flex !important; align-items: stretch !important; justify-content: stretch !important;
+  overflow: hidden !important;
+}
+html.embed .unit{
+  width: 100% !important; max-width: 100% !important;
+  height: 100% !important; max-height: 100% !important;
+  margin: 0 !important;
+  border-radius: 12px !important;
+  box-sizing: border-box !important;
+}
 
 </style>
 </head>

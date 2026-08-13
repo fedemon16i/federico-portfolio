@@ -1048,7 +1048,6 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 #stage, .stage, #demoStage, .player, .skill-modal-panel, .modal-inner{
   max-width: var(--modal-max) !important;
 }
-#stage, .pi-visual .stage{ max-width: var(--stage-max) !important; margin-left:auto; margin-right:auto; }
 
 /* Fabric role schematic */
 .fabric-flow{
@@ -1066,9 +1065,6 @@ body{ padding-top: var(--nav-h); overflow-x: hidden; }
 .ff-d{ font-size:12.5px; color:var(--muted,#a6a29a); line-height:1.45; }
 .ff-arrow{ display:flex; align-items:center; color:var(--muted,#a6a29a); font-size:18px; padding:0 2px; }
 @media (max-width:700px){ .ff-arrow{ display:none; } }
-/* PI: animation column only stage */
-.pi-visual .controls{ display:none; }
-.pi-copy .controls{ display:flex; }
 
 /* === ATOMIC MOTION + SURFACE (aligned with home skills) === */
 :root{
@@ -1172,15 +1168,6 @@ html[data-theme="light"]{
   max-width: min(960px, 96vw) !important;
   width: 100% !important;
 }
-.modal-stage, .sm-stage, .skill-stage, #stage, #demoStage, .stage, .pi-visual .stage{
-  max-width: var(--stage-max) !important;
-  width: 100% !important;
-  height: var(--stage-h) !important;
-  min-height: 280px !important;
-  max-height: calc(100vh - 180px) !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-}
 /* Inner window fills stage without page scroll */
 #win, .stage-window, #demoStage .device-wrap, #demoStage .phone-frame{
   max-height: 100% !important;
@@ -1251,29 +1238,6 @@ body.page-home .bio-actions .ba.primary{
     overflow: visible !important;
   }
 }
-
-/* EY PI: copy left, stage right — stage must not sit under copy on wide screens */
-@media (min-width: 1024px){
-  .pi-split, .demo-split{
-    display: grid !important;
-    grid-template-columns: minmax(240px, 0.9fr) minmax(320px, 1.2fr) !important;
-    gap: 28px !important;
-    align-items: start !important;
-  }
-  .pi-visual, .demo-visual{
-    position: sticky;
-    top: calc(var(--nav-h) + 12px);
-  }
-  .pi-visual .stage, .demo-visual #demoStage, .demo-visual .stage{
-    height: var(--stage-h) !important;
-    max-height: calc(100vh - 140px) !important;
-  }
-}
-/* On stacked layout, still height-budgeted */
-.pi-split, .demo-split{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
 }
 
 /* Project cards — restore accent identity */
@@ -1299,13 +1263,6 @@ body.page-home .bio-actions .ba.primary{
 }
 .pcard-graphic.bc-scene, .bc-scene{
   min-height: 160px !important;
-}
-
-/* === CONTAINER QUERIES + ASPECT LOCKS === */
-/* Stages are containers: size the surface, never stretch the prototype */
-.pi-visual, .demo-visual, .modal-stage, .skill-stage, .stage-host{
-  container-type: size;
-  container-name: stagehost;
 }
 #stage, #demoStage, .stage{
   container-type: size;
@@ -1501,10 +1458,6 @@ body.page-home .bio-tools .bt-row > *{
 
 /* === SCALE-FIT STAGES (canvas + complete window/device) === */
 html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
-.stage-panel, .pi-split, .demo-split, #stage, #demoStage, .stage{
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-}
 /* Skill modal: split + no overflow */
 .stagezone{ padding: 10px !important; }
 .stage-panel{
@@ -1572,33 +1525,12 @@ html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
   }
   .stage-panel .controls-top{ flex-direction: row !important; }
 }
-
-/* EY / BC stage hosts */
-.pi-visual, .demo-visual{
-  min-height: 0 !important;
-}
-#stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
-  position: relative !important;
-  overflow: hidden !important;
-  height: min(420px, calc(100vh - 200px)) !important;
-  max-height: min(420px, calc(100vh - 200px)) !important;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
-    var(--bg-surface, #0c0b0a) !important;
-  background-size: 22px 22px, 22px 22px, auto !important;
-}
 @media (min-width: 1024px){
   .pi-split, .demo-split{
     display: grid !important;
     grid-template-columns: minmax(160px, 34%) minmax(0, 1fr) !important;
     gap: 16px !important;
     align-items: stretch !important;
-  }
-  .pi-visual, .demo-visual{ height: min(480px, calc(100vh - 160px)) !important; }
-  #stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
-    height: 100% !important;
-    max-height: 100% !important;
   }
 }
 @media (max-width: 820px){
@@ -1673,22 +1605,6 @@ html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
   max-height: 94% !important;
   width: auto !important;
   box-sizing: border-box !important;
-}
-
-/* EY stage: same tight fill */
-.pi-visual .stage,
-#stage{
-  display: grid !important;
-  place-items: center !important;
-  overflow: hidden !important;
-}
-.pi-visual .stage > *,
-#stage > #win,
-#stage > .stage-window,
-#stage .window,
-#stage .ui-frame{
-  max-width: 96% !important;
-  max-height: 94% !important;
 }
 
 /* BC: DO NOT force absolute/transform on phone — restore normal layout */
@@ -1812,13 +1728,6 @@ section.sec > .wrap,
   transform-origin: center center !important;
   will-change: transform;
 }
-
-/* EY stage host — fill, scale children marked data-fit-root */
-.pi-visual .stage,
-#stage{
-  position: relative !important;
-  overflow: hidden !important;
-}
 @media (min-width: 1024px){
   .pi-split{
     display: grid !important;
@@ -1828,14 +1737,6 @@ section.sec > .wrap,
     max-width: min(var(--max, 920px), 100%) !important;
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-  .pi-visual{
-    min-height: 0 !important;
-    height: min(480px, calc(100vh - 160px)) !important;
-  }
-  .pi-visual .stage, #stage{
-    height: 100% !important;
-    max-height: 100% !important;
   }
 }
 
@@ -1967,32 +1868,6 @@ section.sec > .wrap,
   width: 100% !important;
   box-sizing: border-box !important;
 }
-
-/* EY PI split like skills */
-@media (min-width: 1024px){
-  .pi-split{
-    display: grid !important;
-    grid-template-columns: minmax(170px, 30%) minmax(0, 1fr) !important;
-    gap: 16px !important;
-    align-items: stretch !important;
-    max-width: min(var(--max,920px),100%) !important;
-    margin-inline: auto !important;
-  }
-  .pi-visual{
-    min-height: 0 !important;
-    height: min(460px, calc(100dvh - 160px)) !important;
-  }
-  .pi-visual .stage, .pi-split #stage{
-    height: 100% !important;
-    max-height: 100% !important;
-    overflow: hidden !important;
-    position: relative !important;
-  }
-}
-/* kill inner scroll on stage mocks */
-#stage, .stage, #demoStage, .pi-visual .stage{
-  overflow: hidden !important;
-  scrollbar-width: none !important;
 }
 #stage::-webkit-scrollbar, .stage::-webkit-scrollbar, #demoStage::-webkit-scrollbar{ display:none !important; }
 
@@ -2041,23 +1916,6 @@ section.sec > .wrap,
   left: auto !important; top: auto !important;
   transform: scale(var(--fit-s, 0.5)) !important;
   transform-origin: center center !important;
-}
-
-/* === EY no double-pad inside .page === */
-html body .page #hero,
-html body .page .sec,
-html body .page section.sec,
-html body .page #pi,
-html body .page .closing,
-html body .page .proj-nav,
-html body .page .legal-note{
-  max-width: 100% !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
 }
 /* page itself is the only horizontal inset */
 html body .page{
@@ -2129,21 +1987,6 @@ html body .top-nav-inner{
 html body .nav-projects-btn,
 html body .nav-projects-toggle{
   white-space: nowrap !important;
-}
-
-/* ---- Stage canvas language ---- */
-.ds-stage,
-html body #stage.stage,
-html body .pi-visual,
-html body #demoStage{
-  position: relative !important;
-  overflow: hidden !important;
-  border-radius: var(--ds-stage-radius) !important;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
-    var(--ds-stage) !important;
-  background-size: var(--ds-grid-size) var(--ds-grid-size), var(--ds-grid-size) var(--ds-grid-size), auto !important;
 }
 
 /* Product UI window — proportional, not edge-bleed */
@@ -2337,23 +2180,6 @@ html body .wrap{
 }
 html body .nav-projects-btn{ white-space: nowrap !important; }
 
-/* 2. Stage is ONE box — no internal pad that offsets caption */
-html body #stage.stage,
-html body .pi-visual,
-html body #demoStage{
-  position: relative !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  border-radius: 16px !important;
-  box-sizing: border-box !important;
-  background:
-    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
-    #0c0b0a !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
-}
-
 /* 3. Caption flush to stage edges — no left gap, no space under */
 html body .capbar,
 html body #stage .capbar,
@@ -2510,11 +2336,6 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
   html body .stage-nav-arrow:active{
     opacity: 0.9 !important;
   }
-  html body .pi-visual,
-  html body #stage{
-    height: min(320px, 48dvh) !important;
-    min-height: 240px !important;
-  }
   
 }
 
@@ -2538,22 +2359,6 @@ html body .top-nav-inner,
 html body .wrap{
   max-width: 920px !important;
   box-sizing: border-box !important;
-}
-
-/* Stage shell */
-html body #stage.stage,
-html body .pi-visual,
-html body #demoStage{
-  position: relative !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  border-radius: 16px !important;
-  box-sizing: border-box !important;
-  background:
-    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
-    #0c0b0a !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
 }
 
 /* Caption flush */
@@ -2715,20 +2520,6 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
     width: 28px !important; height: 28px !important; opacity: 0.5 !important;
     background: rgba(14,13,12,.4) !important;
   }
-  html body .pi-visual, html body #stage{
-    height: min(320px, 48dvh) !important; min-height: 240px !important;
-  }
-}
-
-/* Stage */
-html body #stage.stage, html body .pi-visual, html body #demoStage{
-  position: relative !important; padding: 0 !important; overflow: hidden !important;
-  border-radius: 16px !important; box-sizing: border-box !important;
-  background:
-    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
-    #0c0b0a !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
 }
 
 /* Caption flush */
@@ -2849,7 +2640,6 @@ html body .phone-rich{ position: absolute !important; display: flex !important; 
 @media (max-width: 899px){
   html body .demo-split{ display: flex !important; flex-direction: column !important; }
   html body .demo-visual, html body #demoStage{ height: min(420px, 58dvh) !important; min-height: 280px !important; }
-  html body .pi-visual, html body #stage{ height: min(320px, 48dvh) !important; min-height: 240px !important; }
 }
 /* Skill panel: keep controls as row even on desktop grid */
 @media (min-width: 960px){
@@ -2944,34 +2734,9 @@ html body #cur{
   z-index: 40 !important;
   pointer-events: none !important;
 }
-
-
-.pi-iframe {
-  width: 100%;
-  height: min(520px, 70vh);
-  min-height: 380px;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-}
 @media (max-width: 720px) {
   .pi-iframe { height: min(560px, 75vh); min-height: 420px; }
 }
-
-/* pi-iframe free — no enclosure, part of page */
-#pi .pi-iframe, #pi iframe.pi-iframe{
-  width: 100% !important;
-  height: min(720px, 88vh) !important;
-  min-height: 520px !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  display: block !important;
-}
-#pi .pi-visual{ width:100% !important; background:transparent !important; box-shadow:none !important; border:0 !important; padding:0 !important; }
-#pi .pi-copy{ display:none !important; }
-#pi .pi-split{ display:block !important; }
 
 /* ========== NAV: same content width as EY / Blockchains (web + mobile) ========== */
 html body .top-nav-inner{
@@ -3065,90 +2830,8 @@ h2, .h2, .sec h2 {
 @media (max-width: 720px) {
   h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
 }
-
-
-/* kill broken iframe path if residual */
-/* iframe visible */
-
-
-/* pi-iframe free — part of page, transparent host */
-.pi-iframe {
-  width: 100%;
-  height: min(520px, 70vh);
-  min-height: 380px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-}
 @media (max-width: 720px) {
   .pi-iframe { height: min(560px, 75vh); min-height: 420px; }
-}
-#pi .pi-iframe, #pi iframe.pi-iframe{
-  width: 100% !important;
-  height: min(720px, 88vh) !important;
-  min-height: 520px !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  display: block !important;
-}
-#pi.sec {
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-inline: auto !important;
-}
-
-
-/* EY PI section rhythm + full width 2026-08-12 */
-#pi.sec{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-inline: auto !important;
-  padding-top: 8px !important;
-  padding-bottom: 0 !important;
-}
-#pi .pi-iframe,
-#pi iframe.pi-iframe,
-iframe.pi-iframe#piPlayerFrame{
-  width: 100% !important;
-  max-width: 100% !important;
-  height: min(640px, 78vh) !important;
-  min-height: 480px !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  display: block !important;
-  margin: 0 !important;
-}
-#pi .note,
-#pi p.note{
-  margin-top: var(--player-note-gap, 14px) !important;
-  margin-bottom: 0 !important;
-  opacity: 0.55 !important;
-  font-size: 12px !important;
-  max-width: 40rem !important;
-}
-/* reduce empty air under #pi before closing */
-#pi + .closing,
-#pi + div.closing{
-  margin-top: 28px !important;
-}
-
-
-/* no giant gap before closing */
-#pi + .closing,
-#pi + div.closing{
-  margin-top: 28px !important;
-  padding-top: 0 !important;
-}
-
-
-/* Kill any full-bleed zero-padding that made PI look narrower/odd */
-#pi.sec[style]{
-  padding-left: clamp(16px, 3vw, 28px) !important;
-  padding-right: clamp(16px, 3vw, 28px) !important;
 }
 
 
@@ -3165,20 +2848,6 @@ iframe.pi-iframe#piPlayerFrame{
     min-height: 420px !important;
     max-height: 520px !important;
   }
-}
-#pi .note,
-#pi p.note,
-html body #pi p.note{
-  margin-top: 10px !important;
-  margin-bottom: 0 !important;
-  padding-top: 0 !important;
-  opacity: .5 !important;
-  font-size: 12px !important;
-}
-#pi + .closing,
-#pi + div.closing{
-  margin-top: 24px !important;
-  padding-top: 0 !important;
 }
 
 
@@ -3248,20 +2917,6 @@ section#hero{
   margin-top: var(--stack-md) !important;
   padding-top: var(--stack-sm) !important;
 }
-/* Case players host */
-#demo .note,
-#pi .note,
-#pi p.note,
-.bc-player-iframe + .note,
-.pi-iframe + .note{
-  margin-top: var(--player-note-gap) !important;
-  margin-bottom: 0 !important;
-}
-#pi + .closing,
-#demo + .sec,
-#process{
-  margin-top: 0 !important;
-}
 /* Eyebrow → title → lede stack */
 .eyebrow,
 .sec-eyebrow,
@@ -3294,81 +2949,6 @@ h1, .h1, .proc-h, .sec-h{
   padding-bottom: var(--section-y, 2.25rem) !important;
   box-sizing: border-box !important;
 }
-#pi .wrap{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  box-sizing: border-box !important;
-}
-#pi .pi-iframe,
-#pi iframe.pi-iframe,
-iframe.pi-iframe#piPlayerFrame{
-  width: 100% !important;
-  max-width: 100% !important;
-  display: block !important;
-  margin: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  height: 520px !important;
-  min-height: 480px !important;
-  max-height: 560px !important;
-  box-shadow: none !important;
-}
-#pi .note{
-  margin-top: 10px !important;
-  margin-bottom: 0 !important;
-  opacity: .5 !important;
-  font-size: 12px !important;
-}
-
-
-
-/* EY PI NUCLEAR flush = BC 2026-08-13d */
-html body section#pi.sec,
-html body #pi.sec,
-html body #pi{
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-top: var(--section-y, 2.25rem) !important;
-  padding-bottom: var(--section-y, 2.25rem) !important;
-  box-sizing: border-box !important;
-}
-html body #pi .wrap{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  box-sizing: border-box !important;
-}
-html body #pi iframe.pi-iframe,
-html body #pi #piPlayerFrame,
-html body #pi .pi-iframe{
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  display: block !important;
-  margin: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  /* content height — not 720/88vh */
-  height: 540px !important;
-  min-height: 540px !important;
-  max-height: 540px !important;
-}
-html body #pi .note{
-  margin-top: 10px !important;
-  margin-bottom: 0 !important;
-}
 @media (max-width: 720px){
   html body #pi iframe.pi-iframe,
   html body #pi #piPlayerFrame{
@@ -3378,7 +2958,100 @@ html body #pi .note{
   }
 }
 
+
+/* === EY PI SINGLE SOURCE 2026-08-13e — match Blockchains #demo box exactly === */
+#pi.sec{
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: var(--section-y, 2.25rem) 0 !important;
+  border: 0 !important;
+  box-sizing: border-box !important;
+}
+#pi .wrap{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  box-sizing: border-box !important;
+}
+#pi iframe.pi-iframe,
+#pi #piPlayerFrame{
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: 560px !important;
+  min-height: 560px !important;
+  max-height: 560px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#pi .note{
+  margin: 10px 0 0 !important;
+  padding: 0 !important;
+  opacity: .5 !important;
+  font-size: 12px !important;
+  max-width: none !important;
+}
+@media (max-width: 720px){
+  #pi iframe.pi-iframe,
+  #pi #piPlayerFrame{
+    height: 480px !important;
+    min-height: 480px !important;
+    max-height: 480px !important;
+  }
+}
+
 </style>
+
+<style id="ey-pi-width-lock">
+/* last word: EY PI width lock */
+html body section#pi.sec,
+html body #pi{
+  max-width: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+html body #pi > .wrap{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  box-sizing: border-box !important;
+}
+html body #pi > .wrap > iframe,
+html body #pi iframe#piPlayerFrame{
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+  height: 560px !important;
+  min-height: 560px !important;
+  max-height: 560px !important;
+  border: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+@media (max-width: 720px){
+  html body #pi > .wrap > iframe,
+  html body #pi iframe#piPlayerFrame{
+    height: 480px !important;
+    min-height: 480px !important;
+    max-height: 480px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <nav class="top-nav" id="topNav" style="--nav-accent:#ffe600">
@@ -3527,7 +3200,7 @@ html body #pi .note{
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1&v=19"
+      src="ey-pi-player.html?embed=1&v=20"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"

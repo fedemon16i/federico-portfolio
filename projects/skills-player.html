@@ -2013,7 +2013,8 @@ h1, .h1, .proc-h, .sec-h{
 }
 
 
-/* Skills embed 2026-08-13d — BC-like stack, mobile no void */
+
+/* Skills embed 2026-08-13e — title breath, gap under pills, balanced pad */
 html.embed, html.embed body{
   height: 100% !important; width: 100% !important;
   margin: 0 !important; padding: 0 !important;
@@ -2025,47 +2026,62 @@ html.embed .page{
   box-sizing: border-box !important;
   display: flex !important; flex-direction: column !important;
   overflow: hidden !important; gap: 0 !important;
-  padding: 14px 16px 12px !important;
+  padding: 16px 16px 14px !important;
 }
-html.embed .page > .kicker{ flex: 0 0 auto !important; margin: 0 0 2px !important; }
-html.embed .page > h1{ flex: 0 0 auto !important; margin: 0 0 4px !important; font-size: 1.25rem !important; }
+html.embed .page > .kicker{
+  flex: 0 0 auto !important;
+  margin: 0 0 8px !important;
+  letter-spacing: .1em !important;
+}
+html.embed .page > h1{
+  flex: 0 0 auto !important;
+  margin: 0 0 8px !important;
+  font-size: clamp(1.15rem, 2vw, 1.4rem) !important;
+  line-height: 1.25 !important;
+}
 html.embed .page > .lead{
-  flex: 0 0 auto !important; margin: 0 0 10px !important;
-  font-size: 13px !important; line-height: 1.35 !important;
-  display: -webkit-box !important; -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important; overflow: hidden !important;
+  flex: 0 0 auto !important;
+  margin: 0 0 14px !important;
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
 }
 html.embed .shell{
   flex: 1 1 auto !important; min-height: 0 !important;
   display: flex !important; flex-direction: column !important;
   grid-template-columns: none !important;
-  gap: 10px !important; overflow: hidden !important;
-  width: 100% !important;
+  gap: 12px !important; /* pills → stage — enough so border not clipped */
+  overflow: hidden !important; width: 100% !important;
 }
 html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
 html.embed .controls{ display: none !important; }
 html.embed .stage-col{
   flex: 1 1 auto !important; min-height: 0 !important;
   display: flex !important; flex-direction: column !important;
-  overflow: hidden !important; padding: 0 !important; margin: 0 !important;
+  overflow: hidden !important; margin: 0 !important; padding: 0 !important;
 }
 html.embed .frame{
   flex: 1 1 auto !important; min-height: 0 !important;
   display: flex !important; align-items: center !important;
   justify-content: center !important; overflow: hidden !important;
   width: 100% !important;
+  /* small top inset so stage border not flush against pills */
+  padding-top: 2px !important;
 }
+.stage-chrome{ padding: 14px 12px 10px !important; }
+
 @media (max-width: 720px){
-  html.embed .page{ padding: 6px 6px 6px !important; }
-  html.embed .page > h1{ font-size: 1rem !important; margin: 0 0 2px !important; }
-  html.embed .page > .lead{ margin: 0 0 6px !important; font-size: 11px !important; -webkit-line-clamp: 1 !important; }
-  html.embed .shell{ gap: 6px !important; }
+  html.embed .page{ padding: 12px 12px 12px !important; }
+  html.embed .page > .kicker{ margin: 0 0 6px !important; }
+  html.embed .page > h1{ margin: 0 0 6px !important; font-size: 1.1rem !important; }
+  html.embed .page > .lead{ margin: 0 0 10px !important; font-size: 12px !important; }
+  html.embed .shell{ gap: 10px !important; }
   html.embed .frame{
     align-items: flex-start !important;
-    justify-content: center !important;
-  }
-  html.embed .unit{
-    transform-origin: center top !important;
+    padding-top: 2px !important;
   }
 }
 
