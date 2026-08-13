@@ -4449,34 +4449,42 @@ html[data-theme="light"] .gc-cat{
 .me-drawer-story{ font-size: 16px !important; line-height: 1.7 !important; }
 .mg-stage{ height: clamp(260px, 40vh, 360px) !important; max-width: min(380px, 100%) !important; }
 
-/* Skills modal host: not edge-to-edge giant — slight margin */
+
+/* Skills modal host: equal margin around panel */
 .stagezone{
-  padding: 16px !important;
+  padding: 18px !important;
   box-sizing: border-box !important;
+  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
+.stagezone.open .stage-panel,
 .stage-panel{
-  width: min(920px, calc(100vw - 32px)) !important;
-  height: min(640px, calc(100vh - 40px)) !important;
-  max-height: calc(100vh - 40px) !important;
+  width: min(1100px, calc(100vw - 36px)) !important;
+  height: min(720px, calc(100vh - 36px)) !important;
+  max-height: calc(100vh - 36px) !important;
   margin: 0 auto !important;
   border-radius: 18px !important;
   overflow: hidden !important;
+  box-sizing: border-box !important;
 }
 .stage-panel .skills-player-frame,
 .stage-panel #skillsPlayerFrame{
   flex: 1 1 auto !important;
+  width: 100% !important;
+  height: 100% !important;
   min-height: 0 !important;
+  border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
 }
-@media (max-width: 600px){
-  .stagezone{ padding: 10px !important; }
+@media (max-width: 720px){
+  .stagezone{ padding: 12px !important; }
+  .stagezone.open .stage-panel,
   .stage-panel{
-    width: calc(100vw - 20px) !important;
-    height: min(620px, calc(100vh - 24px)) !important;
-    max-height: calc(100vh - 24px) !important;
+    width: calc(100vw - 24px) !important;
+    height: calc(100dvh - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
     border-radius: 16px !important;
   }
 }
@@ -5763,7 +5771,7 @@ html[data-theme="light"] .gc-cat{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=14#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=15#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
