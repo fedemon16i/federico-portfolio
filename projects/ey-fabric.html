@@ -2975,8 +2975,8 @@ html body #pi > .wrap{
   max-width: 920px !important;
   width: 100% !important;
   margin: 0 auto !important;
-  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box !important;
 }
 html body #pi > .wrap > iframe,
@@ -3237,58 +3237,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 </style>
 
 
-<style id="ey-pi-host-v53">
-/* EY PI section = same content width as rest of page (no double pad) */
-html body .page{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  box-sizing: border-box !important;
-}
-html body #pi.sec,
-html body section#pi,
-html body #pi{
-  max-width: none !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
-}
-/* wrap already inside padded .page — no second horizontal inset */
-html body #pi > .wrap,
-html body #pi .wrap{
-  max-width: none !important;
-  width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
-}
-html body #pi iframe.pi-iframe,
-html body #pi #piPlayerFrame,
-html body iframe.pi-iframe{
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  border: 0 !important;
-  background: transparent !important;
-  margin: 0 !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  /* same formula as Skills: chrome + unit landscape */
-  height: calc(150px + min(888px, 100vw - 56px) * 410 / 560 + 48px) !important;
-}
-html body #pi .note{
-  margin-top: 12px !important;
-  max-width: none !important;
-}
-</style>
+
 
 </head>
 <body>
@@ -3446,7 +3395,7 @@ html body #pi .note{
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1&v=53"
+      src="ey-pi-player.html?embed=1&v=54"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"
@@ -4448,6 +4397,60 @@ html body #pi .note{
   });
 })();
 </script>
+
+
+<style id="ey-pi-width-align">
+/* #pi content left edge = same as #problem / #hero text (page pad only once) */
+html body .page > #pi,
+html body #pi.sec,
+html body section#pi,
+html body #pi{
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+html body #pi > .wrap,
+html body #pi .wrap{
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+html body #pi iframe.pi-iframe,
+html body #pi #piPlayerFrame{
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+/* Player internal pad matches page text — do not add host pad */
+</style>
+
+
+<style id="ey-pi-host-v53">
+html body #pi iframe.pi-iframe,
+html body #pi #piPlayerFrame,
+html body iframe.pi-iframe{
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 0 !important;
+  background: transparent !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: calc(150px + min(888px, 100vw - 56px) * 410 / 560 + 48px) !important;
+}
+html body #pi .note{ margin-top: 12px !important; max-width: none !important; }
+</style>
 
 </body>
 </html>
