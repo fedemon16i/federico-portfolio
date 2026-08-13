@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+<script>if(/(?:^|[?&#])embed=1\b/.test(location.search+location.hash))document.documentElement.classList.add("embed");</script>
+
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>EY · Product Intelligence</title>
@@ -1902,29 +1904,45 @@ html:not(.embed) .unit{
   max-width: none !important;
   transform: none !important;
 }
+@media(max-width:720px){
+  html.embed .page{padding:10px 12px 12px!important}
+  html.embed .page > .lead{-webkit-line-clamp:1!important; margin-bottom:8px!important}
+}
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px 14px 14px !important; }
+}
 
 
 
-/* ========== EMBED SHELL (single source of truth) 2026-08-13v ==========
-   preview-unit-layers layout:
-   titles → pills → 10px → unit centered 560×410 scaled → done
-   ====================================================================== */
+/* ============================================================
+   CLEAN EMBED v50 — same as Skills (preview-02/03)
+   pills → gap 10px → unit 560×410 scale by width, uniform
+   ============================================================ */
 html.embed, html.embed body{
-  margin:0!important; padding:0!important; width:100%!important; height:auto!important;
-  overflow:hidden!important; background:transparent!important;
+  margin:0!important; padding:0!important;
+  width:100%!important; height:auto!important;
+  overflow:visible!important; background:transparent!important;
 }
 html.embed .page{
-  width:100%!important; height:auto!important; max-width:none!important;
-  margin:0!important; padding:14px 16px 16px!important; box-sizing:border-box!important;
-  display:flex!important; flex-direction:column!important; gap:0!important;
+  width:100%!important; max-width:none!important; height:auto!important;
+  margin:0!important; padding:14px 16px 28px!important;
+  box-sizing:border-box!important;
+  display:flex!important; flex-direction:column!important;
   background:transparent!important; overflow:visible!important;
 }
-html.embed .page > .close-x{display:none!important}
-html.embed .page > .kicker{margin:0 0 4px!important; font-size:10px!important; letter-spacing:.12em!important; text-transform:uppercase!important; opacity:.65!important}
-html.embed .page > h1{margin:0 0 6px!important; font-size:clamp(1.15rem,2.5vw,1.4rem)!important; line-height:1.2!important}
+html.embed .page > .close-x{ display:none!important; }
+html.embed .page > .kicker{
+  margin:0 0 4px!important; font-size:10px!important;
+  letter-spacing:.12em!important; text-transform:uppercase!important; opacity:.65!important;
+}
+html.embed .page > h1{
+  margin:0 0 6px!important;
+  font-size:clamp(1.15rem,2.4vw,1.35rem)!important; line-height:1.2!important;
+}
 html.embed .page > .lead{
   margin:0 0 12px!important; font-size:12.5px!important; line-height:1.4!important; opacity:.75!important;
-  display:-webkit-box!important; -webkit-line-clamp:2!important; -webkit-box-orient:vertical!important; overflow:hidden!important;
+  display:-webkit-box!important; -webkit-line-clamp:2!important;
+  -webkit-box-orient:vertical!important; overflow:hidden!important;
 }
 html.embed .shell{
   display:flex!important; flex-direction:column!important;
@@ -1932,85 +1950,41 @@ html.embed .shell{
   width:100%!important; margin:0!important; padding:0!important;
   background:transparent!important; border:none!important; overflow:visible!important;
 }
-html.embed .shell > div:first-child{width:100%!important; flex:0 0 auto!important}
-html.embed .tl, html.embed #tl{display:flex!important; flex-wrap:nowrap!important; gap:6px!important; overflow-x:auto!important; scrollbar-width:none!important}
-html.embed .tl button, html.embed #tl button{flex:0 0 auto!important; width:auto!important; height:32px!important}
-html.embed .controls{display:none!important}
-
+html.embed .shell > div:first-child{ width:100%!important; flex:0 0 auto!important; }
+html.embed .tl, html.embed #tl{
+  display:flex!important; flex-wrap:nowrap!important; gap:6px!important;
+  overflow-x:auto!important; scrollbar-width:none!important;
+}
+html.embed .tl button, html.embed #tl button{
+  flex:0 0 auto!important; width:auto!important; height:32px!important;
+}
+/* pills rule */
+html.embed .tl button .nm{ display:none!important; }
+html.embed .tl button.on .nm{ display:inline!important; margin-left:5px!important; font-weight:600!important; }
+html.embed .controls{ display:none!important; }
 html.embed .stage-col{
-  display:block!important; width:100%!important; margin:0!important; padding:0!important;
+  display:block!important; width:100%!important;
+  margin:0!important; padding:0!important;
   background:transparent!important; border:none!important; overflow:visible!important;
 }
 html.embed .frame, html.embed #frame{
-  display:block!important; width:100%!important; height:auto!important;
-  margin:0!important; padding:0!important;
-  border:none!important; background:transparent!important; box-shadow:none!important;
-  overflow:visible!important; text-align:center!important; position:relative!important;
+  display:block!important; position:relative!important;
+  width:100%!important; max-width:100%!important;
+  margin:0!important; padding:0!important; border:none!important;
+  background:transparent!important; box-shadow:none!important;
+  overflow:visible!important; box-sizing:border-box!important;
 }
 html.embed .unit, html.embed #unit{
-  display:inline-block!important; position:relative!important;
-  top:auto!important; left:auto!important; right:auto!important; bottom:auto!important;
+  position:absolute!important; top:0!important;
   width:560px!important; height:410px!important;
-  min-width:560px!important; min-height:410px!important;
-  max-width:560px!important; max-height:410px!important;
-  margin:0 auto!important; vertical-align:top!important;
-  box-sizing:border-box!important; transform-origin:top center!important;
+  margin:0!important; box-sizing:border-box!important;
+  transform-origin:top left!important;
+  max-width:none!important; max-height:none!important;
 }
-@media(max-width:720px){
-  html.embed .page{padding:10px 12px 12px!important}
-  html.embed .page > .lead{-webkit-line-clamp:1!important; margin-bottom:8px!important}
+@media (max-width:720px){
+  html.embed .page{ padding:10px 12px 20px!important; }
+  html.embed .page > .lead{ -webkit-line-clamp:1!important; }
 }
-
-
-/* height set by JS to 410*scale — rectangular */
-  overflow: hidden !important;
-  border: none !important;
-  background: transparent !important;
-  position: relative !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-  /* kill any square aspect */
-  aspect-ratio: auto !important;
-}
-html.embed .unit, html.embed #unit{
-  /* position/size/transform set by JS */
-  box-sizing: border-box !important;
-  aspect-ratio: auto !important;
-  max-width: none !important;
-  max-height: none !important;
-}
-
-
-/* Side padding so unit rectangle is never edge-clipped */
-html.embed .page{
-  padding: 14px 20px 18px !important;
-  overflow: visible !important;
-  box-sizing: border-box !important;
-}
-html.embed .frame, html.embed #frame{
-  overflow: visible !important;
-}
-html.embed .shell, html.embed .stage-col{
-  overflow: visible !important;
-  padding: 0 !important;
-}
-html.embed, html.embed body{
-  overflow: hidden !important; /* clip page scroll, not unit */
-}
-@media (max-width: 720px){
-  html.embed .page{ padding: 10px 14px 14px !important; }
-}
-
-
-/* page bottom air so unit border/caption not clipped */
-html.embed .page{ padding-bottom: 20px !important; }
-html.embed .frame, html.embed #frame{ margin-bottom: 0 !important; }
-
-
-/* BOTTOM_SAFE — unit bottom border visible */
-html.embed .page{ padding-bottom: 24px !important; }
-html.embed .frame, html.embed #frame{ overflow: visible !important; }
 
 </style>
 </head>
@@ -2941,72 +2915,70 @@ function beatMeasure(done){
 
 
 
+
+
+
 <script>
-/* Landscape-only fit: scale by WIDTH only; height follows 410/560 */
+/* CLEAN fit v53 — same as Skills: width of column; unit fully visible */
 (function(){
-  if(!document.documentElement.classList.contains('embed')){
-    if(!/(?:^|[?&#])embed=1\b/.test(location.search+location.hash)) return;
-    document.documentElement.classList.add('embed');
-  }
-  var NW=560, NH=410, SIDE=12;
+  var isEmbed = document.documentElement.classList.contains('embed')
+    || /(?:^|[?&#])embed=1\b/.test(location.search+location.hash);
+  if(!isEmbed) return;
+  document.documentElement.classList.add('embed');
+
+  var NW=560, NH=410, AIR=2;
+
   function fit(){
     var unit=document.getElementById('unit');
     var frame=document.getElementById('frame');
     var page=document.querySelector('.page');
     if(!unit||!frame) return;
 
-    var fw = frame.getBoundingClientRect().width || frame.clientWidth || (page&&page.clientWidth) || window.innerWidth;
-    var avail = Math.max(60, fw - SIDE*2);
-    /* WIDTH ONLY — never fit-to-height (that makes it square and crops sides) */
-    var s = avail / NW;
-    if(s > 1.0) s = 1.0;
-    if(s < 0.28) s = 0.28;
+    var fw=frame.getBoundingClientRect().width;
+    if(fw<40) fw=(page&&page.clientWidth)||window.innerWidth;
 
-    var visW = NW * s;
-    var visH = NH * s; /* always landscape ratio */
+    var s=(fw-AIR*2)/NW;
+    if(s>1.12) s=1.12;
+    if(s<0.32) s=0.32;
 
-    frame.style.setProperty('display','block','important');
-    frame.style.setProperty('position','relative','important');
-    frame.style.setProperty('width','100%','important');
-    frame.style.setProperty('max-width','100%','important');
-    frame.style.setProperty('height', visH+'px','important');
-    frame.style.setProperty('min-height', visH+'px','important');
-    frame.style.setProperty('max-height', visH+'px','important');
-    frame.style.setProperty('aspect-ratio', 'auto','important');
-    frame.style.setProperty('margin','0','important');
-    frame.style.setProperty('padding','0','important');
-    frame.style.setProperty('border','none','important');
-    frame.style.setProperty('background','transparent','important');
-    frame.style.setProperty('overflow','visible','important');
-    frame.style.setProperty('box-sizing','border-box','important');
+    var visW=NW*s, visH=NH*s;
+    frame.style.height=Math.ceil(visH+6)+'px';
+    frame.style.minHeight=Math.ceil(visH+6)+'px';
+    frame.style.overflow='visible';
 
-    var left = (fw - visW) / 2;
-    unit.style.setProperty('display','block','important');
-    unit.style.setProperty('position','absolute','important');
-    unit.style.setProperty('top','0','important');
-    unit.style.setProperty('left', left+'px','important');
-    unit.style.setProperty('width', NW+'px','important');
-    unit.style.setProperty('height', NH+'px','important');
-    unit.style.setProperty('margin','0','important');
-    unit.style.setProperty('box-sizing','border-box','important');
-    unit.style.setProperty('transform-origin','top left','important');
-    unit.style.setProperty('transform','scale('+s+')','important');
-    unit.style.setProperty('max-width','none','important');
-    unit.style.setProperty('max-height','none','important');
+    unit.style.left=((fw-visW)/2)+'px';
+    unit.style.top='0';
+    unit.style.width=NW+'px';
+    unit.style.height=NH+'px';
+    unit.style.transformOrigin='top left';
+    unit.style.transform='scale('+s+')';
+    unit.style.position='absolute';
 
     if(page){
-      var h=Math.ceil(page.scrollHeight||page.getBoundingClientRect().height)+24;
+      var pageTop=page.getBoundingClientRect().top;
+      var unitBottom=unit.getBoundingClientRect().bottom;
+      var fromUnit=Math.ceil(unitBottom-pageTop+20);
+      var fromPage=Math.ceil(Math.max(page.scrollHeight||0, page.getBoundingClientRect().height))+12;
+      var h=Math.max(fromUnit, fromPage);
       try{
         if(window.parent&&window.parent!==window)
-          window.parent.postMessage({type:'skills-player-height',height:h},'*');
+          window.parent.postMessage({type:'skills-player-height', height:h}, '*');
       }catch(e){}
     }
   }
-  window.fit=fit; window.fitUnit=fit;
-  function boot(){ fit(); [40,120,300,600,1200].forEach(function(t){setTimeout(fit,t);}); }
-  window.addEventListener('resize',function(){ clearTimeout(window.__lf); window.__lf=setTimeout(fit,40); });
-  document.addEventListener('click',function(){ setTimeout(fit,50); },true);
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+
+  window.fitUnit=fit;
+  var _o=window.fit;
+  window.fit=function(){
+    if(document.documentElement.classList.contains('embed')) return fit();
+    if(typeof _o==='function') return _o.apply(this,arguments);
+  };
+
+  function boot(){ fit(); [30,100,250,600,1200,2000].forEach(function(t){setTimeout(fit,t);}); }
+  window.addEventListener('resize', function(){ clearTimeout(window.__ey53); window.__ey53=setTimeout(fit,40); });
+  document.addEventListener('click', function(){ setTimeout(fit,60); }, true);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 
