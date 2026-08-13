@@ -4451,28 +4451,7 @@ html[data-theme="light"] .gc-cat{
 
 
 
-/* Skills modal = content-sized card, NOT almost fullscreen 2026-08-13 */
-.stagezone{
-  padding: 20px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-.stagezone.open .stage-panel,
-html body .stagezone.open .stage-panel,
-.stage-panel{
-  width: min(920px, calc(100vw - 40px)) !important;
-  height: auto !important;
-  max-height: calc(100vh - 40px) !important;
-  min-height: 0 !important;
-  margin: 0 auto !important;
-  border-radius: 18px !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-  box-sizing: border-box !important;
-  /* kill older full-viewport heights */
+/* kill older full-viewport heights */
   grid-template-rows: none !important;
 }
 .stage-panel .skills-player-frame,
@@ -4510,6 +4489,169 @@ html body .stagezone.open .stage-panel #skillsPlayerFrame{
   .stage-panel .skills-player-frame,
   .stage-panel #skillsPlayerFrame{
     height: 580px !important;
+  }
+}
+
+
+/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
+   Tokens — use everywhere in the product system
+   --max            920px content
+   --pad            clamp(16px, 3vw, 28px) horizontal
+   --nav-h          64px
+   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
+   --stack-xs       6px
+   --stack-sm       10px
+   --stack-md       14px
+   --stack-lg       22px
+   --player-chip-gap 12px   chips → stage
+   --player-note-gap 10px   stage → caption/note
+   --modal-inset     16px–20px around skills modal card
+   ============================================================ */
+:root{
+  --max: 920px !important;
+  --pad: clamp(16px, 3vw, 28px) !important;
+  --nav-h: 64px !important;
+  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
+  --stack-xs: 6px !important;
+  --stack-sm: 10px !important;
+  --stack-md: 14px !important;
+  --stack-lg: 22px !important;
+  --player-chip-gap: 12px !important;
+  --player-note-gap: 10px !important;
+  --player-rail-gap: 12px !important;
+  --modal-inset: 18px !important;
+}
+.wrap,
+.top-nav-inner{
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+/* Section rhythm — kill 96px/huge asymmetric pads */
+.sec,
+section.sec,
+.section{
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+  box-sizing: border-box !important;
+}
+/* First content after fixed nav: don't double-pad absurdly */
+.sec:first-of-type,
+section.sec:first-of-type,
+#hero.sec,
+section#hero{
+  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
+}
+/* Closing / legal: tight, intentional */
+.closing,
+#closing{
+  margin-top: var(--stack-lg) !important;
+  margin-bottom: var(--stack-md) !important;
+  padding-top: var(--stack-md) !important;
+  padding-bottom: var(--stack-md) !important;
+}
+.legal-note,
+.proj-nav{
+  margin-top: var(--stack-md) !important;
+  padding-top: var(--stack-sm) !important;
+}
+/* Case players host */
+#demo .note,
+#pi .note,
+#pi p.note,
+.bc-player-iframe + .note,
+.pi-iframe + .note{
+  margin-top: var(--player-note-gap) !important;
+  margin-bottom: 0 !important;
+}
+#pi + .closing,
+#demo + .sec,
+#process{
+  margin-top: 0 !important;
+}
+/* Eyebrow → title → lede stack */
+.eyebrow,
+.sec-eyebrow,
+.proc-eyebrow,
+p.level{
+  margin-bottom: var(--stack-sm) !important;
+}
+h1, .h1, .proc-h, .sec-h{
+  margin-top: 0 !important;
+}
+.lede, .lead, .proc-sub, .sec-sub, .sub{
+  margin-top: var(--stack-sm) !important;
+  margin-bottom: var(--stack-md) !important;
+}
+/* Mobile: slightly tighter section, same pad token */
+@media (max-width: 720px){
+  :root{
+    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
+    --modal-inset: 12px !important;
+  }
+}
+
+
+/* Skills modal: mobile tight · web max readable 2026-08-13b */
+.stagezone{
+  padding: var(--modal-inset, 18px) !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.stagezone.open .stage-panel,
+html body .stagezone.open .stage-panel,
+.stage-panel{
+  width: min(920px, calc(100vw - 2 * var(--modal-inset, 18px))) !important;
+  max-width: 920px !important;
+  height: auto !important;
+  max-height: calc(100vh - 2 * var(--modal-inset, 18px)) !important;
+  margin: 0 auto !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+}
+.stage-panel .skills-player-frame,
+.stage-panel #skillsPlayerFrame,
+html body .stagezone.open .stage-panel .skills-player-frame{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  height: 600px !important;
+  max-height: calc(100vh - 56px) !important;
+  min-height: 480px !important;
+  border: 0 !important;
+  background: transparent !important;
+  display: block !important;
+}
+/* MOBILE: shorter iframe + less inset — no room for middle void */
+@media (max-width: 720px){
+  :root{ --modal-inset: 10px !important; }
+  .stagezone{ padding: 10px !important; }
+  .stagezone.open .stage-panel,
+  .stage-panel{
+    width: calc(100vw - 20px) !important;
+    max-height: calc(100dvh - 20px) !important;
+    border-radius: 14px !important;
+  }
+  .stage-panel .skills-player-frame,
+  .stage-panel #skillsPlayerFrame,
+  html body .stagezone.open .stage-panel .skills-player-frame{
+    height: min(440px, calc(100dvh - 48px)) !important;
+    max-height: calc(100dvh - 48px) !important;
+    min-height: 360px !important;
+  }
+}
+@media (min-width: 900px){
+  .stage-panel .skills-player-frame,
+  .stage-panel #skillsPlayerFrame{
+    height: 620px !important; /* web: larger stage window */
   }
 }
 
@@ -5795,7 +5937,7 @@ html body .stagezone.open .stage-panel #skillsPlayerFrame{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=16#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=17#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
