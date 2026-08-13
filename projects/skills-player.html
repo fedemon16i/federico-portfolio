@@ -1789,7 +1789,7 @@ html.embed .tl button.on .nm,
   opacity: 1 !important;
 }
 html.embed .page{
-  padding-bottom: 22px !important;
+  padding-bottom: 28px !important;
 }
 
 </style>
@@ -2325,8 +2325,11 @@ html.embed .page{
 
 
 
+
+
+
 <script>
-/* CLEAN fit v50 — preview-02 math only */
+/* CLEAN fit v52 — width of text column; unit always fully visible */
 (function(){
   var isEmbed = document.documentElement.classList.contains('embed')
     || /(?:^|[?&#])embed=1\b/.test(location.search+location.hash);
@@ -2344,28 +2347,34 @@ html.embed .page{
     var fw=frame.getBoundingClientRect().width;
     if(fw<40) fw=(page&&page.clientWidth)||window.innerWidth;
 
-    var s=(fw-AIR*2)/NW;
-    if(s>1.15) s=1.15;
-    if(s<0.35) s=0.35;
+    /* Primary: match text/column width */
+    var s = (fw - AIR*2) / NW;
+    if(s>1.12) s=1.12;
+    if(s<0.32) s=0.32;
 
     var visW=NW*s, visH=NH*s;
-    frame.style.height=Math.ceil(visH+4)+'px';
-    frame.style.minHeight=Math.ceil(visH+2)+'px';
-    frame.style.overflow='visible';
 
-    unit.style.left=((fw-visW)/2)+'px';
-    unit.style.top='0';
-    unit.style.width=NW+'px';
-    unit.style.height=NH+'px';
-    unit.style.transformOrigin='top left';
-    unit.style.transform='scale('+s+')';
-    unit.style.position='absolute';
+    /* Slot exactly fits visual unit — no crop inside player */
+    frame.style.height = Math.ceil(visH + 6) + 'px';
+    frame.style.minHeight = Math.ceil(visH + 6) + 'px';
+    frame.style.maxHeight = 'none';
+    frame.style.overflow = 'visible';
+
+    unit.style.left = ((fw - visW) / 2) + 'px';
+    unit.style.top = '0';
+    unit.style.width = NW + 'px';
+    unit.style.height = NH + 'px';
+    unit.style.transformOrigin = 'top left';
+    unit.style.transform = 'scale(' + s + ')';
+    unit.style.position = 'absolute';
 
     if(page){
-      var h=Math.ceil(page.getBoundingClientRect().height)+18;
+      /* Full page height including bottom padding */
+      var h = Math.ceil(page.scrollHeight || page.getBoundingClientRect().height) + 8;
       try{
-        if(window.parent&&window.parent!==window)
-          window.parent.postMessage({type:'skills-player-height',height:h},'*');
+        if(window.parent && window.parent !== window){
+          window.parent.postMessage({type:'skills-player-height', height:h}, '*');
+        }
       }catch(e){}
     }
   }
@@ -2377,10 +2386,10 @@ html.embed .page{
     if(typeof _o==='function') return _o.apply(this,arguments);
   };
 
-  function boot(){ fit(); [40,150,400,1000].forEach(function(t){setTimeout(fit,t);}); }
-  window.addEventListener('resize',function(){ clearTimeout(window.__c50); window.__c50=setTimeout(fit,40); });
-  document.addEventListener('click',function(){ setTimeout(fit,50); },true);
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  function boot(){ fit(); [30,100,250,600,1200,2000].forEach(function(t){setTimeout(fit,t);}); }
+  window.addEventListener('resize', function(){ clearTimeout(window.__c52); window.__c52=setTimeout(fit,40); });
+  document.addEventListener('click', function(){ setTimeout(fit,60); }, true);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
 </script>
