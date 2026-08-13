@@ -2125,54 +2125,201 @@ h1, .h1, .proc-h, .sec-h{
 
 
 
-/* === EY PI player embed: full-bleed stage like BC 2026-08-13e === */
+
+/* ============================================================
+   BC-SHELL REBUILD 2026-08-13f
+   Outer chrome = Blockchains player. Keep .unit / beats intact.
+   ============================================================ */
+
+/* Page / wrap */
 html.embed, html.embed body{
-  margin: 0 !important; padding: 0 !important;
-  width: 100% !important; height: 100% !important;
-  overflow: hidden !important; background: transparent !important;
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
 }
-html.embed .page{
-  width: 100% !important; max-width: none !important;
-  height: 100% !important; margin: 0 !important;
-  padding: 0 !important; box-sizing: border-box !important;
-  display: flex !important; flex-direction: column !important;
+html.embed .page,
+html.embed .wrap{
+  max-width: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 12px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
 }
+
+/* Title block — hide in embed (case/modal owns narrative) */
 html.embed .page > .kicker,
 html.embed .page > h1,
 html.embed .page > .lead,
-html.embed .page > .close-x{ display: none !important; }
-html.embed .shell{
-  flex: 1 1 auto !important; min-height: 0 !important;
-  width: 100% !important; max-width: none !important;
-  display: flex !important; flex-direction: column !important;
+html.embed .page > .close-x,
+html.embed .wrap > .eyebrow,
+html.embed .wrap > h1,
+html.embed .wrap > .lede,
+html.embed .wrap > .note,
+html.embed .page > .note{
+  display: none !important;
+}
+
+/* Shell → column stack like BC: chips then stage */
+html.embed .shell,
+.shell{
+  display: flex !important;
+  flex-direction: column !important;
   grid-template-columns: none !important;
-  gap: 10px !important; margin: 0 !important; padding: 0 !important;
-}
-html.embed .shell > div:first-child{
-  flex: 0 0 auto !important; width: 100% !important; max-width: none !important;
-}
-html.embed .tl{
-  display: flex !important; flex-wrap: nowrap !important;
-  gap: 6px !important; width: 100% !important; overflow-x: auto !important;
-  padding: 0 !important; margin: 0 !important;
-}
-html.embed .controls{ display: none !important; }
-html.embed .stage-col,
-html.embed .frame{
-  flex: 1 1 auto !important; min-height: 0 !important; min-width: 0 !important;
-  width: 100% !important; max-width: none !important;
-  margin: 0 !important; padding: 0 !important;
-}
-html.embed .frame{
-  display: flex !important; align-items: stretch !important; justify-content: stretch !important;
-  overflow: hidden !important;
-}
-html.embed .unit{
-  width: 100% !important; max-width: 100% !important;
-  height: 100% !important; max-height: 100% !important;
+  grid-template-rows: none !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  gap: 12px !important;
   margin: 0 !important;
-  border-radius: 12px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  align-items: stretch !important;
+}
+html.embed .shell > div:first-child,
+.shell > div:first-child{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  order: 0 !important;
+}
+
+/* Timeline chips — BC style row */
+html.embed .tl,
+.tl#tl,
+#tl.tl,
+div.tl{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+html.embed .tl::-webkit-scrollbar{ display: none !important; }
+html.embed .tl button,
+.tl button,
+#tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: none !important;
+  height: 32px !important;
+  white-space: nowrap !important;
+}
+
+/* Kill external controls row — chrome lives in unit */
+html.embed .controls,
+.shell .controls{
+  display: none !important;
+}
+
+/* Stage column = flex grow full width */
+html.embed .stage-col,
+.stage-col{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  order: 1 !important;
+}
+
+/* .frame becomes the BC .stage surface */
+html.embed .frame,
+.frame#frame,
+#frame.frame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  overflow: hidden !important;
+  position: relative !important;
+  /* BC stage look */
+  background: var(--stage-bg, #201e1b) !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) !important;
+  background-size: 22px 22px !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.55) !important;
+}
+
+/* UNIT fills frame — no fixed 560 box, no scale void */
+html.embed .unit,
+#unit.unit,
+.unit#unit{
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  flex: 1 1 auto !important;
+  transform: none !important;
+  transform-origin: center center !important;
+  border-radius: 18px !important;
   box-sizing: border-box !important;
+  /* override --dw/--dh fixed pixel trap */
+  --dw: 100% !important;
+  --dh: 100% !important;
+}
+html.embed .unit[style*="transform"],
+#unit[style*="transform"]{
+  transform: none !important;
+}
+
+/* win / stage content inside unit fills */
+html.embed .win,
+html.embed #win,
+html.embed .unit .win{
+  /* keep absolute layout from original — just ensure parent has size */
+}
+
+/* Non-embed (standalone page): same column, comfortable pad */
+body:not(.embed) .shell,
+html:not(.embed) .shell{
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 14px !important;
+  max-width: 920px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+html:not(.embed) .frame{
+  width: 100% !important;
+  min-height: min(560px, 70vh) !important;
+  height: min(560px, 70vh) !important;
+}
+html:not(.embed) .unit{
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  transform: none !important;
 }
 
 </style>
@@ -3053,6 +3200,19 @@ function beatMeasure(done){
       try { if(window.history.length > 1) history.back(); } catch(e) {}
     });
   }
+})();
+</script>
+
+
+<script>
+/* BC-shell: disable scale transforms — unit fills frame */
+(function(){
+  function clearScale(){
+    var u = document.getElementById('unit') || document.querySelector('.unit');
+    if(u){ u.style.transform = 'none'; u.style.width = '100%'; u.style.height = '100%'; }
+  }
+  [0,50,150,400,800].forEach(function(t){ setTimeout(clearScale, t); });
+  window.addEventListener('resize', clearScale);
 })();
 </script>
 
