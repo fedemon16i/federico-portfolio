@@ -1716,7 +1716,7 @@ html, body, .page, .shell, .stage-col, .frame, .unit {
 .shell {
   display: flex !important;
   flex-direction: column !important;
-  gap: 10px !important;
+  gap: 8px !important;
   grid-template-columns: none !important;
 }
 .shell > div:first-child {
@@ -1943,7 +1943,7 @@ html.embed .shell{
   grid-template-columns: 1fr !important;
   justify-content: flex-start !important;
   align-items: stretch !important;
-  gap: 10px !important;
+  gap: 8px !important;
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -1992,6 +1992,44 @@ html.embed .unit{
   flex-shrink: 1 !important;
   max-width: 100% !important;
   max-height: 100% !important;
+}
+
+
+/* === Skills/EY density v2: closer chips→stage, chrome pad, host margin 2026-08-13 === */
+html.embed .page{
+  padding: 8px 10px 6px !important;
+  gap: 0 !important;
+}
+html.embed .page > .kicker{ margin: 0 0 2px !important; }
+html.embed .page > h1{ margin: 0 0 2px !important; font-size: 1.1rem !important; }
+html.embed .page > .lead{ margin: 0 0 6px !important; -webkit-line-clamp: 2 !important; }
+html.embed .shell{
+  gap: 8px !important;
+  justify-content: flex-start !important;
+}
+html.embed .stage-col,
+html.embed .frame{
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-top: 0 !important;
+}
+html.embed .frame{
+  align-items: flex-start !important;
+}
+/* Title inside unit needs air from top edge */
+.stage-chrome{
+  padding: 14px 14px 12px !important;
+}
+.stage-chrome .beat-lab,
+.stage-chrome #beatLab,
+.stage-chrome .stage-title{
+  padding-top: 2px !important;
+}
+.unit{
+  /* slight inner top air for chrome */
+}
+html.embed .unit{
+  margin-top: 0 !important;
 }
 
 </style>
