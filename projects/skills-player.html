@@ -1711,7 +1711,7 @@ html:not(.embed) .unit{
 html.embed, html.embed body{
   margin:0!important; padding:0!important;
   width:100%!important; height:auto!important;
-  overflow:hidden!important; background:transparent!important;
+  overflow:visible!important; background:transparent!important;
 }
 html.embed .page{
   width:100%!important; max-width:none!important; height:auto!important;
@@ -2369,8 +2369,12 @@ html.embed .page{
     unit.style.position = 'absolute';
 
     if(page){
-      /* Full page height including bottom padding */
-      var h = Math.ceil(page.scrollHeight || page.getBoundingClientRect().height) + 8;
+      /* Height to bottom of scaled unit (not just page box which can lag) */
+      var pageTop = page.getBoundingClientRect().top;
+      var unitBottom = unit.getBoundingClientRect().bottom;
+      var fromUnit = Math.ceil(unitBottom - pageTop + 20);
+      var fromPage = Math.ceil(Math.max(page.scrollHeight||0, page.getBoundingClientRect().height)) + 12;
+      var h = Math.max(fromUnit, fromPage);
       try{
         if(window.parent && window.parent !== window){
           window.parent.postMessage({type:'skills-player-height', height:h}, '*');
