@@ -2007,84 +2007,65 @@ h1, .h1, .proc-h, .sec-h{
 
 
 
-/* Skills embed FIX 2026-08-13c — pack chips→stage, fit uses height */
+/* no middle void */
+    justify-content: center !important;
+  }
+}
+
+
+/* Skills embed 2026-08-13d — BC-like stack, mobile no void */
 html.embed, html.embed body{
-  height: 100% !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  background: transparent !important;
+  height: 100% !important; width: 100% !important;
+  margin: 0 !important; padding: 0 !important;
+  overflow: hidden !important; background: transparent !important;
 }
 html.embed .page{
-  height: 100% !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
+  height: 100% !important; width: 100% !important;
+  max-width: none !important; margin: 0 !important;
   box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-  gap: 0 !important;
-  padding: 16px 18px 14px !important;
+  display: flex !important; flex-direction: column !important;
+  overflow: hidden !important; gap: 0 !important;
+  padding: 14px 16px 12px !important;
 }
-html.embed .page > .kicker{ flex: 0 0 auto !important; margin: 0 0 4px !important; }
-html.embed .page > h1{ flex: 0 0 auto !important; margin: 0 0 6px !important; font-size: clamp(1.15rem, 2vw, 1.4rem) !important; }
+html.embed .page > .kicker{ flex: 0 0 auto !important; margin: 0 0 2px !important; }
+html.embed .page > h1{ flex: 0 0 auto !important; margin: 0 0 4px !important; font-size: 1.25rem !important; }
 html.embed .page > .lead{
-  flex: 0 0 auto !important;
-  margin: 0 0 12px !important;
-  font-size: 13.5px !important;
-  line-height: 1.4 !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
+  flex: 0 0 auto !important; margin: 0 0 10px !important;
+  font-size: 13px !important; line-height: 1.35 !important;
+  display: -webkit-box !important; -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important; overflow: hidden !important;
 }
-html.embed .page > .close-x{ flex: 0 0 auto !important; }
 html.embed .shell{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  grid-template-columns: 1fr !important;
-  gap: 12px !important;
-  overflow: hidden !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  flex: 1 1 auto !important; min-height: 0 !important;
+  display: flex !important; flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 10px !important; overflow: hidden !important;
+  width: 100% !important;
 }
-html.embed .shell > div:first-child{ flex: 0 0 auto !important; height: auto !important; }
-html.embed .tl{ flex: 0 0 auto !important; margin: 0 !important; }
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
 html.embed .controls{ display: none !important; }
 html.embed .stage-col{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
+  flex: 1 1 auto !important; min-height: 0 !important;
+  display: flex !important; flex-direction: column !important;
+  overflow: hidden !important; padding: 0 !important; margin: 0 !important;
 }
 html.embed .frame{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
+  flex: 1 1 auto !important; min-height: 0 !important;
+  display: flex !important; align-items: center !important;
+  justify-content: center !important; overflow: hidden !important;
   width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  margin: 0 !important;
 }
-.stage-chrome{ padding: 14px 12px 10px !important; }
-
 @media (max-width: 720px){
-  html.embed .page{ padding: 8px !important; }
-  html.embed .page > .kicker{ margin: 0 0 2px !important; }
-  html.embed .page > h1{ margin: 0 0 2px !important; font-size: 1.05rem !important; }
-  html.embed .page > .lead{ margin: 0 0 8px !important; font-size: 11.5px !important; }
-  html.embed .shell{ gap: 8px !important; }
+  html.embed .page{ padding: 6px 6px 6px !important; }
+  html.embed .page > h1{ font-size: 1rem !important; margin: 0 0 2px !important; }
+  html.embed .page > .lead{ margin: 0 0 6px !important; font-size: 11px !important; -webkit-line-clamp: 1 !important; }
+  html.embed .shell{ gap: 6px !important; }
   html.embed .frame{
-    align-items: flex-start !important; /* no middle void */
+    align-items: flex-start !important;
     justify-content: center !important;
+  }
+  html.embed .unit{
+    transform-origin: center top !important;
   }
 }
 
@@ -2559,40 +2540,30 @@ html.embed .frame{
 </script>
 
 
+
+
+
 <script>
-/* fit boost: scale unit to fill frame (mobile + embed) */
 (function(){
   function boostFit(){
-    try{
-      var frame = document.querySelector('.frame');
-      var unit = document.querySelector('.unit');
-      if(!frame || !unit) return;
-      var fr = frame.getBoundingClientRect();
-      var uw = unit.offsetWidth || 560;
-      var uh = unit.offsetHeight || 410;
-      if(uw < 10 || uh < 10 || fr.width < 10 || fr.height < 10) return;
-      var sx = (fr.width - 8) / uw;
-      var sy = (fr.height - 8) / uh;
-      var s = Math.min(sx, sy, 1.35);
-      if(s < 0.35) s = 0.35;
-      unit.style.transform = 'scale(' + s + ')';
-      unit.style.transformOrigin = 'center top';
-    }catch(e){}
+    var frame = document.querySelector('.frame');
+    var unit = document.querySelector('.unit');
+    if(!frame || !unit) return;
+    var fr = frame.getBoundingClientRect();
+    var uw = parseFloat(getComputedStyle(unit).width) || unit.offsetWidth || 560;
+    var uh = parseFloat(getComputedStyle(unit).height) || unit.offsetHeight || 410;
+    if(uw < 8 || uh < 8 || fr.width < 8 || fr.height < 8) return;
+    var sx = (fr.width - 4) / uw;
+    var sy = (fr.height - 4) / uh;
+    var s = Math.min(sx, sy, 1.5);
+    if(s < 0.3) s = 0.3;
+    unit.style.transform = 'scale(' + s + ')';
+    unit.style.transformOrigin = (window.matchMedia('(max-width:720px)').matches) ? 'center top' : 'center center';
   }
-  function boot(){
-    boostFit();
-    setTimeout(boostFit, 50);
-    setTimeout(boostFit, 200);
-    setTimeout(boostFit, 500);
-  }
-  window.addEventListener('resize', function(){
-    clearTimeout(window.__boostFitT);
-    window.__boostFitT = setTimeout(boostFit, 60);
-  });
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-  else boot();
-  // after beat changes
-  document.addEventListener('click', function(){ setTimeout(boostFit, 30); }, true);
+  function boot(){ boostFit(); [40,120,300,600,1000].forEach(function(t){ setTimeout(boostFit,t); }); }
+  window.addEventListener('resize', function(){ clearTimeout(window.__bf); window.__bf=setTimeout(boostFit,50); });
+  document.addEventListener('click', function(){ setTimeout(boostFit,40); }, true);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
 </script>
 

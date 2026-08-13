@@ -3326,21 +3326,21 @@ iframe.pi-iframe#piPlayerFrame{
 }
 
 
-/* EY PI = Blockchains demo box (wrap 920 + pad, iframe 100%) 2026-08-13c */
-#pi.sec,
-section#pi.sec,
-html body section#pi{
+
+/* EY PI NUCLEAR flush = BC 2026-08-13d */
+html body section#pi.sec,
+html body #pi.sec,
+html body #pi{
   max-width: none !important;
   width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  margin: 0 !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-top: var(--section-y, 2.25rem) !important;
   padding-bottom: var(--section-y, 2.25rem) !important;
   box-sizing: border-box !important;
 }
-#pi .wrap{
+html body #pi .wrap{
   max-width: 920px !important;
   width: 100% !important;
   margin-left: auto !important;
@@ -3349,36 +3349,32 @@ html body section#pi{
   padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
   box-sizing: border-box !important;
 }
-#pi .pi-iframe,
-#pi iframe.pi-iframe,
-iframe#piPlayerFrame,
-html body #pi iframe.pi-iframe{
+html body #pi iframe.pi-iframe,
+html body #pi #piPlayerFrame,
+html body #pi .pi-iframe{
   width: 100% !important;
   max-width: 100% !important;
+  min-width: 0 !important;
   display: block !important;
   margin: 0 !important;
   border: 0 !important;
-  border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  height: 520px !important;
-  min-height: 480px !important;
-  max-height: 560px !important;
+  /* content height — not 720/88vh */
+  height: 540px !important;
+  min-height: 540px !important;
+  max-height: 540px !important;
 }
-#pi .note,
-#pi p.note{
+html body #pi .note{
   margin-top: 10px !important;
   margin-bottom: 0 !important;
-  opacity: .5 !important;
-  font-size: 12px !important;
 }
 @media (max-width: 720px){
-  #pi .pi-iframe,
-  #pi iframe.pi-iframe,
-  iframe#piPlayerFrame{
-    height: min(460px, 68vh) !important;
-    min-height: 400px !important;
-    max-height: 500px !important;
+  html body #pi iframe.pi-iframe,
+  html body #pi #piPlayerFrame{
+    height: 480px !important;
+    min-height: 480px !important;
+    max-height: 480px !important;
   }
 }
 
@@ -3531,7 +3527,7 @@ html body #pi iframe.pi-iframe{
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1&v=18"
+      src="ey-pi-player.html?embed=1&v=19"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"
