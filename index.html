@@ -5011,41 +5011,7 @@ html body iframe.skills-player-frame{
 
 
 
-/* CLEAN host v50 — panel = site width; iframe height from postMessage */
-html body .stagezone{
-  padding:12px!important;
-  display:flex!important; align-items:center!important; justify-content:center!important;
-}
-html body .stagezone.open .stage-panel,
-html body .stage-panel{
-  position:relative!important;
-  width:min(920px, calc(100vw - 24px))!important;
-  max-width:920px!important;
-  height:auto!important;
-  max-height:calc(100vh - 24px)!important;
-  margin:auto!important;
-  border-radius:18px!important;
-  overflow:hidden!important;
-  display:block!important;
-  padding:0!important;
-  background:var(--bg,#0e0d0c)!important;
-  border:1px solid rgba(255,255,255,.08)!important;
-  box-sizing:border-box!important;
-}
-html body .stagezone .stage-panel > .stage-close-x{
-  position:absolute!important; top:12px!important; right:12px!important; z-index:50!important;
-  width:36px!important; height:36px!important; border-radius:999px!important;
-  border:1px solid rgba(255,255,255,.14)!important; background:rgba(14,13,12,.75)!important;
-  color:#f2f0ec!important; font-size:20px!important; line-height:1!important;
-  display:grid!important; place-items:center!important; cursor:pointer!important;
-  padding:0!important; margin:0!important;
-}
-html body .stage-panel iframe#skillsPlayerFrame,
-html body .stage-panel iframe.skills-player-frame,
-html body iframe#skillsPlayerFrame{
-  display:block!important; width:100%!important; border:0!important;
-  background:transparent!important; flex:none!important; min-height:0!important;
-  /* start tall enough for unit; JS tightens with !important */
+/* start tall enough for unit; JS tightens with !important */
   height:calc(140px + (min(888px, 100vw - 56px)) * 410 / 560 + 32px)!important;
   max-height:calc(100vh - 28px)!important;
 }
@@ -5056,6 +5022,64 @@ html body iframe#skillsPlayerFrame{
   html body iframe#skillsPlayerFrame{
     height:calc(110px + (100vw - 40px) * 410 / 560 + 20px)!important;
     max-height:calc(100dvh - 16px)!important;
+  }
+}
+
+
+/* CLEAN host v52 — iframe height follows content; unit never clipped */
+html body .stagezone{
+  padding: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+html body .stagezone.open .stage-panel,
+html body .stage-panel{
+  position: relative !important;
+  width: min(920px, calc(100vw - 24px)) !important;
+  max-width: 920px !important;
+  height: auto !important;
+  max-height: calc(100vh - 16px) !important;
+  margin: auto !important;
+  border-radius: 18px !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important; /* last resort if viewport short */
+  display: block !important;
+  padding: 0 !important;
+  background: var(--bg, #0e0d0c) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  box-sizing: border-box !important;
+}
+html body .stagezone .stage-panel > .stage-close-x{
+  position: absolute !important; top: 12px !important; right: 12px !important; z-index: 50 !important;
+  width: 36px !important; height: 36px !important; border-radius: 999px !important;
+  border: 1px solid rgba(255,255,255,.14) !important; background: rgba(14,13,12,.75) !important;
+  color: #f2f0ec !important; font-size: 20px !important; line-height: 1 !important;
+  display: grid !important; place-items: center !important; cursor: pointer !important;
+  padding: 0 !important; margin: 0 !important;
+}
+/* No fixed short height — JS sets exact content height with !important */
+html body .stage-panel iframe#skillsPlayerFrame,
+html body .stage-panel iframe.skills-player-frame,
+html body iframe#skillsPlayerFrame,
+html body iframe.skills-player-frame{
+  display: block !important;
+  width: 100% !important;
+  border: 0 !important;
+  background: transparent !important;
+  flex: none !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  /* generous initial until postMessage — titles + unit at full column width */
+  height: calc(150px + min(888px, 100vw - 56px) * 410 / 560 + 40px) !important;
+}
+@media (max-width: 720px){
+  html body .stagezone{ padding: 6px !important; }
+  html body .stage-panel{ width: calc(100vw - 12px) !important; max-height: calc(100dvh - 8px) !important; }
+  html body .stage-panel iframe#skillsPlayerFrame,
+  html body iframe#skillsPlayerFrame{
+    height: calc(120px + (100vw - 36px) * 410 / 560 + 36px) !important;
   }
 }
 
@@ -6356,7 +6380,7 @@ html body iframe#skillsPlayerFrame{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=51#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=52#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
@@ -7339,15 +7363,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
+
+
+
 <script>
 (function(){
   function applyH(h){
     var f=document.getElementById('skillsPlayerFrame')||document.querySelector('iframe.skills-player-frame');
     if(!f) return;
-    h=Math.ceil(Number(h)||0); if(h<240)h=240;
-    var max=Math.floor((window.innerHeight||900)-20); if(h>max)h=max;
+    h=Math.ceil(Number(h)||0);
+    if(h<280) h=280;
+    /* Prefer full content; only clamp if exceeds almost full viewport */
+    var max=Math.floor((window.innerHeight||900)-12);
+    if(h>max) h=max;
     f.style.setProperty('height', h+'px', 'important');
-    f.style.setProperty('max-height', max+'px', 'important');
+    f.style.setProperty('max-height', 'none', 'important');
   }
   window.addEventListener('message', function(ev){
     var d=ev.data;
@@ -7356,7 +7386,8 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   function bindX(){
     var btn=document.getElementById('stageCloseX');
-    if(!btn) return;
+    if(!btn||btn._bound) return;
+    btn._bound=true;
     btn.addEventListener('click', function(e){
       e.preventDefault(); e.stopPropagation();
       if(typeof closeStage==='function') closeStage();
