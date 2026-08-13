@@ -1703,37 +1703,43 @@ html:not(.embed) .unit{
 }
 
 
-
 /* ============================================================
-   FULL-WIDTH unit embed 2026-08-13w
-   - Unit uses nearly full content width (title / site column)
-   - SIDE pad so accent border is never clipped
-   - Scale uniform; height follows width (landscape 560×410)
+   BC-PATTERN EMBED for Skills unit 560×410  2026-08-13-bc
+   Same as blockchain fitPhone:
+     host (.frame) has REAL width+height (flex fill)
+     unit keeps 560×410 design px
+     scale = min(hostW/560, hostH/410) * 0.96
+     overflow:hidden on host → visual always fully inside
    ============================================================ */
+
 html.embed, html.embed body{
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
-  height: auto !important;
+  height: 100% !important;
   overflow: hidden !important;
   background: transparent !important;
 }
 html.embed body{
-  padding: 0 !important;
-  box-sizing: border-box !important;
-}
-html.embed .page{
-  width: 100% !important;
-  max-width: none !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 14px 16px 20px !important;
+  padding: 12px !important;
   box-sizing: border-box !important;
   display: flex !important;
   flex-direction: column !important;
+}
+html.embed .page{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
   gap: 0 !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   background: transparent !important;
+  box-sizing: border-box !important;
 }
 html.embed .page > .close-x{ display: none !important; }
 html.embed .page > .kicker{
@@ -1746,22 +1752,24 @@ html.embed .page > .kicker{
 }
 html.embed .page > h1{
   flex: 0 0 auto !important;
-  margin: 0 0 6px !important;
-  font-size: clamp(1.15rem, 2.4vw, 1.35rem) !important;
+  margin: 0 0 4px !important;
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem) !important;
   line-height: 1.2 !important;
 }
 html.embed .page > .lead{
   flex: 0 0 auto !important;
-  margin: 0 0 12px !important;
-  font-size: 12.5px !important;
-  line-height: 1.4 !important;
-  opacity: .75 !important;
+  margin: 0 0 10px !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  opacity: .7 !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
 }
 html.embed .shell{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   display: flex !important;
   flex-direction: column !important;
   grid-template-columns: none !important;
@@ -1769,12 +1777,11 @@ html.embed .shell{
   width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
+  overflow: hidden !important;
   background: transparent !important;
   border: none !important;
-  overflow: visible !important;
-  flex: 0 0 auto !important;
 }
-html.embed .shell > div:first-child{ width: 100% !important; flex: 0 0 auto !important; }
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
 html.embed .tl, html.embed #tl{
   display: flex !important;
   flex-wrap: nowrap !important;
@@ -1788,45 +1795,62 @@ html.embed .tl button, html.embed #tl button{
   height: 32px !important;
 }
 html.embed .controls{ display: none !important; }
+
+/* stage-col fills remaining height — like BC .stage */
 html.embed .stage-col{
-  display: block !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
   background: transparent !important;
   border: none !important;
-  overflow: visible !important;
 }
-/* frame = full content width measure box */
+
+/* .frame = BC phone-host: fills stage, flex-centers unit, overflow hidden */
 html.embed .frame, html.embed #frame{
-  display: block !important;
-  position: relative !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   width: 100% !important;
-  max-width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
-  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
   box-sizing: border-box !important;
 }
-/* unit keeps design size; JS scales to (width - border air) */
+
+/* .unit = BC phone-base: FIXED design size, scale only */
 html.embed .unit, html.embed #unit{
-  position: absolute !important;
-  top: 0 !important;
   width: 560px !important;
   height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
   margin: 0 !important;
   box-sizing: border-box !important;
-  transform-origin: top left !important;
-  max-width: none !important;
-  max-height: none !important;
-  /* accent border is on .unit — keep it inside the scaled visual */
+  transform-origin: center center !important;
+  /* transform: scale(s) set by fitUnit — same as fitPhone */
 }
-@media (max-width: 720px){
-  html.embed .page{ padding: 10px 12px 16px !important; }
-  html.embed .page > .lead{ -webkit-line-clamp: 1 !important; }
+
+
+/* TITLE_WIDTH_PAD — same horizontal inset as titles so unit tracks text width */
+html.embed .page{
+  padding-left: 16px !important;
+  padding-right: 16px !important;
 }
 
 </style>
@@ -2359,11 +2383,8 @@ html.embed .unit, html.embed #unit{
 
 
 
-
-
-
 <script>
-/* Full-width fit: scale by width (minus border air); height follows 410/560; border never clipped */
+/* BC-pattern fitUnit — identical math to blockchain fitPhone, viewport 560×410 */
 (function(){
   var isEmbed = document.documentElement.classList.contains('embed')
     || /(?:^|[?&#])embed=1\b/.test(location.search + location.hash);
@@ -2371,60 +2392,51 @@ html.embed .unit, html.embed #unit{
   document.documentElement.classList.add('embed');
 
   var NW = 560, NH = 410;
-  /* air so accent border stays inside the measured width */
-  var BORDER_AIR = 4;
 
-  function fit(){
+  function fitUnit(){
     var unit = document.getElementById('unit');
-    var frame = document.getElementById('frame');
-    var page = document.querySelector('.page');
-    if(!unit || !frame) return;
+    var host = document.getElementById('frame');
+    if(!unit || !host) return;
+    var hw = host.clientWidth || 1;
+    var hh = host.clientHeight || 1;
+    if(hw < 8 || hh < 8) return;
 
-    var fw = frame.getBoundingClientRect().width;
-    if(fw < 40) fw = (page && page.clientWidth) || window.innerWidth;
+    /* same formula as fitPhone: min of both axes, mild pad */
+    /* Prefer filling host width (title column) without cropping.
+       Cap mild upscale; height still limits via Math.min so bottom never clips. */
+    var s = Math.min(hw / NW, hh / NH) * 0.96;
+    if(s > 1.28) s = 1.28;
+    if(s < 0.28) s = 0.28;
 
-    var avail = Math.max(60, fw - BORDER_AIR * 2);
-    var s = avail / NW;
-    if(s > 1.05) s = 1.05;
-    if(s < 0.3) s = 0.3;
-
-    var visW = NW * s;
-    var visH = NH * s;
-
-    /* slot height = visual height so nothing is cropped */
-    frame.style.height = Math.ceil(visH + 2) + 'px';
-    frame.style.minHeight = Math.ceil(visH + 2) + 'px';
-    frame.style.overflow = 'visible';
-
-    var left = (fw - visW) / 2;
-    unit.style.left = left + 'px';
-    unit.style.top = '0px';
     unit.style.width = NW + 'px';
     unit.style.height = NH + 'px';
-    unit.style.transformOrigin = 'top left';
+    unit.style.transformOrigin = 'center center';
     unit.style.transform = 'scale(' + s + ')';
-    unit.style.position = 'absolute';
-
-    if(page){
-      var h = Math.ceil(page.getBoundingClientRect().height) + 12;
-      try{
-        if(window.parent && window.parent !== window){
-          window.parent.postMessage({ type: 'skills-player-height', height: h }, '*');
-        }
-      }catch(e){}
-    }
+    unit.style.position = 'relative';
+    unit.style.left = 'auto';
+    unit.style.top = 'auto';
   }
 
-  window.fitUnit = fit;
-  var _fit = window.fit;
+  window.fitUnit = fitUnit;
   window.fit = function(){
-    if(document.documentElement.classList.contains('embed')) return fit();
-    if(typeof _fit === 'function') return _fit.apply(this, arguments);
+    if(document.documentElement.classList.contains('embed')) return fitUnit();
   };
 
-  function boot(){ fit(); [50, 150, 400, 900, 1800].forEach(function(t){ setTimeout(fit, t); }); }
-  window.addEventListener('resize', function(){ clearTimeout(window.__fwFit); window.__fwFit = setTimeout(fit, 40); });
-  document.addEventListener('click', function(){ setTimeout(fit, 50); }, true);
+  function boot(){
+    fitUnit();
+    [40, 120, 300, 700, 1500].forEach(function(t){ setTimeout(fitUnit, t); });
+  }
+  window.addEventListener('resize', function(){
+    clearTimeout(window.__bcFit);
+    window.__bcFit = setTimeout(fitUnit, 40);
+  });
+  if(window.ResizeObserver){
+    document.addEventListener('DOMContentLoaded', function(){
+      var h = document.getElementById('frame');
+      if(h) new ResizeObserver(function(){ fitUnit(); }).observe(h);
+    });
+  }
+  document.addEventListener('click', function(){ setTimeout(fitUnit, 50); }, true);
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
