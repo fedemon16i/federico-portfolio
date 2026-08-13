@@ -2002,6 +2002,11 @@ html.embed, html.embed body{
   html.embed .page{ padding: 10px 14px 14px !important; }
 }
 
+
+/* page bottom air so unit border/caption not clipped */
+html.embed .page{ padding-bottom: 20px !important; }
+html.embed .frame, html.embed #frame{ margin-bottom: 0 !important; }
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
@@ -2985,7 +2990,7 @@ function beatMeasure(done){
     unit.style.setProperty('max-height','none','important');
 
     if(page){
-      var h=Math.ceil(page.getBoundingClientRect().height+4);
+      var h=Math.ceil(page.getBoundingClientRect().height+16);
       try{
         if(window.parent&&window.parent!==window)
           window.parent.postMessage({type:'skills-player-height',height:h},'*');
