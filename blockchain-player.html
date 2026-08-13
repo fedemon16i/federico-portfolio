@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Blockchains · Prototype Player</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{
+  --bg:#0e0d0c; --stage-bg:#201e1b;
+  --text:#f2f0ec; --muted:#8a8580; --dim:#5c5854;
+  --accent:#22d4c8; --accent-dim:rgba(34,212,200,.12);
+  --visitor:#c4a5ff;
+  --border:rgba(255,255,255,.08);
+  --capbar-fade:rgba(32,30,27,.92);
+  --font-sans:'DM Sans',system-ui,sans-serif;
+  --font-mono:'DM Mono',ui-monospace,monospace;
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --radius-xl:18px; --max:920px;
+  --spring:cubic-bezier(.34,1.2,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.45;padding:28px 16px 80px}
+.wrap{max-width:var(--max);margin:0 auto}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:var(--font-display);font-size:clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem);font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-bottom:12px}
+.lede{color:var(--muted);font-size:clamp(1rem,.95rem + .35vw,1.125rem);line-height:1.65;max-width:42rem;margin-bottom:22px}
+
+/* Timeline — outside stage (EY PI) */
+.timeline{display:flex;gap:6px;flex-wrap:nowrap;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.timeline::-webkit-scrollbar{display:none}
+.tl{
+  display:inline-flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:100px;
+  padding:0 12px;height:32px;font-size:12px;color:var(--muted);cursor:pointer;background:transparent;
+  transition:all 250ms;font-family:var(--font-mono);white-space:nowrap;flex:0 0 auto;
+}
+.tl .n{font-family:var(--font-mono);font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
+.tl .nm{display:none;margin-left:6px;font-size:12px;color:inherit}
+.tl.on{border-color:var(--accent);color:var(--text);background:var(--accent-dim)}
+.tl.on .n{color:var(--accent)}
+.tl.on .nm{display:inline;color:var(--text);font-weight:600}
+.tl.on.v,.tl.v.on{border-color:var(--visitor);background:rgba(196,165,255,.12)}
+.tl.on.v .n,.tl.v.on .n{color:var(--visitor)}
+.tl:hover{border-color:rgba(34,212,200,.4)}
+
+/* Stage */
+.stage{
+  position:relative;min-height:min(580px,74vh);height:min(580px,74vh);
+  background:var(--stage-bg);
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:22px 22px;border:1px solid var(--border);border-radius:var(--radius-xl);
+  overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.55);
+}
+
+/* Top bar inside stage */
+.stage-top{
+  position:absolute;top:0;left:0;right:0;z-index:40;height:48px;
+  display:flex;align-items:center;gap:10px;padding:0 14px;
+  background:linear-gradient(180deg,rgba(14,13,12,.55) 0%,transparent 100%);
+  pointer-events:none;
+}
+.stage-top > *{pointer-events:auto}
+.stage-title{font-family:var(--font-mono);font-size:13px;color:var(--muted);margin-right:auto;white-space:nowrap}
+.stage-title b{color:var(--text);font-weight:500}
+.stage-top-btns{display:flex;align-items:center;gap:6px}
+.icon-btn{
+  width:32px;height:32px;border-radius:50%;border:1px solid var(--border);
+  background:rgba(14,13,12,.5);color:var(--text);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s,color .2s,background .2s;
+}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.icon-btn svg{width:13px;height:13px}
+.icon-btn.filled svg{fill:currentColor}
+.icon-btn.stroke svg{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.stage-count{font-family:var(--font-mono);font-size:11px;color:var(--dim);min-width:2.6rem;text-align:right}
+
+.stage-window{
+  position:absolute;inset:48px 16px 60px;border-radius:12px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Side arrows */
+.stage-arrows{position:absolute;inset:0;z-index:45;pointer-events:none}
+.stage-arrow{
+  pointer-events:auto;position:absolute;top:50%;transform:translateY(-50%);
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--border);
+  background:rgba(14,13,12,.72);color:var(--text);cursor:pointer;display:grid;place-items:center;
+  transition:border-color .2s,color .2s,background .2s;
+}
+.stage-arrow:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.stage-arrow.prev{left:10px}.stage-arrow.next{right:10px}
+.stage-arrow svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.stage-arrow:disabled{opacity:.25;pointer-events:none}
+
+/* Capbar */
+.capbar{
+  position:absolute;left:0;right:0;bottom:0;z-index:50;padding:14px 22px 16px;min-height:58px;
+  display:flex;align-items:center;justify-content:center;text-align:center;pointer-events:none;
+  background:var(--capbar-fade);border-top:1px solid var(--border);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:15.5px;color:var(--text);
+}
+.capbar .cap-rec{
+  display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);
+  margin-right:8px;vertical-align:middle;animation:rec 1.4s ease infinite;
+}
+@keyframes rec{0%,100%{opacity:1}50%{opacity:.35}}
+.capbar .cap-txt{max-width:88%;text-shadow:0 1px 4px rgba(0,0,0,.45)}
+.capbar .hl{color:var(--accent);font-weight:600}
+
+/* Phone host + base 393×852 */
+.phone-host{width:100%;height:100%;display:flex;align-items:center;justify-content:center;min-height:0}
+.phone-base{
+  width:393px;height:852px;border-radius:55px;background:#0a0a0c;
+  position:relative;transform-origin:center center;flex-shrink:0;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 0 4px #1c1c1e,0 0 0 5px rgba(255,255,255,.04),0 28px 56px rgba(0,0,0,.5);
+}
+.phone-base::before{
+  content:'';position:absolute;inset:0;border-radius:55px;
+  box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.08);pointer-events:none;z-index:20;
+}
+.dynamic-island{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:126px;height:37px;background:#000;border-radius:20px;z-index:30;
+  box-shadow:0 0 0 1px rgba(0,0,0,.9);
+}
+.dynamic-island::after{
+  content:'';position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#1a2a3a 0%,#0a1018 60%,#000 100%);
+  box-shadow:inset 0 0 0 1px rgba(80,120,180,.25);
+}
+.phone-screen{
+  position:absolute;top:11px;left:11px;right:11px;bottom:11px;border-radius:44px;
+  background:#0a1220;overflow:hidden;display:flex;flex-direction:column;
+}
+.home-ind{
+  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  width:120px;height:5px;border-radius:3px;background:rgba(255,255,255,.35);z-index:25;
+}
+
+/* ===== Phone UI states (from v25 patterns) ===== */
+.status{
+  height:48px;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 22px 0;font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.8);flex-shrink:0;z-index:5;
+}
+.p-nav{
+  display:none;align-items:center;gap:8px;padding:6px 14px 10px;flex-shrink:0;z-index:5;
+  font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:#e8eef5;
+}
+.p-nav.on{display:flex}
+.p-nav .back{width:28px;height:28px;border-radius:8px;border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;font-size:14px;color:#ccc;cursor:default}
+.p-nav .ttl{flex:1;text-align:center}
+
+.p-body{flex:1;position:relative;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+
+/* Onboard = bottom DRAWER (same language as p-sheet), map always behind */
+.onboard{
+  display:none;position:absolute;left:0;right:0;bottom:0;z-index:24;
+  flex-direction:column;align-items:stretch;
+  padding:0 0 24px; max-height:86%; min-height:48%;
+  background:#111827;
+  border-radius:22px 22px 0 0;
+  border-top:1px solid rgba(255,255,255,.1);
+  box-shadow:0 -12px 40px rgba(0,0,0,.45);
+  pointer-events:none;
+  transform:translateY(18px);opacity:0;
+}
+.onboard.on{
+  display:flex;pointer-events:auto;
+  animation:sheetUp .45s var(--spring) both;
+}
+.onboard .ob-grab{
+  width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.2);
+  margin:10px auto 12px;flex-shrink:0;
+}
+.ob-visual{
+  position:relative;width:100%;height:100px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:4px;flex-shrink:0;
+}
+.ob-map{
+  width:88px;height:88px;border-radius:20px;
+  background:linear-gradient(160deg,#0c1a28,#1a3548);position:relative;
+  box-shadow:0 12px 28px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.ob-map .p{
+  position:absolute;left:42%;top:40%;width:14px;height:14px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 14px var(--accent);
+  animation:obPin 1.6s ease-in-out infinite;
+}
+@keyframes obPin{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
+.ob-hand{
+  position:absolute;right:22%;bottom:8%;width:44px;height:44px;color:rgba(245,236,210,.95);
+  opacity:0;transform:translateY(10px) scale(.9);transition:opacity .35s,transform .45s var(--spring);
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));
+}
+.ob-hand.on{opacity:1;transform:none}
+.ob-hand svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.5}
+.ob-hand .ring{
+  position:absolute;left:8px;top:14px;width:18px;height:18px;border-radius:50%;
+  border:2px solid var(--accent);opacity:0;
+}
+.ob-hand.on .ring{animation:holdPulse 1.1s cubic-bezier(.33,1.4,.68,1) infinite}
+.ob-media{
+  position:absolute;left:18%;bottom:12%;display:flex;gap:6px;opacity:0;
+  transition:opacity .35s;
+}
+.ob-media.on{opacity:1}
+.ob-media i{
+  width:28px;height:28px;border-radius:8px;background:rgba(34,212,200,.15);
+  border:1px solid rgba(34,212,200,.35);animation:obPop .55s var(--spring) both;
+  display:block;
+}
+.ob-media i:nth-child(2){animation-delay:.12s;background:rgba(74,163,212,.2);border-color:rgba(74,163,212,.4)}
+.ob-media i:nth-child(3){animation-delay:.24s;background:rgba(196,165,255,.18);border-color:rgba(196,165,255,.4)}
+@keyframes obPop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.ob-dots{display:flex;gap:8px;justify-content:center;margin:6px 0 14px;flex-shrink:0}
+.ob-dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.22);transition:transform .25s,background .25s}
+.ob-dots i.on{background:var(--accent);transform:scale(1.25)}
+.ob-card{
+  width:100%;padding:0 18px;position:relative;z-index:2;flex-shrink:0;
+  transform:none;opacity:1;animation:none;background:transparent;border:0;border-radius:0;
+}
+.ob-card h5{
+  font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:8px;
+  color:#fff;letter-spacing:-.02em;line-height:1.25;
+}
+.ob-card p{font-size:15px;color:rgba(255,255,255,.68);line-height:1.45;margin-bottom:14px}
+.ob-cta{
+  height:46px;border-radius:13px;background:rgba(34,212,200,.18);border:1px solid rgba(34,212,200,.45);
+  color:var(--accent);font-family:var(--font-display);font-size:15px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* map always behind drawers */
+/* map visible under onboard */
+.p-map{display:none;flex:1;position:relative;min-height:0;
+  background:radial-gradient(ellipse at 42% 48%,rgba(74,163,212,.18),transparent 55%),linear-gradient(160deg,#0c1a28,#1a3548 60%,#0f1c2a);
+}
+.p-map.on,.p-map.bg{display:block}
+.p-map.bg{position:absolute;inset:0;z-index:0}
+.pin-ui .lbl{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;margin:10px 0 6px;letter-spacing:.06em}
+.pin-icons span{aspect-ratio:1;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.4);
+  display:flex;align-items:center;justify-content:center;font-size:16px;min-height:44px}
+.cols i{width:28px;height:28px;border-radius:50%;border:2px solid transparent}
+.empty-feed .ef-hint{font-size:14px;color:rgba(255,255,255,.45);margin-top:10px}
+.player-mini{max-height:260px;aspect-ratio:9/13}
+.player-mini .pm-meta b{font-size:15px}
+.player-mini .pm-meta span{font-size:12px}
+
+
+.hold-toast{
+  position:absolute;left:50%;bottom:28%;transform:translateX(-50%);
+  display:none;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;
+  background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.1);font-size:11px;color:rgba(255,255,255,.8);
+  white-space:nowrap;
+}
+.hold-toast.on{display:flex}
+.hold-toast b{color:#fff}
+
+/* Sheet */
+.p-sheet{
+  display:none;position:absolute;left:0;right:0;bottom:0;z-index:26;
+  background:#111827;border-radius:22px 22px 0 0;padding:14px 16px 32px;
+  border-top:1px solid rgba(255,255,255,.06);max-height:86%;min-height:42%;overflow:hidden;
+  animation:sheetUp .4s var(--spring) both;
+}
+.p-sheet.on{display:block}
+.p-sheet > *{max-width:100%}
+.p-sheet .stitle,.p-sheet .sblurb{overflow-wrap:anywhere;word-break:break-word}
+@keyframes sheetUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.p-sheet .grab{width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.18);margin:0 auto 12px}
+.p-sheet .stitle{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px;font-family:var(--font-display);letter-spacing:-.02em}
+.p-sheet .sblurb{font-size:14.5px;color:rgba(255,255,255,.55);line-height:1.45;margin-bottom:14px}
+.p-sheet .scta{
+  height:46px;border-radius:12px;background:#4aa3d4;color:#fff;
+  font-size:15.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:12px;
+  font-family:var(--font-display);
+}
+.p-sheet.v .scta{background:var(--visitor);color:#1a1228}
+
+/* Pin UI */
+.pin-ui{display:none;margin-bottom:8px}
+.pin-ui.on{display:block}
+.pin-ui .lbl{font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;margin:8px 0 5px}
+.pin-icons{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pin-icons span{
+  aspect-ratio:1;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.4);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.pin-icons span.on{border-color:#4aa3d4;background:rgba(74,163,212,.2)}
+.cols{display:flex;gap:6px;margin-top:4px}
+.cols i{width:22px;height:22px;border-radius:50%;border:2px solid transparent}
+.cols i.on{border-color:#fff;transform:scale(1.1)}
+
+/* Content sources */
+.content-ui{display:none;margin-bottom:8px}
+.content-ui.on{display:block}
+.source-list button{
+  width:100%;display:flex;align-items:center;gap:12px;padding:14px;margin-bottom:8px;
+  border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.3);
+  color:#fff;text-align:left;cursor:default;font-family:var(--font-sans);
+}
+.source-list button.on{border-color:#4aa3d4;background:rgba(74,163,212,.12)}
+.source-list b{display:block;font-size:14.5px;font-weight:700;font-family:var(--font-display)}
+.source-list span{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px;display:block}
+
+/* Gallery grid */
+.ig-grid{display:none;grid-template-columns:repeat(3,1fr);gap:3px;margin:8px 0}
+.ig-grid.on{display:grid}
+.ig-grid .cell{aspect-ratio:1;border-radius:4px;overflow:hidden;background:#1a3a5c;opacity:.35;transition:opacity .3s}
+.ig-grid .cell.on{opacity:1;outline:2px solid #4aa3d4;outline-offset:-1px}
+.ig-grid .cell img{width:100%;height:100%;object-fit:cover}
+
+/* Empty feed */
+.empty-feed{display:none;text-align:center;padding:8px 0 12px}
+.empty-feed.on{display:block}
+.empty-feed .ef-hint{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px}
+
+.note{margin-top:16px;font-size:12px;color:var(--dim)}
+
+
+/* 3D map canvas fills p-map */
+.p-map canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+
+/* Figma-like mobile cursor + pulse (from v25) */
+.fig-cur{
+  position:absolute;z-index:28;width:20px;height:20px;margin:-10px 0 0 -10px;
+  pointer-events:none;opacity:0;
+  transition:left .28s cubic-bezier(.22,1.1,.36,1), top .28s cubic-bezier(.22,1.1,.36,1), opacity .2s;
+}
+.fig-cur.on{opacity:1}
+.fig-cur .fc-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(255,255,255,.92);border:1.5px solid rgba(0,0,0,.35);
+  position:absolute;left:50%;top:50%;margin:-5px;box-shadow:0 1px 3px rgba(0,0,0,.35);
+}
+.fig-cur .fc-ring{
+  position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px;
+  border-radius:50%;border:1.5px solid rgba(255,255,255,.75);opacity:0;
+}
+.fig-cur.press .fc-ring{animation:fcPulse .55s cubic-bezier(.33,1.4,.68,1)}
+.fig-cur.press .fc-dot{animation:fcDot .4s cubic-bezier(.33,1.4,.68,1)}
+.fig-cur.hold .fc-ring{animation:holdPulse 1.1s cubic-bezier(.33,1.4,.68,1) infinite}
+@keyframes fcPulse{from{transform:scale(.55);opacity:.9}to{transform:scale(2);opacity:0}}
+@keyframes fcDot{35%{transform:scale(.72)}100%{transform:scale(1)}}
+@keyframes holdPulse{0%{transform:scale(.5);opacity:.85}100%{transform:scale(1.8);opacity:0}}
+
+
+/* Maps-style place confirm */
+.maps-confirm{
+  position:absolute;z-index:30;left:50%;bottom:22%;transform:translateX(-50%) translateY(12px) scale(.94);
+  min-width:200px;max-width:86%;padding:14px 16px;border-radius:16px;
+  background:#fff;color:#111;font-family:var(--font-sans);
+  box-shadow:0 14px 36px rgba(0,0,0,.45);
+  opacity:0;pointer-events:none;
+  transition:opacity .45s var(--spring), transform .5s var(--spring);
+}
+.maps-confirm.on{opacity:1;transform:translateX(-50%) translateY(0) scale(1);pointer-events:auto}
+.maps-confirm .mc-title{font-family:var(--font-display);font-size:15px;font-weight:700;margin-bottom:3px}
+.maps-confirm .mc-sub{font-size:12.5px;color:#666;margin-bottom:12px;line-height:1.35}
+.maps-confirm .mc-row{display:flex;gap:8px}
+.maps-confirm .mc-btn{
+  flex:1;height:36px;border-radius:10px;border:none;font-family:var(--font-display);
+  font-size:13px;font-weight:700;cursor:default;
+}
+.maps-confirm .mc-btn.ghost{background:#eee;color:#333}
+.maps-confirm .mc-btn.ok{background:#1a73e8;color:#fff}
+.maps-confirm .mc-btn.ok.pulse{animation:okPulse .55s var(--spring) 2}
+@keyframes okPulse{0%,100%{transform:scale(1)}40%{transform:scale(1.05)}}
+
+
+/* Narrative typewriter — before phone */
+.text-phase{
+  position:absolute;inset:0;z-index:30;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px 28px;text-align:center;
+  background:rgba(14,13,12,.55);
+  backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+  transition:opacity .5s, visibility .5s;
+}
+.text-phase.hide{opacity:0;visibility:hidden;pointer-events:none}
+.text-phase .kicker{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;opacity:0;transform:translateY(6px);
+  transition:opacity .4s, transform .45s var(--spring);
+}
+.text-phase .kicker.on{opacity:1;transform:none}
+.text-phase .kicker.v{color:var(--visitor)}
+.text-phase .main{
+  font-family:var(--font-display);font-size:clamp(1.2rem,2.4vw,1.55rem);font-weight:700;
+  letter-spacing:-.02em;line-height:1.3;max-width:22rem;color:var(--text);min-height:2.6em;
+  overflow-wrap:anywhere;
+}
+.text-phase .blink{
+  display:inline-block;width:2px;height:1.05em;background:var(--accent);margin-left:2px;
+  vertical-align:text-bottom;animation:blink 1s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.text-phase .sub{
+  margin-top:12px;font-size:14.5px;color:var(--muted);max-width:20rem;line-height:1.4;
+  opacity:0;transform:translateY(6px);transition:opacity .4s, transform .45s var(--spring);
+}
+.text-phase .sub.on{opacity:1;transform:none}
+
+/* Success toast — green emphasis */
+.success-toast{
+  position:absolute;z-index:42;left:50%;top:18%;transform:translateX(-50%) translateY(-8px) scale(.94);
+  display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;
+  background:rgba(6,40,28,.95);border:1px solid rgba(52,211,153,.45);
+  color:#ecfdf5;font-family:var(--font-display);font-size:15px;font-weight:700;
+  box-shadow:0 12px 32px rgba(16,185,129,.25);
+  opacity:0;pointer-events:none;
+  transition:opacity .4s, transform .45s var(--spring);
+}
+.success-toast.on{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+.success-toast .st-ico{
+  width:28px;height:28px;border-radius:50%;background:rgba(52,211,153,.25);
+  display:grid;place-items:center;flex-shrink:0;color:#34d399;
+}
+.success-toast .st-ico svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2}
+
+/* Pin tip card with thumbnail — follows live POI */
+.pin-tip{
+  position:absolute;z-index:32;left:52%;top:48%;
+  width:148px;padding:0;border-radius:12px;overflow:hidden;
+  background:rgba(10,15,26,.94);border:1px solid rgba(52,211,153,.5);
+  box-shadow:0 0 0 1px rgba(52,211,153,.15), 0 12px 28px rgba(0,0,0,.45), 0 0 24px rgba(52,211,153,.2);
+  pointer-events:none;opacity:0;
+  transform:translate(-50%,-118%) scale(.9);
+  transition:opacity .4s var(--spring), transform .45s var(--spring);
+}
+.pin-tip.on{opacity:1;transform:translate(-50%,-118%) scale(1)}
+.pin-tip .pt-thumb{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#1a2a3c}
+.pin-tip .pt-body{padding:8px 10px 10px}
+.pin-tip .pt-title{font-family:var(--font-display);font-size:12.5px;font-weight:700;color:#ecfdf5;margin-bottom:2px}
+.pin-tip .pt-meta{font-family:var(--font-mono);font-size:10px;color:rgba(52,211,153,.9)}
+.pin-tip::after{
+  content:'';position:absolute;left:50%;bottom:-6px;width:12px;height:12px;
+  background:rgba(10,15,26,.94);border-right:1px solid rgba(52,211,153,.5);border-bottom:1px solid rgba(52,211,153,.5);
+  transform:translateX(-50%) rotate(45deg);
+}
+
+/* phone host fades while text phase */
+.phone-host.dim{opacity:0;transform:scale(.96);pointer-events:none}
+.phone-host{transition:opacity .55s, transform .6s var(--spring)}
+
+/* Production side hints (outside phone) */
+.side-hints{position:absolute;inset:0;z-index:35;pointer-events:none}
+.hint-card{
+  position:absolute;max-width:148px;padding:12px 13px;border-radius:12px;
+  background:rgba(245,236,210,.97);color:#1a1510;
+  font-family:var(--font-sans);font-size:13.5px;font-weight:500;line-height:1.4;
+  opacity:0;transform:translateX(-10px) scale(.96);
+  transition:opacity .4s, transform .45s var(--spring);
+  box-shadow:0 10px 28px rgba(0,0,0,.28);
+}
+.hint-card.on{opacity:1;transform:none}
+.hint-card.right{transform:translateX(10px) scale(.96)}
+.hint-card.right.on{transform:none}
+.hint-card.v{background:rgba(232,220,255,.97);color:#1a1028}
+.hint-card .hk{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(26,21,16,.5);margin-bottom:4px;
+}
+.hint-card.v .hk{color:rgba(26,16,40,.45)}
+
+/* Cursor — large, high contrast, snappy follow */
+.fig-cur{
+  width:40px!important;height:40px!important;margin:-20px 0 0 -20px!important;z-index:40!important;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.6))!important;
+  transition:left .28s cubic-bezier(.22,1.1,.36,1), top .28s cubic-bezier(.22,1.1,.36,1), opacity .2s!important;
+}
+.fig-cur .fc-dot{
+  width:16px!important;height:16px!important;margin:-8px!important;
+  background:#fff!important;border:2.5px solid rgba(0,0,0,.6)!important;
+  box-shadow:0 0 0 3px rgba(34,212,200,.4), 0 3px 10px rgba(0,0,0,.45)!important;
+}
+.fig-cur .fc-ring{
+  width:34px!important;height:34px!important;margin:-17px!important;border-width:3px!important;
+  border-color:rgba(34,212,200,.95)!important;
+}
+
+/* Source icons */
+.source-list button svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.6;flex-shrink:0}
+.source-list button.on svg{stroke:#4aa3d4}
+
+/* iOS gallery chrome */
+.ios-gal{display:none;margin:8px 0}
+.ios-gal.on{display:block;animation:sheetUp .4s var(--spring) both}
+.ios-gal .ig-top{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
+  font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;
+}
+.ios-gal .ig-top span{font-family:var(--font-mono);font-size:12px;color:var(--accent);font-weight:500}
+.ios-gal .ig-albums{display:flex;gap:6px;margin-bottom:10px;overflow:hidden}
+.ios-gal .ig-albums b{
+  font-family:var(--font-mono);font-size:10px;padding:6px 10px;border-radius:8px;
+  border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);white-space:nowrap;
+}
+.ios-gal .ig-albums b.on{border-color:var(--accent);color:var(--accent)}
+.ig-grid .cell{position:relative;transition:opacity .3s, transform .35s var(--spring), outline .2s}
+.ig-grid .cell .check{
+  position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:50%;
+  background:var(--accent);color:#0a1220;font-size:11px;font-weight:700;
+  display:none;align-items:center;justify-content:center;
+}
+.ig-grid .cell.on .check{display:flex}
+.ig-grid .cell.on{outline:2px solid var(--accent);outline-offset:-1px;opacity:1;transform:scale(1)}
+.ig-grid .cell{opacity:.4;transform:scale(.97)}
+
+/* Visitor reel rail */
+.reel-rail{display:none;gap:10px;overflow-x:auto;padding:4px 2px 12px;margin-bottom:8px;scroll-snap-type:x mandatory;
+  scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:smooth}
+.reel-rail::-webkit-scrollbar{display:none}
+.reel-rail.on{display:flex}
+.reel-card{
+  flex:0 0 42%;scroll-snap-align:start;aspect-ratio:9/14;border-radius:12px;overflow:hidden;
+  position:relative;background:#0a1520;border:2px solid transparent;opacity:.55;transform:scale(.96);
+  transition:opacity .35s, transform .4s var(--spring), border-color .25s;
+}
+.reel-card.on{opacity:1;transform:scale(1);border-color:var(--visitor)}
+.reel-card img{width:100%;height:100%;object-fit:cover;display:block}
+.reel-card .rc-play{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.45);
+  display:grid;place-items:center;color:#fff;
+}
+.reel-card .rc-play svg{width:14px;height:14px;fill:currentColor}
+.p-sheet.expanded{max-height:92%;min-height:70%}
+.player-mini.full{max-height:none;aspect-ratio:9/14;min-height:280px}
+
+/* Instagram-reel style player (visitor end) */
+.player-mini{
+  display:none;position:relative;border-radius:10px;overflow:hidden;aspect-ratio:9/14;
+  background:#0a1520;margin-bottom:10px;max-height:220px;
+}
+.player-mini.on{display:block;animation:sheetUp .45s var(--spring) both}
+.player-mini img,.player-mini video{width:100%;height:100%;object-fit:cover;display:block}
+.player-mini .pm-bar{
+  position:absolute;left:0;right:0;bottom:0;padding:10px 12px;
+  background:linear-gradient(transparent,rgba(0,0,0,.8));
+  display:flex;align-items:center;gap:8px;
+}
+.player-mini .pm-play{
+  width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);
+  display:grid;place-items:center;color:#fff;flex-shrink:0;
+}
+.player-mini .pm-play svg{width:12px;height:12px;fill:currentColor}
+.player-mini .pm-track{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}
+.player-mini .pm-track i{display:block;height:100%;width:0;background:var(--visitor);animation:scrub 4s linear infinite}
+@keyframes scrub{to{width:100%}}
+.player-mini .pm-meta{position:absolute;left:12px;bottom:44px;right:12px;color:#fff;pointer-events:none}
+.player-mini .pm-meta b{display:block;font-size:13px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.player-mini .pm-meta span{font-size:11px;opacity:.75}
+
+@media(max-width:720px){
+  .stage-arrow{width:32px;height:32px}
+  .stage-arrow.prev{left:6px}.stage-arrow.next{right:6px}
+  .capbar{padding:10px 14px 12px;font-size:12.5px;min-height:52px}
+  .stage-top{height:44px;padding:0 10px}
+  .stage-window{inset:44px 10px 52px}
+}
+
+/* embed mode — match skills-player behavior */
+html.embed, html.embed body{background:transparent!important;margin:0!important;padding:0!important;overflow:hidden!important;height:100%!important;width:100%!important}
+html.embed body{padding:12px!important;box-sizing:border-box}
+html.embed .wrap{max-width:none;height:100%;display:flex;flex-direction:column}
+html.embed .stage{flex:1;min-height:0;height:auto}
+html.embed .note{display:none}
+
+/* === PORTFOLIO SHELL LOCK 2026-08-12 === */
+:root {
+  --max: 920px !important;
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+}
+.wrap, .top-nav-inner {
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+.top-nav-inner {
+  padding-inline: clamp(16px, 3vw, 28px) !important;
+}
+.top-nav {
+  height: 64px !important;
+}
+.eyebrow {
+  font-family: var(--font-mono), 'DM Mono', ui-monospace, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+.eyebrow::before {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+h1, .h1, .hero-copy h1 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+}
+h2, .h2, .sec h2 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.2 !important;
+}
+@media (max-width: 720px) {
+  h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
+}
+
+
+/* Embed: no page title — case page owns narrative chrome (like EY PI / Skills) */
+html.embed .eyebrow,
+html.embed h1,
+html.embed .lede,
+html.embed > body > .wrap > .eyebrow,
+html.embed .wrap > .eyebrow,
+html.embed .wrap > h1,
+html.embed .wrap > .lede,
+html.embed .wrap > p.lede{
+  display: none !important;
+}
+html.embed .wrap{
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 8px 0 0 !important;
+}
+html.embed .tl{
+  margin-bottom: 10px !important;
+}
+html.embed .stage{
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">03 · Demo</p>
+  <h1>The flow — owner to visitor</h1>
+  <p class="lede">Prototype player shell (EY PI geometry) + Blockchains beats from v25. Text first, then the device.</p>
+
+  <div class="timeline" id="timeline">
+    <button type="button" class="tl on" data-b="0"><span class="n">01</span><span class="nm">Onboard</span></button>
+    <button type="button" class="tl" data-b="1"><span class="n">02</span><span class="nm">Place</span></button>
+    <button type="button" class="tl" data-b="2"><span class="n">03</span><span class="nm">Media</span></button>
+    <button type="button" class="tl v" data-b="3"><span class="n">04</span><span class="nm">Visitor</span></button>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="stage-top">
+      <div class="stage-title" id="stageTitle"><b>01</b> · Onboard</div>
+      <div class="stage-top-btns">
+        <button type="button" class="icon-btn filled" id="btnPlay" aria-label="Pause" title="Pause">
+          <svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        </button>
+        <button type="button" class="icon-btn stroke" id="btnReplay" aria-label="Replay" title="Replay">
+          <svg viewBox="0 0 24 24"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+        </button>
+      </div>
+      <span class="stage-count" id="stageCount">1 / 4</span>
+    </div>
+
+    <div class="stage-window">
+      <div class="text-phase" id="textPhase">
+        <div class="kicker" id="kicker">Owner journey</div>
+        <div class="main"><span id="typeText"></span><span class="blink" id="blink"></span></div>
+        <div class="sub" id="sub"></div>
+      </div>
+      <div class="phone-host dim" id="phoneHost">
+        <div class="phone-base" id="phone">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="phone-screen">
+            <div class="status"><span>9:41</span><span>●●●</span></div>
+            <div class="p-nav" id="pNav"><span class="back">←</span><div class="ttl" id="navTitle">SPACE MAP</div></div>
+            <div class="p-body">
+              <!-- Onboard -->
+              <div class="onboard on" id="onboard">
+                <div class="ob-grab" aria-hidden="true"></div>
+                <div class="ob-visual">
+                  <div class="ob-map"><span class="p"></span>
+                    <div class="ob-hand" id="obHand"><svg viewBox="0 0 32 32"><path d="M10 16v-3.5a2 2 0 014 0V16"/><path d="M14 14V9.5a2 2 0 014 0V16"/><path d="M18 15v-3a2 2 0 014 0v6.5c0 4-2.5 7.5-6 8.5"/><path d="M10 16H8.5A2.5 2.5 0 006 18.5V20a8 8 0 008 8h1"/></svg><span class="ring"></span></div>
+                    <div class="ob-media" id="obMedia"><i></i><i></i><i></i></div>
+                  </div>
+                </div>
+                <div class="ob-dots" id="obDots"><i class="on"></i><i></i><i></i></div>
+                <div class="ob-card">
+                  <h5 id="obTitle">Welcome to your 3D map</h5>
+                  <p id="obBody">You can publish content onto places you own in space.</p>
+                  <div class="ob-cta" id="obCta">Continue</div>
+                </div>
+              </div>
+
+              <!-- Map + Three.js city (from v25 makeCity) -->
+              <div class="p-map bg on" id="pMap">
+                <canvas id="glPhone"></canvas>
+                <div class="hold-toast" id="holdToast"><b>Long-press</b> the map to place a POI</div>
+                <div class="success-toast" id="successToast">
+                  <div class="st-ico"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+                  <span id="successTxt">Done</span>
+                </div>
+                <div class="pin-tip" id="pinTip">
+                  <img class="pt-thumb" id="pinTipImg" alt="" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&h=120&fit=crop"/>
+                  <div class="pt-body">
+                    <div class="pt-title" id="pinTipTitle">MY POI</div>
+                    <div class="pt-meta" id="pinTipMeta">3 media · live</div>
+                  </div>
+                </div>
+                <div class="maps-confirm" id="mapsConfirm">
+                  <div class="mc-title">Use this place?</div>
+                  <div class="mc-sub" id="mcSub">1847 Oak Ave · Corner of Market St</div>
+                  <div class="mc-row">
+                    <button type="button" class="mc-btn ghost">Cancel</button>
+                    <button type="button" class="mc-btn ok" id="mcOk">Confirm</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sheet -->
+              <div class="p-sheet" id="sheet">
+                <div class="grab"></div>
+                <div class="player-mini" id="playerMini">
+                  <img alt="" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" id="playerGif"/>
+                  <div class="pm-meta"><b>MY POI</b><span>Workout · outdoor session</span></div>
+                  <div class="pm-bar"><div class="pm-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="pm-track"><i></i></div></div>
+                </div>
+                <div class="stitle" id="sheetTitle">New POI</div>
+                <div class="sblurb" id="sheetBlurb">Place confirmed.</div>
+                <div class="pin-ui" id="pinUi">
+                  <div class="lbl">Pin shape</div>
+                  <div class="pin-icons" id="pinIcons"><span class="on">●</span><span>◆</span><span>▲</span><span>■</span></div>
+                  <div class="lbl">Color</div>
+                  <div class="cols" id="pinCols">
+                    <i class="on" style="background:#4aa3d4"></i>
+                    <i style="background:#e05c4a"></i>
+                    <i style="background:#f4c842"></i>
+                    <i style="background:#22d4c8"></i>
+                  </div>
+                </div>
+                <div class="content-ui" id="contentUi">
+                  <div class="source-list" id="sourceList">
+                    <button type="button" data-src="device">
+                      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
+                      <div><b>From my device</b><span>Photos &amp; video from the library</span></div>
+                    </button>
+                    <button type="button" data-src="link">
+                      <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l1.92-1.92a5 5 0 00-7.07-7.07L10.5 6.5"/><path d="M14 11a5 5 0 00-7.54-.54L4.54 12.38a5 5 0 007.07 7.07L13.5 17.5"/></svg>
+                      <div><b>Add a link</b><span>Web page or session URL</span></div>
+                    </button>
+                    <button type="button" data-src="live">
+                      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                      <div><b>Live capture</b><span>Record in place</span></div>
+                    </button>
+                  </div>
+                  <div class="ios-gal" id="iosGal">
+                    <div class="ig-top">Recents <span>Add</span></div>
+                    <div class="ig-albums"><b class="on">Recents</b><b>Favorites</b><b>Videos</b></div>
+                  </div>
+                </div>
+                <div class="empty-feed" id="emptyFeed"><div class="ef-hint">No posts yet</div></div>
+                <div class="ig-grid" id="igGrid">
+                  <div class="cell" data-i="0"><img alt="" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
+                  <div class="cell" data-i="1"><img alt="" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
+                  <div class="cell" data-i="2"><img alt="" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
+                  <div class="cell" data-i="3"><img alt="" src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
+                  <div class="cell" data-i="4"><img alt="" src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
+                  <div class="cell" data-i="5"><img alt="" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
+                </div>
+                <div class="reel-rail" id="reelRail">
+                  <div class="reel-card" data-r="0"><img alt="" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"/><div class="rc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                  <div class="reel-card" data-r="1"><img alt="" src="https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif"/><div class="rc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                  <div class="reel-card" data-r="2"><img alt="" src="https://media.giphy.com/media/26BRuo6sLetdllPAQ/giphy.gif"/><div class="rc-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                </div>
+                <div class="scta" id="sheetCta">Continue</div>
+              </div>
+            </div>
+          </div>
+          <div class="fig-cur" id="figCur" aria-hidden="true"><div class="fc-dot"></div><div class="fc-ring"></div></div>
+          <div class="home-ind" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-hints" id="sideHints" aria-hidden="true">
+      <div class="hint-card" id="hintCard"><div class="hk" id="hintK">Guide</div><div id="hintT"></div></div>
+    </div>
+
+    <div class="stage-arrows">
+      <button type="button" class="stage-arrow prev" id="btnPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" class="stage-arrow next" id="btnNext" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+
+    <div class="capbar">
+      <span class="cap-rec"></span>
+      <span class="cap-txt" id="capTxt">Welcome to your 3D map — content lives on places you own.</span>
+    </div>
+  </div>
+
+  <p class="note">Shell = EY PI geometry. Beats + captions + phone states reused from blockchain-v25. Three.js city / full micro-actions can layer on next.</p>
+</div>
+
+<script>
+if(new URLSearchParams(location.search).get('embed')==='1'){ document.documentElement.classList.add('embed'); }
+/* ===== BEATS — from blockchain-v25 (not reinvented) ===== */
+var BEATS=[
+  {title:'Onboard',phase:'owner',kicker:'Welcome',text:'Welcome to your 3D map — content lives on places you own.',sub:'How it works, then we place a POI.',nav:'SPACE MAP',
+    actions:[
+      {onboard:0,caption:'Welcome to your 3D map — content lives on places you own.',delay:0},
+      {onboard:1,caption:'How you place content on a place you own.',delay:2400},
+      {onboard:2,caption:'How you add media to that place.',delay:2600}
+    ]},
+  {title:'Place',phase:'owner',kicker:'Place',text:'Enter the map, long-press the street, confirm, style the pin.',sub:'You press the street — the pin is created there.',nav:'Add place',
+    actions:[
+      {map:true,look:-1,tx:'50%',ty:'55%',hint:'Cruise the streets — content lives on real places.',hintK:'Map',caption:'Map on the table — enter the 3D space.',delay:0},
+      {map:true,look:0,tx:'48%',ty:'58%',hint:'Find an open stretch of street.',hintK:'Scout',caption:'You are on the map — pick a street.',delay:1800},
+      /* long-press the STREET (no pin yet) — finger gesture on empty road */
+      {map:true,look:1,hold:true,tx:'50%',ty:'62%',gesture:'hold',hint:'Long-press the street — not a pin.',hintK:'Hold',caption:'<span class="hl">Long press</span> the street to place a new POI.',delay:2200},
+      /* pin appears after the hold */
+      {map:true,look:1,pin:1,tx:'50%',ty:'55%',success:'Pin dropped',hint:'A pin appears on the street.',hintK:'Pin',caption:'Pin dropped on the street.',delay:1600},
+      {map:true,look:1,pin:1,confirm:true,tx:'50%',ty:'68%',address:'1847 Oak Ave · Corner of Market St',success:'Place confirmed',hint:'Confirm this address for your POI.',hintK:'Confirm',caption:'Is <span class="hl">1847 Oak Ave</span> the place for your POI?',delay:2000},
+      {sheet:true,title:'New POI',blurb:'1847 Oak Ave confirmed.',cta:'Add POI',pin:1,look:1,tx:'50%',ty:'78%',success:'POI created',hint:'Place locked — now style the pin.',hintK:'POI',caption:'Place confirmed — add the POI.',delay:1800},
+      {sheet:true,pinUi:true,title:'Pin shape',blurb:'Choose shape and color.',cta:'Next',icon:0,color:0,pin:1,look:1,tx:'28%',ty:'42%',caption:'Style the pin — shape first.',delay:1600},
+      {sheet:true,pinUi:true,title:'Pin color',blurb:'Color the marker.',cta:'Continue',icon:2,color:1,hex:'#e05c4a',pin:1,look:1,tx:'48%',ty:'52%',caption:'Pick a color for the pin.',delay:1500}
+    ]},
+  {title:'Media',phase:'owner',kicker:'Content',text:'Empty feed → choose source → device gallery → publish.',sub:'From my device, not mixed into the map chrome.',nav:'MY POI · Media',
+    actions:[
+      {sheet:true,emptyFeed:true,title:'MY POI',blurb:'No posts yet.',cta:'Add content',pin:1,look:1,tx:'50%',ty:'78%',hint:'Empty feed on the place.',hintK:'Feed',caption:'Empty feed — time to add content.',delay:0},
+      {sheet:true,contentUi:true,title:'Add content',blurb:'Choose a source.',cta:'Continue',pin:1,look:1,tx:'50%',ty:'42%',hint:'Three ways to attach media.',hintK:'Source',caption:'Pick a source for media.',delay:1800},
+      {sheet:true,contentUi:true,source:'device',title:'Add content',blurb:'From my device.',cta:'Open library',pin:1,look:1,tx:'50%',ty:'34%',gesture:'tap',hint:'Open the system library.',hintK:'Device',caption:'From my device — open the library.',delay:1600},
+      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'System gallery.',cta:'Add',pick:[0],pin:1,look:1,tx:'30%',ty:'48%',hint:'Tap photos in the iOS gallery.',hintK:'Gallery',caption:'Browsing Recents…',delay:2000},
+      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'Selecting…',cta:'Add',pick:[0,1,2],pin:1,look:1,tx:'50%',ty:'52%',gesture:'tap',caption:'Select photos &amp; video to upload.',delay:2000},
+      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'Includes video.',cta:'Upload',pick:[0,1,2,4],pin:1,look:1,tx:'70%',ty:'58%',success:'Media uploaded',caption:'Upload to the POI.',delay:1800},
+      {map:true,pin:1,look:1,mine:true,glow:true,tx:'52%',ty:'48%',success:'POI live with media',pinTip:true,pinTipTitle:'MY POI',pinTipMeta:'3 media · Oak Ave',pinTipImg:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&h=120&fit=crop',hint:'Thumbnail follows the pin — visitor will find it.',hintK:'Live',caption:'MY POI is live on the map.',delay:2000}
+    ]},
+  {title:'Visitor',phase:'visitor',kicker:'Visitor',text:'Find MY POI and play the media.',sub:'Tap pin → playback.',nav:'Discover',
+    actions:[
+      {map:true,look:0,pin:0,tx:'40%',ty:'42%',hint:'Visitor mode — discover places.',hintK:'Cruise',caption:'Visitor cruising the map.',delay:0},
+      {map:true,look:1,pin:1,mine:true,glow:true,tx:'52%',ty:'48%',gesture:'tap',pinTip:true,pinTipTitle:'MY POI',pinTipMeta:'3 media · Oak Ave',pinTipImg:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&h=120&fit=crop',hint:'Open MY POI.',hintK:'Find',caption:'Open <span class="hl">MY POI</span> to see the media.',delay:2000},
+      {sheet:true,visitor:true,reels:true,title:'MY POI',blurb:'Media at this place.',cta:'Follow',pin:1,look:1,tx:'30%',ty:'50%',hint:'Scroll the reels.',hintK:'Feed',caption:'Browse reels at this place.',delay:2000},
+      {sheet:true,visitor:true,reels:true,reelOn:1,title:'MY POI',blurb:'Tap a reel to open.',cta:'Follow',pin:1,look:1,tx:'50%',ty:'50%',gesture:'tap',hint:'Open this reel.',hintK:'Tap',caption:'Tap a reel to expand.',delay:1800},
+      {sheet:true,visitor:true,play:true,expand:true,title:'MY POI',blurb:'Playing media from this place.',cta:'Follow',pin:1,look:1,tx:'50%',ty:'48%',success:'Playing',hint:'Full-screen reel experience.',hintK:'Play',caption:'Playing media — visitor reel ends the flow.',delay:2200}
+    ]}
+];
+
+var bi=0, playing=true, timers=[], actionIdx=0, cityP=null, typing=null;
+
+function clearAll(){
+  timers.forEach(clearTimeout); timers=[];
+  if(typing){ clearInterval(typing); typing=null; }
+}
+
+function typeText(str, done){
+  var el=document.getElementById('typeText'), blink=document.getElementById('blink');
+  if(!el){ if(done) done(); return; }
+  el.textContent='';
+  if(blink) blink.style.display='inline-block';
+  var i=0;
+  if(typing) clearInterval(typing);
+  typing=setInterval(function(){
+    i++; el.textContent=str.slice(0,i);
+    if(i>=str.length){
+      clearInterval(typing); typing=null;
+      if(blink) blink.style.display='none';
+      if(done) done();
+    }
+  }, 28);
+}
+
+function showSuccess(msg){
+  var el=document.getElementById('successToast');
+  var tx=document.getElementById('successTxt');
+  if(!el) return;
+  if(tx) tx.textContent=msg||'Success';
+  el.classList.remove('on'); void el.offsetWidth;
+  el.classList.add('on');
+  timers.push(setTimeout(function(){ el.classList.remove('on'); }, 2200));
+}
+
+function showPinTip(on, title, meta, img){
+  var tip=document.getElementById('pinTip');
+  if(!tip) return;
+  if(!on){ tip.classList.remove('on'); return; }
+  if(title) document.getElementById('pinTipTitle').textContent=title;
+  if(meta) document.getElementById('pinTipMeta').textContent=meta;
+  if(img) document.getElementById('pinTipImg').src=img;
+  tip.classList.add('on');
+}
+
+
+/* ===== makeCity — ported from blockchain-v25 ===== */
+function makeCity(canvas, parent, simple){
+  if(!canvas||!window.THREE) return {focusPin:function(){},setPinColor:function(){},lookAtPin:function(){},resize:function(){}};
+  var W=Math.max(parent.clientWidth||200,120), H=Math.max(parent.clientHeight||200,160);
+  var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:false});
+  var dpr=(window.devicePixelRatio)||1;
+  renderer.setPixelRatio(Math.min(dpr, simple?1.5:2));
+  renderer.setSize(W,H,false); renderer.setClearColor(0x0a121c,1);
+  var scene=new THREE.Scene(); scene.fog=new THREE.FogExp2(0x0a121c, simple?0.035:0.042);
+  var camera=new THREE.PerspectiveCamera(simple?40:38,W/H,0.1,80);
+  scene.add(new THREE.AmbientLight(0x6a9bbb,0.45));
+  var sun=new THREE.DirectionalLight(0xc8e0ff,0.85); sun.position.set(10,16,6); scene.add(sun);
+  var fill=new THREE.DirectionalLight(0x4a6a8a,0.25); fill.position.set(-6,8,-4); scene.add(fill);
+  var ground=new THREE.Mesh(new THREE.PlaneGeometry(28,28),new THREE.MeshLambertMaterial({color:0x121c28}));
+  ground.rotation.x=-Math.PI/2; scene.add(ground);
+  for(var i=-8;i<=8;i+=3.5){
+    var r=new THREE.Mesh(new THREE.BoxGeometry(20,0.05,0.65),new THREE.MeshLambertMaterial({color:0x2a4058,emissive:0x1a3048,emissiveIntensity:0.25})); r.position.set(0,0.03,i); scene.add(r);
+    var r2=new THREE.Mesh(new THREE.BoxGeometry(0.65,0.05,20),new THREE.MeshLambertMaterial({color:0x2a4058,emissive:0x1a3048,emissiveIntensity:0.25})); r2.position.set(i,0.03,0); scene.add(r2);
+    var lane=new THREE.Mesh(new THREE.BoxGeometry(20,0.06,0.08),new THREE.MeshBasicMaterial({color:0x6a8aaa})); lane.position.set(0,0.05,i); scene.add(lane);
+    var lane2=new THREE.Mesh(new THREE.BoxGeometry(0.08,0.06,20),new THREE.MeshBasicMaterial({color:0x6a8aaa})); lane2.position.set(i,0.05,0); scene.add(lane2);
+  }
+  /* Pins live ON the street grid — clear the block around them so buildings never cover */
+  var pinSpecs=[{x:0,z:0,c:0x4aa3d4},{x:0,z:3.5,c:0xe05c4a}];
+  function nearPin(x,z){
+    for(var i=0;i<pinSpecs.length;i++){
+      var dx=x-pinSpecs[i].x, dz=z-pinSpecs[i].z;
+      if(dx*dx+dz*dz < 2.8*2.8) return true;
+    }
+    return false;
+  }
+  var specs=[], step=simple?3.8:3.3;
+  for(var bx=-6;bx<=6;bx+=step) for(var bz=-6;bz<=6;bz+=step){
+    if(Math.abs(bx)<0.7||Math.abs(bz)<0.7) continue; /* keep roads clear */
+    if(nearPin(bx,bz)) continue;
+    if(Math.random()<(simple?0.38:0.3)) continue;
+    var h=1.0+Math.random()*3.2; /* shorter buildings so streets stay readable */
+    specs.push({x:bx+(Math.random()-0.5)*0.3, z:bz+(Math.random()-0.5)*0.3, sx:1.1+Math.random()*1.2, sy:h, sz:1.1+Math.random()*1.2});
+  }
+  var n=specs.length, mesh=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshLambertMaterial({color:0x1c2e42}),n);
+  var dummy=new THREE.Object3D(), heights=[], targets=[];
+  for(var i=0;i<n;i++){ heights[i]=0.05; targets[i]=specs[i].sy; }
+  function write(){ for(var i=0;i<n;i++){ var s=specs[i],h=heights[i]; dummy.position.set(s.x,h/2,s.z); dummy.scale.set(s.sx,Math.max(h,.05),s.sz); dummy.updateMatrix(); mesh.setMatrixAt(i,dummy.matrix);} mesh.instanceMatrix.needsUpdate=true; }
+  write(); scene.add(mesh);
+  var pins=pinSpecs.map(function(p,idx){
+    var g=new THREE.Group(); g.position.set(p.x,0,p.z);
+    var stem=new THREE.Mesh(new THREE.CylinderGeometry(.07,.12,1.15,8),new THREE.MeshLambertMaterial({color:p.c,emissive:p.c,emissiveIntensity:.4})); stem.position.y=.55;
+    var ball=new THREE.Mesh(new THREE.SphereGeometry(.38,12,12),new THREE.MeshLambertMaterial({color:p.c,emissive:p.c,emissiveIntensity:.85})); ball.position.y=1.3;
+    g.add(stem); g.add(ball); scene.add(g);
+    /* pin 1 (new POI) starts hidden — appears after long-press on street */
+    if(idx===1) g.visible=false;
+    return {g:g,stem:stem,ball:ball,x:p.x,z:p.z};
+  });
+  var t0=performance.now(), look={x:0,z:0}, tLook={x:0,z:0}, ang=.55, tAng=.55, idleOrbit=true, camDist=simple?10:9.5, camH=simple?9.5:10;
+  (function frame(now){
+    requestAnimationFrame(frame);
+    var t=(now-t0)/1000, dirty=false;
+    for(var i=0;i<n;i++) if(heights[i]<targets[i]){ heights[i]=Math.min(targets[i],heights[i]+.06); dirty=true; }
+    if(dirty) write();
+    if(idleOrbit && Math.abs(tLook.x)<0.01 && Math.abs(tLook.z)<0.01) tAng+=0.0018;
+    ang+=(tAng-ang)*0.03; look.x+=(tLook.x-look.x)*0.05; look.z+=(tLook.z-look.z)*0.05;
+    /* higher + slightly closer — street + pin always readable */
+    camera.position.set(look.x+Math.sin(ang)*camDist, camH, look.z+Math.cos(ang)*camDist);
+    camera.lookAt(look.x,0.15,look.z);
+    pins.forEach(function(p,i){ p.g.position.y=Math.sin(t*2+i)*.04; });
+    renderer.render(scene,camera);
+  })(performance.now());
+  return {
+    focusPin:function(idx){
+      pins.forEach(function(p,i){
+        if(i===idx){ p.g.visible=true; p.g.scale.setScalar(1.45); }
+        else { p.g.scale.setScalar(1); }
+      });
+    },
+    showPin:function(idx){ if(pins[idx]){ pins[idx].g.visible=true; } },
+    hidePin:function(idx){ if(pins[idx]){ pins[idx].g.visible=false; } },
+    setPinColor:function(idx,hex){ if(!pins[idx])return; var c=new THREE.Color(hex); pins[idx].ball.material.color.copy(c); pins[idx].ball.material.emissive.copy(c); pins[idx].stem.material.color.copy(c); pins[idx].stem.material.emissive.copy(c); },
+    setPinGlow:function(idx,on){
+      if(!pins[idx]) return;
+      var p=pins[idx];
+      p.ball.material.emissiveIntensity = on ? 1.2 : 0.7;
+      p.stem.material.emissiveIntensity = on ? 0.8 : 0.35;
+      if(on){ p.g.scale.setScalar(1.35); } else { p.g.scale.setScalar(1); }
+    },
+    lookAtPin:function(idx){
+      if(idx<0||!pins[idx]){ tLook.x=0; tLook.z=0; idleOrbit=true; camDist=simple?10:9.5; camH=simple?9.5:10; return; }
+      idleOrbit=false;
+      tLook.x=pins[idx].x; tLook.z=pins[idx].z;
+      /* angle along the street so buildings stay to the sides */
+      tAng=Math.atan2(0.15, 1)+ (idx===1 ? Math.PI*0.08 : 0.35);
+      camDist=simple?8.2:7.8; camH=simple?7.2:7.6;
+    },
+    resize:function(){
+      var w=Math.max(parent.clientWidth||1,1), hh=Math.max(parent.clientHeight||1,1);
+      if(w<2||hh<2) return;
+      camera.aspect=w/hh; camera.updateProjectionMatrix();
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, simple?1.5:2)); renderer.setSize(w,hh,false);
+    }
+  };
+}
+
+function fitPhone(){
+  var phone=document.getElementById('phone'), host=document.getElementById('phoneHost');
+  if(!phone||!host) return;
+  var s=Math.min(host.clientWidth/393, host.clientHeight/852)*0.92;
+  if(s>1) s=1; if(s<0.26) s=0.26;
+  phone.style.transform='scale('+s+')';
+  if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 30);
+}
+
+function setCaption(html){ document.getElementById('capTxt').innerHTML=html||''; }
+
+function fireCursor(tx, ty, opts){
+  opts=opts||{};
+  var cur=document.getElementById('figCur');
+  if(!cur) return;
+  cur.classList.add('on');
+  // move first so transition animates toward target
+  cur.style.left=tx||'50%';
+  cur.style.top=ty||'50%';
+  cur.classList.remove('press','hold');
+  void cur.offsetWidth;
+  if(opts.hold||opts.gesture==='hold'){
+    cur.classList.add('hold');
+  } else {
+    cur.classList.add('press');
+    timers.push(setTimeout(function(){ cur.classList.remove('press'); }, 700));
+  }
+}
+
+function hideCursor(){
+  var cur=document.getElementById('figCur');
+  if(cur){ cur.classList.remove('on','press','hold'); }
+}
+function showHint(text, kicker, visitor, side){
+  var card=document.getElementById('hintCard');
+  if(!card||!text) return;
+  document.getElementById('hintK').textContent=kicker||'Guide';
+  document.getElementById('hintT').textContent=text;
+  card.classList.toggle('v', !!visitor);
+  card.classList.remove('on','right');
+  // place left or right of phone inside stage-window
+  var host=document.getElementById('phoneHost');
+  var stage=document.getElementById('stage');
+  if(host&&stage){
+    var hr=host.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+    var top=Math.max(60, Math.min(hr.top-sr.top+hr.height*0.35, sr.height-120));
+    card.style.top=top+'px';
+    if(side==='right' || (hr.left-sr.left) < 160){
+      card.classList.add('right');
+      card.style.left=(hr.right-sr.left+12)+'px';
+      card.style.right='auto';
+    } else {
+      card.style.left=Math.max(8, hr.left-sr.left-160)+'px';
+      card.style.right='auto';
+    }
+  }
+  void card.offsetWidth;
+  card.classList.add('on');
+}
+function hideHint(){
+  var card=document.getElementById('hintCard');
+  if(card) card.classList.remove('on');
+}
+
+function resetPhoneUI(){
+  document.getElementById('onboard').classList.remove('on');
+  document.getElementById('pMap').classList.add('on','bg');
+  document.getElementById('pNav').classList.remove('on');
+  var sheet=document.getElementById('sheet');
+  sheet.classList.remove('on','v','expanded');
+  document.getElementById('pinUi').classList.remove('on');
+  document.getElementById('contentUi').classList.remove('on');
+  document.getElementById('emptyFeed').classList.remove('on');
+  document.getElementById('igGrid').classList.remove('on');
+  document.getElementById('holdToast').classList.remove('on');
+  document.getElementById('obHand').classList.remove('on');
+  document.getElementById('obMedia').classList.remove('on');
+  var mc=document.getElementById('mapsConfirm'); if(mc) mc.classList.remove('on');
+  var ios=document.getElementById('iosGal'); if(ios) ios.classList.remove('on');
+  var rr=document.getElementById('reelRail'); if(rr) rr.classList.remove('on');
+  document.querySelectorAll('#reelRail .reel-card').forEach(function(c){c.classList.remove('on')});
+  var pm=document.getElementById('playerMini'); if(pm) pm.classList.remove('on','full');
+  document.querySelectorAll('#igGrid .cell').forEach(function(c){c.classList.remove('on')});
+  document.querySelectorAll('#sourceList button').forEach(function(b){b.classList.remove('on')});
+  hideHint();
+  showPinTip(false);
+  var stt=document.getElementById('successToast'); if(stt) stt.classList.remove('on');
+  /* do not hide cursor here — fireCursor manages visibility */
+}
+
+var OB=[
+  {title:'Welcome to your 3D map',body:'You can publish content onto places you own in space.'},
+  {title:'How do you place it?',body:'Long-press the ground. That is the only gesture — hold, then confirm.'},
+  {title:'How do you add media?',body:'Open the feed, choose From my device, pick photos and video from the library.'}
+];
+
+function applyAction(act){
+  resetPhoneUI();
+  var nav=document.getElementById('pNav');
+  var st=BEATS[bi];
+  document.getElementById('navTitle').textContent=st.nav||'SPACE MAP';
+
+  if(act.onboard!=null){
+    document.getElementById('pMap').classList.add('on','bg');
+    document.getElementById('onboard').classList.add('on');
+    var step=act.onboard;
+    document.querySelectorAll('#obDots i').forEach(function(d,i){d.classList.toggle('on',i===step)});
+    document.getElementById('obTitle').textContent=OB[step].title;
+    document.getElementById('obBody').textContent=OB[step].body;
+    var _cta=document.getElementById('obCta'); if(_cta) _cta.textContent=step>=2?'Start':'Continue';
+    document.getElementById('obHand').classList.toggle('on',step===1);
+    document.getElementById('obMedia').classList.toggle('on',step===2);
+    if(cityP){ cityP.lookAtPin(step===0?-1:0); if(cityP.resize) cityP.resize(); }
+  }
+
+  if(act.map||act.sheet){
+    document.getElementById('pMap').classList.add('on');
+    document.getElementById('pMap').classList.toggle('bg', !!act.onboard);
+    nav.classList.add('on');
+    if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 40);
+  }
+  if(!act.onboard){
+    document.getElementById('pMap').classList.remove('bg');
+  }
+
+  if(cityP){
+    if(act.look!=null) cityP.lookAtPin(act.look);
+    if(act.pin!=null){
+      if(cityP.showPin) cityP.showPin(act.pin);
+      cityP.focusPin(act.pin);
+    }
+    if(act.hex) cityP.setPinColor(act.pin!=null?act.pin:1, act.hex);
+    if(act.mine&&act.pin!=null){
+      cityP.setPinColor(act.pin, '#34d399');
+      if(cityP.setPinGlow) cityP.setPinGlow(act.pin, true);
+    }
+    if(act.glow&&act.pin!=null&&cityP.setPinGlow) cityP.setPinGlow(act.pin, true);
+  }
+
+  if(act.hold) document.getElementById('holdToast').classList.add('on');
+
+  if(act.sheet){
+    var sheet=document.getElementById('sheet');
+    sheet.classList.add('on');
+    if(act.visitor||st.phase==='visitor') sheet.classList.add('v');
+    document.getElementById('sheetTitle').textContent=act.title||'';
+    document.getElementById('sheetBlurb').textContent=act.blurb||'';
+    document.getElementById('sheetCta').textContent=act.cta||'Continue';
+    if(act.pinUi){
+      document.getElementById('pinUi').classList.add('on');
+      document.querySelectorAll('#pinIcons span').forEach(function(s,i){s.classList.toggle('on',i===(act.icon||0))});
+      document.querySelectorAll('#pinCols i').forEach(function(c,i){c.classList.toggle('on',i===(act.color||0))});
+    }
+    if(act.emptyFeed) document.getElementById('emptyFeed').classList.add('on');
+    if(act.contentUi){
+      document.getElementById('contentUi').classList.add('on');
+      if(act.source){
+        document.querySelectorAll('#sourceList button').forEach(function(b){
+          b.classList.toggle('on', b.getAttribute('data-src')===act.source);
+        });
+      }
+    }
+    if(act.gallery){
+      document.getElementById('igGrid').classList.add('on');
+      var picks=act.pick||[];
+      document.querySelectorAll('#igGrid .cell').forEach(function(c){
+        c.classList.toggle('on', picks.indexOf(parseInt(c.getAttribute('data-i'),10))>=0);
+      });
+    }
+    if(act.play){
+      var pm=document.getElementById('playerMini');
+      if(pm) pm.classList.add('on');
+      // restart scrub bar
+      var track=pm&&pm.querySelector('.pm-track i');
+      if(track){ track.style.animation='none'; void track.offsetWidth; track.style.animation=''; }
+    }
+  }
+
+  if(act.confirm){
+    var mc=document.getElementById('mapsConfirm');
+    if(mc){
+      if(act.address) document.getElementById('mcSub').textContent=act.address;
+      mc.classList.add('on');
+      var ok=document.getElementById('mcOk');
+      if(ok){ ok.classList.remove('pulse'); void ok.offsetWidth; ok.classList.add('pulse'); }
+    }
+  }
+
+  if(act.ios){
+    var ios=document.getElementById('iosGal');
+    if(ios) ios.classList.add('on');
+  }
+
+  if(act.reels){
+    var rr=document.getElementById('reelRail');
+    if(rr) rr.classList.add('on');
+    var activeIdx = act.reelOn!=null ? act.reelOn : 0;
+    document.querySelectorAll('#reelRail .reel-card').forEach(function(c,i){
+      c.classList.toggle('on', i===activeIdx);
+    });
+    // automatic scroll to active reel (not manual)
+    timers.push(setTimeout(function(){
+      var cards=document.querySelectorAll('#reelRail .reel-card');
+      var target=cards[activeIdx];
+      if(target && rr){
+        var left = target.offsetLeft - (rr.clientWidth - target.clientWidth)/2;
+        rr.scrollTo({left: Math.max(0,left), behavior:'smooth'});
+      }
+    }, 80));
+  }
+
+  if(act.expand){
+    document.getElementById('sheet').classList.add('expanded');
+    var pm=document.getElementById('playerMini');
+    if(pm) pm.classList.add('full');
+  }
+
+  // production side hint
+  if(act.hint) showHint(act.hint, act.hintK||st.kicker, st.phase==='visitor');
+
+  if(act.success) showSuccess(act.success);
+
+  if(act.pinTip){
+    showPinTip(true, act.pinTipTitle||'MY POI', act.pinTipMeta||'Media live', act.pinTipImg);
+  } else if(act.hidePinTip){
+    showPinTip(false);
+  }
+
+  // cursor always when we have a point or gesture
+  if(act.tx||act.ty||act.hold||act.gesture||act.confirm||act.map||act.sheet){
+    fireCursor(act.tx||'50%', act.ty||'55%', {hold:!!act.hold, gesture:act.gesture});
+  }
+
+  if(act.caption) setCaption(act.caption);
+}
+
+function runBeat(i, manual){
+  bi=i; clearAll(); actionIdx=0;
+  var st=BEATS[i];
+  document.querySelectorAll('.tl').forEach(function(b){ b.classList.toggle('on', parseInt(b.dataset.b,10)===i); });
+  document.getElementById('stageTitle').innerHTML='<b>0'+(i+1)+'</b> · '+st.title;
+  document.getElementById('stageCount').textContent=(i+1)+' / 4';
+  document.getElementById('btnPrev').disabled=i===0;
+  document.getElementById('btnNext').disabled=i===3;
+  setCaption('');
+
+  var textPhase=document.getElementById('textPhase');
+  var host=document.getElementById('phoneHost');
+  textPhase.classList.remove('hide');
+  host.classList.add('dim');
+  resetPhoneUI();
+
+  var kicker=document.getElementById('kicker');
+  kicker.textContent=st.kicker;
+  kicker.className='kicker'+(st.phase==='visitor'?' v':'');
+  kicker.classList.remove('on');
+  document.getElementById('sub').classList.remove('on');
+  document.getElementById('sub').textContent='';
+  timers.push(setTimeout(function(){ kicker.classList.add('on'); }, 40));
+
+  typeText(st.text, function(){
+    document.getElementById('sub').textContent=st.sub||'';
+    document.getElementById('sub').classList.add('on');
+    timers.push(setTimeout(function(){
+      textPhase.classList.add('hide');
+      host.classList.remove('dim');
+      setCaption(st.text);
+      if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 50);
+      var t0=350;
+      st.actions.forEach(function(act, idx){
+        t0 += (act.delay||0);
+        timers.push(setTimeout(function(){
+          if(!playing && !manual) return;
+          actionIdx=idx;
+          applyAction(act);
+        }, t0));
+      });
+      if(playing && !manual){
+        timers.push(setTimeout(function(){
+          if(playing && bi<3) runBeat(bi+1, false);
+          else if(playing && bi===3){ setPlayIcon(false); playing=false; }
+        }, t0+3000));
+      }
+    }, 700));
+  });
+}
+
+function setPlayIcon(isPlaying){
+  var btn=document.getElementById('btnPlay');
+  if(isPlaying){
+    btn.innerHTML='<svg viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+    btn.setAttribute('aria-label','Pause');
+  } else {
+    btn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>';
+    btn.setAttribute('aria-label','Play');
+  }
+}
+
+document.getElementById('btnPlay').addEventListener('click',function(){
+  playing=!playing; setPlayIcon(playing);
+  if(playing) runBeat(bi,false); else clearAll();
+});
+document.getElementById('btnReplay').addEventListener('click',function(){
+  playing=true; setPlayIcon(true); runBeat(bi,false);
+});
+document.getElementById('btnPrev').addEventListener('click',function(){ if(bi>0){ playing=true; setPlayIcon(true); runBeat(bi-1,true);} });
+document.getElementById('btnNext').addEventListener('click',function(){ if(bi<3){ playing=true; setPlayIcon(true); runBeat(bi+1,true);} });
+document.querySelectorAll('.tl').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    playing=true; setPlayIcon(true);
+    runBeat(parseInt(btn.dataset.b,10), true);
+  });
+});
+
+window.addEventListener('resize', fitPhone);
+if(window.ResizeObserver){ try{ new ResizeObserver(fitPhone).observe(document.getElementById('phoneHost')); }catch(e){} }
+
+fitPhone();
+setTimeout(fitPhone,100);
+setTimeout(function(){
+  try{
+    cityP=makeCity(document.getElementById('glPhone'), document.getElementById('pMap'), true);
+    cityP.lookAtPin(-1);
+  }catch(e){ console.warn('cityP', e); }
+  runBeat(0,false);
+}, 200);
+</script>
+</body>
+</html>
