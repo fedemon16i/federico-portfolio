@@ -3152,29 +3152,7 @@ iframe.pi-iframe#piPlayerFrame{
 }
 
 
-/* EY PI: content-height iframe — kills void above "Anonymized…" note */
-#pi.sec{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: clamp(16px, 3vw, 28px) !important;
-  padding-right: clamp(16px, 3vw, 28px) !important;
-  padding-top: 8px !important;
-  padding-bottom: 0 !important;
-  box-sizing: border-box !important;
-}
-#pi .pi-iframe,
-#pi iframe.pi-iframe,
-iframe.pi-iframe#piPlayerFrame,
-html body #pi iframe.pi-iframe{
-  width: 100% !important;
-  max-width: 100% !important;
-  display: block !important;
-  margin: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  /* was min(640–720px) → huge empty band inside iframe */
+/* was min(640–720px) → huge empty band inside iframe */
   height: 520px !important;
   min-height: 480px !important;
   max-height: 560px !important;
@@ -3201,6 +3179,152 @@ html body #pi p.note{
 #pi + div.closing{
   margin-top: 24px !important;
   padding-top: 0 !important;
+}
+
+
+/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
+   Tokens — use everywhere in the product system
+   --max            920px content
+   --pad            clamp(16px, 3vw, 28px) horizontal
+   --nav-h          64px
+   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
+   --stack-xs       6px
+   --stack-sm       10px
+   --stack-md       14px
+   --stack-lg       22px
+   --player-chip-gap 12px   chips → stage
+   --player-note-gap 10px   stage → caption/note
+   --modal-inset     16px–20px around skills modal card
+   ============================================================ */
+:root{
+  --max: 920px !important;
+  --pad: clamp(16px, 3vw, 28px) !important;
+  --nav-h: 64px !important;
+  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
+  --stack-xs: 6px !important;
+  --stack-sm: 10px !important;
+  --stack-md: 14px !important;
+  --stack-lg: 22px !important;
+  --player-chip-gap: 12px !important;
+  --player-note-gap: 10px !important;
+  --player-rail-gap: 12px !important;
+  --modal-inset: 18px !important;
+}
+.wrap,
+.top-nav-inner{
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+/* Section rhythm — kill 96px/huge asymmetric pads */
+.sec,
+section.sec,
+.section{
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+  box-sizing: border-box !important;
+}
+/* First content after fixed nav: don't double-pad absurdly */
+.sec:first-of-type,
+section.sec:first-of-type,
+#hero.sec,
+section#hero{
+  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
+}
+/* Closing / legal: tight, intentional */
+.closing,
+#closing{
+  margin-top: var(--stack-lg) !important;
+  margin-bottom: var(--stack-md) !important;
+  padding-top: var(--stack-md) !important;
+  padding-bottom: var(--stack-md) !important;
+}
+.legal-note,
+.proj-nav{
+  margin-top: var(--stack-md) !important;
+  padding-top: var(--stack-sm) !important;
+}
+/* Case players host */
+#demo .note,
+#pi .note,
+#pi p.note,
+.bc-player-iframe + .note,
+.pi-iframe + .note{
+  margin-top: var(--player-note-gap) !important;
+  margin-bottom: 0 !important;
+}
+#pi + .closing,
+#demo + .sec,
+#process{
+  margin-top: 0 !important;
+}
+/* Eyebrow → title → lede stack */
+.eyebrow,
+.sec-eyebrow,
+.proc-eyebrow,
+p.level{
+  margin-bottom: var(--stack-sm) !important;
+}
+h1, .h1, .proc-h, .sec-h{
+  margin-top: 0 !important;
+}
+.lede, .lead, .proc-sub, .sec-sub, .sub{
+  margin-top: var(--stack-sm) !important;
+  margin-bottom: var(--stack-md) !important;
+}
+/* Mobile: slightly tighter section, same pad token */
+@media (max-width: 720px){
+  :root{
+    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
+    --modal-inset: 12px !important;
+  }
+}
+
+
+/* EY PI flush with page content (same as #demo / Blockchains) */
+#pi.sec{
+  max-width: none !important; /* section full bleed; .wrap does 920 */
+  width: 100% !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-top: var(--section-y, 2.25rem) !important;
+  padding-bottom: var(--section-y, 2.25rem) !important;
+  box-sizing: border-box !important;
+}
+#pi .wrap{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  box-sizing: border-box !important;
+}
+#pi .pi-iframe,
+#pi iframe.pi-iframe,
+iframe.pi-iframe#piPlayerFrame{
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  height: 520px !important;
+  min-height: 480px !important;
+  max-height: 560px !important;
+  box-shadow: none !important;
+}
+#pi .note{
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
+  opacity: .5 !important;
+  font-size: 12px !important;
 }
 
 </style>
@@ -3347,18 +3471,20 @@ html body #pi p.note{
   </section>
 
       <!-- PRODUCT INTELLIGENCE — full-bleed into page flow, player owns narrative -->
-  <section class="sec" id="pi" style="padding-top:8px">
+  <section class="sec" id="pi">
+  <div class="wrap">
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1&v=16"
+      src="ey-pi-player.html?embed=1&v=17"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"
-      style="width:100%;max-width:100%;height:520px;min-height:480px;max-height:560px;border:0;border-radius:0;background:transparent;display:block;box-shadow:none;margin:0"
     ></iframe>
-    <p class="note" style="margin-top:12px;opacity:.5;font-size:12px">Anonymized Fabric catalog &amp; workbench patterns.</p>
-  </section>
+    <p class="note">Anonymized Fabric catalog &amp; workbench patterns.</p>
+  </div>
+</section>
+
 
 
 
