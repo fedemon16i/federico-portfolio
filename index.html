@@ -870,7 +870,7 @@
 
   /* ===== Projects — vertical solid-color hover/tap cards (Supabase-style) ===== */
   .pcrow{
-    display:flex;flex-direction:row;gap:8px;height:420px;max-width:1100px;margin:0 auto;
+    display:flex;flex-direction:row;gap:8px;height:420px;max-width:920px;margin:0 auto;
     perspective:1400px;align-items:stretch;
   }
   .pcard{
@@ -4088,7 +4088,7 @@ html body.page-home .beat-axis-label{
 
 /* ========== NAV: same content width as EY / Blockchains (web + mobile) ========== */
 html body .top-nav-inner{
-  max-width: 920px !important;
+  max-width: 920px!important;
   width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -4103,7 +4103,7 @@ html body .top-nav-inner{
 }
 /* kill the old 1440 shell */
 html body .top-nav .top-nav-inner{
-  max-width: 920px !important;
+  max-width: 920px!important;
 }
 @media (max-width: 700px){
   html body .top-nav-inner{
@@ -4161,6 +4161,56 @@ html body .stagezone.open .stage-panel .skills-player-frame{
   display: block !important;
   background: transparent !important;
 }
+
+/* === PORTFOLIO SHELL LOCK 2026-08-12 === */
+:root {
+  --max: 920px !important;
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+}
+.wrap, .top-nav-inner {
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+.top-nav-inner {
+  padding-inline: clamp(16px, 3vw, 28px) !important;
+}
+.top-nav {
+  height: 64px !important;
+}
+.eyebrow {
+  font-family: var(--font-mono), 'DM Mono', ui-monospace, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+.eyebrow::before {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+h1, .h1, .hero-copy h1 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+}
+h2, .h2, .sec h2 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.2 !important;
+}
+@media (max-width: 720px) {
+  h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
+}
+
 </style>
 </head>
 <body class="page-home">
