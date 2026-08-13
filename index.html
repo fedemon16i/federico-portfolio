@@ -5046,7 +5046,7 @@ html body iframe#skillsPlayerFrame{
   display:block!important; width:100%!important; border:0!important;
   background:transparent!important; flex:none!important; min-height:0!important;
   /* start tall enough for unit; JS tightens with !important */
-  height:calc(130px + (min(888px, 100vw - 56px)) * 410 / 560 + 24px)!important;
+  height:calc(140px + (min(888px, 100vw - 56px)) * 410 / 560 + 32px)!important;
   max-height:calc(100vh - 28px)!important;
 }
 @media (max-width:720px){
@@ -6356,7 +6356,7 @@ html body iframe#skillsPlayerFrame{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=50#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=51#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
