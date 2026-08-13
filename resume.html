@@ -155,13 +155,10 @@
 
   .sec-h{position:relative;padding-bottom:10px}
   .sec-h::after{content:"";position:absolute;left:0;bottom:0;width:48px;height:3px;background:var(--accent);border-radius:2px}
-  .job{border-left:2px solid var(--border);padding-left:18px;margin-left:4px}
-  .job:hover{border-left-color:var(--accent)}
   .cl-t{border-bottom:1px solid var(--border-soft);padding-bottom:6px;margin-bottom:8px}
   /* accent bar removed */
   .sk:hover,.sk.in{border-top-color:var(--accent)}
-  .job{border-left:3px solid var(--accent);padding-left:20px;margin:0 0 36px 2px;position:relative}
-  .job + .job{padding-top:8px}
+  .job + .job{padding-top:0}
   .job-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin-bottom:4px}
   .job-t{font-family:var(--font-display);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;color:var(--text-primary)}
   .job-d{font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary)}
@@ -273,45 +270,6 @@ body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
   margin-bottom: 12px !important;
 }
 .sk-note{ max-width: 36rem; }
-/* Timeline resilient */
-.xp{
-  position: relative !important;
-  padding-left: 28px !important;
-  max-width: 40rem !important;
-  overflow: visible !important;
-}
-.xp::before{
-  content: '' !important;
-  position: absolute !important;
-  left: 7px !important;
-  top: 10px !important;
-  bottom: 10px !important;
-  width: 1px !important;
-  background: var(--border, rgba(255,255,255,.14)) !important;
-}
-.job{
-  position: relative !important;
-  padding: 0 0 28px !important;
-  overflow: visible !important;
-  transform: none !important;
-}
-.job::before{
-  content: '' !important;
-  position: absolute !important;
-  left: -25px !important;
-  top: 6px !important;
-  width: 11px !important;
-  height: 11px !important;
-  border-radius: 50% !important;
-  background: var(--bg, #0e0d0c) !important;
-  border: 2px solid var(--accent, #d97757) !important;
-  box-sizing: border-box !important;
-}
-.job-h{ flex-wrap: wrap !important; gap: 8px !important; }
-.job-t{ font-size: clamp(1.05rem, 1.5vw, 1.2rem) !important; }
-.job-d{ font-size: 12px !important; }
-
-
 /* === CANONICAL NAV (all pages) === */
 .top-nav{
   position:fixed; top:0; left:0; right:0; z-index:9999;
@@ -1038,10 +996,7 @@ body{ position: relative; }
 
 
 /* === MODAL ABOVE NAV + TIGHT STAGE + SCROLL NAV === */
-.top-nav, nav.top-nav, #topNav{
-  z-index: 900 !important;
-  transition: transform 280ms cubic-bezier(.22,1,.36,1), opacity 200ms ease !important;
-}
+.top-nav, nav.top-nav, #topNav{ z-index:9999 !important; }
 .top-nav.nav-hidden, #topNav.nav-hidden{
   transform: translateY(-100%) !important;
   opacity: 0 !important;
@@ -1339,7 +1294,7 @@ section.sec > .wrap,
 #demoStage .stage-arrows{ z-index: 5 !important; }
 
 /* === STAGE FULL-UI SCALE (shared nav/z) === */
-.top-nav,#topNav{z-index:900!important}
+.top-nav,#topNav{ z-index:9999 !important; }
 .wrap{max-width:min(var(--max,920px),100%)!important;margin-inline:auto!important}
 
 
@@ -1418,49 +1373,455 @@ h2, .h2, .sec h2 {
   h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
 }
 
+
+/* === Experience timeline — continuous rail + dots (web / tablet / mobile) === */
+.xp{
+  position: relative !important;
+  padding-left: 0 !important;
+  max-width: 42rem !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+/* kill any old absolute line */
+.xp::before{ content: none !important; display: none !important; }
+
+.job{
+  position: relative !important;
+  margin: 0 0 0 8px !important;
+  padding: 0 0 28px 20px !important;
+  overflow: visible !important;
+  transform: none !important;
+  perspective: none !important;
+  /* continuous rail */
+  border-left: 2px solid rgba(255,255,255,.14) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+}
+.job:last-child{
+  padding-bottom: 4px !important;
+  /* keep rail to the end — do NOT cut it */
+  border-left-color: rgba(255,255,255,.14) !important;
+}
+/* hollow accent dot centered on the rail */
+.job::before{
+  content: '' !important;
+  position: absolute !important;
+  left: -7px !important; /* 2px rail → center of 12px dot */
+  top: 6px !important;
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background: var(--bg, #0e0d0c) !important;
+  border: 2.5px solid var(--accent, #d97757) !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 0 0 3px var(--bg, #0e0d0c) !important;
+  z-index: 2 !important;
+}
+html[data-theme="light"] .job{
+  border-left-color: rgba(0,0,0,.12) !important;
+}
+html[data-theme="light"] .job:last-child{
+  border-left-color: rgba(0,0,0,.12) !important;
+}
+html[data-theme="light"] .job::before{
+  background: #f7f5f2 !important;
+  box-shadow: 0 0 0 3px #f7f5f2 !important;
+}
+.job-h{ flex-wrap: wrap !important; gap: 8px 12px !important; align-items: baseline !important; }
+.job-t{ font-size: clamp(1.05rem, 1.4vw, 1.2rem) !important; }
+.job-d{ font-size: 12px !important; }
+.job-label{
+  font-family: var(--font-mono), ui-monospace, monospace !important;
+  font-size: 10px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  color: var(--text-tertiary, #918b81) !important;
+  margin-bottom: 4px !important;
+}
+@media (max-width: 640px){
+  .job{
+    margin-left: 6px !important;
+    padding-left: 18px !important;
+    padding-bottom: 24px !important;
+  }
+  .job::before{
+    left: -6px !important;
+    width: 11px !important;
+    height: 11px !important;
+    top: 7px !important;
+  }
+}
+
+/* Industrial Design card — standout education */
+.edu-main{
+  position: relative !important;
+  background:
+    linear-gradient(155deg, rgba(217,119,87,.12), transparent 42%),
+    linear-gradient(155deg, var(--bg-surface, #171614), var(--bg-raised, #1e1c1a)) !important;
+  border: 1px solid rgba(217,119,87,.35) !important;
+  border-radius: 16px !important;
+  padding: 20px 22px !important;
+  box-shadow:
+    0 0 0 1px rgba(217,119,87,.08),
+    0 18px 40px -20px rgba(217,119,87,.35),
+    0 12px 28px -18px rgba(0,0,0,.45) !important;
+  overflow: hidden !important;
+}
+.edu-main::before{
+  content: '' !important;
+  position: absolute !important;
+  top: 0; left: 0; right: 0;
+  height: 3px !important;
+  background: linear-gradient(90deg, var(--accent, #d97757), rgba(217,119,87,.15)) !important;
+}
+.edu-main .cl-t{
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -.02em !important;
+  color: var(--text-primary, #f2f0ec) !important;
+  margin-bottom: 10px !important;
+}
+.edu-main .cl-t small{
+  display: inline-block !important;
+  margin-left: 6px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: var(--accent, #d97757) !important;
+  letter-spacing: .04em !important;
+  text-transform: uppercase !important;
+}
+.edu-main .edu-p{
+  font-size: 14.5px !important;
+  line-height: 1.55 !important;
+  color: var(--text-secondary, #a6a29a) !important;
+  max-width: 36rem !important;
+}
+html[data-theme="light"] .edu-main{
+  background:
+    linear-gradient(155deg, rgba(217,119,87,.1), transparent 42%),
+    linear-gradient(155deg, #fff, #f3f0ea) !important;
+  border-color: rgba(217,119,87,.3) !important;
+}
+
+
+/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
+   Tokens — use everywhere in the product system
+   --max            920px content
+   --pad            clamp(16px, 3vw, 28px) horizontal
+   --nav-h          64px
+   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
+   --stack-xs       6px
+   --stack-sm       10px
+   --stack-md       14px
+   --stack-lg       22px
+   --player-chip-gap 12px   chips → stage
+   --player-note-gap 10px   stage → caption/note
+   --modal-inset     16px–20px around skills modal card
+   ============================================================ */
+:root{
+  --max: 920px !important;
+  --pad: clamp(16px, 3vw, 28px) !important;
+  --nav-h: 64px !important;
+  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
+  --stack-xs: 6px !important;
+  --stack-sm: 10px !important;
+  --stack-md: 14px !important;
+  --stack-lg: 22px !important;
+  --player-chip-gap: 12px !important;
+  --player-note-gap: 10px !important;
+  --player-rail-gap: 12px !important;
+  --modal-inset: 18px !important;
+}
+.wrap,
+.top-nav-inner{
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+/* Section rhythm — kill 96px/huge asymmetric pads */
+.sec,
+section.sec,
+.section{
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+  box-sizing: border-box !important;
+}
+/* First content after fixed nav: don't double-pad absurdly */
+.sec:first-of-type,
+section.sec:first-of-type,
+#hero.sec,
+section#hero{
+  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
+}
+/* Closing / legal: tight, intentional */
+.closing,
+#closing{
+  margin-top: var(--stack-lg) !important;
+  margin-bottom: var(--stack-md) !important;
+  padding-top: var(--stack-md) !important;
+  padding-bottom: var(--stack-md) !important;
+}
+.legal-note,
+.proj-nav{
+  margin-top: var(--stack-md) !important;
+  padding-top: var(--stack-sm) !important;
+}
+/* Case players host */
+#demo .note,
+#pi .note,
+#pi p.note,
+.bc-player-iframe + .note,
+.pi-iframe + .note{
+  margin-top: var(--player-note-gap) !important;
+  margin-bottom: 0 !important;
+}
+#pi + .closing,
+#demo + .sec,
+#process{
+  margin-top: 0 !important;
+}
+/* Eyebrow → title → lede stack */
+.eyebrow,
+.sec-eyebrow,
+.proc-eyebrow,
+p.level{
+  margin-bottom: var(--stack-sm) !important;
+}
+h1, .h1, .proc-h, .sec-h{
+  margin-top: 0 !important;
+}
+.lede, .lead, .proc-sub, .sec-sub, .sub{
+  margin-top: var(--stack-sm) !important;
+  margin-bottom: var(--stack-md) !important;
+}
+/* Mobile: slightly tighter section, same pad token */
+@media (max-width: 720px){
+  :root{
+    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
+    --modal-inset: 12px !important;
+  }
+}
+
 </style>
+
+
+<style id="site-nav-component">
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap');
+/* ===== SITE NAV COMPONENT — locked, identical on every page ===== */
+nav.site-nav{
+  position:fixed!important;top:0!important;left:0!important;right:0!important;
+  z-index:99999!important;height:64px!important;
+  background:#0e0d0c!important;border-bottom:1px solid rgba(255,255,255,.1)!important;
+  isolation:isolate!important;transform:translateZ(0)!important;
+  pointer-events:auto!important;margin:0!important;padding:0!important;
+  box-sizing:border-box!important;
+}
+html[data-theme="light"] nav.site-nav{
+  background:#f7f5f2!important;border-bottom-color:rgba(0,0,0,.1)!important;
+}
+nav.site-nav .sn-inner{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  height:64px!important;max-width:920px!important;width:100%!important;
+  margin:0 auto!important;padding:0 clamp(16px,3vw,28px)!important;
+  box-sizing:border-box!important;gap:12px!important;
+}
+nav.site-nav .sn-logo{
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-weight:800!important;font-size:18px!important;line-height:1!important;
+  color:#f2f0ec!important;letter-spacing:-.02em!important;
+  text-decoration:none!important;white-space:nowrap!important;flex-shrink:0!important;
+}
+html[data-theme="light"] nav.site-nav .sn-logo{color:#1a1917!important}
+nav.site-nav .sn-logo span{color:var(--sn-accent,#d97757)!important}
+nav.site-nav .sn-links{
+  display:flex!important;align-items:center!important;gap:2px!important;
+  flex-wrap:nowrap!important;margin-left:auto!important;
+}
+nav.site-nav .sn-link,
+nav.site-nav .sn-drop-btn{
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-size:13px!important;font-weight:600!important;
+  letter-spacing:.06em!important;text-transform:uppercase!important;
+  color:#a6a29a!important;padding:8px 12px!important;border-radius:6px!important;
+  text-decoration:none!important;background:none!important;border:none!important;
+  cursor:pointer!important;line-height:1.2!important;
+  transition:color .15s,background .15s!important;
+  display:inline-flex!important;align-items:center!important;gap:4px!important;
+}
+html[data-theme="light"] nav.site-nav .sn-link,
+html[data-theme="light"] nav.site-nav .sn-drop-btn{color:#6b6760!important}
+nav.site-nav .sn-link:hover,
+nav.site-nav .sn-link.is-active,
+nav.site-nav .sn-drop-btn:hover,
+nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+  color:#f2f0ec!important;background:rgba(255,255,255,.06)!important;
+}
+html[data-theme="light"] nav.site-nav .sn-link:hover,
+html[data-theme="light"] nav.site-nav .sn-link.is-active,
+html[data-theme="light"] nav.site-nav .sn-drop-btn:hover,
+html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+  color:#1a1917!important;background:rgba(0,0,0,.05)!important;
+}
+nav.site-nav .sn-drop{position:relative!important}
+nav.site-nav .sn-drop-menu{
+  position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
+  transform:translateX(-50%) translateY(-4px)!important;
+  background:#171614!important;border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:12px!important;padding:8px!important;min-width:180px!important;
+  display:flex!important;flex-direction:column!important;gap:2px!important;
+  opacity:0!important;pointer-events:none!important;visibility:hidden!important;
+  transition:opacity .18s,transform .18s,visibility .18s!important;
+  box-shadow:0 20px 40px -12px rgba(0,0,0,.55)!important;z-index:100003!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu{
+  background:#fff!important;border-color:rgba(0,0,0,.1)!important;
+  box-shadow:0 16px 32px -8px rgba(0,0,0,.15)!important;
+}
+nav.site-nav .sn-drop:hover .sn-drop-menu,
+nav.site-nav .sn-drop:focus-within .sn-drop-menu,
+nav.site-nav .sn-drop-btn[aria-expanded="true"] + .sn-drop-menu{
+  opacity:1!important;pointer-events:auto!important;visibility:visible!important;
+  transform:translateX(-50%) translateY(0)!important;
+}
+nav.site-nav .sn-drop-menu a{
+  display:block!important;padding:10px 12px!important;border-radius:8px!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-size:13px!important;font-weight:600!important;
+  color:#a6a29a!important;text-decoration:none!important;
+  text-transform:none!important;letter-spacing:0!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu a{color:#6b6760!important}
+nav.site-nav .sn-drop-menu a:hover{
+  background:#1c1b19!important;color:#f2f0ec!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu a:hover{
+  background:#f0eeea!important;color:#1a1917!important;
+}
+nav.site-nav .sn-drop-menu a.is-current{color:var(--sn-accent,#d97757)!important}
+nav.site-nav .sn-theme{
+  width:34px!important;height:34px!important;border-radius:50%!important;
+  border:1px solid rgba(255,255,255,.12)!important;background:#171614!important;
+  color:#a6a29a!important;display:grid!important;place-items:center!important;
+  cursor:pointer!important;flex-shrink:0!important;margin-left:4px!important;
+  padding:0!important;pointer-events:auto!important;position:relative!important;z-index:100001!important;
+}
+html[data-theme="light"] nav.site-nav .sn-theme{
+  background:#fff!important;border-color:rgba(0,0,0,.12)!important;color:#6b6760!important;
+}
+nav.site-nav .sn-theme svg{width:15px!important;height:15px!important;display:block!important}
+nav.site-nav .sn-ham{
+  display:none!important;flex-direction:column!important;gap:4px!important;
+  background:none!important;border:none!important;padding:8px!important;
+  cursor:pointer!important;margin-left:4px!important;
+  min-width:44px!important;min-height:44px!important;
+  align-items:center!important;justify-content:center!important;
+}
+nav.site-nav .sn-ham span{
+  display:block!important;width:20px!important;height:2px!important;
+  background:#f2f0ec!important;border-radius:1px!important;
+}
+html[data-theme="light"] nav.site-nav .sn-ham span{background:#1a1917!important}
+/* Mobile panel */
+.site-nav-mobile{
+  position:fixed!important;top:0!important;left:0!important;width:100%!important;
+  height:100%!important;height:100dvh!important;z-index:100000!important;
+  background:#0e0d0c!important;padding:72px 24px 24px!important;
+  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
+  transform:translateX(100%)!important;visibility:hidden!important;pointer-events:none!important;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1),visibility 0s 320ms!important;
+  box-sizing:border-box!important;
+}
+html[data-theme="light"] .site-nav-mobile{background:#f7f5f2!important}
+.site-nav-mobile.on{
+  transform:translateX(0)!important;visibility:visible!important;pointer-events:auto!important;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1)!important;
+}
+body.nav-open{overflow:hidden!important;touch-action:none!important}
+.site-nav-mobile a{
+  display:block!important;padding:14px 0!important;
+  border-bottom:1px solid rgba(255,255,255,.1)!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-weight:700!important;font-size:1.05rem!important;
+  color:#f2f0ec!important;text-decoration:none!important;
+}
+html[data-theme="light"] .site-nav-mobile a{
+  color:#1a1917!important;border-bottom-color:rgba(0,0,0,.1)!important;
+}
+.site-nav-mobile .sn-sub{
+  font-size:.95rem!important;font-weight:600!important;
+  color:#a6a29a!important;padding-left:12px!important;
+}
+html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
+.site-nav-mobile .sn-close{
+  position:absolute!important;top:20px!important;right:20px!important;
+  background:none!important;border:none!important;color:inherit!important;
+  cursor:pointer!important;font-size:1rem!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+}
+@media(max-width:900px){
+  nav.site-nav .sn-links{display:none!important}
+  nav.site-nav .sn-ham{display:flex!important}
+}
+/* Kill legacy top-nav interference when site-nav present */
+body:has(nav.site-nav) .top-nav:not(.site-nav),
+body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
+</style>
+
 </head>
 <body>
-<nav class="top-nav" id="topNav" style="--nav-accent:#d97757">
-  <div class="top-nav-inner">
-    <a href="index.html" class="top-nav-logo">FM<span>.</span></a>
-    <div class="top-nav-links">
-      <a href="index.html" class="top-nav-link">Home</a>
-      <div class="top-nav-dropdown">
-        <button type="button" id="topNavDropToggle" class="top-nav-drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="topNavDropMenu">
+<nav class="site-nav" id="topNav" style="--sn-accent:#d97757" aria-label="Primary">
+  <div class="sn-inner">
+    <a href="index.html" class="sn-logo">FM<span>.</span></a>
+    <div class="sn-links">
+      <a href="index.html" class="sn-link">Home</a>
+      <div class="sn-drop">
+        <button type="button" id="snDropBtn" class="sn-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="snDropMenu">
           Projects
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu">
-          <a href="projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a><a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a><a href="projects/chek.html" role="menuitem">Chek</a><a href="projects/dollarcity.html" role="menuitem">DollarCity</a><a href="projects/customs.html" role="menuitem">Customs ES</a><a href="projects/forecast.html" role="menuitem">Forecast</a>
+        <div id="snDropMenu" class="sn-drop-menu" role="menu">
+          <a href="projects.html" role="menuitem" style="color:var(--sn-accent);font-weight:700">All Projects</a>
+          <a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
+          <a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
+          <a href="projects/chek.html" role="menuitem">Chek</a>
+          <a href="projects/dollarcity.html" role="menuitem">DollarCity</a>
+          <a href="projects/customs.html" role="menuitem">Customs ES</a>
+          <a href="projects/forecast.html" role="menuitem">Forecast</a>
         </div>
       </div>
-      <a href="resume.html" class="top-nav-link active">Resume</a>
-      <a href="contact.html" class="top-nav-link">Contact</a>
-      <a href="design-system.html" class="top-nav-link">Design System</a>
+      <a href="resume.html" class="sn-link is-active">Resume</a>
+      <a href="contact.html" class="sn-link">Contact</a>
+      <a href="design-system.html" class="sn-link">Design System</a>
     </div>
-    <button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme">
+    <button class="sn-theme" id="snTheme" type="button" aria-label="Toggle theme">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
-    <button class="top-nav-hamburger" id="topNavHamburger" type="button" aria-label="Open menu" aria-expanded="false">
+    <button class="sn-ham" id="snHam" type="button" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
-<div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
-  <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;cursor:pointer;font-size:1rem">Close</button>
+<div id="snMobile" class="site-nav-mobile" aria-hidden="true">
+  <button type="button" id="snClose" class="sn-close" aria-label="Close">Close</button>
   <a href="index.html">Home</a>
   <a href="projects.html">All Projects</a>
-  <a class="mob-sub" href="projects/ey-fabric.html">EY Fabric</a>
-  <a class="mob-sub" href="projects/blockchain.html">Blockchain 3D</a>
-  <a class="mob-sub" href="projects/chek.html">Chek</a>
-  <a class="mob-sub" href="projects/dollarcity.html">DollarCity</a>
-  <a class="mob-sub" href="projects/customs.html">Customs ES</a>
-  <a class="mob-sub" href="projects/forecast.html">Forecast</a>
+  <a class="sn-sub" href="projects/ey-fabric.html">EY Fabric</a>
+  <a class="sn-sub" href="projects/blockchain.html">Blockchain 3D</a>
+  <a class="sn-sub" href="projects/chek.html">Chek</a>
+  <a class="sn-sub" href="projects/dollarcity.html">DollarCity</a>
+  <a class="sn-sub" href="projects/customs.html">Customs ES</a>
+  <a class="sn-sub" href="projects/forecast.html">Forecast</a>
   <a href="resume.html">Resume</a>
   <a href="contact.html">Contact</a>
   <a href="design-system.html">Design System</a>
 </div>
+
+
 
 <a class="skip-link" href="#main">Skip to main content</a>
 <nav><div class="wrap nav-in">
@@ -1818,6 +2179,83 @@ h2, .h2, .sec h2 {
     else if(dy < -6) nav.classList.remove('nav-hidden');
     last = y;
   }, {passive:true});
+})();
+</script>
+
+
+
+
+
+<script id="site-nav-component-js">
+(function(){
+  if(window.__siteNavBound) return;
+  window.__siteNavBound = true;
+  var root = document.documentElement;
+
+  function applyTheme(t){
+    t = (t === 'light') ? 'light' : 'dark';
+    root.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme', t); } catch(e) {}
+    var btn = document.getElementById('snTheme');
+    if(btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
+  }
+  try {
+    var s = localStorage.getItem('theme');
+    applyTheme(s === 'light' ? 'light' : (s === 'dark' ? 'dark' : (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')));
+  } catch(e) { applyTheme('dark'); }
+
+  function bind(){
+    var themeBtn = document.getElementById('snTheme');
+    if(themeBtn && !themeBtn.__bound){
+      themeBtn.__bound = true;
+      themeBtn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        applyTheme(cur === 'light' ? 'dark' : 'light');
+      });
+    }
+
+    var drop = document.getElementById('snDropBtn');
+    if(drop && !drop.__bound){
+      drop.__bound = true;
+      function closeDrop(){ drop.setAttribute('aria-expanded','false'); }
+      drop.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var open = drop.getAttribute('aria-expanded') === 'true';
+        drop.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      document.addEventListener('click', function(e){
+        if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
+      });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrop(); });
+      window.addEventListener('scroll', closeDrop, {passive:true});
+    }
+
+    var ham = document.getElementById('snHam');
+    var mob = document.getElementById('snMobile');
+    var closeBtn = document.getElementById('snClose');
+    if(ham && mob && !ham.__bound){
+      ham.__bound = true;
+      function openM(){
+        mob.classList.add('on');
+        mob.setAttribute('aria-hidden','false');
+        ham.setAttribute('aria-expanded','true');
+        document.body.classList.add('nav-open');
+      }
+      function closeM(){
+        mob.classList.remove('on');
+        mob.setAttribute('aria-hidden','true');
+        ham.setAttribute('aria-expanded','false');
+        document.body.classList.remove('nav-open');
+      }
+      ham.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
+      if(closeBtn) closeBtn.addEventListener('click', closeM);
+      mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeM(); });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
 })();
 </script>
 
