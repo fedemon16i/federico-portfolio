@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>if(/(?:^|[?&#])embed=1\b/.test(location.search+location.hash))document.documentElement.classList.add("embed");</script>
+
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Skills · home tokens</title>
@@ -259,48 +261,6 @@ h1{font-size:19px;margin:5px 0;font-weight:700} h1 em{color:var(--accent);font-s
 .tl button { min-height: 36px; padding: 0 12px; }
 
 
-/* embed mode: player card IS the modal chrome (titles + X stay) */
-html.embed, html.embed body{
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  height: 100% !important;
-  width: 100% !important;
-}
-html.embed .page{
-  padding: 14px 14px 12px !important;
-  max-width: none !important;
-  margin: 0 !important;
-  background: var(--bg-surface, #171614) !important;
-  border: 1px solid var(--line, rgba(255,255,255,.08)) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 24px 64px rgba(0,0,0,.5) !important;
-  height: 100% !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-  position: relative !important;
-}
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead{
-  display: block !important;
-  padding-right: 40px !important;
-}
-html.embed .shell{
-  display: flex !important;
-  flex-direction: column !important;
-  grid-template-columns: none !important;
-  gap: 8px !important;
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  overflow: hidden !important;
-}
-
-
 /* === MOBILE + SCALE RULES (no page scroll, full UI visible) === */
 html, body {
   overflow-x: hidden !important;
@@ -427,18 +387,6 @@ html[data-theme="light"] h1 { color: var(--text); }
 html[data-theme="light"] h1 em { color: var(--accent); }
 html[data-theme="light"] .prog { background: rgba(0,0,0,.08); }
 html[data-theme="light"] .prog i { background: var(--accent); }
-html.embed, html.embed body,
-html.embed[data-theme="light"], html.embed[data-theme="light"] body {
-  background: transparent !important;
-}
-/* embed page keeps card surface (not transparent) — host is transparent */
-html.embed .page,
-html.embed[data-theme="light"] .page {
-  background: var(--bg-surface, #171614) !important;
-}
-html.embed[data-theme="light"] .page {
-  background: var(--bg-surface, #ffffff) !important;
-}
 
 
 /* side arrows on stage (same as EY PI) */
@@ -551,8 +499,6 @@ html[data-theme="light"] .stage-arrow{
   .tl button .nm{ display: none !important; }
   .tl button{ padding: 0 9px !important; min-width: 34px !important; text-align: center !important; }
 }
-html.embed .tl button .nm{ display: none !important; }
-html.embed .tl button{ padding: 0 9px !important; min-width: 34px !important; }
 @media (max-width: 720px){
   .shell{ grid-template-columns: 1fr !important; }
   .tl{ justify-content: flex-start !important; }
@@ -597,12 +543,6 @@ html.embed .tl button{ padding: 0 9px !important; min-width: 34px !important; }
   .tl button .nm{ display: inline !important; opacity: .8 !important; }
   .tl button.on .nm{ opacity: 1 !important; }
 }
-html.embed .tl button .nm{ display: none !important; }
-html.embed .tl button.on .nm{ display: inline !important; }
-
-
-/* Top pad + corner stage badge (Blockchains-style) */
-html.embed .page{ padding-top: 12px !important; }
 .page{ padding-top: 20px !important; }
 .stage-col{ gap: 0 !important; }
 .stage-head{ display: none !important; } /* remove title above frame */
@@ -992,13 +932,6 @@ html, body{ margin:0 !important; }
   overflow: hidden !important;
   border-radius: 8px !important;
 }
-html.embed .page{ padding: 14px 14px 12px !important; max-width: none !important; }
-html.embed .frame{
-  flex: 1 1 auto !important;
-  height: auto !important;
-  min-height: 200px !important;
-  max-height: none !important;
-}
 
 
 /* ═══ iPhone / short viewports: full window visible, no scroll ═══ */
@@ -1056,45 +989,6 @@ html, body {
     height: min(380px, calc(100vh - 160px)) !important;
     max-height: calc(100vh - 150px) !important;
   }
-}
-/* Embed / modal: no page scroll, only scaled stage */
-html.embed, html.embed body {
-  overflow: hidden !important;
-  height: 100% !important;
-  margin: 0 !important;
-}
-html.embed .page {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 14px 14px 12px !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-  background: var(--bg-surface, #171614) !important;
-  border: 1px solid var(--line, rgba(255,255,255,.08)) !important;
-  border-radius: 16px !important;
-}
-html.embed .kicker,
-html.embed h1,
-html.embed .lead {
-  display: block !important;
-}
-html.embed .shell {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-}
-html.embed .tl,
-html.embed .controls {
-  flex-shrink: 0 !important;
-}
-html.embed .frame {
-  flex: 1 1 auto !important;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
 }
 
 
@@ -1432,13 +1326,6 @@ html.embed .frame {
   color: var(--accent) !important;
   -webkit-text-fill-color: var(--accent) !important;
 }
-
-
-/* ===== LAYOUT PATCH: stages row + section chrome (no animation changes) ===== */
-html.embed body,
-html body {
-  background: transparent !important;
-}
 .page {
   max-width: 720px !important;
   margin: 0 auto !important;
@@ -1476,96 +1363,6 @@ html:not(.embed) .page .close-x {
 }
 html:not(.embed) .page .close-x:hover { color: var(--text) !important; background: rgba(255,255,255,.1) !important; }
 html:not(.embed) .page .kicker, html:not(.embed) .page h1, html:not(.embed) .page .lead { padding-right: 36px !important; }
-
-/* ═══ EMBED: player card IS the modal — keep titles + X, maximize stage ═══ */
-html.embed,
-html.embed body {
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  height: 100% !important;
-  width: 100% !important;
-}
-html.embed .page {
-  background: var(--bg-surface, #171614) !important;
-  border: 1px solid var(--line, rgba(255,255,255,.08)) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 24px 64px rgba(0,0,0,.5) !important;
-  margin: 0 !important;
-  padding: 14px 14px 12px !important;
-  max-width: none !important;
-  width: 100% !important;
-  height: 100% !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  position: relative !important;
-  overflow: hidden !important;
-}
-/* KEEP close + titles in embed — this card is the only chrome */
-html.embed .page .close-x,
-html.embed .close-x {
-  display: flex !important;
-  position: absolute !important;
-  top: 12px !important;
-  right: 12px !important;
-  z-index: 20 !important;
-  width: 32px !important;
-  height: 32px !important;
-  border-radius: 50% !important;
-  border: 1px solid var(--line) !important;
-  background: rgba(255,255,255,.06) !important;
-  color: var(--muted) !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  font-size: 18px !important;
-  line-height: 1 !important;
-  padding: 0 !important;
-}
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead {
-  display: block !important;
-  padding-right: 40px !important;
-}
-html.embed .page > .lead {
-  /* keep lead but tighter in modal */
-  margin-bottom: 10px !important;
-  -webkit-line-clamp: 2;
-  display: -webkit-box !important;
-  -webkit-box-orient: vertical;
-  overflow: hidden !important;
-}
-html.embed .shell {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 8px !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-html.embed .shell > div:first-child {
-  flex: 0 0 auto !important;
-}
-html.embed .stage-col {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-html.embed .frame {
-  flex: 1 1 auto !important;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  width: 100% !important;
-}
 
 /* Single column: stages above square (same as schema) */
 .shell {
@@ -1626,127 +1423,6 @@ html.embed .frame {
 .shell > div:first-child { margin-top: 2px !important; }
 .tl { margin-top: 4px !important; margin-bottom: 6px !important; }
 
-
-/* FINAL embed: card chrome stays visible, stage fills rest */
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead,
-html.embed .kicker,
-html.embed h1,
-html.embed .lead {
-  display: block !important;
-}
-html.embed .page .close-x {
-  display: flex !important;
-}
-html.embed .page {
-  background: var(--bg-surface, #171614) !important;
-  border: 1px solid var(--line, rgba(255,255,255,.08)) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 24px 64px rgba(0,0,0,.5) !important;
-  padding: 16px 16px 14px !important;
-  height: 100% !important;
-  overflow: hidden !important;
-}
-html.embed .lead {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden !important;
-  margin-bottom: 10px !important;
-}
-html.embed .frame {
-  flex: 1 1 auto !important;
-  height: auto !important;
-  min-height: 200px !important;
-  max-height: none !important;
-}
-
-/* ═══ FINAL embed density: kill empty gap between pills and stage ═══ */
-html.embed .page {
-  display: flex !important;
-  flex-direction: column !important;
-  height: 100% !important;
-  padding: 12px 12px 10px !important;
-  gap: 0 !important;
-  overflow: hidden !important;
-}
-html.embed .page > .kicker {
-  margin: 0 0 4px !important;
-  flex: 0 0 auto !important;
-}
-html.embed .page > h1 {
-  margin: 0 0 6px !important;
-  flex: 0 0 auto !important;
-  font-size: clamp(16px, 4.2vw, 19px) !important;
-  line-height: 1.22 !important;
-}
-html.embed .page > .lead {
-  margin: 0 0 10px !important;
-  flex: 0 0 auto !important;
-  font-size: 12px !important;
-  line-height: 1.4 !important;
-  -webkit-line-clamp: 2;
-  display: -webkit-box !important;
-  -webkit-box-orient: vertical;
-  overflow: hidden !important;
-}
-html.embed .shell {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 8px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-html.embed .shell > div:first-child {
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-}
-html.embed .tl {
-  margin: 0 !important;
-  gap: 5px !important;
-}
-html.embed .stage-col {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-html.embed .frame {
-  flex: 1 1 auto !important;
-  width: 100% !important;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  /* override any mobile fixed-height caps */
-  margin: 0 !important;
-}
-@media (max-width: 720px) {
-  html.embed .frame {
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-  }
-  html.embed .page {
-    padding: 10px 10px 8px !important;
-  }
-  html.embed .page > .lead {
-    margin-bottom: 8px !important;
-  }
-}
-@media (max-width: 520px), (max-height: 740px) {
-  html.embed .frame {
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-  }
-}
-
 /* === PORTFOLIO SHELL LOCK 2026-08-12 === */
 :root {
   --max: 920px !important;
@@ -1803,11 +1479,6 @@ h2, .h2, .sec h2 {
   .controls{ margin-top: 3px !important; margin-bottom: 0 !important; }
   .frame{ margin-top: 0 !important; }
 }
-/* embed: even denser */
-html.embed .shell{ gap: var(--player-rail-gap, 12px) !important; }
-html.embed .controls{ margin-top: 3px !important; }
-html.embed .stage-col{ gap: 0 !important; }
-html.embed .page{ padding-bottom: 8px !important; }
 /* page chrome under player — less dead space below frame */
 .page{ padding-bottom: 16px !important; }
 .page > p.note,
@@ -1856,11 +1527,6 @@ html.embed .page{ padding-bottom: 8px !important; }
   .stage-col{ padding-top: 0 !important; }
   .controls{ margin-top: 5px !important; }
 }
-/* embed modal: same rhythm */
-html.embed .shell{ gap: var(--player-chip-gap) !important; }
-html.embed .stage-col{ padding-top: 0 !important; }
-html.embed .page{ padding-bottom: 10px !important; }
-html.embed .controls{ margin-top: 5px !important; }
 /* kill previous ultra-dense lock if present */
 
 
@@ -1890,9 +1556,6 @@ html.embed .controls{ margin-top: 5px !important; }
   .controls{ margin-top: 6px !important; margin-bottom: 0 !important; }
   .stage-col{ margin-top: 2px !important; }
 }
-html.embed .shell{ gap: var(--player-rail-gap) !important; }
-html.embed .page{ padding-bottom: 10px !important; }
-html.embed .frame{ margin-top: 0 !important; }
 /* kill earlier ultra-tight 4px locks */
 
 
@@ -2003,222 +1666,7 @@ h1, .h1, .proc-h, .sec-h{
     --modal-inset: 12px !important;
   }
 }
-
-
-
-
-/* no middle void */
-    justify-content: center !important;
-  }
-}
-
-
-
-/* pills → stage — enough so border not clipped */
-  overflow: hidden !important; width: 100% !important;
-}
-html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
-html.embed .controls{ display: none !important; }
-html.embed .stage-col{
-  flex: 1 1 auto !important; min-height: 0 !important;
-  display: flex !important; flex-direction: column !important;
-  overflow: hidden !important; margin: 0 !important; padding: 0 !important;
-}
-html.embed .frame{
-  flex: 1 1 auto !important; min-height: 0 !important;
-  display: flex !important; align-items: center !important;
-  justify-content: center !important; overflow: hidden !important;
-  width: 100% !important;
-  /* small top inset so stage border not flush against pills */
-  padding-top: 2px !important;
-}
 .stage-chrome{ padding: 14px 12px 10px !important; }
-
-@media (max-width: 720px){
-  html.embed .page{ padding: 12px 12px 12px !important; }
-  html.embed .page > .kicker{ margin: 0 0 6px !important; }
-  html.embed .page > h1{ margin: 0 0 6px !important; font-size: 1.1rem !important; }
-  html.embed .page > .lead{ margin: 0 0 10px !important; font-size: 12px !important; }
-  html.embed .shell{ gap: 10px !important; }
-  html.embed .frame{
-    align-items: flex-start !important;
-    padding-top: 2px !important;
-  }
-}
-
-
-/* ============================================================
-   BC-SHELL REBUILD 2026-08-13f
-   Outer chrome = Blockchains player. Keep .unit / beats intact.
-   ============================================================ */
-
-/* Page / wrap */
-html.embed, html.embed body{
-  background: transparent !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-}
-html.embed .page,
-html.embed .wrap{
-  max-width: none !important;
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 12px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0 !important;
-  overflow: hidden !important;
-  background: transparent !important;
-}
-
-/* Title block — hide in embed (case/modal owns narrative) */
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead,
-html.embed .page > .close-x,
-html.embed .wrap > .eyebrow,
-html.embed .wrap > h1,
-html.embed .wrap > .lede,
-html.embed .wrap > .note,
-html.embed .page > .note{
-  display: none !important;
-}
-
-/* Shell → column stack like BC: chips then stage */
-html.embed .shell,
-.shell{
-  display: flex !important;
-  flex-direction: column !important;
-  grid-template-columns: none !important;
-  grid-template-rows: none !important;
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-  gap: 12px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  align-items: stretch !important;
-}
-html.embed .shell > div:first-child,
-.shell > div:first-child{
-  flex: 0 0 auto !important;
-  width: 100% !important;
-  max-width: none !important;
-  order: 0 !important;
-}
-
-/* Timeline chips — BC style row */
-html.embed .tl,
-.tl#tl,
-#tl.tl,
-div.tl{
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  gap: 6px !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow-x: auto !important;
-  scrollbar-width: none !important;
-}
-html.embed .tl::-webkit-scrollbar{ display: none !important; }
-html.embed .tl button,
-.tl button,
-#tl button{
-  flex: 0 0 auto !important;
-  width: auto !important;
-  max-width: none !important;
-  height: 32px !important;
-  white-space: nowrap !important;
-}
-
-/* Kill external controls row — chrome lives in unit */
-html.embed .controls,
-.shell .controls{
-  display: none !important;
-}
-
-/* Stage column = flex grow full width */
-html.embed .stage-col,
-.stage-col{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-  display: flex !important;
-  flex-direction: column !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  order: 1 !important;
-}
-
-/* .frame becomes the BC .stage surface */
-html.embed .frame,
-.frame#frame,
-#frame.frame{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: stretch !important;
-  justify-content: stretch !important;
-  overflow: hidden !important;
-  position: relative !important;
-  /* BC stage look */
-  background: var(--stage-bg, #201e1b) !important;
-  background-image:
-    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) !important;
-  background-size: 22px 22px !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  border-radius: 18px !important;
-  box-shadow: 0 30px 80px -30px rgba(0,0,0,.55) !important;
-}
-
-/* UNIT fills frame — no fixed 560 box, no scale void */
-html.embed .unit,
-#unit.unit,
-.unit#unit{
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  flex: 1 1 auto !important;
-  transform: none !important;
-  transform-origin: center center !important;
-  border-radius: 18px !important;
-  box-sizing: border-box !important;
-  /* override --dw/--dh fixed pixel trap */
-  --dw: 100% !important;
-  --dh: 100% !important;
-}
-html.embed .unit[style*="transform"],
-#unit[style*="transform"]{
-  transform: none !important;
-}
-
-/* win / stage content inside unit fills */
-html.embed .win,
-html.embed #win,
-html.embed .unit .win{
-  /* keep absolute layout from original — just ensure parent has size */
-}
 
 /* Non-embed (standalone page): same column, comfortable pad */
 body:not(.embed) .shell,
@@ -2241,6 +1689,168 @@ html:not(.embed) .unit{
   height: 100% !important;
   max-width: none !important;
   transform: none !important;
+}
+@media(max-width:720px){
+  html.embed .page{padding:10px 12px 12px!important}
+  html.embed .page > .lead{-webkit-line-clamp:1!important; margin-bottom:8px!important}
+}
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px 14px 14px !important; }
+}
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px 12px 16px !important; }
+  html.embed .page > .lead{ -webkit-line-clamp: 1 !important; }
+}
+
+
+/* ============================================================
+   BC-PATTERN EMBED for Skills unit 560×410  2026-08-13-bc
+   Same as blockchain fitPhone:
+     host (.frame) has REAL width+height (flex fill)
+     unit keeps 560×410 design px
+     scale = min(hostW/560, hostH/410) * 0.96
+     overflow:hidden on host → visual always fully inside
+   ============================================================ */
+
+html.embed, html.embed body{
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+html.embed body{
+  padding: 12px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+html.embed .page{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+html.embed .page > .close-x{ display: none !important; }
+html.embed .page > .kicker{
+  flex: 0 0 auto !important;
+  margin: 0 0 4px !important;
+  font-size: 10px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  opacity: .65 !important;
+}
+html.embed .page > h1{
+  flex: 0 0 auto !important;
+  margin: 0 0 4px !important;
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem) !important;
+  line-height: 1.2 !important;
+}
+html.embed .page > .lead{
+  flex: 0 0 auto !important;
+  margin: 0 0 10px !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  opacity: .7 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+html.embed .shell{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+}
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
+html.embed .tl, html.embed #tl{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+html.embed .tl button, html.embed #tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
+}
+html.embed .controls{ display: none !important; }
+
+/* stage-col fills remaining height — like BC .stage */
+html.embed .stage-col{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* .frame = BC phone-host: fills stage, flex-centers unit, overflow hidden */
+html.embed .frame, html.embed #frame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+}
+
+/* .unit = BC phone-base: FIXED design size, scale only */
+html.embed .unit, html.embed #unit{
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+  /* transform: scale(s) set by fitUnit — same as fitPhone */
+}
+
+
+/* TITLE_WIDTH_PAD — same horizontal inset as titles so unit tracks text width */
+html.embed .page{
+  padding-left: 16px !important;
+  padding-right: 16px !important;
 }
 
 </style>
@@ -2353,8 +1963,7 @@ html:not(.embed) .unit{
   function clearAll(){ timers.forEach(function(t){ clearTimeout(t); clearInterval(t); }); timers=[]; }
   function after(ms,fn){ return track(setTimeout(fn,ms)); }
   function el(id){ return document.getElementById(id); }
-  function fit(){
-    var fw = frame.clientWidth || 1;
+  function fit(){ if(document.documentElement.classList.contains("embed")) return; var fw = frame.clientWidth || 1;
     var fh = frame.clientHeight || 1;
     /* Uniform scale: entire 560×410 unit fully visible inside frame — never scroll.
        Allow mild upscale when modal is large so stage fills more of the card. */
@@ -2720,15 +2329,116 @@ html:not(.embed) .unit{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
-/* BC-shell: disable scale transforms — unit fills frame */
+/* BC-pattern fitUnit — identical math to blockchain fitPhone, viewport 560×410 */
 (function(){
-  function clearScale(){
-    var u = document.getElementById('unit') || document.querySelector('.unit');
-    if(u){ u.style.transform = 'none'; u.style.width = '100%'; u.style.height = '100%'; }
+  var isEmbed = document.documentElement.classList.contains('embed')
+    || /(?:^|[?&#])embed=1\b/.test(location.search + location.hash);
+  if(!isEmbed) return;
+  document.documentElement.classList.add('embed');
+
+  var NW = 560, NH = 410;
+
+  function fitUnit(){
+    var unit = document.getElementById('unit');
+    var host = document.getElementById('frame');
+    if(!unit || !host) return;
+    var hw = host.clientWidth || 1;
+    var hh = host.clientHeight || 1;
+    if(hw < 8 || hh < 8) return;
+
+    /* same formula as fitPhone: min of both axes, mild pad */
+    /* Prefer filling host width (title column) without cropping.
+       Cap mild upscale; height still limits via Math.min so bottom never clips. */
+    var s = Math.min(hw / NW, hh / NH) * 0.96;
+    if(s > 1.28) s = 1.28;
+    if(s < 0.28) s = 0.28;
+
+    unit.style.width = NW + 'px';
+    unit.style.height = NH + 'px';
+    unit.style.transformOrigin = 'center center';
+    unit.style.transform = 'scale(' + s + ')';
+    unit.style.position = 'relative';
+    unit.style.left = 'auto';
+    unit.style.top = 'auto';
   }
-  [0,50,150,400,800].forEach(function(t){ setTimeout(clearScale, t); });
-  window.addEventListener('resize', clearScale);
+
+  window.fitUnit = fitUnit;
+  window.fit = function(){
+    if(document.documentElement.classList.contains('embed')) return fitUnit();
+  };
+
+  function boot(){
+    fitUnit();
+    [40, 120, 300, 700, 1500].forEach(function(t){ setTimeout(fitUnit, t); });
+  }
+  window.addEventListener('resize', function(){
+    clearTimeout(window.__bcFit);
+    window.__bcFit = setTimeout(fitUnit, 40);
+  });
+  if(window.ResizeObserver){
+    document.addEventListener('DOMContentLoaded', function(){
+      var h = document.getElementById('frame');
+      if(h) new ResizeObserver(function(){ fitUnit(); }).observe(h);
+    });
+  }
+  document.addEventListener('click', function(){ setTimeout(fitUnit, 50); }, true);
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 
