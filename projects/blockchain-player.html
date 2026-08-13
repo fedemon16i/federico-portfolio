@@ -655,17 +655,52 @@ html.embed .wrap{
   flex-direction: column !important;
   box-sizing: border-box !important;
 }
-html.embed .tl{
-  flex: 0 0 auto !important;
-  margin: 0 0 10px !important;
-  width: 100% !important;
-}
+/* fixed: was stretching each chip to 100% */
 html.embed .stage{
   flex: 1 1 auto !important;
   min-height: 0 !important;
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
+}
+
+
+/* Timeline chips: pills in a row — never stretch full width */
+.timeline{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  margin: 0 0 12px !important;
+  scrollbar-width: none !important;
+}
+.timeline::-webkit-scrollbar{ display: none !important; }
+.timeline .tl,
+button.tl{
+  display: inline-flex !important;
+  align-items: center !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: none !important;
+  height: 32px !important;
+  padding: 0 12px !important;
+  border-radius: 100px !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+html.embed .timeline{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  margin: 0 0 10px !important;
+}
+html.embed .timeline .tl,
+html.embed button.tl{
+  width: auto !important;
+  max-width: none !important;
+  flex: 0 0 auto !important;
 }
 
 </style>
