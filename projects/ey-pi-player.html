@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -1771,49 +1771,122 @@ html, body, .page, .shell, .stage-col, .frame, .unit {
 .shell > div:first-child { margin-top: 2px !important; }
 .tl { margin-top: 4px !important; margin-bottom: 6px !important; }
 
+
+/* EY case embed: transparent host, full width of parent (920 wrap) — 2026-08-12 */
+html.embed, html.embed body,
+html.embed[data-theme="light"], html.embed[data-theme="light"] body {
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html.embed .page,
+html.embed[data-theme="light"] .page {
+  background: transparent !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+html.embed .shell {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+html.embed .frame {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+/* unit keeps own stage surface; page chrome stays invisible in embed */
+
+
+/* Player density: less space between stage chips and frame (skills + EY PI) 2026-08-12 */
+.shell{
+  gap: 6px !important;
+  align-items: start !important;
+}
+.tl{
+  gap: 4px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.controls{
+  margin-top: 4px !important;
+  margin-bottom: 0 !important;
+  gap: 4px !important;
+}
+.beat-lab,
+#beatLab{
+  margin-top: 2px !important;
+  margin-bottom: 0 !important;
+}
+.stage-col{
+  gap: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.frame{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+/* mobile / stacked shell: tighten chips → frame */
+@media (max-width: 720px){
+  .shell{ gap: 4px !important; }
+  .controls{ margin-top: 3px !important; margin-bottom: 0 !important; }
+  .frame{ margin-top: 0 !important; }
+}
+/* embed: even denser */
+html.embed .shell{ gap: 4px !important; }
+html.embed .controls{ margin-top: 3px !important; }
+html.embed .stage-col{ gap: 0 !important; }
+html.embed .page{ padding-bottom: 8px !important; }
+/* page chrome under player — less dead space below frame */
+.page{ padding-bottom: 16px !important; }
+.page > p.note,
+.page > .note{ margin-top: 6px !important; }
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
 
 <script>
-/* Theme sync: localStorage + parent page (same-origin iframe) */
+/* Theme: default DARK. Embed follows parent only. Standalone ignores localStorage light. */
 (function(){
   function apply(t){
-    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    t = (t === 'light') ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  }
+  function isEmbed(){
+    return document.documentElement.classList.contains('embed')
+      || /(?:^|[?&#])embed=1/.test(location.search + location.hash);
   }
   function read(){
-    var t = 'dark';
-    try {
-      var s = localStorage.getItem('theme');
-      // Standalone preview: only honor explicit light; default dark
-      if (s === 'light' || s === 'dark') t = s;
-      if (!document.documentElement.classList.contains('embed') && s !== 'light' && s !== 'dark') t = 'dark';
-    } catch(e) {}
-    try {
-      if (window.parent && window.parent !== window) {
-        var p = window.parent.document.documentElement.getAttribute('data-theme');
-        if (p === 'light' || p === 'dark') t = p;
-      }
-    } catch(e) {}
-    apply(t);
+    // 1) Embed → parent theme only (fallback dark)
+    if (isEmbed()) {
+      try {
+        if (window.parent && window.parent !== window) {
+          var p = window.parent.document.documentElement.getAttribute('data-theme');
+          if (p === 'light' || p === 'dark') { apply(p); return; }
+        }
+      } catch(e) {}
+      apply('dark');
+      return;
+    }
+    // 2) Standalone → dark unless ?theme=light
+    var q = new URLSearchParams(location.search).get('theme');
+    if (q === 'light') { apply('light'); return; }
+    apply('dark');
   }
+  // mark embed early
+  if (/(?:^|[?&#])embed=1/.test(location.search + location.hash)) {
+    document.documentElement.classList.add('embed');
+  }
+  apply('dark');
   read();
   window.addEventListener('storage', function(e){ if (e.key === 'theme') read(); });
-  setInterval(read, 1000);
+  // parent may toggle theme after load
+  setInterval(function(){ if (isEmbed()) read(); }, 1500);
 })();
-
-  (function(){
-    function bindStageNav(){
-      var sp = document.getElementById('stagePrev');
-      var sn = document.getElementById('stageNext');
-      function go(i){ if(typeof window.playBeat === 'function') window.playBeat(i); }
-      if(sp){ sp.onclick = function(){ if(typeof idx==='number' && idx>0) go(idx-1); }; }
-      if(sn){ sn.onclick = function(){ if(typeof idx==='number' && typeof BEATS!=='undefined' && idx<BEATS.length-1) go(idx+1); }; }
-    }
-    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bindStageNav);
-    else bindStageNav();
-  })();
-
 </script>
 
 <script>

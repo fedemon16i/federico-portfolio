@@ -75,9 +75,9 @@ body.nav-open{overflow:hidden;touch-action:none}
 
 /* —— DS atoms —— */
 .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-.h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.85rem,4vw,2.55rem);letter-spacing:-.03em;line-height:1.12;margin-bottom:12px}
+.h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem);letter-spacing:-.03em;line-height:1.12;margin-bottom:12px}
 .h1 em,.h2 em{color:var(--accent);font-style:normal}
-.h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.4rem,3vw,1.85rem);letter-spacing:-.02em;line-height:1.2;margin-bottom:10px}
+.h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem);letter-spacing:-.02em;line-height:1.2;margin-bottom:10px}
 .lead{font-size:1.02rem;color:var(--text-secondary);max-width:540px;line-height:1.5;margin-bottom:8px}
 .lead b{color:var(--text-primary);font-weight:600}
 
@@ -855,7 +855,7 @@ html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background
 }
 @media(max-width:720px){
   .page{padding:22px 14px 64px}
-  .h1{font-size:clamp(1.55rem,7vw,2.1rem)}
+  .h1{font-size:clamp(1.55rem,6.5vw,2.1rem)}
   .h2{font-size:clamp(1.25rem,5.5vw,1.6rem)}
   .lead{font-size:1rem;margin-bottom:14px}
   .sec{margin-bottom:0}
@@ -2080,7 +2080,7 @@ html body .top-nav-inner{
   align-items: center !important;
   justify-content: space-between !important;
   height: 64px !important;
-  max-width: 920px !important;
+  max-width: 920px!important;
   width: 100% !important;
   margin: 0 auto !important;
   padding: 0 clamp(16px, 3vw, 28px) !important;
@@ -2973,23 +2973,9 @@ html body #cur{
 #pi .pi-copy{ display:none !important; }
 #pi .pi-split{ display:block !important; }
 
-/* Nav consistency + dropdown bridge */
-.top-nav-dropdown{ position:relative; }
-.top-nav-drop-menu{
-  padding-top: 12px !important; /* bridge so hover doesn't close */
-}
-.top-nav-dropdown:hover .top-nav-drop-menu,
-.top-nav-dropdown:focus-within .top-nav-drop-menu,
-.top-nav-dropdown.is-open .top-nav-drop-menu{
-  opacity:1 !important;
-  visibility:visible !important;
-  pointer-events:auto !important;
-}
-
-
 /* ========== NAV: same content width as EY / Blockchains (web + mobile) ========== */
 html body .top-nav-inner{
-  max-width: 920px !important;
+  max-width: 920px!important;
   width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -3003,13 +2989,114 @@ html body .top-nav-inner{
   gap: 12px !important;
 }
 html body .top-nav .top-nav-inner{
-  max-width: 920px !important;
+  max-width: 920px!important;
 }
 @media (max-width: 700px){
   html body .top-nav-inner{
     padding-left: clamp(16px, 4vw, 20px) !important;
     padding-right: clamp(16px, 4vw, 20px) !important;
   }
+}
+
+
+/* SHARED TITLE SCALE 2026-08-12 — same as Blockchains */
+.h1, h1.h1, .hero-copy .h1 {
+  font-size: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+}
+.h2, h2.h2, .sec .h2 {
+  font-size: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.2 !important;
+  font-weight: 800 !important;
+}
+@media (max-width: 720px) {
+  .h1, h1.h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
+}
+
+
+/* === PORTFOLIO SHELL LOCK 2026-08-12 === */
+:root {
+  --max: 920px !important;
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+}
+.wrap, .top-nav-inner {
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+.top-nav-inner {
+  padding-inline: clamp(16px, 3vw, 28px) !important;
+}
+.top-nav {
+  height: 64px !important;
+}
+.eyebrow {
+  font-family: var(--font-mono), 'DM Mono', ui-monospace, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+.eyebrow::before {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+h1, .h1, .hero-copy h1 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+}
+h2, .h2, .sec h2 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.2 !important;
+}
+@media (max-width: 720px) {
+  h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
+}
+
+
+/* kill broken iframe path if residual */
+/* iframe visible */
+
+
+/* pi-iframe free — part of page, transparent host */
+.pi-iframe {
+  width: 100%;
+  height: min(520px, 70vh);
+  min-height: 380px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+@media (max-width: 720px) {
+  .pi-iframe { height: min(560px, 75vh); min-height: 420px; }
+}
+#pi .pi-iframe, #pi iframe.pi-iframe{
+  width: 100% !important;
+  height: min(720px, 88vh) !important;
+  min-height: 520px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: block !important;
+}
+#pi.sec {
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
 }
 
 </style>
@@ -3106,17 +3193,16 @@ html body .top-nav .top-nav-inner{
 
       <div class="hero-copy">
         <p class="eyebrow">EY Fabric · XDA</p>
-        <h1 class="h1">The sole Pendo practitioner closing the <em>full loop</em></h1>
+        <h1 class="h1">Linking what people <em>think and do</em> to design that ships</h1>
         <p class="lead">
-          Embedded on XDA — the link between what the platform does, what users experience,
-          and what product and engineering ship next. No handoffs between the signals and the design.
+          I connect what people say in research with what they actually do in the product — and turn that into design and product decisions. Evidence first; the interface and the roadmap follow.
         </p>
         <div class="stack-cap">Stack used · tap a logo</div><div class="tools-row" id="heroTools"></div>
       </div>
     </div>
 
     <div class="reel-wrap"><div class="reel" id="reel">
-      <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg></span><span class="reel-n">1</span></div><div class="reel-l">Sole Pendo practitioner closing the full loop</div></div>
+      <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg></span><span class="reel-n">1</span></div><div class="reel-l">Research signals → design and product decisions</div></div>
       <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 4-6"/></svg></span><span class="reel-n">~50%</span></div><div class="reel-l">Publisher item quality improved after findings</div></div>
       <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 12h4M7 9h6M7 15h3"/></svg></span><span class="reel-n">E2E</span></div><div class="reel-l">Catalog journey instrumented after migration</div></div>
       <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="18" cy="12" r="2.5"/></svg></span><span class="reel-n">6</span></div><div class="reel-l">Stages owned from signal to design proposal</div></div>
@@ -3156,7 +3242,7 @@ html body .top-nav .top-nav-inner{
     </p>
   </section>
 
-  <!-- PRODUCT INTELLIGENCE — full-bleed into page flow, player owns narrative -->
+      <!-- PRODUCT INTELLIGENCE — full-bleed into page flow, player owns narrative -->
   <section class="sec" id="pi" style="padding-top:8px">
     <iframe
       class="pi-iframe"
@@ -3169,6 +3255,8 @@ html body .top-nav .top-nav-inner{
     ></iframe>
     <p class="note" style="margin-top:12px;opacity:.5;font-size:12px">Anonymized Fabric catalog &amp; workbench patterns.</p>
   </section>
+
+
 
 <div class="closing" id="closing">
     <p class="closing-q">One person, one loop — from <em>signal</em> to <em>ship</em>, with the instrumentation still running.</p>
@@ -4034,6 +4122,10 @@ html body .top-nav .top-nav-inner{
 </script>
 
 <script>
+/* PI player restored inline — legacy iframe guard removed */
+</script>
+
+<script>
 /* PI player moved to ey-pi-player.html iframe — disable legacy stage motor */
 (function(){
   if (document.getElementById('piPlayerFrame')) {
@@ -4045,34 +4137,6 @@ html body .top-nav .top-nav-inner{
       if (stage) stage.style.display = 'none';
     } catch (e) { console.warn('PI legacy guard', e); }
   }
-})();
-</script>
-
-<script>
-/* Unified theme — all pages */
-(function(){
-  function apply(t){
-    t = (t === 'light') ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch(e) {}
-    var btn = document.getElementById('themeToggle') || document.getElementById('themeBtn');
-    if (btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
-  }
-  var saved = null;
-  try { saved = localStorage.getItem('theme'); } catch(e) {}
-  var initial = saved || (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-  apply(initial);
-  function bind(){
-    var btn = document.getElementById('themeToggle') || document.getElementById('themeBtn');
-    if (!btn || btn.__themeBound) return;
-    btn.__themeBound = true;
-    btn.addEventListener('click', function(){
-      var cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      apply(cur === 'light' ? 'dark' : 'light');
-    });
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-  else bind();
 })();
 </script>
 

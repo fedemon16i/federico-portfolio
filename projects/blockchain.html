@@ -20,8 +20,8 @@
   --text-md: clamp(1.0625rem, 1rem + 0.35vw, 1.125rem);
   --text-lg: clamp(1.125rem, 1.05rem + 0.55vw, 1.25rem);
   --text-xl: clamp(1.35rem, 1.15rem + 1vw, 1.75rem);
-  --text-2xl: clamp(1.65rem, 1.35rem + 1.5vw, 2.25rem);
-  --text-3xl: clamp(2rem, 1.6rem + 2vw, 3rem);
+  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem);
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem);
   --label-size: clamp(0.75rem, 0.7rem + 0.35vw, 0.8125rem);
   --label-track: 0.16em;
   --space-section: clamp(3.5rem, 5vw, 5.5rem);
@@ -34,15 +34,13 @@ a{color:var(--accent)}
 .wrap{max-width:min(var(--max),100%);margin:0 auto;padding:0 var(--pad);width:100%}
 .sec{padding:var(--space-section) 0;border-bottom:1px solid var(--border)}
 .sec:last-child{border-bottom:none}
+/* Eyebrow — EY Fabric parity (no leading bar) */
 .eyebrow{
-  font-family:var(--font-mono);font-size:var(--label-size);letter-spacing:var(--label-track);text-transform:uppercase;
-  color:var(--accent);margin-bottom:1rem;font-weight:500;
-  display:inline-flex;align-items:center;gap:0.65rem;
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;font-weight:500;
+  display:inline-flex;align-items:center;gap:0.5rem;
 }
-.eyebrow::before{
-  content:'';width:clamp(1.25rem, 2vw, 2rem);height:2px;background:var(--accent);border-radius:1px;opacity:.9;
-}
-/* Optional numeric label for hierarchy */
+.eyebrow::before{ content:none !important; display:none !important; width:0 !important; height:0 !important; background:none !important; }
 .eyebrow-num{font-variant-numeric:tabular-nums;opacity:.7;margin-right:0.15rem}
 h1,.h1{font-family:var(--font-display);font-weight:800;font-size:var(--text-3xl);letter-spacing:-.035em;line-height:1.08;margin-bottom:1rem}
 h2,.h2{font-family:var(--font-display);font-weight:800;font-size:var(--text-2xl);letter-spacing:-.025em;line-height:1.12;margin-bottom:1rem}
@@ -51,7 +49,7 @@ h2,.h2{font-family:var(--font-display);font-weight:800;font-size:var(--text-2xl)
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;
   background:var(--bg);border-bottom:1px solid var(--border);
   isolation:isolate;transform:translateZ(0)}
-.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px}
+.top-nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:920px;margin-inline:auto;padding-inline:24px;gap:12px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;white-space:nowrap}
 .top-nav-links{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
 .top-nav-link{
@@ -1322,7 +1320,7 @@ html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
 .top-nav-inner{
   display:flex;align-items:center;justify-content:space-between;height:100%;
-  max-width:1100px;margin-inline:auto;padding-inline:24px;gap:12px;
+  max-width:920px;margin-inline:auto;padding-inline:24px;gap:12px;
 }
 .top-nav-logo{
   font-family:var(--font-display);font-weight:800;font-size:18px;
@@ -1364,7 +1362,7 @@ html[data-theme="light"] .top-nav-link:hover{background:rgba(0,0,0,.05)}
   isolation:isolate;transform:translateZ(0)}
 html[data-theme="dark"] .top-nav{background:#0e0d0c}
 html[data-theme="light"] .top-nav{background:#f7f5f2}
-.top-nav-inner{display:flex;align-items:center;height:100%;max-width:1100px;margin-inline:auto;padding-inline:24px;gap:8px}
+.top-nav-inner{display:flex;align-items:center;height:100%;max-width:920px;margin-inline:auto;padding-inline:24px;gap:8px}
 .top-nav-logo{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);letter-spacing:-.02em;text-decoration:none;margin-right:auto}
 .top-nav-logo span{color:var(--accent)}
 .top-nav-links{display:flex;align-items:center;gap:8px}
@@ -3863,7 +3861,7 @@ html body .top-nav-inner{
   align-items: center !important;
   justify-content: space-between !important;
   height: 64px !important;
-  max-width: 920px !important;
+  max-width: 920px!important;
   width: 100% !important;
   margin: 0 auto !important;
   padding: 0 clamp(16px, 3vw, 28px) !important;
@@ -4851,7 +4849,7 @@ html body .figma-canvas{
   --player-move: 700ms;
   --player-ease: cubic-bezier(.4,0,.2,1);
 }
-html body .wrap, html body .top-nav-inner{ max-width:920px !important; box-sizing:border-box !important; }
+html body .wrap, html body .top-nav-inner{ max-width:920px!important; box-sizing:border-box !important; }
 html body #textPhase, html body .text-phase{
   position: absolute !important;
   inset: 0 !important;
@@ -5012,34 +5010,1350 @@ h2, .h2{
 }
 
 
-/* ========== NAV: same content width as EY / Blockchains (web + mobile) ========== */
-html body .top-nav-inner{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: clamp(16px, 3vw, 28px) !important;
-  padding-right: clamp(16px, 3vw, 28px) !important;
+/* ═══════════════════════════════════════════════
+   PLAYER CHROME ≈ EY PI / Skills
+   (animations untouched — only chrome + phone shell)
+   ═══════════════════════════════════════════════ */
+.stage-top{
+  position: absolute !important;
+  top: 10px !important;
+  left: 12px !important;
+  right: 12px !important;
+  z-index: 40 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  pointer-events: none !important;
+}
+.stage-top .label,
+#stageLabel{
+  pointer-events: none !important;
+  font-family: var(--font-mono), ui-monospace, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: .04em !important;
+  color: rgba(255,255,255,.45) !important;
+  background: rgba(14,13,12,.55) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 999px !important;
+  padding: 5px 10px !important;
+  backdrop-filter: blur(8px);
+}
+.stage-top .label b,
+#stageLabel b{ color: var(--accent) !important; }
+.btn-pause,
+#btnPause{
+  pointer-events: auto !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  background: rgba(14,13,12,.55) !important;
+  color: rgba(255,255,255,.7) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  backdrop-filter: blur(8px);
+  font-size: 11px !important; /* hide any leftover text */
+}
+.btn-pause svg,
+#btnPause svg{ width: 12px; height: 12px; display: block; }
+.stage-arrow{
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  background: rgba(14,13,12,.55) !important;
+  color: rgba(255,255,255,.65) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  backdrop-filter: blur(6px);
+}
+.stage-arrow svg{ width: 14px; height: 14px; }
+
+/* ═══════════════════════════════════════════════
+   iPHONE SHELL — standard proportions (like Chek)
+   Real-ish iPhone: 393×852, corner radius ~22–28px
+   NEVER stretch content; only scale the shell.
+   ═══════════════════════════════════════════════ */
+:root{
+  --phone-w: 210px;
+  --phone-ratio: 393 / 852;
+  --phone-radius: 26px;   /* ~12.5% of width — not balloon */
+  --phone-bezel: 10px;
+}
+.iphone,
+.iphone.on,
+.device-frame,
+.iphone-frame,
+.phone-frame,
+.device-wrap{
+  width: var(--phone-w) !important;
+  max-width: min(var(--phone-w), 70%) !important;
+  height: auto !important;
+  aspect-ratio: var(--phone-ratio) !important;
+  border-radius: var(--phone-radius) !important;
+  overflow: hidden !important;
   box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  transform-origin: center center !important;
+  /* kill conflicting min/max fixed heights from older layers */
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-height: min(460px, 88%) !important;
+  background: #0a0f1a !important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.1),
+    0 0 0 2px #1a1a1a,
+    0 18px 40px rgba(0,0,0,.45) !important;
+}
+.iphone .island{
+  width: 28% !important;
+  height: 18px !important;
+  border-radius: 10px !important;
+  top: 8px !important;
+}
+/* App content fills bezel inset — never bleeds past radius */
+.iphone .app,
+.iphone .screen,
+.phone-screen,
+.device-screen,
+.iphone > .ui,
+.iphone > .content{
+  position: absolute !important;
+  top: var(--phone-bezel) !important;
+  left: var(--phone-bezel) !important;
+  right: var(--phone-bezel) !important;
+  bottom: var(--phone-bezel) !important;
+  border-radius: calc(var(--phone-radius) - 6px) !important;
+  overflow: hidden !important;
+  max-width: none !important;
+}
+
+/* ═══════════════════════════════════════════════
+   SCHEME / “Imagine…” — integrate with page narrative
+   ═══════════════════════════════════════════════ */
+.scheme-steps{
+  display: flex !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  flex-wrap: wrap !important;
+  margin: 0 0 16px !important;
+  max-width: 36rem !important;
+}
+.sch-step{
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--border) !important;
+  background: rgba(255,255,255,.03) !important;
+}
+.sch-step .ic svg{
+  width: 18px !important;
+  height: 18px !important;
+}
+.sch-label{
+  font-size: 10px !important;
+  max-width: none !important;
+  text-align: left !important;
+  letter-spacing: .06em !important;
+}
+.scheme-phrase{
+  text-align: left !important;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem) !important;
+  max-width: 36rem !important;
+  margin: 0 0 20px !important;
+  color: var(--text-secondary, var(--muted)) !important;
+}
+.scheme-phrase .line{
+  display: inline !important; /* read as flowing copy, not stacked poster */
+  opacity: 1 !important;
+  transform: none !important;
+}
+.scheme-phrase .line::after{ content: " "; }
+html[data-theme="light"] .sch-step{
+  background: rgba(0,0,0,.03) !important;
+}
+html[data-theme="light"] .stage-top .label,
+html[data-theme="light"] #stageLabel,
+html[data-theme="light"] .btn-pause,
+html[data-theme="light"] #btnPause,
+html[data-theme="light"] .stage-arrow{
+  background: rgba(255,255,255,.82) !important;
+  color: rgba(0,0,0,.55) !important;
+  border-color: rgba(0,0,0,.1) !important;
+}
+
+
+/* ── Demo player ≈ EY/Skills timeline + fixed iPhone scale ── */
+.chip-flow{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 5px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  margin-bottom: 10px !important;
+}
+.chip-flow::-webkit-scrollbar{ display: none; }
+.chip-flow button{
+  flex: 0 0 auto !important;
+  height: 28px !important;
+  padding: 0 10px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  border: 1px solid var(--border) !important;
+  background: transparent !important;
+  color: var(--muted, var(--dim)) !important;
+}
+.chip-flow button .n{ color: var(--accent) !important; margin-right: 4px; }
+.chip-flow button.on{
+  border-color: var(--accent) !important;
+  color: var(--text) !important;
+  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+}
+@media (max-width: 720px){
+  .chip-flow button{ padding: 0 9px !important; }
+  .chip-flow button .n{ margin-right: 0 !important; }
+  /* hide names on very small — keep numbers */
+  /* neutralized */
+  .chip-flow button .n{ font-size: 11px !important; }
+}
+
+.device-layer{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 210px !important;
+  height: calc(210px * 852 / 393) !important;
+  flex-shrink: 0 !important;
+  transform-origin: center center !important;
+  position: relative !important;
+  margin: 0 auto !important;
+}
+#phone.iphone,
+#phone.iphone.on,
+.iphone.on{
+  width: 210px !important;
+  height: calc(210px * 852 / 393) !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  aspect-ratio: 393 / 852 !important;
+  border-radius: 28px !important; /* real-ish iPhone at 210px */
+  overflow: hidden !important;
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  box-sizing: border-box !important;
+  background: #0b0d12 !important;
+  box-shadow:
+    inset 0 0 0 1.5px #2a2d36,
+    0 0 0 1px #0a0a0c,
+    0 22px 48px rgba(0,0,0,.5) !important;
+  /* transform owned by fitPhone on layer */
+  transform: none !important;
+}
+#phone .island,
+.iphone .island{
+  position: absolute !important;
+  top: 9px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 72px !important;
+  height: 22px !important;
+  border-radius: 12px !important;
+  background: #000 !important;
+  z-index: 50 !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+/* Soften stage chrome to match EY */
+#demoStage.stage{
+  min-height: min(520px, 70vh) !important;
+  border-radius: 14px !important;
+}
+
+
+/* Demo controls = EY/Skills */
+.demo-controls.controls,
+#demoControls{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 8px 0 4px !important;
+}
+#demoControls button{
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  border: 1px solid var(--border) !important;
+  background: transparent !important;
+  color: var(--text) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+}
+#demoControls button:hover{ border-color: var(--accent) !important; color: var(--accent) !important; }
+#demoControls .prog{
+  flex: 1 !important;
+  height: 3px !important;
+  min-width: 48px !important;
+  border-radius: 99px !important;
+  background: rgba(255,255,255,.08) !important;
+  overflow: hidden !important;
+}
+#demoControls .prog i{
+  display: block !important;
   height: 100% !important;
+  width: 25% !important;
+  background: var(--accent) !important;
+  border-radius: 99px !important;
+}
+.chip-flow.tl .sep{ display: none !important; }
+.chip-flow.tl button .nm{ margin-left: 5px; }
+.chip-flow.tl button.on .nm{ display: inline !important; }
+
+/* Prominent stage badge */
+#demoStage .stage-top{
+  pointer-events: none !important;
+}
+#demoStage .stage-badge,
+#stageLabel.stage-badge,
+#stageLabel{
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: .04em !important;
+  color: var(--accent) !important;
+  background: color-mix(in srgb, var(--accent) 16%, rgba(10,10,14,.75)) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent) !important;
+  border-radius: 999px !important;
+  padding: 6px 12px !important;
+  backdrop-filter: blur(8px);
+}
+#stageLabel b{ color: var(--accent) !important; }
+#stageLabel .nm{ color: var(--text, #f2f0ec) !important; font-weight: 600; margin-left: 2px; }
+
+/* Phone: room for bottom narrative blur — no overflow */
+#demoStage{
+  --cap: 56px;
+  padding-bottom: 0 !important;
+}
+#phone.iphone,
+#phone.iphone.on{
+  /* leave visual room above stage bottom for caption */
+  max-height: calc(100% - var(--cap) - 12px) !important;
+}
+.device-layer{
+  margin-bottom: 8px !important;
+}
+/* Bottom narrative blur bar inside stage */
+.demo-cap,
+#demoCap{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  bottom: 0 !important;
+  z-index: 25 !important;
+  min-height: var(--cap, 56px) !important;
+  padding: 12px 14px 14px !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(to top, rgba(14,13,12,.96), rgba(14,13,12,.72), transparent) !important;
+  color: rgba(255,255,255,.88) !important;
+  font-size: 12.5px !important;
+  line-height: 1.35 !important;
+  pointer-events: none !important;
+  display: flex !important;
+  align-items: flex-end !important;
+}
+.demo-cap em{ color: var(--accent); font-style: normal; font-weight: 650; }
+/* Keep app UI inside phone bezel */
+#phone .app, #phone .screen, #phone .p-nav, #phone .p-body, #phone .sheet{
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+#phone{
+  overflow: hidden !important;
+}
+
+
+/* BC title like EY — no corner badge */
+#demoStage .stage-top{ display: none !important; }
+.demo-stage-title,
+#demoStageTitle{
+  display: block !important;
+  text-align: center !important;
+  font-size: clamp(15px, 1.8vw, 18px) !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--text) !important;
+  margin: 0 0 8px !important;
+  text-shadow:
+    0 0 18px color-mix(in srgb, var(--accent) 45%, transparent),
+    0 0 4px color-mix(in srgb, var(--accent) 25%, transparent) !important;
+}
+.demo-stage-title .n{ color: var(--accent) !important; font-weight: 800; margin-right: 6px; }
+
+/* Blur full width of stage */
+.demo-cap,
+#demoCap{
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  bottom: 0 !important;
+  padding: 14px 16px 16px !important;
+  border-radius: 0 0 14px 14px !important;
+  background: linear-gradient(to top, rgba(14,13,12,.97) 0%, rgba(14,13,12,.82) 55%, transparent 100%) !important;
+}
+
+/* Phone: smaller design + more pad above blur so full device visible */
+:root{
+  --phone-w: 190px;
+  --cap: 64px;
+}
+#demoStage{
+  --cap: 64px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 12px calc(var(--cap) + 8px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+.device-layer{
+  width: 190px !important;
+  height: calc(190px * 852 / 393) !important;
+  margin: 0 auto !important;
+}
+#phone.iphone,
+#phone.iphone.on{
+  width: 190px !important;
+  height: calc(190px * 852 / 393) !important;
+  max-height: none !important;
+  border-radius: 26px !important;
+  overflow: hidden !important;
+}
+
+/* Stage chips: number only; active = number + name (one row) */
+.chip-flow.tl button .nm{ display: none !important; }
+.chip-flow.tl button.on .nm{ display: inline !important; margin-left: 5px !important; }
+#demo #flow button .nm{ display: none !important; }
+#demo #flow button.on .nm{ display: inline !important; }
+
+
+
+/* ═══ BC urgent fix 2026-08-11 ═══ */
+#demo .demo-copy{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+}
+#demo .chip-flow,
+#demo #flow{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+#demo #flow::-webkit-scrollbar{ display: none; }
+#demo #flow button{
+  flex: 0 0 auto !important;
+  height: 30px !important;
+  padding: 0 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--border) !important;
+  background: transparent !important;
+  color: var(--muted, var(--dim)) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  font-family: inherit !important;
+}
+#demo #flow button .n{
+  color: var(--accent) !important;
+  margin-right: 0 !important;
+  font-size: 11px !important;
+}
+#demo #flow button .nm{
+  display: none !important;
+  margin-left: 6px !important;
+  color: inherit !important;
+  font-size: 11px !important;
+}
+#demo #flow button.on{
+  border-color: var(--accent) !important;
+  color: var(--text) !important;
+  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+}
+#demo #flow button.on .nm{
+  display: inline !important;
+  color: var(--text) !important;
+  font-weight: 650 !important;
+}
+/* force: inactive = number only (override any desktop show-all) */
+@media (min-width: 0px){
+  #demo #flow button .nm{ display: none !important; }
+  #demo #flow button.on .nm{ display: inline !important; }
+}
+
+#demo #flow .sep{ display: none !important; }
+
+/* Section gap — no overlap with Process */
+#demo.sec,
+section#demo{
+  margin-bottom: 0 !important;
+  padding-bottom: clamp(48px, 8vw, 88px) !important;
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: visible !important;
+}
+#process.sec,
+section#process{
+  margin-top: 0 !important;
+  padding-top: clamp(48px, 8vw, 88px) !important;
+  position: relative !important;
+  z-index: 0 !important;
+  clear: both !important;
+}
+#demo .demo-split,
+#demo .demo-visual{
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+#demoStage{
+  margin-bottom: 8px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Phone fully above blur */
+#demoStage{
+  --cap: 72px !important;
+  padding: 16px 16px calc(var(--cap) + 16px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  min-height: min(560px, 78vh) !important;
+}
+#demoCap,
+.demo-cap{
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  bottom: 0 !important;
+  min-height: var(--cap) !important;
+  z-index: 20 !important;
+  pointer-events: none !important;
+}
+.device-layer{
+  width: 180px !important;
+  height: calc(180px * 852 / 393) !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+#phone.iphone,
+#phone.iphone.on{
+  width: 180px !important;
+  height: calc(180px * 852 / 393) !important;
+  max-height: none !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  z-index: 5 !important;
+}
+
+
+/* FINAL chip + spacing overrides */
+#demo #flow button,
+#demo .chip-flow button{
+  font-size: 11px !important;
+}
+#demo #flow button .n,
+#demo .chip-flow button .n{
+  font-size: 11px !important;
+  display: inline !important;
+}
+#demo #flow button.on .nm,
+#demo .chip-flow button.on .nm{
+  display: inline !important;
+  font-size: 11px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+
+/* BC integrated chrome + free chips */
+#demo .demo-stage-title{ display: none !important; }
+#demoStage .stage-top{ display: none !important; }
+#demo #demoControls,
+#demo .demo-controls{ display: none !important; }
+#demoStage .stage-arrows{ display: none !important; }
+
+#demo #flow{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  max-width: 100% !important;
+}
+#demo #flow button{
+  flex: 0 0 auto !important;
+  height: 30px !important;
+  padding: 0 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--border) !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+#demo #flow button .n{ color: var(--accent) !important; font-size: 11px !important; }
+#demo #flow button .nm{ display: none !important; margin-left: 6px !important; font-size: 11px !important; }
+#demo #flow button.on{
+  border-color: var(--accent) !important;
+  color: var(--text) !important;
+  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+}
+#demo #flow button.on .nm{ display: inline !important; }
+
+/* Inside stage chrome */
+#demoStage{
+  position: relative !important;
+  padding: 0 !important;
+  min-height: min(560px, 78vh) !important;
+}
+.bc-stage-chrome{
+  position: absolute !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  z-index: 40 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 12px 18px !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(to bottom, rgba(14,13,12,.88), rgba(14,13,12,.35), transparent) !important;
+  pointer-events: none !important;
+}
+.bc-stage-chrome .title{
+  flex: 1 !important;
+  min-width: 0 !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+  color: var(--text) !important;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 40%, transparent);
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  pointer-events: none !important;
+}
+.bc-stage-chrome .title .n{ color: var(--accent) !important; margin-right: 6px; font-weight: 800; }
+.bc-stage-chrome .btns{
+  pointer-events: auto !important;
+  display: flex !important;
+  gap: 6px !important;
+}
+.bc-stage-chrome .btns button{
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(14,13,12,.5);
+  color: rgba(255,255,255,.9);
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.bc-stage-chrome .prog{
+  position: absolute; left: 12px; right: 12px; bottom: 0;
+  height: 2px; background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden;
+}
+.bc-stage-chrome .prog i{
+  display: block; height: 100%; width: 25%; background: var(--accent); border-radius: 99px;
+}
+
+/* Phone below chrome, above blur */
+#demoStage{
+  --cap: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 52px 16px calc(var(--cap) + 12px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+#demoCap{
+  left: 0 !important; right: 0 !important; width: 100% !important;
+  bottom: 0 !important; z-index: 25 !important;
+}
+.device-layer{
+  width: 176px !important;
+  height: calc(176px * 852 / 393) !important;
+}
+#phone.iphone, #phone.iphone.on{
+  width: 176px !important;
+  height: calc(176px * 852 / 393) !important;
+  border-radius: 24px !important;
+}
+
+
+/* BC arrows + chrome visibility + pure scale */
+#demoStage .stage-arrows{
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 38 !important;
+}
+#demoStage .stage-arrow{
+  display: flex !important;
+  pointer-events: auto !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  background: rgba(14,13,12,.55) !important;
+  color: rgba(255,255,255,.8) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 38 !important;
+}
+#demoStage .stage-arrow.prev{ left: 8px !important; }
+#demoStage .stage-arrow.next{ right: 8px !important; }
+#demoStage .stage-arrows{ display: block !important; }
+#demoStage .bc-stage-chrome{
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 42 !important;
+}
+#demoStage .stage-top{ display: none !important; }
+
+/* Pure uniform scale — never reflow inner UI */
+#phone.iphone,
+#phone.iphone.on,
+#phone{
+  width: 200px !important;
+  height: calc(200px * 852 / 393) !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 200px !important;
+  min-height: calc(200px * 852 / 393) !important;
+  border-radius: 26px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+}
+.device-layer{
+  width: 200px !important;
+  height: calc(200px * 852 / 393) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform-origin: center center !important;
+  flex-shrink: 0 !important;
+}
+#demoStage{
+  --cap: 68px !important;
+  padding: 52px 40px calc(var(--cap) + 14px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+
+/* BC chrome compact + phone above blur + floating text */
+.bc-stage-chrome{
+  padding: 8px 10px 12px !important;
+  gap: 6px !important;
+  min-height: 0 !important;
+}
+.bc-stage-chrome .title{
+  font-size: 12.5px !important;
+}
+.bc-stage-chrome .btns button{
+  width: 28px !important;
+  height: 28px !important;
+}
+.bc-stage-chrome .prog{
+  height: 2px !important;
+  bottom: 0 !important;
+}
+#demoStage{
+  --cap: 76px !important;
+  padding: 44px 36px calc(var(--cap) + 18px) !important;
+}
+#demoCap, .demo-cap{
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  min-height: var(--cap) !important;
+  padding: 16px 18px 18px !important;
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,.92) !important;
+  letter-spacing: 0.01em !important;
+  background: linear-gradient(to top, rgba(14,13,12,.98) 0%, rgba(14,13,12,.88) 55%, transparent 100%) !important;
+}
+#demoCap em{ color: var(--accent) !important; font-style: normal !important; font-weight: 700 !important; }
+
+/* Floating hints more prominent */
+.hint-card, #dockHint, .gesture-card, #dockGesture{
+  font-size: 12.5px !important;
+  font-weight: 650 !important;
+  padding: 10px 12px !important;
+  border-radius: 10px !important;
+  background: rgba(14,13,12,.88) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, rgba(255,255,255,.12)) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.4) !important;
+  color: #fff !important;
+  max-width: 160px !important;
+}
+.hint-card .hk, #dockK{
+  color: var(--accent) !important;
+  font-size: 10px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  margin-bottom: 4px !important;
+}
+.gesture-card .g-title, #dockGLabel{
+  font-weight: 750 !important;
+  font-size: 12.5px !important;
+  color: #fff !important;
+}
+.gesture-card .g-sub, #dockGSub{
+  font-size: 11px !important;
+  color: rgba(255,255,255,.7) !important;
+}
+
+/* phone design 188 — scale only */
+#phone, #phone.iphone, #phone.iphone.on{
+  width: 188px !important;
+  height: calc(188px * 852 / 393) !important;
+  min-width: 188px !important;
+  min-height: calc(188px * 852 / 393) !important;
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: 26px !important;
+  overflow: hidden !important;
+}
+.device-layer{
+  width: 188px !important;
+  height: calc(188px * 852 / 393) !important;
+}
+
+
+/* BC fix: chrome align, radius 22px like process, playback */
+.bc-stage-chrome{
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 12px !important;
+  gap: 8px !important;
+  padding: 8px 12px 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
-html body .top-nav .top-nav-inner{
+.bc-stage-chrome .title{
+  flex: 1 1 auto !important;
+  text-align: left !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+}
+.bc-stage-chrome .btns{
+  flex: 0 0 auto !important;
+  margin-left: auto !important;
+}
+.bc-stage-chrome .prog{
+  left: 12px !important;
+  right: 12px !important;
+  bottom: 0 !important;
+}
+
+/* Same corner language as Process phone-rich */
+#phone, #phone.iphone, #phone.iphone.on{
+  width: 200px !important;
+  height: calc(200px * 852 / 393) !important;
+  min-width: 200px !important;
+  min-height: calc(200px * 852 / 393) !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+.device-layer{
+  width: 200px !important;
+  height: calc(200px * 852 / 393) !important;
+}
+#demoStage{
+  --cap: 80px !important;
+  padding: 48px 40px calc(var(--cap) + 20px) !important;
+}
+#demoCap, .demo-cap{
+  text-align: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 18px 24px 20px !important;
+  font-size: 13.5px !important;
+  line-height: 1.5 !important;
+  max-width: none !important;
+}
+
+
+/* BC standard phone + chrome + ordered captions */
+.bc-stage-chrome{
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  grid-template-rows: auto auto !important;
+  align-items: center !important;
+  column-gap: 10px !important;
+  row-gap: 0 !important;
+  padding: 8px 12px 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.bc-stage-chrome .title{
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  align-self: center !important;
+  text-align: left !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+  line-height: 28px !important;
+  height: 28px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.bc-stage-chrome .btns{
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  height: 28px !important;
+}
+.bc-stage-chrome .prog{
+  grid-column: 1 / -1 !important;
+  grid-row: 2 !important;
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: 2px !important;
+  margin-top: 6px !important;
+}
+
+/* Standard phone mock = Process phone-rich language */
+#phone, #phone.iphone, #phone.iphone.on{
+  width: 200px !important;
+  height: calc(200px * 852 / 393) !important;
+  min-width: 200px !important;
+  min-height: calc(200px * 852 / 393) !important;
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  background: #0a0f1a !important;
+  box-shadow:
+    0 0 0 2px #1a1f2a,
+    0 18px 40px rgba(0,0,0,.5) !important;
+}
+#phone .island,
+.iphone .island{
+  width: 36% !important;
+  height: 18px !important;
+  margin: 8px auto 0 !important;
+  border-radius: 10px !important;
+  background: #050505 !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  flex-shrink: 0 !important;
+}
+.device-layer{
+  width: 200px !important;
+  height: calc(200px * 852 / 393) !important;
+  transform-origin: center center !important;
+}
+#demoStage{
+  --chrome-h: 46px;
+  --cap: 84px;
+  padding: calc(var(--chrome-h) + 12px) 40px calc(var(--cap) + 16px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+#demoCap, .demo-cap{
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px 28px 18px !important;
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+}
+/* Process phones same radius */
+.phone-rich{
+  border-radius: 22px !important;
+}
+
+
+/* ═══ Design system: iPhone mock (demo + process) ═══ */
+:root{
+  --iphone-w: 200px;
+  --iphone-ratio: 2.164; /* 852/393 */
+  --iphone-h: calc(var(--iphone-w) * 852 / 393);
+  --iphone-radius: 22px;
+  --iphone-island-w: 36%;
+  --iphone-island-h: 18px;
+  --iphone-island-radius: 10px;
+  --iphone-bezel: #0a0f1a;
+}
+.iphone-mock,
+#phone.iphone,
+#phone.iphone.on,
+#phone,
+.phone-rich{
+  width: var(--iphone-w) !important;
+  height: var(--iphone-h) !important;
+  min-width: var(--iphone-w) !important;
+  min-height: var(--iphone-h) !important;
+  max-width: none !important;
+  max-height: none !important;
+  border-radius: var(--iphone-radius) !important;
+  overflow: hidden !important;
+  background: var(--iphone-bezel) !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  box-shadow: 0 0 0 2px #1a1f2a, 0 18px 40px rgba(0,0,0,.45) !important;
+}
+.iphone-mock .island,
+#phone .island,
+.iphone .island,
+.phone-rich .isl{
+  width: var(--iphone-island-w) !important;
+  height: var(--iphone-island-h) !important;
+  border-radius: var(--iphone-island-radius) !important;
+  background: #050505 !important;
+  margin: 8px auto 0 !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  flex-shrink: 0 !important;
+}
+.device-layer{
+  width: var(--iphone-w) !important;
+  height: var(--iphone-h) !important;
+  transform-origin: center center !important;
+}
+/* Process phones are smaller in canvas but SAME proportions/radius */
+.figma-canvas .phone-rich{
+  width: 28% !important;
+  height: 86% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border-radius: var(--iphone-radius) !important;
+}
+
+/* Chrome title aligned with controls */
+.bc-stage-chrome{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.bc-stage-chrome .title{
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  line-height: 28px !important;
+  height: 28px !important;
+  font-size: 13px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: left !important;
+}
+.bc-stage-chrome .btns{
+  flex: 0 0 auto !important;
+  display: flex !important;
+  gap: 6px !important;
+  align-items: center !important;
+}
+.bc-stage-chrome .prog{
+  position: absolute !important;
+  left: 12px !important;
+  right: 12px !important;
+  bottom: 0 !important;
+  height: 2px !important;
+  margin: 0 !important;
+}
+
+/* Hide floating hint dock — narration is blur only */
+#hintDock, .hint-dock, .gesture-card, #dockGesture{
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+#demoCap{
+  text-align: center !important;
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  padding: 16px 24px 18px !important;
+}
+#demoStage{
+  --cap: 80px;
+  padding: 48px 40px calc(80px + 16px) !important;
+}
+
+
+/* BC process: spline same proportion as Figma mock 2026-08-12 */
+html body .spline-stage,
+#splineStage.spline-stage,
+.spline-stage{
+  min-height: 0 !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+}
+html body .spline-stage canvas,
+#splineStage canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: contain !important;
+}
+/* Figma stage containment — phones keep aspect, never stretch */
+html body .figma-layout{
+  height: 320px !important;
+  min-height: 320px !important;
+  max-height: 320px !important;
+}
+html body .phone-rich{
+  aspect-ratio: 9 / 19.5 !important;
+  height: auto !important;
+  max-height: 92% !important;
+  width: 26% !important;
+}
+
+
+/* BC type parity with EY Fabric 2026-08-12 */
+.eyebrow{
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  color: var(--accent) !important;
+  margin-bottom: 12px !important;
+  font-weight: 500 !important;
+}
+.eyebrow-num{ font-variant-numeric: tabular-nums; opacity: .7; margin-right: .2rem; }
+.hero-copy h1,
+#hero h1,
+.hero-shell h1{
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: clamp(2rem, 1.6rem + 2vw, 3rem) !important;
+  letter-spacing: -.035em !important;
+  line-height: 1.08 !important;
+}
+.sec h2{
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.65rem, 1.35rem + 1.5vw, 2.25rem) !important;
+  letter-spacing: -.025em !important;
+  line-height: 1.12 !important;
+}
+.sec .lede,
+.hero-copy .lede,
+.lead{
+  font-size: clamp(1rem, .95rem + .35vw, 1.125rem) !important;
+  line-height: 1.65 !important;
+  color: var(--muted) !important;
+  max-width: 42rem !important;
+}
+
+
+/* BC embed mode — insert like other players 2026-08-12 */
+html.embed, html.embed body{
+  background: transparent !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+html.embed .top-nav,
+html.embed .top-nav-mobile,
+html.embed #next,
+html.embed footer,
+html.embed .site-footer{
+  display: none !important;
+}
+html.embed body{ padding: 0 !important; }
+html.embed .wrap{ max-width: none !important; padding-inline: 16px !important; }
+html.embed #hero{ padding-top: 16px !important; }
+html.embed #demo{
+  margin: 0 !important;
+}
+html.embed #demo .stage,
+html.embed #demoStage{
+  min-height: min(520px, 62vh) !important;
+  height: min(520px, 62vh) !important;
+}
+
+
+/* Process phones: same uniform proportion principle as Figma frames */
+html body .phone-rich{
+  aspect-ratio: 9 / 19.5 !important;
+  height: auto !important;
+  max-height: 88% !important;
+  width: min(28%, 120px) !important;
+  top: 6% !important;
+}
+html body .mini-stage{
+  height: 356px !important; /* bar 36 + canvas 320 */
+  min-height: 0 !important;
+  max-height: 356px !important;
+  overflow: hidden !important;
+}
+
+
+/* Kill eyebrow bar site-wide 2026-08-12 */
+.eyebrow::before,
+p.eyebrow::before,
+.hero-copy .eyebrow::before{
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.eyebrow{
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  color: var(--accent) !important;
+  margin-bottom: 12px !important;
+  font-weight: 500 !important;
+  gap: 0.5rem !important;
+}
+
+
+/* SHARED TITLE SCALE 2026-08-12 — same as EY Fabric */
+:root {
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+}
+h1, .h1, .hero-copy h1, #hero h1 {
+  font-size: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+}
+h2, .h2, .sec h2 {
+  font-size: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.2 !important;
+  font-weight: 800 !important;
+}
+@media (max-width: 720px) {
+  h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
+}
+
+
+/* === PORTFOLIO SHELL LOCK 2026-08-12 === */
+:root {
+  --max: 920px !important;
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+}
+.wrap, .top-nav-inner {
   max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
 }
-@media (max-width: 700px){
-  html body .top-nav-inner{
-    padding-left: clamp(16px, 4vw, 20px) !important;
-    padding-right: clamp(16px, 4vw, 20px) !important;
-  }
+.top-nav-inner {
+  padding-inline: clamp(16px, 3vw, 28px) !important;
+}
+.top-nav {
+  height: 64px !important;
+}
+.eyebrow {
+  font-family: var(--font-mono), 'DM Mono', ui-monospace, monospace !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+.eyebrow::before {
+  content: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+h1, .h1, .hero-copy h1 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+}
+h2, .h2, .sec h2 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.2 !important;
+}
+@media (max-width: 720px) {
+  h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
 }
 
 </style>
 </head>
 <body>
+<script>if(new URLSearchParams(location.search).get('embed')==='1'){document.documentElement.classList.add('embed');}</script>
+
 <nav class="top-nav" id="topNav" style="--nav-accent:#22d4c8">
   <div class="top-nav-inner">
     <a href="../index.html" class="top-nav-logo">FM<span>.</span></a>
@@ -5185,25 +6499,39 @@ html body .top-nav .top-nav-inner{
     <p class="eyebrow"><span class="eyebrow-num">03</span> Demo</p>
     <h2>The flow — owner to visitor</h2>
     <p class="lede" style="margin-bottom:16px">Text first, then the device. Sheet covers the tab bar while editing — TAP interactions on mobile.</p>
-    <div class="chip-flow" id="flow">
-      <button type="button" class="on" data-b="0"><span class="n">01</span>Onboard</button>
-      <span class="sep">→</span>
-      <button type="button" data-b="1"><span class="n">02</span>Place</button>
-      <span class="sep">→</span>
-      <button type="button" data-b="2"><span class="n">03</span>Media</button>
-      <span class="sep">→</span>
-      <button type="button" class="v" data-b="3"><span class="n">04</span>Visitor</button>
+    <div class="chip-flow tl" id="flow">
+      <button type="button" class="on" data-b="0"><span class="n">01</span><span class="nm">Onboard</span></button>
+      <button type="button" data-b="1"><span class="n">02</span><span class="nm">Place</span></button>
+      <button type="button" data-b="2"><span class="n">03</span><span class="nm">Media</span></button>
+      <button type="button" class="v" data-b="3"><span class="n">04</span><span class="nm">Visitor</span></button>
+    </div>
+    <div class="controls demo-controls" id="demoControls">
+      <button type="button" id="btnPrev" aria-label="Previous"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" data-x="btnPlay" aria-label="Pause"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></button>
+      <button type="button" id="btnNext" aria-label="Next"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      <button type="button" data-x="btnReplay" aria-label="Replay"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
+      <div class="prog"><i data-x="demoProg"></i></div>
     </div>
     </div><!-- demo-copy -->
     <div class="demo-visual">
+    <div class="demo-stage-title" data-x="demoStageTitle"><span class="n">01</span>Enter map</div>
     <div class="stage" id="demoStage">
+      <div class="bc-stage-chrome" id="bcChrome">
+        <div class="title" id="demoStageTitle"><span class="n">01</span>Enter map</div>
+        <div class="btns">
+          <button type="button" id="btnPlay" aria-label="Pause"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></button>
+          <button type="button" id="btnReplay" aria-label="Replay"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
+        </div>
+        <div class="prog"><i id="demoProg"></i></div>
+      </div>
+
+      <div class="demo-cap" id="demoCap" aria-live="polite"></div>
       <div class="stage-top">
-        <span class="label" id="stageLabel"><b>01</b> · Enter map</span>
-        <button type="button" class="btn-pause" id="btnPause">pause</button>
+        <span class="label stage-badge" id="stageLabel"><b>01</b><span class="nm"> · Enter map</span></span>
       </div>
       <div class="stage-arrows">
-        <button type="button" class="stage-arrow prev" id="btnPrev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <button type="button" class="stage-arrow next" id="btnNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+        <button type="button" class="stage-arrow prev" id="stagePrev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button type="button" class="stage-arrow next" id="stageNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
       </div>
       <aside class="hint-dock" id="hintDock" aria-live="polite">
       <div class="hint-card" id="dockHint"><div class="hk" id="dockK">Guide</div><div id="dockText"></div><span class="ha"></span></div>
@@ -6026,13 +7354,23 @@ function runBeat(i, manual){
 }
 var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ if(bi>0) runBeat(bi-1,true); };
   var __bn=document.getElementById('btnNext'); if(__bn) __bn.onclick=function(){ if(bi<3) runBeat(bi+1,true); };
-  var __bpa=document.getElementById('btnPause'); if(__bpa) __bpa.onclick=function(){ playing=!playing; this.textContent=playing?'pause':'play'; if(playing) runBeat(bi,false); else clearAll(); };
- if(__bpa) __bpa.onclick=function(){ playing=!playing; this.textContent=playing?'pause':'play'; if(playing) runBeat(bi,false); else clearAll(); };
+  
+  function setPauseIcon(playing){
+    var bp = document.getElementById('btnPause');
+    if(!bp) return;
+    bp.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    bp.innerHTML = playing
+      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>'
+      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  }
+
+  var __bpa=document.getElementById('btnPause'); if(__bpa) __bpa.onclick=function(){ playing=!playing; setPauseIcon(playing); if(playing) runBeat(bi,false); else clearAll(); };
+ if(__bpa) __bpa.onclick=function(){ playing=!playing; setPauseIcon(playing); if(playing) runBeat(bi,false); else clearAll(); };
 /* Demo starts when section is in view */
 (function(){
   var started=false;
   var demo=document.getElementById('demo');
-  function start(){ if(started) return; started=true; playing=true; var bp=document.getElementById('btnPause'); if(bp) bp.textContent='pause'; try{ runBeat(0,false); }catch(e){} }
+  function start(){ if(started) return; started=true; playing=true; var bp=document.getElementById('btnPause'); if(bp) setPauseIcon(true); try{ runBeat(0,false); }catch(e){} }
   if(demo && 'IntersectionObserver' in window){
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting && e.intersectionRatio>=0.4) start(); });
@@ -6314,16 +7652,26 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
     var phone = document.getElementById('phone');
     var layer = document.getElementById('deviceLayer') || (host && host.querySelector('.device-layer'));
     if(!host || !phone) return;
-    if(layer && !layer.classList.contains('show')) return; // player not ready
+    if(layer && !layer.classList.contains('show')) return;
     if(!phone.classList.contains('on')) return;
-    var aw = host.clientWidth * 0.9;
-    var ah = host.clientHeight * 0.9;
-    if(aw < 40 || ah < 40) return;
-    var ratio = 9/19.5;
-    var h = ah, w = h * ratio;
-    if(w > aw){ w = aw; h = w / ratio; }
-    phone.style.width = Math.floor(w) + 'px';
-    phone.style.height = Math.floor(h) + 'px';
+    var designW = 200;
+    var designH = 200 * (852 / 393);
+    phone.style.width = designW + 'px';
+    phone.style.height = designH + 'px';
+    if(layer){
+      layer.style.width = designW + 'px';
+      layer.style.height = designH + 'px';
+      layer.style.transform = 'none';
+    }
+    phone.style.transform = 'none';
+    var padX = 88, padY = 160;
+    var aw = Math.max(host.clientWidth - padX, 40);
+    var ah = Math.max(host.clientHeight - padY, 40);
+    var s = Math.min(aw / designW, ah / designH, 1);
+    if (s < 0.4) s = 0.4;
+    var target = layer || phone;
+    target.style.transformOrigin = 'center center';
+    target.style.transform = 'scale(' + s + ')';
   }
   window.addEventListener('resize', fitPhone);
   if(window.ResizeObserver){
@@ -6368,6 +7716,375 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+})();
+</script>
+
+
+<script>
+/* Wire demo controls to match EY/Skills player */
+(function(){
+  function $(id){ return document.getElementById(id); }
+  function setPlayIcon(playing){
+    var b = $('btnPlay');
+    if(!b) return;
+    b.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    b.innerHTML = playing
+      ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>'
+      : '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    // keep legacy btnPause in sync if present
+    if (typeof setPauseIcon === 'function') try{ setPauseIcon(playing); }catch(e){}
+  }
+  function syncProg(){
+    var p = $('demoProg');
+    if(!p) return;
+    var n = 4;
+    var i = (typeof bi === 'number') ? bi : 0;
+    p.style.width = (((i+1)/n)*100) + '%';
+  }
+  function safeRun(i){
+    try{
+      if (typeof runBeat === 'function') runBeat(i, false);
+      else if (typeof goBeat === 'function') goBeat(i);
+    }catch(e){ console.warn(e); }
+  }
+  function bind(){
+    var prev = $('btnPrev'), next = $('btnNext'), play = $('btnPlay'), rep = $('btnReplay');
+    if(prev) prev.addEventListener('click', function(){ if(typeof bi==='number' && bi>0){ safeRun(bi-1); }});
+    if(next) next.addEventListener('click', function(){ if(typeof bi==='number' && bi<3){ safeRun(bi+1); }});
+    if(play) play.addEventListener('click', function(){
+      try{
+        if(typeof playing !== 'undefined'){
+          playing = !playing;
+          setPlayIcon(playing);
+          if(playing) safeRun(typeof bi==='number'?bi:0);
+          else if(typeof clearAll==='function') clearAll();
+        }
+      }catch(e){}
+    });
+    if(rep) rep.addEventListener('click', function(){ safeRun(typeof bi==='number'?bi:0); });
+    setPlayIcon(true);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+  // observe stage label updates → keep accent badge markup
+  var lab = $('stageLabel');
+  if(lab && window.MutationObserver){
+    new MutationObserver(function(){
+      var t = lab.textContent || '';
+      // if plain text without spans, wrap
+      if(lab.children.length===0 && t){
+        var m = t.match(/^(\d{2})\s*[·•-]?\s*(.*)$/);
+        if(m) lab.innerHTML = '<b>'+m[1]+'</b><span class="nm"> · '+m[2]+'</span>';
+      }
+      syncProg();
+    }).observe(lab, {childList:true, characterData:true, subtree:true});
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+  function go(i){ try{ if(typeof runBeat==='function') runBeat(i,false); }catch(e){} }
+  var sp=document.getElementById('stagePrev'), sn=document.getElementById('stageNext');
+  if(sp) sp.addEventListener('click', function(){ if(typeof bi==='number'&&bi>0) go(bi-1); });
+  if(sn) sn.addEventListener('click', function(){ if(typeof bi==='number'&&bi<3) go(bi+1); });
+})();
+</script>
+
+
+<script>
+(function(){
+  var cap = document.getElementById('demoCap');
+  if(!cap) return;
+  function pull(){
+    var t = '';
+    var dock = document.getElementById('dockText');
+    var sub = document.getElementById('sub');
+    var type = document.getElementById('typeText');
+    if(dock && dock.textContent.trim()) t = dock.textContent.trim();
+    else if(sub && sub.textContent.trim()) t = sub.textContent.trim();
+    else if(type && type.textContent.trim()) t = type.textContent.trim();
+    if(t) cap.innerHTML = t;
+  }
+  setInterval(pull, 400);
+})();
+</script>
+
+
+<script>
+(function(){
+  var names = {0:'Onboard',1:'Place',2:'Media',3:'Visitor'};
+  var labels = {0:'Enter map',1:'Place POI',2:'Add media',3:'Visitor feed'};
+  function typeTitle(n, name){
+    var el = document.getElementById('demoStageTitle');
+    if(!el) return;
+    var fullName = name || '';
+    var num = (n+'').padStart ? (n+'').length===1 ? '0'+n : (n+'') : n;
+    if(String(n).length===1) num = '0'+n;
+    if(String(n).length>=2) num = String(n);
+    // n may already be "01"
+    if(/^\d{2}$/.test(String(n))) num = String(n);
+    el.innerHTML = '<span class="n">'+num+'</span>';
+    var i=0;
+    (function tick(){
+      if(i>=fullName.length){ el.innerHTML = '<span class="n">'+num+'</span>'+fullName; return; }
+      el.innerHTML = '<span class="n">'+num+'</span>'+fullName.slice(0,++i);
+      setTimeout(tick, 22);
+    })();
+  }
+  // Hook stage label mutations
+  var lab = document.getElementById('stageLabel');
+  if(lab){
+    new MutationObserver(function(){
+      var t = (lab.textContent||'').trim();
+      var m = t.match(/(\d{2})\s*[·•-]?\s*(.*)/);
+      if(m) typeTitle(m[1], m[2]);
+    }).observe(lab, {childList:true, characterData:true, subtree:true});
+  }
+  // When flow buttons clicked, update title
+  var flow = document.getElementById('flow');
+  if(flow){
+    flow.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-b]');
+      if(!btn) return;
+      var i = parseInt(btn.getAttribute('data-b'),10);
+      var nm = (btn.querySelector('.nm')||{}).textContent || labels[i] || '';
+      var num = (btn.querySelector('.n')||{}).textContent || ('0'+(i+1)).slice(-2);
+      typeTitle(num, nm || labels[i]);
+    });
+  }
+  typeTitle('01', 'Enter map');
+})();
+</script>
+
+
+<script>
+(function(){
+  var CAPS = {
+    0: 'Welcome to the map. <em>Explore first</em> — then decide where a story belongs in space.',
+    1: 'Long-press a place. Confirm the spot, choose a pin, and <em>claim the point of interest</em>.',
+    2: 'Attach photos or video from the device. Media turns a pin into a <em>place with memory</em>.',
+    3: 'As a visitor, open the pin. The feed plays on-site — <em>one loop</em> from owner to guest.'
+  };
+  var cap = document.getElementById('demoCap');
+  function setCap(i){
+    if(!cap) return;
+    cap.innerHTML = CAPS[i] || CAPS[0];
+  }
+  var flow = document.getElementById('flow');
+  if(flow){
+    flow.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-b]');
+      if(b) setCap(parseInt(b.getAttribute('data-b'),10)||0);
+    });
+  }
+  // observe bi if global
+  setInterval(function(){
+    if(typeof bi === 'number') setCap(bi);
+  }, 500);
+  setCap(0);
+})();
+</script>
+
+
+<script>
+/* Robust playback binder */
+(function(){
+  var playBtn = document.getElementById('btnPlay');
+  var repBtn = document.getElementById('btnReplay');
+  var sp = document.getElementById('stagePrev');
+  var sn = document.getElementById('stageNext');
+  function go(i){
+    try{
+      if(typeof runBeat === 'function') runBeat(i, false);
+    }catch(e){ console.warn(e); }
+  }
+  function cur(){ return (typeof bi === 'number') ? bi : 0; }
+  if(playBtn){
+    playBtn.onclick = function(e){
+      e.preventDefault(); e.stopPropagation();
+      try{
+        if(typeof playing === 'undefined') window.playing = true;
+        playing = !playing;
+        this.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+        this.innerHTML = playing
+          ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>'
+          : '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+        if(playing) go(cur());
+        else if(typeof clearAll === 'function') clearAll();
+      }catch(err){ console.warn(err); }
+    };
+  }
+  if(repBtn){
+    repBtn.onclick = function(e){
+      e.preventDefault(); e.stopPropagation();
+      try{ playing = true; go(cur()); }catch(err){}
+    };
+  }
+  if(sp) sp.onclick = function(e){ e.preventDefault(); if(cur()>0) go(cur()-1); };
+  if(sn) sn.onclick = function(e){ e.preventDefault(); if(cur()<3) go(cur()+1); };
+})();
+</script>
+
+
+<script>
+/* Ordered demo captions — single source of truth */
+(function(){
+  var CAPS = [
+    'Welcome to the map. <em>Explore first</em> — then decide where a story belongs in space.',
+    'Long-press a place. Confirm the spot, choose a pin, and <em>claim the point of interest</em>.',
+    'Attach photos or video from the device. Media turns a pin into a <em>place with memory</em>.',
+    'As a visitor, open the pin. The feed plays on-site — <em>one loop</em> from owner to guest.'
+  ];
+  var TITLES = ['Enter map','Place POI','Add media','Visitor feed'];
+  var last = -1;
+  function setBeat(i){
+    if(i < 0 || i > 3) return;
+    if(i === last) return;
+    last = i;
+    var cap = document.getElementById('demoCap');
+    if(cap) cap.innerHTML = CAPS[i];
+    var title = document.getElementById('demoStageTitle');
+    if(title){
+      var n = ('0'+(i+1)).slice(-2);
+      title.innerHTML = '<span class="n">'+n+'</span>'+TITLES[i];
+    }
+    var prog = document.getElementById('demoProg');
+    if(prog) prog.style.width = (((i+1)/4)*100)+'%';
+    // sync chips
+    var flow = document.getElementById('flow');
+    if(flow){
+      Array.prototype.forEach.call(flow.querySelectorAll('button[data-b]'), function(b){
+        b.classList.toggle('on', parseInt(b.getAttribute('data-b'),10)===i);
+      });
+    }
+  }
+  window.__setDemoBeat = setBeat;
+  // wrap runBeat once
+  var tries = 0;
+  (function wait(){
+    tries++;
+    if(typeof runBeat === 'function' && !runBeat.__wrapped){
+      var orig = runBeat;
+      window.runBeat = function(i, skip){
+        setBeat(typeof i === 'number' ? i : 0);
+        return orig.apply(this, arguments);
+      };
+      window.runBeat.__wrapped = true;
+      setBeat(0);
+      return;
+    }
+    if(tries < 40) setTimeout(wait, 100);
+  })();
+  var flow = document.getElementById('flow');
+  if(flow){
+    flow.addEventListener('click', function(e){
+      var b = e.target.closest('button[data-b]');
+      if(!b) return;
+      var i = parseInt(b.getAttribute('data-b'),10)||0;
+      setBeat(i);
+    });
+  }
+})();
+</script>
+
+
+<script>
+/* BC demo transport — single reliable binder */
+(function(){
+  var CAPS = [
+    'Explore the map first — then choose where a story belongs.',
+    'Long-press, confirm the place, customize the pin, claim the POI.',
+    'Attach photos or video from the device — media gives the pin memory.',
+    'Visitor opens the pin on-site. One loop from owner to guest.'
+  ];
+  var TITLES = ['Enter map','Place POI','Add media','Visitor feed'];
+  var last = -1;
+
+  function setUI(i){
+    if(i<0||i>3) return;
+    last = i;
+    var cap = document.getElementById('demoCap');
+    if(cap) cap.innerHTML = CAPS[i];
+    var title = document.getElementById('demoStageTitle');
+    if(title) title.innerHTML = '<span class="n">'+('0'+(i+1)).slice(-2)+'</span>'+TITLES[i];
+    var prog = document.getElementById('demoProg');
+    if(prog) prog.style.width = (((i+1)/4)*100)+'%';
+    var flow = document.getElementById('flow');
+    if(flow){
+      Array.prototype.forEach.call(flow.querySelectorAll('button[data-b]'), function(b){
+        b.classList.toggle('on', parseInt(b.getAttribute('data-b'),10)===i);
+      });
+    }
+  }
+
+  function go(i){
+    setUI(i);
+    try{
+      if(typeof window.runBeat === 'function') window.runBeat(i, false);
+      else if(typeof runBeat === 'function') runBeat(i, false);
+    }catch(e){ console.warn('runBeat', e); }
+  }
+
+  function cur(){
+    if(typeof bi === 'number') return bi;
+    if(typeof window.bi === 'number') return window.bi;
+    return last >= 0 ? last : 0;
+  }
+
+  function bind(){
+    var play = document.getElementById('btnPlay');
+    var rep = document.getElementById('btnReplay');
+    var sp = document.getElementById('stagePrev');
+    var sn = document.getElementById('stageNext');
+    var flow = document.getElementById('flow');
+
+    if(play){
+      play.onclick = function(e){
+        e.preventDefault(); e.stopPropagation();
+        try{
+          if(typeof playing === 'undefined') window.playing = true;
+          window.playing = !window.playing;
+          if(typeof playing !== 'undefined') playing = window.playing;
+          this.setAttribute('aria-label', window.playing ? 'Pause' : 'Play');
+          this.innerHTML = window.playing
+            ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>'
+            : '<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+          if(window.playing) go(cur());
+          else if(typeof clearAll === 'function') clearAll();
+        }catch(err){ console.warn(err); }
+      };
+    }
+    if(rep){
+      rep.onclick = function(e){
+        e.preventDefault(); e.stopPropagation();
+        window.playing = true;
+        go(cur());
+      };
+    }
+    if(sp) sp.onclick = function(e){ e.preventDefault(); var c=cur(); if(c>0) go(c-1); };
+    if(sn) sn.onclick = function(e){ e.preventDefault(); var c=cur(); if(c<3) go(c+1); };
+    if(flow){
+      flow.onclick = function(e){
+        var b = e.target.closest('button[data-b]');
+        if(!b) return;
+        e.preventDefault();
+        var i = parseInt(b.getAttribute('data-b'),10)||0;
+        window.playing = true;
+        go(i);
+      };
+    }
+    setUI(0);
+    // auto-start once when stage visible
+    setTimeout(function(){
+      try{
+        if(typeof runBeat === 'function') go(0);
+      }catch(e){}
+    }, 600);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
   else bind();
 })();
 </script>
