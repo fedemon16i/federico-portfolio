@@ -1703,147 +1703,74 @@ html:not(.embed) .unit{
 }
 
 
-/* ============================================================
-   BC-PATTERN EMBED for Skills unit 560×410  2026-08-13-bc
-   Same as blockchain fitPhone:
-     host (.frame) has REAL width+height (flex fill)
-     unit keeps 560×410 design px
-     scale = min(hostW/560, hostH/410) * 0.96
-     overflow:hidden on host → visual always fully inside
-   ============================================================ */
 
+/* ============================================================
+   CLEAN EMBED v50 — from preview-02/03 (no competing rules)
+   pills → gap 10px → unit 560×410 scale by width, uniform
+   ============================================================ */
 html.embed, html.embed body{
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  background: transparent !important;
-}
-html.embed body{
-  padding: 12px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
+  margin:0!important; padding:0!important;
+  width:100%!important; height:auto!important;
+  overflow:hidden!important; background:transparent!important;
 }
 html.embed .page{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0 !important;
-  overflow: hidden !important;
-  background: transparent !important;
-  box-sizing: border-box !important;
+  width:100%!important; max-width:none!important; height:auto!important;
+  margin:0!important; padding:14px 16px 18px!important;
+  box-sizing:border-box!important;
+  display:flex!important; flex-direction:column!important;
+  background:transparent!important; overflow:visible!important;
 }
-html.embed .page > .close-x{ display: none !important; }
+html.embed .page > .close-x{ display:none!important; }
 html.embed .page > .kicker{
-  flex: 0 0 auto !important;
-  margin: 0 0 4px !important;
-  font-size: 10px !important;
-  letter-spacing: .12em !important;
-  text-transform: uppercase !important;
-  opacity: .65 !important;
+  margin:0 0 4px!important; font-size:10px!important;
+  letter-spacing:.12em!important; text-transform:uppercase!important; opacity:.65!important;
 }
 html.embed .page > h1{
-  flex: 0 0 auto !important;
-  margin: 0 0 4px !important;
-  font-size: clamp(1.1rem, 2.2vw, 1.3rem) !important;
-  line-height: 1.2 !important;
+  margin:0 0 6px!important;
+  font-size:clamp(1.15rem,2.4vw,1.35rem)!important; line-height:1.2!important;
 }
 html.embed .page > .lead{
-  flex: 0 0 auto !important;
-  margin: 0 0 10px !important;
-  font-size: 12px !important;
-  line-height: 1.35 !important;
-  opacity: .7 !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
+  margin:0 0 12px!important; font-size:12.5px!important; line-height:1.4!important; opacity:.75!important;
+  display:-webkit-box!important; -webkit-line-clamp:2!important;
+  -webkit-box-orient:vertical!important; overflow:hidden!important;
 }
 html.embed .shell{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  grid-template-columns: none !important;
-  gap: 10px !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  background: transparent !important;
-  border: none !important;
+  display:flex!important; flex-direction:column!important;
+  grid-template-columns:none!important; gap:10px!important;
+  width:100%!important; margin:0!important; padding:0!important;
+  background:transparent!important; border:none!important; overflow:visible!important;
 }
-html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
+html.embed .shell > div:first-child{ width:100%!important; flex:0 0 auto!important; }
 html.embed .tl, html.embed #tl{
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  gap: 6px !important;
-  overflow-x: auto !important;
-  scrollbar-width: none !important;
+  display:flex!important; flex-wrap:nowrap!important; gap:6px!important;
+  overflow-x:auto!important; scrollbar-width:none!important;
 }
 html.embed .tl button, html.embed #tl button{
-  flex: 0 0 auto !important;
-  width: auto !important;
-  height: 32px !important;
+  flex:0 0 auto!important; width:auto!important; height:32px!important;
 }
-html.embed .controls{ display: none !important; }
-
-/* stage-col fills remaining height — like BC .stage */
+html.embed .controls{ display:none!important; }
 html.embed .stage-col{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-  background: transparent !important;
-  border: none !important;
+  display:block!important; width:100%!important;
+  margin:0!important; padding:0!important;
+  background:transparent!important; border:none!important; overflow:visible!important;
 }
-
-/* .frame = BC phone-host: fills stage, flex-centers unit, overflow hidden */
 html.embed .frame, html.embed #frame{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  position: relative !important;
-  box-sizing: border-box !important;
+  display:block!important; position:relative!important;
+  width:100%!important; max-width:100%!important;
+  margin:0!important; padding:0!important; border:none!important;
+  background:transparent!important; box-shadow:none!important;
+  overflow:visible!important; box-sizing:border-box!important;
 }
-
-/* .unit = BC phone-base: FIXED design size, scale only */
 html.embed .unit, html.embed #unit{
-  width: 560px !important;
-  height: 410px !important;
-  min-width: 560px !important;
-  min-height: 410px !important;
-  max-width: 560px !important;
-  max-height: 410px !important;
-  flex-shrink: 0 !important;
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  transform-origin: center center !important;
-  /* transform: scale(s) set by fitUnit — same as fitPhone */
+  position:absolute!important; top:0!important;
+  width:560px!important; height:410px!important;
+  margin:0!important; box-sizing:border-box!important;
+  transform-origin:top left!important;
+  max-width:none!important; max-height:none!important;
+}
+@media (max-width:720px){
+  html.embed .page{ padding:10px 12px 14px!important; }
+  html.embed .page > .lead{ -webkit-line-clamp:1!important; }
 }
 
 </style>
@@ -2376,59 +2303,65 @@ html.embed .unit, html.embed #unit{
 
 
 
+
+
+
 <script>
-/* BC-pattern fitUnit — identical math to blockchain fitPhone, viewport 560×410 */
+/* CLEAN fit v50 — preview-02 math only */
 (function(){
   var isEmbed = document.documentElement.classList.contains('embed')
-    || /(?:^|[?&#])embed=1\b/.test(location.search + location.hash);
+    || /(?:^|[?&#])embed=1\b/.test(location.search+location.hash);
   if(!isEmbed) return;
   document.documentElement.classList.add('embed');
 
-  var NW = 560, NH = 410;
+  var NW=560, NH=410, AIR=2;
 
-  function fitUnit(){
-    var unit = document.getElementById('unit');
-    var host = document.getElementById('frame');
-    if(!unit || !host) return;
-    var hw = host.clientWidth || 1;
-    var hh = host.clientHeight || 1;
-    if(hw < 8 || hh < 8) return;
+  function fit(){
+    var unit=document.getElementById('unit');
+    var frame=document.getElementById('frame');
+    var page=document.querySelector('.page');
+    if(!unit||!frame) return;
 
-    /* same formula as fitPhone: min of both axes, mild pad */
-    var s = Math.min(hw / NW, hh / NH) * 0.96;
-    if(s > 1) s = 1;
-    if(s < 0.28) s = 0.28;
+    var fw=frame.getBoundingClientRect().width;
+    if(fw<40) fw=(page&&page.clientWidth)||window.innerWidth;
 
-    unit.style.width = NW + 'px';
-    unit.style.height = NH + 'px';
-    unit.style.transformOrigin = 'center center';
-    unit.style.transform = 'scale(' + s + ')';
-    unit.style.position = 'relative';
-    unit.style.left = 'auto';
-    unit.style.top = 'auto';
+    var s=(fw-AIR*2)/NW;
+    if(s>1.15) s=1.15;
+    if(s<0.35) s=0.35;
+
+    var visW=NW*s, visH=NH*s;
+    frame.style.height=Math.ceil(visH+2)+'px';
+    frame.style.minHeight=Math.ceil(visH+2)+'px';
+    frame.style.overflow='visible';
+
+    unit.style.left=((fw-visW)/2)+'px';
+    unit.style.top='0';
+    unit.style.width=NW+'px';
+    unit.style.height=NH+'px';
+    unit.style.transformOrigin='top left';
+    unit.style.transform='scale('+s+')';
+    unit.style.position='absolute';
+
+    if(page){
+      var h=Math.ceil(page.getBoundingClientRect().height)+10;
+      try{
+        if(window.parent&&window.parent!==window)
+          window.parent.postMessage({type:'skills-player-height',height:h},'*');
+      }catch(e){}
+    }
   }
 
-  window.fitUnit = fitUnit;
-  window.fit = function(){
-    if(document.documentElement.classList.contains('embed')) return fitUnit();
+  window.fitUnit=fit;
+  var _o=window.fit;
+  window.fit=function(){
+    if(document.documentElement.classList.contains('embed')) return fit();
+    if(typeof _o==='function') return _o.apply(this,arguments);
   };
 
-  function boot(){
-    fitUnit();
-    [40, 120, 300, 700, 1500].forEach(function(t){ setTimeout(fitUnit, t); });
-  }
-  window.addEventListener('resize', function(){
-    clearTimeout(window.__bcFit);
-    window.__bcFit = setTimeout(fitUnit, 40);
-  });
-  if(window.ResizeObserver){
-    document.addEventListener('DOMContentLoaded', function(){
-      var h = document.getElementById('frame');
-      if(h) new ResizeObserver(function(){ fitUnit(); }).observe(h);
-    });
-  }
-  document.addEventListener('click', function(){ setTimeout(fitUnit, 50); }, true);
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  function boot(){ fit(); [40,150,400,1000].forEach(function(t){setTimeout(fit,t);}); }
+  window.addEventListener('resize',function(){ clearTimeout(window.__c50); window.__c50=setTimeout(fit,40); });
+  document.addEventListener('click',function(){ setTimeout(fit,50); },true);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
   else boot();
 })();
 </script>
