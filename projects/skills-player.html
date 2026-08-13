@@ -1902,75 +1902,1110 @@ html.embed .frame{ margin-top: 0 !important; }
 
 
 
-/* Embed: fill the (content-sized) iframe without inventing extra void */
+/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
+   Tokens — use everywhere in the product system
+   --max            920px content
+   --pad            clamp(16px, 3vw, 28px) horizontal
+   --nav-h          64px
+   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
+   --stack-xs       6px
+   --stack-sm       10px
+   --stack-md       14px
+   --stack-lg       22px
+   --player-chip-gap 12px   chips → stage
+   --player-note-gap 10px   stage → caption/note
+   --modal-inset     16px–20px around skills modal card
+   ============================================================ */
+:root{
+  --max: 920px !important;
+  --pad: clamp(16px, 3vw, 28px) !important;
+  --nav-h: 64px !important;
+  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
+  --stack-xs: 6px !important;
+  --stack-sm: 10px !important;
+  --stack-md: 14px !important;
+  --stack-lg: 22px !important;
+  --player-chip-gap: 12px !important;
+  --player-note-gap: 10px !important;
+  --player-rail-gap: 12px !important;
+  --modal-inset: 18px !important;
+}
+.wrap,
+.top-nav-inner{
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+/* Section rhythm — kill 96px/huge asymmetric pads */
+.sec,
+section.sec,
+.section{
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+  box-sizing: border-box !important;
+}
+/* First content after fixed nav: don't double-pad absurdly */
+.sec:first-of-type,
+section.sec:first-of-type,
+#hero.sec,
+section#hero{
+  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
+}
+/* Closing / legal: tight, intentional */
+.closing,
+#closing{
+  margin-top: var(--stack-lg) !important;
+  margin-bottom: var(--stack-md) !important;
+  padding-top: var(--stack-md) !important;
+  padding-bottom: var(--stack-md) !important;
+}
+.legal-note,
+.proj-nav{
+  margin-top: var(--stack-md) !important;
+  padding-top: var(--stack-sm) !important;
+}
+/* Case players host */
+#demo .note,
+#pi .note,
+#pi p.note,
+.bc-player-iframe + .note,
+.pi-iframe + .note{
+  margin-top: var(--player-note-gap) !important;
+  margin-bottom: 0 !important;
+}
+#pi + .closing,
+#demo + .sec,
+#process{
+  margin-top: 0 !important;
+}
+/* Eyebrow → title → lede stack */
+.eyebrow,
+.sec-eyebrow,
+.proc-eyebrow,
+p.level{
+  margin-bottom: var(--stack-sm) !important;
+}
+h1, .h1, .proc-h, .sec-h{
+  margin-top: 0 !important;
+}
+.lede, .lead, .proc-sub, .sec-sub, .sub{
+  margin-top: var(--stack-sm) !important;
+  margin-bottom: var(--stack-md) !important;
+}
+/* Mobile: slightly tighter section, same pad token */
+@media (max-width: 720px){
+  :root{
+    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
+    --modal-inset: 12px !important;
+  }
+}
+
+
+
+
+/* no middle void */
+    justify-content: center !important;
+  }
+}
+
+
+
+/* pills → stage — enough so border not clipped */
+  overflow: hidden !important; width: 100% !important;
+}
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
+html.embed .controls{ display: none !important; }
+html.embed .stage-col{
+  flex: 1 1 auto !important; min-height: 0 !important;
+  display: flex !important; flex-direction: column !important;
+  overflow: hidden !important; margin: 0 !important; padding: 0 !important;
+}
+html.embed .frame{
+  flex: 1 1 auto !important; min-height: 0 !important;
+  display: flex !important; align-items: center !important;
+  justify-content: center !important; overflow: hidden !important;
+  width: 100% !important;
+  /* small top inset so stage border not flush against pills */
+  padding-top: 2px !important;
+}
+.stage-chrome{ padding: 14px 12px 10px !important; }
+
+@media (max-width: 720px){
+  html.embed .page{ padding: 12px 12px 12px !important; }
+  html.embed .page > .kicker{ margin: 0 0 6px !important; }
+  html.embed .page > h1{ margin: 0 0 6px !important; font-size: 1.1rem !important; }
+  html.embed .page > .lead{ margin: 0 0 10px !important; font-size: 12px !important; }
+  html.embed .shell{ gap: 10px !important; }
+  html.embed .frame{
+    align-items: flex-start !important;
+    padding-top: 2px !important;
+  }
+}
+
+
+/* Page / wrap */
 html.embed, html.embed body{
-  height: 100% !important;
+  background: transparent !important;
   margin: 0 !important;
   padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+html.embed .page,
+html.embed .wrap{
+  max-width: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 12px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
   overflow: hidden !important;
   background: transparent !important;
 }
-html.embed .page{
-  height: 100% !important;
-  max-height: 100% !important;
+
+/* Title block — hide in embed (case/modal owns narrative) */
+html.embed .page > .kicker,
+html.embed .page > h1,
+html.embed .page > .lead,
+html.embed .page > .close-x,
+html.embed .wrap > .eyebrow,
+html.embed .wrap > h1,
+html.embed .wrap > .lede,
+html.embed .wrap > .note,
+html.embed .page > .note{
+  display: none !important;
+}
+
+/* Shell → column stack like BC: chips then stage */
+html.embed .shell,
+.shell{
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  grid-template-rows: none !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
   max-width: none !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  align-items: stretch !important;
+}
+html.embed .shell > div:first-child,
+.shell > div:first-child{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  order: 0 !important;
+}
+
+/* Timeline chips — BC style row */
+html.embed .tl,
+.tl#tl,
+#tl.tl,
+div.tl{
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
   width: 100% !important;
   margin: 0 !important;
-  padding: 14px 14px 12px !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+html.embed .tl::-webkit-scrollbar{ display: none !important; }
+html.embed .tl button,
+.tl button,
+#tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: none !important;
+  height: 32px !important;
+  white-space: nowrap !important;
+}
+
+/* Kill external controls row — chrome lives in unit */
+html.embed .controls,
+.shell .controls{
+  display: none !important;
+}
+
+/* Stage column = flex grow full width */
+html.embed .stage-col,
+.stage-col{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  order: 1 !important;
+}
+
+/* .frame becomes the BC .stage surface */
+html.embed .frame,
+.frame#frame,
+#frame.frame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  overflow: hidden !important;
+  position: relative !important;
+  /* BC stage look */
+  background: var(--stage-bg, #201e1b) !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) !important;
+  background-size: 22px 22px !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.55) !important;
+}/* stripped deforming unit 100% */
+/* removed: was killing uniform scale */
+
+/* win / stage content inside unit fills */
+html.embed .win,
+html.embed #win,
+html.embed .unit .win{
+  /* keep absolute layout from original — just ensure parent has size */
+}
+
+/* Non-embed (standalone page): same column, comfortable pad */
+body:not(.embed) .shell,
+html:not(.embed) .shell{
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 14px !important;
+  max-width: 920px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+html:not(.embed) .frame{
+  width: 100% !important;
+  min-height: min(560px, 70vh) !important;
+  height: min(560px, 70vh) !important;
+}
+html:not(.embed) .unit{
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  transform: none !important;
+}
+
+
+/* Column stack: chips → stage (like BC) */
+html.embed .shell,
+.shell{
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  grid-template-rows: none !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+html.embed .shell > div:first-child{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+}
+html.embed .tl,
+div.tl#tl,
+#tl{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+html.embed .tl button,
+#tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
+  white-space: nowrap !important;
+}
+html.embed .controls,
+.shell .controls{ display: none !important; }
+
+html.embed .stage-col{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Frame = stage surface; centers the fixed unit */
+html.embed .frame,
+#frame.frame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: var(--stage-bg, #201e1b) !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px) !important;
+  background-size: 22px 22px !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.55) !important;
+}
+
+/* UNIT: native design size ONLY — never stretch to 100% */
+html.embed .unit,
+#unit.unit,
+.unit#unit{
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+  /* transform set by fit() — uniform scale only */
+  border-radius: 14px !important;
+}
+/* Kill any rule that forced full-bleed stretch */
+html.embed .unit[style]{
+  width: 560px !important;
+  height: 410px !important;
+}
+
+
+/* Keep unit scaled inside padded frame — frame already inset by page pad */
+@media (max-width: 720px){
+  html.embed .page,
+  html.embed .wrap{
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+}
+
+
+/* Outer pad like BC embed body padding: 12px + horizontal air */
+html.embed .page,
+html.embed .wrap{
+  max-width: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 12px 16px !important;
   box-sizing: border-box !important;
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+  background: transparent !important;
   gap: 0 !important;
 }
-html.embed .page > .kicker{ margin: 0 0 2px !important; flex: 0 0 auto !important; }
-html.embed .page > h1{ margin: 0 0 4px !important; flex: 0 0 auto !important; font-size: clamp(1.1rem, 2.2vw, 1.35rem) !important; }
-html.embed .page > .lead{
-  margin: 0 0 12px !important;
+html.embed .page > .kicker,
+html.embed .page > h1,
+html.embed .page > .lead,
+html.embed .page > .close-x,
+html.embed .wrap > .eyebrow,
+html.embed .wrap > h1,
+html.embed .wrap > .lede,
+html.embed .wrap > .note{
+  display: none !important;
+}
+
+/* Shell = column (timeline + stage), never side rail */
+html.embed .shell{
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+html.embed .shell > div:first-child{
   flex: 0 0 auto !important;
-  font-size: 13px !important;
+  width: 100% !important;
+}
+html.embed .tl,
+html.embed #tl{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+html.embed .tl::-webkit-scrollbar{ display: none !important; }
+html.embed .tl button,
+html.embed #tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
+  white-space: nowrap !important;
+}
+html.embed .controls{ display: none !important; }
+
+html.embed .stage-col{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* .frame = BC .stage surface + .stage-window padding role */
+html.embed .frame,
+html.embed #frame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 8px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Native design viewport — fixed, never stretched */
+html.embed .unit,
+html.embed #unit{
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+  border-radius: 14px !important;
+  /* transform: scale(s) applied only by fit() */
+}
+
+@media (max-width: 720px){
+  html.embed .page,
+  html.embed .wrap{
+    padding: 10px 12px !important;
+  }
+  html.embed .shell{ gap: 10px !important; }
+  html.embed .frame,
+  html.embed #frame{
+    padding: 12px !important;
+  }
+}
+
+
+/* keep padding so unit doesn't kiss edges; not a "window" */
+  padding: 8px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+/* The only visible window is .unit (browser mock / stage UI) */
+html.embed .unit,
+html.embed #unit{
+  /* keep native size + whatever border the unit already has */
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex: 0 0 auto !important;
+  transform-origin: center center !important;
+}
+
+
+/* In modal embed, page already sits in host card — show compact title row optional */
+html.embed .page > .close-x{ display: none !important; }
+html.embed .page > .kicker{
+  flex: 0 0 auto !important;
+  margin: 0 0 4px !important;
+  font-size: 10px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  opacity: .7 !important;
+}
+html.embed .page > h1{
+  flex: 0 0 auto !important;
+  margin: 0 0 6px !important;
+  font-size: clamp(1.05rem, 2vw, 1.25rem) !important;
+  line-height: 1.25 !important;
+}
+html.embed .page > .lead{
+  flex: 0 0 auto !important;
+  margin: 0 0 12px !important;
+  font-size: 12.5px !important;
   line-height: 1.4 !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
+  opacity: .75 !important;
 }
+
 html.embed .shell{
   flex: 1 1 auto !important;
   min-height: 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  grid-template-columns: 1fr !important;
+  grid-template-columns: none !important;
   gap: 12px !important;
-  justify-content: flex-start !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
   overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
 }
-html.embed .shell > div:first-child{ flex: 0 0 auto !important; }
+html.embed .shell > div:first-child{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+html.embed .tl,
+html.embed #tl{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  background: transparent !important;
+  border: none !important;
+}
+html.embed .tl button,
+html.embed #tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
+  white-space: nowrap !important;
+}
 html.embed .controls{ display: none !important; }
+
 html.embed .stage-col{
   flex: 1 1 auto !important;
   min-height: 0 !important;
+  width: 100% !important;
   display: flex !important;
   flex-direction: column !important;
-  padding: 0 !important;
   margin: 0 !important;
+  padding: 0 !important;
   overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
 }
-html.embed .frame{
+
+/* FIT HOST — invisible. Not a window. */
+html.embed .frame,
+html.embed #frame{
   flex: 1 1 auto !important;
   min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  outline: none !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   overflow: hidden !important;
-  margin: 0 !important;
+  position: relative !important;
 }
-.stage-chrome{ padding: 16px 14px 12px !important; }
+
+/* THE ONLY WINDOW — native 560×410, uniform scale */
+html.embed .unit,
+html.embed #unit{
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+  /* unit keeps its own border/radius from original CSS */
+}
+
 @media (max-width: 720px){
-  html.embed .page{ padding: 12px !important; }
-  html.embed .page > .lead{ margin-bottom: 12px !important; }
-  html.embed .shell{ gap: 12px !important; }
-  html.embed .frame{ align-items: flex-start !important; }
+  html.embed .page{ padding: 10px 12px !important; }
+  html.embed .page > .lead{ -webkit-line-clamp: 1 !important; margin-bottom: 8px !important; }
+  html.embed .shell{ gap: 10px !important; }
+}
+
+
+/* Column: pills then stage — no side rail */
+html.embed .shell{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+}
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
+html.embed .tl, html.embed #tl{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+html.embed .tl button, html.embed #tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
+}
+html.embed .controls{ display: none !important; }
+
+html.embed .stage-col{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Fit host: invisible */
+html.embed .frame, html.embed #frame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+/* THE window — design size locked; only transform scales it */
+html.embed .unit, html.embed #unit{
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+  /* DO NOT set transform:none — fit() owns scale */
+}
+
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px 10px !important; }
+  html.embed .page > .lead{ margin-bottom: 8px !important; -webkit-line-clamp: 1 !important; }
+  html.embed .shell{ gap: 8px !important; }
+}
+
+
+/* pack to top — no vertical centering of the whole stack */
+  justify-content: flex-start !important;
+}
+html.embed .page > .close-x{ display: none !important; }
+html.embed .page > .kicker{
+  flex: 0 0 auto !important;
+  margin: 0 0 4px !important;
+  font-size: 10px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  opacity: .65 !important;
+}
+html.embed .page > h1{
+  flex: 0 0 auto !important;
+  margin: 0 0 4px !important;
+  font-size: 1.1rem !important;
+  line-height: 1.25 !important;
+}
+html.embed .page > .lead{
+  flex: 0 0 auto !important;
+  margin: 0 0 10px !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  opacity: .7 !important;
+}
+
+html.embed .shell{
+  flex: 0 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 10px !important; /* only gap pills → window */
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+  /* do not grow to fill tall iframe */
+  max-height: 100% !important;
+}
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
+html.embed .tl, html.embed #tl{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+}
+html.embed .tl button, html.embed #tl button{
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
+}
+html.embed .controls{ display: none !important; }
+
+html.embed .stage-col{
+  flex: 0 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/*
+  FRAME = measuring box with unit aspect ratio.
+  width 100% of content column; height derived from 560/410.
+  NOT flex-grow — so no empty band under pills.
+*/
+html.embed .frame, html.embed #frame{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  /* horizontal web window */
+  aspect-ratio: 560 / 410 !important;
+  height: auto !important;
+  max-height: min(100%, calc(100% - 0px)) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+/* Design pixels locked; fit() scales uniformly into the aspect box */
+html.embed .unit, html.embed #unit{
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+}
+
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px !important; }
+  html.embed .page > .lead{ -webkit-line-clamp: 1 !important; margin-bottom: 8px !important; }
+  html.embed .shell{ gap: 8px !important; }
+  /* still landscape mock — smaller, not forced square */
+  html.embed .frame, html.embed #frame{
+    aspect-ratio: 560 / 410 !important;
+  }
+}
+
+
+/*
+  .frame = slot whose HEIGHT is set by JS to 410*scale.
+  Width = 100%. No flex-grow. No second chrome.
+*/
+html.embed .frame, html.embed #frame{
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  /* height set in JS — matches visual unit */
+  overflow: hidden !important;
+  position: relative !important;
+  display: block !important;
+}
+
+/* Design recuadro — fixed 560×410, origin top-center for predictable slot */
+html.embed .unit, html.embed #unit{
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: top center !important;
+  /* translateX(-50%) combined with scale in JS */
+}
+
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px !important; }
+  html.embed .page > .lead{ -webkit-line-clamp: 1 !important; margin-bottom: 8px !important; }
+  html.embed .shell{ gap: 8px !important; }
+}
+
+
+/* Dissolve intermediate parents — no second canvas */
+html.embed .stage-col,
+html.embed .frame,
+html.embed #frame{
+  display: contents !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+}
+
+/* THE only box — free recuadro, design size, uniform scale via JS */
+html.embed .unit,
+html.embed #unit{
+  display: block !important;
+  position: relative !important;
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  margin: 0 auto !important;
+  flex: 0 0 auto !important;
+  box-sizing: border-box !important;
+  transform-origin: top center !important;
+  /* own border/radius from original unit CSS stays */
+}
+
+@media (max-width: 720px){
+  html.embed .page{ padding: 10px !important; }
+  html.embed .page > .lead{ -webkit-line-clamp: 1 !important; margin-bottom: 8px !important; }
+  html.embed .shell{ gap: 8px !important; }
+}
+
+
+/* No intermediate canvas */
+html.embed .stage-col,
+html.embed .frame,
+html.embed #frame{
+  display: contents !important;
+}
+
+/* Solo el recuadro de la foto */
+html.embed .unit,
+html.embed #unit{
+  display: block !important;
+  position: relative !important;
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  margin: 0 auto !important;
+  flex: 0 0 auto !important;
+  box-sizing: border-box !important;
+  transform-origin: top center !important;
+}
+
+
+/* ============================================================
+   LAYERS LOCK 2026-08-13s  (matches preview-unit-layers.html)
+   title → pills → gap 10px → UNIT full 560×410 scaled → gap 10px
+   ============================================================ */
+html.embed, html.embed body{
+  margin:0!important; padding:0!important;
+  width:100%!important; height:auto!important;
+  overflow:hidden!important; background:transparent!important;
+}
+html.embed .page{
+  width:100%!important; height:auto!important; min-height:0!important;
+  max-width:none!important; margin:0!important;
+  padding:12px 14px 14px!important; box-sizing:border-box!important;
+  display:flex!important; flex-direction:column!important;
+  justify-content:flex-start!important; gap:0!important;
+  overflow:visible!important; background:transparent!important;
+}
+html.embed .page > .close-x{ display:none!important; }
+html.embed .page > .kicker{
+  flex:0 0 auto!important; margin:0 0 4px!important;
+  font-size:10px!important; letter-spacing:.1em!important;
+  text-transform:uppercase!important; opacity:.65!important;
+}
+html.embed .page > h1{
+  flex:0 0 auto!important; margin:0 0 4px!important;
+  font-size:1.1rem!important; line-height:1.25!important;
+}
+html.embed .page > .lead{
+  flex:0 0 auto!important; margin:0 0 10px!important;
+  font-size:12px!important; line-height:1.35!important;
+  display:-webkit-box!important; -webkit-line-clamp:2!important;
+  -webkit-box-orient:vertical!important; overflow:hidden!important;
+  opacity:.7!important;
+}
+html.embed .shell{
+  flex:0 0 auto!important;
+  display:flex!important; flex-direction:column!important;
+  grid-template-columns:none!important;
+  gap:10px!important; /* pills → unit padding */
+  width:100%!important; margin:0!important; padding:0!important;
+  background:transparent!important; border:none!important;
+  overflow:visible!important;
+}
+html.embed .shell > div:first-child{ flex:0 0 auto!important; width:100%!important; }
+html.embed .tl, html.embed #tl{
+  display:flex!important; flex-wrap:nowrap!important; gap:6px!important;
+  width:100%!important; margin:0!important; overflow-x:auto!important;
+  scrollbar-width:none!important;
+}
+html.embed .tl button, html.embed #tl button{
+  flex:0 0 auto!important; width:auto!important; height:32px!important;
+}
+html.embed .controls{ display:none!important; }
+
+/* dissolve intermediate boxes — unit is the only window */
+html.embed .stage-col,
+html.embed .frame,
+html.embed #frame{
+  display:contents!important;
+}
+
+/* UNIT = complete recuadro; scale via JS; layout height = visual height */
+html.embed .unit,
+html.embed #unit{
+  display:block!important;
+  position:relative!important;
+  width:560px!important;
+  height:410px!important;
+  min-width:560px!important;
+  min-height:410px!important;
+  max-width:560px!important;
+  max-height:410px!important;
+  margin:0 auto!important;
+  flex:0 0 auto!important;
+  box-sizing:border-box!important;
+  transform-origin:top center!important;
+  /* original unit border/radius/background stay */
+}
+
+@media (max-width:720px){
+  html.embed .page{ padding:10px 10px 12px!important; }
+  html.embed .page > .lead{ -webkit-line-clamp:1!important; margin-bottom:8px!important; }
+  html.embed .shell{ gap:10px!important; }
 }
 
 </style>
@@ -2440,6 +3475,76 @@ html.embed .frame{
       try { if(window.history.length > 1) history.back(); } catch(e) {}
     });
   }
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/* LAYERS LOCK fit: unit fully visible, uniform scale, report height */
+(function(){
+  var NW=560, NH=410;
+  function fit(){
+    var unit=document.getElementById('unit')||document.querySelector('.unit');
+    var page=document.querySelector('.page');
+    if(!unit||!page) return;
+    var fw=page.clientWidth||window.innerWidth;
+    var s=fw/NW;
+    if(s>1.12)s=1.12;
+    if(s<0.32)s=0.32;
+    unit.style.width=NW+'px';
+    unit.style.height=NH+'px';
+    unit.style.minWidth=NW+'px';
+    unit.style.minHeight=NH+'px';
+    unit.style.maxWidth=NW+'px';
+    unit.style.maxHeight=NH+'px';
+    unit.style.transformOrigin='top center';
+    unit.style.transform='scale('+s+')';
+    /* collapse/expand layout to match visual height so unit is fully "there" */
+    unit.style.marginBottom=(NH*s-NH)+'px';
+    var h=Math.ceil(page.getBoundingClientRect().height+1);
+    try{
+      if(window.parent&&window.parent!==window){
+        window.parent.postMessage({type:'skills-player-height',height:h},'*');
+      }
+    }catch(e){}
+  }
+  function boot(){ fit(); [50,150,400,800].forEach(function(t){setTimeout(fit,t);}); }
+  window.addEventListener('resize',function(){ clearTimeout(window.__llFit); window.__llFit=setTimeout(fit,40); });
+  document.addEventListener('click',function(){ setTimeout(fit,50); },true);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
 </script>
 
