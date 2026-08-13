@@ -3145,7 +3145,14 @@ iframe.pi-iframe#piPlayerFrame{
 }
 
 
-/* EY PI: same content width as rest of case (920 wrap system) */
+/* Kill any full-bleed zero-padding that made PI look narrower/odd */
+#pi.sec[style]{
+  padding-left: clamp(16px, 3vw, 28px) !important;
+  padding-right: clamp(16px, 3vw, 28px) !important;
+}
+
+
+/* EY PI: content-height iframe — kills void above "Anonymized…" note */
 #pi.sec{
   max-width: 920px !important;
   width: 100% !important;
@@ -3159,25 +3166,41 @@ iframe.pi-iframe#piPlayerFrame{
 }
 #pi .pi-iframe,
 #pi iframe.pi-iframe,
-iframe.pi-iframe#piPlayerFrame{
+iframe.pi-iframe#piPlayerFrame,
+html body #pi iframe.pi-iframe{
   width: 100% !important;
   max-width: 100% !important;
   display: block !important;
   margin: 0 !important;
   border: 0 !important;
   background: transparent !important;
-  height: min(680px, 80vh) !important;
-  min-height: 500px !important;
+  /* was min(640–720px) → huge empty band inside iframe */
+  height: 520px !important;
+  min-height: 480px !important;
+  max-height: 560px !important;
+}
+@media (max-width: 720px){
+  #pi .pi-iframe,
+  #pi iframe.pi-iframe,
+  iframe.pi-iframe#piPlayerFrame{
+    height: min(480px, 70vh) !important;
+    min-height: 420px !important;
+    max-height: 520px !important;
+  }
 }
 #pi .note,
-#pi p.note{
-  margin-top: 12px !important;
-  max-width: 40rem !important;
+#pi p.note,
+html body #pi p.note{
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  opacity: .5 !important;
+  font-size: 12px !important;
 }
-/* Kill any full-bleed zero-padding that made PI look narrower/odd */
-#pi.sec[style]{
-  padding-left: clamp(16px, 3vw, 28px) !important;
-  padding-right: clamp(16px, 3vw, 28px) !important;
+#pi + .closing,
+#pi + div.closing{
+  margin-top: 24px !important;
+  padding-top: 0 !important;
 }
 
 </style>
@@ -3328,11 +3351,11 @@ iframe.pi-iframe#piPlayerFrame{
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1&v=15"
+      src="ey-pi-player.html?embed=1&v=16"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"
-      style="width:100%;max-width:100%;height:min(640px,78vh);min-height:min(640px,78vh);border:0;border-radius:0;background:transparent;display:block;box-shadow:none;margin:0"
+      style="width:100%;max-width:100%;height:520px;min-height:480px;max-height:560px;border:0;border-radius:0;background:transparent;display:block;box-shadow:none;margin:0"
     ></iframe>
     <p class="note" style="margin-top:12px;opacity:.5;font-size:12px">Anonymized Fabric catalog &amp; workbench patterns.</p>
   </section>

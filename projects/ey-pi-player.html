@@ -1903,23 +1903,7 @@ html.embed .frame{ margin-top: 0 !important; }
 
 
 
-/* Embed: fill host width — no inner 920 cap */
-html.embed .page{
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-}
-html.embed .shell,
-html.embed .frame,
-html.embed .stage-col{
-  width: 100% !important;
-  max-width: none !important;
-}
-
-/* === Skills embed: web restore + mobile equal padding 2026-08-13 === */
-:root{
-  --sk-pad: 16px;          /* modal air: top = after chips = below stage */
+/* modal air: top = after chips = below stage */
   --sk-chip-gap: 16px;
 }
 html.embed,
@@ -2029,6 +2013,36 @@ html.embed .stage-col{
 .stage-chrome #beatLab,
 .stage-chrome .stage-title{
   padding-top: 2px !important;
+}
+
+
+/* EY PI embed: no extra bottom air inside iframe */
+html.embed .page{
+  max-width: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 8px 0 0 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+html.embed .shell{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+html.embed .frame,
+html.embed .stage-col{
+  width: 100% !important;
+  max-width: none !important;
+}
+html.embed .page > .kicker,
+html.embed .page > h1,
+html.embed .page > .lead{
+  display: none !important; /* case page owns narrative; reduce iframe chrome */
 }
 
 </style>
