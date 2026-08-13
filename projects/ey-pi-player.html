@@ -2016,163 +2016,33 @@ html.embed .stage-col{
 }
 
 
-/* case page owns narrative; reduce iframe chrome */
-}
-
-
-/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
-   Tokens — use everywhere in the product system
-   --max            920px content
-   --pad            clamp(16px, 3vw, 28px) horizontal
-   --nav-h          64px
-   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
-   --stack-xs       6px
-   --stack-sm       10px
-   --stack-md       14px
-   --stack-lg       22px
-   --player-chip-gap 12px   chips → stage
-   --player-note-gap 10px   stage → caption/note
-   --modal-inset     16px–20px around skills modal card
-   ============================================================ */
-:root{
-  --max: 920px !important;
-  --pad: clamp(16px, 3vw, 28px) !important;
-  --nav-h: 64px !important;
-  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
-  --stack-xs: 6px !important;
-  --stack-sm: 10px !important;
-  --stack-md: 14px !important;
-  --stack-lg: 22px !important;
-  --player-chip-gap: 12px !important;
-  --player-note-gap: 10px !important;
-  --player-rail-gap: 12px !important;
-  --modal-inset: 18px !important;
-}
-.wrap,
-.top-nav-inner{
-  max-width: var(--max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
-/* Section rhythm — kill 96px/huge asymmetric pads */
-.sec,
-section.sec,
-.section{
-  padding-top: var(--section-y) !important;
-  padding-bottom: var(--section-y) !important;
-  box-sizing: border-box !important;
-}
-/* First content after fixed nav: don't double-pad absurdly */
-.sec:first-of-type,
-section.sec:first-of-type,
-#hero.sec,
-section#hero{
-  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
-}
-/* Closing / legal: tight, intentional */
-.closing,
-#closing{
-  margin-top: var(--stack-lg) !important;
-  margin-bottom: var(--stack-md) !important;
-  padding-top: var(--stack-md) !important;
-  padding-bottom: var(--stack-md) !important;
-}
-.legal-note,
-.proj-nav{
-  margin-top: var(--stack-md) !important;
-  padding-top: var(--stack-sm) !important;
-}
-/* Case players host */
-#demo .note,
-#pi .note,
-#pi p.note,
-.bc-player-iframe + .note,
-.pi-iframe + .note{
-  margin-top: var(--player-note-gap) !important;
-  margin-bottom: 0 !important;
-}
-#pi + .closing,
-#demo + .sec,
-#process{
-  margin-top: 0 !important;
-}
-/* Eyebrow → title → lede stack */
-.eyebrow,
-.sec-eyebrow,
-.proc-eyebrow,
-p.level{
-  margin-bottom: var(--stack-sm) !important;
-}
-h1, .h1, .proc-h, .sec-h{
-  margin-top: 0 !important;
-}
-.lede, .lead, .proc-sub, .sec-sub, .sub{
-  margin-top: var(--stack-sm) !important;
-  margin-bottom: var(--stack-md) !important;
-}
-/* Mobile: slightly tighter section, same pad token */
-@media (max-width: 720px){
-  :root{
-    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
-    --modal-inset: 12px !important;
-  }
-}
-
-
-
-
-/* === EY PI player embed: full-bleed stage like BC 2026-08-13e === */
-html.embed, html.embed body{
-  margin: 0 !important; padding: 0 !important;
-  width: 100% !important; height: 100% !important;
-  overflow: hidden !important; background: transparent !important;
-}
+/* EY PI embed: no extra bottom air inside iframe */
 html.embed .page{
-  width: 100% !important; max-width: none !important;
-  height: 100% !important; margin: 0 !important;
-  padding: 0 !important; box-sizing: border-box !important;
-  display: flex !important; flex-direction: column !important;
+  max-width: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 8px 0 0 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+html.embed .shell{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+html.embed .frame,
+html.embed .stage-col{
+  width: 100% !important;
+  max-width: none !important;
 }
 html.embed .page > .kicker,
 html.embed .page > h1,
-html.embed .page > .lead,
-html.embed .page > .close-x{ display: none !important; }
-html.embed .shell{
-  flex: 1 1 auto !important; min-height: 0 !important;
-  width: 100% !important; max-width: none !important;
-  display: flex !important; flex-direction: column !important;
-  grid-template-columns: none !important;
-  gap: 10px !important; margin: 0 !important; padding: 0 !important;
-}
-html.embed .shell > div:first-child{
-  flex: 0 0 auto !important; width: 100% !important; max-width: none !important;
-}
-html.embed .tl{
-  display: flex !important; flex-wrap: nowrap !important;
-  gap: 6px !important; width: 100% !important; overflow-x: auto !important;
-  padding: 0 !important; margin: 0 !important;
-}
-html.embed .controls{ display: none !important; }
-html.embed .stage-col,
-html.embed .frame{
-  flex: 1 1 auto !important; min-height: 0 !important; min-width: 0 !important;
-  width: 100% !important; max-width: none !important;
-  margin: 0 !important; padding: 0 !important;
-}
-html.embed .frame{
-  display: flex !important; align-items: stretch !important; justify-content: stretch !important;
-  overflow: hidden !important;
-}
-html.embed .unit{
-  width: 100% !important; max-width: 100% !important;
-  height: 100% !important; max-height: 100% !important;
-  margin: 0 !important;
-  border-radius: 12px !important;
-  box-sizing: border-box !important;
+html.embed .page > .lead{
+  display: none !important; /* case page owns narrative; reduce iframe chrome */
 }
 
 </style>

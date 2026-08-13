@@ -1902,187 +1902,75 @@ html.embed .frame{ margin-top: 0 !important; }
 
 
 
-/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
-   Tokens — use everywhere in the product system
-   --max            920px content
-   --pad            clamp(16px, 3vw, 28px) horizontal
-   --nav-h          64px
-   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
-   --stack-xs       6px
-   --stack-sm       10px
-   --stack-md       14px
-   --stack-lg       22px
-   --player-chip-gap 12px   chips → stage
-   --player-note-gap 10px   stage → caption/note
-   --modal-inset     16px–20px around skills modal card
-   ============================================================ */
-:root{
-  --max: 920px !important;
-  --pad: clamp(16px, 3vw, 28px) !important;
-  --nav-h: 64px !important;
-  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
-  --stack-xs: 6px !important;
-  --stack-sm: 10px !important;
-  --stack-md: 14px !important;
-  --stack-lg: 22px !important;
-  --player-chip-gap: 12px !important;
-  --player-note-gap: 10px !important;
-  --player-rail-gap: 12px !important;
-  --modal-inset: 18px !important;
-}
-.wrap,
-.top-nav-inner{
-  max-width: var(--max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
-/* Section rhythm — kill 96px/huge asymmetric pads */
-.sec,
-section.sec,
-.section{
-  padding-top: var(--section-y) !important;
-  padding-bottom: var(--section-y) !important;
-  box-sizing: border-box !important;
-}
-/* First content after fixed nav: don't double-pad absurdly */
-.sec:first-of-type,
-section.sec:first-of-type,
-#hero.sec,
-section#hero{
-  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
-}
-/* Closing / legal: tight, intentional */
-.closing,
-#closing{
-  margin-top: var(--stack-lg) !important;
-  margin-bottom: var(--stack-md) !important;
-  padding-top: var(--stack-md) !important;
-  padding-bottom: var(--stack-md) !important;
-}
-.legal-note,
-.proj-nav{
-  margin-top: var(--stack-md) !important;
-  padding-top: var(--stack-sm) !important;
-}
-/* Case players host */
-#demo .note,
-#pi .note,
-#pi p.note,
-.bc-player-iframe + .note,
-.pi-iframe + .note{
-  margin-top: var(--player-note-gap) !important;
-  margin-bottom: 0 !important;
-}
-#pi + .closing,
-#demo + .sec,
-#process{
-  margin-top: 0 !important;
-}
-/* Eyebrow → title → lede stack */
-.eyebrow,
-.sec-eyebrow,
-.proc-eyebrow,
-p.level{
-  margin-bottom: var(--stack-sm) !important;
-}
-h1, .h1, .proc-h, .sec-h{
-  margin-top: 0 !important;
-}
-.lede, .lead, .proc-sub, .sec-sub, .sub{
-  margin-top: var(--stack-sm) !important;
-  margin-bottom: var(--stack-md) !important;
-}
-/* Mobile: slightly tighter section, same pad token */
-@media (max-width: 720px){
-  :root{
-    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
-    --modal-inset: 12px !important;
-  }
-}
-
-
-
-
-/* no middle void */
-    justify-content: center !important;
-  }
-}
-
-
-
-/* Skills embed 2026-08-13e — title breath, gap under pills, balanced pad */
+/* Embed: fill the (content-sized) iframe without inventing extra void */
 html.embed, html.embed body{
-  height: 100% !important; width: 100% !important;
-  margin: 0 !important; padding: 0 !important;
-  overflow: hidden !important; background: transparent !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
 }
 html.embed .page{
-  height: 100% !important; width: 100% !important;
-  max-width: none !important; margin: 0 !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 14px 14px 12px !important;
   box-sizing: border-box !important;
-  display: flex !important; flex-direction: column !important;
-  overflow: hidden !important; gap: 0 !important;
-  padding: 16px 16px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  gap: 0 !important;
 }
-html.embed .page > .kicker{
-  flex: 0 0 auto !important;
-  margin: 0 0 8px !important;
-  letter-spacing: .1em !important;
-}
-html.embed .page > h1{
-  flex: 0 0 auto !important;
-  margin: 0 0 8px !important;
-  font-size: clamp(1.15rem, 2vw, 1.4rem) !important;
-  line-height: 1.25 !important;
-}
+html.embed .page > .kicker{ margin: 0 0 2px !important; flex: 0 0 auto !important; }
+html.embed .page > h1{ margin: 0 0 4px !important; flex: 0 0 auto !important; font-size: clamp(1.1rem, 2.2vw, 1.35rem) !important; }
 html.embed .page > .lead{
+  margin: 0 0 12px !important;
   flex: 0 0 auto !important;
-  margin: 0 0 14px !important;
-  font-size: 13.5px !important;
-  line-height: 1.45 !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
 }
 html.embed .shell{
-  flex: 1 1 auto !important; min-height: 0 !important;
-  display: flex !important; flex-direction: column !important;
-  grid-template-columns: none !important;
-  gap: 12px !important; /* pills → stage — enough so border not clipped */
-  overflow: hidden !important; width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: 1fr !important;
+  gap: 12px !important;
+  justify-content: flex-start !important;
+  overflow: hidden !important;
 }
-html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; }
 html.embed .controls{ display: none !important; }
 html.embed .stage-col{
-  flex: 1 1 auto !important; min-height: 0 !important;
-  display: flex !important; flex-direction: column !important;
-  overflow: hidden !important; margin: 0 !important; padding: 0 !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
 }
 html.embed .frame{
-  flex: 1 1 auto !important; min-height: 0 !important;
-  display: flex !important; align-items: center !important;
-  justify-content: center !important; overflow: hidden !important;
-  width: 100% !important;
-  /* small top inset so stage border not flush against pills */
-  padding-top: 2px !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  margin: 0 !important;
 }
-.stage-chrome{ padding: 14px 12px 10px !important; }
-
+.stage-chrome{ padding: 16px 14px 12px !important; }
 @media (max-width: 720px){
-  html.embed .page{ padding: 12px 12px 12px !important; }
-  html.embed .page > .kicker{ margin: 0 0 6px !important; }
-  html.embed .page > h1{ margin: 0 0 6px !important; font-size: 1.1rem !important; }
-  html.embed .page > .lead{ margin: 0 0 10px !important; font-size: 12px !important; }
-  html.embed .shell{ gap: 10px !important; }
-  html.embed .frame{
-    align-items: flex-start !important;
-    padding-top: 2px !important;
-  }
+  html.embed .page{ padding: 12px !important; }
+  html.embed .page > .lead{ margin-bottom: 12px !important; }
+  html.embed .shell{ gap: 12px !important; }
+  html.embed .frame{ align-items: flex-start !important; }
 }
 
 </style>
@@ -2552,34 +2440,6 @@ html.embed .frame{
       try { if(window.history.length > 1) history.back(); } catch(e) {}
     });
   }
-})();
-</script>
-
-
-
-
-
-<script>
-(function(){
-  function boostFit(){
-    var frame = document.querySelector('.frame');
-    var unit = document.querySelector('.unit');
-    if(!frame || !unit) return;
-    var fr = frame.getBoundingClientRect();
-    var uw = parseFloat(getComputedStyle(unit).width) || unit.offsetWidth || 560;
-    var uh = parseFloat(getComputedStyle(unit).height) || unit.offsetHeight || 410;
-    if(uw < 8 || uh < 8 || fr.width < 8 || fr.height < 8) return;
-    var sx = (fr.width - 4) / uw;
-    var sy = (fr.height - 4) / uh;
-    var s = Math.min(sx, sy, 1.5);
-    if(s < 0.3) s = 0.3;
-    unit.style.transform = 'scale(' + s + ')';
-    unit.style.transformOrigin = (window.matchMedia('(max-width:720px)').matches) ? 'center top' : 'center center';
-  }
-  function boot(){ boostFit(); [40,120,300,600,1000].forEach(function(t){ setTimeout(boostFit,t); }); }
-  window.addEventListener('resize', function(){ clearTimeout(window.__bf); window.__bf=setTimeout(boostFit,50); });
-  document.addEventListener('click', function(){ setTimeout(boostFit,40); }, true);
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
 </script>
 
