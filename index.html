@@ -878,13 +878,7 @@
     background:var(--pc-bg);color:var(--pc-txt);border-radius:18px;
     overflow:hidden;cursor:pointer;display:block;text-decoration:none;
     transform-origin:center center;z-index:1;
-    will-change:flex,transform;
-    transition:
-      flex 620ms cubic-bezier(.34,1.22,.64,1),
-      height 620ms cubic-bezier(.34,1.22,.64,1),
-      transform 620ms cubic-bezier(.34,1.22,.64,1),
-      opacity 420ms ease,
-      box-shadow 480ms ease;
+    transition:flex 520ms var(--spring),transform 520ms var(--spring),opacity 400ms ease,box-shadow 400ms ease;
   }
   .pcard.pc-open{
     flex:7 1 440px;z-index:6;
@@ -937,12 +931,6 @@
     }
     .pcard{
       flex:0 0 56px;height:56px;min-width:0;width:100%;border-radius:14px;
-      transition:
-        flex 620ms cubic-bezier(.34,1.22,.64,1),
-        height 620ms cubic-bezier(.34,1.22,.64,1),
-        transform 620ms cubic-bezier(.34,1.22,.64,1),
-        opacity 420ms ease,
-        box-shadow 480ms ease;
     }
     .pcard.pc-open{
       flex:0 0 min(380px,70vh);height:min(380px,70vh);
@@ -1618,7 +1606,7 @@ html[data-theme="light"]{
   --border-soft: rgba(0,0,0,.08);
 }
 /* Shared card surface */
-.gcard, .ff-step, .sch-step, .job-card, .sk, .story-tab, .tl,
+.gcard, .pcard, .ff-step, .sch-step, .job-card, .sk, .story-tab, .tl,
 .tool-chip.ico-only, .ctl, .tag{
   transition: transform 380ms var(--spring), border-color 220ms var(--ease), box-shadow 380ms var(--ease), background 220ms ease;
 }
@@ -1627,13 +1615,11 @@ html[data-theme="light"]{
   border: 1px solid var(--border-soft);
   background: var(--surface);
 }
-.ff-step:hover, .job-card:hover{
+.pcard:hover, .ff-step:hover, .job-card:hover{
   border-color: var(--accent);
   transform: translateY(-4px) scale(1.01);
   box-shadow: 0 20px 44px -18px rgba(0,0,0,.45), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
 }
-/* pcard hover is the flex open — no extra lift that fights the spring stretch */
-.pcard:hover{ border-color: transparent; }
 /* Scheme / job icons — stroke like skill icons */
 .sch-step .ic svg, .ff-ic svg, .scheme-steps .ic svg{
   stroke: var(--accent);
@@ -4512,17 +4498,8 @@ html[data-theme="light"] .gc-cat{
   .gc-icon{ width: 60px !important; height: 60px !important; }
 }
 /* Soft bounce on other home chips / buttons */
-.chip, .ba, .tool-chip, .top-nav-link, .toc a{
+.chip, .ba, .pcard, .tool-chip, .top-nav-link, .toc a{
   transition: transform 380ms var(--spring), box-shadow 380ms var(--spring-soft), border-color 200ms ease, background 200ms ease !important;
-}
-/* pcard keeps its own flex/height spring — do not override with !important */
-.pcard{
-  transition:
-    flex 620ms cubic-bezier(.34,1.22,.64,1),
-    height 620ms cubic-bezier(.34,1.22,.64,1),
-    transform 620ms cubic-bezier(.34,1.22,.64,1),
-    opacity 420ms ease,
-    box-shadow 480ms ease !important;
 }
 .chip:hover, .tool-chip:hover{
   transform: translateY(-2px) scale(1.04) !important;
@@ -5034,29 +5011,52 @@ html body iframe.skills-player-frame{
 
 
 
-/* Skills modal close X only — does not change player scale */
-html body .stagezone .stage-panel{ position: relative !important; }
-html body .stagezone .stage-panel > .stage-close-x{
-  position: absolute !important;
-  top: 12px !important;
-  right: 12px !important;
-  z-index: 50 !important;
-  width: 36px !important;
-  height: 36px !important;
-  border-radius: 999px !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  background: rgba(14,13,12,.75) !important;
-  color: #f2f0ec !important;
-  font-size: 20px !important;
-  line-height: 1 !important;
-  display: grid !important;
-  place-items: center !important;
-  cursor: pointer !important;
-  padding: 0 !important;
-  margin: 0 !important;
+/* CLEAN host v50 — panel = site width; iframe height from postMessage */
+html body .stagezone{
+  padding:12px!important;
+  display:flex!important; align-items:center!important; justify-content:center!important;
 }
-html body .stagezone .stage-panel > .stage-close-x:hover{
-  background: rgba(255,255,255,.1) !important;
+html body .stagezone.open .stage-panel,
+html body .stage-panel{
+  position:relative!important;
+  width:min(920px, calc(100vw - 24px))!important;
+  max-width:920px!important;
+  height:auto!important;
+  max-height:calc(100vh - 24px)!important;
+  margin:auto!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  display:block!important;
+  padding:0!important;
+  background:var(--bg,#0e0d0c)!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  box-sizing:border-box!important;
+}
+html body .stagezone .stage-panel > .stage-close-x{
+  position:absolute!important; top:12px!important; right:12px!important; z-index:50!important;
+  width:36px!important; height:36px!important; border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.14)!important; background:rgba(14,13,12,.75)!important;
+  color:#f2f0ec!important; font-size:20px!important; line-height:1!important;
+  display:grid!important; place-items:center!important; cursor:pointer!important;
+  padding:0!important; margin:0!important;
+}
+html body .stage-panel iframe#skillsPlayerFrame,
+html body .stage-panel iframe.skills-player-frame,
+html body iframe#skillsPlayerFrame{
+  display:block!important; width:100%!important; border:0!important;
+  background:transparent!important; flex:none!important; min-height:0!important;
+  /* start tall enough for unit; JS tightens with !important */
+  height:calc(130px + (min(888px, 100vw - 56px)) * 410 / 560 + 24px)!important;
+  max-height:calc(100vh - 28px)!important;
+}
+@media (max-width:720px){
+  html body .stagezone{ padding:6px!important; }
+  html body .stage-panel{ width:calc(100vw - 12px)!important; }
+  html body .stage-panel iframe#skillsPlayerFrame,
+  html body iframe#skillsPlayerFrame{
+    height:calc(110px + (100vw - 40px) * 410 / 560 + 20px)!important;
+    max-height:calc(100dvh - 16px)!important;
+  }
 }
 
 </style>
@@ -6356,7 +6356,7 @@ html body .stagezone .stage-panel > .stage-close-x:hover{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=46-safe#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=50#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
@@ -7291,22 +7291,14 @@ document.addEventListener('DOMContentLoaded', function(){
     if (window.anime && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !wasOpen){
       try {
         anime.remove(c);
-        anime({
-          targets: c,
-          scaleY: [0.985, 1.012, 0.997, 1],
-          scaleX: [0.995, 1.004, 1],
-          rotateX: [1.2, 0],
-          duration: 780,
-          easing: 'easeOutElastic(1, 0.72)'
-        });
+        anime({ targets:c, scaleY:[0.98,1.01,1], rotateX:[2,0], easing:'spring(1, 85, 12, 0)' });
         var others = Array.prototype.filter.call(cards, function(o){ return o !== c; });
         anime.remove(others);
         anime({
           targets: others,
-          scaleY: [1, 0.992, 1],
-          duration: 520,
-          easing: 'easeOutQuad',
-          delay: anime.stagger(18)
+          translateY: [{value:-0.5,duration:60},{value:0.5,duration:60},{value:0,duration:70}],
+          easing: 'easeOutSine',
+          delay: anime.stagger(12)
         });
       } catch (err) {}
     }
@@ -7344,30 +7336,25 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
+
+
+
 <script>
 (function(){
   function applyH(h){
-    var f = document.getElementById('skillsPlayerFrame') || document.querySelector('iframe.skills-player-frame');
+    var f=document.getElementById('skillsPlayerFrame')||document.querySelector('iframe.skills-player-frame');
     if(!f) return;
-    h = Math.ceil(Number(h) || 0);
-    if(h < 240) h = 240;
-    var max = Math.floor((window.innerHeight || 900) - 16);
-    if(h > max) h = max;
-    f.style.setProperty('height', h + 'px', 'important');
-    f.style.setProperty('max-height', max + 'px', 'important');
+    h=Math.ceil(Number(h)||0); if(h<240)h=240;
+    var max=Math.floor((window.innerHeight||900)-20); if(h>max)h=max;
+    f.style.setProperty('height', h+'px', 'important');
+    f.style.setProperty('max-height', max+'px', 'important');
   }
   window.addEventListener('message', function(ev){
-    var d = ev.data;
-    if(!d || d.type !== 'skills-player-height' || !d.height) return;
+    var d=ev.data;
+    if(!d||d.type!=='skills-player-height'||!d.height) return;
     applyH(d.height);
   });
-})();
-</script>
-
-
-<script>
-(function(){
-  function bind(){
+  function bindX(){
     var btn=document.getElementById('stageCloseX');
     if(!btn) return;
     btn.addEventListener('click', function(e){
@@ -7380,8 +7367,8 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
-  else bind();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bindX);
+  else bindX();
 })();
 </script>
 
