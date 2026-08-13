@@ -4257,6 +4257,52 @@ h2, .h2, .sec h2 {
   .beatcards{ gap: 12px !important; }
 }
 
+
+/* Skill card badge: readable, not covering copy 2026-08-13 */
+.gc-cat{
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  left: auto !important;
+  z-index: 5 !important;
+  max-width: calc(100% - 24px) !important;
+  font-size: 9px !important;
+  letter-spacing: .04em !important;
+  padding: 4px 8px !important;
+  border-radius: 100px !important;
+  background: rgba(14,13,12,.82) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  pointer-events: none !important;
+}
+.gc-visual{
+  padding-top: 36px !important; /* room under badge */
+}
+.gcard.gc-hover .gc-cat,
+.gcard:focus-visible .gc-cat{
+  background: rgba(14,13,12,.9) !important;
+}
+@media (min-width: 1025px){
+  .gcard.gc-hover .gc-d,
+  .gcard:focus-visible .gc-d{
+    font-size: 14.5px !important;
+    line-height: 1.55 !important;
+    padding-right: 4px !important;
+  }
+  .gcard.gc-hover .gc-overlay,
+  .gcard:focus-visible .gc-overlay{
+    padding: 18px 14px 14px !important;
+  }
+}
+html[data-theme="light"] .gc-cat{
+  background: rgba(255,255,255,.9) !important;
+  color: var(--muted) !important;
+}
+
 </style>
 </head>
 <body class="page-home">
@@ -5539,7 +5585,7 @@ h2, .h2, .sec h2 {
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=13#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
