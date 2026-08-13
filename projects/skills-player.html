@@ -2005,9 +2005,12 @@ h1, .h1, .proc-h, .sec-h{
 }
 
 
-/* Skills embed inner: mobile zero void · web comfortable pad */
+
+
+/* Skills embed FIX 2026-08-13c — pack chips→stage, fit uses height */
 html.embed, html.embed body{
   height: 100% !important;
+  width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
@@ -2023,10 +2026,20 @@ html.embed .page{
   flex-direction: column !important;
   overflow: hidden !important;
   gap: 0 !important;
+  padding: 16px 18px 14px !important;
 }
-html.embed .page > .kicker,
-html.embed .page > h1,
-html.embed .page > .lead,
+html.embed .page > .kicker{ flex: 0 0 auto !important; margin: 0 0 4px !important; }
+html.embed .page > h1{ flex: 0 0 auto !important; margin: 0 0 6px !important; font-size: clamp(1.15rem, 2vw, 1.4rem) !important; }
+html.embed .page > .lead{
+  flex: 0 0 auto !important;
+  margin: 0 0 12px !important;
+  font-size: 13.5px !important;
+  line-height: 1.4 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
 html.embed .page > .close-x{ flex: 0 0 auto !important; }
 html.embed .shell{
   flex: 1 1 auto !important;
@@ -2034,9 +2047,13 @@ html.embed .shell{
   display: flex !important;
   flex-direction: column !important;
   grid-template-columns: 1fr !important;
+  gap: 12px !important;
   overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
-html.embed .shell > div:first-child{ flex: 0 0 auto !important; }
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; height: auto !important; }
+html.embed .tl{ flex: 0 0 auto !important; margin: 0 !important; }
 html.embed .controls{ display: none !important; }
 html.embed .stage-col{
   flex: 1 1 auto !important;
@@ -2047,60 +2064,29 @@ html.embed .stage-col{
   padding: 0 !important;
   overflow: hidden !important;
 }
-
-/* WEB */
-@media (min-width: 721px){
-  html.embed .page{
-    padding: 18px 20px 16px !important;
-  }
-  html.embed .page > .kicker{ margin: 0 0 4px !important; }
-  html.embed .page > h1{ margin: 0 0 6px !important; font-size: 1.35rem !important; }
-  html.embed .page > .lead{ margin: 0 0 14px !important; font-size: 14px !important; -webkit-line-clamp: 2 !important; display: -webkit-box !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
-  html.embed .shell{ gap: 14px !important; }
-  html.embed .frame{
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-  }
-}
-
-/* MOBILE — minimal pad, chips tight to stage, stage fills rest */
-@media (max-width: 720px){
-  html.embed .page{
-    padding: 8px 8px 8px !important;
-  }
-  html.embed .page > .kicker{ margin: 0 0 2px !important; font-size: 10px !important; }
-  html.embed .page > h1{ margin: 0 0 2px !important; font-size: 1.05rem !important; line-height: 1.2 !important; }
-  html.embed .page > .lead{
-    margin: 0 0 8px !important;
-    font-size: 11.5px !important;
-    line-height: 1.35 !important;
-    -webkit-line-clamp: 2 !important;
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-  html.embed .shell{ gap: 8px !important; justify-content: flex-start !important; }
-  html.embed .stage-col{ flex: 1 1 auto !important; }
-  html.embed .frame{
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    display: flex !important;
-    align-items: stretch !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-  }
-  /* unit scales to fill width of frame */
-  html.embed .unit{
-    margin: 0 auto !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-  }
+html.embed .frame{
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  margin: 0 !important;
 }
 .stage-chrome{ padding: 14px 12px 10px !important; }
+
+@media (max-width: 720px){
+  html.embed .page{ padding: 8px !important; }
+  html.embed .page > .kicker{ margin: 0 0 2px !important; }
+  html.embed .page > h1{ margin: 0 0 2px !important; font-size: 1.05rem !important; }
+  html.embed .page > .lead{ margin: 0 0 8px !important; font-size: 11.5px !important; }
+  html.embed .shell{ gap: 8px !important; }
+  html.embed .frame{
+    align-items: flex-start !important; /* no middle void */
+    justify-content: center !important;
+  }
+}
 
 </style>
 </head>
@@ -2569,6 +2555,44 @@ html.embed .stage-col{
       try { if(window.history.length > 1) history.back(); } catch(e) {}
     });
   }
+})();
+</script>
+
+
+<script>
+/* fit boost: scale unit to fill frame (mobile + embed) */
+(function(){
+  function boostFit(){
+    try{
+      var frame = document.querySelector('.frame');
+      var unit = document.querySelector('.unit');
+      if(!frame || !unit) return;
+      var fr = frame.getBoundingClientRect();
+      var uw = unit.offsetWidth || 560;
+      var uh = unit.offsetHeight || 410;
+      if(uw < 10 || uh < 10 || fr.width < 10 || fr.height < 10) return;
+      var sx = (fr.width - 8) / uw;
+      var sy = (fr.height - 8) / uh;
+      var s = Math.min(sx, sy, 1.35);
+      if(s < 0.35) s = 0.35;
+      unit.style.transform = 'scale(' + s + ')';
+      unit.style.transformOrigin = 'center top';
+    }catch(e){}
+  }
+  function boot(){
+    boostFit();
+    setTimeout(boostFit, 50);
+    setTimeout(boostFit, 200);
+    setTimeout(boostFit, 500);
+  }
+  window.addEventListener('resize', function(){
+    clearTimeout(window.__boostFitT);
+    window.__boostFitT = setTimeout(boostFit, 60);
+  });
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+  // after beat changes
+  document.addEventListener('click', function(){ setTimeout(boostFit, 30); }, true);
 })();
 </script>
 
