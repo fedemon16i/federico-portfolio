@@ -1773,6 +1773,25 @@ html.embed .unit, html.embed #unit{
   html.embed .page > .lead{ -webkit-line-clamp:1!important; }
 }
 
+
+/* PILLS RULE final — inactive number only */
+html body .tl button .nm,
+html.embed .tl button .nm,
+.tl button .nm{
+  display: none !important;
+}
+html body .tl button.on .nm,
+html.embed .tl button.on .nm,
+.tl button.on .nm{
+  display: inline !important;
+  margin-left: 5px !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+html.embed .page{
+  padding-bottom: 22px !important;
+}
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
@@ -2330,7 +2349,7 @@ html.embed .unit, html.embed #unit{
     if(s<0.35) s=0.35;
 
     var visW=NW*s, visH=NH*s;
-    frame.style.height=Math.ceil(visH+2)+'px';
+    frame.style.height=Math.ceil(visH+4)+'px';
     frame.style.minHeight=Math.ceil(visH+2)+'px';
     frame.style.overflow='visible';
 
@@ -2343,7 +2362,7 @@ html.embed .unit, html.embed #unit{
     unit.style.position='absolute';
 
     if(page){
-      var h=Math.ceil(page.getBoundingClientRect().height)+10;
+      var h=Math.ceil(page.getBoundingClientRect().height)+18;
       try{
         if(window.parent&&window.parent!==window)
           window.parent.postMessage({type:'skills-player-height',height:h},'*');
