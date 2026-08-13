@@ -6349,6 +6349,28 @@ h2, .h2, .sec h2 {
   h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
 }
 
+
+/* BC demo → new player iframe (full width of wrap) */
+#demo .wrap{ max-width: 920px !important; width: 100% !important; }
+#demo .bc-player-iframe,
+iframe.bc-player-iframe{
+  width: 100% !important;
+  max-width: 100% !important;
+  height: min(720px, 88vh) !important;
+  min-height: 540px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: block !important;
+  margin: 0 !important;
+}
+#demo .note{ margin-top: 10px !important; margin-bottom: 0 !important; }
+/* hide legacy stage if residual in DOM */
+#demo #demoStage,
+#demo .demo-split,
+#demo .demo-visual{ display: none !important; }
+
 </style>
 </head>
 <body>
@@ -6494,200 +6516,19 @@ h2, .h2, .sec h2 {
 <!-- DEMO PROTO -->
 <section class="sec" id="demo">
   <div class="wrap">
-    <div class="demo-split">
-    <div class="demo-copy">
     <p class="eyebrow"><span class="eyebrow-num">03</span> Demo</p>
     <h2>The flow — owner to visitor</h2>
-    <p class="lede" style="margin-bottom:16px">Text first, then the device. Sheet covers the tab bar while editing — TAP interactions on mobile.</p>
-    <div class="chip-flow tl" id="flow">
-      <button type="button" class="on" data-b="0"><span class="n">01</span><span class="nm">Onboard</span></button>
-      <button type="button" data-b="1"><span class="n">02</span><span class="nm">Place</span></button>
-      <button type="button" data-b="2"><span class="n">03</span><span class="nm">Media</span></button>
-      <button type="button" class="v" data-b="3"><span class="n">04</span><span class="nm">Visitor</span></button>
-    </div>
-    <div class="controls demo-controls" id="demoControls">
-      <button type="button" id="btnPrev" aria-label="Previous"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <button type="button" data-x="btnPlay" aria-label="Pause"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></button>
-      <button type="button" id="btnNext" aria-label="Next"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-      <button type="button" data-x="btnReplay" aria-label="Replay"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
-      <div class="prog"><i data-x="demoProg"></i></div>
-    </div>
-    </div><!-- demo-copy -->
-    <div class="demo-visual">
-    <div class="demo-stage-title" data-x="demoStageTitle"><span class="n">01</span>Enter map</div>
-    <div class="stage" id="demoStage">
-      <div class="bc-stage-chrome" id="bcChrome">
-        <div class="title" id="demoStageTitle"><span class="n">01</span>Enter map</div>
-        <div class="btns">
-          <button type="button" id="btnPlay" aria-label="Pause"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></button>
-          <button type="button" id="btnReplay" aria-label="Replay"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
-        </div>
-        <div class="prog"><i id="demoProg"></i></div>
-      </div>
-
-      <div class="demo-cap" id="demoCap" aria-live="polite"></div>
-      <div class="stage-top">
-        <span class="label stage-badge" id="stageLabel"><b>01</b><span class="nm"> · Enter map</span></span>
-      </div>
-      <div class="stage-arrows">
-        <button type="button" class="stage-arrow prev" id="stagePrev"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <button type="button" class="stage-arrow next" id="stageNext"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
-      </div>
-      <aside class="hint-dock" id="hintDock" aria-live="polite">
-      <div class="hint-card" id="dockHint"><div class="hk" id="dockK">Guide</div><div id="dockText"></div><span class="ha"></span></div>
-      <div class="gesture-card" id="dockGesture">
-        <div class="finger-ico" aria-hidden="true">
-          <svg viewBox="0 0 32 32"><path d="M10 16v-3.5a2 2 0 014 0V16"/><path d="M14 14V9.5a2 2 0 014 0V16"/><path d="M18 15v-3a2 2 0 014 0v6.5c0 4-2.5 7.5-6 8.5"/><path d="M10 16H8.5A2.5 2.5 0 006 18.5V20a8 8 0 008 8h1"/></svg>
-          <span class="pulse"></span>
-        </div>
-        <div><div class="g-title" id="dockGLabel">Long-press</div><div class="g-sub" id="dockGSub">Hold on the map</div></div>
-      </div>
-      <div class="dock-connector" id="dockConnector" aria-hidden="true"><svg><path id="dockConnPath" d="M0 80 C 20 80, 20 120, 24 120"/></svg></div>
-    </aside>
-      <div class="text-phase" id="textPhase">
-        <div class="kicker" id="kicker">Owner journey</div>
-        <div class="main"><span id="typeText"></span><span class="blink" id="blink"></span></div>
-        <div class="sub" id="sub"></div>
-      </div>
-      <div class="device-layer" id="deviceLayer">
-        <div class="iphone on" id="phone">
-          <div class="island"></div>
-          <div class="p-nav"><span class="back" id="navBack">←</span><div class="title" id="navTitle">MEGATON OUTDOOR</div></div>
-          <div class="p-body">
-            <div class="onboard" id="onboard">
-            <div class="ob-visual" aria-hidden="true">
-              <div class="ob-map"><span class="p"></span></div>
-              <div class="ob-hand">
-                <svg viewBox="0 0 32 32"><path d="M10 16v-3.5a2 2 0 014 0V16"/><path d="M14 14V9.5a2 2 0 014 0V16"/><path d="M18 15v-3a2 2 0 014 0v6.5c0 4-2.5 7.5-6 8.5"/><path d="M10 16H8.5A2.5 2.5 0 006 18.5V20a8 8 0 008 8h1"/></svg>
-                <span class="ring"></span>
-              </div>
-              <div class="ob-media"><i></i><i></i><i></i></div>
-            </div>
-            <div class="ob-dots" id="obDots"><i class="on"></i><i></i><i></i></div>
-            <div class="ob-card">
-              <h5 id="obTitle">Welcome to your 3D map</h5>
-              <p id="obBody">You can publish content onto places you own in space.</p>
-              <div class="ob-cta" id="obCta">Continue</div>
-            </div>
-          </div>
-          <div class="p-map" id="mapPhone">
-              <canvas id="glPhone"></canvas>
-              <div class="street-label" id="streetA" style="left:12%;top:38%">Oak Ave</div>
-              <div class="street-label" id="streetB" style="left:52%;top:62%">Market St</div>
-              <div class="street-label" id="streetC" style="left:28%;top:72%">Harbor Rd</div>
-              <div class="hold-toast" id="holdToast">
-                <div class="ht-ico"><svg viewBox="0 0 24 24"><path d="M8 13v-2a2 2 0 114 0v2"/><path d="M12 11V7a2 2 0 114 0v6"/><path d="M16 13V9a2 2 0 114 0v6"/><path d="M8 13c0 4 2 7 4 8"/><path d="M6 11H5a2 2 0 00-2 2v1a7 7 0 007 7h1"/></svg></div>
-                <div><b>Long-press</b> the map to place a POI</div>
-              </div>
-              <div class="pin-tip" id="pinTip0">POI</div>
-              <div class="pin-tip" id="pinTip1">New pin</div>
-              <svg class="narr-line" id="narrLine" width="100%" height="100%" style="position:absolute;inset:0;overflow:visible">
-                <path id="narrLinePath" d="M0 0"/>
-              </svg>
-              <div class="narr-hint" id="narrHint"><div class="narr-k" id="narrK">Guide</div><div id="narrText"></div></div>
-              <div class="hold-hint" id="holdHint">
-                <span style="position:relative;width:24px;height:24px;display:inline-block">
-                  <svg viewBox="0 0 24 24"><path d="M8 13v-2a2 2 0 114 0v2"/><path d="M12 11V7a2 2 0 114 0v6"/><path d="M16 13V9a2 2 0 114 0v6"/><path d="M8 13c0 4 2 7 4 8"/><path d="M6 11H5a2 2 0 00-2 2v1a7 7 0 007 7h1"/></svg>
-                  <span class="ring-hold"></span>
-                </span>
-                <span id="holdLabel">Hold</span>
-              </div>
-              <div class="maps-confirm" id="mapsConfirm">
-                <div class="mc-title">Use this location?</div>
-                <div class="mc-sub" id="mcSub">Meeting Point</div>
-                <div class="mc-row"><div class="mc-btn ghost btn-ds">Cancel</div><div class="mc-btn ok btn-ds btn-ds--accent" id="mcOk">Confirm</div></div>
-              </div>
-              <div class="fig-cur" id="figCur"><span class="fc-dot"></span><span class="fc-ring"></span></div>
-              <div class="tap" id="tap"><span class="ring"></span><span class="dot"></span></div>
-            </div>
-            <div class="p-tabbar">
-              <div class="item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-              <div class="item"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-              <div class="item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></svg></div>
-              <div class="item"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-              <div class="item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
-            </div>
-            <div class="p-sheet" id="sheet">
-              <div class="ig-head" id="igHead"><div class="av"></div><div class="meta"><div class="name">Workout Circuit</div></div></div>
-              <div class="ig-stats" id="igStats"><div><b>24</b><span>posts</span></div><div><b>1.2k</b><span>followers</span></div><div><b>18</b><span>sessions</span></div></div>
-              <div class="vid-hero" id="vidHero"><video id="vid" muted loop playsinline poster="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=250&fit=crop"><source src="https://cdn.coverr.co/videos/coverr-woman-doing-yoga-outdoors-4250/1080p.mp4" type="video/mp4"/></video></div>
-              <div class="player-mini" id="playerMini">
-                <img alt="" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" id="playerGif"/>
-                <div class="pm-bar"><div class="pm-play" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="pm-track"><i></i></div></div>
-              </div>
-              <h4 id="sheetTitle">POI</h4>
-              <div class="blurb" id="sheetBlurb"></div>
-              <div class="pin-ui" id="pinUi">
-                <div class="pin-sec on" data-sec="icon">
-                  <div class="lbl">1 · Icon</div>
-                  <div class="pin-icons">
-                    <span data-i="0"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-                    <span data-i="1"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></span>
-                    <span data-i="2"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 22l-6-4-6 4 1.5-8.5L2 9h7z"/></svg></span>
-                    <span data-i="3"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/></svg></span>
-                  </div>
-                </div>
-                <div class="pin-sec" data-sec="color">
-                  <div class="lbl">2 · Color</div>
-                  <div class="cols" id="cols"><i style="background:#4aa3d4;color:#4aa3d4"></i><i style="background:#e05c4a;color:#e05c4a"></i><i style="background:#f4c842;color:#f4c842"></i><i style="background:#22d4c8;color:#22d4c8"></i></div>
-                </div>
-                <div class="pin-sec" data-sec="asset">
-                  <div class="lbl">3 · 3D asset</div>
-                  <div class="assets" id="assets"><span data-a="0">Tower</span><span data-a="1">Block</span><span data-a="2">Plaza</span></div>
-                </div>
-              </div>
-              <div class="empty-feed" id="emptyFeed">
-                <div class="ef-head"><span class="ef-av"></span><div class="ef-meta"><b>MY POI</b><span>0 posts</span></div></div>
-                <div class="ef-tabs"><span class="on"></span><span></span><span></span></div>
-                <div class="ef-grid"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="ef-hint">No posts yet</div>
-              </div>
-              <div class="content-ui" id="contentUi">
-                <div class="source-list" id="sourceList">
-                  <button type="button" data-src="device"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M12 18h.01"/></svg><div><b>From my device</b><span>Photos &amp; video from the library</span></div></button>
-                  <button type="button" data-src="link"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg><div><b>Add a link</b><span>Web page or session URL</span></div></button>
-                  <button type="button" data-src="live"><svg viewBox="0 0 24 24"><path d="M15 10l4.55-2.27A1 1 0 0121 8.64v6.72a1 1 0 01-1.45.89L15 14"/><rect x="3" y="6" width="12" height="12" rx="2"/></svg><div><b>Live capture</b><span>Record in place</span></div></button>
-                </div>
-                <div class="lbl">Content type</div>
-                <div class="content-types" id="contentTypes"><span data-c="photo">Photo</span><span data-c="video">Video</span><span data-c="web">Web</span></div>
-                <div class="lbl">Media</div>
-                <div class="media-row" id="mediaRow"><div class="slot">+</div><div class="slot">+</div><div class="slot">+</div></div>
-                <div class="ios-gallery" id="iosGallery">
-                  <div class="ig-top">Recents <span>Add</span></div>
-                  <div class="ig-albums"><b class="on">Recents</b><b>Favorites</b><b>Videos</b></div>
-                  <div class="media-picker" id="mediaPicker">
-                    <div class="mp" data-m="0"><img alt="" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
-                    <div class="mp" data-m="1"><img alt="" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
-                    <div class="mp" data-m="2"><img alt="" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
-                    <div class="mp" data-m="3"><img alt="" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
-                    <div class="mp" data-m="4"><img alt="" src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
-                    <div class="mp" data-m="5"><img alt="" src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=120&h=120&fit=crop"/><span class="check">✓</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="ig-grid" id="igGrid">
-                <div class="cell"><img alt="" src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=120&h=120&fit=crop"/></div>
-                <div class="cell"><img alt="" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=120&h=120&fit=crop"/></div>
-                <div class="cell"><img alt="" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=120&h=120&fit=crop"/></div>
-              </div>
-              <div class="cta" id="sheetCta">Continue</div>
-            </div>
-          </div>
-        </div>
-        <div class="browser" id="desk">
-          <div class="tb"><i></i><i></i><i></i></div>
-          <div class="body">
-            <div class="side"><span class="on">3D Map</span><br>Assets<br>Team</div>
-            <div class="map" id="mapWeb"><canvas id="glWeb"></canvas></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div></div>
-  </div>
-
-    </div><!-- demo-visual -->
-    </div><!-- demo-split -->
+    <p class="lede" style="margin-bottom:12px">Text first, then the live product. Same player shell as EY / Skills — Blockchains experience plugged in.</p>
+    <iframe
+      class="bc-player-iframe"
+      id="bcPlayerFrame"
+      src="blockchain-player.html?embed=1"
+      title="Blockchains prototype player"
+      loading="eager"
+      allow="autoplay"
+      style="width:100%;height:min(720px,88vh);min-height:540px;border:0;border-radius:0;background:transparent;display:block;box-shadow:none"
+    ></iframe>
+    <p class="note" style="margin-top:10px;opacity:.5;font-size:12px">Owner → pin → media → visitor. Prototype player engine.</p>
   </div>
 </section>
 
@@ -8086,6 +7927,23 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
   else bind();
+})();
+</script>
+
+
+<script>
+/* BC player moved to blockchain-player.html iframe — disable legacy demo motor */
+(function(){
+  if (!document.getElementById('bcPlayerFrame')) return;
+  try {
+    if (typeof BEATS !== 'undefined' && Array.isArray(BEATS)) {
+      BEATS.forEach(function(b){ if (b) b.fn = function(done){ if (done) done(); }; });
+    }
+    var stage = document.getElementById('demoStage');
+    if (stage) stage.style.display = 'none';
+    var flow = document.getElementById('flow');
+    if (flow) flow.style.display = 'none';
+  } catch (e) { console.warn('BC legacy guard', e); }
 })();
 </script>
 

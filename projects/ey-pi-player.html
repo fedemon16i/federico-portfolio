@@ -1800,43 +1800,14 @@ html.embed .frame {
 /* unit keeps own stage surface; page chrome stays invisible in embed */
 
 
-/* Player density: less space between stage chips and frame (skills + EY PI) 2026-08-12 */
-.shell{
-  gap: 6px !important;
-  align-items: start !important;
-}
-.tl{
-  gap: 4px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.controls{
-  margin-top: 4px !important;
-  margin-bottom: 0 !important;
-  gap: 4px !important;
-}
-.beat-lab,
-#beatLab{
-  margin-top: 2px !important;
-  margin-bottom: 0 !important;
-}
-.stage-col{
-  gap: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.frame{
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
 /* mobile / stacked shell: tighten chips → frame */
 @media (max-width: 720px){
-  .shell{ gap: 4px !important; }
+  .shell{ gap: var(--player-rail-gap, 12px) !important; }
   .controls{ margin-top: 3px !important; margin-bottom: 0 !important; }
   .frame{ margin-top: 0 !important; }
 }
 /* embed: even denser */
-html.embed .shell{ gap: 4px !important; }
+html.embed .shell{ gap: var(--player-rail-gap, 12px) !important; }
 html.embed .controls{ margin-top: 3px !important; }
 html.embed .stage-col{ gap: 0 !important; }
 html.embed .page{ padding-bottom: 8px !important; }
@@ -1844,6 +1815,88 @@ html.embed .page{ padding-bottom: 8px !important; }
 .page{ padding-bottom: 16px !important; }
 .page > p.note,
 .page > .note{ margin-top: 6px !important; }
+
+
+/* Player rhythm: fluid chips → frame (not stuck, not void) 2026-08-12 */
+:root{
+  --player-chip-gap: 10px;
+  --player-after-chips: 12px;
+  --player-note-gap: 14px;
+}
+.shell{
+  gap: var(--player-chip-gap) !important;
+  align-items: start !important;
+}
+.tl{
+  gap: 5px !important;
+  margin: 0 0 0 !important;
+  padding: 0 !important;
+}
+.controls{
+  margin-top: 6px !important;
+  margin-bottom: 0 !important;
+  gap: 5px !important;
+}
+.beat-lab, #beatLab{
+  margin-top: 4px !important;
+  margin-bottom: 0 !important;
+}
+.stage-col{
+  gap: 0 !important;
+  margin: 0 !important;
+  padding-top: var(--player-after-chips) !important;
+}
+.frame{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+@media (max-width: 720px){
+  :root{
+    --player-chip-gap: 8px;
+    --player-after-chips: 10px;
+  }
+  .shell{ gap: var(--player-chip-gap) !important; }
+  .stage-col{ padding-top: var(--player-after-chips) !important; }
+  .controls{ margin-top: 5px !important; }
+}
+/* embed modal: same rhythm */
+html.embed .shell{ gap: var(--player-chip-gap) !important; }
+html.embed .stage-col{ padding-top: var(--player-after-chips) !important; }
+html.embed .page{ padding-bottom: 10px !important; }
+html.embed .controls{ margin-top: 5px !important; }
+/* kill previous ultra-dense lock if present */
+
+
+/* Player rhythm: fluid gap chips → stage (not tight, not a void) 2026-08-12 */
+:root{
+  --player-rail-gap: 12px;
+  --player-note-gap: 12px;
+}
+.shell{
+  gap: var(--player-rail-gap) !important;
+  align-items: start !important;
+}
+.controls{
+  margin-top: 8px !important;
+  margin-bottom: 0 !important;
+}
+.stage-col,
+.frame{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.tl{ margin-bottom: 0 !important; }
+@media (max-width: 720px){
+  :root{ --player-rail-gap: 14px; }
+  .shell{ gap: var(--player-rail-gap) !important; }
+  /* stacked: chips then frame — one breathing row of space */
+  .controls{ margin-top: 6px !important; margin-bottom: 0 !important; }
+  .stage-col{ margin-top: 2px !important; }
+}
+html.embed .shell{ gap: var(--player-rail-gap) !important; }
+html.embed .page{ padding-bottom: 10px !important; }
+html.embed .frame{ margin-top: 0 !important; }
+/* kill earlier ultra-tight 4px locks */
 
 </style>
 </head>
