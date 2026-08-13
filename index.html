@@ -4211,6 +4211,52 @@ h2, .h2, .sec h2 {
   h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
 }
 
+
+/* Skill cards: no AI sparkle; readable hover on web 2026-08-12 */
+.gc-ai{ display: none !important; }
+@media (min-width: 1025px){
+  .gcard.gc-hover,
+  .gcard:focus-visible{
+    flex: 2.4 0 260px !important;
+    max-width: 280px !important;
+    min-height: 300px !important;
+  }
+  .gcard.gc-hover .gc-overlay,
+  .gcard:focus-visible .gc-overlay{
+    padding: 16px 16px 14px !important;
+    justify-content: flex-end !important;
+  }
+  .gcard.gc-hover .gc-d,
+  .gcard:focus-visible .gc-d{
+    font-size: 14.5px !important;
+    line-height: 1.55 !important;
+    -webkit-line-clamp: 5 !important;
+    line-clamp: 5 !important;
+    margin-bottom: 10px !important;
+    letter-spacing: -.01em !important;
+  }
+  .gcard.gc-hover .gc-body,
+  .gcard:focus-visible .gc-body{
+    padding: 12px 16px 14px !important;
+    gap: 8px !important;
+  }
+  .gcard.gc-hover .gc-t,
+  .gcard:focus-visible .gc-t{
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+  }
+  .gcard.gc-hover .gc-cta,
+  .gcard:focus-visible .gc-cta{
+    padding-top: 10px !important;
+    margin-top: 4px !important;
+  }
+  /* slightly more gap between cards when one expands */
+  .beatcards{ gap: 12px !important; }
+}
+/* slightly more gap between cards when one expands */
+  .beatcards{ gap: 12px !important; }
+}
+
 </style>
 </head>
 <body class="page-home">
@@ -5449,7 +5495,7 @@ h2, .h2, .sec h2 {
     var fanStyle='--fan-rot:'+(off*2.1).toFixed(1)+'deg;--fan-ty:'+(Math.abs(off)*5).toFixed(0)+'px;';
     return '<button class="gcard cat-'+c.cat+(c.cat==='uxr'?' gc-primary':'')+(isHub?' gc-hub':'')+'" data-beat="'+i+'" role="listitem" style="'+fanStyle+'">'+
       '<span class="gc-cat"><b>0'+displayNum+'</b> · '+catLabel+'</span>'+
-      '<span class="gc-ai" title="Built with AI tooling"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.6L19 9l-5.2 1.4L12 16l-1.8-5.6L5 9l5.2-1.4z"/><path d="M19 14l.9 2.6L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.4z"/></svg></span>'+
+      ''+
       '<div class="gc-visual">'+
         '<span class="gc-glow" aria-hidden="true"></span>'+
         '<div class="gc-icon-wrap"><span class="gc-ring" aria-hidden="true"></span><svg class="gc-icon" viewBox="0 0 24 24">'+c.ic+'</svg></div>'+

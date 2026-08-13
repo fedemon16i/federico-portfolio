@@ -1657,6 +1657,357 @@ h2, .h2, .sec h2 {
   h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
 }
 
+
+/* Design system — player rules docs UI */
+.ds-h3{
+  font-family:var(--font-display),system-ui,sans-serif;
+  font-size:1.05rem;font-weight:700;letter-spacing:-.02em;
+  margin:22px 0 8px;color:var(--text);
+}
+.ds-rule-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:10px;margin:12px 0 8px;
+}
+.ds-rule{
+  border:1px solid var(--border);border-radius:12px;padding:12px 14px;
+  background:var(--bg-surface);
+  display:flex;flex-direction:column;gap:4px;
+}
+.ds-rule b{font-family:var(--font-display);font-size:13px;font-weight:700}
+.ds-rule span{font-size:12.5px;color:var(--muted);line-height:1.4}
+.ds-rule code{font-family:var(--font-mono);font-size:11px;color:var(--accent)}
+.ds-mini-flow{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin:10px 0 4px;font-family:var(--font-mono);font-size:11px;color:var(--muted);
+}
+.ds-mini-flow span{
+  padding:6px 10px;border-radius:100px;border:1px solid var(--border);
+  background:var(--bg-raised);
+}
+.ds-mini-flow i{
+  width:18px;height:1px;background:var(--border);display:block;
+}
+.ds-chip-demo{
+  display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;
+  margin:10px 0 4px;scrollbar-width:none;
+}
+.ds-chip-demo::-webkit-scrollbar{display:none}
+.ds-chip-demo button{
+  height:32px;padding:0 12px;border-radius:100px;
+  border:1px solid var(--border);background:transparent;
+  color:var(--muted);font-family:var(--font-mono);font-size:12px;
+  white-space:nowrap;flex:0 0 auto;
+}
+.ds-chip-demo button .n{color:var(--dim,#918b81)}
+.ds-chip-demo button .nm{display:none;margin-left:6px}
+.ds-chip-demo button.on{
+  border-color:var(--accent);color:var(--text);
+  background:color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.ds-chip-demo button.on .n{color:var(--accent)}
+.ds-chip-demo button.on .nm{display:inline;color:var(--text);font-weight:600}
+
+
+/* ========== Design System UI polish 2026-08-12 ========== */
+:root{
+  --max: 920px !important;
+  --font-display: "Space Grotesk", "Instrument Sans", system-ui, sans-serif !important;
+  --font-body: "DM Sans", "Instrument Sans", system-ui, sans-serif !important;
+  --font-mono: "DM Mono", "IBM Plex Mono", ui-monospace, monospace !important;
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
+  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
+}
+html, body{
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+body{
+  font-family: var(--font-body) !important;
+  font-size: 16px !important;
+  line-height: 1.55 !important;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Shell width — same as portfolio */
+.wrap{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  padding: 32px clamp(16px, 3vw, 28px) 80px !important;
+  box-sizing: border-box !important;
+}
+.top-nav-inner{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(16px, 3vw, 28px) !important;
+  box-sizing: border-box !important;
+  height: 64px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+.top-nav{ height: 64px !important; }
+
+/* Type */
+.wrap > h1,
+.wrap h1{
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: var(--text-3xl) !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+  margin: 0 0 12px !important;
+}
+.lede{
+  font-size: clamp(1rem, .95rem + .3vw, 1.125rem) !important;
+  color: var(--muted) !important;
+  max-width: 40rem !important;
+  line-height: 1.6 !important;
+  margin-bottom: 24px !important;
+}
+section{
+  margin-bottom: 56px !important;
+  scroll-margin-top: 88px !important;
+  max-width: 100% !important;
+}
+section > h2{
+  font-family: var(--font-display) !important;
+  font-weight: 800 !important;
+  font-size: var(--text-2xl) !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.2 !important;
+  margin: 0 0 8px !important;
+}
+section > .sub{
+  color: var(--muted) !important;
+  font-size: 15px !important;
+  max-width: 38rem !important;
+  margin: 0 0 16px !important;
+  line-height: 1.5 !important;
+}
+.level, .eyebrow, p.level{
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+  color: var(--accent) !important;
+  margin: 0 0 8px !important;
+  font-weight: 500 !important;
+}
+.level::before, .eyebrow::before{ content: none !important; display: none !important; }
+
+/* TOC */
+.toc{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  margin: 0 0 36px !important;
+}
+.toc a{
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  padding: 6px 11px !important;
+  border-radius: 100px !important;
+  border: 1px solid var(--border) !important;
+  color: var(--dim) !important;
+  background: transparent !important;
+  transition: border-color .2s, color .2s, background .2s !important;
+}
+.toc a:hover{
+  color: var(--text) !important;
+  border-color: rgba(217,119,87,.45) !important;
+  background: rgba(217,119,87,.08) !important;
+}
+
+/* Code blocks */
+pre.code, .code{
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  line-height: 1.55 !important;
+  padding: 14px 16px !important;
+  border-radius: 12px !important;
+  background: var(--bg-raised, #1c1b19) !important;
+  border: 1px solid var(--border) !important;
+  color: #c8c4bc !important;
+  overflow-x: auto !important;
+  max-width: 100% !important;
+  margin: 10px 0 4px !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+html[data-theme="light"] pre.code,
+html[data-theme="light"] .code{
+  background: #f0eeea !important;
+  color: #3a3632 !important;
+}
+
+/* Player organism demo */
+.player{
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  background: var(--bg-surface) !important;
+  overflow: hidden !important;
+  max-width: 100% !important;
+}
+.player-top{
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 12px !important;
+  border-bottom: 1px solid var(--border) !important;
+  flex-wrap: wrap !important;
+}
+.player-label{
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  margin-right: auto !important;
+  color: var(--muted) !important;
+}
+.player-label b{ color: var(--accent) !important; }
+.player-btn{
+  width: 36px !important; height: 36px !important;
+  border-radius: 50% !important;
+  border: 1px solid var(--border) !important;
+  background: transparent !important;
+  display: grid !important; place-items: center !important;
+  cursor: pointer !important;
+  min-width: 36px !important;
+  padding: 0 10px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+}
+.player-flow{
+  display: flex !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  padding: 8px 12px !important;
+  scrollbar-width: none !important;
+  border-bottom: 1px solid var(--border-soft, var(--border)) !important;
+}
+.player-flow::-webkit-scrollbar{ display: none !important; }
+.player-chip{
+  flex: 0 0 auto !important;
+  height: 28px !important;
+  padding: 0 11px !important;
+  border-radius: 100px !important;
+  border: 1px solid var(--border) !important;
+  background: transparent !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  color: var(--muted) !important;
+  white-space: nowrap !important;
+}
+.player-chip.on{
+  border-color: var(--accent) !important;
+  color: var(--text) !important;
+  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+}
+.player-stage{
+  position: relative !important;
+  min-height: 200px !important;
+  padding: 24px 16px !important;
+  background:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+    var(--bg-raised, #1c1b19) !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+.player-text{ max-width: 26rem !important; margin: 0 auto !important; text-align: center !important; }
+.player-device .phone{
+  width: min(120px, 28vw) !important;
+  aspect-ratio: 9/19.5 !important;
+  border-radius: 18px !important;
+  border: 2px solid var(--border) !important;
+  background: #0a0f1a !important;
+  margin: 0 auto !important;
+}
+
+/* Grids / cards */
+.skill-row, .unique, .ds-rule-grid{
+  max-width: 100% !important;
+}
+.unique article, .ds-rule, .skill, .pcard, .rule{
+  border-radius: 14px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--bg-surface) !important;
+  box-sizing: border-box !important;
+}
+.ds-rule-grid{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  gap: 10px !important;
+}
+.ds-chip-demo{
+  max-width: 100% !important;
+}
+
+/* Tables */
+table{
+  width: 100% !important;
+  max-width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 13.5px !important;
+  overflow-x: auto !important;
+  display: block !important;
+}
+th, td{
+  text-align: left !important;
+  padding: 10px 12px !important;
+  border-bottom: 1px solid var(--border) !important;
+  vertical-align: top !important;
+}
+th{
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  color: var(--dim) !important;
+  font-weight: 500 !important;
+}
+
+/* Hero demo box */
+.box{
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Don't let case-page demoStage CSS break this doc page */
+html body:not(:has(#demoStage)) .wrap{
+  /* no-op; has() may not work everywhere */
+}
+/* Neutralize aggressive full-page locks from BC paste */
+html body .page{
+  max-width: none !important;
+}
+.wrap, .top-nav-inner{
+  max-width: 920px !important;
+}
+
+/* Mobile */
+@media (max-width: 720px){
+  .wrap{ padding: 24px 16px 64px !important; }
+  .player-top{ gap: 6px !important; }
+  .player-stage{ min-height: 180px !important; padding: 18px 12px !important; }
+  section{ margin-bottom: 44px !important; }
+  table{ font-size: 12.5px !important; }
+  th, td{ padding: 8px 10px !important; }
+}
+
+/* Light mode surfaces */
+html[data-theme="light"] .player-stage{
+  background:
+    linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px),
+    #eae7e1 !important;
+  background-size: 20px 20px, 20px 20px, auto !important;
+}
+html[data-theme="light"] .player-device .phone{
+  background: #fff !important;
+  border-color: rgba(0,0,0,.12) !important;
+}
+
 </style>
 </head>
 <body>
@@ -1709,6 +2060,8 @@ h2, .h2, .sec h2 {
 <p class="lede">Shared: nav, player (reproductor), typewriter → device, stack icochips, card motion. Unique: project color, case content, and 3D vs wireframe graphics — not a second component language.</p>
 <nav class="toc">
   <a href="#player">Player</a>
+  <a href="#player-rules">Player rules</a>
+  <a href="#site-width-player">Width &amp; type</a>
   <a href="#skills">Skills</a>
   <a href="#pcards">Project cards</a>
   <a href="#stack">Stack</a>
@@ -1733,6 +2086,96 @@ manual prev/next does not force playing
 play loops; pause clears timers
 prefers-reduced-motion: instant text, short delays</pre>
 </section>
+
+<section id="player-rules">
+  <p class="level">Canon · players</p>
+  <h2>Player rules (source of truth)</h2>
+  <p class="sub">Apply the same engine to Skills, EY Fabric, Blockchains — later Chek &amp; DollarCity. Only accent, copy, and graphic engine change.</p>
+
+  <h3 class="ds-h3">1. Architecture</h3>
+  <pre class="code">Reusable shell (chrome + stage + controls)
+  + experience plugin (beats / actions / case UI)
+
+NOT a slideshow · NOT a video · NOT screenshots
+Feel: interactive product showcase</pre>
+  <div class="ds-rule-grid">
+    <div class="ds-rule"><b>Shell</b><span>Stage window, chips, arrows, top bar, caption</span></div>
+    <div class="ds-rule"><b>Plugin</b><span>BEATS + applyAction + case mocks</span></div>
+    <div class="ds-rule"><b>Embed</b><span><code>?embed=1</code> → transparent host, player fills parent</span></div>
+  </div>
+
+  <h3 class="ds-h3">2. Spatial structure (EY PI reference)</h3>
+  <pre class="code">stage
+  ↓  experience area (mock / phone / product UI)
+  ↓  navigation inside stage (title · pause · replay)
+  ↓  side arrows (prev / next) mid-stage
+  ↓  caption / blur bar at bottom
+
+Timeline chips sit OUTSIDE the stage container
+Density: small gap between chips/controls and frame (≤6px shell gap)</pre>
+
+  <h3 class="ds-h3">3. Sequence</h3>
+  <pre class="code">1. Typewriter (kicker → body → sub)   phone dim / hidden
+2. Text phase hides
+3. Device / mock shows
+4. Micro-actions (cursor, holds, sheets, map…)
+5. Optional auto-advance to next beat</pre>
+  <div class="ds-mini-flow" aria-hidden="true">
+    <span>Type</span><i></i><span>Device</span><i></i><span>Actions</span><i></i><span>Next</span>
+  </div>
+
+  <h3 class="ds-h3">4. Timeline chips</h3>
+  <pre class="code">Inactive  → number only     (01)
+Active    → number + name   (01 Onboard)
+One row · nowrap · horizontal scroll if needed
+Never wrap to two rows of full labels</pre>
+  <div class="ds-chip-demo" aria-hidden="true">
+    <button type="button" class="on"><span class="n">01</span><span class="nm">Onboard</span></button>
+    <button type="button"><span class="n">02</span><span class="nm">Place</span></button>
+    <button type="button"><span class="n">03</span><span class="nm">Media</span></button>
+    <button type="button"><span class="n">04</span><span class="nm">Visitor</span></button>
+  </div>
+
+  <h3 class="ds-h3">5. Scale rules (viewport fit)</h3>
+  <pre class="code">scale = min(hostW / designW, hostH / designH)   // pad ~4–8%
+
+Prefer smaller &amp; complete over large &amp; clipped
+No internal scroll inside the mock
+No opacity tricks as “fit”
+Phone / artboard: fixed design size + transform:scale()</pre>
+  <div class="ds-rule-grid">
+    <div class="ds-rule"><b>Desktop</b><span>Stage height budget from <code>100dvh</code> − nav − chrome</span></div>
+    <div class="ds-rule"><b>Mobile</b><span>Frame fixed; chips + controls always visible</span></div>
+    <div class="ds-rule"><b>Embed</b><span>Fill host; transparent page bg; no double card</span></div>
+  </div>
+
+  <h3 class="ds-h3">6. Blockchains-specific</h3>
+  <pre class="code">Coordinate system: 393×852 phone · single uniform scale
+Dynamic Island overlay · screen edge-to-edge under island
+Map (Three.js) visible from step 1 as background
+Long-press STREET → pin appears (not press existing pin)
+Drawers: taller sheets, always fully on-screen
+Cursor: large, follows targets, hold pulse
+Success toast (green) after key actions
+Pin tip + glow after media is live
+Hints outside phone (production side rail)
+Mobile: stage min-heights tuned; phone never distorts</pre>
+
+  <h3 class="ds-h3">7. What must not change per case</h3>
+  <div class="ds-rule-grid">
+    <div class="ds-rule"><b>Shared</b><span>Nav 920 · type scale · player chrome · chip behavior · typewriter→device · embed contract</span></div>
+    <div class="ds-rule"><b>Unique</b><span>Accent color · beats copy · mock UI · 3D vs wireframe</span></div>
+  </div>
+
+  <h3 class="ds-h3">8. Applying to Chek / DollarCity</h3>
+  <pre class="code">1. Keep case page shell (nav, 920, type) — do not restyle from scratch
+2. Plug beats into the same player shell (or iframe ?embed=1)
+3. Swap accent + content only
+4. Reuse scale fit + chip rules + typewriter→device
+5. No second player architecture</pre>
+</section>
+
+
 <section id="player">
   <p class="level">Organism · shared</p>
   <h2>Narrative player</h2>
@@ -1809,6 +2252,7 @@ Controls: prev · play/pause · next · beat chips (horizontal scroll only, neve
   <h2>Where each pattern lives</h2>
   <pre class="code">Nav shell .......... every page
 Player chrome ...... skill modals · EY stages · BC demo
+Player rules ....... #player-rules (scale · chips · embed · BC mobile)
 Typewriter→device .. same three places
 Stack icochips ..... home about · case heroes · projects cards
 Project pcard ...... home · projects.html
