@@ -1846,13 +1846,6 @@ html.embed .unit, html.embed #unit{
   /* transform: scale(s) set by fitUnit — same as fitPhone */
 }
 
-
-/* TITLE_WIDTH_PAD — same horizontal inset as titles so unit tracks text width */
-html.embed .page{
-  padding-left: 16px !important;
-  padding-right: 16px !important;
-}
-
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
@@ -2402,10 +2395,8 @@ html.embed .page{
     if(hw < 8 || hh < 8) return;
 
     /* same formula as fitPhone: min of both axes, mild pad */
-    /* Prefer filling host width (title column) without cropping.
-       Cap mild upscale; height still limits via Math.min so bottom never clips. */
     var s = Math.min(hw / NW, hh / NH) * 0.96;
-    if(s > 1.28) s = 1.28;
+    if(s > 1) s = 1;
     if(s < 0.28) s = 0.28;
 
     unit.style.width = NW + 'px';

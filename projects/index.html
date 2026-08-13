@@ -5010,54 +5010,9 @@ html body iframe.skills-player-frame{
 }
 
 
-/* Skills host BC-pattern — iframe has real height so unit host can measure */
-html body .stagezone{
-  padding: 12px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-html body .stagezone.open .stage-panel,
-html body .stage-panel{
-  width: min(920px, calc(100vw - 24px)) !important;
-  max-width: 920px !important;
-  height: min(720px, calc(100vh - 24px)) !important;
-  max-height: calc(100vh - 24px) !important;
-  margin: auto !important;
-  border-radius: 18px !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 0 !important;
-  background: var(--bg, #0e0d0c) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  box-sizing: border-box !important;
-}
-html body .stage-panel iframe#skillsPlayerFrame,
-html body .stage-panel iframe.skills-player-frame,
-html body iframe#skillsPlayerFrame,
-html body iframe.skills-player-frame{
-  display: block !important;
-  width: 100% !important;
-  flex: 1 1 auto !important;
-  height: 100% !important;
-  min-height: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-}
-@media (max-width: 720px){
-  html body .stagezone{ padding: 6px !important; }
-  html body .stage-panel{
-    width: calc(100vw - 12px) !important;
-    height: min(640px, calc(100dvh - 12px)) !important;
-  }
-}
 
-
-/* Skills modal close X — host only, does not touch player scale */
-html body .stagezone .stage-panel{
-  position: relative !important;
-}
+/* Skills modal close X only — does not change player scale */
+html body .stagezone .stage-panel{ position: relative !important; }
 html body .stagezone .stage-panel > .stage-close-x{
   position: absolute !important;
   top: 12px !important;
@@ -5066,8 +5021,8 @@ html body .stagezone .stage-panel > .stage-close-x{
   width: 36px !important;
   height: 36px !important;
   border-radius: 999px !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  background: rgba(14,13,12,.72) !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  background: rgba(14,13,12,.75) !important;
   color: #f2f0ec !important;
   font-size: 20px !important;
   line-height: 1 !important;
@@ -5076,24 +5031,9 @@ html body .stagezone .stage-panel > .stage-close-x{
   cursor: pointer !important;
   padding: 0 !important;
   margin: 0 !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: background .15s ease, border-color .15s ease, transform .15s ease;
 }
 html body .stagezone .stage-panel > .stage-close-x:hover{
   background: rgba(255,255,255,.1) !important;
-  border-color: rgba(255,255,255,.22) !important;
-}
-html body .stagezone .stage-panel > .stage-close-x:active{
-  transform: scale(.96);
-}
-@media (max-width: 720px){
-  html body .stagezone .stage-panel > .stage-close-x{
-    top: 10px !important;
-    right: 10px !important;
-    width: 34px !important;
-    height: 34px !important;
-  }
 }
 
 </style>
@@ -5236,7 +5176,7 @@ html body .stagezone .stage-panel > .stage-close-x:active{
   <div class="stagezone" id="stageZone">
    <div class="stage-panel" id="stagePanel">
     <button type="button" class="stage-close-x" id="stageCloseX" aria-label="Close">&times;</button>
-    <!-- Player owns title, pills, stage. Host owns close X only. -->
+    <!-- Host chrome removed: skills-player (embed) owns title, X, pills, stage. Only the card shows. -->
     <iframe
       id="skillsPlayerFrame"
       class="skills-player-frame"
@@ -6393,7 +6333,7 @@ html body .stagezone .stage-panel > .stage-close-x:active{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=44#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=46-safe#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
@@ -7395,23 +7335,21 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <script>
-/* stage-close-x → closeStage */
 (function(){
   function bind(){
-    var btn = document.getElementById('stageCloseX');
+    var btn=document.getElementById('stageCloseX');
     if(!btn) return;
     btn.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      if(typeof closeStage === 'function') closeStage();
+      e.preventDefault(); e.stopPropagation();
+      if(typeof closeStage==='function') closeStage();
       else {
-        var z = document.getElementById('stageZone') || document.querySelector('.stagezone');
+        var z=document.getElementById('stageZone')||document.querySelector('.stagezone');
         if(z) z.classList.remove('open');
         document.body.classList.remove('stage-open');
       }
     });
   }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
   else bind();
 })();
 </script>
