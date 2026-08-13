@@ -1898,29 +1898,33 @@ html.embed .frame{ margin-top: 0 !important; }
 
 
 
-/* === NUCLEAR: pack chips → stage (no middle void) 2026-08-13 ===
-   Cause: stage-col/frame flex-grow + unit centered in tall iframe host.
-   Fix: content stacks from top; frame hugs unit; leftover space below stage only.
-*/
+
+
+/* === Skills embed: web restore + mobile equal padding 2026-08-13 === */
+:root{
+  --sk-pad: 16px;          /* modal air: top = after chips = below stage */
+  --sk-chip-gap: 16px;
+}
 html.embed,
 html.embed body{
   height: 100% !important;
-  max-height: 100% !important;
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
+  background: transparent !important;
 }
 html.embed .page{
   height: 100% !important;
   max-height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: flex-start !important;
-  align-items: stretch !important;
-  gap: 0 !important;
-  padding: 10px 12px 8px !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: var(--sk-pad) !important; /* equal air all sides */
+  gap: 0 !important;
 }
 html.embed .page > .kicker,
 html.embed .page > h1,
@@ -1928,105 +1932,86 @@ html.embed .page > .lead,
 html.embed .page > .close-x{
   flex: 0 0 auto !important;
 }
-html.embed .page > .kicker{ margin: 0 0 2px !important; }
-html.embed .page > h1{ margin: 0 0 4px !important; font-size: clamp(1.05rem, 2.8vw, 1.25rem) !important; }
-html.embed .page > .lead{ margin: 0 0 8px !important; font-size: 12px !important; line-height: 1.4 !important;
-  display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+html.embed .page > .kicker{ margin: 0 0 4px !important; }
+html.embed .page > h1{ margin: 0 0 6px !important; }
+html.embed .page > .lead{
+  margin: 0 0 var(--sk-chip-gap) !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
 html.embed .shell{
   flex: 1 1 auto !important;
   min-height: 0 !important;
   display: flex !important;
   flex-direction: column !important;
   grid-template-columns: 1fr !important;
-  justify-content: flex-start !important;
-  align-items: stretch !important;
-  gap: 8px !important;
-  overflow: hidden !important;
+  gap: var(--sk-chip-gap) !important; /* pills → stage = same as modal pad */
   margin: 0 !important;
   padding: 0 !important;
+  overflow: hidden !important;
 }
 html.embed .shell > div:first-child{
   flex: 0 0 auto !important;
-  height: auto !important;
-  max-height: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
 }
 html.embed .tl,
-html.embed .controls{
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-}
-html.embed .controls{ margin-top: 4px !important; display: none !important; } /* chrome inside unit */
+html.embed .controls{ flex: 0 0 auto !important; margin: 0 !important; }
+html.embed .controls{ display: none !important; }
 html.embed .stage-col{
   flex: 1 1 auto !important;
   min-height: 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: flex-start !important;
-  align-items: stretch !important;
-  gap: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
   padding-top: 0 !important;
   overflow: hidden !important;
 }
-html.embed .frame{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  width: 100% !important;
-  height: auto !important;
-  max-height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: flex-start !important; /* NOT center — kills middle void */
-  justify-content: center !important;
-  overflow: hidden !important;
+/* WEB (desktop): restore centered stage like before — not cut off */
+@media (min-width: 721px){
+  :root{ --sk-pad: 18px; --sk-chip-gap: 16px; }
+  html.embed .frame{
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;      /* restore center */
+    justify-content: center !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+  }
+  html.embed .page > h1{ font-size: clamp(1.25rem, 1.5vw, 1.55rem) !important; }
+  html.embed .page > .lead{ -webkit-line-clamp: 3 !important; font-size: 14px !important; }
 }
-html.embed .unit{
-  margin: 0 !important;
-  flex-shrink: 1 !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
+/* MOBILE / TABLET: pack from top, equal pad, no middle void */
+@media (max-width: 720px){
+  :root{ --sk-pad: 14px; --sk-chip-gap: 14px; }
+  html.embed .page{ padding: var(--sk-pad) !important; }
+  html.embed .page > h1{ font-size: 1.1rem !important; margin-bottom: 4px !important; }
+  html.embed .page > .lead{ font-size: 12px !important; margin-bottom: var(--sk-chip-gap) !important; }
+  html.embed .shell{ gap: var(--sk-chip-gap) !important; justify-content: flex-start !important; }
+  html.embed .frame{
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: flex-start !important;  /* no middle void */
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+  html.embed .unit{
+    margin-top: 0 !important;
+    max-height: 100% !important;
+  }
 }
-
-
-/* === Skills/EY density v2: closer chips→stage, chrome pad, host margin 2026-08-13 === */
-html.embed .page{
-  padding: 8px 10px 6px !important;
-  gap: 0 !important;
-}
-html.embed .page > .kicker{ margin: 0 0 2px !important; }
-html.embed .page > h1{ margin: 0 0 2px !important; font-size: 1.1rem !important; }
-html.embed .page > .lead{ margin: 0 0 6px !important; -webkit-line-clamp: 2 !important; }
-html.embed .shell{
-  gap: 8px !important;
-  justify-content: flex-start !important;
-}
-html.embed .stage-col,
-html.embed .frame{
-  margin: 0 !important;
-  padding: 0 !important;
-  padding-top: 0 !important;
-}
-html.embed .frame{
-  align-items: flex-start !important;
-}
-/* Title inside unit needs air from top edge */
+/* Stage title air from top edge of unit */
 .stage-chrome{
-  padding: 14px 14px 12px !important;
+  padding: 16px 14px 12px !important;
 }
 .stage-chrome .beat-lab,
 .stage-chrome #beatLab,
 .stage-chrome .stage-title{
   padding-top: 2px !important;
-}
-.unit{
-  /* slight inner top air for chrome */
-}
-html.embed .unit{
-  margin-top: 0 !important;
 }
 
 </style>

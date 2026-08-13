@@ -3137,12 +3137,24 @@ iframe.pi-iframe#piPlayerFrame{
 }
 
 
-/* EY PI host: full wrap width, fluid note spacing */
+/* no giant gap before closing */
+#pi + .closing,
+#pi + div.closing{
+  margin-top: 28px !important;
+  padding-top: 0 !important;
+}
+
+
+/* EY PI: same content width as rest of case (920 wrap system) */
 #pi.sec{
   max-width: 920px !important;
   width: 100% !important;
-  margin-inline: auto !important;
-  padding-inline: clamp(16px, 3vw, 28px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(16px, 3vw, 28px) !important;
+  padding-right: clamp(16px, 3vw, 28px) !important;
+  padding-top: 8px !important;
+  padding-bottom: 0 !important;
   box-sizing: border-box !important;
 }
 #pi .pi-iframe,
@@ -3150,25 +3162,22 @@ iframe.pi-iframe#piPlayerFrame{
 iframe.pi-iframe#piPlayerFrame{
   width: 100% !important;
   max-width: 100% !important;
-  height: min(640px, 78vh) !important;
-  min-height: 480px !important;
-  border: 0 !important;
-  background: transparent !important;
   display: block !important;
   margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  height: min(680px, 80vh) !important;
+  min-height: 500px !important;
 }
 #pi .note,
 #pi p.note{
   margin-top: 12px !important;
-  margin-bottom: 0 !important;
-  opacity: .5 !important;
-  font-size: 12px !important;
+  max-width: 40rem !important;
 }
-/* no giant gap before closing */
-#pi + .closing,
-#pi + div.closing{
-  margin-top: 28px !important;
-  padding-top: 0 !important;
+/* Kill any full-bleed zero-padding that made PI look narrower/odd */
+#pi.sec[style]{
+  padding-left: clamp(16px, 3vw, 28px) !important;
+  padding-right: clamp(16px, 3vw, 28px) !important;
 }
 
 </style>
@@ -3319,7 +3328,7 @@ iframe.pi-iframe#piPlayerFrame{
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1"
+      src="ey-pi-player.html?embed=1&v=15"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"
