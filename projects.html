@@ -1862,6 +1862,26 @@ html body a.pcard .pcard-body{
 }
 </style>
 
+
+<style id="shell-unify-v2">
+:root{{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }}
+.page, .wrap, .top-nav-inner, .sn-inner{{
+  max-width:var(--max)!important;
+  margin-left:auto!important; margin-right:auto!important;
+  box-sizing:border-box!important;
+}}
+.page, .wrap{{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+  width:100%!important;
+}}
+/* sn-inner already padded by component — avoid double */
+nav.site-nav .sn-inner{{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+}}
+</style>
+
 </head>
 <body>
 <nav class="site-nav" id="topNav" style="--sn-accent:#d97757" aria-label="Primary">

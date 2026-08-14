@@ -5240,36 +5240,236 @@ html body a.pcard .pcard-body{
 }
 </style>
 
+<style id="site-nav-component">
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap');
+/* ===== SITE NAV COMPONENT — locked, identical on every page ===== */
+nav.site-nav{
+  position:fixed!important;top:0!important;left:0!important;right:0!important;
+  z-index:99999!important;height:64px!important;
+  background:#0e0d0c!important;border-bottom:1px solid rgba(255,255,255,.1)!important;
+  isolation:isolate!important;transform:translateZ(0)!important;
+  pointer-events:auto!important;margin:0!important;padding:0!important;
+  box-sizing:border-box!important;
+}
+html[data-theme="light"] nav.site-nav{
+  background:#f7f5f2!important;border-bottom-color:rgba(0,0,0,.1)!important;
+}
+nav.site-nav .sn-inner{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  height:64px!important;max-width:920px!important;width:100%!important;
+  margin:0 auto!important;padding:0 clamp(16px,3vw,28px)!important;
+  box-sizing:border-box!important;gap:12px!important;
+}
+nav.site-nav .sn-logo{
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-weight:800!important;font-size:18px!important;line-height:1!important;
+  color:#f2f0ec!important;letter-spacing:-.02em!important;
+  text-decoration:none!important;white-space:nowrap!important;flex-shrink:0!important;
+}
+html[data-theme="light"] nav.site-nav .sn-logo{color:#1a1917!important}
+nav.site-nav .sn-logo span{color:var(--sn-accent,#d97757)!important}
+nav.site-nav .sn-links{
+  display:flex!important;align-items:center!important;gap:2px!important;
+  flex-wrap:nowrap!important;margin-left:auto!important;
+}
+nav.site-nav .sn-link,
+nav.site-nav .sn-drop-btn{
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-size:13px!important;font-weight:600!important;
+  letter-spacing:.06em!important;text-transform:uppercase!important;
+  color:#a6a29a!important;padding:8px 12px!important;border-radius:6px!important;
+  text-decoration:none!important;background:none!important;border:none!important;
+  cursor:pointer!important;line-height:1.2!important;
+  transition:color .15s,background .15s!important;
+  display:inline-flex!important;align-items:center!important;gap:4px!important;
+}
+html[data-theme="light"] nav.site-nav .sn-link,
+html[data-theme="light"] nav.site-nav .sn-drop-btn{color:#6b6760!important}
+nav.site-nav .sn-link:hover,
+nav.site-nav .sn-link.is-active,
+nav.site-nav .sn-drop-btn:hover,
+nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+  color:#f2f0ec!important;background:rgba(255,255,255,.06)!important;
+}
+html[data-theme="light"] nav.site-nav .sn-link:hover,
+html[data-theme="light"] nav.site-nav .sn-link.is-active,
+html[data-theme="light"] nav.site-nav .sn-drop-btn:hover,
+html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+  color:#1a1917!important;background:rgba(0,0,0,.05)!important;
+}
+nav.site-nav .sn-drop{position:relative!important}
+nav.site-nav .sn-drop-menu{
+  position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
+  transform:translateX(-50%) translateY(-4px)!important;
+  background:#171614!important;border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:12px!important;padding:8px!important;min-width:180px!important;
+  display:flex!important;flex-direction:column!important;gap:2px!important;
+  opacity:0!important;pointer-events:none!important;visibility:hidden!important;
+  transition:opacity .18s,transform .18s,visibility .18s!important;
+  box-shadow:0 20px 40px -12px rgba(0,0,0,.55)!important;z-index:100003!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu{
+  background:#fff!important;border-color:rgba(0,0,0,.1)!important;
+  box-shadow:0 16px 32px -8px rgba(0,0,0,.15)!important;
+}
+nav.site-nav .sn-drop:hover .sn-drop-menu,
+nav.site-nav .sn-drop:focus-within .sn-drop-menu,
+nav.site-nav .sn-drop-btn[aria-expanded="true"] + .sn-drop-menu{
+  opacity:1!important;pointer-events:auto!important;visibility:visible!important;
+  transform:translateX(-50%) translateY(0)!important;
+}
+nav.site-nav .sn-drop-menu a{
+  display:block!important;padding:10px 12px!important;border-radius:8px!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-size:13px!important;font-weight:600!important;
+  color:#a6a29a!important;text-decoration:none!important;
+  text-transform:none!important;letter-spacing:0!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu a{color:#6b6760!important}
+nav.site-nav .sn-drop-menu a:hover{
+  background:#1c1b19!important;color:#f2f0ec!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu a:hover{
+  background:#f0eeea!important;color:#1a1917!important;
+}
+nav.site-nav .sn-drop-menu a.is-current{color:var(--sn-accent,#d97757)!important}
+nav.site-nav .sn-theme{
+  width:34px!important;height:34px!important;border-radius:50%!important;
+  border:1px solid rgba(255,255,255,.12)!important;background:#171614!important;
+  color:#a6a29a!important;display:grid!important;place-items:center!important;
+  cursor:pointer!important;flex-shrink:0!important;margin-left:4px!important;
+  padding:0!important;pointer-events:auto!important;position:relative!important;z-index:100001!important;
+}
+html[data-theme="light"] nav.site-nav .sn-theme{
+  background:#fff!important;border-color:rgba(0,0,0,.12)!important;color:#6b6760!important;
+}
+nav.site-nav .sn-theme svg{width:15px!important;height:15px!important;display:block!important}
+nav.site-nav .sn-ham{
+  display:none!important;flex-direction:column!important;gap:4px!important;
+  background:none!important;border:none!important;padding:8px!important;
+  cursor:pointer!important;margin-left:4px!important;
+  min-width:44px!important;min-height:44px!important;
+  align-items:center!important;justify-content:center!important;
+}
+nav.site-nav .sn-ham span{
+  display:block!important;width:20px!important;height:2px!important;
+  background:#f2f0ec!important;border-radius:1px!important;
+}
+html[data-theme="light"] nav.site-nav .sn-ham span{background:#1a1917!important}
+/* Mobile panel */
+.site-nav-mobile{
+  position:fixed!important;top:0!important;left:0!important;width:100%!important;
+  height:100%!important;height:100dvh!important;z-index:100000!important;
+  background:#0e0d0c!important;padding:72px 24px 24px!important;
+  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
+  transform:translateX(100%)!important;visibility:hidden!important;pointer-events:none!important;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1),visibility 0s 320ms!important;
+  box-sizing:border-box!important;
+}
+html[data-theme="light"] .site-nav-mobile{background:#f7f5f2!important}
+.site-nav-mobile.on{
+  transform:translateX(0)!important;visibility:visible!important;pointer-events:auto!important;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1)!important;
+}
+body.nav-open{overflow:hidden!important;touch-action:none!important}
+.site-nav-mobile a{
+  display:block!important;padding:14px 0!important;
+  border-bottom:1px solid rgba(255,255,255,.1)!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-weight:700!important;font-size:1.05rem!important;
+  color:#f2f0ec!important;text-decoration:none!important;
+}
+html[data-theme="light"] .site-nav-mobile a{
+  color:#1a1917!important;border-bottom-color:rgba(0,0,0,.1)!important;
+}
+.site-nav-mobile .sn-sub{
+  font-size:.95rem!important;font-weight:600!important;
+  color:#a6a29a!important;padding-left:12px!important;
+}
+html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
+.site-nav-mobile .sn-close{
+  position:absolute!important;top:20px!important;right:20px!important;
+  background:none!important;border:none!important;color:inherit!important;
+  cursor:pointer!important;font-size:1rem!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+}
+@media(max-width:900px){
+  nav.site-nav .sn-links{display:none!important}
+  nav.site-nav .sn-ham{display:flex!important}
+}
+/* Kill legacy top-nav interference when site-nav present */
+body:has(nav.site-nav) .top-nav:not(.site-nav),
+body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
+</style>
+
+<style id="shell-unify-v2">
+:root{{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }}
+.page, .wrap, .top-nav-inner, .sn-inner{{
+  max-width:var(--max)!important;
+  margin-left:auto!important; margin-right:auto!important;
+  box-sizing:border-box!important;
+}}
+.page, .wrap{{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+  width:100%!important;
+}}
+/* sn-inner already padded by component — avoid double */
+nav.site-nav .sn-inner{{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+}}
+</style>
+
 </head>
 <body class="page-home">
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<nav class="top-nav" id="topNav" style="--nav-accent:#d97757">
-  <div class="top-nav-inner">
-    <a href="index.html" class="top-nav-logo">FM<span>.</span></a>
-    <div class="top-nav-links">
-      <a href="index.html" class="top-nav-link active">Home</a>
-      <div class="top-nav-dropdown">
-        <button type="button" id="topNavDropToggle" class="top-nav-drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="topNavDropMenu">
+<nav class="site-nav" id="topNav" style="--sn-accent:var(--accent,#d97757)" aria-label="Primary">
+  <div class="sn-inner">
+    <a href="index.html" class="sn-logo">FM<span>.</span></a>
+    <div class="sn-links">
+      <a href="index.html" class="sn-link is-active">Home</a>
+      <div class="sn-drop">
+        <button type="button" id="snDropBtn" class="sn-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="snDropMenu">
           Projects
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu">
-          <a href="projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a><a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a><a href="projects/chek.html" role="menuitem">Chek</a><a href="projects/dollarcity.html" role="menuitem">DollarCity</a><a href="projects/customs.html" role="menuitem">Customs ES</a>
+        <div id="snDropMenu" class="sn-drop-menu" role="menu">
+          <a href="projects.html" role="menuitem">All Projects</a>
+          <a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
+          <a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
+          <a href="projects/chek.html" role="menuitem">Chek</a>
+          <a href="projects/dollarcity.html" role="menuitem">DollarCity</a>
+          <a href="projects/customs.html" role="menuitem">Customs ES</a>
         </div>
       </div>
-      <a href="resume.html" class="top-nav-link">Resume</a>
-      <a href="contact.html" class="top-nav-link">Contact</a>
-      <a href="design-system.html" class="top-nav-link">Design System</a>
+      <a href="resume.html" class="sn-link">Resume</a>
+      <a href="contact.html" class="sn-link">Contact</a>
+      <a href="design-system.html" class="sn-link">Design System</a>
     </div>
-    <button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme">
+    <button class="sn-theme" id="snTheme" type="button" aria-label="Toggle theme">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
-    <button class="top-nav-hamburger" id="topNavHamburger" type="button" aria-label="Open menu" aria-expanded="false">
+    <button class="sn-ham" id="snHam" type="button" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
+<div id="snMobile" class="site-nav-mobile" aria-hidden="true">
+  <button type="button" id="snClose" class="sn-close" aria-label="Close">Close</button>
+  <a href="index.html">Home</a>
+  <a href="projects.html">All Projects</a>
+  <a class="sn-sub" href="projects/ey-fabric.html">EY Fabric</a>
+  <a class="sn-sub" href="projects/blockchain.html">Blockchain 3D</a>
+  <a class="sn-sub" href="projects/chek.html">Chek</a>
+  <a class="sn-sub" href="projects/dollarcity.html">DollarCity</a>
+  <a class="sn-sub" href="projects/customs.html">Customs ES</a>
+  <a href="resume.html">Resume</a>
+  <a href="contact.html">Contact</a>
+  <a href="design-system.html">Design System</a>
+</div>
+
 <div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
   <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;cursor:pointer;font-size:1rem">Close</button>
   <a href="index.html">Home</a>
@@ -6542,7 +6742,7 @@ html body a.pcard .pcard-body{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=53#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=55-light#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
@@ -7587,5 +7787,77 @@ document.addEventListener('DOMContentLoaded', function(){
 })();
 </script>
 
+<script id="site-nav-component-js">
+(function(){
+  if(window.__siteNavBound) return;
+  window.__siteNavBound = true;
+  var root = document.documentElement;
+
+  function applyTheme(t){
+    t = (t === 'light') ? 'light' : 'dark';
+    root.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme', t); } catch(e) {}
+    var btn = document.getElementById('snTheme');
+    if(btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
+  }
+  try {
+    var s = localStorage.getItem('theme');
+    applyTheme(s === 'light' ? 'light' : (s === 'dark' ? 'dark' : (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')));
+  } catch(e) { applyTheme('dark'); }
+
+  function bind(){
+    var themeBtn = document.getElementById('snTheme');
+    if(themeBtn && !themeBtn.__bound){
+      themeBtn.__bound = true;
+      themeBtn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        applyTheme(cur === 'light' ? 'dark' : 'light');
+      });
+    }
+
+    var drop = document.getElementById('snDropBtn');
+    if(drop && !drop.__bound){
+      drop.__bound = true;
+      function closeDrop(){ drop.setAttribute('aria-expanded','false'); }
+      drop.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var open = drop.getAttribute('aria-expanded') === 'true';
+        drop.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      document.addEventListener('click', function(e){
+        if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
+      });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrop(); });
+      window.addEventListener('scroll', closeDrop, {passive:true});
+    }
+
+    var ham = document.getElementById('snHam');
+    var mob = document.getElementById('snMobile');
+    var closeBtn = document.getElementById('snClose');
+    if(ham && mob && !ham.__bound){
+      ham.__bound = true;
+      function openM(){
+        mob.classList.add('on');
+        mob.setAttribute('aria-hidden','false');
+        ham.setAttribute('aria-expanded','true');
+        document.body.classList.add('nav-open');
+      }
+      function closeM(){
+        mob.classList.remove('on');
+        mob.setAttribute('aria-hidden','true');
+        ham.setAttribute('aria-expanded','false');
+        document.body.classList.remove('nav-open');
+      }
+      ham.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
+      if(closeBtn) closeBtn.addEventListener('click', closeM);
+      mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeM(); });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+})();
+</script>
 </body>
 </html>
