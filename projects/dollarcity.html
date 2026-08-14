@@ -2030,6 +2030,41 @@ main{position:relative;z-index:1}
 .foot a{color:var(--dim);text-decoration:none;font-size:13px}
 .foot a:hover{color:var(--accent)}
 
+
+/* Demo player host — matches blockchain/chek iframe sizing */
+.demo-host{
+  margin-top:20px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  background:#0a0a0a;
+  position:relative;
+}
+.demo-frame,
+iframe.demo-frame{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  height:min(720px,88vh) !important;
+  min-height:540px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#0a0a0a !important;
+  margin:0 !important;
+}
+.demo-frame + .note,
+.demo-host + .note{
+  margin-top:12px;
+  font-size:13px;
+  color:var(--dim);
+}
+@media(max-width:640px){
+  .demo-frame, iframe.demo-frame{
+    height:min(640px,85vh) !important;
+    min-height:420px !important;
+  }
+}
+
 </style>
 
 <style id="shell-unify">
@@ -2567,7 +2602,9 @@ main{position:relative;z-index:1}
       <p class="eyebrow"><span class="eyebrow-num">05</span> Interactive prototype</p>
       <h2>Flag → review → request → manage downloads.</h2>
       <p class="lede">Rebuilt from the shipped screens. Cursor, typewriter beats, play / stop / replay — same shell as the other cases.</p>
-      <iframe class="demo-frame" src="../dollarcity-player.html?embed=1" title="DollarCity video investigation prototype" loading="eager" allow="autoplay"></iframe>
+      <div class="demo-host">
+        <iframe class="demo-frame" id="dcPlayerFrame" src="dollarcity-player.html?embed=1" title="DollarCity video investigation prototype" loading="eager" allow="autoplay"></iframe>
+      </div>
       <p class="note">Reviewer flow · no real footage. Filters, Save, Request Video, keyboard ← → Space.</p>
     </div>
   </section>
