@@ -1581,6 +1581,96 @@ h2, .h2, .sec h2 {
 .chek-stage-pc .cu-pill.ok b{color:#3dd68c}
 @keyframes chekCuIn{to{opacity:1;transform:none}}
 
+
+/* DollarCity card — hero Video Investigation mini */
+.dc-graphic{position:relative}
+.dc-stage{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px 16px;
+}
+.dc-win{
+  width:100%;max-width:280px;height:100%;max-height:168px;
+  border-radius:10px;overflow:hidden;position:relative;
+  background:#0c0c0c;border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 12px 28px -14px rgba(0,0,0,.7);
+}
+.dc-win-bar{
+  display:flex;align-items:center;gap:4px;
+  padding:6px 8px;background:rgba(0,0,0,.55);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.dc-win-bar i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18)}
+.dc-badge{
+  margin-left:auto;font-size:7px;letter-spacing:.06em;
+  font-family:var(--font-mono);color:rgba(255,255,255,.35);
+}
+.dc-win-body{padding:8px 8px 6px;position:relative;height:calc(100% - 24px)}
+.dc-chips{display:flex;gap:4px;margin-bottom:6px}
+.dc-chips span{
+  font-size:7px;font-family:var(--font-mono);padding:2px 6px;border-radius:100px;
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.32);
+  transition:background .3s,color .3s;
+}
+.dc-chips span.on{background:rgba(22,163,74,.25);color:#4ade80}
+.dc-rows{display:flex;flex-direction:column;gap:3px}
+.dc-r{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:4px 6px;border-radius:4px;font-size:8px;font-family:var(--font-mono);
+  color:rgba(255,255,255,.38);border:1px solid transparent;
+  transition:background .3s,border-color .3s,color .3s;
+}
+.dc-r .pf{color:#f87171;font-weight:700;font-size:7px}
+.dc-r.on{
+  background:rgba(22,163,74,.14);border-color:rgba(22,163,74,.3);
+  color:rgba(255,255,255,.88);
+}
+.dc-states{
+  display:flex;gap:4px;margin-top:6px;opacity:0;
+  transition:opacity .35s;
+}
+.dc-states.show{opacity:1}
+.dc-states .st{
+  font-size:7px;font-family:var(--font-mono);padding:2px 5px;border-radius:3px;
+}
+.dc-states .st.ready{background:rgba(22,163,74,.22);color:#4ade80}
+.dc-states .st.dl{background:rgba(59,130,246,.2);color:#93c5fd}
+.dc-states .st.qu{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
+.dc-cursor{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:#fff;border:1.5px solid #16a34a;
+  box-shadow:0 0 0 3px rgba(22,163,74,.25);
+  pointer-events:none;opacity:0;z-index:5;
+  transition:left .55s cubic-bezier(.22,1,.36,1),top .55s cubic-bezier(.22,1,.36,1),opacity .2s;
+}
+.dc-cursor.show{opacity:.85}
+
+
+/* Projects page: cards always expanded */
+.stack .pcard{
+  flex:none !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-height:420px !important;
+  height:auto !important;
+  background:var(--bg-surface) !important;
+  color:var(--text) !important;
+  border:1px solid var(--border) !important;
+}
+.stack .pcard .pcard-body{
+  position:relative !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  inset:auto !important;
+  padding:24px !important;
+  height:auto !important;
+}
+.stack .pcard .pcard-head{
+  position:absolute;top:16px;left:16px;z-index:3;
+}
+.stack .pcard .pcard-name-v{display:none !important}
+.stack .pcard-graphic{height:200px !important}
+
 </style>
 
 
@@ -1746,6 +1836,32 @@ body:has(nav.site-nav) .top-nav:not(.site-nav),
 body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 </style>
 
+
+<style id="pcard-motion">
+/* PCARD-MOTION — skills-like subtle stretch + soft bounce (not instant) */
+html body .pcard, html body a.pcard{
+  transition:
+    transform .55s cubic-bezier(.34,1.22,.64,1),
+    box-shadow .45s ease,
+    border-color .35s ease,
+    background-color .35s ease !important;
+  transform-origin: center center;
+}
+html body .pcard:hover, html body a.pcard:hover,
+html body .pcard:focus-visible, html body a.pcard:focus-visible{
+  transform: scale(1.02) translateY(-2px) !important;
+}
+html body .pcard .pcard-body,
+html body a.pcard .pcard-body{
+  transition: opacity .4s ease, transform .55s cubic-bezier(.34,1.22,.64,1) !important;
+}
+@media (prefers-reduced-motion: reduce){
+  html body .pcard, html body a.pcard, html body .pcard .pcard-body{
+    transition: none !important; transform: none !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <nav class="site-nav" id="topNav" style="--sn-accent:#d97757" aria-label="Primary">
@@ -1765,7 +1881,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
           <a href="projects/chek.html" role="menuitem">Chek</a>
           <a href="projects/dollarcity.html" role="menuitem">DollarCity</a>
           <a href="projects/customs.html" role="menuitem">Customs ES</a>
-          <a href="projects/forecast.html" role="menuitem">Forecast</a>
+          
         </div>
       </div>
       <a href="resume.html" class="sn-link">Resume</a>
@@ -1789,7 +1905,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
   <a class="sn-sub" href="projects/chek.html">Chek</a>
   <a class="sn-sub" href="projects/dollarcity.html">DollarCity</a>
   <a class="sn-sub" href="projects/customs.html">Customs ES</a>
-  <a class="sn-sub" href="projects/forecast.html">Forecast</a>
+  
   <a href="resume.html">Resume</a>
   <a href="contact.html">Contact</a>
   <a href="design-system.html">Design System</a>
@@ -1804,81 +1920,58 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 <h1>Projects</h1>
 <p class="lede">Same cards as home — expanded here with role, stack, and outcome so recruiters can scan without opening every case.</p>
 <div class="stack">
-
-  <a class="pcard" href="projects/ey-fabric.html" style="--pc-bg:#ffe600;--pc-txt:#2b2600;">
-    <div class="pcard-head">
-      <span class="pcard-logo"><svg width="30" height="22" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#2b2600"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#2b2600">EY</text></svg></span>
-      <span class="pcard-name-v">EY Fabric</span>
-    </div>
-    <div class="pcard-body">
-      <div class="pcard-top"><b>EY Fabric</b><small>Oct 2023 — Present · Globant</small></div>
-      <div class="pcard-graphic ey-graphic">
-        <div class="ey-wf"><div class="ey-wf-side"><b></b><b></b><b></b><b></b></div><div class="ey-wf-main"><div class="ey-wf-banner"></div><div class="ey-wf-grid"><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div>
-        <span class="ey-wf-cursor"></span>
+<a class="pcard" href="projects/blockchain.html" id="pc1" style="--pc-bg:#22d4c8;--pc-txt:#042e2a;">
+      <div class="pcard-head">
+        <span class="pcard-logo"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#042e2a" stroke-width="1.6"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#042e2a"/></svg></span><span class="pcard-name-v">Blockchain</span>
       </div>
+      <div class="pcard-body">
+        <div class="pcard-top"><b>Blockchains Inc.</b><small>Oct 2023 — Present</small></div>
+        <div class="pcard-graphic bc-scene" style="background:#0a121c;position:relative;overflow:hidden;">
+          <canvas class="bc-mini-gl" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
+          <div class="bc-mini-tip" aria-hidden="true"><b>POI</b> · Cafe row</div>
 
-      <div class="metric-reel" aria-hidden="true"><div class="metric-reel-track">
-        <div class="metric-chip"><b>90+</b><span>Assets instrumented</span></div>
-        <div class="metric-chip"><b>1</b><span>Pendo practitioner</span></div>
-        <div class="metric-chip"><b>5</b><span>Workflow stages</span></div>
-        <div class="metric-chip"><b>300+</b><span>Catalog items</span></div>
-        <div class="metric-chip"><b>90+</b><span>Assets instrumented</span></div>
-        <div class="metric-chip"><b>1</b><span>Pendo practitioner</span></div>
-        <div class="metric-chip"><b>5</b><span>Workflow stages</span></div>
-        <div class="metric-chip"><b>300+</b><span>Catalog items</span></div>
-      </div></div>
-      <p class="pcard-desc">Sole Pendo practitioner on the XDA team — instrumented a 300+ item catalog end to end, closed the loop between experience, product, and engineering.</p>
-      
-      <div class="stack-row" aria-label="Stack">
-        <span class="icochip" data-brand="pendo"><span class="icochip-name">Pendo</span><svg viewBox="0 0 24 24"><path fill="#EC5B33" d="M4 4h10.5a5.5 5.5 0 010 11H8v5H4V4zm4 4v3h6.5a1.5 1.5 0 000-3H8z"/></svg></span>
-        <span class="icochip" data-brand="figma"><span class="icochip-name">Figma</span><svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z"/><path fill="#FF7262" d="M4 12c0-2.2 1.8-4 4-4h4v8H8c-2.2 0-4-1.8-4-4z"/><path fill="#A259FF" d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z"/><path fill="#1ABCFE" d="M12 0h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4V0z"/><path fill="#0ACF83" d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z"/></svg></span>
-        <span class="icochip" data-brand="maze"><span class="icochip-name">Maze</span><svg viewBox="0 0 24 24"><path fill="#1a1917" d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm14.5 0L21 17.5 17.5 21 14 17.5 17.5 14z"/></svg></span>
+        </div>
+        <p class="pcard-desc">A working 3D prototype — 5 flows, real hotspots — bridging flat UI with an immersive map.</p>
+        <span class="pcard-cta">Open case study &#8594;</span>
       </div>
-<div class="pcard-tags"><span>UXR</span><span>Behavioral analytics</span></div>
-      <span class="pcard-cta">Open case study →</span>
-    </div>
-  </a>
-
-  <a class="pcard" href="projects/blockchain.html" style="--pc-bg:#22d4c8;--pc-txt:#042e2a;">
-    <div class="pcard-head">
-      <span class="pcard-logo"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#042e2a" stroke-width="1.6"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#042e2a"/></svg></span>
-      <span class="pcard-name-v">Blockchain</span>
-    </div>
-    <div class="pcard-body">
-      <div class="pcard-top"><b>Blockchains Inc.</b><small>2023 — Present · 3D product</small></div>
-      <div class="pcard-graphic" style="background:#0a121c;position:relative;overflow:hidden;">
-        <canvas class="bc-mini-gl" style="position:absolute;inset:0;width:100%;height:100%;display:block"></canvas>
-        <div class="bc-mini-tip" aria-hidden="true"><b>POI</b> · Cafe row</div>
+    </a>
+<a class="pcard" href="projects/customs.html" id="pc2" style="--pc-bg:#4a9eff;--pc-txt:#fff;">
+      <div class="pcard-head">
+        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="rgba(255,255,255,.15)"/><path d="M7 8h10M7 12h7M7 16h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="16" r="3" fill="none" stroke="#fff" stroke-width="1.4"/></svg></span><span class="pcard-name-v">Customs ES</span>
       </div>
-
-      <div class="metric-reel" aria-hidden="true"><div class="metric-reel-track">
-        <div class="metric-chip"><b>3D</b><span>Live city map</span></div>
-        <div class="metric-chip"><b>POI</b><span>Place &amp; publish</span></div>
-        <div class="metric-chip"><b>4</b><span>Demo beats</span></div>
-        <div class="metric-chip"><b>Owner</b><span>→ Visitor loop</span></div>
-        <div class="metric-chip"><b>3D</b><span>Live city map</span></div>
-        <div class="metric-chip"><b>POI</b><span>Place &amp; publish</span></div>
-        <div class="metric-chip"><b>4</b><span>Demo beats</span></div>
-        <div class="metric-chip"><b>Owner</b><span>→ Visitor loop</span></div>
-      </div></div>
-      <p class="pcard-desc">Immersive map product — place POIs in a live 3D city, publish media from device, and visit content on the ground plane. Same procedural city engine as the case demo.</p>
-      
-      <div class="stack-row" aria-label="Stack">
-        <span class="icochip"><span class="icochip-name">Figma</span><svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z"/><path fill="#FF7262" d="M4 12c0-2.2 1.8-4 4-4h4v8H8c-2.2 0-4-1.8-4-4z"/><path fill="#A259FF" d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z"/><path fill="#1ABCFE" d="M12 0h4c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4V0z"/><path fill="#0ACF83" d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z"/></svg></span>
-        <span class="icochip"><span class="icochip-name">Spline</span><svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5" fill="#5B21B6"/><circle cx="16" cy="8" r="2.5" fill="#7C3AED"/><circle cx="16" cy="16" r="2.5" fill="#A78BFA"/></svg></span>
-        <span class="icochip"><span class="icochip-name">Unity</span><svg viewBox="0 0 24 24"><path fill="#333" d="M10.1 2.2L2.5 6.6v10.8l7.6 4.4 7.6-4.4V6.6L10.1 2.2z"/></svg></span>
-        <span class="icochip"><span class="icochip-name">Three.js</span><svg viewBox="0 0 24 24"><path fill="#049EF4" d="M3 18L12 3l9 15H3zm3.2-1.5h11.6L12 7.2 6.2 16.5z"/></svg></span>
+      <div class="pcard-body">
+        <div class="pcard-top"><b>Customs ES</b><small>2021 — 2023</small></div>
+        <div class="pcard-graphic cus-graphic" style="background:#0a1018;">
+          <div class="cus-stage" aria-hidden="true">
+            <div class="cus-phone">
+              <div class="cus-phone-notch"></div>
+              <div class="cus-phone-screen">
+                <span class="cus-bp-lab">Boarding pass</span>
+                <span class="cus-bp-code"></span>
+                <span class="cus-bp-ok">Enabled</span>
+              </div>
+            </div>
+            <div class="cus-win">
+              <div class="cus-win-bar"><i></i><i></i><i></i></div>
+              <div class="cus-win-body">
+                <span class="cus-scan-line"></span>
+                <span class="cus-win-kpi"></span>
+                <span class="cus-win-kpi short"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="pcard-desc">50+ analog processes into one surface — document work to field control, dual devices at the gate.</p>
+        <span class="pcard-cta">Open case study &#8594;</span>
       </div>
-<div class="pcard-tags"><span>3D UX</span></div>
-      <span class="pcard-cta">Open case study →</span>
-    </div>
-  </a>
-
-  <a class="pcard" href="projects/chek.html" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
-    <div class="pcard-head"><span class="pcard-name-v">Chek</span></div>
-    <div class="pcard-body">
-      <div class="pcard-top"><b>Chek</b><small>Fintech · 2021 — 2023</small></div>
-      <div class="pcard-graphic chek-g" style="background:#120b1c;">
+    </a>
+<a class="pcard" href="projects/chek.html" id="pc4" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
+      <div class="pcard-head">
+        <span class="pcard-logo" style="font-family:var(--font-display);font-weight:800;font-size:15px;color:#fff;">cheK</span><span class="pcard-name-v">Chek</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-top"><b>Chek</b><small>2021 — 2023</small></div>
+        <div class="pcard-graphic chek-g" style="background:#120b1c;">
           <div class="chek-stage-pc" aria-hidden="true">
             <div class="cu-pill bal"><b>$2,840</b> available</div>
             <div class="cu-pill sec ok"><b>●</b> protected</div>
@@ -1890,88 +1983,48 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
             </div>
           </div>
         </div>
-      <p class="pcard-desc">Virtual credit card — +15% onboarding after silent identity, design system across 10+ features, Pendo funnels.</p>
-      <div class="pcard-tags"><span>Product</span><span>Mobile</span><span>Research</span></div>
-      <span class="pcard-cta">Open case study →</span>
-    </div>
-  </a>
-
-  <a class="pcard" href="projects/dollarcity.html" style="--pc-bg:#00a650;--pc-txt:#fff;">
-    <div class="pcard-head"><span class="pcard-name-v">DollarCity</span></div>
-    <div class="pcard-body">
-      <div class="pcard-top"><b>DollarCity</b><small>Retail · research</small></div>
-      <div class="pcard-graphic dc-g"><div class="dc-cam"><div class="dc-scan"></div></div></div>
-      <p class="pcard-desc">Retail research and service design — journey depth, alignment, and prototype validation.</p>
-      <div class="pcard-tags"><span>Research</span><span>Service design</span></div>
-      <span class="pcard-cta">Open case study →</span>
-    </div>
-  </a>
-
-  <a class="pcard" href="projects/customs.html" style="--pc-bg:#4a9eff;--pc-txt:#fff;">
-    <div class="pcard-head">
-      <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="rgba(255,255,255,.15)"/><path d="M7 8h10M7 12h7M7 16h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="16" r="3" fill="none" stroke="#fff" stroke-width="1.4"/></svg></span>
-      <span class="pcard-name-v">Customs ES</span>
-    </div>
-    <div class="pcard-body">
-      <div class="pcard-top"><b>Customs ES</b><small>2021 — 2023 · El Salvador</small></div>
-      <div class="pcard-graphic cus-graphic" style="background:#0a1018;">
-        <div class="cus-stage" aria-hidden="true">
-          <div class="cus-phone">
-            <div class="cus-phone-notch"></div>
-            <div class="cus-phone-screen">
-              <span class="cus-bp-lab">Boarding pass</span>
-              <span class="cus-bp-code"></span>
-              <span class="cus-bp-ok">Enabled</span>
-            </div>
-          </div>
-          <div class="cus-win">
-            <div class="cus-win-bar"><i></i><i></i><i></i></div>
-            <div class="cus-win-body">
-              <span class="cus-scan-line"></span>
-              <span class="cus-win-kpi"></span>
-              <span class="cus-win-kpi short"></span>
+        <p class="pcard-desc">Virtual credit card — +15% onboarding after silent identity, design system across 10+ features, Pendo funnels.</p>
+        <span class="pcard-cta">Open case study &#8594;</span>
+      </div>
+    </a>
+<a class="pcard" href="projects/dollarcity.html" id="pc5" style="--pc-bg:#16a34a;--pc-txt:#fff;">
+      <div class="pcard-head">
+        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#16a34a">D</text></svg></span><span class="pcard-name-v">DollarCity</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-top"><b>Dollarama × DollarCity</b><small>Jul — Dec 2023</small></div>
+        <div class="pcard-graphic dc-graphic" style="background:#0a0b0a;">
+          <div class="dc-stage" aria-hidden="true">
+            <div class="dc-win">
+              <div class="dc-win-bar">
+                <i></i><i></i><i></i>
+                <span class="dc-badge">VIDEO INVESTIGATION</span>
+              </div>
+              <div class="dc-win-body">
+                <div class="dc-chips">
+                  <span class="on">POS Search</span>
+                  <span>My Requests</span>
+                </div>
+                <div class="dc-rows" id="dcCardRows">
+                  <div class="dc-r" data-i="0"><span>Store 42 · POS 3</span><span class="pf">PF</span></div>
+                  <div class="dc-r" data-i="1"><span>Store 42 · POS 3</span><span></span></div>
+                  <div class="dc-r" data-i="2"><span>Store 17 · POS 1</span><span></span></div>
+                  <div class="dc-r" data-i="3"><span>Store 09 · POS 2</span><span></span></div>
+                </div>
+                <div class="dc-states">
+                  <span class="st ready">Ready</span>
+                  <span class="st dl">48%</span>
+                  <span class="st qu">Queued</span>
+                </div>
+              </div>
+              <div class="dc-cursor" id="dcCardCur"></div>
             </div>
           </div>
         </div>
+        <p class="pcard-desc">Retail fraud surveillance SaaS — one screen cut task time 50% across Canada &amp; LATAM.</p>
+        <span class="pcard-cta">Open case study →</span>
       </div>
-      <div class="metric-reel" aria-hidden="true"><div class="metric-reel-track">
-        <div class="metric-chip"><b>50+</b><span>Analog → digital</span></div>
-        <div class="metric-chip"><b>4</b><span>Actors, one circuit</span></div>
-        <div class="metric-chip"><b>1</b><span>Shared record</span></div>
-        <div class="metric-chip"><b>50+</b><span>Analog → digital</span></div>
-        <div class="metric-chip"><b>4</b><span>Actors, one circuit</span></div>
-        <div class="metric-chip"><b>1</b><span>Shared record</span></div>
-      </div></div>
-      <p class="pcard-desc">50+ analog processes into one surface — document work to field control, dual devices at the gate. PrimeNG design system for behavior and states.</p>
-      <div class="pcard-tags"><span>Product</span><span>Field ops</span><span>PrimeNG</span><span>Service design</span></div>
-      <div class="stack-row" aria-label="Stack">
-        <span class="icochip" title="Figma"><svg viewBox="0 0 38 57" width="14" height="14"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19z"/><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span>
-        <span class="icochip" title="Jira"><svg viewBox="0 0 24 24" width="14" height="14"><rect width="24" height="24" rx="6" fill="#2684FF"/><path d="M12 4l6 8H6l6-8z" fill="#fff"/><path d="M12 20l6-8H6l6 8z" fill="#fff" opacity=".65"/></svg></span>
-        <span class="icochip" title="PrimeNG"><svg viewBox="0 0 24 24" width="14" height="14"><rect width="24" height="24" rx="6" fill="#DD0031"/><path d="M7 16V8h3.2c1.8 0 2.9.9 2.9 2.3 0 1.1-.6 1.9-1.6 2.2L14.8 16h-2.2l-2.6-3.2H9.2V16H7zm2.2-5h1c.7 0 1.1-.3 1.1-.9S11 9.2 10.2 9.2h-1V11z" fill="#fff"/></svg></span>
-      </div>
-      <span class="pcard-cta">Open case study →</span>
-    </div>
-  </a>
-
-  <a class="pcard" href="projects/forecast.html" style="--pc-bg:#5b9bd0;--pc-txt:#fff;">
-    <div class="pcard-head">
-      <span class="pcard-logo" style="font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;">Fc</span>
-      <span class="pcard-name-v">Forecast</span>
-    </div>
-    <div class="pcard-body">
-      <div class="pcard-top"><b>Forecast</b><small>2023 — 2025</small></div>
-      <div class="pcard-graphic" style="background:#0d1218;position:relative;min-height:120px;">
-        <span class="fc-gantt" style="position:absolute;left:14%;top:30%;width:46%;height:10px;border-radius:4px;background:rgba(91,155,208,.55)"></span>
-        <span class="fc-gantt" style="position:absolute;left:26%;top:48%;width:38%;height:10px;border-radius:4px;background:rgba(91,155,208,.4)"></span>
-        <span class="fc-gantt" style="position:absolute;left:20%;top:66%;width:56%;height:10px;border-radius:4px;background:rgba(91,155,208,.28)"></span>
-      </div>
-      <p class="pcard-desc">Module design inside an established design system — pending assignments, timeframes, employee management.</p>
-      <div class="pcard-tags"><span>Product</span><span>Design system</span></div>
-      <span class="pcard-cta">Open case study →</span>
-    </div>
-  </a>
-
-
+    </a>
 </div>
 </main>
 <footer class="foot"><a href="index.html">Home</a><a href="projects/blockchain.html">Blockchains</a><a href="projects/ey-fabric.html">EY Fabric</a><a href="projects/customs.html">Customs ES</a></footer>
@@ -2366,5 +2419,41 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 })();
 </script>
 
+
+<script>
+/* DollarCity card — hero POS loop */
+(function(){
+  var rows = document.querySelectorAll('#pc5 .dc-r');
+  var chips = document.querySelectorAll('#pc5 .dc-chips span');
+  var states = document.querySelector('#pc5 .dc-states');
+  var cur = document.getElementById('dcCardCur');
+  if(!rows.length) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced){ rows[0].classList.add('on'); return; }
+  var i = 0;
+  function step(){
+    rows.forEach(function(r,j){ r.classList.toggle('on', j===i); });
+    if(chips[0]) chips[0].classList.toggle('on', i < 3);
+    if(chips[1]) chips[1].classList.toggle('on', i >= 3);
+    if(states) states.classList.toggle('show', i >= 3);
+    if(cur){
+      var r = rows[Math.min(i, rows.length-1)];
+      if(r){
+        var win = document.querySelector('#pc5 .dc-win');
+        if(win){
+          var wr = win.getBoundingClientRect();
+          var rr = r.getBoundingClientRect();
+          cur.style.left = (rr.left - wr.left + 12) + 'px';
+          cur.style.top = (rr.top - wr.top + 4) + 'px';
+          cur.classList.add('show');
+        }
+      }
+    }
+    i = (i + 1) % 5;
+  }
+  step();
+  setInterval(step, 1100);
+})();
+</script>
 </body>
 </html>

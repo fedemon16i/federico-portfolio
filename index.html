@@ -4179,6 +4179,70 @@ html body .top-nav .top-nav-inner{
 .chek-stage-pc .cu-pill.ok b{color:#3dd68c}
 @keyframes chekCuIn{to{opacity:1;transform:none}}
 
+
+/* DollarCity card — hero Video Investigation mini */
+.dc-graphic{position:relative}
+.dc-stage{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px 16px;
+}
+.dc-win{
+  width:100%;max-width:280px;height:100%;max-height:168px;
+  border-radius:10px;overflow:hidden;position:relative;
+  background:#0c0c0c;border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 12px 28px -14px rgba(0,0,0,.7);
+}
+.dc-win-bar{
+  display:flex;align-items:center;gap:4px;
+  padding:6px 8px;background:rgba(0,0,0,.55);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.dc-win-bar i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18)}
+.dc-badge{
+  margin-left:auto;font-size:7px;letter-spacing:.06em;
+  font-family:var(--font-mono);color:rgba(255,255,255,.35);
+}
+.dc-win-body{padding:8px 8px 6px;position:relative;height:calc(100% - 24px)}
+.dc-chips{display:flex;gap:4px;margin-bottom:6px}
+.dc-chips span{
+  font-size:7px;font-family:var(--font-mono);padding:2px 6px;border-radius:100px;
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.32);
+  transition:background .3s,color .3s;
+}
+.dc-chips span.on{background:rgba(22,163,74,.25);color:#4ade80}
+.dc-rows{display:flex;flex-direction:column;gap:3px}
+.dc-r{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:4px 6px;border-radius:4px;font-size:8px;font-family:var(--font-mono);
+  color:rgba(255,255,255,.38);border:1px solid transparent;
+  transition:background .3s,border-color .3s,color .3s;
+}
+.dc-r .pf{color:#f87171;font-weight:700;font-size:7px}
+.dc-r.on{
+  background:rgba(22,163,74,.14);border-color:rgba(22,163,74,.3);
+  color:rgba(255,255,255,.88);
+}
+.dc-states{
+  display:flex;gap:4px;margin-top:6px;opacity:0;
+  transition:opacity .35s;
+}
+.dc-states.show{opacity:1}
+.dc-states .st{
+  font-size:7px;font-family:var(--font-mono);padding:2px 5px;border-radius:3px;
+}
+.dc-states .st.ready{background:rgba(22,163,74,.22);color:#4ade80}
+.dc-states .st.dl{background:rgba(59,130,246,.2);color:#93c5fd}
+.dc-states .st.qu{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
+.dc-cursor{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:#fff;border:1.5px solid #16a34a;
+  box-shadow:0 0 0 3px rgba(22,163,74,.25);
+  pointer-events:none;opacity:0;z-index:5;
+  transition:left .55s cubic-bezier(.22,1,.36,1),top .55s cubic-bezier(.22,1,.36,1),opacity .2s;
+}
+.dc-cursor.show{opacity:.85}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 <style>
@@ -5150,6 +5214,32 @@ html body iframe#skillsPlayerFrame{
 }
 
 </style>
+
+<style id="pcard-motion">
+/* PCARD-MOTION — skills-like subtle stretch + soft bounce (not instant) */
+html body .pcard, html body a.pcard{
+  transition:
+    transform .55s cubic-bezier(.34,1.22,.64,1),
+    box-shadow .45s ease,
+    border-color .35s ease,
+    background-color .35s ease !important;
+  transform-origin: center center;
+}
+html body .pcard:hover, html body a.pcard:hover,
+html body .pcard:focus-visible, html body a.pcard:focus-visible{
+  transform: scale(1.02) translateY(-2px) !important;
+}
+html body .pcard .pcard-body,
+html body a.pcard .pcard-body{
+  transition: opacity .4s ease, transform .55s cubic-bezier(.34,1.22,.64,1) !important;
+}
+@media (prefers-reduced-motion: reduce){
+  html body .pcard, html body a.pcard, html body .pcard .pcard-body{
+    transition: none !important; transform: none !important;
+  }
+}
+</style>
+
 </head>
 <body class="page-home">
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -5165,7 +5255,7 @@ html body iframe#skillsPlayerFrame{
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu">
-          <a href="projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a><a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a><a href="projects/chek.html" role="menuitem">Chek</a><a href="projects/dollarcity.html" role="menuitem">DollarCity</a><a href="projects/customs.html" role="menuitem">Customs ES</a><a href="projects/forecast.html" role="menuitem">Forecast</a>
+          <a href="projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a><a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a><a href="projects/chek.html" role="menuitem">Chek</a><a href="projects/dollarcity.html" role="menuitem">DollarCity</a><a href="projects/customs.html" role="menuitem">Customs ES</a>
         </div>
       </div>
       <a href="resume.html" class="top-nav-link">Resume</a>
@@ -5189,7 +5279,7 @@ html body iframe#skillsPlayerFrame{
   <a class="mob-sub" href="projects/chek.html">Chek</a>
   <a class="mob-sub" href="projects/dollarcity.html">DollarCity</a>
   <a class="mob-sub" href="projects/customs.html">Customs ES</a>
-  <a class="mob-sub" href="projects/forecast.html">Forecast</a>
+  
   <a href="resume.html">Resume</a>
   <a href="contact.html">Contact</a>
   <a href="design-system.html">Design System</a>
@@ -5384,21 +5474,7 @@ html body iframe#skillsPlayerFrame{
       </div>
     </a>
 
-    <a class="pcard" href="projects/forecast.html" id="pc3" style="--pc-bg:#5b9bd0;--pc-txt:#fff;">
-      <div class="pcard-head">
-        <span class="pcard-logo" style="font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;">Fc</span><span class="pcard-name-v">Forecast</span>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-top"><b>Forecast</b><small>2023 — 2025</small></div>
-        <div class="pcard-graphic" style="background:#0d1218;">
-          <span class="fc-gantt" style="left:14%;top:30%;width:46%;animation-delay:0s"></span>
-          <span class="fc-gantt" style="left:26%;top:48%;width:38%;animation-delay:.5s;opacity:.75"></span>
-          <span class="fc-gantt" style="left:20%;top:66%;width:56%;animation-delay:1s;opacity:.5"></span>
-        </div>
-        <p class="pcard-desc">Module design inside an established design system — pending assignments, timeframes, employee management.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
-      </div>
-    </a>
+    
 
     <a class="pcard" href="projects/chek.html" id="pc4" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
       <div class="pcard-head">
@@ -5423,28 +5499,48 @@ html body iframe#skillsPlayerFrame{
       </div>
     </a>
 
-    <a class="pcard" href="projects/dollarcity.html" id="pc5" style="--pc-bg:#00a650;--pc-txt:#fff;">
+    <a class="pcard" href="projects/dollarcity.html" id="pc5" style="--pc-bg:#16a34a;--pc-txt:#fff;">
       <div class="pcard-head">
-        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#00a650">D</text></svg></span><span class="pcard-name-v">DollarCity</span>
+        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#16a34a">D</text></svg></span><span class="pcard-name-v">DollarCity</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-top"><b>Dollarama &#215; DollarCity</b><small>Jul — Dec 2023</small></div>
-        <div class="pcard-graphic" style="background:#e9e7df;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
-          <div class="g-browser-screen">
-            <span class="dc-ba-mini"><i class="dc-ba-b">Before</i><i class="dc-ba-a">After</i></span>
-            <span class="dc-row" style="top:38%"></span>
-            <span class="dc-row" style="top:58%"></span>
-            <span class="dc-scan"></span>
-            <span class="dc-flag">&#9873; flagged</span>
+        <div class="pcard-top"><b>Dollarama × DollarCity</b><small>Jul — Dec 2023</small></div>
+        <div class="pcard-graphic dc-graphic" style="background:#0a0b0a;">
+          <div class="dc-stage" aria-hidden="true">
+            <div class="dc-win">
+              <div class="dc-win-bar">
+                <i></i><i></i><i></i>
+                <span class="dc-badge">VIDEO INVESTIGATION</span>
+              </div>
+              <div class="dc-win-body">
+                <div class="dc-chips">
+                  <span class="on">POS Search</span>
+                  <span>My Requests</span>
+                </div>
+                <div class="dc-rows" id="dcCardRows">
+                  <div class="dc-r" data-i="0"><span>Store 42 · POS 3</span><span class="pf">PF</span></div>
+                  <div class="dc-r" data-i="1"><span>Store 42 · POS 3</span><span></span></div>
+                  <div class="dc-r" data-i="2"><span>Store 17 · POS 1</span><span></span></div>
+                  <div class="dc-r" data-i="3"><span>Store 09 · POS 2</span><span></span></div>
+                </div>
+                <div class="dc-states">
+                  <span class="st ready">Ready</span>
+                  <span class="st dl">48%</span>
+                  <span class="st qu">Queued</span>
+                </div>
+              </div>
+              <div class="dc-cursor" id="dcCardCur"></div>
+            </div>
           </div>
-        </div></div>
-        <p class="pcard-desc">Fraud-monitoring SaaS for retail across Canada &amp; LATAM — real screens, before/after redesign, full research.</p>
-        <span class="pcard-cta">Open case study &#8594;</span>
+        </div>
+        <p class="pcard-desc">Retail fraud surveillance SaaS — one screen cut task time 50% across Canada &amp; LATAM.</p>
+        <span class="pcard-cta">Open case study →</span>
       </div>
     </a>
 
   </div>
-</section>
+
+  </section>
 
 <!-- ============ PERSONAL — placeholder ============ -->
 <section class="section" id="personal" aria-labelledby="pp-h">
@@ -6764,17 +6860,38 @@ html body iframe#skillsPlayerFrame{
     },1500);
   })();
 
-  /* DollarCity card — auto-alternate the before/after mini toggle */
+  /* DollarCity card — hero POS loop */
   (function(){
-    var b=document.querySelector('.dc-ba-b'), a=document.querySelector('.dc-ba-a');
-    if(!b||!a||reduced) return;
-    var on=true;
-    b.classList.add('on');
-    setInterval(function(){
-      on=!on;
-      b.classList.toggle('on',on);
-      a.classList.toggle('on',!on);
-    },2600);
+    var rows = document.querySelectorAll('#pc5 .dc-r');
+    var chips = document.querySelectorAll('#pc5 .dc-chips span');
+    var states = document.querySelector('#pc5 .dc-states');
+    var cur = document.getElementById('dcCardCur');
+    if(!rows.length) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){ rows[0].classList.add('on'); return; }
+    var i = 0;
+    function step(){
+      rows.forEach(function(r,j){ r.classList.toggle('on', j===i); });
+      if(chips[0]) chips[0].classList.toggle('on', i < 3);
+      if(chips[1]) chips[1].classList.toggle('on', i >= 3);
+      if(states) states.classList.toggle('show', i >= 3);
+      if(cur){
+        var r = rows[Math.min(i, rows.length-1)];
+        if(r){
+          var win = document.querySelector('#pc5 .dc-win');
+          if(win){
+            var wr = win.getBoundingClientRect();
+            var rr = r.getBoundingClientRect();
+            cur.style.left = (rr.left - wr.left + 12) + 'px';
+            cur.style.top = (rr.top - wr.top + 4) + 'px';
+            cur.classList.add('show');
+          }
+        }
+      }
+      i = (i + 1) % 5;
+    }
+    step();
+    setInterval(step, 1100);
   })();
 
   /* EY project card — animate the process nodes lighting in sequence */
