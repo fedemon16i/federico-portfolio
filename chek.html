@@ -1361,6 +1361,25 @@ body:has(nav.site-nav) .top-nav:not(.site-nav),
 body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 </style>
 
+
+<style id="shell-unify-v2">
+:root{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }
+.page, .wrap, .sn-inner{
+  max-width:var(--max)!important;
+  margin-left:auto!important; margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+.page, .wrap{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+  width:100%!important;
+}
+nav.site-nav .sn-inner{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+}
+</style>
+
 </head>
 <body>
 <nav class="site-nav" id="topNav" style="--sn-accent:#7a3be0" aria-label="Primary">
@@ -1380,7 +1399,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
           <a href="chek.html" role="menuitem" class="is-current">Chek</a>
           <a href="dollarcity.html" role="menuitem">DollarCity</a>
           <a href="customs.html" role="menuitem">Customs ES</a>
-          <a href="forecast.html" role="menuitem">Forecast</a>
+          
         </div>
       </div>
       <a href="../resume.html" class="sn-link">Resume</a>
@@ -1404,7 +1423,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
   <a class="sn-sub" href="chek.html">Chek</a>
   <a class="sn-sub" href="dollarcity.html">DollarCity</a>
   <a class="sn-sub" href="customs.html">Customs ES</a>
-  <a class="sn-sub" href="forecast.html">Forecast</a>
+  
   <a href="../resume.html">Resume</a>
   <a href="../contact.html">Contact</a>
   <a href="../design-system.html">Design System</a>

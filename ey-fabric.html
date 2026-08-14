@@ -26,7 +26,7 @@ html[data-theme="light"]{
   --bg:#f7f5f2;--bg-surface:#fff;--bg-raised:#eeece7;--bg-elevated:#e4e0d8;
   --text-primary:#1a1917;--text-secondary:#55524c;--text-tertiary:#726e66;
   --border:rgba(0,0,0,.1);--border-soft:rgba(0,0,0,.06);
-  --accent:#a6860a;--accent-dim:rgba(166,134,10,.12);--on-accent:#fff;
+  --accent:#a38b00;--accent-dim:rgba(163,139,0,.12);--on-accent:#fff;
   --stage-bg:#e6e2da;--stage-grid:rgba(0,0,0,.04);--capbar-fade:rgba(230,226,218,.94);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -2975,8 +2975,8 @@ html body #pi > .wrap{
   max-width: 920px !important;
   width: 100% !important;
   margin: 0 auto !important;
-  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  padding-left: 0;
+  padding-right: 0;
   box-sizing: border-box !important;
 }
 html body #pi > .wrap > iframe,
@@ -3070,54 +3070,7 @@ html body #pi #piPlayerFrame{
 
 
 
-<style id="ey-pi-final">
-/* EY PI FINAL — same content width as page, full unit height */
-html body .page{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  box-sizing: border-box !important;
-}
-/* #pi is inside padded .page — no second horizontal pad on wrap */
-html body #pi.sec,
-html body section#pi,
-html body #pi{
-  max-width: none !important;
-  width: 100% !important;
-  margin: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-top: var(--section-y, 2.25rem) !important;
-  padding-bottom: var(--section-y, 2.25rem) !important;
-  box-sizing: border-box !important;
-}
-html body #pi > .wrap,
-html body #pi .wrap{
-  max-width: none !important; /* already inside 920 page */
-  width: 100% !important;
-  margin: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  box-sizing: border-box !important;
-}
-html body #pi iframe.pi-iframe,
-html body #pi #piPlayerFrame,
-html body iframe.pi-iframe{
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  border: 0 !important;
-  background: transparent !important;
-  margin: 0 !important;
-  min-height: 0 !important;
-  /* landscape + bottom; JS postMessage overrides with !important */
-  height: calc(100px + 100% * 0 + (min(920px, 100vw) - 56px) * 410 / 560 + 36px) !important;
-  max-height: 90vh !important;
-}
-</style>
+
 
 
 
@@ -3283,6 +3236,28 @@ body:has(nav.site-nav) .top-nav:not(.site-nav),
 body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 </style>
 
+
+
+
+
+<style id="shell-unify-v2">
+:root{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }
+.page, .wrap, .sn-inner{
+  max-width:var(--max)!important;
+  margin-left:auto!important; margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+.page, .wrap{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+  width:100%!important;
+}
+nav.site-nav .sn-inner{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+}
+</style>
+
 </head>
 <body>
 <nav class="site-nav" id="topNav" style="--sn-accent:#ffe600" aria-label="Primary">
@@ -3302,7 +3277,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
           <a href="chek.html" role="menuitem">Chek</a>
           <a href="dollarcity.html" role="menuitem">DollarCity</a>
           <a href="customs.html" role="menuitem">Customs ES</a>
-          <a href="forecast.html" role="menuitem">Forecast</a>
+          
         </div>
       </div>
       <a href="../resume.html" class="sn-link">Resume</a>
@@ -3326,7 +3301,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
   <a class="sn-sub" href="chek.html">Chek</a>
   <a class="sn-sub" href="dollarcity.html">DollarCity</a>
   <a class="sn-sub" href="customs.html">Customs ES</a>
-  <a class="sn-sub" href="forecast.html">Forecast</a>
+  
   <a href="../resume.html">Resume</a>
   <a href="../contact.html">Contact</a>
   <a href="../design-system.html">Design System</a>
@@ -3439,7 +3414,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1&v=41"
+      src="ey-pi-player.html?embed=1&v=55-light"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"
@@ -4343,26 +4318,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 
 
 
-<script>
-(function(){
-  function applyH(h){
-    var f=document.getElementById('piPlayerFrame')||document.querySelector('#pi iframe.pi-iframe')||document.querySelector('iframe.pi-iframe');
-    if(!f) return;
-    h=Math.ceil(h);
-    if(h<220)h=220;
-    var max=Math.floor((window.innerHeight||800)*0.9);
-    if(h>max)h=max;
-    f.style.setProperty('height', h+'px', 'important');
-    f.style.setProperty('max-height', max+'px', 'important');
-    f.style.setProperty('width', '100%', 'important');
-  }
-  window.addEventListener('message', function(ev){
-    var d=ev.data;
-    if(!d||d.type!=='skills-player-height'||!d.height) return;
-    applyH(d.height);
-  });
-})();
-</script>
+
 
 
 
@@ -4440,6 +4396,96 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
   else bind();
 })();
 </script>
+
+
+<script>
+(function(){
+  function applyH(h){
+    var f=document.getElementById('piPlayerFrame')||document.querySelector('#pi iframe.pi-iframe')||document.querySelector('iframe.pi-iframe');
+    if(!f) return;
+    h=Math.ceil(Number(h)||0);
+    if(h<280) h=280;
+    f.style.setProperty('height', h+'px', 'important');
+    f.style.setProperty('max-height', 'none', 'important');
+    f.style.setProperty('width', '100%', 'important');
+  }
+  window.addEventListener('message', function(ev){
+    var d=ev.data;
+    if(!d||d.type!=='skills-player-height'||!d.height) return;
+    applyH(d.height);
+  });
+})();
+</script>
+
+
+<style id="ey-pi-width-align">
+/* #pi content left edge = same as #problem / #hero text (page pad only once) */
+html body .page > #pi,
+html body #pi.sec,
+html body section#pi,
+html body #pi{
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+html body #pi > .wrap,
+html body #pi .wrap{
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+html body #pi iframe.pi-iframe,
+html body #pi #piPlayerFrame{
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+/* Player internal pad matches page text — do not add host pad */
+</style>
+
+
+<style id="ey-pi-host-v53">
+html body #pi iframe.pi-iframe,
+html body #pi #piPlayerFrame,
+html body iframe.pi-iframe{
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 0 !important;
+  background: transparent !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: calc(150px + min(888px, 100vw - 56px) * 410 / 560 + 48px) !important;
+}
+html body #pi .note{ margin-top: 12px !important; max-width: none !important; }
+
+/* Light-mode brand colors (text/borders only) — DESIGN-TOKENS-LIGHT-MODE */
+[data-theme="light"] .ga-y,
+[data-theme="light"] [data-brand="ga-yellow"]{ color:#9e8f00 !important; }
+[data-theme="light"] .ga-o,
+[data-theme="light"] [data-brand="ga-orange"]{ color:#bc8100 !important; }
+[data-theme="light"] .chip-purple,
+[data-theme="light"] [data-brand="purple"]{ color:#9477ff !important; }
+[data-theme="light"] .chip-mint,
+[data-theme="light"] [data-brand="mint"]{ color:#3c9d5f !important; }
+[data-theme="light"] .success-c,
+[data-theme="light"] [data-brand="success"]{ color:#1da04d !important; }
+/* Hardcoded bright yellows used as text in beats */
+[data-theme="light"] .unit [style*="#ffe600"],
+[data-theme="light"] .unit [style*="#F9AB00"]{ /* handled by class if present */ }
+
+</style>
 
 </body>
 </html>
