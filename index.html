@@ -477,6 +477,19 @@
     box-shadow:0 0 0 1px rgba(217,119,87,.15),0 20px 50px -24px rgba(217,119,87,.35);}
   .gc-hub::after{content:'always on';position:absolute;bottom:14px;right:16px;z-index:4;
     font-family:var(--font-mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);opacity:.8;}
+  /* 08 Systems — append only */
+  :root{--sys:#22d3ee;--sys-dim:rgba(34,211,238,.14);--on-sys:#042f2e;}
+  .cat-system .gc-cat{color:var(--sys);border-color:rgba(34,211,238,.45)}
+  .cat-system .gc-icon{stroke:var(--sys)}
+  .cat-system .gc-glow{background:radial-gradient(circle,rgba(34,211,238,.28),transparent 68%)}
+  .gc-sys{border-color:rgba(34,211,238,.5);
+    background:linear-gradient(165deg,rgba(34,211,238,.12),var(--bg-raised));
+    box-shadow:0 0 0 1px rgba(34,211,238,.12);}
+  .gc-sys::after{content:'system';position:absolute;bottom:14px;right:16px;z-index:4;
+    font-family:var(--font-mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sys);opacity:.85;}
+  .gc-sys.gc-hover,.gc-sys:focus-visible{border-color:rgba(34,211,238,.85);
+    box-shadow:0 0 0 1.5px var(--sys),0 0 26px -4px rgba(34,211,238,.45),0 20px 40px -16px rgba(0,0,0,.5);}
+
   .gcard{position:relative;flex:1 1 155px;max-width:215px;min-width:86px;min-height:260px;border-radius:22px;
     transform:rotate(var(--fan-rot,0deg)) translateY(var(--fan-ty,0px));transform-origin:center 130%;
     background:linear-gradient(165deg,var(--bg-surface),var(--bg-raised));border:1px solid var(--border-soft);
@@ -4179,70 +4192,6 @@ html body .top-nav .top-nav-inner{
 .chek-stage-pc .cu-pill.ok b{color:#3dd68c}
 @keyframes chekCuIn{to{opacity:1;transform:none}}
 
-
-/* DollarCity card — hero Video Investigation mini */
-.dc-graphic{position:relative}
-.dc-stage{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  padding:14px 16px;
-}
-.dc-win{
-  width:100%;max-width:280px;height:100%;max-height:168px;
-  border-radius:10px;overflow:hidden;position:relative;
-  background:#0c0c0c;border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 12px 28px -14px rgba(0,0,0,.7);
-}
-.dc-win-bar{
-  display:flex;align-items:center;gap:4px;
-  padding:6px 8px;background:rgba(0,0,0,.55);
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-.dc-win-bar i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18)}
-.dc-badge{
-  margin-left:auto;font-size:7px;letter-spacing:.06em;
-  font-family:var(--font-mono);color:rgba(255,255,255,.35);
-}
-.dc-win-body{padding:8px 8px 6px;position:relative;height:calc(100% - 24px)}
-.dc-chips{display:flex;gap:4px;margin-bottom:6px}
-.dc-chips span{
-  font-size:7px;font-family:var(--font-mono);padding:2px 6px;border-radius:100px;
-  background:rgba(255,255,255,.05);color:rgba(255,255,255,.32);
-  transition:background .3s,color .3s;
-}
-.dc-chips span.on{background:rgba(22,163,74,.25);color:#4ade80}
-.dc-rows{display:flex;flex-direction:column;gap:3px}
-.dc-r{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:4px 6px;border-radius:4px;font-size:8px;font-family:var(--font-mono);
-  color:rgba(255,255,255,.38);border:1px solid transparent;
-  transition:background .3s,border-color .3s,color .3s;
-}
-.dc-r .pf{color:#f87171;font-weight:700;font-size:7px}
-.dc-r.on{
-  background:rgba(22,163,74,.14);border-color:rgba(22,163,74,.3);
-  color:rgba(255,255,255,.88);
-}
-.dc-states{
-  display:flex;gap:4px;margin-top:6px;opacity:0;
-  transition:opacity .35s;
-}
-.dc-states.show{opacity:1}
-.dc-states .st{
-  font-size:7px;font-family:var(--font-mono);padding:2px 5px;border-radius:3px;
-}
-.dc-states .st.ready{background:rgba(22,163,74,.22);color:#4ade80}
-.dc-states .st.dl{background:rgba(59,130,246,.2);color:#93c5fd}
-.dc-states .st.qu{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
-.dc-cursor{
-  position:absolute;width:8px;height:8px;border-radius:50%;
-  background:#fff;border:1.5px solid #16a34a;
-  box-shadow:0 0 0 3px rgba(22,163,74,.25);
-  pointer-events:none;opacity:0;z-index:5;
-  transition:left .55s cubic-bezier(.22,1,.36,1),top .55s cubic-bezier(.22,1,.36,1),opacity .2s;
-}
-.dc-cursor.show{opacity:.85}
-
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 <style>
@@ -5074,402 +5023,80 @@ html body iframe.skills-player-frame{
 }
 
 
-
-/* start tall enough for unit; JS tightens with !important */
-  height:calc(140px + (min(888px, 100vw - 56px)) * 410 / 560 + 32px)!important;
-  max-height:calc(100vh - 28px)!important;
+/* Skills host BC-pattern — iframe has real height so unit host can measure */
+html body .stagezone{
+  padding: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
-@media (max-width:720px){
-  html body .stagezone{ padding:6px!important; }
-  html body .stage-panel{ width:calc(100vw - 12px)!important; }
-  html body .stage-panel iframe#skillsPlayerFrame,
-  html body iframe#skillsPlayerFrame{
-    height:calc(110px + (100vw - 40px) * 410 / 560 + 20px)!important;
-    max-height:calc(100dvh - 16px)!important;
-  }
-}
-
-
-/* last resort if viewport short */
-  display: block !important;
+html body .stagezone.open .stage-panel,
+html body .stage-panel{
+  width: min(920px, calc(100vw - 24px)) !important;
+  max-width: 920px !important;
+  height: min(720px, calc(100vh - 24px)) !important;
+  max-height: calc(100vh - 24px) !important;
+  margin: auto !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
   padding: 0 !important;
   background: var(--bg, #0e0d0c) !important;
   border: 1px solid rgba(255,255,255,.08) !important;
   box-sizing: border-box !important;
 }
-html body .stagezone .stage-panel > .stage-close-x{
-  position: absolute !important; top: 12px !important; right: 12px !important; z-index: 50 !important;
-  width: 36px !important; height: 36px !important; border-radius: 999px !important;
-  border: 1px solid rgba(255,255,255,.14) !important; background: rgba(14,13,12,.75) !important;
-  color: #f2f0ec !important; font-size: 20px !important; line-height: 1 !important;
-  display: grid !important; place-items: center !important; cursor: pointer !important;
-  padding: 0 !important; margin: 0 !important;
-}
-/* No fixed short height — JS sets exact content height with !important */
 html body .stage-panel iframe#skillsPlayerFrame,
 html body .stage-panel iframe.skills-player-frame,
 html body iframe#skillsPlayerFrame,
 html body iframe.skills-player-frame{
   display: block !important;
   width: 100% !important;
+  flex: 1 1 auto !important;
+  height: 100% !important;
+  min-height: 0 !important;
   border: 0 !important;
   background: transparent !important;
-  flex: none !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  /* generous initial until postMessage — titles + unit at full column width */
-  height: calc(150px + min(888px, 100vw - 56px) * 410 / 560 + 40px) !important;
-}
-@media (max-width: 720px){
-  html body .stagezone{ padding: 6px !important; }
-  html body .stage-panel{ width: calc(100vw - 12px) !important; max-height: calc(100dvh - 8px) !important; }
-  html body .stage-panel iframe#skillsPlayerFrame,
-  html body iframe#skillsPlayerFrame{
-    height: calc(120px + (100vw - 36px) * 410 / 560 + 36px) !important;
-  }
-}
-
-
-/* CLEAN host v53 — TESTED: crop was panel overflow:hidden with H < iframe */
-html body .stagezone{
-  padding: 12px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  box-sizing: border-box !important;
-}
-html body .stagezone.open .stage-panel,
-html body .stage-panel{
-  position: relative !important;
-  width: min(920px, calc(100vw - 24px)) !important;
-  max-width: 920px !important;
-  /* grow with iframe content — do NOT force a short fixed height */
-  height: auto !important;
-  max-height: calc(100vh - 16px) !important;
-  margin: auto !important;
-  border-radius: 18px !important;
-  /* CRITICAL: never clip iframe; scroll if viewport is short */
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  display: block !important;
-  padding: 0 !important;
-  background: var(--bg, #0e0d0c) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  box-sizing: border-box !important;
-}
-html body .stagezone .stage-panel > .stage-close-x{
-  position: sticky !important;
-  top: 12px !important;
-  float: right !important;
-  margin: 12px 12px -48px auto !important;
-  z-index: 50 !important;
-  width: 36px !important; height: 36px !important; border-radius: 999px !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  background: rgba(14,13,12,.85) !important;
-  color: #f2f0ec !important; font-size: 20px !important; line-height: 1 !important;
-  display: grid !important; place-items: center !important; cursor: pointer !important;
-  padding: 0 !important;
-}
-/* Kill every competing short height on the skills iframe */
-html body .stage-panel iframe#skillsPlayerFrame,
-html body .stage-panel iframe.skills-player-frame,
-html body iframe#skillsPlayerFrame,
-html body iframe.skills-player-frame,
-html body .stagezone iframe.skills-player-frame{
-  display: block !important;
-  width: 100% !important;
-  border: 0 !important;
-  background: transparent !important;
-  flex: none !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  /* fallback until postMessage — full unit + chrome */
-  height: calc(160px + min(888px, 100vw - 56px) * 410 / 560 + 48px) !important;
 }
 @media (max-width: 720px){
   html body .stagezone{ padding: 6px !important; }
   html body .stage-panel{
     width: calc(100vw - 12px) !important;
-    max-height: calc(100dvh - 8px) !important;
-  }
-  html body .stage-panel iframe#skillsPlayerFrame,
-  html body iframe#skillsPlayerFrame{
-    height: calc(130px + (100vw - 36px) * 410 / 560 + 40px) !important;
+    height: min(640px, calc(100dvh - 12px)) !important;
   }
 }
 
-
-/* v53b LAST — panel must not clip skills iframe */
-html body .stagezone.open .stage-panel,
-html body .stage-panel{
-  overflow: auto !important;
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  height: auto !important;
-  max-height: calc(100vh - 12px) !important;
-}
-html body .stage-panel iframe#skillsPlayerFrame,
-html body iframe#skillsPlayerFrame{
-  max-height: none !important;
-}
-
 </style>
-
-<style id="pcard-motion">
-/* PCARD-MOTION — skills-like subtle stretch + soft bounce (not instant) */
-html body .pcard, html body a.pcard{
-  transition:
-    transform .55s cubic-bezier(.34,1.22,.64,1),
-    box-shadow .45s ease,
-    border-color .35s ease,
-    background-color .35s ease !important;
-  transform-origin: center center;
-}
-html body .pcard:hover, html body a.pcard:hover,
-html body .pcard:focus-visible, html body a.pcard:focus-visible{
-  transform: scale(1.02) translateY(-2px) !important;
-}
-html body .pcard .pcard-body,
-html body a.pcard .pcard-body{
-  transition: opacity .4s ease, transform .55s cubic-bezier(.34,1.22,.64,1) !important;
-}
-@media (prefers-reduced-motion: reduce){
-  html body .pcard, html body a.pcard, html body .pcard .pcard-body{
-    transition: none !important; transform: none !important;
-  }
-}
-</style>
-
-<style id="site-nav-component">
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap');
-/* ===== SITE NAV COMPONENT — locked, identical on every page ===== */
-nav.site-nav{
-  position:fixed!important;top:0!important;left:0!important;right:0!important;
-  z-index:99999!important;height:64px!important;
-  background:#0e0d0c!important;border-bottom:1px solid rgba(255,255,255,.1)!important;
-  isolation:isolate!important;transform:translateZ(0)!important;
-  pointer-events:auto!important;margin:0!important;padding:0!important;
-  box-sizing:border-box!important;
-}
-html[data-theme="light"] nav.site-nav{
-  background:#f7f5f2!important;border-bottom-color:rgba(0,0,0,.1)!important;
-}
-nav.site-nav .sn-inner{
-  display:flex!important;align-items:center!important;justify-content:space-between!important;
-  height:64px!important;max-width:920px!important;width:100%!important;
-  margin:0 auto!important;padding:0 clamp(16px,3vw,28px)!important;
-  box-sizing:border-box!important;gap:12px!important;
-}
-nav.site-nav .sn-logo{
-  font-family:'Space Grotesk',system-ui,sans-serif!important;
-  font-weight:800!important;font-size:18px!important;line-height:1!important;
-  color:#f2f0ec!important;letter-spacing:-.02em!important;
-  text-decoration:none!important;white-space:nowrap!important;flex-shrink:0!important;
-}
-html[data-theme="light"] nav.site-nav .sn-logo{color:#1a1917!important}
-nav.site-nav .sn-logo span{color:var(--sn-accent,#d97757)!important}
-nav.site-nav .sn-links{
-  display:flex!important;align-items:center!important;gap:2px!important;
-  flex-wrap:nowrap!important;margin-left:auto!important;
-}
-nav.site-nav .sn-link,
-nav.site-nav .sn-drop-btn{
-  font-family:'Space Grotesk',system-ui,sans-serif!important;
-  font-size:13px!important;font-weight:600!important;
-  letter-spacing:.06em!important;text-transform:uppercase!important;
-  color:#a6a29a!important;padding:8px 12px!important;border-radius:6px!important;
-  text-decoration:none!important;background:none!important;border:none!important;
-  cursor:pointer!important;line-height:1.2!important;
-  transition:color .15s,background .15s!important;
-  display:inline-flex!important;align-items:center!important;gap:4px!important;
-}
-html[data-theme="light"] nav.site-nav .sn-link,
-html[data-theme="light"] nav.site-nav .sn-drop-btn{color:#6b6760!important}
-nav.site-nav .sn-link:hover,
-nav.site-nav .sn-link.is-active,
-nav.site-nav .sn-drop-btn:hover,
-nav.site-nav .sn-drop-btn[aria-expanded="true"]{
-  color:#f2f0ec!important;background:rgba(255,255,255,.06)!important;
-}
-html[data-theme="light"] nav.site-nav .sn-link:hover,
-html[data-theme="light"] nav.site-nav .sn-link.is-active,
-html[data-theme="light"] nav.site-nav .sn-drop-btn:hover,
-html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
-  color:#1a1917!important;background:rgba(0,0,0,.05)!important;
-}
-nav.site-nav .sn-drop{position:relative!important}
-nav.site-nav .sn-drop-menu{
-  position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
-  transform:translateX(-50%) translateY(-4px)!important;
-  background:#171614!important;border:1px solid rgba(255,255,255,.12)!important;
-  border-radius:12px!important;padding:8px!important;min-width:180px!important;
-  display:flex!important;flex-direction:column!important;gap:2px!important;
-  opacity:0!important;pointer-events:none!important;visibility:hidden!important;
-  transition:opacity .18s,transform .18s,visibility .18s!important;
-  box-shadow:0 20px 40px -12px rgba(0,0,0,.55)!important;z-index:100003!important;
-}
-html[data-theme="light"] nav.site-nav .sn-drop-menu{
-  background:#fff!important;border-color:rgba(0,0,0,.1)!important;
-  box-shadow:0 16px 32px -8px rgba(0,0,0,.15)!important;
-}
-nav.site-nav .sn-drop:hover .sn-drop-menu,
-nav.site-nav .sn-drop:focus-within .sn-drop-menu,
-nav.site-nav .sn-drop-btn[aria-expanded="true"] + .sn-drop-menu{
-  opacity:1!important;pointer-events:auto!important;visibility:visible!important;
-  transform:translateX(-50%) translateY(0)!important;
-}
-nav.site-nav .sn-drop-menu a{
-  display:block!important;padding:10px 12px!important;border-radius:8px!important;
-  font-family:'Space Grotesk',system-ui,sans-serif!important;
-  font-size:13px!important;font-weight:600!important;
-  color:#a6a29a!important;text-decoration:none!important;
-  text-transform:none!important;letter-spacing:0!important;
-}
-html[data-theme="light"] nav.site-nav .sn-drop-menu a{color:#6b6760!important}
-nav.site-nav .sn-drop-menu a:hover{
-  background:#1c1b19!important;color:#f2f0ec!important;
-}
-html[data-theme="light"] nav.site-nav .sn-drop-menu a:hover{
-  background:#f0eeea!important;color:#1a1917!important;
-}
-nav.site-nav .sn-drop-menu a.is-current{color:var(--sn-accent,#d97757)!important}
-nav.site-nav .sn-theme{
-  width:34px!important;height:34px!important;border-radius:50%!important;
-  border:1px solid rgba(255,255,255,.12)!important;background:#171614!important;
-  color:#a6a29a!important;display:grid!important;place-items:center!important;
-  cursor:pointer!important;flex-shrink:0!important;margin-left:4px!important;
-  padding:0!important;pointer-events:auto!important;position:relative!important;z-index:100001!important;
-}
-html[data-theme="light"] nav.site-nav .sn-theme{
-  background:#fff!important;border-color:rgba(0,0,0,.12)!important;color:#6b6760!important;
-}
-nav.site-nav .sn-theme svg{width:15px!important;height:15px!important;display:block!important}
-nav.site-nav .sn-ham{
-  display:none!important;flex-direction:column!important;gap:4px!important;
-  background:none!important;border:none!important;padding:8px!important;
-  cursor:pointer!important;margin-left:4px!important;
-  min-width:44px!important;min-height:44px!important;
-  align-items:center!important;justify-content:center!important;
-}
-nav.site-nav .sn-ham span{
-  display:block!important;width:20px!important;height:2px!important;
-  background:#f2f0ec!important;border-radius:1px!important;
-}
-html[data-theme="light"] nav.site-nav .sn-ham span{background:#1a1917!important}
-/* Mobile panel */
-.site-nav-mobile{
-  position:fixed!important;top:0!important;left:0!important;width:100%!important;
-  height:100%!important;height:100dvh!important;z-index:100000!important;
-  background:#0e0d0c!important;padding:72px 24px 24px!important;
-  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
-  transform:translateX(100%)!important;visibility:hidden!important;pointer-events:none!important;
-  transition:transform 320ms cubic-bezier(.65,0,.35,1),visibility 0s 320ms!important;
-  box-sizing:border-box!important;
-}
-html[data-theme="light"] .site-nav-mobile{background:#f7f5f2!important}
-.site-nav-mobile.on{
-  transform:translateX(0)!important;visibility:visible!important;pointer-events:auto!important;
-  transition:transform 320ms cubic-bezier(.65,0,.35,1)!important;
-}
-body.nav-open{overflow:hidden!important;touch-action:none!important}
-.site-nav-mobile a{
-  display:block!important;padding:14px 0!important;
-  border-bottom:1px solid rgba(255,255,255,.1)!important;
-  font-family:'Space Grotesk',system-ui,sans-serif!important;
-  font-weight:700!important;font-size:1.05rem!important;
-  color:#f2f0ec!important;text-decoration:none!important;
-}
-html[data-theme="light"] .site-nav-mobile a{
-  color:#1a1917!important;border-bottom-color:rgba(0,0,0,.1)!important;
-}
-.site-nav-mobile .sn-sub{
-  font-size:.95rem!important;font-weight:600!important;
-  color:#a6a29a!important;padding-left:12px!important;
-}
-html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
-.site-nav-mobile .sn-close{
-  position:absolute!important;top:20px!important;right:20px!important;
-  background:none!important;border:none!important;color:inherit!important;
-  cursor:pointer!important;font-size:1rem!important;
-  font-family:'Space Grotesk',system-ui,sans-serif!important;
-}
-@media(max-width:900px){
-  nav.site-nav .sn-links{display:none!important}
-  nav.site-nav .sn-ham{display:flex!important}
-}
-/* Kill legacy top-nav interference when site-nav present */
-body:has(nav.site-nav) .top-nav:not(.site-nav),
-body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
-</style>
-
-<style id="shell-unify-v2">
-:root{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }
-.page, .wrap, .top-nav-inner, .sn-inner{
-  max-width:var(--max)!important;
-  margin-left:auto!important; margin-right:auto!important;
-  box-sizing:border-box!important;
-}
-.page, .wrap{
-  padding-left:var(--pad)!important;
-  padding-right:var(--pad)!important;
-  width:100%!important;
-}
-/* sn-inner already padded by component — avoid double */
-nav.site-nav .sn-inner{
-  padding-left:var(--pad)!important;
-  padding-right:var(--pad)!important;
-}
-</style>
-
 </head>
 <body class="page-home">
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<nav class="site-nav" id="topNav" style="--sn-accent:var(--accent,#d97757)" aria-label="Primary">
-  <div class="sn-inner">
-    <a href="index.html" class="sn-logo">FM<span>.</span></a>
-    <div class="sn-links">
-      <a href="index.html" class="sn-link is-active">Home</a>
-      <div class="sn-drop">
-        <button type="button" id="snDropBtn" class="sn-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="snDropMenu">
+<nav class="top-nav" id="topNav" style="--nav-accent:#d97757">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-logo">FM<span>.</span></a>
+    <div class="top-nav-links">
+      <a href="index.html" class="top-nav-link active">Home</a>
+      <div class="top-nav-dropdown">
+        <button type="button" id="topNavDropToggle" class="top-nav-drop-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="topNavDropMenu">
           Projects
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div id="snDropMenu" class="sn-drop-menu" role="menu">
-          <a href="projects.html" role="menuitem">All Projects</a>
-          <a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
-          <a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
-          <a href="projects/chek.html" role="menuitem">Chek</a>
-          <a href="projects/dollarcity.html" role="menuitem">DollarCity</a>
-          <a href="projects/customs.html" role="menuitem">Customs ES</a>
+        <div id="topNavDropMenu" class="top-nav-drop-menu" role="menu">
+          <a href="projects.html" role="menuitem" style="color:var(--nav-accent);font-weight:700">All Projects</a><a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a><a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a><a href="projects/chek.html" role="menuitem">Chek</a><a href="projects/dollarcity.html" role="menuitem">DollarCity</a><a href="projects/customs.html" role="menuitem">Customs ES</a><a href="projects/forecast.html" role="menuitem">Forecast</a>
         </div>
       </div>
-      <a href="resume.html" class="sn-link">Resume</a>
-      <a href="contact.html" class="sn-link">Contact</a>
-      <a href="design-system.html" class="sn-link">Design System</a>
+      <a href="resume.html" class="top-nav-link">Resume</a>
+      <a href="contact.html" class="top-nav-link">Contact</a>
+      <a href="design-system.html" class="top-nav-link">Design System</a>
     </div>
-    <button class="sn-theme" id="snTheme" type="button" aria-label="Toggle theme">
+    <button class="top-nav-theme" id="themeToggle" type="button" aria-label="Theme">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
-    <button class="sn-ham" id="snHam" type="button" aria-label="Open menu" aria-expanded="false">
+    <button class="top-nav-hamburger" id="topNavHamburger" type="button" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
-<div id="snMobile" class="site-nav-mobile" aria-hidden="true">
-  <button type="button" id="snClose" class="sn-close" aria-label="Close">Close</button>
-  <a href="index.html">Home</a>
-  <a href="projects.html">All Projects</a>
-  <a class="sn-sub" href="projects/ey-fabric.html">EY Fabric</a>
-  <a class="sn-sub" href="projects/blockchain.html">Blockchain 3D</a>
-  <a class="sn-sub" href="projects/chek.html">Chek</a>
-  <a class="sn-sub" href="projects/dollarcity.html">DollarCity</a>
-  <a class="sn-sub" href="projects/customs.html">Customs ES</a>
-  <a href="resume.html">Resume</a>
-  <a href="contact.html">Contact</a>
-  <a href="design-system.html">Design System</a>
-</div>
-
 <div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
   <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;cursor:pointer;font-size:1rem">Close</button>
   <a href="index.html">Home</a>
@@ -5479,7 +5106,7 @@ nav.site-nav .sn-inner{
   <a class="mob-sub" href="projects/chek.html">Chek</a>
   <a class="mob-sub" href="projects/dollarcity.html">DollarCity</a>
   <a class="mob-sub" href="projects/customs.html">Customs ES</a>
-  
+  <a class="mob-sub" href="projects/forecast.html">Forecast</a>
   <a href="resume.html">Resume</a>
   <a href="contact.html">Contact</a>
   <a href="design-system.html">Design System</a>
@@ -5546,11 +5173,11 @@ nav.site-nav .sn-inner{
 <main id="main">
 <section class="proc" aria-labelledby="loop-h">
   <div class="proc-eyebrow">Services · Product</div>
-  <h1 class="proc-h" id="loop-h">Seven skills I bring to product.<br>Press one — <em>see how it works</em>.</h1>
+  <h1 class="proc-h" id="loop-h">Eight skills I bring to product.<br>Press one — <em>see how it works</em>.</h1>
   <p class="proc-sub">These are the services I offer inside a product team — not case studies, <b>representations of my actual process</b>. Design leads — analytics and research support it. Press a card to watch a step, rebuilt with the real UI patterns of the tools involved.</p>
 
   <div class="beat-block">
-  <div class="beatcards" id="beatCards" role="list" aria-label="Seven things I do"></div>
+  <div class="beatcards" id="beatCards" role="list" aria-label="Eight things I do"></div>
   <div class="beat-axis" aria-hidden="true">
     <span class="beat-axis-line"></span>
     <div class="beat-axis-track">
@@ -5578,7 +5205,6 @@ nav.site-nav .sn-inner{
 
   <div class="stagezone" id="stageZone">
    <div class="stage-panel" id="stagePanel">
-    <button type="button" class="stage-close-x" id="stageCloseX" aria-label="Close">&times;</button>
     <!-- Host chrome removed: skills-player (embed) owns title, X, pills, stage. Only the card shows. -->
     <iframe
       id="skillsPlayerFrame"
@@ -5674,7 +5300,21 @@ nav.site-nav .sn-inner{
       </div>
     </a>
 
-    
+    <a class="pcard" href="projects/forecast.html" id="pc3" style="--pc-bg:#5b9bd0;--pc-txt:#fff;">
+      <div class="pcard-head">
+        <span class="pcard-logo" style="font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff;">Fc</span><span class="pcard-name-v">Forecast</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-top"><b>Forecast</b><small>2023 — 2025</small></div>
+        <div class="pcard-graphic" style="background:#0d1218;">
+          <span class="fc-gantt" style="left:14%;top:30%;width:46%;animation-delay:0s"></span>
+          <span class="fc-gantt" style="left:26%;top:48%;width:38%;animation-delay:.5s;opacity:.75"></span>
+          <span class="fc-gantt" style="left:20%;top:66%;width:56%;animation-delay:1s;opacity:.5"></span>
+        </div>
+        <p class="pcard-desc">Module design inside an established design system — pending assignments, timeframes, employee management.</p>
+        <span class="pcard-cta">Open case study &#8594;</span>
+      </div>
+    </a>
 
     <a class="pcard" href="projects/chek.html" id="pc4" style="--pc-bg:#7a3be0;--pc-txt:#fff;">
       <div class="pcard-head">
@@ -5699,48 +5339,28 @@ nav.site-nav .sn-inner{
       </div>
     </a>
 
-    <a class="pcard" href="projects/dollarcity.html" id="pc5" style="--pc-bg:#16a34a;--pc-txt:#fff;">
+    <a class="pcard" href="projects/dollarcity.html" id="pc5" style="--pc-bg:#00a650;--pc-txt:#fff;">
       <div class="pcard-head">
-        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#16a34a">D</text></svg></span><span class="pcard-name-v">DollarCity</span>
+        <span class="pcard-logo"><svg width="20" height="20" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#00a650">D</text></svg></span><span class="pcard-name-v">DollarCity</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-top"><b>Dollarama × DollarCity</b><small>Jul — Dec 2023</small></div>
-        <div class="pcard-graphic dc-graphic" style="background:#0a0b0a;">
-          <div class="dc-stage" aria-hidden="true">
-            <div class="dc-win">
-              <div class="dc-win-bar">
-                <i></i><i></i><i></i>
-                <span class="dc-badge">VIDEO INVESTIGATION</span>
-              </div>
-              <div class="dc-win-body">
-                <div class="dc-chips">
-                  <span class="on">POS Search</span>
-                  <span>My Requests</span>
-                </div>
-                <div class="dc-rows" id="dcCardRows">
-                  <div class="dc-r" data-i="0"><span>Store 42 · POS 3</span><span class="pf">PF</span></div>
-                  <div class="dc-r" data-i="1"><span>Store 42 · POS 3</span><span></span></div>
-                  <div class="dc-r" data-i="2"><span>Store 17 · POS 1</span><span></span></div>
-                  <div class="dc-r" data-i="3"><span>Store 09 · POS 2</span><span></span></div>
-                </div>
-                <div class="dc-states">
-                  <span class="st ready">Ready</span>
-                  <span class="st dl">48%</span>
-                  <span class="st qu">Queued</span>
-                </div>
-              </div>
-              <div class="dc-cursor" id="dcCardCur"></div>
-            </div>
+        <div class="pcard-top"><b>Dollarama &#215; DollarCity</b><small>Jul — Dec 2023</small></div>
+        <div class="pcard-graphic" style="background:#e9e7df;"><div class="g-browser"><div class="g-browser-bar"><i></i><i></i><i></i></div>
+          <div class="g-browser-screen">
+            <span class="dc-ba-mini"><i class="dc-ba-b">Before</i><i class="dc-ba-a">After</i></span>
+            <span class="dc-row" style="top:38%"></span>
+            <span class="dc-row" style="top:58%"></span>
+            <span class="dc-scan"></span>
+            <span class="dc-flag">&#9873; flagged</span>
           </div>
-        </div>
-        <p class="pcard-desc">Retail fraud surveillance SaaS — one screen cut task time 50% across Canada &amp; LATAM.</p>
-        <span class="pcard-cta">Open case study →</span>
+        </div></div>
+        <p class="pcard-desc">Fraud-monitoring SaaS for retail across Canada &amp; LATAM — real screens, before/after redesign, full research.</p>
+        <span class="pcard-cta">Open case study &#8594;</span>
       </div>
     </a>
 
   </div>
-
-  </section>
+</section>
 
 <!-- ============ PERSONAL — placeholder ============ -->
 <section class="section" id="personal" aria-labelledby="pp-h">
@@ -5831,7 +5451,8 @@ nav.site-nav .sn-inner{
     ['intro','4 studies live','AI processing volume','actionables ranked','evidence ready'],
     ['intro','both paths running','designs converging','usable result','ready to ship'],
     ['intro','deploying','environments live','shipped'],
-    ['intro','overview','A vs B adoption','users table','alarm fired','loop restarts']
+    ['intro','overview','A vs B adoption','users table','alarm fired','loop restarts'],
+    ['intro','memory tree','skills as files','actors review','tools connect','system linked']
   ];
   var CTA_MAP={
     t1e:{h:'projects/ey-fabric.html',l:'See it shipped → EY Fabric'},
@@ -6684,10 +6305,13 @@ nav.site-nav .sn-inner{
      tools:[['replit','Replit','deploy'],['github','GitHub','versioning'],['factory','Factory.ai','automation']],proj:'Customs · $500K'},
     {t:'Analytics Hub',cat:'aidev',d:'The dashboard itself, built with Claude Code.',long:'<strong>Adoption · users · alarms</strong> — the hub is a product.',
      ic:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
-     tools:[['pendo','Pendo','data'],['claude','Claude','build']],proj:'EY Fabric'}
+     tools:[['pendo','Pendo','data'],['claude','Claude','build']],proj:'EY Fabric'},
+    {t:'Connected Systems',cat:'system',d:'Memory, skills, agents, and tools in one loop.',long:'Product <strong>memory</strong> → skills → agents → tools — <strong>I review</strong>.',
+     ic:'<circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8.2 6h7.6M6 8.2v7.6M18 8.2v7.6M8.2 18h7.6"/>',
+     tools:[['github','GitHub','context'],['figma','Figma','design'],['pendo','Pendo','behavior']],proj:'EY Fabric'}
   ];
   var CAT_META={
-    uxr:{label:'UX / UXR'}, product:{label:'PRODUCT'}, analytics:{label:'ANALYTICS'}, aidev:{label:'AI + DEV'}
+    uxr:{label:'UX / UXR'}, product:{label:'PRODUCT'}, analytics:{label:'ANALYTICS'}, aidev:{label:'AI + DEV'}, system:{label:'SYSTEM'}
   };
   var deck=document.getElementById('beatCards');
   function cardHTML(i,displayNum,isHub){
@@ -6696,7 +6320,7 @@ nav.site-nav .sn-inner{
     var catLabel=CAT_META[c.cat].label;
     var mid=3, off=displayNum-1-mid;
     var fanStyle='--fan-rot:'+(off*2.1).toFixed(1)+'deg;--fan-ty:'+(Math.abs(off)*5).toFixed(0)+'px;';
-    return '<button class="gcard cat-'+c.cat+(c.cat==='uxr'?' gc-primary':'')+(isHub?' gc-hub':'')+'" data-beat="'+i+'" role="listitem" style="'+fanStyle+'">'+
+    return '<button class="gcard cat-'+c.cat+(c.cat==='uxr'?' gc-primary':'')+(isHub?' gc-hub':'')+(c.cat==='system'?' gc-sys':'')+'" data-beat="'+i+'" role="listitem" style="'+fanStyle+'">'+
       '<span class="gc-cat"><b>0'+displayNum+'</b> · '+catLabel+'</span>'+
       ''+
       '<div class="gc-visual">'+
@@ -6714,7 +6338,7 @@ nav.site-nav .sn-inner{
       '</div>'+
     '</button>';
   }
-  var ALL_IDX=[0,1,2,3,4,5,6], HUB_IDX=6;
+  var ALL_IDX=[0,1,2,3,4,5,6,7], HUB_IDX=6;
   deck.innerHTML='<div class="skill-group skill-group-fan">'+ALL_IDX.map(function(idx,pos){
     return cardHTML(idx,pos+1,idx===HUB_IDX);
   }).join('')+'</div>';
@@ -6742,7 +6366,7 @@ nav.site-nav .sn-inner{
     stageZone.classList.add('open');
     document.body.classList.add('modal-lock');
     var frame=document.getElementById('skillsPlayerFrame');
-    if(frame){ frame.src='projects/skills-player.html?embed=1&v=55-light#beat='+i+'&t='+Date.now(); }
+    if(frame){ frame.src='projects/skills-player.html?embed=1&v=43#beat='+i+'&t='+Date.now(); }
   }
   function closeStage(){
     try{ if(typeof clearAll==='function') clearAll(); }catch(e){}
@@ -7060,38 +6684,17 @@ nav.site-nav .sn-inner{
     },1500);
   })();
 
-  /* DollarCity card — hero POS loop */
+  /* DollarCity card — auto-alternate the before/after mini toggle */
   (function(){
-    var rows = document.querySelectorAll('#pc5 .dc-r');
-    var chips = document.querySelectorAll('#pc5 .dc-chips span');
-    var states = document.querySelector('#pc5 .dc-states');
-    var cur = document.getElementById('dcCardCur');
-    if(!rows.length) return;
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduced){ rows[0].classList.add('on'); return; }
-    var i = 0;
-    function step(){
-      rows.forEach(function(r,j){ r.classList.toggle('on', j===i); });
-      if(chips[0]) chips[0].classList.toggle('on', i < 3);
-      if(chips[1]) chips[1].classList.toggle('on', i >= 3);
-      if(states) states.classList.toggle('show', i >= 3);
-      if(cur){
-        var r = rows[Math.min(i, rows.length-1)];
-        if(r){
-          var win = document.querySelector('#pc5 .dc-win');
-          if(win){
-            var wr = win.getBoundingClientRect();
-            var rr = r.getBoundingClientRect();
-            cur.style.left = (rr.left - wr.left + 12) + 'px';
-            cur.style.top = (rr.top - wr.top + 4) + 'px';
-            cur.classList.add('show');
-          }
-        }
-      }
-      i = (i + 1) % 5;
-    }
-    step();
-    setInterval(step, 1100);
+    var b=document.querySelector('.dc-ba-b'), a=document.querySelector('.dc-ba-a');
+    if(!b||!a||reduced) return;
+    var on=true;
+    b.classList.add('on');
+    setInterval(function(){
+      on=!on;
+      b.classList.toggle('on',on);
+      a.classList.toggle('on',!on);
+    },2600);
   })();
 
   /* EY project card — animate the process nodes lighting in sequence */
@@ -7743,121 +7346,25 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-
-
-
-
-
-
-
-
-
 <script>
 (function(){
   function applyH(h){
-    var f=document.getElementById('skillsPlayerFrame')||document.querySelector('iframe.skills-player-frame');
+    var f = document.getElementById('skillsPlayerFrame') || document.querySelector('iframe.skills-player-frame');
     if(!f) return;
-    h=Math.ceil(Number(h)||0);
-    if(h<280) h=280;
-    /* Do NOT clamp to viewport — panel scrolls if needed; unit stays complete */
-    f.style.setProperty('height', h+'px', 'important');
-    f.style.setProperty('max-height', 'none', 'important');
+    h = Math.ceil(Number(h) || 0);
+    if(h < 240) h = 240;
+    var max = Math.floor((window.innerHeight || 900) - 16);
+    if(h > max) h = max;
+    f.style.setProperty('height', h + 'px', 'important');
+    f.style.setProperty('max-height', max + 'px', 'important');
   }
   window.addEventListener('message', function(ev){
-    var d=ev.data;
-    if(!d||d.type!=='skills-player-height'||!d.height) return;
+    var d = ev.data;
+    if(!d || d.type !== 'skills-player-height' || !d.height) return;
     applyH(d.height);
   });
-  function bindX(){
-    var btn=document.getElementById('stageCloseX');
-    if(!btn||btn._bound) return;
-    btn._bound=true;
-    btn.addEventListener('click', function(e){
-      e.preventDefault(); e.stopPropagation();
-      if(typeof closeStage==='function') closeStage();
-      else {
-        var z=document.getElementById('stageZone')||document.querySelector('.stagezone');
-        if(z) z.classList.remove('open');
-        document.body.classList.remove('stage-open');
-      }
-    });
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bindX);
-  else bindX();
 })();
 </script>
 
-<script id="site-nav-component-js">
-(function(){
-  if(window.__siteNavBound) return;
-  window.__siteNavBound = true;
-  var root = document.documentElement;
-
-  function applyTheme(t){
-    t = (t === 'light') ? 'light' : 'dark';
-    root.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch(e) {}
-    var btn = document.getElementById('snTheme');
-    if(btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
-  }
-  try {
-    var s = localStorage.getItem('theme');
-    applyTheme(s === 'light' ? 'light' : (s === 'dark' ? 'dark' : (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')));
-  } catch(e) { applyTheme('dark'); }
-
-  function bind(){
-    var themeBtn = document.getElementById('snTheme');
-    if(themeBtn && !themeBtn.__bound){
-      themeBtn.__bound = true;
-      themeBtn.addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        var cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-        applyTheme(cur === 'light' ? 'dark' : 'light');
-      });
-    }
-
-    var drop = document.getElementById('snDropBtn');
-    if(drop && !drop.__bound){
-      drop.__bound = true;
-      function closeDrop(){ drop.setAttribute('aria-expanded','false'); }
-      drop.addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        var open = drop.getAttribute('aria-expanded') === 'true';
-        drop.setAttribute('aria-expanded', open ? 'false' : 'true');
-      });
-      document.addEventListener('click', function(e){
-        if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
-      });
-      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrop(); });
-      window.addEventListener('scroll', closeDrop, {passive:true});
-    }
-
-    var ham = document.getElementById('snHam');
-    var mob = document.getElementById('snMobile');
-    var closeBtn = document.getElementById('snClose');
-    if(ham && mob && !ham.__bound){
-      ham.__bound = true;
-      function openM(){
-        mob.classList.add('on');
-        mob.setAttribute('aria-hidden','false');
-        ham.setAttribute('aria-expanded','true');
-        document.body.classList.add('nav-open');
-      }
-      function closeM(){
-        mob.classList.remove('on');
-        mob.setAttribute('aria-hidden','true');
-        ham.setAttribute('aria-expanded','false');
-        document.body.classList.remove('nav-open');
-      }
-      ham.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
-      if(closeBtn) closeBtn.addEventListener('click', closeM);
-      mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
-      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeM(); });
-    }
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
-  else bind();
-})();
-</script>
 </body>
 </html>
