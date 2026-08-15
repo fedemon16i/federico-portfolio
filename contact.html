@@ -37,7 +37,7 @@ a{color:inherit;text-decoration:none}
 .mobile a{display:block;padding:12px 0;border-bottom:1px solid var(--border);font-weight:700;font-size:1.15rem}
 
 .hero{
-  position:relative;padding:72px 24px 48px;max-width:960px;margin:0 auto;
+  position:relative;padding:72px 24px 48px;max-width:920px;margin:0 auto;
   overflow:hidden;
 }
 .hero-bg{
@@ -51,7 +51,7 @@ h1{font-weight:800;font-size:clamp(2.2rem,5vw,3.2rem);letter-spacing:-.04em;line
 .lede{color:var(--muted);max-width:28rem;font-size:clamp(16px,1.1vw,18px);margin-bottom:8px}
 
 .grid{
-  max-width:960px;margin:0 auto;padding:0 24px 80px;
+  max-width:920px;margin:0 auto;padding:0 24px 80px;
   display:grid;gap:16px;
   grid-template-columns:1fr;
 }
@@ -96,7 +96,7 @@ h1{font-weight:800;font-size:clamp(2.2rem,5vw,3.2rem);letter-spacing:-.04em;line
 .invite.mail{--glow:rgba(34,212,200,.15)}
 
 .band{
-  max-width:960px;margin:0 auto 64px;padding:0 24px;
+  max-width:920px;margin:0 auto 64px;padding:0 24px;
 }
 .band-inner{
   border-radius:20px;border:1px solid var(--border);padding:28px 24px;
@@ -414,7 +414,7 @@ html[data-theme="light"]{
 
 /* Skill / case stages: never clip the prototype frame */
 .modal-panel, .modal-inner, .skill-modal-panel{
-  max-width: min(960px, 96vw) !important;
+  max-width: min(920px, 100%) !important;
   width: 100% !important;
 }
 .modal-stage, .sm-stage, .skill-stage, #stage, #demoStage, .stage, .pi-visual .stage{
@@ -1780,6 +1780,27 @@ nav.site-nav .sn-inner{
 }
 </style>
 
+
+<style id="contact-width-fix">
+/* Content column = site 920 — no 960 drift */
+html body .hero,
+html body header.hero,
+html body .grid,
+html body .page,
+html body .wrap,
+html body .bc-crumbs{
+  max-width: 920px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
+  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
+}
+html body .bc-crumbs{ padding-top: 72px !important; }
+:root{ --max:920px; --pad:clamp(16px,3vw,28px); }
+</style>
+
 </head>
 <body>
 <nav class="site-nav" id="topNav" style="--sn-accent:#d97757" aria-label="Primary">
@@ -1857,14 +1878,7 @@ nav.site-nav .sn-inner{
     <p>Repos, experiments, and the living portfolio source.</p>
     <span class="cta-line">fedemon16i <span class="arrow">→</span></span>
   </a>
-  <a class="invite ig" href="https://instagram.com/federicomonroy" target="_blank" rel="noopener">
-    <div class="logo-wrap" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </div>
-    <h2>Instagram</h2>
-    <p>Process, adventure, and the non-slide-deck side.</p>
-    <span class="cta-line">@federicomonroy <span class="arrow">→</span></span>
-  </a>
+  
   <a class="invite mail" href="projects.html">
     <div class="logo-wrap" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>
