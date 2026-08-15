@@ -1703,119 +1703,200 @@ html:not(.embed) .unit{
 }
 
 
-
 /* ============================================================
-   CLEAN EMBED v50 — from preview-02/03 (no competing rules)
-   pills → gap 10px → unit 560×410 scale by width, uniform
+   BC-PATTERN EMBED for Skills unit 560×410  2026-08-13-bc
+   Same as blockchain fitPhone:
+     host (.frame) has REAL width+height (flex fill)
+     unit keeps 560×410 design px
+     scale = min(hostW/560, hostH/410) * 0.96
+     overflow:hidden on host → visual always fully inside
    ============================================================ */
+
 html.embed, html.embed body{
-  margin:0!important; padding:0!important;
-  width:100%!important; height:auto!important;
-  overflow:visible!important; background:transparent!important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+html.embed body{
+  padding: 12px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 html.embed .page{
-  width:100%!important; max-width:none!important; height:auto!important;
-  margin:0!important; padding:14px 16px 18px!important;
-  box-sizing:border-box!important;
-  display:flex!important; flex-direction:column!important;
-  background:transparent!important; overflow:visible!important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
 }
-html.embed .page > .close-x{ display:none!important; }
+html.embed .page > .close-x{ display: none !important; }
 html.embed .page > .kicker{
-  margin:0 0 4px!important; font-size:10px!important;
-  letter-spacing:.12em!important; text-transform:uppercase!important; opacity:.65!important;
+  flex: 0 0 auto !important;
+  margin: 0 0 4px !important;
+  font-size: 10px !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  opacity: .65 !important;
 }
 html.embed .page > h1{
-  margin:0 0 6px!important;
-  font-size:clamp(1.15rem,2.4vw,1.35rem)!important; line-height:1.2!important;
+  flex: 0 0 auto !important;
+  margin: 0 0 4px !important;
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem) !important;
+  line-height: 1.2 !important;
 }
 html.embed .page > .lead{
-  margin:0 0 12px!important; font-size:12.5px!important; line-height:1.4!important; opacity:.75!important;
-  display:-webkit-box!important; -webkit-line-clamp:2!important;
-  -webkit-box-orient:vertical!important; overflow:hidden!important;
+  flex: 0 0 auto !important;
+  margin: 0 0 10px !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  opacity: .7 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
 }
 html.embed .shell{
-  display:flex!important; flex-direction:column!important;
-  grid-template-columns:none!important; gap:10px!important;
-  width:100%!important; margin:0!important; padding:0!important;
-  background:transparent!important; border:none!important; overflow:visible!important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
 }
-html.embed .shell > div:first-child{ width:100%!important; flex:0 0 auto!important; }
+html.embed .shell > div:first-child{ flex: 0 0 auto !important; width: 100% !important; }
 html.embed .tl, html.embed #tl{
-  display:flex!important; flex-wrap:nowrap!important; gap:6px!important;
-  overflow-x:auto!important; scrollbar-width:none!important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
 }
 html.embed .tl button, html.embed #tl button{
-  flex:0 0 auto!important; width:auto!important; height:32px!important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: 32px !important;
 }
-html.embed .controls{ display:none!important; }
+html.embed .controls{ display: none !important; }
+
+/* stage-col fills remaining height — like BC .stage */
 html.embed .stage-col{
-  display:block!important; width:100%!important;
-  margin:0!important; padding:0!important;
-  background:transparent!important; border:none!important; overflow:visible!important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
 }
+
+/* .frame = BC phone-host: fills stage, flex-centers unit, overflow hidden */
 html.embed .frame, html.embed #frame{
-  display:block!important; position:relative!important;
-  width:100%!important; max-width:100%!important;
-  margin:0!important; padding:0!important; border:none!important;
-  background:transparent!important; box-shadow:none!important;
-  overflow:visible!important; box-sizing:border-box!important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  position: relative !important;
+  box-sizing: border-box !important;
 }
+
+/* .unit = BC phone-base: FIXED design size, scale only */
 html.embed .unit, html.embed #unit{
-  position:absolute!important; top:0!important;
-  width:560px!important; height:410px!important;
-  margin:0!important; box-sizing:border-box!important;
-  transform-origin:top left!important;
-  max-width:none!important; max-height:none!important;
-}
-@media (max-width:720px){
-  html.embed .page{ padding:10px 12px 14px!important; }
-  html.embed .page > .lead{ -webkit-line-clamp:1!important; }
-}
-
-
-/* PILLS RULE final — inactive number only */
-html body .tl button .nm,
-html.embed .tl button .nm,
-.tl button .nm{
-  display: none !important;
-}
-html body .tl button.on .nm,
-html.embed .tl button.on .nm,
-.tl button.on .nm{
-  display: inline !important;
-  margin-left: 5px !important;
-  font-weight: 600 !important;
-  opacity: 1 !important;
-}
-html.embed .page{
-  padding-bottom: 28px !important;
+  width: 560px !important;
+  height: 410px !important;
+  min-width: 560px !important;
+  min-height: 410px !important;
+  max-width: 560px !important;
+  max-height: 410px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  transform-origin: center center !important;
+  /* transform: scale(s) set by fitUnit — same as fitPhone */
 }
 
 
-/* BEAT READABILITY — product/demo UI keeps intended contrast; light = chrome only */
-[data-theme="light"] .page,
-[data-theme="light"] .kicker,
-[data-theme="light"] .lead,
-[data-theme="light"] h1{ color: var(--text, #1a1917); }
-[data-theme="light"] .cap{
-  color: var(--text, #1a1917) !important;
-  background: linear-gradient(to top, rgba(247,245,242,.98), rgba(247,245,242,.85), transparent) !important;
-}
-[data-theme="light"] .stage-chrome{
-  background: linear-gradient(to bottom, rgba(247,245,242,.92), rgba(247,245,242,.3), transparent) !important;
-}
-[data-theme="light"] .stage-chrome .beat-lab,
-[data-theme="light"] .stage-chrome .beat-lab .n{ color: #1a1917 !important; }
-[data-theme="light"] .tl button{ color: var(--muted, #55524c) !important; }
-[data-theme="light"] .tl button.on{ color: var(--text, #1a1917) !important; }
-[data-theme="light"] .unit{
-  border-color: rgba(0,0,0,.12) !important;
-}
-/* Protect dark demo panels inside win */
-.win .app, .win [style*="background:#0"], .win [style*="background: #0"]{
-  color: rgba(255,255,255,.88);
-}
+/* ═══ 08 Systems — append only (no changes to existing beats) ═══ */
+:root{--sys:#22d3ee;--sys-dim:rgba(34,211,238,.14);--on-sys:#042f2e}
+.logo-mcp{background:var(--sys);color:#042f2e}
+.logo-gh{background:#333}
+.sys-parts{display:flex;gap:4px;margin-bottom:6px;flex-shrink:0}
+.sys-pip{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.08)}
+.sys-pip.on{background:var(--sys)}
+.sys-pip.done{background:rgba(34,211,238,.4)}
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;flex:1;min-height:0}
+.sys-cell{background:rgba(255,255,255,.03);border:1px solid var(--line-soft);border-radius:8px;padding:8px;opacity:0;transform:translateY(6px) scale(.96);transition:opacity .45s,transform .5s var(--spring),border-color .3s,box-shadow .3s;overflow:hidden;display:flex;flex-direction:column;min-height:0;min-width:0}
+.sys-cell.on{opacity:1;transform:none}
+.sys-cell.live{border-color:rgba(34,211,238,.45);box-shadow:0 0 16px -6px rgba(34,211,238,.3)}
+.sys-cell h4{font-family:var(--mono,ui-monospace,monospace);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.35);margin:0 0 4px;display:flex;align-items:center;gap:4px;flex-shrink:0}
+.sys-cell h4 .n{color:var(--sys);font-weight:700}
+.sys-cell .body{flex:1;min-height:0;font-size:10.5px;color:var(--muted);line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+.sys-cell .body b{color:var(--text);font-weight:600}
+.sys-cell .mini{margin-top:auto;padding-top:4px;display:flex;flex-wrap:wrap;gap:2px;flex-shrink:0;max-height:34px;overflow:hidden}
+.sys-cell .mini span{font-family:var(--mono,ui-monospace,monospace);font-size:7.5px;padding:2px 4px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:rgba(255,255,255,.4);white-space:nowrap}
+.sys-cell .mini span.hi{border-color:rgba(34,211,238,.4);color:var(--sys);background:var(--sys-dim)}
+.sys-cell.human{background:linear-gradient(160deg,rgba(34,211,238,.08),rgba(255,255,255,.02))}
+.sys-badge{display:inline-block;margin-top:4px;font-family:var(--mono,ui-monospace,monospace);font-size:8px;font-weight:700;background:var(--sys);color:var(--on-sys);padding:2px 6px;border-radius:4px;opacity:0;transform:scale(.85);transition:opacity .35s,transform .35s}
+.sys-badge.on{opacity:1;transform:none}
+.sys-quote{font-size:10px;color:var(--text);line-height:1.3;opacity:0;transition:opacity .4s;margin-top:4px;overflow:hidden;max-height:2.6em}
+.sys-quote.on{opacity:1}
+.app-body.sys-body{display:flex;flex-direction:column;min-height:0;padding:8px;overflow:hidden}
+/* connect finale */
+.connect-scene{flex:1;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;overflow:hidden;gap:4px;box-sizing:border-box}
+.connect-story{font-size:clamp(11px,1.6vw,13px);font-weight:650;text-align:center;color:var(--muted);line-height:1.3;max-width:100%;padding:0 4px;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;min-height:0}
+.connect-story em{color:var(--sys);font-style:normal}
+.connect-row{display:flex;align-items:flex-start;justify-content:center;gap:4px;flex-wrap:nowrap;max-width:100%;min-width:0}
+.c-node{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0;transform:scale(.75) translateY(8px);transition:opacity .45s,transform .5s var(--spring),filter .3s;filter:grayscale(.3);flex:0 1 auto;min-width:0;max-width:72px}
+.c-node.on{opacity:1;transform:none;filter:none}
+.c-node.live .c-box{border-color:rgba(34,211,238,.55);background:rgba(34,211,238,.12);box-shadow:0 0 14px -4px rgba(34,211,238,.35)}
+.c-box{width:clamp(40px,8vw,52px);height:clamp(40px,8vw,52px);border-radius:12px;background:var(--bg-raised,#1e1c1a);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s}
+.c-box svg{width:55%;height:55%;stroke:rgba(255,255,255,.45);fill:none;stroke-width:1.5}
+.c-node.live .c-box svg{stroke:var(--sys)}
+.c-box .logo{width:70%;height:70%;max-width:28px;max-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono,ui-monospace,monospace);font-size:9px;font-weight:800;color:#fff;overflow:hidden}
+.lg-gh{background:#333}.lg-fig{background:linear-gradient(135deg,#F24E1E,#A259FF,#1ABCFE)}.lg-pen{background:#FF4A7D}.lg-mcp{background:var(--sys);color:#042f2e}.lg-api{background:#8fb4d4;color:#0a1628}.lg-miro{background:#ffd02f;color:#111}.lg-maze{background:#2A1E5C}.lg-n8n{background:#ea4b71}
+.c-lbl{font-family:var(--mono,ui-monospace,monospace);font-size:clamp(7px,1.3vw,8.5px);color:rgba(255,255,255,.35);text-align:center;max-width:100%;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c-node.live .c-lbl{color:var(--text)}
+.c-arrow{font-size:clamp(12px,2vw,15px);color:rgba(34,211,238,.25);opacity:0;transition:opacity .4s,color .4s;align-self:center;flex-shrink:0;line-height:1;margin:0}
+.c-arrow.on{opacity:1;color:var(--sys)}
+.connect-logos{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;max-width:100%;max-height:52px;overflow:hidden;flex-shrink:0}
+.connect-logos .c-logo{opacity:0;transform:scale(.85);transition:opacity .35s,transform .4s}
+.connect-logos .c-logo.on{opacity:1;transform:none}
+.connect-logos .c-logo span{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono,ui-monospace,monospace);font-size:8px;padding:3px 6px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:rgba(255,255,255,.45);white-space:nowrap}
+.connect-logos .c-logo.live span{border-color:rgba(34,211,238,.45);color:var(--sys);background:var(--sys-dim)}
+.connect-logos .c-logo span i{width:11px;height:11px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:6px;font-weight:800;color:#fff;font-style:normal;flex-shrink:0}
+.tl button.sys-pill{border-color:rgba(34,211,238,.4);color:var(--sys)}
+.tl button.sys-pill.on{background:var(--sys);color:var(--on-sys);border-color:var(--sys)}
 
 </style>
 </head>
@@ -1870,7 +1951,7 @@ html.embed .page{
 </script>
 <div class="page"><button type="button" class="close-x" id="closeX" aria-label="Close">×</button>
   <p class="kicker">Skills · product services</p>
-  <h1>Seven skills to <em>amplify product</em> and understand users</h1>
+  <h1>Eight skills to <em>amplify product</em> and understand users</h1>
   <p class="lead">Map behavior, surface friction, research the why, and close the loop from evidence to shipped UX — the same craft applied across every engagement.</p>
   <div class="shell">
     <div>
@@ -1983,7 +2064,7 @@ html.embed .page{
     p.style.left = x + 'px'; p.style.top = y + 'px';
     unit.appendChild(p);
     requestAnimationFrame(function(){ p.classList.add('fire'); });
-    after(1020, function(){ if(p.parentNode) p.parentNode.removeChild(p); });
+    after(480, function(){ if(p.parentNode) p.parentNode.removeChild(p); });
   }
   function clickCur(cursor, tool, cb){
     if (typeof tool === 'function'){ cb = tool; tool = null; }
@@ -1992,7 +2073,7 @@ html.embed .page{
       spawnPulse(x, y);
       cursor.classList.add('click');
       if(tool) tool.classList.add('show');
-      after(380, function(){ cursor.classList.remove('click'); if(cb) cb(); });
+      after(160, function(){ cursor.classList.remove('click'); if(cb) cb(); });
     });
   }
   function typeTitle(node, html, cb){
@@ -2022,7 +2103,7 @@ html.embed .page{
     var s=document.createElement('div'); s.className='slide text on';
     s.innerHTML='<div class="ts-big" id="ts"></div><div class="dock">'+chips+'</div>'; win.appendChild(s);
     typeTitle(document.getElementById('ts'), title, function(){
-      after(428, function(){ showCap(capMsg); after(T.pause, then); });
+      after(180, function(){ showCap(capMsg); after(T.pause, then); });
     });
   }
   function mount(html, capMsg){ win.innerHTML=''; hideCursors(); var s=document.createElement('div'); s.className='slide on'; s.innerHTML=html; win.appendChild(s); if(capMsg) showCap(capMsg); return s; }
@@ -2031,57 +2112,57 @@ html.embed .page{
     textPhase('Product structure <em>first</em>.<br>Pages · flows · features · events.', chip('Pendo','pendo')+chip('GA4','ga')+chip('Mixpanel','mix'), 'IA and events before any dashboard.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Product map</span></div><div class="app-nav" style="display:none"><span class="logo">Site map</span><span class="search">Filter</span></div><div class="app-body"><div class="sitemap"><div class="sm-title">Information architecture</div><div class="sm-tree"><div class="sm-node home" id="nHome">Home</div><div class="sm-line" id="ln0"></div><div class="sm-row"><div class="sm-branch"><div class="sm-node store" id="nStore">Store</div><div class="sm-line" id="lnS"></div><div class="sm-node leaf" id="nPr">Product</div></div><div class="sm-branch"><div class="sm-node account" id="nAcc">Account</div><div class="sm-line" id="lnA"></div><div class="sm-node leaf" id="nLog">Login</div></div><div class="sm-branch"><div class="sm-node blog" id="nBlog">Blog</div><div class="sm-line" id="lnB"></div><div class="sm-node leaf" id="nPost">Post</div></div><div class="sm-branch"><div class="sm-node other" id="nOth">Other</div><div class="sm-line" id="lnO"></div><div class="sm-node leaf" id="nAbout">About</div></div></div></div><div class="side-lists"><div class="box"><div class="mh">Features</div><div class="feat-row" id="ft0"><span class="ic click">◎</span> Nav · Store</div><div class="feat-row" id="ft1"><span class="ic click">◎</span> Add to bag</div><div class="feat-row" id="ft2"><span class="ic click">◎</span> Checkout</div></div><div class="box"><div class="mh">Events</div><div class="ev-row" id="ev0"><span class="ic bolt">⚡</span> page_view</div><div class="ev-row" id="ev1"><span class="ic bolt">⚡</span> add_to_cart</div><div class="ev-row" id="ev2"><span class="ic bolt">⚡</span> payment_start</div></div></div></div></div></div>','Sitemap, flows, features, and events — tagged.');
       ['nHome','ln0','nStore','nAcc','nBlog','nOth','lnS','lnA','lnB','lnO','nPr','nLog','nPost','nAbout'].forEach(function(id,i){ after(i*85, function(){ var n=el(id); if(n) n.classList.add('on'); }); });
-      after(2380, function(){ [0,1,2].forEach(function(i){ after(i*130, function(){ el('ft'+i).classList.add('on'); el('ev'+i).classList.add('on'); }); }); after(1487, function(){ hideCursors(); after(850, done); }); });
+      after(1400, function(){ [0,1,2].forEach(function(i){ after(i*130, function(){ el('ft'+i).classList.add('on'); el('ev'+i).classList.add('on'); }); }); after(700, function(){ hideCursors(); after(400, done); }); });
     });
   }
 
   function beatUsage(done){
     textPhase('Three users · one checkout path.<br>Payment is where the <em>drop-off</em> lands.', chip('Pendo','pendo')+chip('Replay','mix'), 'Home → category → PDP → bag → pay.', function(){
       mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Marketplace</span><span class="search">Search</span></div><div class="shop-top"><span class="brand">Herbal Co</span><span style="opacity:.45">Shop</span><span style="opacity:.45">About</span><span class="cart">Bag 0</span></div><div class="shop-hero"><div><h3>Welcome to our store</h3><p>Seasonal picks · free ship $40+</p><button class="cta" id="shopCta" type="button">Browse catalog</button></div><div class="img"></div></div><div style="padding:0 12px 10px"><div style="font-size:9px;color:rgba(255,255,255,.35);margin-bottom:4px;letter-spacing:.04em;text-transform:uppercase">Just in</div><div style="display:flex;gap:6px"><div style="flex:1;height:40px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)"></div><div style="flex:1;height:40px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)"></div><div style="flex:1;height:40px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)"></div></div></div></div>','Storefront entry — three concurrent sessions.');
-      after(428, function(){
+      after(180, function(){
         fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,96);
-        after(850, function(){
-          place(c1,t1,el('shopCta'),8,6); after(428, function(){ place(c2,t2,el('shopCta'),32,14); }); after(722, function(){ place(c3,t3,el('shopCta'),18,22); });
+        after(400, function(){
+          place(c1,t1,el('shopCta'),8,6); after(180, function(){ place(c2,t2,el('shopCta'),32,14); }); after(340, function(){ place(c3,t3,el('shopCta'),18,22); });
         });
-        after(2210, function(){ clickCur(c1, t1, function(){
+        after(1300, function(){ clickCur(c1, t1, function(){
           mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Catalog</span><span class="search">Filter</span></div><div class="shop-top"><span class="brand">All products</span><span style="opacity:.4;font-size:9px">Sort · Price</span><span class="cart">Bag 0</span></div><div class="cat-grid">'+[0,1,2,3,4,5].map(function(i){ return '<div class="cat-card" id="cc'+i+'"><div class="thumb"></div><div class="t">'+(['Green blend','Herbal mix','Black leaf','Oolong set','Matcha tin','Gift box'][i])+'</div><div style="font-size:8.5px;color:rgba(255,255,255,.35);margin-top:2px">$'+([18,14,16,22,24,36][i])+'</div></div>'; }).join('')+'</div></div>','Category browse — paths start to diverge.');
           [0,1,2,3,4,5].forEach(function(i){ after(i*80, function(){ el('cc'+i).classList.add('on'); }); });
-          after(1105, function(){
+          after(520, function(){
             fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,96);
-            after(807, function(){
-              place(c1,t1,el('cc0'),6,8); after(428, function(){ place(c2,t2,el('cc0'),36,18); }); after(680, function(){ place(c3,t3,el('cc0'),14,28); });
+            after(380, function(){
+              place(c1,t1,el('cc0'),6,8); after(180, function(){ place(c2,t2,el('cc0'),36,18); }); after(320, function(){ place(c3,t3,el('cc0'),14,28); });
             });
-            after(2040, function(){ clickCur(c1, t1, function(){
+            after(1200, function(){ clickCur(c1, t1, function(){
               el('cc0').classList.add('sel');
-              after(680, function(){
+              after(320, function(){
                 mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Product</span></div><div class="shop-top"><span class="brand">Green blend</span><span class="cart">Bag 0</span></div><div class="pdp"><div class="pdp-img"><div class="ph"></div></div><div class="pdp-info"><h3>Green blend · 50g</h3><div style="font-size:9px;color:var(--warn)">★★★★☆ 4.6</div><div class="price">$18.00</div><div style="font-size:9px;color:rgba(255,255,255,.4)">In stock · ships 2 days</div><button class="btn" id="addBag" type="button">Add to bag</button></div></div></div>','Product detail — intent is still high.');
-                after(523, function(){
+                after(220, function(){
                   fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,90);
-                  after(765, function(){
-                    place(c1,t1,el('addBag'),10,8); after(404, function(){ place(c2,t2,el('addBag'),28,16); }); after(637, function(){ place(c3,t3,el('addBag'),4,22); });
+                  after(360, function(){
+                    place(c1,t1,el('addBag'),10,8); after(170, function(){ place(c2,t2,el('addBag'),28,16); }); after(300, function(){ place(c3,t3,el('addBag'),4,22); });
                   });
-                  after(2040, function(){ clickCur(c1, t1, function(){
-                    after(552, function(){
+                  after(1200, function(){ clickCur(c1, t1, function(){
+                    after(260, function(){
                       mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Bag</span></div><div class="shop-top"><span class="brand">My bag</span><span class="cart">1 item</span></div><div class="bag"><div class="bag-row"><div class="th"></div><div><b>Green blend · 50g</b><div style="font-size:8.5px;color:rgba(255,255,255,.35)">Qty 1</div></div><span style="margin-left:auto;color:var(--accent);font-weight:650">$18</span></div><div style="font-size:10px;display:flex;justify-content:space-between;margin:6px 0;color:rgba(255,255,255,.45)"><span>Subtotal</span><b style="color:#fff">$18</b></div><div class="bag-cta" id="toPay">Proceed to checkout</div></div></div>','Bag to checkout — friction ahead.');
-                      after(595, function(){
+                      after(280, function(){
                         fromBottom(c1,t1,0); fromBottom(c2,t2,50); fromBottom(c3,t3,95);
-                        after(765, function(){
-                          place(c1,t1,el('toPay'),12,10); after(380, function(){ place(c2,t2,el('toPay'),40,8); }); after(637, function(){ place(c3,t3,el('toPay'),20,18); });
+                        after(360, function(){
+                          place(c1,t1,el('toPay'),12,10); after(160, function(){ place(c2,t2,el('toPay'),40,8); }); after(300, function(){ place(c3,t3,el('toPay'),20,18); });
                         });
-                        after(2040, function(){ clickCur(c1, t1, function(){
+                        after(1200, function(){ clickCur(c1, t1, function(){
                           mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Secure checkout</span></div><div class="pay-screen"><div class="pay-l"><h3>Payment details</h3><div class="fld filled" data-v="Jane Doe"><label>Full name</label></div><div class="fld filled" data-v="jane@mail.com"><label>Email</label></div><div class="fld" id="cardFld" data-v=""><label>Card number</label></div><div class="fld" id="cvvFld" data-v=""><label>CVV / ZIP</label></div><div class="drop-flag" id="drop">Drop-off · card field</div></div><div class="pay-r"><h3>Order summary</h3><div class="sum-line"><span>Green blend</span><b>$18</b></div><div class="sum-line"><span>Shipping</span><b>$4</b></div><div class="sum-line"><span>Tax</span><b>$1.60</b></div><div class="sum-total"><span>Total</span><span>$23.60</span></div></div></div></div>','Two sessions abandon · one reaches card entry.');
-                          after(531, function(){
+                          after(250, function(){
                             fromBottom(c1,t1,0); fromBottom(c2,t2,50); fromBottom(c3,t3,95);
-                            after(850, function(){
-                              place(c1,t1,el('cardFld'),10,8); after(428, function(){ place(c2,t2,el('cardFld'),38,16); }); after(680, function(){ place(c3,t3,el('cardFld'),16,24); });
+                            after(400, function(){
+                              place(c1,t1,el('cardFld'),10,8); after(180, function(){ place(c2,t2,el('cardFld'),38,16); }); after(320, function(){ place(c3,t3,el('cardFld'),16,24); });
                             });
-                            after(2380, function(){
+                            after(1400, function(){
                               el('cardFld').classList.add('bad'); el('drop').classList.add('on'); place(c3,t3,el('cvvFld'),14,10);
                               showCap('Users 1 &amp; 2 <em>drop</em> · user 3 stays active.');
-                              after(1700, function(){
+                              after(1000, function(){
                                 mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Funnel</span></div><div class="app-nav" style="display:none"><span class="logo">Funnel</span></div><div class="app-body"><div class="funnel"><div class="funnel-note" id="funnelNote">Drop-off registered at <em>Payment</em> — this is the step to fix.</div><div class="fstep" id="fs0" data-w="100%">Home <span>100%</span></div><div class="fstep" id="fs1" data-w="84%">Category <span>84%</span></div><div class="fstep" id="fs2" data-w="62%">Bag <span>62%</span></div><div class="fstep" id="fs3" data-w="22%">Payment <span>22%</span></div></div></div></div>','Funnel makes the drop-off impossible to ignore.');
                                 hideCursors(); var si=0;
-                                (function grow(){ if(si>3){ after(1360, done); return; } var n=el('fs'+si); n.classList.add('show'); n.style.width=n.getAttribute('data-w'); if(si===3) n.classList.add('dead'); si++; after(807, grow); })();
+                                (function grow(){ if(si>3){ after(800, done); return; } var n=el('fs'+si); n.classList.add('show'); n.style.width=n.getAttribute('data-w'); if(si===3) n.classList.add('dead'); si++; after(380, grow); })();
                               });
                             });
                           });
@@ -2102,9 +2183,9 @@ html.embed .page{
     textPhase('Segment the <em>strugglers</em>.<br>Open one session <em>replay</em>.', chip('Pendo','pendo')+chip('Replay','mix'), 'Users with problems → pick one → recording.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Session explorer</span></div><div class="app-nav" style="display:none"><span class="logo">Strugglers</span></div><div class="app-body"><div class="seg"><div class="seg-users"><div class="mh">Highest friction</div><div class="user-row" id="u0"><div class="av"></div><div><div>user_8834</div><div class="meta">Rage ×4 · mobile</div></div><span class="badge">drop</span></div><div class="user-row" id="u1"><div class="av"></div><div><div>user_4412</div><div class="meta">Rage ×3 · mobile</div></div><span class="badge">drop</span></div><div class="user-row" id="u2"><div class="av"></div><div><div>user_2201</div><div class="meta">2m stuck · desktop</div></div><span class="badge">slow</span></div></div><div class="seg-replay"><div class="mh">Session replay</div><div class="replay-player" id="rp"><div class="rp-chrome"><span class="rec"></span> user_8834 · mobile · 1m 02s <span class="spd">1×</span></div><div class="rp-screen"><div class="fake-ui"><div class="blk" style="width:40%"></div><div class="blk" style="width:70%"></div><div class="fld-fake"></div><div class="blk" style="width:55%"></div></div><div class="rp-dot" id="rpDot"></div><div class="rp-rage" id="rpRage" style="left:10%;top:42%;width:58%;height:26px"></div></div><div class="rp-controls"><div class="btn"></div><div class="bar"><i id="rpBar"></i></div><span class="time">0:44 / 1:02</span></div><div class="rp-find"><span class="tag">RAGE</span> Cluster on card number · 4 clicks</div></div></div></div></div></div>','Worst sessions first — then replay.');
       [0,1,2].forEach(function(i){ after(i*200, function(){ el('u'+i).classList.add('on'); }); });
-      after(1487, function(){ place(c1,null,el('u0'),10,10); after(1168, function(){ clickCur(c1, t1, function(){
-        el('u0').classList.add('sel'); after(595, function(){ el('rp').classList.add('on'); showCap('Replay pinpoints <em>where</em> the session broke.'); after(523, function(){
-          el('rpBar').style.width='72%'; el('rpDot').style.left='50%'; el('rpDot').style.top='50%'; after(1360, function(){ el('rpRage').classList.add('on'); hideCursors(); after(1700, done); });
+      after(700, function(){ place(c1,null,el('u0'),10,10); after(550, function(){ clickCur(c1, t1, function(){
+        el('u0').classList.add('sel'); after(280, function(){ el('rp').classList.add('on'); showCap('Replay pinpoints <em>where</em> the session broke.'); after(220, function(){
+          el('rpBar').style.width='72%'; el('rpDot').style.left='50%'; el('rpDot').style.top='50%'; after(800, function(){ el('rpRage').classList.add('on'); hideCursors(); after(1000, done); });
         }); });
       }); }); });
     });
@@ -2115,12 +2196,12 @@ html.embed .page{
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Research lab</span></div><div class="app-nav" style="display:none"><span class="logo">Research lab</span></div><div class="app-body"><div class="res-grid"><div class="res-cell" id="rc0"><h4><span class="logo-mark logo-pendo">P</span> Interviews</h4><p class="quote" id="q0">“Card field felt unsafe — no trust marks.”<span class="who">— user_8834</span></p><p class="quote" id="q0b">“I didn’t know the total until the end.”<span class="who">— user_4412</span></p></div><div class="res-cell" id="rc1"><h4><span class="logo-mark logo-opt">O</span> CSAT · NPS · CES</h4><div class="bar-row"><span>NPS</span><div class="track"><i id="bn"></i></div><b>28</b></div><div class="bar-row"><span>CSAT</span><div class="track"><i class="g" id="bc"></i></div><b>62%</b></div><div class="bar-row"><span>CES</span><div class="track"><i class="r" id="be"></i></div><b>5.4</b></div><p class="quote" id="q1">“Too many steps before pay.”<span class="who">— survey</span></p></div><div class="res-cell" id="rc2"><h4><span class="logo-mark logo-maze">M</span> Tree test</h4><div style="font-size:17px;font-weight:700;color:var(--accent);margin:4px 0" id="tpct">0%</div><div style="font-size:8.5px;color:rgba(255,255,255,.4)">Find payment help</div><p class="quote" id="q2">Fail path = unclear labels</p></div><div class="res-cell" id="rc3"><h4><span class="logo-mark logo-pendo">P</span> Usability</h4><p class="quote" id="q3"><b style="color:#ffb4a8">Finding:</b> CVV + ZIP on one line → errors</p><p class="quote" id="q3b">2 retries average on card field</p></div></div></div></div>','Evidence stack.');
       [0,1,2,3].forEach(function(i){ after(i*240, function(){
         el('rc'+i).classList.add('on');
-        if(i===0){ after(380, function(){ el('q0').classList.add('on'); }); after(850, function(){ el('q0b').classList.add('on'); }); }
-        if(i===1){ after(285, function(){ el('bn').style.width='28%'; el('bc').style.width='62%'; el('be').style.width='70%'; }); after(680, function(){ el('q1').classList.add('on'); }); }
-        if(i===2){ var v=0, iv=track(setInterval(function(){ v+=4; if(v>=54){v=54;clearInterval(iv);} el('tpct').textContent=v+'%'; }, 28)); after(850, function(){ el('q2').classList.add('on'); }); }
-        if(i===3){ after(380, function(){ el('q3').classList.add('on'); }); after(807, function(){ el('q3b').classList.add('on'); }); }
+        if(i===0){ after(160, function(){ el('q0').classList.add('on'); }); after(400, function(){ el('q0b').classList.add('on'); }); }
+        if(i===1){ after(120, function(){ el('bn').style.width='28%'; el('bc').style.width='62%'; el('be').style.width='70%'; }); after(320, function(){ el('q1').classList.add('on'); }); }
+        if(i===2){ var v=0, iv=track(setInterval(function(){ v+=4; if(v>=54){v=54;clearInterval(iv);} el('tpct').textContent=v+'%'; }, 28)); after(400, function(){ el('q2').classList.add('on'); }); }
+        if(i===3){ after(160, function(){ el('q3').classList.add('on'); }); after(380, function(){ el('q3b').classList.add('on'); }); }
       }); });
-      after(4760, function(){ hideCursors(); after(637, done); });
+      after(2800, function(){ hideCursors(); after(300, done); });
     });
   }
 
@@ -2128,20 +2209,20 @@ html.embed .page{
     textPhase('Not opinions.<br><em>Evidence becomes tasks.</em>', chip('FigJam','figma')+chip('Pendo','pendo'), 'Problems · owners by discipline.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Insights</span></div><div class="app-nav" style="display:none"><span class="logo">Insights → tasks</span></div><div class="app-body"><div class="und"><div class="und-l"><div class="mh">Problems</div><div class="prob" id="pb0"><div class="icn">!</div><div><b>No trust marks</b>Card feels unsafe</div></div><div class="prob" id="pb1"><div class="icn">≡</div><div><b>Combined CVV+ZIP</b>Errors on one line</div></div><div class="prob" id="pb2"><div class="icn">?</div><div><b>No field help</b>Users abandon</div></div></div><div class="und-r"><div class="mh">Owners</div><div class="task" id="tk0"><span class="tag tag-d">Design</span> Split CVV/ZIP · trust row</div><div class="task" id="tk1"><span class="tag tag-p">Product</span> Inline help on card</div><div class="task" id="tk2"><span class="tag tag-e">Eng</span> Validate per field</div><div class="task" id="tk3"><span class="tag tag-a">Analytics</span> Watch recovery</div></div></div></div></div>','Findings owned by product, design, and eng.');
       [0,1,2].forEach(function(i){ after(i*200, function(){ el('pb'+i).classList.add('on'); }); });
-      after(1275, function(){ [0,1,2,3].forEach(function(i){ after(i*160, function(){ el('tk'+i).classList.add('on'); }); }); after(1530, function(){ hideCursors(); after(743, done); }); });
+      after(750, function(){ [0,1,2,3].forEach(function(i){ after(i*160, function(){ el('tk'+i).classList.add('on'); }); }); after(900, function(){ hideCursors(); after(350, done); }); });
     });
   }
 
   function beatDesign(done){
     textPhase('Payment flow, <em>redesigned</em>.<br>Hand craft + <em>AI</em> in parallel.', chip('Figma','figma')+chip('Pendo','pendo'), 'Multi-frame Figma · shop onboarding proposal.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Design · payment</span></div><div class="app-nav" style="display:none"><span class="logo">Payment customization</span></div><div class="app-body"><div class="des"><div class="des-col"><h4><span class="logo-mark logo-figma"></span> Figma</h4><div class="fig-c" id="fig"><div class="fig-tb"><span></span><span></span><span></span></div><div class="art a" id="art"><div class="ln"></div><div class="ln" style="width:55%"></div><div class="btn"></div></div><div class="art b"><div class="ln"></div><div class="ln" style="width:40%"></div><div class="btn"></div></div><div class="art c"><div class="ln"></div><div class="ln" style="width:70%"></div></div></div></div><div class="des-col"><h4>Prompt</h4><div class="mcp"><div class="ln" id="m0"><span class="kw">prompt</span>: <span class="str">"checkout onboarding"</span></div><div class="ln" id="m1"><span class="kw">add</span> trust + split fields</div><div class="ln" id="m2"><span class="kw">generate</span> payment_v2</div></div></div><div class="merge" id="merge">Merge → proposal</div><div class="onb-mock" id="onb"><div class="ico">✓</div><h3>Before you pay</h3><p>Quick checks so checkout feels safe and clear.</p><div class="ck"><label id="pl0"><i></i> Order total confirmed</label><label id="pl1"><i></i> Card details encrypted</label><label id="pl2"><i></i> CVV and ZIP on separate fields</label></div><div class="cta" id="onbCta">Continue to payment</div><div class="deploy-opt" id="depOpt">Optional · <code>$ gh workflow run deploy</code></div></div></div></div></div>','Checkout onboarding — checklist before pay.');
-      after(531, function(){ place(c1,null,el('art'),12,20); after(1062, function(){ clickCur(c1, t1, function(){
+      after(250, function(){ place(c1,null,el('art'),12,20); after(500, function(){ clickCur(c1, t1, function(){
         [0,1,2].forEach(function(i){ after(i*240, function(){ el('m'+i).classList.add('on'); }); });
-        after(1445, function(){ el('merge').classList.add('on'); after(850, function(){
+        after(850, function(){ el('merge').classList.add('on'); after(400, function(){
           el('onb').classList.add('on');
-          [0,1,2].forEach(function(i){ after(i*280, function(){ el('pl'+i).classList.add('on'); after(380, function(){ el('pl'+i).classList.add('done'); }); }); });
-          after(1700, function(){ el('onbCta').classList.add('on'); el('depOpt').classList.add('on'); });
-          showCap('Onboarding before pay · deploy stays optional.'); hideCursors(); after(2380, done);
+          [0,1,2].forEach(function(i){ after(i*280, function(){ el('pl'+i).classList.add('on'); after(160, function(){ el('pl'+i).classList.add('done'); }); }); });
+          after(1000, function(){ el('onbCta').classList.add('on'); el('depOpt').classList.add('on'); });
+          showCap('Onboarding before pay · deploy stays optional.'); hideCursors(); after(1400, done);
         }); });
       }); }); });
     });
@@ -2151,16 +2232,148 @@ html.embed .page{
     textPhase('One <em>Analytics Hub</em>.<br>The loop stays <em>closed</em>.', chip('Pendo','pendo')+chip('GA4','ga'), 'Overview → Signals · recovery.', function(){
       mount('<div class="hub"><div class="hub-side"><div class="hub-brand"><i></i>Hub</div><a class="on" href="#">Overview</a><a href="#" id="navSig">Signals</a><a href="#">Funnels</a><a href="#">Guides</a></div><div class="hub-main"><div class="metrics"><div class="metric" id="hm0"><div class="l">Recovery rate</div><div class="v">+22%</div></div><div class="metric" id="hm1"><div class="l">Pay completion</div><div class="v">+18%</div></div><div class="metric" id="hm2"><div class="l">CES payment</div><div class="v">3.1 ↓</div></div><div class="metric" id="hm3"><div class="l">Next bet</div><div class="v" style="font-size:11px">Trust row</div></div></div></div></div>','Hub health across the full product loop.');
       [0,1,2,3].forEach(function(i){ after(i*130, function(){ el('hm'+i).classList.add('on'); }); });
-      after(1275, function(){ place(c1,null,el('navSig'),8,8); after(1062, function(){ clickCur(c1, t1, function(){
+      after(750, function(){ place(c1,null,el('navSig'),8,8); after(500, function(){ clickCur(c1, t1, function(){
         mount('<div class="hub"><div class="hub-side"><div class="hub-brand"><i></i>Hub</div><a href="#">Overview</a><a class="on" href="#">Signals</a><a href="#">Funnels</a><a href="#">Guides</a></div><div class="hub-main"><div class="hub-search">Search <em>Signals</em></div><div class="sig hot" id="s0"><span class="dot"></span> Payment drop-off <span class="val">−41%</span></div><div class="sig hot" id="s1"><span class="dot"></span> CES on checkout <span class="val">↓</span></div><div class="sig" id="s2"><span class="dot"></span> Catalog → PDP <span class="val">86% ↑</span></div><div class="sig" id="s3"><span class="dot"></span> Guide · card help <span class="val">+2.1k</span></div></div></div>','Priority signals rise in red.');
-        [0,1,2,3].forEach(function(i){ after(i*150, function(){ el('s'+i).classList.add('on'); }); }); hideCursors(); after(2040, done);
+        [0,1,2,3].forEach(function(i){ after(i*150, function(){ el('s'+i).classList.add('on'); }); }); hideCursors(); after(1200, done);
       }); }); });
+    });
+  }
+
+
+  function beatSystems(done){
+    textPhase('Context becomes <em>memory</em>.<br>Four layers connect the stack.', chip('GitHub','gh')+chip('Figma','figma')+chip('Pendo','pendo')+chip('MCP','mcp'), 'Memory · Skills · Actors · Tools — then connect.', function(){
+      mount(
+        '<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Systems lab · 4 layers</span></div>'+
+        '<div class="app-body sys-body">'+
+          '<div class="sys-parts"><i class="sys-pip" id="sp0"></i><i class="sys-pip" id="sp1"></i><i class="sys-pip" id="sp2"></i><i class="sys-pip" id="sp3"></i><i class="sys-pip" id="sp4"></i></div>'+
+          '<div class="sys-grid">'+
+            '<div class="sys-cell" id="sc0"><h4><span class="n">01</span> Memory</h4><div class="body"><b>Product context as a tree</b> agents navigate — not a chat dump.</div><div class="mini"><span class="hi">product/</span><span>requirements/</span><span>research/</span><span>skills/</span></div></div>'+
+            '<div class="sys-cell" id="sc1"><h4><span class="n">02</span> Skills</h4><div class="body"><b>Files agents load</b> — rules, templates, schemas.</div><div class="mini"><span class="hi">.md</span><span class="hi">pdf</span><span class="hi">json</span><span>.fig</span></div><p class="sys-quote" id="sq1">design-system-skill.md</p></div>'+
+            '<div class="sys-cell human" id="sc2"><h4><span class="n">03</span> Actors</h4><div class="body"><b>Agents</b> walk the tree. <b>I</b> review each critical step.</div><span class="sys-badge" id="sBadge">REVIEW</span><p class="sys-quote" id="sq2">Same context · judgment closes the loop</p></div>'+
+            '<div class="sys-cell" id="sc3"><h4><span class="n">04</span> Tools · MCP</h4><div class="body"><b>Connectors move context</b> — capability first.</div><div class="mini"><span class="hi">MCP</span><span class="hi">API</span><span>Figma</span><span>Pendo</span><span>GitHub</span><span>Miro</span><span>Maze</span><span>n8n</span></div></div>'+
+          '</div></div></div>',
+        'Four layers. One system.'
+      );
+      function setPip(n){
+        for(var i=0;i<5;i++){
+          var p=el('sp'+i); if(!p) continue;
+          p.classList.remove('on','done');
+          if(i<n) p.classList.add('done');
+          if(i===n) p.classList.add('on');
+        }
+      }
+      after(280, function(){
+        setPip(0); el('sc0').classList.add('on');
+        showCap('<em>01 Memory</em> — a library one agent can navigate.');
+      });
+      after(1100, function(){
+        setPip(1); el('sc1').classList.add('on');
+        var t=el('sc1');
+        if(t){ place(c1,null,t,12,12); after(420, function(){ clickCur(c1,null, function(){
+          el('sc1').classList.add('live'); var q=el('sq1'); if(q) q.classList.add('on');
+          showCap('<em>02 Skills</em> — .md · pdf · json agents can load.');
+        }); }); }
+        else { el('sc1').classList.add('live'); showCap('<em>02 Skills</em> — files agents can load.'); }
+      });
+      after(2400, function(){
+        setPip(2); el('sc2').classList.add('on');
+        var t=el('sc2');
+        if(t){ place(c1,null,t,10,14); after(420, function(){ clickCur(c1,null, function(){
+          el('sc2').classList.add('live');
+          var b=el('sBadge'), q=el('sq2');
+          if(b) b.classList.add('on'); if(q) q.classList.add('on');
+          showCap('<em>03 Actors</em> — agents accelerate · I approve.');
+        }); }); }
+      });
+      after(3800, function(){
+        setPip(3); el('sc3').classList.add('on');
+        after(320, function(){
+          el('sc3').classList.add('live');
+          showCap('<em>04 Tools · MCP</em> — Figma · Pendo · GitHub · Miro · Maze · n8n');
+        });
+      });
+      /* Part 5 — connect */
+      after(5200, function(){
+        setPip(4); hideCursors();
+        mount(
+          '<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Systems · how it connects</span></div>'+
+          '<div class="app-body sys-body" style="padding:4px 6px">'+
+            '<div class="sys-parts"><i class="sys-pip done"></i><i class="sys-pip done"></i><i class="sys-pip done"></i><i class="sys-pip done"></i><i class="sys-pip on"></i></div>'+
+            '<div class="connect-scene">'+
+              '<div class="connect-story" id="cStory"></div>'+
+              '<div class="connect-row">'+
+                '<div class="c-node" id="cnMem"><div class="c-box"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg></div><span class="c-lbl">Memory</span></div>'+
+                '<span class="c-arrow" id="ca1">→</span>'+
+                '<div class="c-node" id="cnSkill"><div class="c-box"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5"/></svg></div><span class="c-lbl">Skills</span></div>'+
+                '<span class="c-arrow" id="ca2">→</span>'+
+                '<div class="c-node" id="cnAgent"><div class="c-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3.2 3.8-4.8 7-4.8s5.6 1.6 7 4.8"/></svg></div><span class="c-lbl">Agents</span></div>'+
+                '<span class="c-arrow" id="ca3">→</span>'+
+                '<div class="c-node" id="cnMe"><div class="c-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3.2 3.8-4.8 7-4.8s5.6 1.6 7 4.8"/></svg></div><span class="c-lbl">Review</span></div>'+
+              '</div>'+
+              '<span class="c-arrow" id="ca4">↓</span>'+
+              '<div class="connect-row">'+
+                '<div class="c-node" id="cnMcp"><div class="c-box"><span class="logo lg-mcp">MCP</span></div><span class="c-lbl">MCP</span></div>'+
+                '<div class="c-node" id="cnApi"><div class="c-box"><span class="logo lg-api">API</span></div><span class="c-lbl">APIs</span></div>'+
+                '<div class="c-node" id="cnFig"><div class="c-box"><span class="logo lg-fig">F</span></div><span class="c-lbl">Figma</span></div>'+
+                '<div class="c-node" id="cnPen"><div class="c-box"><span class="logo lg-pen">P</span></div><span class="c-lbl">Pendo</span></div>'+
+                '<div class="c-node" id="cnGh"><div class="c-box"><span class="logo lg-gh">G</span></div><span class="c-lbl">GitHub</span></div>'+
+              '</div>'+
+              '<div class="connect-logos">'+
+                '<div class="c-logo" id="cl0"><span><i class="lg-miro">M</i> Miro</span></div>'+
+                '<div class="c-logo" id="cl1"><span><i class="lg-maze">Mz</i> Maze</span></div>'+
+                '<div class="c-logo" id="cl2"><span><i class="lg-n8n">n8</i> n8n</span></div>'+
+                '<div class="c-logo" id="cl3"><span><i class="lg-api">CLI</i> CLI</span></div>'+
+                '<div class="c-logo" id="cl4"><span><i class="lg-mcp">WH</i> Webhooks</span></div>'+
+              '</div>'+
+            '</div></div></div>',
+          'How the four layers become one system.'
+        );
+        var story = el('cStory');
+        function say(h){ if(story) story.innerHTML = h; }
+        after(200, function(){
+          say('Product context lives as a <em>folder tree</em> — not a prompt.');
+          el('cnMem').classList.add('on','live');
+          showCap('Memory is navigable — requirements, research, decisions.');
+        });
+        after(1400, function(){
+          say('From that tree, agents load <em>skill files</em> (.md, pdf, json).');
+          el('ca1').classList.add('on'); el('cnSkill').classList.add('on','live');
+          showCap('Skills = portable knowledge, not chat history.');
+        });
+        after(2800, function(){
+          say('Specialized <em>agents</em> walk the library and draft work.');
+          el('ca2').classList.add('on'); el('cnAgent').classList.add('on','live');
+          showCap('UX · research · design system · analytics agents.');
+        });
+        after(4200, function(){
+          say('I sit in the same loop — <em>review, approve, redirect</em>.');
+          el('ca3').classList.add('on'); el('cnMe').classList.add('on','live');
+          showCap('Human judgment closes every critical step.');
+        });
+        after(5600, function(){
+          say('MCP, APIs and tools <em>move</em> that context into the product stack.');
+          el('ca4').classList.add('on');
+          ['cnMcp','cnApi','cnFig','cnPen','cnGh'].forEach(function(id,i){
+            after(i*130, function(){ var n=el(id); if(n) n.classList.add('on','live'); });
+          });
+          showCap('Connectors are pipes — capability stays first.');
+        });
+        after(7200, function(){
+          [0,1,2,3,4].forEach(function(i){
+            after(i*110, function(){ var n=el('cl'+i); if(n) n.classList.add('on','live'); });
+          });
+          say('One system: <em>memory → skills → agents → me → tools</em>.');
+          showCap('Human judgment <em>closes</em> the loop. Agents accelerate it.');
+        });
+        after(9000, function(){ hideCursors(); after(350, done); });
+      });
     });
   }
 
   var BEATS=[
     {n:'01',name:'Mapping',fn:beatMap},{n:'02',name:'Usage',fn:beatUsage},{n:'03',name:'Segment',fn:beatSeg},
-    {n:'04',name:'Research',fn:beatResearch},{n:'05',name:'Understand',fn:beatUnderstand},{n:'06',name:'Design',fn:beatDesign},{n:'07',name:'Hub',fn:beatHub}
+    {n:'04',name:'Research',fn:beatResearch},{n:'05',name:'Understand',fn:beatUnderstand},{n:'06',name:'Design',fn:beatDesign},{n:'07',name:'Hub',fn:beatHub},
+    {n:'08',name:'Systems',fn:beatSystems}
   ];
   
   /* iOS-safe bind: click + touchend, single fire */
@@ -2182,7 +2395,7 @@ html.embed .page{
   }
 
   var tl=document.getElementById('tl');
-  BEATS.forEach(function(b,i){ var btn=document.createElement('button'); btn.type='button'; btn.innerHTML='<span class="n">'+b.n+'</span><span class="nm">'+b.name+'</span>'; if(i===0) btn.className='on'; bindTap(btn, function(){ window.playBeat(i); }); tl.appendChild(btn); });
+  BEATS.forEach(function(b,i){ var btn=document.createElement('button'); btn.type='button'; btn.innerHTML='<span class="n">'+b.n+'</span><span class="nm">'+b.name+'</span>'; if(i===0) btn.className='on'; if(b.name==='Systems') btn.classList.add('sys-pill'); bindTap(btn, function(){ window.playBeat(i); }); tl.appendChild(btn); });
   
   function typeBeatTitle(n, name){
     var el = document.getElementById('beatLab');
@@ -2218,7 +2431,7 @@ html.embed .page{
     var m = (location.hash||'').match(/beat=(\d+)/);
     var n = m ? parseInt(m[1],10) : 0;
     if (isNaN(n) || n < 0) n = 0;
-    if (n > 6) n = 6;
+    if (n > 7) n = 7;
     setTimeout(function(){
       if (typeof window.playBeat === 'function') window.playBeat(n);
       else if (typeof go === 'function') go(n);
@@ -2347,78 +2560,59 @@ html.embed .page{
 
 
 
-
-
-
-
-
-
 <script>
-/* CLEAN fit v52 — width of text column; unit always fully visible */
+/* BC-pattern fitUnit — identical math to blockchain fitPhone, viewport 560×410 */
 (function(){
   var isEmbed = document.documentElement.classList.contains('embed')
-    || /(?:^|[?&#])embed=1\b/.test(location.search+location.hash);
+    || /(?:^|[?&#])embed=1\b/.test(location.search + location.hash);
   if(!isEmbed) return;
   document.documentElement.classList.add('embed');
 
-  var NW=560, NH=410, AIR=2;
+  var NW = 560, NH = 410;
 
-  function fit(){
-    var unit=document.getElementById('unit');
-    var frame=document.getElementById('frame');
-    var page=document.querySelector('.page');
-    if(!unit||!frame) return;
+  function fitUnit(){
+    var unit = document.getElementById('unit');
+    var host = document.getElementById('frame');
+    if(!unit || !host) return;
+    var hw = host.clientWidth || 1;
+    var hh = host.clientHeight || 1;
+    if(hw < 8 || hh < 8) return;
 
-    var fw=frame.getBoundingClientRect().width;
-    if(fw<40) fw=(page&&page.clientWidth)||window.innerWidth;
+    /* same formula as fitPhone: min of both axes, mild pad */
+    var s = Math.min(hw / NW, hh / NH) * 0.96;
+    if(s > 1) s = 1;
+    if(s < 0.28) s = 0.28;
 
-    /* Primary: match text/column width */
-    var s = (fw - AIR*2) / NW;
-    if(s>1.12) s=1.12;
-    if(s<0.32) s=0.32;
-
-    var visW=NW*s, visH=NH*s;
-
-    /* Slot exactly fits visual unit — no crop inside player */
-    frame.style.height = Math.ceil(visH + 6) + 'px';
-    frame.style.minHeight = Math.ceil(visH + 6) + 'px';
-    frame.style.maxHeight = 'none';
-    frame.style.overflow = 'visible';
-
-    unit.style.left = ((fw - visW) / 2) + 'px';
-    unit.style.top = '0';
     unit.style.width = NW + 'px';
     unit.style.height = NH + 'px';
-    unit.style.transformOrigin = 'top left';
+    unit.style.transformOrigin = 'center center';
     unit.style.transform = 'scale(' + s + ')';
-    unit.style.position = 'absolute';
-
-    if(page){
-      /* Height to bottom of scaled unit (not just page box which can lag) */
-      var pageTop = page.getBoundingClientRect().top;
-      var unitBottom = unit.getBoundingClientRect().bottom;
-      var fromUnit = Math.ceil(unitBottom - pageTop + 20);
-      var fromPage = Math.ceil(Math.max(page.scrollHeight||0, page.getBoundingClientRect().height)) + 12;
-      var h = Math.max(fromUnit, fromPage);
-      try{
-        if(window.parent && window.parent !== window){
-          window.parent.postMessage({type:'skills-player-height', height:h}, '*');
-        }
-      }catch(e){}
-    }
+    unit.style.position = 'relative';
+    unit.style.left = 'auto';
+    unit.style.top = 'auto';
   }
 
-  window.fitUnit=fit;
-  var _o=window.fit;
-  window.fit=function(){
-    if(document.documentElement.classList.contains('embed')) return fit();
-    if(typeof _o==='function') return _o.apply(this,arguments);
+  window.fitUnit = fitUnit;
+  window.fit = function(){
+    if(document.documentElement.classList.contains('embed')) return fitUnit();
   };
 
-  function boot(){ fit(); [30,100,250,600,1200,2000].forEach(function(t){setTimeout(fit,t);}); }
-  window.addEventListener('resize', function(){ clearTimeout(window.__c52); window.__c52=setTimeout(fit,40); });
-  document.addEventListener('click', function(){ setTimeout(fit,60); }, true);
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', boot);
+  function boot(){
+    fitUnit();
+    [40, 120, 300, 700, 1500].forEach(function(t){ setTimeout(fitUnit, t); });
+  }
+  window.addEventListener('resize', function(){
+    clearTimeout(window.__bcFit);
+    window.__bcFit = setTimeout(fitUnit, 40);
+  });
+  if(window.ResizeObserver){
+    document.addEventListener('DOMContentLoaded', function(){
+      var h = document.getElementById('frame');
+      if(h) new ResizeObserver(function(){ fitUnit(); }).observe(h);
+    });
+  }
+  document.addEventListener('click', function(){ setTimeout(fitUnit, 50); }, true);
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 })();
 </script>
