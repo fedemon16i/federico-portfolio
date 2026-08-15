@@ -1,2116 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Design System — Federico Monroy</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Design System · Federico Monroy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<style>
-:root{
-  --bg:#0e0d0c;--bg-surface:#171614;--bg-raised:#1c1b19;
-  --text:#f2f0ec;--muted:#a6a29a;--dim:#6e6a63;
-  --border:rgba(255,255,255,.12);--border-soft:rgba(255,255,255,.08);
-  --accent:#d97757;
-  --acc-ey:#ffe600;--acc-bc:#22d4c8;--acc-chek:#7a3be0;
-  --font-display:"Instrument Sans",system-ui,sans-serif;
-  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
-  --spring:cubic-bezier(.34,1.56,.64,1);
-  --spring-soft:cubic-bezier(.22,1.2,.36,1);
-  --ease-out-expo:cubic-bezier(.16,1,.3,1);
-  --radius-card:18px;--radius-chip:10px;--nav-h:64px;
-}
-html[data-theme="light"]{
-  --bg:#f7f5f2;--bg-surface:#fff;--bg-raised:#f0eeea;
-  --text:#1a1917;--muted:#55524c;--dim:#8a847a;
-  --border:rgba(0,0,0,.1);--border-soft:rgba(0,0,0,.08);--accent:#a84928;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:var(--font-display);font-size:clamp(16px,1.05vw,18px);line-height:1.6;padding-top:var(--nav-h)}
-a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit}
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border)}
-.top-nav-inner{display:flex;align-items:center;height:100%;max-width:920px;margin:0 auto;padding:0 24px;gap:8px}
-.top-nav-logo{font-weight:800;font-size:18px;margin-right:auto}.top-nav-logo span{color:var(--accent)}
-.top-nav-links{display:flex;gap:8px}
-.top-nav-link{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:8px 12px;border-radius:6px}
-.top-nav-link.active,.top-nav-link:hover{color:var(--text)}
-.top-nav-theme{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg-surface);color:var(--dim);display:grid;place-items:center;cursor:pointer;margin-left:8px}
-.top-nav-hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;padding:8px;cursor:pointer}
-.top-nav-hamburger span{width:20px;height:2px;background:var(--text);display:block}
-@media(max-width:900px){.top-nav-links{display:none}.top-nav-hamburger{display:flex}}
-.mobile{display:none;position:fixed;inset:0;z-index:10000;background:var(--bg);padding:72px 24px}.mobile.open{display:block}
-.mobile a{display:block;padding:12px 0;border-bottom:1px solid var(--border);font-weight:700;font-size:1.15rem}
-
-.wrap{max-width:920px;margin:0 auto;padding:40px 24px 100px}
-.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-h1{font-weight:800;font-size:clamp(2rem,4.5vw,2.75rem);letter-spacing:-.03em;margin-bottom:12px}
-.lede{color:var(--muted);max-width:44rem;margin-bottom:28px}
-.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
-.toc a{font-family:var(--font-mono);font-size:11px;padding:6px 12px;border-radius:100px;border:1px solid var(--border);color:var(--dim)}
-.toc a:hover{color:var(--accent);border-color:var(--accent)}
-section{margin-bottom:64px;scroll-margin-top:88px}
-.level{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
-section>h2{font-size:clamp(1.3rem,2.4vw,1.7rem);font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
-section>.sub{color:var(--muted);margin-bottom:18px;max-width:40rem}
-
-/* shared: icochip */
-.stack-row{display:flex;flex-wrap:wrap;gap:8px}
-.icochip{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:34px;height:34px;border-radius:var(--radius-chip);position:relative;
-  background:var(--bg-surface);border:1px solid var(--border-soft);cursor:pointer;
-  transition:border-color 200ms;
-}
-.icochip:hover{border-color:var(--accent)}
-.icochip svg{width:16px;height:16px;transition:transform 300ms var(--spring),filter 300ms}
-.icochip:hover svg{transform:perspective(200px) rotateY(12deg) scale(1.12);filter:drop-shadow(0 0 4px var(--accent))}
-.icochip-name{
-  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(3px);z-index:5;
-  font-family:var(--font-mono);font-size:10px;padding:4px 9px;border-radius:7px;white-space:nowrap;
-  background:var(--bg-raised);border:1px solid var(--border);color:var(--text);
-  opacity:0;pointer-events:none;transition:opacity 180ms,transform 180ms;
-}
-.icochip:hover .icochip-name{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* shared: player / reproductor */
-.player{
-  border-radius:20px;border:1px solid var(--border);background:#12110f;
-  overflow:hidden;
-}
-.player-top{
-  display:flex;align-items:center;gap:10px;padding:12px 14px;
-  border-bottom:1px solid var(--border);flex-wrap:wrap;
-}
-.player-label{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-right:auto}
-.player-label b{color:var(--text)}
-.player-btn{
-  width:36px;height:36px;border-radius:50%;border:1px solid var(--border);
-  background:var(--bg-surface);display:grid;place-items:center;cursor:pointer;
-  transition:transform .3s var(--spring),border-color .2s;
-}
-.player-btn:hover{border-color:var(--accent);transform:scale(1.06)}
-.player-btn:disabled{opacity:.35;pointer-events:none}
-.player-flow{
-  display:flex;gap:6px;overflow-x:auto;padding:10px 14px;
-  border-bottom:1px solid var(--border);scrollbar-width:none;
-}
-.player-flow::-webkit-scrollbar{display:none}
-.player-chip{
-  flex:0 0 auto;font-family:var(--font-mono);font-size:11px;
-  padding:6px 12px;border-radius:100px;border:1px solid var(--border);
-  background:transparent;color:var(--dim);cursor:pointer;
-  transition:background .25s,color .25s,border-color .25s,transform .3s var(--spring);
-}
-.player-chip.on{
-  color:var(--text);border-color:var(--accent);background:rgba(217,119,87,.12);
-  transform:scale(1.04);
-}
-.player-stage{
-  position:relative;min-height:220px;padding:28px 20px;
-  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:24px 24px;
-}
-.player-text{
-  max-width:28rem;margin:0 auto;text-align:center;
-  transition:opacity .4s var(--ease-out-expo), transform .5s var(--spring-soft);
-}
-.player-text.hide{opacity:0;transform:translateY(-12px);pointer-events:none;position:absolute;inset:28px 20px}
-.player-kicker{
-  font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:10px;opacity:0;transform:translateY(6px);
-  transition:opacity .35s, transform .45s var(--spring);
-}
-.player-kicker.on{opacity:1;transform:none}
-.player-body{font-size:clamp(1.05rem,2vw,1.25rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;min-height:2.8em}
-.player-sub{margin-top:10px;font-size:14px;color:var(--muted);opacity:0;transition:opacity .4s}
-.player-sub.on{opacity:1}
-.player-device{
-  opacity:0;transform:translateY(16px) scale(.96);
-  transition:opacity .5s var(--ease-out-expo), transform .55s var(--spring);
-  display:flex;justify-content:center;pointer-events:none;
-}
-.player-device.show{opacity:1;transform:none;pointer-events:auto}
-.player-device .phone{
-  width:120px;height:220px;border-radius:20px;border:3px solid #2c2c30;
-  background:#0a121c;box-shadow:0 18px 40px rgba(0,0,0,.45);position:relative;overflow:hidden;
-}
-.player-device .phone .ui{
-  position:absolute;left:10%;right:10%;top:18%;bottom:14%;
-  border-radius:8px;border:1px solid rgba(34,212,200,.3);background:rgba(34,212,200,.06);
-}
-
-/* skill card → expands */
-.skill-row{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-.skill{
-  border-radius:16px;border:1px solid var(--border);background:var(--bg-surface);
-  padding:16px;cursor:pointer;text-align:left;
-  transition:transform .4s var(--spring), border-color .25s, box-shadow .35s;
-}
-.skill:hover,.skill.on{
-  transform:translateY(-5px);border-color:rgba(217,119,87,.5);
-  box-shadow:0 14px 32px rgba(0,0,0,.28);
-}
-.skill .ic{
-  width:36px;height:36px;border-radius:10px;margin-bottom:10px;
-  background:rgba(217,119,87,.12);display:grid;place-items:center;
-  transition:transform .4s var(--spring);
-}
-.skill:hover .ic,.skill.on .ic{transform:scale(1.08) rotate(-6deg)}
-.skill h3{font-size:14px;font-weight:700}
-.skill p{font-size:12px;color:var(--muted);margin-top:4px}
-
-/* project card */
-.pcard{
-  display:block;border-radius:var(--radius-card);overflow:hidden;
-  background:var(--pc-bg,#22d4c8);color:var(--pc-txt,#042e2a);
-  transition:transform .4s var(--spring), box-shadow .35s;
-  box-shadow:0 12px 28px rgba(0,0,0,.22);
-}
-.pcard:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(0,0,0,.3)}
-.pcard .inner{padding:16px}
-.pcard .viz{height:90px;border-radius:12px;background:rgba(0,0,0,.2);margin-bottom:10px}
-
-/* unique accents table */
-.unique{display:grid;gap:10px}
-@media(min-width:700px){.unique{grid-template-columns:1fr 1fr 1fr}}
-.unique article{padding:14px;border-radius:14px;border:1px solid var(--border);background:var(--bg-surface)}
-.unique .sw{height:8px;border-radius:4px;margin-bottom:10px}
-.unique h3{font-size:14px;margin-bottom:4px}
-.unique p{font-size:12px;color:var(--muted)}
-
-.rules{display:grid;gap:10px}
-@media(min-width:700px){.rules{grid-template-columns:1fr 1fr}}
-.rule{padding:16px;border-radius:14px;border:1px solid var(--border);background:var(--bg-surface)}
-.rule.do{border-color:rgba(34,212,200,.35)}
-.rule.dont{border-color:rgba(224,92,74,.35)}
-.rule h3{font-size:14px;margin-bottom:4px}
-.rule p{font-size:13px;color:var(--muted)}
-
-.code{font-family:var(--font-mono);font-size:11px;line-height:1.5;padding:14px;border-radius:12px;background:#12110f;border:1px solid var(--border);overflow:auto;color:#c8c4bc;margin-top:12px}
-.foot{text-align:center;padding:28px;font-family:var(--font-mono);font-size:11px;color:var(--dim)}.foot a{margin:0 10px}
-
-/* Microinteractions — chips & cards */
-.player-chip:active{transform:scale(.96)}
-.player-chip.on{box-shadow:inset 0 0 0 1px rgba(217,119,87,.35)}
-.icochip:active svg{transform:perspective(200px) rotateY(0deg) scale(.94)}
-.skill:active{transform:translateY(-2px) scale(.99)}
-.pcard:active{transform:translateY(-2px) scale(.99)}
-.player-btn:active{transform:scale(.92)}
-.toc a:focus-visible,.player-chip:focus-visible,.icochip:focus-visible,.skill:focus-visible,.player-btn:focus-visible,.top-nav-link:focus-visible,.top-nav-theme:focus-visible{
-  outline:2px solid var(--accent);outline-offset:2px;
-}
-/* WCAG helper */
-.a11y-table,.state-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
-.a11y-table th,.a11y-table td,.state-table th,.state-table td{
-  text-align:left;padding:10px 12px;border:1px solid var(--border);vertical-align:top;
-}
-.a11y-table th,.state-table th{font-family:var(--font-mono);font-size:11px;color:var(--dim);background:var(--bg-raised)}
-.ok{color:#3dd68c}.warn{color:#e8b84a}
-
-@keyframes reel{to{transform:translateX(-50%)}}
-.box{padding:20px}
-
-/* Advanced motion */
-@keyframes dsFadeUp {
-  from { opacity: 0; transform: translateY(12px); filter: blur(2px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-@keyframes dsPulseRing {
-  0% { box-shadow: 0 0 0 0 rgba(217,119,87,.45); }
-  100% { box-shadow: 0 0 0 12px rgba(217,119,87,0); }
-}
-@keyframes dsShimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-.player-kicker.on { animation: dsFadeUp .45s var(--ease-out-expo) both; }
-.player-chip.on { animation: dsPulseRing .9s var(--spring) 1; }
-.player-device.show .phone {
-  animation: dsFadeUp .55s var(--spring-soft) both;
-}
-.skill.on .ic { animation: dsPulseRing .8s ease-out 1; }
-/* Table structure */
-.state-table, .a11y-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-size: 13px;
-  margin-top: 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.state-table th, .a11y-table th,
-.state-table td, .a11y-table td {
-  text-align: left;
-  padding: 11px 14px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-  line-height: 1.45;
-}
-.state-table th, .a11y-table th {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--dim);
-  background: var(--bg-raised);
-  position: sticky;
-  top: 64px;
-  z-index: 1;
-}
-.state-table tr:last-child td, .a11y-table tr:last-child td { border-bottom: none; }
-.state-table tbody tr:hover td, .a11y-table tbody tr:hover td {
-  background: rgba(217,119,87,.06);
-}
-@media (max-width: 720px) {
-  .state-table, .a11y-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .state-table th, .state-table td, .a11y-table th, .a11y-table td { white-space: nowrap; }
-}
-
-
-/* === SITE SHELL (single source) === */
-:root{
-  --max: 920px;
-  --pad: clamp(18px, 3.5vw, 32px);
-  --read: 40rem;
-  --nav-h: 64px;
-}
-body{ padding-top: var(--nav-h) !important; overflow-x: hidden !important; }
-.wrap,
-.top-nav-inner,
-.bc-crumbs{
-  max-width: var(--max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
-.lede, .hero-sub, .sec .lede, .player-body, .own-item p, .prob p, .pcard-desc{
-  max-width: var(--read) !important;
-}
-/* Hero BC */
-#hero .hero-shell, .hero-shell{
-  min-height: 260px !important;
-  max-height: 360px !important;
-  padding: 20px 0 16px !important;
-  overflow: hidden !important;
-}
-#hero .wrap.hero-copy, .hero-copy.wrap, .wrap.hero-copy{
-  max-width: var(--max) !important;
-}
-#glHero{
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-}
-/* Demo stage: never use grid — absolute device layout */
-#demoStage, .stage{
-  display: block !important;
-  position: relative !important;
-  max-width: 100% !important;
-  min-height: 420px !important;
-}
-#demoStage .device-layer, .device-layer{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: absolute !important;
-  inset: 48px 16px 16px !important;
-  padding: 0 !important;
-}
-#demoStage #phone,
-#demoStage .iphone,
-#phone{
-  display: flex !important;
-  flex-direction: column !important;
-  width: 220px !important;
-  max-width: min(220px, 72vw) !important;
-  height: 476px !important; /* 220 * 19.5/9 */
-  max-height: 100% !important;
-  aspect-ratio: auto !important;
-  margin: 0 auto !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  overflow: hidden !important;
-  flex-shrink: 0 !important;
-}
-#desk, .desk, .tabs-mode{ display: none !important; }
-/* Sections rhythm */
-.sec, section.sec{
-  padding-top: clamp(2.75rem, 4vw, 4rem) !important;
-  padding-bottom: clamp(2.75rem, 4vw, 4rem) !important;
-}
-
-
-
-/* === CANONICAL NAV (all pages) === */
-.top-nav{
-  position:fixed; top:0; left:0; right:0; z-index:9999;
-  height:64px; background:var(--bg,#0e0d0c);
-  border-bottom:1px solid var(--border,rgba(255,255,255,.1));
-  isolation:isolate;
-}
-html[data-theme="light"] .top-nav{ background:#f7f5f2; }
-.top-nav-inner{
-  display:flex; align-items:center; justify-content:space-between;
-  height:64px; max-width:920px; width:100%; margin:0 auto;
-  padding:0 clamp(16px,3vw,28px); gap:12px; box-sizing:border-box;
-}
-.top-nav-logo{
-  font-weight:800; font-size:18px; letter-spacing:-.02em;
-  color:var(--text,#f2f0ec); text-decoration:none; margin-right:auto;
-}
-.top-nav-logo span{ color:var(--nav-accent, var(--accent,#d97757)); }
-.top-nav-links{ display:flex; align-items:center; gap:2px; }
-.top-nav-link, .top-nav-drop-toggle{
-  font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
-  color:var(--muted,#a6a29a); padding:0 10px; height:36px; border-radius:6px;
-  text-decoration:none; background:none; border:none; cursor:pointer;
-  font-family:inherit; display:inline-flex; align-items:center; gap:4px;
-  transition:color .2s, background .2s;
-}
-.top-nav-link:hover, .top-nav-link.active,
-.top-nav-drop-toggle:hover, .top-nav-drop-toggle[aria-expanded="true"]{
-  color:var(--text,#f2f0ec); background:var(--bg-raised,#1c1b19);
-}
-.top-nav-dropdown{ position:relative; z-index:10002; }
-.top-nav-drop-menu{
-  position:absolute; top:calc(100% + 6px); left:50%; transform:translateX(-50%);
-  min-width:200px; padding:8px; border-radius:12px;
-  border:1px solid var(--border,rgba(255,255,255,.12));
-  background:var(--bg-surface,#171614); box-shadow:0 16px 40px rgba(0,0,0,.35);
-  opacity:0; pointer-events:none; visibility:hidden; z-index:10003;
-  transition:opacity .15s, visibility .15s;
-}
-.top-nav-dropdown:hover .top-nav-drop-menu,
-.top-nav-dropdown:focus-within .top-nav-drop-menu,
-.top-nav-drop-toggle[aria-expanded="true"] + .top-nav-drop-menu{
-  opacity:1; pointer-events:auto; visibility:visible;
-}
-.top-nav-drop-menu a{
-  display:block; padding:10px 12px; border-radius:8px;
-  font-size:13px; font-weight:600; color:var(--muted,#a6a29a); text-decoration:none;
-}
-.top-nav-drop-menu a:hover{ background:var(--bg-raised,#1c1b19); color:var(--text,#f2f0ec); }
-.top-nav-drop-menu a.is-current{ color:var(--nav-accent, var(--accent,#d97757)); }
-.top-nav-theme{
-  width:34px; height:34px; border-radius:50%;
-  border:1px solid var(--border,rgba(255,255,255,.12));
-  background:var(--bg-surface,#171614); color:var(--muted,#a6a29a);
-  display:grid; place-items:center; cursor:pointer; flex-shrink:0; margin-left:4px;
-}
-.top-nav-hamburger{
-  display:none; flex-direction:column; gap:4px; background:none; border:none;
-  padding:8px; cursor:pointer; margin-left:4px;
-  z-index:1200; position:relative; min-width:44px; min-height:44px;
-  align-items:center; justify-content:center;
-}
-.top-nav-hamburger span{ display:block; width:20px; height:2px; background:var(--text,#f2f0ec); border-radius:1px; }
-.top-nav-mobile{
-  position:fixed; top:0; left:0; width:100%; height:100%; height:100dvh; z-index:10000;
-  background:var(--bg,#0e0d0c); padding:72px 24px 24px; overflow-y:auto; -webkit-overflow-scrolling:touch;
-  transform:translateX(100%); visibility:hidden; pointer-events:none;
-  transition:transform 320ms cubic-bezier(.65,0,.35,1), visibility 0s 320ms;
-}
-.top-nav-mobile.on{
-  transform:translateX(0); visibility:visible; pointer-events:auto;
-  transition:transform 320ms cubic-bezier(.65,0,.35,1);
-}
-body.nav-open{ overflow:hidden; touch-action:none; }
-.top-nav-mobile a{
-  display:block; padding:14px 0; border-bottom:1px solid var(--border,rgba(255,255,255,.1));
-  font-weight:700; font-size:1.05rem; color:var(--text,#f2f0ec); text-decoration:none;
-}
-.top-nav-mobile .mob-sub{ font-size:.95rem; font-weight:600; color:var(--muted,#a6a29a); padding-left:12px; }
-@media (max-width:900px){
-  .top-nav-links{ display:none !important; }
-  .top-nav-hamburger{ display:flex !important; }
-}
-@media (min-width:901px){ .top-nav-mobile{ display:none; } }
-
-
-/* === SHELL — notebook-safe widths === */
-:root{
-  --max: 920px;
-  --pad: clamp(16px, 3vw, 28px);
-  --modal-max: min(920px, 96vw);
-  --nav-h: 64px;
-  --stage-max: min(780px, 100%);
-}
-html{ scrollbar-width: none; -ms-overflow-style: none; }
-html::-webkit-scrollbar, body::-webkit-scrollbar{ width:0; height:0; display:none; }
-body{ padding-top: var(--nav-h); overflow-x: hidden; }
-.wrap, .top-nav-inner, .page{
-  max-width: var(--max) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-  width: 100% !important;
-}
-.bc-crumbs{
-  max-width: var(--max) !important;
-  margin: 0 auto !important;
-  padding: 8px var(--pad) 0 !important;
-  font-size: 11px !important;
-  letter-spacing: 0.02em !important;
-  text-transform: none !important;
-  opacity: 0.65 !important;
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  align-items: center !important;
-  background: transparent !important;
-  border: none !important;
-  font-family: inherit !important;
-}
-.bc-crumbs a{ color: var(--muted,#a6a29a) !important; text-decoration: none !important; }
-.bc-crumbs a:hover{ color: var(--text,#f2f0ec) !important; }
-.bc-crumbs .here{ color: var(--text,#f2f0ec) !important; }
-.bc-crumbs .sep{ opacity: 0.4; }
-/* stages / modals never full-bleed */
-#stage, .stage, #demoStage, .player, .skill-modal-panel, .modal-inner{
-  max-width: var(--modal-max) !important;
-}
-#stage, .pi-visual .stage{ max-width: var(--stage-max) !important; margin-left:auto; margin-right:auto; }
-
-
-/* === ATOMIC MOTION + SURFACE (aligned with home skills) === */
-:root{
-  --spring: cubic-bezier(.34, 1.32, .64, 1);
-  --ease: cubic-bezier(.22, 1, .36, 1);
-  --surface: var(--bg-surface, #171614);
-  --border-soft: var(--border, rgba(255,255,255,.1));
-}
-html[data-theme="light"]{
-  --surface: #fff;
-  --border-soft: rgba(0,0,0,.08);
-}
-/* Shared card surface */
-.gcard, .pcard, .ff-step, .sch-step, .job-card, .sk, .story-tab, .tl,
-.tool-chip.ico-only, .ctl, .tag{
-  transition: transform 380ms var(--spring), border-color 220ms var(--ease), box-shadow 380ms var(--ease), background 220ms ease;
-}
-.pcard, .ff-step, .job-card{
-  border-radius: 18px;
-  border: 1px solid var(--border-soft);
-  background: var(--surface);
-}
-.pcard:hover, .ff-step:hover, .job-card:hover{
-  border-color: var(--accent);
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 44px -18px rgba(0,0,0,.45), 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
-}
-/* Scheme / job icons — stroke like skill icons */
-.sch-step .ic svg, .ff-ic svg, .scheme-steps .ic svg{
-  stroke: var(--accent);
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 420ms var(--spring), stroke 220ms ease;
-}
-.sch-step:hover .ic svg, .sch-step.in .ic svg, .sch-step.on .ic svg{
-  transform: scale(1.08);
-  animation: iconWiggle 380ms var(--ease) both;
-}
-.ff-step:hover .ff-ic svg{
-  transform: scale(1.08);
-  animation: iconWiggle 380ms var(--ease) both;
-}
-@keyframes iconWiggle{
-  0%{ transform: scale(1) rotate(0); }
-  30%{ transform: scale(1.12) rotate(-6deg); }
-  60%{ transform: scale(1.06) rotate(4deg); }
-  100%{ transform: scale(1.08) rotate(0); }
-}
-/* Tool chips — skill-adjacent */
-.tool-chip.ico-only{
-  width: 36px; height: 36px; border-radius: 10px;
-  border: 1px solid var(--border-soft);
-  background: var(--surface);
-}
-.tool-chip.ico-only:hover, .tool-chip.tip-on{
-  border-color: var(--accent);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--accent) 50%, transparent);
-}
-/* Timeline chips / story tabs */
-.tl, .story-tab, .ctl{
-  border-radius: 100px;
-  border: 1px solid var(--border-soft);
-  background: transparent;
-  color: var(--muted, #a6a29a);
-}
-.tl:hover, .story-tab:hover, .ctl:hover,
-.tl.on, .story-tab.on, .ctl.is-playing{
-  border-color: var(--accent);
-  color: var(--text, #f2f0ec);
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-}
-/* Project cards on listings */
-.pcard:hover{ transform: translateY(-5px); }
-/* Stage frame */
-#stage, #demoStage, .stage{
-  border-radius: 16px;
-  border: 1px solid var(--border-soft);
-  box-shadow: 0 24px 48px -24px rgba(0,0,0,.5);
-}
-/* Soft glow accent for active narrative steps */
-.sch-step.in, .sch-step.on{
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--border-soft));
-}
-
-
-/* === VIEWPORT-SAFE STAGES + NAV BRIDGE + HOME BIO === */
-:root{
-  --max: 920px;
-  --pad: clamp(16px, 3vw, 28px);
-  /* Wide monitors, short height: prefer height budget over width lock */
-  --modal-max: min(920px, 96vw);
-  --stage-max: min(780px, 100%);
-  --stage-h: min(520px, calc(100vh - 220px));
-  --nav-h: 64px;
-}
-
-/* Skill / case stages: never clip the prototype frame */
-.modal-panel, .modal-inner, .skill-modal-panel{
-  max-width: min(960px, 96vw) !important;
-  width: 100% !important;
-}
-.modal-stage, .sm-stage, .skill-stage, #stage, #demoStage, .stage, .pi-visual .stage{
-  max-width: var(--stage-max) !important;
-  width: 100% !important;
-  height: var(--stage-h) !important;
-  min-height: 280px !important;
-  max-height: calc(100vh - 180px) !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-}
-/* Inner window fills stage without page scroll */
-#win, .stage-window, #demoStage .device-wrap, #demoStage .phone-frame{
-  max-height: 100% !important;
-  box-sizing: border-box !important;
-}
-@media (max-height: 720px){
-  :root{ --stage-h: min(420px, calc(100vh - 160px)); }
-  .modal-panel{ padding-top: 16px !important; padding-bottom: 16px !important; }
-}
-@media (max-height: 600px){
-  :root{ --stage-h: min(340px, calc(100vh - 120px)); }
-}
-
-/* Projects dropdown — larger hit / bridge so it does not close early */
-.top-nav-dropdown{ position: relative; padding-bottom: 12px; margin-bottom: -12px; }
-.top-nav-drop-menu{
-  top: calc(100% - 4px) !important;
-  padding-top: 16px !important; /* invisible bridge */
-  min-width: 220px !important;
-}
-.top-nav-drop-menu::before{
-  content: "" !important;
-  display: block !important;
-  position: absolute !important;
-  left: 0; right: 0; top: -14px;
-  height: 18px !important;
-  background: transparent !important;
-}
-
-/* HOME bio: no dead gap under nav; compact actions */
-body.page-home .home{
-  padding-top: 0 !important;
-  min-height: calc(100vh - var(--nav-h));
-}
-body.page-home .bio{
-  position: sticky !important;
-  top: var(--nav-h) !important;
-  height: calc(100vh - var(--nav-h)) !important;
-  max-height: calc(100vh - var(--nav-h)) !important;
-  overflow-y: auto !important; /* allow tiny scroll inside bio if needed, not empty gap */
-  padding-top: 20px !important;
-  scrollbar-width: none;
-}
-body.page-home .bio::-webkit-scrollbar{ display:none; }
-body.page-home .bio-actions{
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  gap: 8px !important;
-}
-body.page-home .bio-actions .ba{
-  flex: 1 1 auto;
-  min-width: 0;
-  padding: 8px 12px !important;
-  font-size: 12px !important;
-  border-radius: 999px !important;
-  justify-content: center !important;
-}
-/* labels must stay visible */
-body.page-home .bio-actions .ba.primary{
-  flex: 1 1 100%;
-}
-@media (max-width: 900px){
-  body.page-home .bio{
-    position: relative !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-  }
-}
-
-/* EY PI: copy left, stage right — stage must not sit under copy on wide screens */
-@media (min-width: 1024px){
-  .pi-split, .demo-split{
-    display: grid !important;
-    grid-template-columns: minmax(240px, 0.9fr) minmax(320px, 1.2fr) !important;
-    gap: 28px !important;
-    align-items: start !important;
-  }
-  .pi-visual, .demo-visual{
-    position: sticky;
-    top: calc(var(--nav-h) + 12px);
-  }
-  .pi-visual .stage, .demo-visual #demoStage, .demo-visual .stage{
-    height: var(--stage-h) !important;
-    max-height: calc(100vh - 140px) !important;
-  }
-}
-/* On stacked layout, still height-budgeted */
-.pi-split, .demo-split{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* Project cards — restore accent identity */
-.pcard[data-case="ey"], .pcard.ey{ --pc: #ffe600; }
-.pcard[data-case="bc"], .pcard.bc, .pcard[data-case="blockchain"]{ --pc: #22d4c8; }
-.pcard[data-case="chek"], .pcard.chek{ --pc: #7a3be0; }
-.pcard{
-  border-color: color-mix(in srgb, var(--pc, var(--accent)) 25%, var(--border, rgba(255,255,255,.1))) !important;
-}
-.pcard:hover{
-  border-color: var(--pc, var(--accent)) !important;
-  box-shadow: 0 20px 44px -18px rgba(0,0,0,.5), 0 0 0 1px color-mix(in srgb, var(--pc, var(--accent)) 40%, transparent) !important;
-}
-.pcard-name, .pcard-name-v, .pcard-top b{
-  color: var(--pc, var(--text)) !important;
-}
-
-/* Blockchains mini canvas quality */
-.bc-mini-gl, .pcard-graphic canvas, .bc-scene canvas{
-  image-rendering: auto !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-.pcard-graphic.bc-scene, .bc-scene{
-  min-height: 160px !important;
-}
-
-
-/* === CONTAINER QUERIES + ASPECT LOCKS === */
-/* Stages are containers: size the surface, never stretch the prototype */
-.pi-visual, .demo-visual, .modal-stage, .skill-stage, .stage-host{
-  container-type: size;
-  container-name: stagehost;
-}
-#stage, #demoStage, .stage{
-  container-type: size;
-  container-name: stagesurf;
-  width: 100%;
-  max-width: var(--stage-max, 780px);
-  margin-inline: auto;
-  /* Height from viewport budget; width from container */
-  height: var(--stage-h, min(520px, calc(100vh - 220px)));
-  max-height: calc(100vh - 160px);
-  aspect-ratio: auto;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
-/* Phone / device mock: fixed aspect, scale to fit host */
-.phone-frame, .device-frame, .device-wrap, .iphone-frame{
-  aspect-ratio: 9 / 19.5;
-  height: min(100%, calc(var(--stage-h, 520px) - 64px));
-  width: auto;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0 auto;
-  object-fit: contain;
-}
-/* Web prototype frames stay landscape-ish when marked */
-.web-frame, .desktop-frame{
-  aspect-ratio: 16 / 10;
-  width: min(100%, 100cqi);
-  height: auto;
-  max-height: 100%;
-}
-@container stagesurf (max-height: 420px){
-  .phone-frame, .device-frame, .device-wrap{
-    height: 90%;
-  }
-}
-@container stagesurf (max-width: 360px){
-  .phone-frame, .device-frame{
-    width: 92%;
-    height: auto;
-  }
-}
-/* Home project mini-3D: sharper canvas */
-.pcard-graphic.bc-scene, .bc-scene{
-  container-type: size;
-  min-height: 180px;
-  aspect-ratio: 16 / 10;
-}
-.bc-mini-gl, .pcard-graphic canvas{
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-  image-rendering: auto;
-}
-
-/* Device policy: mobile keeps mobile chrome; web keeps web chrome */
-@media (max-width: 900px){
-  .web-only{ display: none !important; }
-}
-@media (min-width: 901px){
-  .mobile-only{ display: none !important; }
-}
-
-
-/* === FIT-DEMO: never force scroll inside narrative stages === */
-:root{
-  --stage-h: min(380px, calc(100vh - 240px));
-  --modal-stage-h: min(360px, calc(100vh - 260px));
-  --modal-max: min(880px, 94vw);
-}
-@media (max-height: 800px){
-  :root{
-    --stage-h: min(320px, calc(100vh - 200px));
-    --modal-stage-h: min(300px, calc(100vh - 220px));
-  }
-}
-@media (max-height: 700px){
-  :root{
-    --stage-h: min(260px, calc(100vh - 180px));
-    --modal-stage-h: min(240px, calc(100vh - 200px));
-  }
-}
-/* Stages: fixed budget, no scrollbars */
-#stage, #demoStage, .stage, .modal-stage, .skill-stage, .sm-stage{
-  height: var(--stage-h) !important;
-  max-height: var(--stage-h) !important;
-  min-height: 200px !important;
-  overflow: hidden !important;
-  scrollbar-width: none !important;
-}
-#stage::-webkit-scrollbar,
-#demoStage::-webkit-scrollbar,
-.stage::-webkit-scrollbar,
-.modal-stage::-webkit-scrollbar{ display:none !important; width:0 !important; height:0 !important; }
-
-#win, .stage-window, .modal-stage .canvas, .skill-stage .canvas{
-  position: absolute !important;
-  inset: 8px !important;
-  overflow: hidden !important;
-  scrollbar-width: none !important;
-}
-#win::-webkit-scrollbar, .stage-window::-webkit-scrollbar{ display:none !important; }
-
-/* Inner prototype slides scale down conceptually via max size */
-#win .slide, .stage-window .slide, .modal-stage .ui-frame{
-  max-width: 100% !important;
-  max-height: 100% !important;
-  overflow: hidden !important;
-}
-
-/* Skill modal: header compact + stage fills rest without page scroll */
-.modal-panel{
-  overflow-x: hidden !important;
-  overflow-y: auto !important;
-  max-height: calc(100vh - 48px) !important;
-}
-.modal-panel .stage,
-.modal-panel #stage,
-.modal-panel .skill-stage,
-.modal-panel .sm-stage{
-  height: var(--modal-stage-h) !important;
-  max-height: var(--modal-stage-h) !important;
-}
-
-/* Phone in BC demo */
-#demoStage .phone-frame, #demoStage .device-wrap, #demoStage .device{
-  height: min(100%, calc(var(--stage-h) - 56px)) !important;
-  max-height: calc(var(--stage-h) - 56px) !important;
-  width: auto !important;
-}
-
-/* Hide any accidental scrollbars inside demo UI mocks */
-.stage *{ scrollbar-width: none; }
-.stage *::-webkit-scrollbar{ width:0; height:0; display:none; }
-
-/* HOME bio compact — visible labels */
-body.page-home .bio-actions{
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  margin-top: 4px !important;
-}
-body.page-home .bio-actions .ba,
-body.page-home .ba{
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 4px !important;
-  padding: 6px 12px !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.02em !important;
-  border-radius: 999px !important;
-  min-height: 32px !important;
-  flex: 0 0 auto !important;
-  width: auto !important;
-  color: var(--text, #f2f0ec) !important;
-  background: var(--bg-surface, #171614) !important;
-  border: 1px solid var(--border, rgba(255,255,255,.12)) !important;
-  text-decoration: none !important;
-}
-body.page-home .ba span{
-  display: inline !important;
-  color: inherit !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  font-size: inherit !important;
-}
-body.page-home .ba.primary{
-  background: var(--accent, #d97757) !important;
-  color: #1a0f0a !important;
-  border-color: transparent !important;
-  flex: 0 0 auto !important;
-}
-body.page-home .ba.primary span{ color: #1a0f0a !important; }
-/* Daily stack: single row compact */
-body.page-home .bio-tools .bt-row{
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-}
-body.page-home .bio-tools .tool-chip.ico-only,
-body.page-home .bio-tools .bt-row > *{
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-}
-@media (max-height: 780px){
-  body.page-home .me-grid{ transform: scale(0.92); transform-origin: top left; }
-  body.page-home .bio-claim, body.page-home .bio-sub{ display: none !important; }
-}
-
-
-/* === SKILL STAGE SPLIT + GLOBAL NO-OVERFLOW === */
-html, body{
-  overflow-x: hidden !important;
-  max-width: 100vw !important;
-}
-body{ position: relative; }
-.home, .wrap, .page, .section, .pcrow, .stage-panel{
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-/* Skill modal panel: split like EY/BC on desktop web */
-.stagezone{
-  padding: 12px !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-.stage-panel{
-  width: min(960px, calc(100vw - 24px)) !important;
-  max-height: min(92vh, 720px) !important;
-  overflow: hidden !important; /* no panel scroll */
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 10px !important;
-  padding: 14px 16px 12px !important;
-  box-sizing: border-box !important;
-}
-.stage-panel .sim-tag{
-  font-size: 10px !important;
-  opacity: 0.55 !important;
-  margin: 0 !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.stage-panel .controls-top{
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  align-items: center !important;
-}
-.stage-panel .stage-persp{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  height: auto !important;
-  perspective: none !important;
-}
-.stage-panel .stage,
-.stage-panel #stage{
-  position: relative !important;
-  width: 100% !important;
-  height: min(360px, calc(92vh - 200px)) !important;
-  max-height: min(360px, calc(92vh - 200px)) !important;
-  min-height: 180px !important;
-  overflow: hidden !important;
-  margin: 0 auto !important;
-}
-.stage-panel .stage *{
-  scrollbar-width: none !important;
-}
-.stage-panel .stage *::-webkit-scrollbar{ display: none !important; width: 0 !important; height: 0 !important; }
-
-/* Desktop / landscape tablet: left chrome, right stage */
-@media (min-width: 960px) and (min-height: 600px){
-  .stage-panel{
-    display: grid !important;
-    grid-template-columns: minmax(200px, 280px) minmax(0, 1fr) !important;
-    grid-template-rows: auto auto 1fr auto !important;
-    grid-template-areas:
-      "tag tag"
-      "title stage"
-      "controls stage"
-      "meta meta" !important;
-    column-gap: 20px !important;
-    row-gap: 8px !important;
-    align-items: start !important;
-  }
-  .stage-panel .sim-tag{ grid-area: tag; }
-  .stage-panel .stage-title{ grid-area: title; margin: 0 !important; }
-  .stage-panel .controls-top{
-    grid-area: controls;
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-  .stage-panel .controls-top .beatpills{ order: -1; margin-bottom: 4px; }
-  .stage-panel .stage-persp{
-    grid-area: stage !important;
-    height: 100% !important;
-    max-height: calc(92vh - 100px) !important;
-    align-self: stretch !important;
-  }
-  .stage-panel .stage,
-  .stage-panel #stage{
-    height: min(420px, calc(92vh - 120px)) !important;
-    max-height: min(420px, calc(92vh - 120px)) !important;
-    width: 100% !important;
-  }
-  .stage-panel .metabar{ grid-area: meta; }
-}
-
-/* Square-ish / short: stack, smaller stage */
-@media (max-width: 959px), (max-height: 599px){
-  .stage-panel{
-    display: flex !important;
-    flex-direction: column !important;
-    max-height: 94vh !important;
-  }
-  .stage-panel .stage,
-  .stage-panel #stage{
-    height: min(280px, calc(94vh - 220px)) !important;
-    max-height: min(280px, calc(94vh - 220px)) !important;
-  }
-}
-
-/* EY + BC stages: same height budget, no inner scroll */
-.pi-split, .demo-split{
-  align-items: start !important;
-}
-#stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
-  height: min(360px, calc(100vh - 220px)) !important;
-  max-height: min(360px, calc(100vh - 220px)) !important;
-  min-height: 200px !important;
-  overflow: hidden !important;
-  width: 100% !important;
-  max-width: 100% !important;
-}
-@media (min-width: 1024px){
-  #stage, #demoStage, .pi-visual .stage, .demo-visual .stage{
-    height: min(400px, calc(100vh - 180px)) !important;
-    max-height: min(400px, calc(100vh - 180px)) !important;
-  }
-}
-#win, .stage-window{
-  inset: 8px !important;
-  overflow: hidden !important;
-}
-
-/* Home mobile: no horizontal scroll */
-@media (max-width: 900px){
-  .home{
-    display: block !important;
-    width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  .bio, .main, .home > *{
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  .gcard, .pcard, .pcrow{
-    max-width: 100% !important;
-  }
-  .pcrow{ overflow-x: auto !important; }
-}
-
-/* Kill previous giant stage-h overrides that fight this */
-
-
-/* === MODAL ABOVE NAV + TIGHT STAGE + SCROLL NAV === */
-.top-nav, nav.top-nav, #topNav{ z-index:9999 !important; }
-.top-nav.nav-hidden, #topNav.nav-hidden{
-  transform: translateY(-100%) !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-/* Skill modal always above nav */
-.stagezone, #stageZone, .story-zone, .me-modal{
-  z-index: 12000 !important;
-}
-.stagezone.open, #stageZone.open{
-  z-index: 12000 !important;
-  padding: 8px !important;
-}
-
-/* Stage panel: fill viewport, chrome narrow, stage greedy */
-.stage-panel{
-  width: min(1000px, calc(100vw - 12px)) !important;
-  height: min(620px, calc(100vh - 12px)) !important;
-  max-height: calc(100vh - 12px) !important;
-  overflow: hidden !important;
-}
-@media (min-width: 821px){
-  .stage-panel{
-    grid-template-columns: minmax(140px, 28%) minmax(0, 1fr) !important;
-  }
-}
-
-/* Stage surface = canvas; content should USE the space (little padding) */
-.stage-panel .stage-persp,
-.stage-panel #stage,
-.stage-panel .stage{
-  overflow: hidden !important;
-}
-.stage-panel #stage,
-#stageZone #stage{
-  /* content fills almost all of the stage */
-  display: grid !important;
-  place-items: center !important;
-}
-/* Prefer large UI frames — minimal inset from canvas edges */
-.stage-panel #stage > *,
-#stageZone #stage > .stage-window,
-#stageZone #stage > #win,
-#stage .ui-frame,
-#stage .window,
-#stage .slide,
-#stage .mock,
-#win{
-  max-width: 96% !important;
-  max-height: 94% !important;
-  width: auto !important;
-  box-sizing: border-box !important;
-}
-
-/* EY stage: same tight fill */
-.pi-visual .stage,
-#stage{
-  display: grid !important;
-  place-items: center !important;
-  overflow: hidden !important;
-}
-.pi-visual .stage > *,
-#stage > #win,
-#stage > .stage-window,
-#stage .window,
-#stage .ui-frame{
-  max-width: 96% !important;
-  max-height: 94% !important;
-}
-
-/* BC: DO NOT force absolute/transform on phone — restore normal layout */
-#demoStage .iphone,
-#demoStage #phone,
-#demoStage .device-layer,
-#demoStage .phone-frame,
-#demoStage .device-wrap{
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  transform: none !important;
-  max-height: 100% !important;
-}
-#demoStage{
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-}
-#demoStage .device-layer{
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-}
-#demoStage .iphone,
-#demoStage #phone{
-  height: min(100%, 520px) !important;
-  width: auto !important;
-  aspect-ratio: 9 / 19.5 !important;
-  max-width: min(100%, 280px) !important;
-}
-
-@media (max-width: 820px){
-  .stage-panel{
-    grid-template-columns: 1fr !important;
-    height: calc(100vh - 8px) !important;
-    max-height: calc(100vh - 8px) !important;
-    width: calc(100vw - 8px) !important;
-  }
-  .stage-panel .stage-persp{
-    min-height: 42vh !important;
-  }
-  #demoStage .iphone, #demoStage #phone{
-    max-width: min(100%, 240px) !important;
-  }
-}
-
-
-/* === CHECKLIST PASS: modal frame · fit-root · widths · BC text-first === */
-
-/* Restore reading width on case pages (undo 100% !important blowout) */
-.wrap{
-  max-width: min(var(--max, 920px), 100%) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: 100% !important;
-  padding-left: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  padding-right: var(--pad, clamp(16px, 3vw, 28px)) !important;
-  box-sizing: border-box !important;
-}
-.sec > .wrap,
-section.sec > .wrap,
-.hero-copy.wrap,
-.hero .wrap{
-  max-width: min(var(--max, 920px), 100%) !important;
-}
-
-/* Skill modal — fixed frame mobile; controls always visible */
-@media (max-width: 820px){
-  .stagezone, #stageZone{
-    padding: 6px !important;
-    align-items: stretch !important;
-  }
-  .stage-panel{
-    width: calc(100vw - 12px) !important;
-    height: calc(100dvh - 12px) !important;
-    max-height: calc(100dvh - 12px) !important;
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto auto minmax(0, 1fr) auto auto !important;
-    grid-template-areas:
-      "tag"
-      "title"
-      "stage"
-      "controls"
-      "meta" !important;
-    overflow: hidden !important;
-  }
-  .stage-panel .stage-persp{
-    grid-area: stage !important;
-    min-height: 0 !important;
-    height: auto !important;
-  }
-  .stage-panel #stage,
-  .stage-panel .stage{
-    position: relative !important;
-    inset: auto !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 0 !important;
-  }
-  .stage-panel .controls-top{
-    grid-area: controls !important;
-  }
-}
-
-/* data-fit-root: uniform scale inside host (descale, not mask) */
-[data-fit-host]{
-  position: relative !important;
-  overflow: hidden !important;
-}
-[data-fit-root]{
-  position: absolute !important;
-  left: 50% !important;
-  top: 50% !important;
-  transform: translate(-50%, -50%) scale(var(--fit-s, 1)) !important;
-  transform-origin: center center !important;
-  will-change: transform;
-}
-
-/* EY stage host — fill, scale children marked data-fit-root */
-.pi-visual .stage,
-#stage{
-  position: relative !important;
-  overflow: hidden !important;
-}
-@media (min-width: 1024px){
-  .pi-split{
-    display: grid !important;
-    grid-template-columns: minmax(180px, 32%) minmax(0, 1fr) !important;
-    gap: 20px !important;
-    align-items: stretch !important;
-    max-width: min(var(--max, 920px), 100%) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  .pi-visual{
-    min-height: 0 !important;
-    height: min(480px, calc(100vh - 160px)) !important;
-  }
-  .pi-visual .stage, #stage{
-    height: 100% !important;
-    max-height: 100% !important;
-  }
-}
-
-/* BC demo — contained width; square-ish stage; text then device on narrow */
-.demo-split, #demo, section#demo .wrap, section.sec#demo{
-  max-width: min(var(--max, 920px), 100%) !important;
-}
-@media (min-width: 1024px){
-  .demo-split{
-    display: grid !important;
-    grid-template-columns: minmax(160px, 32%) minmax(0, 1fr) !important;
-    gap: 18px !important;
-    align-items: stretch !important;
-  }
-}
-#demoStage{
-  position: relative !important;
-  overflow: hidden !important;
-  aspect-ratio: 1 / 1 !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  height: auto !important;
-  max-height: min(520px, calc(100vh - 180px)) !important;
-  margin-inline: auto !important;
-}
-@media (min-width: 1024px){
-  #demoStage{
-    aspect-ratio: 1 / 1 !important;
-    max-height: min(480px, calc(100vh - 140px)) !important;
-  }
-}
-/* Text phase fills stage; device centered when active */
-#demoStage .text-phase{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 20px !important;
-  z-index: 3 !important;
-  transition: opacity 280ms ease, visibility 280ms ease !important;
-}
-#demoStage .text-phase.hide,
-#demoStage.show-device .text-phase{
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
-#demoStage .device-layer{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  z-index: 2 !important;
-  transition: opacity 280ms ease, visibility 280ms ease !important;
-}
-#demoStage.show-device .device-layer{
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-}
-#demoStage #phone,
-#demoStage .iphone{
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  transform: scale(var(--fit-s, 0.42)) !important;
-  transform-origin: center center !important;
-  max-height: none !important;
-}
-/* Keep arrows/hints usable */
-#demoStage .stage-top,
-#demoStage .stage-arrows{ z-index: 5 !important; }
-
-/* === STAGE FULL-UI SCALE (shared nav/z) === */
-.top-nav,#topNav{ z-index:9999 !important; }
-.wrap{max-width:min(var(--max,920px),100%)!important;margin-inline:auto!important}
-
-
-/* === FRAMEWORK v4.1 — single player law (skills ≡ PI ≡ Demo ≡ Process) === */
-:root{
-  --fw-max: 920px !important;
-  --fw-pad: clamp(16px, 3vw, 28px) !important;
-  --fw-hero-pad-top: 24px !important;
-  --fw-stage-h: min(460px, calc(100dvh - 160px)) !important;
-  --fw-stage-h-m: min(360px, 52dvh) !important;
-  --fw-chrome: minmax(160px, 30%);
-}
-
-html body .page,
-html body .wrap{
-  max-width: var(--fw-max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--fw-pad) !important;
-  padding-right: var(--fw-pad) !important;
-  box-sizing: border-box !important;
-}
-html body section.sec,
-html body #hero,
-html body #demo,
-html body #process,
-html body #pi,
-html body .sec{
-  max-width: var(--fw-max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
-}
-html body .crumbs,
-html body nav.crumbs,
-html body .breadcrumb{
-  max-width: var(--fw-max) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--fw-pad) !important;
-  padding-right: var(--fw-pad) !important;
-  box-sizing: border-box !important;
-}
-html body .page > #hero,
-html body #hero{
-  padding-top: var(--fw-hero-pad-top) !important;
-}
-html body #hero .hero-shell,
-html body .hero-shell{
-  overflow: visible !important;
-  max-height: none !important;
-}
-
-/* Shared player grid */
-@media (min-width: 900px){
-  html body .pi-split,
-  html body .demo-split,
-  html body .proc-split{
-    display: grid !important;
-    grid-template-columns: var(--fw-chrome) minmax(0, 1fr) !important;
-    gap: 16px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    align-items: start !important;
-  }
-}
-@media (max-width: 899px){
-  html body .pi-split,
-  html body .demo-split,
-  html body .proc-split{
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-  }
-}
-
-/* ONE stage surface language */
-html body #stage,
-html body #demoStage,
-html body .pi-visual,
-html body .pi-visual .stage,
-html body .demo-visual,
-html body .proc-visual,
-html body .proc-visual .stage,
-html body .stage-panel #stage,
-html body .stagezone #stage{
-  position: relative !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  aspect-ratio: auto !important;
-  height: var(--fw-stage-h) !important;
-  min-height: 280px !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  border-radius: 14px !important;
-  box-sizing: border-box !important;
-  background:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
-    #0c0b0a !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
-}
-@media (max-width: 899px){
-  html body #stage,
-  html body #demoStage,
-  html body .pi-visual,
-  html body .pi-visual .stage,
-  html body .demo-visual,
-  html body .proc-visual,
-  html body .stage-panel #stage,
-  html body .stagezone #stage{
-    display: block !important;
-    height: var(--fw-stage-h-m) !important;
-    min-height: var(--fw-stage-h-m) !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-}
-
-/* Stage host layers transparent */
-html body #win,
-html body .stage-window{
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  transform: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  overflow: hidden !important;
-}
-
-/* Narrative full stage */
-html body #win .slide.textslide,
-html body .slide.textslide,
-html body #demoStage .text-phase{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  padding: 20px !important;
-  background: transparent !important;
-}
-
-/* Prototype slides: center window, scale via --fit-s */
-html body #win .slide:not(.textslide){
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 12px 12px 52px !important;
-  background: transparent !important;
-  overflow: hidden !important;
-}
-html body #win .slide:not(.textslide) > div:first-child{
-  transform: scale(var(--fit-s, 1)) !important;
-  transform-origin: center center !important;
-  border-radius: 12px !important;
-  box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
-  background: #171614 !important;
-}
-
-/* Caption — gradient only */
-html body .capbar{
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  padding: 28px 14px 12px !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: linear-gradient(to top, rgba(12,11,10,.94) 30%, transparent) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-  text-align: center !important;
-  z-index: 20 !important;
-}
-
-/* Phone */
-html body #demoStage .device-layer{
-  position: absolute !important;
-  inset: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  z-index: 5 !important;
-}
-html body #demoStage #phone,
-html body #demoStage .iphone{
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  transform: none !important;
-  aspect-ratio: 9 / 19.5 !important;
-  flex-shrink: 0 !important;
-  overflow: hidden !important;
-  border-radius: 24px !important;
-}
-
-
-/* ========== NAV: same content width as EY / Blockchains (web + mobile) ========== */
-html body .top-nav-inner{
-  max-width: 920px!important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: clamp(16px, 3vw, 28px) !important;
-  padding-right: clamp(16px, 3vw, 28px) !important;
-  box-sizing: border-box !important;
-  height: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 12px !important;
-}
-html body .top-nav .top-nav-inner{
-  max-width: 920px!important;
-}
-@media (max-width: 700px){
-  html body .top-nav-inner{
-    padding-left: clamp(16px, 4vw, 20px) !important;
-    padding-right: clamp(16px, 4vw, 20px) !important;
-  }
-}
-
-
-/* === PORTFOLIO SHELL LOCK 2026-08-12 === */
-:root {
-  --max: 920px !important;
-  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
-  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
-}
-.wrap, .top-nav-inner {
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-inline: auto !important;
-  box-sizing: border-box !important;
-}
-.top-nav-inner {
-  padding-inline: clamp(16px, 3vw, 28px) !important;
-}
-.top-nav {
-  height: 64px !important;
-}
-.eyebrow {
-  font-family: var(--font-mono), 'DM Mono', ui-monospace, monospace !important;
-  font-size: 11px !important;
-  letter-spacing: .1em !important;
-  text-transform: uppercase !important;
-  font-weight: 500 !important;
-}
-.eyebrow::before {
-  content: none !important;
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-h1, .h1, .hero-copy h1 {
-  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
-  font-weight: 800 !important;
-  font-size: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
-  letter-spacing: -.03em !important;
-  line-height: 1.12 !important;
-}
-h2, .h2, .sec h2 {
-  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif !important;
-  font-weight: 800 !important;
-  font-size: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
-  letter-spacing: -.02em !important;
-  line-height: 1.2 !important;
-}
-@media (max-width: 720px) {
-  h1, .h1, .hero-copy h1 { font-size: clamp(1.55rem, 6.5vw, 2.1rem) !important; }
-}
-
-
-/* Design system — player rules docs UI */
-.ds-h3{
-  font-family:var(--font-display),system-ui,sans-serif;
-  font-size:1.05rem;font-weight:700;letter-spacing:-.02em;
-  margin:22px 0 8px;color:var(--text);
-}
-.ds-rule-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:10px;margin:12px 0 8px;
-}
-.ds-rule{
-  border:1px solid var(--border);border-radius:12px;padding:12px 14px;
-  background:var(--bg-surface);
-  display:flex;flex-direction:column;gap:4px;
-}
-.ds-rule b{font-family:var(--font-display);font-size:13px;font-weight:700}
-.ds-rule span{font-size:12.5px;color:var(--muted);line-height:1.4}
-.ds-rule code{font-family:var(--font-mono);font-size:11px;color:var(--accent)}
-.ds-mini-flow{
-  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  margin:10px 0 4px;font-family:var(--font-mono);font-size:11px;color:var(--muted);
-}
-.ds-mini-flow span{
-  padding:6px 10px;border-radius:100px;border:1px solid var(--border);
-  background:var(--bg-raised);
-}
-.ds-mini-flow i{
-  width:18px;height:1px;background:var(--border);display:block;
-}
-.ds-chip-demo{
-  display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;
-  margin:10px 0 4px;scrollbar-width:none;
-}
-.ds-chip-demo::-webkit-scrollbar{display:none}
-.ds-chip-demo button{
-  height:32px;padding:0 12px;border-radius:100px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--muted);font-family:var(--font-mono);font-size:12px;
-  white-space:nowrap;flex:0 0 auto;
-}
-.ds-chip-demo button .n{color:var(--dim,#918b81)}
-.ds-chip-demo button .nm{display:none;margin-left:6px}
-.ds-chip-demo button.on{
-  border-color:var(--accent);color:var(--text);
-  background:color-mix(in srgb, var(--accent) 14%, transparent);
-}
-.ds-chip-demo button.on .n{color:var(--accent)}
-.ds-chip-demo button.on .nm{display:inline;color:var(--text);font-weight:600}
-
-
-/* ========== Design System UI polish 2026-08-12 ========== */
-:root{
-  --max: 920px !important;
-  --font-display: "Space Grotesk", "Instrument Sans", system-ui, sans-serif !important;
-  --font-body: "DM Sans", "Instrument Sans", system-ui, sans-serif !important;
-  --font-mono: "DM Mono", "IBM Plex Mono", ui-monospace, monospace !important;
-  --text-3xl: clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem) !important;
-  --text-2xl: clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem) !important;
-}
-html, body{
-  max-width: 100% !important;
-  overflow-x: hidden !important;
-}
-body{
-  font-family: var(--font-body) !important;
-  font-size: 16px !important;
-  line-height: 1.55 !important;
-  background: var(--bg) !important;
-  color: var(--text) !important;
-}
-
-/* Shell width — same as portfolio */
-.wrap{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-inline: auto !important;
-  padding: 32px clamp(16px, 3vw, 28px) 80px !important;
-  box-sizing: border-box !important;
-}
-.top-nav-inner{
-  max-width: 920px !important;
-  width: 100% !important;
-  margin-inline: auto !important;
-  padding-inline: clamp(16px, 3vw, 28px) !important;
-  box-sizing: border-box !important;
-  height: 64px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-}
-.top-nav{ height: 64px !important; }
-
-/* Type */
-.wrap > h1,
-.wrap h1{
-  font-family: var(--font-display) !important;
-  font-weight: 800 !important;
-  font-size: var(--text-3xl) !important;
-  letter-spacing: -.03em !important;
-  line-height: 1.12 !important;
-  margin: 0 0 12px !important;
-}
-.lede{
-  font-size: clamp(1rem, .95rem + .3vw, 1.125rem) !important;
-  color: var(--muted) !important;
-  max-width: 40rem !important;
-  line-height: 1.6 !important;
-  margin-bottom: 24px !important;
-}
-section{
-  margin-bottom: 56px !important;
-  scroll-margin-top: 88px !important;
-  max-width: 100% !important;
-}
-section > h2{
-  font-family: var(--font-display) !important;
-  font-weight: 800 !important;
-  font-size: var(--text-2xl) !important;
-  letter-spacing: -.02em !important;
-  line-height: 1.2 !important;
-  margin: 0 0 8px !important;
-}
-section > .sub{
-  color: var(--muted) !important;
-  font-size: 15px !important;
-  max-width: 38rem !important;
-  margin: 0 0 16px !important;
-  line-height: 1.5 !important;
-}
-.level, .eyebrow, p.level{
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  letter-spacing: .1em !important;
-  text-transform: uppercase !important;
-  color: var(--accent) !important;
-  margin: 0 0 8px !important;
-  font-weight: 500 !important;
-}
-.level::before, .eyebrow::before{ content: none !important; display: none !important; }
-
-/* TOC */
-.toc{
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  margin: 0 0 36px !important;
-}
-.toc a{
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  padding: 6px 11px !important;
-  border-radius: 100px !important;
-  border: 1px solid var(--border) !important;
-  color: var(--dim) !important;
-  background: transparent !important;
-  transition: border-color .2s, color .2s, background .2s !important;
-}
-.toc a:hover{
-  color: var(--text) !important;
-  border-color: rgba(217,119,87,.45) !important;
-  background: rgba(217,119,87,.08) !important;
-}
-
-/* Code blocks */
-pre.code, .code{
-  font-family: var(--font-mono) !important;
-  font-size: 12px !important;
-  line-height: 1.55 !important;
-  padding: 14px 16px !important;
-  border-radius: 12px !important;
-  background: var(--bg-raised, #1c1b19) !important;
-  border: 1px solid var(--border) !important;
-  color: #c8c4bc !important;
-  overflow-x: auto !important;
-  max-width: 100% !important;
-  margin: 10px 0 4px !important;
-  white-space: pre-wrap !important;
-  word-break: break-word !important;
-}
-html[data-theme="light"] pre.code,
-html[data-theme="light"] .code{
-  background: #f0eeea !important;
-  color: #3a3632 !important;
-}
-
-/* Player organism demo */
-.player{
-  border: 1px solid var(--border) !important;
-  border-radius: 16px !important;
-  background: var(--bg-surface) !important;
-  overflow: hidden !important;
-  max-width: 100% !important;
-}
-.player-top{
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  padding: 10px 12px !important;
-  border-bottom: 1px solid var(--border) !important;
-  flex-wrap: wrap !important;
-}
-.player-label{
-  font-family: var(--font-mono) !important;
-  font-size: 12px !important;
-  margin-right: auto !important;
-  color: var(--muted) !important;
-}
-.player-label b{ color: var(--accent) !important; }
-.player-btn{
-  width: 36px !important; height: 36px !important;
-  border-radius: 50% !important;
-  border: 1px solid var(--border) !important;
-  background: transparent !important;
-  display: grid !important; place-items: center !important;
-  cursor: pointer !important;
-  min-width: 36px !important;
-  padding: 0 10px !important;
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-}
-.player-flow{
-  display: flex !important;
-  gap: 6px !important;
-  overflow-x: auto !important;
-  padding: 8px 12px !important;
-  scrollbar-width: none !important;
-  border-bottom: 1px solid var(--border-soft, var(--border)) !important;
-}
-.player-flow::-webkit-scrollbar{ display: none !important; }
-.player-chip{
-  flex: 0 0 auto !important;
-  height: 28px !important;
-  padding: 0 11px !important;
-  border-radius: 100px !important;
-  border: 1px solid var(--border) !important;
-  background: transparent !important;
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  color: var(--muted) !important;
-  white-space: nowrap !important;
-}
-.player-chip.on{
-  border-color: var(--accent) !important;
-  color: var(--text) !important;
-  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
-}
-.player-stage{
-  position: relative !important;
-  min-height: 200px !important;
-  padding: 24px 16px !important;
-  background:
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
-    var(--bg-raised, #1c1b19) !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
-}
-.player-text{ max-width: 26rem !important; margin: 0 auto !important; text-align: center !important; }
-.player-device .phone{
-  width: min(120px, 28vw) !important;
-  aspect-ratio: 9/19.5 !important;
-  border-radius: 18px !important;
-  border: 2px solid var(--border) !important;
-  background: #0a0f1a !important;
-  margin: 0 auto !important;
-}
-
-/* Grids / cards */
-.skill-row, .unique, .ds-rule-grid{
-  max-width: 100% !important;
-}
-.unique article, .ds-rule, .skill, .pcard, .rule{
-  border-radius: 14px !important;
-  border: 1px solid var(--border) !important;
-  background: var(--bg-surface) !important;
-  box-sizing: border-box !important;
-}
-.ds-rule-grid{
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
-  gap: 10px !important;
-}
-.ds-chip-demo{
-  max-width: 100% !important;
-}
-
-/* Tables */
-table{
-  width: 100% !important;
-  max-width: 100% !important;
-  border-collapse: collapse !important;
-  font-size: 13.5px !important;
-  overflow-x: auto !important;
-  display: block !important;
-}
-th, td{
-  text-align: left !important;
-  padding: 10px 12px !important;
-  border-bottom: 1px solid var(--border) !important;
-  vertical-align: top !important;
-}
-th{
-  font-family: var(--font-mono) !important;
-  font-size: 11px !important;
-  letter-spacing: .06em !important;
-  text-transform: uppercase !important;
-  color: var(--dim) !important;
-  font-weight: 500 !important;
-}
-
-/* Hero demo box */
-.box{
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-/* Don't let case-page demoStage CSS break this doc page */
-html body:not(:has(#demoStage)) .wrap{
-  /* no-op; has() may not work everywhere */
-}
-/* Neutralize aggressive full-page locks from BC paste */
-html body .page{
-  max-width: none !important;
-}
-.wrap, .top-nav-inner{
-  max-width: 920px !important;
-}
-
-/* Mobile */
-@media (max-width: 720px){
-  .wrap{ padding: 24px 16px 64px !important; }
-  .player-top{ gap: 6px !important; }
-  .player-stage{ min-height: 180px !important; padding: 18px 12px !important; }
-  section{ margin-bottom: 44px !important; }
-  table{ font-size: 12.5px !important; }
-  th, td{ padding: 8px 10px !important; }
-}
-
-/* Light mode surfaces */
-html[data-theme="light"] .player-stage{
-  background:
-    linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px),
-    #eae7e1 !important;
-  background-size: 20px 20px, 20px 20px, auto !important;
-}
-html[data-theme="light"] .player-device .phone{
-  background: #fff !important;
-  border-color: rgba(0,0,0,.12) !important;
-}
-
-
-/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
-   Tokens — use everywhere in the product system
-   --max            920px content
-   --pad            clamp(16px, 3vw, 28px) horizontal
-   --nav-h          64px
-   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
-   --stack-xs       6px
-   --stack-sm       10px
-   --stack-md       14px
-   --stack-lg       22px
-   --player-chip-gap 12px   chips → stage
-   --player-note-gap 10px   stage → caption/note
-   --modal-inset     16px–20px around skills modal card
-   ============================================================ */
-:root{
-  --max: 920px !important;
-  --pad: clamp(16px, 3vw, 28px) !important;
-  --nav-h: 64px !important;
-  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
-  --stack-xs: 6px !important;
-  --stack-sm: 10px !important;
-  --stack-md: 14px !important;
-  --stack-lg: 22px !important;
-  --player-chip-gap: 12px !important;
-  --player-note-gap: 10px !important;
-  --player-rail-gap: 12px !important;
-  --modal-inset: 18px !important;
-}
-.wrap,
-.top-nav-inner{
-  max-width: var(--max) !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: var(--pad) !important;
-  padding-right: var(--pad) !important;
-  box-sizing: border-box !important;
-}
-/* Section rhythm — kill 96px/huge asymmetric pads */
-.sec,
-section.sec,
-.section{
-  padding-top: var(--section-y) !important;
-  padding-bottom: var(--section-y) !important;
-  box-sizing: border-box !important;
-}
-/* First content after fixed nav: don't double-pad absurdly */
-.sec:first-of-type,
-section.sec:first-of-type,
-#hero.sec,
-section#hero{
-  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
-}
-/* Closing / legal: tight, intentional */
-.closing,
-#closing{
-  margin-top: var(--stack-lg) !important;
-  margin-bottom: var(--stack-md) !important;
-  padding-top: var(--stack-md) !important;
-  padding-bottom: var(--stack-md) !important;
-}
-.legal-note,
-.proj-nav{
-  margin-top: var(--stack-md) !important;
-  padding-top: var(--stack-sm) !important;
-}
-/* Case players host */
-#demo .note,
-#pi .note,
-#pi p.note,
-.bc-player-iframe + .note,
-.pi-iframe + .note{
-  margin-top: var(--player-note-gap) !important;
-  margin-bottom: 0 !important;
-}
-#pi + .closing,
-#demo + .sec,
-#process{
-  margin-top: 0 !important;
-}
-/* Eyebrow → title → lede stack */
-.eyebrow,
-.sec-eyebrow,
-.proc-eyebrow,
-p.level{
-  margin-bottom: var(--stack-sm) !important;
-}
-h1, .h1, .proc-h, .sec-h{
-  margin-top: 0 !important;
-}
-.lede, .lead, .proc-sub, .sec-sub, .sub{
-  margin-top: var(--stack-sm) !important;
-  margin-bottom: var(--stack-md) !important;
-}
-/* Mobile: slightly tighter section, same pad token */
-@media (max-width: 720px){
-  :root{
-    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
-    --modal-inset: 12px !important;
-  }
-}
-
-</style>
-
-
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet"/>
 <style id="site-nav-component">
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap');
 /* ===== SITE NAV COMPONENT — locked, identical on every page ===== */
@@ -2272,44 +168,268 @@ html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
 body:has(nav.site-nav) .top-nav:not(.site-nav),
 body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 </style>
-
-
-<style id="shell-unify">
-/* SHELL-UNIFY — same column as rest of site */
-:root{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }
-.wrap, .top-nav-inner, .sn-inner{
-  max-width:var(--max)!important;
-  margin-left:auto!important; margin-right:auto!important;
-  box-sizing:border-box!important;
+<style>
+:root{
+  --max:920px;
+  --pad:clamp(16px,3vw,28px);
+  --section-y:clamp(2.25rem,3.5vw,3.5rem);
+  --bg:#0e0d0c; --bg-surface:#171614; --bg-raised:#1e1c1a;
+  --text:#f2f0ec; --muted:#a6a29a; --faint:#7a756c;
+  --line:rgba(255,255,255,.1); --line-soft:rgba(255,255,255,.06);
+  --accent:#d97757; --accent-dim:rgba(217,119,87,.14); --on-accent:#fff;
+  --font-display:"Space Grotesk",system-ui,sans-serif;
+  --font-body:"DM Sans",system-ui,sans-serif;
+  --font-mono:"DM Mono",ui-monospace,monospace;
+  --ease-out-back:cubic-bezier(.34,1.22,.64,1);
+  --motion:.55s var(--ease-out-back);
+  --h1:clamp(1.85rem,1.5rem + 1.8vw,2.55rem);
+  --h2:clamp(1.4rem,1.2rem + 1.1vw,1.95rem);
 }
-.wrap{
-  padding-left:var(--pad)!important;
-  padding-right:var(--pad)!important;
-  width:100%!important;
+[data-theme="light"]{
+  --bg:#f7f5f2; --bg-surface:#fff; --bg-raised:#eeece7;
+  --text:#1a1917; --muted:#55524c; --faint:#726e66;
+  --line:rgba(0,0,0,.1); --line-soft:rgba(0,0,0,.06);
+  --accent:#a84928; --accent-dim:rgba(168,73,40,.12);
 }
-section{ margin-bottom:var(--section-y)!important; }
-</style>
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
 
-
-<style id="shell-unify-v2">
-:root{{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }}
-.page, .wrap, .top-nav-inner, .sn-inner{{
+/* SAME COLUMN AS SITE — never full-bleed content */
+.page{
+  max-width:var(--max);
+  width:100%;
+  margin:0 auto;
+  padding:88px var(--pad) 96px;
+}
+nav.site-nav .sn-inner{
   max-width:var(--max)!important;
-  margin-left:auto!important; margin-right:auto!important;
-  box-sizing:border-box!important;
-}}
-.page, .wrap{{
   padding-left:var(--pad)!important;
   padding-right:var(--pad)!important;
-  width:100%!important;
-}}
-/* sn-inner already padded by component — avoid double */
-nav.site-nav .sn-inner{{
-  padding-left:var(--pad)!important;
-  padding-right:var(--pad)!important;
-}}
-</style>
+  margin:0 auto!important;
+}
 
+/* Breadcrumb */
+.bc{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin:0 0 20px}
+.bc a{text-decoration:none;color:var(--muted)}
+.bc a:hover{color:var(--accent)}
+.bc .sep{opacity:.5}
+.bc .here{color:var(--text)}
+
+/* Hero */
+.hero-ey{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.hero-h{font-family:var(--font-display);font-size:var(--h1);font-weight:800;letter-spacing:-.03em;line-height:1.12;margin:0 0 12px}
+.hero-h em{color:var(--accent);font-style:normal}
+.hero-lede{color:var(--muted);font-size:1.05rem;line-height:1.55;max-width:38rem;margin:0 0 28px}
+
+/* Tabs */
+.tabs{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin:0 0 28px;padding:0;
+  border-bottom:1px solid var(--line);
+  padding-bottom:12px;
+  position:sticky;top:64px;z-index:20;
+  background:color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  padding-top:10px;
+}
+.tabs button{
+  appearance:none;border:1px solid transparent;background:transparent;
+  color:var(--muted);font:600 12.5px/1 var(--font-body);
+  padding:8px 12px;border-radius:999px;cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s;
+}
+.tabs button:hover{color:var(--text)}
+.tabs button.on{
+  background:var(--accent-dim);border-color:var(--accent);color:var(--text);
+}
+
+.panel{display:none}
+.panel.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.sec{margin-bottom:var(--section-y)}
+.sec h2{font-family:var(--font-display);font-size:var(--h2);font-weight:750;letter-spacing:-.02em;margin:0 0 8px}
+.sec .sub{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 18px;max-width:36rem}
+.lvl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:650;margin:0 0 6px}
+
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:720px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+.card{
+  background:var(--bg-surface);border:1px solid var(--line);border-radius:14px;padding:16px;
+  transition:transform var(--motion),box-shadow .4s ease;
+  transform-origin:center;
+}
+.card:hover{transform:scale(1.02) translateY(-2px);box-shadow:0 18px 40px -22px rgba(0,0,0,.5)}
+.card h3{margin:0 0 6px;font-size:14px}
+.card p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.45}
+
+.swatch{border-radius:12px;border:1px solid var(--line);overflow:hidden;background:var(--bg-surface)}
+.swatch .c{height:52px}
+.swatch .m{padding:10px 12px;font-size:12px}
+.swatch .m b{display:block}
+.swatch .m span{color:var(--muted);font-family:var(--font-mono);font-size:11px}
+
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:999px;border:1px solid var(--line);
+  background:var(--bg-surface);color:var(--text);font:600 13px/1 var(--font-body);
+  cursor:pointer;text-decoration:none;
+  transition:transform var(--motion),border-color .3s,background .3s,filter .3s;
+}
+.btn:hover{transform:scale(1.03) translateY(-1px);border-color:var(--accent)}
+.btn.pri{background:var(--accent);color:#fff;border-color:transparent}
+.btn.pri:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{
+  height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);
+  background:var(--bg-surface);color:var(--muted);font:500 12px/32px var(--font-body);
+  cursor:pointer;display:inline-flex;align-items:center;
+  transition:background .25s,border-color .25s,color .25s;
+}
+.pill .nm{display:none;margin-left:6px;font-weight:650}
+.pill.on{background:var(--accent-dim);border-color:var(--accent);color:var(--text)}
+.pill.on .nm{display:inline}
+
+.unit{
+  width:100%;max-width:560px;margin:0 auto;aspect-ratio:560/410;
+  border-radius:14px;border:1.5px solid var(--accent);
+  background:
+    linear-gradient(rgba(217,119,87,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(217,119,87,.08) 1px,transparent 1px),
+    #161412;
+  background-size:22px 22px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+[data-theme="light"] .unit{
+  background-color:#e8e6e0;
+  background-image:linear-gradient(rgba(0,0,0,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.06) 1px,transparent 1px);
+}
+.unit-top{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;font-size:12px;font-weight:650}
+.unit-mid{flex:1;display:grid;place-items:center;padding:16px;text-align:center}
+.unit-mid b{display:block;font-size:15px;margin-bottom:6px}
+.unit-mid span{font-size:12px;color:var(--muted)}
+.unit-cap{padding:10px 14px 12px;font-size:12px;color:var(--muted);text-align:center;
+  background:linear-gradient(to top,rgba(14,13,12,.92),transparent)}
+[data-theme="light"] .unit-cap{background:linear-gradient(to top,rgba(247,245,242,.95),transparent);color:var(--text)}
+.unit-arrows{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 8px;pointer-events:none}
+.unit-arrows i{width:28px;height:28px;border-radius:999px;border:1px solid var(--line);background:rgba(0,0,0,.35);display:grid;place-items:center;font-size:12px;color:#fff;pointer-events:auto;cursor:pointer}
+
+.phone{
+  width:min(180px,40%);aspect-ratio:9/19.5;margin:0 auto;
+  border-radius:22px;border:2px solid var(--line);background:#0a0a0c;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);position:relative;
+}
+.phone::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:40%;height:6px;border-radius:999px;background:rgba(255,255,255,.12)}
+
+.code{
+  font-family:var(--font-mono);font-size:12px;line-height:1.55;
+  padding:14px 16px;border-radius:12px;border:1px solid var(--line);
+  background:var(--bg-surface);color:var(--muted);overflow-x:auto;white-space:pre-wrap;
+}
+.code b{color:var(--text)}
+
+.contrast{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.contrast{grid-template-columns:1fr}}
+.contrast .box{border-radius:12px;padding:14px;border:1px solid var(--line);font-size:13px}
+.contrast .ok-d{background:#0e0d0c;color:#f5d100}
+.contrast .bad-l{background:#f5f5f0;color:#f5d100}
+.contrast .ok-l{background:#f7f5f2;color:#a84928}
+.contrast .meta{font-size:11px;font-family:var(--font-mono);opacity:.75;margin-top:6px}
+
+.type-row{display:flex;flex-direction:column;gap:16px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--bg-surface)}
+.type-row .lab{font-size:11px;color:var(--muted);font-family:var(--font-mono);margin-bottom:4px}
+
+.stack{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;
+  border-radius:8px;border:1px solid var(--line);background:var(--bg-raised);
+  font-size:12px;color:var(--muted);
+}
+.chip i{width:8px;height:8px;border-radius:3px;background:var(--accent)}
+
+.motor{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:720px){.motor{grid-template-columns:1fr}}
+.motor .card b{color:var(--accent);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+
+@media(prefers-reduced-motion:reduce){
+  .card,.btn{transition:none!important;transform:none!important}
+  .panel.on{animation:none}
+}
+
+/* Home + case pattern demos */
+.pcard-demo{
+  display:flex; flex-direction:column; min-height:200px; border-radius:16px; overflow:hidden;
+  background:var(--pc, #7a3be0); color:#fff; cursor:default;
+  transition:transform var(--motion), box-shadow .45s ease;
+  transform-origin:center;
+}
+.pcard-demo:hover{ transform:scale(1.025) translateY(-3px); box-shadow:0 20px 48px -24px rgba(0,0,0,.55); }
+.pcard-demo .hd{ padding:14px 16px 0; display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:700; }
+.pcard-demo .bd{ padding:12px 16px 16px; flex:1; display:flex; flex-direction:column; justify-content:flex-end; }
+.pcard-demo .bd p{ margin:0 0 8px; font-size:12.5px; opacity:.9; line-height:1.4; }
+.pcard-demo .cta{ font-size:12px; font-weight:650; opacity:.85; }
+
+.metric-rail{
+  display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory;
+}
+.metric-rail .m{
+  flex:0 0 140px; scroll-snap-align:start;
+  background:var(--bg-surface); border:1px solid var(--line); border-radius:14px; padding:14px;
+}
+.metric-rail .m b{ display:block; font-family:var(--font-display); font-size:1.35rem; font-weight:800; letter-spacing:-.02em; }
+.metric-rail .m span{ font-size:11px; color:var(--muted); }
+
+.hx-rail{
+  display:flex; gap:12px; overflow-x:auto; padding-bottom:4px;
+}
+.hx-rail .step{
+  flex:0 0 200px; background:var(--bg-surface); border:1px solid var(--line); border-radius:14px; padding:14px;
+}
+.hx-rail .step .n{
+  width:28px; height:28px; border-radius:999px; background:var(--accent-dim); color:var(--accent);
+  display:grid; place-items:center; font-size:12px; font-weight:700; margin-bottom:8px;
+}
+.hx-rail .step h3{ margin:0 0 4px; font-size:13px; }
+.hx-rail .step p{ margin:0; font-size:12px; color:var(--muted); line-height:1.4; }
+
+.num-carousel{
+  display:flex; gap:8px; align-items:center;
+}
+.num-carousel button{
+  width:36px; height:36px; border-radius:999px; border:1px solid var(--line);
+  background:var(--bg-surface); color:var(--muted); font:650 13px/1 var(--font-display); cursor:pointer;
+}
+.num-carousel button.on{ background:var(--accent); color:#fff; border-color:transparent; }
+
+.tag-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.tag{
+  font-size:11px; padding:4px 10px; border-radius:999px;
+  background:var(--accent-dim); color:var(--accent); font-weight:650;
+}
+.tag.ghost{ background:var(--bg-raised); color:var(--muted); border:1px solid var(--line); }
+
+.dual-device{
+  display:flex; gap:12px; align-items:flex-end; justify-content:center; padding:16px 0;
+}
+.dual-device .ph{
+  width:72px; aspect-ratio:9/19.5; border-radius:12px; border:1.5px solid var(--line); background:#121016;
+}
+.dual-device .win{
+  width:160px; aspect-ratio:16/10; border-radius:10px; border:1.5px solid var(--line); background:#161412;
+}
+
+.note{ font-size:12px; color:var(--muted); margin-top:8px; }
+
+</style>
 </head>
 <body>
 <nav class="site-nav" id="topNav" style="--sn-accent:#d97757" aria-label="Primary">
@@ -2359,756 +479,358 @@ nav.site-nav .sn-inner{{
   <a href="design-system.html">Design System</a>
 </div>
 
+<main class="page">
+  <nav class="bc" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">/</span><span class="here">Design System</span>
+  </nav>
 
+  <p class="hero-ey">Design system · living</p>
+  <h1 class="hero-h">One system, <em>local accents</em></h1>
+  <p class="hero-lede">Shell, type, nav, motion, and players are shared. Cases only change accent and content — not the component language.</p>
 
-<section id="space-canon">
-  <p class="level">Canon · space</p>
-  <h2>Whitespace system</h2>
-  <p class="sub">One rhythm for the portfolio product pages (home, cases EY/Blockchains, resume, contact, design system, players). Chek / DollarCity / Customs / Forecast stay on their own shell until migrated.</p>
-  <pre class="code">--max              920px
---pad              clamp(16px, 3vw, 28px)   horizontal
---nav-h            64px
---section-y        clamp(2.25rem, 3vw, 3.25rem)  section top/bottom
---stack-xs / sm / md / lg    6 / 10 / 14 / 22px
---player-chip-gap  12px   timeline chips → stage
---player-note-gap  10px   stage / iframe → note
---modal-inset      18px (12px mobile)  around skills modal
-
-Rules
-1. Horizontal air always --pad on wrap / nav — never mix 44px and 20px.
-2. Vertical section rhythm always --section-y — no 96px one-offs.
-3. Player hosts: iframe height ≈ content (not 80vh). Note sits --player-note-gap below.
-4. Skills modal: card height ≈ content (~560px), margin --modal-inset — not 100vh.
-5. Empty flex growth that creates a middle void is a bug: pack from top or center the unit without growing dead bands.
-6. First section under nav uses a slightly smaller top pad (hero exception).</pre>
-  <div class="ds-rule-grid">
-    <div class="ds-rule"><b>Page</b><span>wrap 920 + --pad</span></div>
-    <div class="ds-rule"><b>Section</b><span>--section-y top &amp; bottom</span></div>
-    <div class="ds-rule"><b>Player</b><span>chip-gap 12 · note-gap 10</span></div>
-    <div class="ds-rule"><b>Modal</b><span>inset 18 · height content</span></div>
-  </div>
-</section>
-
-
-
-<nav class="bc-crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="sep" aria-hidden="true">/</span><span class="here">Design system</span></nav>
-
-<main class="wrap">
-<p class="eyebrow">Consistency pass</p>
-<h1>One system, local accents</h1>
-<p class="lede">Shared: nav, player (reproductor), typewriter → device, stack icochips, card motion. Unique: project color, case content, and 3D vs wireframe graphics — not a second component language.</p>
-<nav class="toc">
-  <a href="#player">Player</a>
-  <a href="#player-rules">Player rules</a>
-  <a href="#space-canon">Space</a>
-  <a href="#site-width-player">Width &amp; type</a>
-  <a href="#skills">Skills</a>
-  <a href="#pcards">Project cards</a>
-  <a href="#stack">Stack</a>
-  <a href="#unique">Unique accents</a>
-  <a href="#map">Where used</a>
-  <a href="#hero">Hero</a>
-  <a href="#icons">Icons</a>
-  <a href="#about">About</a>
-  <a href="#buttons">Buttons</a>
-  <a href="#states">States</a>
-  <a href="#a11y">A11y</a>
-  <a href="#rules">Rules</a>
-</nav>
-
-<section id="player-logic">
-  <p class="level">Logic</p>
-  <h2>Player state machine</h2>
-  <p class="sub">Guarded runs, timer cleanup, reduced motion, chip scroll only inside the row.</p>
-  <pre class="code">phases: idle → typing → holding → device → (auto next | idle)
-runId guards stale timeouts
-manual prev/next does not force playing
-play loops; pause clears timers
-prefers-reduced-motion: instant text, short delays</pre>
-</section>
-
-<section id="player-rules">
-  <p class="level">Canon · players</p>
-  <h2>Player rules (source of truth)</h2>
-  <p class="sub">Apply the same engine to Skills, EY Fabric, Blockchains — later Chek &amp; DollarCity. Only accent, copy, and graphic engine change.</p>
-
-  <h3 class="ds-h3">1. Architecture</h3>
-  <pre class="code">Reusable shell (chrome + stage + controls)
-  + experience plugin (beats / actions / case UI)
-
-NOT a slideshow · NOT a video · NOT screenshots
-Feel: interactive product showcase</pre>
-  <div class="ds-rule-grid">
-    <div class="ds-rule"><b>Shell</b><span>Stage window, chips, arrows, top bar, caption</span></div>
-    <div class="ds-rule"><b>Plugin</b><span>BEATS + applyAction + case mocks</span></div>
-    <div class="ds-rule"><b>Embed</b><span><code>?embed=1</code> → transparent host, player fills parent</span></div>
+  <div class="tabs" role="tablist" aria-label="Design system sections">
+    <button type="button" class="on" data-tab="found" role="tab" aria-selected="true">Foundation</button>
+    <button type="button" data-tab="chrome" role="tab">Chrome</button>
+    <button type="button" data-tab="comp" role="tab">Components</button>
+    <button type="button" data-tab="home" role="tab">Home patterns</button>
+    <button type="button" data-tab="cases" role="tab">Case patterns</button>
+    <button type="button" data-tab="player" role="tab">Players</button>
+    <button type="button" data-tab="motion" role="tab">Motion</button>
+    <button type="button" data-tab="a11y" role="tab">Contrast</button>
+    <button type="button" data-tab="rules" role="tab">Rules</button>
   </div>
 
-  <h3 class="ds-h3">2. Spatial structure (EY PI reference)</h3>
-  <pre class="code">stage
-  ↓  experience area (mock / phone / product UI)
-  ↓  navigation inside stage (title · pause · replay)
-  ↓  side arrows (prev / next) mid-stage
-  ↓  caption / blur bar at bottom
-
-Timeline chips sit OUTSIDE the stage container
-Density: small gap between chips/controls and frame (≤6px shell gap)</pre>
-
-  <h3 class="ds-h3">3. Sequence</h3>
-  <pre class="code">1. Typewriter (kicker → body → sub)   phone dim / hidden
-2. Text phase hides
-3. Device / mock shows
-4. Micro-actions (cursor, holds, sheets, map…)
-5. Optional auto-advance to next beat</pre>
-  <div class="ds-mini-flow" aria-hidden="true">
-    <span>Type</span><i></i><span>Device</span><i></i><span>Actions</span><i></i><span>Next</span>
-  </div>
-
-  <h3 class="ds-h3">4. Timeline chips</h3>
-  <pre class="code">Inactive  → number only     (01)
-Active    → number + name   (01 Onboard)
-One row · nowrap · horizontal scroll if needed
-Never wrap to two rows of full labels</pre>
-  <div class="ds-chip-demo" aria-hidden="true">
-    <button type="button" class="on"><span class="n">01</span><span class="nm">Onboard</span></button>
-    <button type="button"><span class="n">02</span><span class="nm">Place</span></button>
-    <button type="button"><span class="n">03</span><span class="nm">Media</span></button>
-    <button type="button"><span class="n">04</span><span class="nm">Visitor</span></button>
-  </div>
-
-  <h3 class="ds-h3">5. Scale rules (viewport fit)</h3>
-  <pre class="code">scale = min(hostW / designW, hostH / designH)   // pad ~4–8%
-
-Prefer smaller &amp; complete over large &amp; clipped
-No internal scroll inside the mock
-No opacity tricks as “fit”
-Phone / artboard: fixed design size + transform:scale()</pre>
-  <div class="ds-rule-grid">
-    <div class="ds-rule"><b>Desktop</b><span>Stage height budget from <code>100dvh</code> − nav − chrome</span></div>
-    <div class="ds-rule"><b>Mobile</b><span>Frame fixed; chips + controls always visible</span></div>
-    <div class="ds-rule"><b>Embed</b><span>Fill host; transparent page bg; no double card</span></div>
-  </div>
-
-  <h3 class="ds-h3">6. Blockchains-specific</h3>
-  <pre class="code">Coordinate system: 393×852 phone · single uniform scale
-Dynamic Island overlay · screen edge-to-edge under island
-Map (Three.js) visible from step 1 as background
-Long-press STREET → pin appears (not press existing pin)
-Drawers: taller sheets, always fully on-screen
-Cursor: large, follows targets, hold pulse
-Success toast (green) after key actions
-Pin tip + glow after media is live
-Hints outside phone (production side rail)
-Mobile: stage min-heights tuned; phone never distorts</pre>
-
-  <h3 class="ds-h3">7. What must not change per case</h3>
-  <div class="ds-rule-grid">
-    <div class="ds-rule"><b>Shared</b><span>Nav 920 · type scale · player chrome · chip behavior · typewriter→device · embed contract</span></div>
-    <div class="ds-rule"><b>Unique</b><span>Accent color · beats copy · mock UI · 3D vs wireframe</span></div>
-  </div>
-
-  <h3 class="ds-h3">8. Applying to Chek / DollarCity</h3>
-  <pre class="code">1. Keep case page shell (nav, 920, type) — do not restyle from scratch
-2. Plug beats into the same player shell (or iframe ?embed=1)
-3. Swap accent + content only
-4. Reuse scale fit + chip rules + typewriter→device
-5. No second player architecture</pre>
-</section>
-
-
-<section id="player">
-  <p class="level">Organism · shared</p>
-  <h2>Narrative player</h2>
-  <p class="sub">Same chrome for skill modals, EY Fabric stages, and Blockchains demo: label · prev/next · play · beat chips · text phase → device phase.</p>
-  <div class="player" id="demoPlayer">
-    <div class="player-top">
-      <div class="player-label"><b id="plLabel">01</b> · <span id="plTitle">Measure</span></div>
-      <button type="button" class="player-btn" id="plPrev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <button type="button" class="player-btn" id="plPlay" aria-label="Play">play</button>
-      <button type="button" class="player-btn" id="plNext" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-    </div>
-    <div class="player-flow" id="plFlow"></div>
-    <div class="player-stage">
-      <div class="player-text" id="plText">
-        <div class="player-kicker" id="plKicker">Stage</div>
-        <div class="player-body" id="plBody"></div>
-        <div class="player-sub" id="plSub"></div>
+  <!-- FOUNDATION -->
+  <div class="panel on" id="tab-found" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Tokens</p>
+      <h2>Color & shell</h2>
+      <p class="sub">Same column on every page. Dark accents are bright; light mode always ships a darker pair.</p>
+      <div class="grid g4">
+        <div class="swatch"><div class="c" style="background:#0e0d0c"></div><div class="m"><b>bg</b><span>#0e0d0c</span></div></div>
+        <div class="swatch"><div class="c" style="background:#f2f0ec"></div><div class="m"><b>text</b><span>#f2f0ec</span></div></div>
+        <div class="swatch"><div class="c" style="background:#d97757"></div><div class="m"><b>accent home</b><span>#d97757 → #a84928</span></div></div>
+        <div class="swatch"><div class="c" style="background:#a6a29a"></div><div class="m"><b>muted</b><span>#a6a29a</span></div></div>
       </div>
-      <div class="player-device" id="plDevice">
-        <div class="phone"><div class="ui"></div></div>
+      <div class="code" style="margin-top:12px"><b>--max</b> 920px
+<b>--pad</b> clamp(16px, 3vw, 28px)
+<b>--section-y</b> clamp(2.25rem … 3.5rem)
+<b>Fonts</b> Space Grotesk · DM Sans · DM Mono</div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Type</p>
+      <h2>Scale</h2>
+      <p class="sub">Shared clamps — home, cases, and this page.</p>
+      <div class="type-row">
+        <div><div class="lab">H1 · var(--h1)</div><div style="font-family:var(--font-display);font-size:var(--h1);font-weight:800;letter-spacing:-.03em">Seven skills to amplify product</div></div>
+        <div><div class="lab">H2 · var(--h2)</div><div style="font-family:var(--font-display);font-size:var(--h2);font-weight:750">Player rules (source of truth)</div></div>
+        <div><div class="lab">Eyebrow · 11px · tracking .12em</div><div class="hero-ey" style="margin:0">Skills · product services</div></div>
+        <div><div class="lab">Lead / body</div><div style="color:var(--muted);line-height:1.55">Map behavior, surface friction, research the why, and close the loop.</div></div>
       </div>
-    </div>
+    </section>
   </div>
-  <pre class="code">Sequence (all cases):
-1. Kicker fades in  2. Typewriter body  3. Sub line
-4. Text hides  5. Device / UI canvas shows
-Controls: prev · play/pause · next · beat chips (horizontal scroll only, never page scroll)</pre>
-</section>
 
-<section id="skills">
-  <p class="level">Molecule → organism</p>
-  <h2>Skill cards → player</h2>
-  <p class="sub">Collapsed card lifts; open state feeds the same player (not a one-off modal skin).</p>
-  <div class="skill-row" id="skills">
-    <button type="button" class="skill on" data-i="0"><div class="ic">R</div><h3>Research</h3><p>Opens narrative beat 1</p></button>
-    <button type="button" class="skill" data-i="1"><div class="ic">A</div><h3>Analytics</h3><p>Opens narrative beat 2</p></button>
-    <button type="button" class="skill" data-i="2"><div class="ic">D</div><h3>Design</h3><p>Opens narrative beat 3</p></button>
+  <!-- CHROME -->
+  <div class="panel" id="tab-chrome" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Navigation</p>
+      <h2>site-nav (one component)</h2>
+      <p class="sub">Desktop + mobile drawer + theme. Same markup on home, cases, contact, resume, DS.</p>
+      <div class="grid g3">
+        <div class="card"><h3>Desktop</h3><p>Logo · links · Projects dropdown · theme · 64px height · max 920 inner</p></div>
+        <div class="card"><h3>Mobile</h3><p>Hamburger → #snMobile · Escape closes · body.nav-open</p></div>
+        <div class="card"><h3>Theme</h3><p>localStorage theme · data-theme on html · works on every route</p></div>
+      </div>
+      <div class="code" style="margin-top:12px">nav.site-nav#topNav → .sn-inner
+#snMobile.site-nav-mobile → .on
+script#site-nav-component-js</div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Breadcrumb</p>
+      <h2>Pattern</h2>
+      <nav class="bc" style="margin:0"><a href="index.html">Home</a><span class="sep">/</span><a href="projects.html">Projects</a><span class="sep">/</span><span class="here">Case</span></nav>
+    </section>
+    <section class="sec">
+      <p class="lvl">Hero</p>
+      <h2>Layout stack</h2>
+      <div class="code">eyebrow → h1 (em = accent) → lede → optional stack chips / CTA
+No tool-dependent claims in lede — UX / research / product loop</div>
+    </section>
   </div>
-</section>
 
-<section id="pcards">
-  <p class="level">Molecule</p>
-  <h2>Project cards</h2>
-  <p class="sub">Same lift/spring everywhere. Graphic is the only unique surface (EY wireframe · BC Three city).</p>
-  <div style="display:grid;gap:12px;max-width:360px">
-    <a class="pcard" href="projects.html" style="--pc-bg:#ffe600;--pc-txt:#2b2600"><div class="inner"><div class="viz" style="background:#14120a"></div><strong>EY Fabric</strong></div></a>
-    <a class="pcard" href="projects.html" style="--pc-bg:#22d4c8;--pc-txt:#042e2a"><div class="inner"><div class="viz" style="background:#0a121c"></div><strong>Blockchains</strong></div></a>
+  <!-- COMPONENTS -->
+  <div class="panel" id="tab-comp" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Buttons</p>
+      <h2>Interactive</h2>
+      <p class="sub">Hover: soft scale + accent border. Try them.</p>
+      <div class="btn-row">
+        <button type="button" class="btn pri">Primary</button>
+        <button type="button" class="btn">Secondary</button>
+        <button type="button" class="btn ghost">Ghost</button>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Pills</p>
+      <h2>Stage timeline</h2>
+      <p class="sub">Inactive = number only · active = number + name. Click to toggle.</p>
+      <div class="pills" id="demoPills">
+        <button type="button" class="pill" data-i="0">01<span class="nm">Map</span></button>
+        <button type="button" class="pill on" data-i="1">02<span class="nm">Usage</span></button>
+        <button type="button" class="pill" data-i="2">03<span class="nm">Research</span></button>
+        <button type="button" class="pill" data-i="3">04<span class="nm">Ship</span></button>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Cards</p>
+      <h2>Skills / project motion</h2>
+      <p class="sub">Hover — same family as home project cards (stretch + soft bounce).</p>
+      <div class="grid g3">
+        <div class="card"><h3>01 Usage</h3><p>Map drop-offs on one path.</p></div>
+        <div class="card"><h3>02 Research</h3><p>Why the cliff stays invisible.</p></div>
+        <div class="card"><h3>03 Ship</h3><p>Close the loop into product.</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Stack</p>
+      <h2>Tool chips</h2>
+      <div class="stack">
+        <span class="chip"><i></i>Figma</span>
+        <span class="chip"><i></i>Pendo</span>
+        <span class="chip"><i></i>Maze</span>
+        <span class="chip"><i></i>Spline</span>
+        <span class="chip"><i></i>Unity</span>
+      </div>
+    </section>
   </div>
-</section>
 
-<section id="stack">
-  <p class="level">Atom · mandatory</p>
-  <h2>Stack logos</h2>
-  <p class="sub">Tools = colored icochip + tooltip tilt. Categories may stay text pills.</p>
-  <div class="stack-row">
-    <button type="button" class="icochip" aria-label="Figma"><span class="icochip-name">Figma</span><svg viewBox="0 0 24 24"><path fill="#F24E1E" d="M8 24c2.2 0 4-1.8 4-4v-4H8c-2.2 0-4 1.8-4 4s1.8 4 4 4z"/><path fill="#A259FF" d="M4 4c0-2.2 1.8-4 4-4h4v8H8C5.8 8 4 6.2 4 4z"/><path fill="#0ACF83" d="M20 12c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4 4 1.8 4 4z"/></svg></button>
-    <button type="button" class="icochip" aria-label="Pendo"><span class="icochip-name">Pendo</span><svg viewBox="0 0 24 24"><path fill="#EC5B33" d="M4 4h10.5a5.5 5.5 0 010 11H8v5H4V4z"/></svg></button>
-    <button type="button" class="icochip" aria-label="Unity"><span class="icochip-name">Unity</span><svg viewBox="0 0 24 24"><path fill="#ccc" d="M10 2.5L3 6.5v11l7 4 7-4v-11L10 2.5z"/></svg></button>
+
+  <!-- HOME PATTERNS -->
+  <div class="panel" id="tab-home" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Home · projects</p>
+      <h2>Project cards</h2>
+      <p class="sub">Solid accent surface · hover/tap expand with soft stretch + bounce (not instant). Five cases — Forecast removed.</p>
+      <div class="grid g3">
+        <div class="pcard-demo" style="--pc:#7a3be0"><div class="hd"><span>cheK</span><span style="opacity:.7;font-size:11px">2021—23</span></div><div class="bd"><p>Virtual card · onboarding +15% · design system across features.</p><span class="cta">Open case →</span></div></div>
+        <div class="pcard-demo" style="--pc:#00a650"><div class="hd"><span>DollarCity</span><span style="opacity:.7;font-size:11px">2023</span></div><div class="bd"><p>Video investigation · ops loop from signal to decision.</p><span class="cta">Open case →</span></div></div>
+        <div class="pcard-demo" style="--pc:#4a9eff"><div class="hd"><span>Customs ES</span><span style="opacity:.7;font-size:11px">Field</span></div><div class="bd"><p>50+ analog → digital · dual devices at the gate.</p><span class="cta">Open case →</span></div></div>
+      </div>
+      <p class="note">Motion token: <code>--ease-out-back</code> · ~0.55s · same family as skills cards.</p>
+    </section>
+    <section class="sec">
+      <p class="lvl">Home · skills</p>
+      <h2>Skills entry → modal player</h2>
+      <p class="sub">Cards open the Skills player embed. Pills outside unit · unit 560×410 scaled to column width.</p>
+      <div class="grid g3">
+        <div class="card"><h3>Usage</h3><p>Fan / group cards → stagezone modal → skills-player?embed=1</p></div>
+        <div class="card"><h3>Host rules</h3><p>postMessage height · no overflow clip on panel · X close</p></div>
+        <div class="card"><h3>Pills</h3><p>Inactive number only · active number + name</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Home · stack</p>
+      <h2>Hero / about chips</h2>
+      <div class="stack">
+        <span class="chip"><i></i>Research</span>
+        <span class="chip"><i></i>Product</span>
+        <span class="chip"><i></i>Analytics</span>
+        <span class="chip"><i></i>Design systems</span>
+      </div>
+    </section>
   </div>
-</section>
 
-<section id="unique">
-  <p class="level">What stays unique</p>
-  <h2>Accents, not forks</h2>
-  <div class="unique">
-    <article><div class="sw" style="background:var(--acc-ey)"></div><h3>EY Fabric</h3><p>Accent yellow · catalog wireframe · Pendo loop copy</p></article>
-    <article><div class="sw" style="background:var(--acc-bc)"></div><h3>Blockchains</h3><p>Teal · procedural Three city · owner→visitor demo</p></article>
-    <article><div class="sw" style="background:var(--acc-chek)"></div><h3>Chek (next)</h3><p>Violet · same player · fintech content only</p></article>
+  <!-- CASE PATTERNS -->
+  <div class="panel" id="tab-cases" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Chek</p>
+      <h2>Metrics rail</h2>
+      <p class="sub">Horizontal snap metrics (hero). Autoplay slowed · pagination dots not required.</p>
+      <div class="metric-rail" id="metricRail">
+        <div class="m"><b>+15%</b><span>Onboarding</span></div>
+        <div class="m"><b>10+</b><span>Features DS</span></div>
+        <div class="m"><b>$2.8k</b><span>Available</span></div>
+        <div class="m"><b>Pendo</b><span>Funnels</span></div>
+      </div>
+      <div class="tag-row" style="margin-top:12px">
+        <span class="tag">Figma</span><span class="tag">Maze</span><span class="tag">Pendo</span><span class="tag">Qualtrics</span>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Customs</p>
+      <h2>Journey / problem rails</h2>
+      <p class="sub">Horizontal steps with side arrows. Number badges — dots hidden site-wide on these carousels.</p>
+      <div class="hx-rail">
+        <div class="step"><div class="n">01</div><h3>Field</h3><p>Gate dual-device capture.</p></div>
+        <div class="step"><div class="n">02</div><h3>Analog</h3><p>50+ processes on paper.</p></div>
+        <div class="step"><div class="n">03</div><h3>Digital</h3><p>Shared queue at the border.</p></div>
+        <div class="step"><div class="n">04</div><h3>Loop</h3><p>Evidence back into design.</p></div>
+      </div>
+      <div class="dual-device" aria-hidden="true">
+        <div class="ph"></div>
+        <div class="win"></div>
+      </div>
+      <p class="note">Dual-device graphic = phone + window at the gate (case motif).</p>
+    </section>
+    <section class="sec">
+      <p class="lvl">DollarCity</p>
+      <h2>Ops tags + player</h2>
+      <p class="sub">Investigation prototype in dollarcity-player · tags for roles / outcomes.</p>
+      <div class="tag-row">
+        <span class="tag">Loss prevention</span>
+        <span class="tag ghost">Store ops</span>
+        <span class="tag ghost">Video review</span>
+        <span class="tag">Decision loop</span>
+      </div>
+      <div class="num-carousel" style="margin-top:14px" id="numCar">
+        <button type="button" class="on">1</button>
+        <button type="button">2</button>
+        <button type="button">3</button>
+        <button type="button">4</button>
+      </div>
+      <p class="note">Number controls replace decorative dots. Click to select.</p>
+    </section>
+    <section class="sec">
+      <p class="lvl">Shared case chrome</p>
+      <h2>Stack + accents</h2>
+      <div class="grid g2">
+        <div class="card"><h3>Accent pairs</h3><p>Chek #7a3be0 → light #6b2fc7 · Customs #4a9eff → #1a6fd4 · DC green → darker light pair</p></div>
+        <div class="card"><h3>Non-prototype motion</h3><p>Rails, metric autoplay, hero loops — slower intervals (≥8s). No extra pagination dots.</p></div>
+      </div>
+    </section>
   </div>
-</section>
 
-<section id="map">
-  <p class="level">Map</p>
-  <h2>Where each pattern lives</h2>
-  <pre class="code">Nav shell .......... every page
-Player chrome ...... skill modals · EY stages · BC demo
-Player rules ....... #player-rules (scale · chips · embed · BC mobile)
-Typewriter→device .. same three places
-Stack icochips ..... home about · case heroes · projects cards
-Project pcard ...... home · projects.html
-Metric reel ........ case heroes · projects cards (EY/BC)
-Section boxes ...... case narratives
-Unique ............. accent color · graphic engine · copy</pre>
-</section>
+  <!-- PLAYERS -->
+  <div class="panel" id="tab-player" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Motors</p>
+      <h2>Two engines, one contract</h2>
+      <p class="sub">Reusable shell + experience plugin. Not a slideshow.</p>
+      <div class="motor">
+        <div class="card"><b>Window · web</b><h3>560 × 410 unit</h3><p>Skills + EY PI. Uniform scale = frameW / 560. Border always visible. postMessage height to host.</p></div>
+        <div class="card"><b>Phone · mobile</b><h3>9 / 19.5 fitPhone</h3><p>Blockchains (+ future). Scale into host, pad ~0.9, never hide side UI.</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Live unit</p>
+      <h2>Browser window</h2>
+      <p class="sub">Pills outside · chrome inside · arrows mid · caption bottom.</p>
+      <div class="pills" style="margin-bottom:10px;justify-content:center">
+        <span class="pill">01</span><span class="pill on">02<span class="nm">Analyze</span></span><span class="pill">03</span>
+      </div>
+      <div class="unit" id="demoUnit">
+        <div class="unit-top"><span>02 Analyze</span><span>⏸ ↻</span></div>
+        <div class="unit-mid"><b>Interactive product showcase</b><span>scale uniform · never crop accent border</span></div>
+        <div class="unit-cap">Caption / blur bar — stage language</div>
+        <div class="unit-arrows"><i>‹</i><i>›</i></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Phone</p>
+      <h2>Mobile frame</h2>
+      <div class="phone" aria-hidden="true"></div>
+      <div class="code" style="margin-top:12px"><b>Architecture</b>
+shell (chrome + stage + controls)
+  + plugin (BEATS / applyAction / case UI)
 
-
-
-<section id="hero">
-  <p class="level">Organism</p>
-  <h2>Hero pattern</h2>
-  <p class="sub">Eyebrow · title · lede · optional metric reel · stack icochips. Same on cases; home bio is a sibling pattern.</p>
-  <div class="box" style="padding:20px;border:1px solid var(--border);border-radius:16px;background:var(--bg-surface)">
-    <div class="eyebrow">Case study</div>
-    <div style="font-weight:800;font-size:1.5rem;letter-spacing:-.03em;margin:6px 0 8px">Title</div>
-    <p style="color:var(--muted);font-size:15px;margin-bottom:12px">Lede stays readable — clamp body size.</p>
-    <div class="reel" style="overflow:hidden;margin-bottom:12px"><div class="reel-track" style="display:flex;gap:8px;width:max-content;animation:reel 16s linear infinite">
-      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>90+</b> Assets</span>
-      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>3D</b> City</span>
-      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>90+</b> Assets</span>
-      <span class="chip" style="padding:8px 12px;border-radius:12px;border:1px solid var(--border);font-family:var(--font-mono);font-size:11px"><b>3D</b> City</span>
-    </div></div>
-    <p style="font-family:var(--font-mono);font-size:11px;color:var(--dim)">+ icochip stack row under hero</p>
+<b>Embed</b> ?embed=1 → transparent host, no double frame
+<b>Light</b> chrome adapts · product mocks stay dark
+<b>Timing</b> slower holds · typewriter paced · no race</div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Animation</p>
+      <h2>What drives beats</h2>
+      <div class="grid g2">
+        <div class="card"><h3>State machine</h3><p>idle → typing → holding → device → next. runId guards stale timeouts. prefers-reduced-motion respected.</p></div>
+        <div class="card"><h3>CSS + timers</h3><p>No heavy engine. after()/setTimeout sequences, CSS transitions, occasional canvas/WebGL only in Blockchains 3D.</p></div>
+      </div>
+    </section>
   </div>
-</section>
 
-<section id="icons">
-  <p class="level">Atoms · motion</p>
-  <h2>Animated icons</h2>
-  <p class="sub">Skills and EY problem rows share the same idea: rounded well + SVG that scales/rotates on hover or when the section is active. Stroke icons preferred for light/dark.</p>
-  <div class="skill-row" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))">
-    <div class="skill" style="pointer-events:auto"><div class="ic">◆</div><h3>Skill icon</h3><p>Tilt on card hover</p></div>
-    <div class="skill" style="pointer-events:auto"><div class="ic">●</div><h3>Problem icon</h3><p>Accent well, quiet pulse optional</p></div>
+  <!-- MOTION -->
+  <div class="panel" id="tab-motion" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Easing</p>
+      <h2>Motion tokens</h2>
+      <div class="code"><b>--ease-out-back</b> cubic-bezier(.34, 1.22, .64, 1)
+<b>--motion</b> .55s var(--ease-out-back)
+Project cards + skills cards share this family — never instant expand.</div>
+      <div class="btn-row" style="margin-top:14px">
+        <button type="button" class="btn" id="pulseBtn">Pulse a card</button>
+      </div>
+      <div class="grid g3" style="margin-top:12px">
+        <div class="card" id="pulseCard"><h3>Target</h3><p>Watch the stretch + bounce.</p></div>
+        <div class="card"><h3>Reduced motion</h3><p>transform: none when preferred.</p></div>
+        <div class="card"><h3>Players</h3><p>Slower beat holds · readable typewriter.</p></div>
+      </div>
+    </section>
   </div>
-</section>
 
-<section id="about">
-  <p class="level">Organism · home</p>
-  <h2>About me (home)</h2>
-  <p class="sub">Story + photos + stack. Stack must use <strong>icochips</strong>, same as case heroes — not a separate chip system.</p>
-  <pre class="code">About blocks:
-- Name / role line
-- Story paragraphs
-- Photo grid (existing assets)
-- Stack groups → .stack-row .icochip (Figma, Pendo, …)
-- Optional tool list from same atom</pre>
-</section>
-
-<section id="buttons">
-  <p class="level">Atoms</p>
-  <h2>Button inventory</h2>
-  <p class="sub">All actionable types used across the site.</p>
-  <div class="btn-row">
-    <button type="button" class="btn">Default</button>
-    <button type="button" class="btn on">Selected</button>
-    <button type="button" class="btn primary">Primary</button>
-    <button type="button" class="player-btn" aria-label="Demo"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+  <!-- A11Y -->
+  <div class="panel" id="tab-a11y" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">WCAG AA</p>
+      <h2>Contrast</h2>
+      <p class="sub">Text 4.5:1 · large/UI 3:1. Bright accents fail on light until darkened.</p>
+      <div class="contrast">
+        <div class="box ok-d">Yellow on dark — OK<div class="meta">#f5d100 on #0e0d0c · ~13:1</div></div>
+        <div class="box bad-l">Yellow on light — FAIL<div class="meta">#f5d100 on #f5f5f0 · 1.37:1</div></div>
+        <div class="box ok-l">Coral light pair — OK<div class="meta">#a84928 on #f7f5f2 · 5.26:1</div></div>
+        <div class="box ok-d">White on product UI — OK<div class="meta">Mocks stay dark in both themes</div></div>
+      </div>
+    </section>
   </div>
-  <pre class="code">default | primary | selected(on) | player circle | nav link | invite CTA
-Selected = inset ring. Player = icon circle. No emoji in production controls (use SVG).</pre>
-</section>
 
-<section id="states">
-  <p class="level">States</p>
-  <h2>Hover / focus / active matrix</h2>
-  <p class="sub">Every card and chip type identified in the portfolio.</p>
-  <table class="state-table">
-    <thead><tr><th>Component</th><th>Default</th><th>Hover</th><th>Focus-visible</th><th>Active / On</th></tr></thead>
-    <tbody>
-      <tr><td>Skill card</td><td>Border soft, flat</td><td>Lift -5px, accent border, icon tilt</td><td>2px accent outline</td><td>Same as hover + pressed scale .99</td></tr>
-      <tr><td>Project pcard</td><td>Accent fill, graphic</td><td>Lift -5px, deeper shadow</td><td>Outline accent</td><td>Scale .99</td></tr>
-      <tr><td>Contact invite</td><td>Surface + logo</td><td>Lift, glow, arrow slide</td><td>Outline</td><td>Scale .99</td></tr>
-      <tr><td>Player chip</td><td>Muted mono pill</td><td>Border accent</td><td>Outline</td><td>on: fill tint + scale 1.04</td></tr>
-      <tr><td>Stack icochip</td><td>30–34px mark</td><td>Tilt SVG + tooltip name</td><td>Outline + tooltip</td><td>SVG scale .94</td></tr>
-      <tr><td>Player control</td><td>Circle button</td><td>Scale 1.06</td><td>Outline</td><td>Scale .92</td></tr>
-      <tr><td>Section box</td><td>Surface</td><td>Border slightly brighter</td><td>—</td><td>—</td></tr>
-      <tr><td>Nav link</td><td>Dim uppercase</td><td>Text primary</td><td>Outline</td><td>active: primary</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section id="a11y">
-  <p class="level">WCAG 2.2 · target AA</p>
-  <h2>Accessibility checklist</h2>
-  <p class="sub">Validated against patterns we ship — not a full audit tool run, but the rules we enforce.</p>
-  <table class="a11y-table">
-    <thead><tr><th>Criterion</th><th>Status</th><th>How we meet it</th></tr></thead>
-    <tbody>
-      <tr><td>1.4.3 Contrast (text)</td><td class="ok">Pass target</td><td>Body clamp ≥16px; muted not used for critical actions; accent on dark checked for large text</td></tr>
-      <tr><td>1.4.11 Non-text contrast</td><td class="ok">Pass target</td><td>Borders ≥3:1 vs surface; selected chips use inset ring + color</td></tr>
-      <tr><td>2.1.1 Keyboard</td><td class="ok">Pass target</td><td>Player, chips, icochips, skills are buttons; focus-visible rings</td></tr>
-      <tr><td>2.4.7 Focus visible</td><td class="ok">Pass target</td><td>2px accent outline offset 2px on interactive atoms</td></tr>
-      <tr><td>2.3.3 Animation from interactions</td><td class="warn">Partial</td><td>Prefer transform/opacity; respect prefers-reduced-motion next pass on Chek</td></tr>
-      <tr><td>4.1.2 Name role value</td><td class="ok">Pass target</td><td>aria-label on icon-only controls; icochip names in tooltip + aria-label</td></tr>
-      <tr><td>1.4.4 Resize text</td><td class="ok">Pass target</td><td>clamp() type; layouts flex/grid</td></tr>
-    </tbody>
-  </table>
-  <pre class="code">@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}</pre>
-</section>
-
-<section id="rules">
-  <p class="level">Governance</p>
-  <h2>Consistency rules</h2>
-  <div class="rules">
-    <div class="rule do"><h3>One player</h3><p>Skills, EY, Blockchains share prev/next/play/chips and text→device order.</p></div>
-    <div class="rule do"><h3>Stack = logos</h3><p>Brand tools always icochip; never mono-only for Figma/Pendo/Unity…</p></div>
-    <div class="rule dont"><h3>No parallel kits</h3><p>Chek must not invent new modal chrome or card physics.</p></div>
-    <div class="rule do"><h3>Unique safely</h3><p>Only accent, case graphic, and narrative content diverge.</p></div>
+  <!-- RULES -->
+  <div class="panel" id="tab-rules" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Canon</p>
+      <h2>Consistency rules</h2>
+      <div class="grid g2">
+        <div class="card"><h3>1 · Shell</h3><p>--max 920 · --pad · site-nav · theme on every page</p></div>
+        <div class="card"><h3>2 · Players</h3><p>Same unit/phone contract · only plugin changes</p></div>
+        <div class="card"><h3>3 · Accents</h3><p>Local color only · always define light pair ≥3:1 UI</p></div>
+        <div class="card"><h3>4 · Type</h3><p>Shared H1/H2 clamps · no one-off heroes</p></div>
+        <div class="card"><h3>5 · Motion</h3><p>Skills card = reference for project cards</p></div>
+        <div class="card"><h3>6 · Width</h3><p>No 960 · no double pad · no nested narrower column</p></div>
+      </div>
+    </section>
   </div>
-</section>
 </main>
-<footer class="foot"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="contact.html">Contact</a></footer>
 
 <script>
 (function(){
-  var r=document.documentElement,b=document.getElementById('themeToggle');
-  function a(t){r.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}}
-  var s=null;try{s=localStorage.getItem('theme')}catch(e){}
-  a(s==='light'?'light':'dark');
-  if(b)b.onclick=function(){a(r.getAttribute('data-theme')==='dark'?'light':'dark')};
-  var h=document.getElementById('ham'),m=document.getElementById('mobile');
-  if(h&&m)h.onclick=function(){m.classList.toggle('open')};
-
-  /* —— Player state machine ——
-     idle → typing → holding → device → (auto) next | stop
-     Guards: ignore double-run, clear all timers, respect reduced motion */
-  var beats=[
-    {title:'Measure',kicker:'Product intelligence',text:'Instrument features and close the loop.',sub:'Reports · funnels · properties'},
-    {title:'Analyze',kicker:'Journey',text:'Follow the drop-off to the broken field.',sub:'Catalog → item → form'},
-    {title:'Design',kicker:'Intervention',text:'Ship the fix with the same player chrome.',sub:'UI reenacted, not screenshots only'}
-  ];
-  var bi=0, playing=false, phase='idle', timers=[], typeTimer=null, runId=0;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var flow=document.getElementById('plFlow');
-  if(flow){
-    flow.innerHTML='';
-    beats.forEach(function(bt,i){
-      var c=document.createElement('button');
-      c.type='button'; c.className='player-chip'+(i===0?' on':'');
-      c.setAttribute('aria-pressed', i===0?'true':'false');
-      c.textContent='0'+(i+1)+' '+bt.title;
-      c.onclick=function(){ go(i,{manual:true}); };
-      flow.appendChild(c);
+  var tabs = document.querySelectorAll('.tabs button');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabs.forEach(function(b){ b.classList.remove('on'); b.setAttribute('aria-selected','false'); });
+      panels.forEach(function(p){ p.classList.remove('on'); });
+      btn.classList.add('on'); btn.setAttribute('aria-selected','true');
+      var id = 'tab-' + btn.getAttribute('data-tab');
+      var pan = document.getElementById(id);
+      if(pan) pan.classList.add('on');
     });
-  }
-  function clearAll(){
-    timers.forEach(clearTimeout); timers=[];
-    if(typeTimer){ clearTimeout(typeTimer); typeTimer=null; }
-  }
-  function later(fn, ms){
-    if(reduce) ms=Math.min(ms, 40);
-    var id=setTimeout(fn, ms); timers.push(id); return id;
-  }
-  function setPhase(p){ phase=p; }
-  function typeText(str, done){
-    var el=document.getElementById('plBody');
-    if(!el){ if(done) done(); return; }
-    if(reduce){ el.textContent=str; if(done) done(); return; }
-    el.textContent='';
-    var i=0;
-    (function tick(){
-      if(phase!=='typing') return;
-      if(i<=str.length){
-        el.textContent=str.slice(0,i++);
-        typeTimer=setTimeout(tick, 16);
-      } else if(done) done();
-    })();
-  }
-  function scrollChipIntoRow(i){
-    var chip=flow && flow.children[i];
-    if(!chip || !flow) return;
-    var left=chip.offsetLeft - (flow.clientWidth - chip.clientWidth)/2;
-    flow.scrollTo({left:Math.max(0,left), behavior: reduce?'auto':'smooth'});
-  }
-  function go(i, opts){
-    opts=opts||{};
-    if(i<0 || i>=beats.length) return;
-    var id=++runId;
-    bi=i; clearAll(); setPhase('typing');
-    var st=beats[i];
-    var lab=document.getElementById('plLabel');
-    var title=document.getElementById('plTitle');
-    if(lab) lab.textContent='0'+(i+1);
-    if(title) title.textContent=st.title;
-    var prev=document.getElementById('plPrev'), next=document.getElementById('plNext');
-    if(prev) prev.disabled=i===0;
-    if(next) next.disabled=i===beats.length-1;
-    if(flow)[].forEach.call(flow.children,function(c,j){
-      c.classList.toggle('on', j===i);
-      c.setAttribute('aria-pressed', j===i?'true':'false');
-    });
-    scrollChipIntoRow(i);
-    document.querySelectorAll('#skills .skill').forEach(function(sk){
-      sk.classList.toggle('on', +sk.dataset.i===i);
-    });
-    var text=document.getElementById('plText');
-    var device=document.getElementById('plDevice');
-    var kicker=document.getElementById('plKicker');
-    var sub=document.getElementById('plSub');
-    if(text) text.classList.remove('hide');
-    if(device) device.classList.remove('show');
-    if(kicker){ kicker.classList.remove('on'); kicker.textContent=st.kicker; }
-    if(sub) sub.classList.remove('on');
-    later(function(){
-      if(id!==runId) return;
-      if(kicker) kicker.classList.add('on');
-    }, 40);
-    typeText(st.text, function(){
-      if(id!==runId) return;
-      setPhase('holding');
-      if(sub){ sub.textContent=st.sub; sub.classList.add('on'); }
-      later(function(){
-        if(id!==runId) return;
-        setPhase('device');
-        if(text) text.classList.add('hide');
-        if(device) device.classList.add('show');
-        if(playing && !opts.manual){
-          later(function(){
-            if(id!==runId || !playing) return;
-            go((bi+1) % beats.length, {manual:false});
-          }, reduce ? 600 : 3000);
-        } else {
-          setPhase('idle');
-        }
-      }, reduce ? 80 : 650);
-    });
-  }
-  var plPrev=document.getElementById('plPrev');
-  var plNext=document.getElementById('plNext');
-  var plPlay=document.getElementById('plPlay');
-  if(plPrev) plPrev.onclick=function(){ if(bi>0) go(bi-1,{manual:true}); };
-  if(plNext) plNext.onclick=function(){ if(bi<beats.length-1) go(bi+1,{manual:true}); };
-  if(plPlay) plPlay.onclick=function(){
-    playing=!playing;
-    this.textContent=playing?'pause':'play';
-    this.setAttribute('aria-pressed', playing?'true':'false');
-    if(playing) go(bi,{manual:false});
-    else { clearAll(); setPhase('idle'); }
-  };
-  document.querySelectorAll('#skills .skill').forEach(function(sk){
-    sk.onclick=function(){ go(+sk.dataset.i,{manual:true}); };
   });
-  go(0,{manual:true});
-})();
-</script>
-
-
-<script>
-(function(){
-  var root=document.documentElement;
-  var btn=document.getElementById('themeToggle');
-  function apply(t){ root.setAttribute('data-theme',t); try{localStorage.setItem('theme',t)}catch(e){} }
-  var s=null; try{s=localStorage.getItem('theme')}catch(e){}
-  apply(s==='light'?'light':'dark');
-  if(btn) btn.addEventListener('click',function(){ apply(root.getAttribute('data-theme')==='dark'?'light':'dark'); });
-  var drop=document.getElementById('topNavDropToggle');
-  if(drop){
-    drop.addEventListener('click',function(e){
-      e.stopPropagation();
-      var open=drop.getAttribute('aria-expanded')==='true';
-      drop.setAttribute('aria-expanded', open?'false':'true');
-    });
-    document.addEventListener('click',function(e){
-      if(drop.parentElement && !drop.parentElement.contains(e.target))
-        drop.setAttribute('aria-expanded','false');
+  var pills = document.getElementById('demoPills');
+  if(pills){
+    pills.addEventListener('click', function(e){
+      var p = e.target.closest('.pill'); if(!p) return;
+      pills.querySelectorAll('.pill').forEach(function(x){ x.classList.remove('on'); });
+      p.classList.add('on');
     });
   }
-  var ham=document.getElementById('topNavHamburger');
-  var mob=document.getElementById('topNavMobile');
-  var close=document.getElementById('topNavMobileClose');
-  function openM(){ if(!mob) return; mob.classList.add('on'); mob.setAttribute('aria-hidden','false'); }
-  function closeM(){ if(!mob) return; mob.classList.remove('on'); mob.setAttribute('aria-hidden','true'); }
-  if(ham) ham.addEventListener('click',openM);
-  if(close) close.addEventListener('click',closeM);
-})();
-</script>
-
-
-<script>
-(function(){
-  /* Dropdown: click toggles sticky open; hover still works via CSS */
-  var drop=document.getElementById('topNavDropToggle');
-  var menu=document.getElementById('topNavDropMenu');
-  if(drop){
-    drop.addEventListener('click',function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      var open=drop.getAttribute('aria-expanded')==='true';
-      drop.setAttribute('aria-expanded', open?'false':'true');
-    });
-    document.addEventListener('click',function(e){
-      if(!drop.parentElement) return;
-      if(!drop.parentElement.contains(e.target))
-        drop.setAttribute('aria-expanded','false');
+  var pulseBtn = document.getElementById('pulseBtn');
+  var pulseCard = document.getElementById('pulseCard');
+  if(pulseBtn && pulseCard){
+    pulseBtn.addEventListener('click', function(){
+      pulseCard.style.transition = 'transform .55s cubic-bezier(.34,1.22,.64,1)';
+      pulseCard.style.transform = 'scale(1.06) translateY(-4px)';
+      setTimeout(function(){ pulseCard.style.transform = ''; }, 600);
     });
   }
 })();
 </script>
-
-
-<script>
-(function(){
-  var root=document.documentElement;
-  function apply(t){
-    if(t!=='light' && t!=='dark') t='dark';
-    root.setAttribute('data-theme', t);
-    try{ localStorage.setItem('theme', t); }catch(e){}
-    var btn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
-    if(btn) btn.setAttribute('aria-label', t==='light'?'Switch to dark mode':'Switch to light mode');
-  }
-  var s=null; try{ s=localStorage.getItem('theme'); }catch(e){}
-  apply(s==='light'?'light':'dark');
-  var btn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
-  if(btn){
-    btn.onclick=function(e){
-      e.preventDefault();
-      apply(root.getAttribute('data-theme')==='dark'?'light':'dark');
-    };
-  }
-})();
-</script>
-
-
-<script>
-/* CANONICAL_NAV */
-(function(){
-  var root=document.documentElement;
-  function applyTheme(t){
-    if(t!=='light'&&t!=='dark') t='dark';
-    root.setAttribute('data-theme', t);
-    try{ localStorage.setItem('theme', t); }catch(e){}
-  }
-  try{ applyTheme(localStorage.getItem('theme')==='light'?'light':'dark'); }catch(e){ applyTheme('dark'); }
-  var themeBtn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
-  if(themeBtn){
-    themeBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');
-    });
-  }
-  var drop=document.getElementById('topNavDropToggle');
-  function closeDrop(){ if(drop) drop.setAttribute('aria-expanded','false'); }
-  if(drop){
-    drop.addEventListener('click', function(e){
-      e.preventDefault(); e.stopPropagation();
-      var open=drop.getAttribute('aria-expanded')==='true';
-      drop.setAttribute('aria-expanded', open?'false':'true');
-    });
-    document.addEventListener('click', function(e){
-      if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
-    });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDrop(); });
-    window.addEventListener('scroll', closeDrop, {passive:true});
-  }
-  var hamburger=document.getElementById('topNavHamburger');
-  var mobile=document.getElementById('topNavMobile');
-  var closeBtn=document.getElementById('topNavMobileClose');
-  function openM(){
-    if(!mobile) return;
-    mobile.classList.add('on');
-    mobile.setAttribute('aria-hidden','false');
-    if(hamburger) hamburger.setAttribute('aria-expanded','true');
-    document.body.classList.add('nav-open');
-  }
-  function closeM(){
-    if(!mobile) return;
-    mobile.classList.remove('on');
-    mobile.setAttribute('aria-hidden','true');
-    if(hamburger) hamburger.setAttribute('aria-expanded','false');
-    document.body.classList.remove('nav-open');
-  }
-  if(hamburger) hamburger.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
-  if(closeBtn) closeBtn.addEventListener('click', closeM);
-  if(mobile) mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && mobile && mobile.classList.contains('on')) closeM(); });
-})();
-</script>
-
-
-<section class="wrap" id="ds-viewport" style="padding:56px 0 32px;max-width:920px;margin:0 auto">
-  <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.55">System · Viewport</p>
-  <h2 style="margin:8px 0 12px;font-size:1.5rem">Stages, aspect locks, 3D</h2>
-  <div style="display:grid;gap:14px;max-width:40rem;line-height:1.55;opacity:.88;font-size:14px">
-    <p><b>Height budget first.</b> Stages use <code>--stage-h: min(520px, 100vh - 220px)</code> so short notebook viewports shrink the surface instead of clipping UI.</p>
-    <p><b>Aspect locks.</b> Phone mocks stay <code>9 / 19.5</code>; web frames <code>16 / 10</code>. Scale with <code>max-height/max-width</code> — never stretch.</p>
-    <p><b>Container queries.</b> Hosts declare <code>container-type: size</code> so children adapt to the stage box, not only the viewport.</p>
-    <p><b>Three.js.</b> <code>setPixelRatio(min(dpr, 1.75–2))</code>, antialias on, resize re-applies DPR. Mini map cards use the same path at 1.75.</p>
-    <p><b>Device policy.</b> Mobile demos stay mobile chrome; web stays web. Do not auto-swap layouts mid-animation.</p>
-  </div>
-</section>
-
-
-<script>
-/* NAV: hide on scroll down, show on scroll up — never covers modals */
-(function(){
-  var nav = document.getElementById('topNav') || document.querySelector('.top-nav');
-  if(!nav) return;
-  var last = window.scrollY || 0;
-  var acc = 0;
-  window.addEventListener('scroll', function(){
-    // if skill modal open, keep nav hidden
-    var modalOpen = document.querySelector('.stagezone.open, #stageZone.open');
-    if(modalOpen){
-      nav.classList.add('nav-hidden');
-      return;
-    }
-    var y = window.scrollY || 0;
-    var dy = y - last;
-    if(y < 40){ nav.classList.remove('nav-hidden'); last = y; return; }
-    if(dy > 6) nav.classList.add('nav-hidden');
-    else if(dy < -6) nav.classList.remove('nav-hidden');
-    last = y;
-  }, {passive:true});
-})();
-</script>
-
-
-<section id="fw-player" class="sec" style="max-width:920px;margin:40px auto;padding:0 20px 60px;color:inherit">
-  <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6">Framework</p>
-  <h2 style="font-size:1.5rem;margin:8px 0">Stage language (v4.1)</h2>
-  <p style="opacity:.75;max-width:36rem;line-height:1.5">One law for Home skill modals, EY Product Intelligence, Blockchains Demo and Process, and every future case player.</p>
-  <ul style="line-height:1.6;opacity:.85">
-    <li><b>Measure</b> — content max 920px (Blockchains is the reference).</li>
-    <li><b>Player</b> — chrome ~30% + one stage; mobile stacks with explicit stage height.</li>
-    <li><b>Beats</b> — narrative owns full stage → UI appears as a window → caption is gradient/blur only.</li>
-    <li><b>Fit</b> — scale mock so ~90% of UI components stay visible (no crop, not transparency).</li>
-    <li><b>Phone</b> — aspect-ratio 9/19.5; size from host; entire device visible.</li>
-  </ul>
-  <p style="font-size:12px;opacity:.55">See <code>docs/FRAMEWORK-v4.md</code> and <code>framework-playground.html</code>.</p>
-</section>
-
-
-<script>
-/* Framework v4.1 — shared fit for PI / skills / phone */
-(function(){
-  function fit(host, root, dw, dh, pad){
-    if(!host || !root) return 1;
-    pad = pad == null ? 0.1 : pad;
-    var s = Math.min(
-      (Math.max(host.clientWidth,1) * (1-pad)) / dw,
-      (Math.max(host.clientHeight,1) * (1-pad)) / dh
-    );
-    if(!isFinite(s) || s <= 0) s = 0.2;
-    s = Math.min(Math.max(s, 0.12), 1.05);
-    root.style.setProperty('--fit-s', String(s));
-    return s;
-  }
-  function fitMocks(){
-    var stage = document.getElementById('stage');
-    if(stage){
-      stage.querySelectorAll('.slide:not(.textslide)').forEach(function(slide){
-        var child = slide.firstElementChild;
-        if(!child) return;
-        fit(slide, child, parseFloat(child.getAttribute('data-dw')||560), parseFloat(child.getAttribute('data-dh')||300), 0.12);
-      });
-    }
-    document.querySelectorAll('.stage-panel #stage, .stagezone #stage, [data-fit-host]').forEach(function(host){
-      var root = host.querySelector('[data-fit-root], .stage-window, #win, .ui-frame');
-      if(!root) return;
-      fit(host, root, parseFloat(root.getAttribute('data-dw')||640), parseFloat(root.getAttribute('data-dh')||360), 0.1);
-    });
-  }
-  function fitPhone(){
-    var host = document.getElementById('demoStage');
-    var phone = document.getElementById('phone');
-    if(!host || !phone) return;
-    var aw = host.clientWidth * 0.9, ah = host.clientHeight * 0.9;
-    if(aw < 40 || ah < 40) return;
-    var r = 9/19.5, h = ah, w = h * r;
-    if(w > aw){ w = aw; h = w / r; }
-    phone.style.width = Math.floor(w)+'px';
-    phone.style.height = Math.floor(h)+'px';
-    phone.style.maxWidth = 'none';
-    phone.style.maxHeight = 'none';
-    phone.style.transform = 'none';
-  }
-  function syncPhone(){
-    var host = document.getElementById('demoStage');
-    var text = document.getElementById('textPhase');
-    if(host && text){
-      var show = text.classList.contains('hide');
-      host.classList.toggle('show-device', show);
-      var layer = host.querySelector('.device-layer');
-      if(layer){
-        layer.style.opacity = show ? '1' : '0';
-        layer.style.visibility = show ? 'visible' : 'hidden';
-      }
-    }
-    fitPhone();
-  }
-  function all(){ fitMocks(); syncPhone(); }
-  window.__fwFit = all;
-  window.addEventListener('resize', all);
-  if(window.ResizeObserver){
-    ['stage','demoStage'].forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) try{ new ResizeObserver(all).observe(el); }catch(e){}
-    });
-  }
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(all, 40); });
-  [40,200,600,1500].forEach(function(t){ setTimeout(all, t); });
-  setInterval(all, 1500);
-})();
-</script>
-
-
-
-
-
 <script id="site-nav-component-js">
 (function(){
   if(window.__siteNavBound) return;
@@ -3181,6 +903,5 @@ Selected = inset ring. Player = icon circle. No emoji in production controls (us
   else bind();
 })();
 </script>
-
 </body>
 </html>
