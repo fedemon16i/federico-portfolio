@@ -1339,23 +1339,9 @@ html, body {
 }
 
 /* Mock shells — site surface + stronger border for AA UI */
-.unit[data-player-theme="light"] .app,
-.unit[data-player-theme="light"] .shop,
-.unit[data-player-theme="light"] .fab,
-.unit[data-player-theme="light"] .hub {
-  background: #fff !important;
-  border: 1px solid rgba(0,0,0,.14) !important;
-  color: #1a1917 !important;
-  box-shadow: 0 4px 18px rgba(0,0,0,.06);
-}
+.unit[data-player-theme="light"] /* neutralized: do not force dark text on product .app */
 .unit[data-player-theme="light"] .wchrome,
-.unit[data-player-theme="light"] .app-nav,
-.unit[data-player-theme="light"] .fab-nav,
-.unit[data-player-theme="light"] .shop-nav {
-  background: #eeece7 !important;
-  border-color: rgba(0,0,0,.12) !important;
-  color: #55524c !important;
-}
+.unit[data-player-theme="light"] /* neutralized: app-nav keeps product colors */
 .unit[data-player-theme="light"] .wchrome .title { color: #1a1917 !important; }
 
 /* Cards / cells */
@@ -1384,12 +1370,7 @@ html, body {
 .unit[data-player-theme="light"] .metric .v { color: #1a1917 !important; }
 
 .unit[data-player-theme="light"] .hub-side,
-.unit[data-player-theme="light"] .cat-side,
-.unit[data-player-theme="light"] .wb-right {
-  background: #f0eeea !important;
-  border-color: rgba(0,0,0,.12) !important;
-  color: #1a1917 !important;
-}
+.unit[data-player-theme="light"] /* neutralized: cat-side stays dark product */
 .unit[data-player-theme="light"] .hub-side a { color: #55524c !important; }
 .unit[data-player-theme="light"] .hub-side a.on {
   color: var(--accent) !important;
@@ -1486,12 +1467,7 @@ html, body {
   text-shadow: none !important;
   opacity: 1 !important;
 }
-.unit[data-player-theme="light"] .win .app,
-.unit[data-player-theme="light"] .win .shop,
-.unit[data-player-theme="light"] .win .fab,
-.unit[data-player-theme="light"] .win .hub {
-  color: #1a1917 !important;
-}
+.unit[data-player-theme="light"] .win /* neutralized: do not force dark text on product .app */
 .unit[data-player-theme="light"] .chrome-prog,
 .unit[data-player-theme="light"] .bar-row .track {
   background: rgba(0,0,0,.14) !important;
@@ -1553,11 +1529,7 @@ html, body {
 .unit[data-player-theme="light"] .sub,
 .unit[data-player-theme="light"] .faint,
 .unit[data-player-theme="light"] .wchrome,
-.unit[data-player-theme="light"] .app-nav,
-.unit[data-player-theme="light"] .hub-side a {
-  color: #55524c !important;
-  -webkit-text-fill-color: #55524c !important;
-}
+.unit[data-player-theme="light"] /* neutralized: app-nav keeps product colors */
 .unit[data-player-theme="light"] .win .app,
 .unit[data-player-theme="light"] .win .shop,
 .unit[data-player-theme="light"] .win .fab,
@@ -1570,11 +1542,7 @@ html, body {
   border: 1px solid rgba(0,0,0,.16) !important;
 }
 .unit[data-player-theme="light"] .wchrome,
-.unit[data-player-theme="light"] .app-nav,
-.unit[data-player-theme="light"] .fab-nav {
-  background: #eeece7 !important;
-  border-color: rgba(0,0,0,.14) !important;
-}
+.unit[data-player-theme="light"] /* neutralized: fab-nav stays in product theme */
 .unit[data-player-theme="light"] .bar-row .track,
 .unit[data-player-theme="light"] .chrome-prog {
   background: rgba(0,0,0,.14) !important;
@@ -1986,6 +1954,94 @@ html.embed .unit, html.embed #unit{
   html.embed .page > .lead{ -webkit-line-clamp:1!important; }
 }
 
+
+/* DESIGN-TOKENS-LIGHT-MODE */
+
+[data-theme="light"]{
+  --accent:#a38b00;
+  --accent-dim:rgba(163,139,0,.12);
+  --on-accent:#fff;
+}
+
+
+/* ============================================================
+   BEAT READABILITY — product mocks stay dark; chrome follows theme
+   Light mode must NOT invert text inside .app / beat product UI
+   ============================================================ */
+.win .app,
+.win .app *{
+  /* baseline: product UIs are dark-surface demos */
+}
+.win .app{
+  color: rgba(255,255,255,.88) !important;
+}
+.win .app .fab-topnav,
+.win .app .fab-nav,
+.win .app .app-nav{
+  color: rgba(255,255,255,.45) !important;
+  background: transparent !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+.win .app .fab-topnav .brand{ color: #fff !important; }
+.win .app .fab-hero h2,
+.win .app h2,
+.win .app h3,
+.win .app h4,
+.win .app .ft,
+.win .app .title{ color: rgba(255,255,255,.92) !important; }
+.win .app .fab-hero p,
+.win .app .fab-band p,
+.win .app .eyebrow,
+.win .app .sh,
+.win .app p,
+.win .app span:not([class*="chip"]):not([class*="tag"]):not([class*="n"]){
+  /* don't blanket-override colored chips */
+}
+.win .app .fab-hero .eyebrow,
+.win .app .eyebrow{ color: rgba(255,255,255,.45) !important; }
+.win .app .fab-hero p,
+.win .app .fab-band p{ color: rgba(255,255,255,.45) !important; }
+.win .app .cat-side{
+  background: #0c0c10 !important;
+  border-color: rgba(255,255,255,.07) !important;
+  color: rgba(255,255,255,.55) !important;
+}
+.win .app .cat-side a{ color: rgba(255,255,255,.4) !important; }
+.win .app .cat-side a.on{ color: var(--accent, #c9a227) !important; }
+.win .app .btn-sec{ color: rgba(255,255,255,.7) !important; border-color: rgba(255,255,255,.2) !important; }
+.win .app .btn-pri{ background: #fff !important; color: #111 !important; }
+
+/* Light mode: ONLY outer chrome (page, pills, caption, stage chrome) — not .win .app */
+[data-theme="light"] .page,
+[data-theme="light"] .kicker,
+[data-theme="light"] .lead,
+[data-theme="light"] h1{ color: var(--text, #1a1917); }
+[data-theme="light"] .cap{
+  color: var(--text, #1a1917) !important;
+  background: linear-gradient(to top, rgba(247,245,242,.98), rgba(247,245,242,.85), transparent) !important;
+}
+[data-theme="light"] .stage-chrome{
+  background: linear-gradient(to bottom, rgba(247,245,242,.92), rgba(247,245,242,.3), transparent) !important;
+}
+[data-theme="light"] .stage-chrome .beat-lab,
+[data-theme="light"] .stage-chrome .beat-lab .n{ color: #1a1917 !important; }
+[data-theme="light"] .tl button{ color: var(--muted, #55524c) !important; }
+[data-theme="light"] .tl button.on{ color: var(--text, #1a1917) !important; }
+
+/* Unit frame can be light grid; inner product stays dark */
+[data-theme="light"] .unit{
+  background-color: #e8e6e0 !important;
+  background-image:
+    linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px) !important;
+  background-size: 22px 22px !important;
+  border-color: rgba(0,0,0,.12) !important;
+}
+/* Never lighten product app shells in light mode */
+[data-theme="light"] .win .app{
+  color: rgba(255,255,255,.88) !important;
+}
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
@@ -2150,7 +2206,7 @@ html.embed .unit, html.embed #unit{
     p.style.left = x + 'px'; p.style.top = y + 'px';
     unit.appendChild(p);
     requestAnimationFrame(function(){ p.classList.add('fire'); });
-    after(480, function(){ if(p.parentNode) p.parentNode.removeChild(p); });
+    after(1020, function(){ if(p.parentNode) p.parentNode.removeChild(p); });
   }
   function clickCur(cursor, tool, cb){
     if (typeof tool === 'function'){ cb = tool; tool = null; }
@@ -2159,7 +2215,7 @@ html.embed .unit, html.embed #unit{
       spawnPulse(x, y);
       cursor.classList.add('click');
       if(tool) tool.classList.add('show');
-      after(160, function(){ cursor.classList.remove('click'); if(cb) cb(); });
+      after(380, function(){ cursor.classList.remove('click'); if(cb) cb(); });
     });
   }
   function typeTitle(node, html, cb){
@@ -2189,7 +2245,7 @@ html.embed .unit, html.embed #unit{
     var s=document.createElement('div'); s.className='slide text on';
     s.innerHTML='<div class="ts-big" id="ts"></div><div class="dock">'+chips+'</div>'; win.appendChild(s);
     typeTitle(document.getElementById('ts'), title, function(){
-      after(180, function(){ showCap(capMsg); after(T.pause, then); });
+      after(428, function(){ showCap(capMsg); after(T.pause, then); });
     });
   }
   function mount(html, capMsg){ win.innerHTML=''; hideCursors(); var s=document.createElement('div'); s.className='slide on'; s.innerHTML=html; win.appendChild(s); if(capMsg) showCap(capMsg); return s; }
@@ -2199,7 +2255,7 @@ html.embed .unit, html.embed #unit{
   function curOn(target, click, cb){
     if(!target){ if(cb) cb(); return; }
     place(c1, t1, target, 8, 8);
-    after(400, function(){
+    after(850, function(){
       if(click) clickCur(c1, t1, function(){ if(cb) cb(); });
       else if(cb) cb();
     });
@@ -2245,7 +2301,7 @@ function beatMeasure(done){
         ['nHome','ln0','nSvc','nForm','nWb','nRep','lnS','lnF','lnW','lnR','nItem','nRev','nLic','nFun'].forEach(function(id,i){
           after(i*90, function(){ var n=el(id); if(n) n.classList.add('on'); });
         });
-        after(1500, function(){
+        after(2550, function(){
           [0,1,2,3].forEach(function(i){
             after(i*140, function(){
               var a=el('ft'+i), b=el('ev'+i);
@@ -2253,7 +2309,7 @@ function beatMeasure(done){
               if(b) b.classList.add('on');
             });
           });
-          after(900, function(){ hideCursors(); after(400, done); });
+          after(1530, function(){ hideCursors(); after(850, done); });
         });
       }
     );
@@ -2279,14 +2335,14 @@ function beatMeasure(done){
           '</div>',
           'Users land on platform home.'
         );
-        after(180, function(){
+        after(428, function(){
           fromBottom(c1,t1,0); fromBottom(c2,t2,52); fromBottom(c3,t3,100);
-          after(280, function(){
+          after(595, function(){
             place(c1,t1,el('exploreCta'),8,6);
-            after(90, function(){ place(c2,t2,el('exploreCta'),22,12); });
-            after(170, function(){ place(c3,t3,el('exploreCta'),10,18); });
+            after(214, function(){ place(c2,t2,el('exploreCta'),22,12); });
+            after(404, function(){ place(c3,t3,el('exploreCta'),10,18); });
           });
-          after(780, function(){ clickCur(c1, t1, function(){
+          after(1326, function(){ clickCur(c1, t1, function(){
 
             /* 2 · CATALOG — category cards only (clear) */
             mount(
@@ -2317,18 +2373,18 @@ function beatMeasure(done){
               '</div>',
               'Category cards — select Services.'
             );
-            after(320, function(){
+            after(680, function(){
               fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,90);
-              after(220, function(){
+              after(523, function(){
                 place(c1,t1,el('catSvc'),8,8);
-                after(80, function(){ place(c2,t2,el('catSvc'),26,16); });
-                after(150, function(){ place(c3,t3,el('catSvc'),12,22); });
+                after(190, function(){ place(c2,t2,el('catSvc'),26,16); });
+                after(357, function(){ place(c3,t3,el('catSvc'),12,22); });
               });
-              after(720, function(){ clickCur(c1, t1, function(){
+              after(1224, function(){ clickCur(c1, t1, function(){
                 var card=el('catSvc'); if(card) card.classList.add('sel');
 
                 /* 3 · SERVICES list — Workbench is the target */
-                after(220, function(){
+                after(523, function(){
                   mount(
                     '<div class="app" style="background:#0a0a0e">'+
                       '<div class="fab-topnav"><span class="brand">◆ Platform</span><span>Marketplace</span><span class="ai">Services</span></div>'+
@@ -2356,18 +2412,18 @@ function beatMeasure(done){
                     'Services — open Workbench.'
                   );
                   [0,1,2,3].forEach(function(i){ after(i*55, function(){ var n=el('sv'+i); if(n) n.classList.add('on'); }); });
-                  after(350, function(){
+                  after(743, function(){
                     fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,90);
-                    after(220, function(){
+                    after(523, function(){
                       place(c1,t1,el('getStart'),4,3);
-                      after(80, function(){ place(c2,t2,el('sv3'),18,12); });
-                      after(150, function(){ place(c3,t3,el('getStart'),8,12); });
+                      after(190, function(){ place(c2,t2,el('sv3'),18,12); });
+                      after(357, function(){ place(c3,t3,el('getStart'),8,12); });
                     });
-                    after(780, function(){ clickCur(c1, t1, function(){
+                    after(1326, function(){ clickCur(c1, t1, function(){
                       var card=el('sv3'); if(card) card.classList.add('sel');
 
                       /* 4 · WORKBENCH form */
-                      after(220, function(){
+                      after(523, function(){
                         mount(
                           '<div class="app" style="background:#0a0a0e">'+
                             '<div class="fab-topnav"><span class="brand">◆ Platform</span><span>Marketplace</span><span class="ai">Workbench</span></div>'+
@@ -2390,25 +2446,25 @@ function beatMeasure(done){
                           '</div>',
                           'Form stalls on required service.'
                         );
-                        after(200, function(){
+                        after(475, function(){
                           fromBottom(c1,t1,0); fromBottom(c2,t2,50); fromBottom(c3,t3,95);
-                          after(260, function(){
+                          after(552, function(){
                             place(c1,t1,el('fName'),6,5);
-                            after(320, function(){
+                            after(680, function(){
                               var n=el('fName'); if(n){ n.textContent='Team workspace'; n.classList.remove('ph'); }
                               place(c1,t1,el('reqFld'),6,5);
-                              after(90, function(){ place(c2,t2,el('reqFld'),24,10); });
-                              after(170, function(){ place(c3,t3,el('reqFld'),10,16); });
+                              after(214, function(){ place(c2,t2,el('reqFld'),24,10); });
+                              after(404, function(){ place(c3,t3,el('reqFld'),10,16); });
                             });
                           });
-                          after(1100, function(){
+                          after(1870, function(){
                             var f=el('reqFld'); if(f) f.classList.add('bad');
                             var d=el('drop'); if(d) d.classList.add('on');
                             if(c1){ c1.style.opacity='0'; if(t1) t1.style.opacity='0'; }
                             if(c2){ c2.style.opacity='0'; if(t2) t2.style.opacity='0'; }
                             place(c3,t3,el('fContact'),8,5);
                             showCap('Users 1 &amp; 2 <em>drop</em> · user 3 stays.');
-                            after(800, function(){
+                            after(1360, function(){
 
                               /* 5 · FUNNEL */
                               mount(
@@ -2428,14 +2484,14 @@ function beatMeasure(done){
                               if(note) setTimeout(function(){ note.style.opacity='1'; }, 140);
                               var si=0;
                               (function grow(){
-                                if(si>4){ after(750, done); return; }
+                                if(si>4){ after(1275, done); return; }
                                 var n=el('fs'+si);
                                 if(n){
                                   n.classList.add('show');
                                   n.style.width=n.getAttribute('data-w');
                                   if(si===4) n.classList.add('dead');
                                 }
-                                si++; after(300, grow);
+                                si++; after(637, grow);
                               })();
                             });
                           });
@@ -2499,23 +2555,23 @@ function beatMeasure(done){
           after(i*240, function(){
             el('rc'+i) && el('rc'+i).classList.add('on');
             if(i===0){
-              after(160, function(){ el('q0') && el('q0').classList.add('on'); });
-              after(400, function(){ el('q0b') && el('q0b').classList.add('on'); });
+              after(380, function(){ el('q0') && el('q0').classList.add('on'); });
+              after(850, function(){ el('q0b') && el('q0b').classList.add('on'); });
             }
             if(i===1){
-              after(120, function(){
+              after(285, function(){
                 el('bn') && (el('bn').style.width='24%');
                 el('bc') && (el('bc').style.width='52%');
                 el('be') && (el('be').style.width='78%');
               });
-              after(320, function(){ el('q1') && el('q1').classList.add('on'); });
+              after(680, function(){ el('q1') && el('q1').classList.add('on'); });
             }
             if(i===2){
-              after(180, function(){
+              after(428, function(){
                 var d=el('rcur');
                 if(d){ d.style.left='58%'; d.style.top='55%'; }
               });
-              after(750, function(){
+              after(1275, function(){
                 el('rfind') && el('rfind').classList.add('on');
               });
             }
@@ -2530,7 +2586,7 @@ function beatMeasure(done){
           });
         });
         hideCursors();
-        after(2800, done);
+        after(4760, done);
       }
     );
   }
@@ -2567,11 +2623,11 @@ function beatMeasure(done){
         [0,1,2].forEach(function(i){
           after(i*200, function(){ el('pb'+i) && el('pb'+i).classList.add('on'); });
         });
-        after(750, function(){
+        after(1275, function(){
           [0,1,2,3].forEach(function(i){
             after(i*160, function(){ el('tk'+i) && el('tk'+i).classList.add('on'); });
           });
-          after(900, function(){ hideCursors(); after(350, done); });
+          after(1530, function(){ hideCursors(); after(743, done); });
         });
       }
     );
@@ -2627,33 +2683,33 @@ function beatMeasure(done){
           '</div></div></div>',
           'Proposal: onboarding checklist before the form.'
         );
-        after(350, function(){
+        after(743, function(){
           curOn(el('art'), true, function(){
-            after(250, function(){
+            after(531, function(){
               var mi=0;
               (function typeM(){
                 if(mi>3){
-                  after(400, function(){
+                  after(850, function(){
                     el('merge') && el('merge').classList.add('on');
-                    after(550, function(){
+                    after(1168, function(){
                       el('final') && el('final').classList.add('on');
                       showCap('Proposal: checklist <em>before</em> the form.');
                       [0,1,2].forEach(function(i){
                         after(i*280, function(){
                           var n=el('pl'+i); if(!n) return;
                           n.classList.add('on');
-                          after(180, function(){ n.classList.add('done'); });
+                          after(428, function(){ n.classList.add('done'); });
                         });
                       });
-                      after(1000, function(){ el('onbCta') && el('onbCta').classList.add('on'); });
+                      after(1700, function(){ el('onbCta') && el('onbCta').classList.add('on'); });
                       hideCursors();
-                      after(1500, done);
+                      after(2550, done);
                     });
                   });
                   return;
                 }
                 el('m'+mi) && el('m'+mi).classList.add('on');
-                mi++; after(320, typeM);
+                mi++; after(680, typeM);
               })();
             });
           });
@@ -2694,12 +2750,12 @@ function beatMeasure(done){
         [0,1,2,3].forEach(function(i){
           after(i*160, function(){ el('hm'+i) && el('hm'+i).classList.add('on'); });
         });
-        after(900, function(){
+        after(1530, function(){
           var nav = el('navSig');
           curOn(nav, true, function(){
             var ov=el('navOv'); if(ov) ov.classList.remove('on');
             if(nav) nav.classList.add('on');
-            after(350, function(){
+            after(743, function(){
               mount(
                 '<div class="hub">'+
                   '<div class="hub-side">'+
@@ -2724,7 +2780,7 @@ function beatMeasure(done){
                 after(i*200, function(){ el('sg'+i) && el('sg'+i).classList.add('on'); });
               });
               hideCursors();
-              after(1600, done);
+              after(2720, done);
             });
           });
         });

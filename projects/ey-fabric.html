@@ -26,7 +26,7 @@ html[data-theme="light"]{
   --bg:#f7f5f2;--bg-surface:#fff;--bg-raised:#eeece7;--bg-elevated:#e4e0d8;
   --text-primary:#1a1917;--text-secondary:#55524c;--text-tertiary:#726e66;
   --border:rgba(0,0,0,.1);--border-soft:rgba(0,0,0,.06);
-  --accent:#a6860a;--accent-dim:rgba(166,134,10,.12);--on-accent:#fff;
+  --accent:#a38b00;--accent-dim:rgba(163,139,0,.12);--on-accent:#fff;
   --stage-bg:#e6e2da;--stage-grid:rgba(0,0,0,.04);--capbar-fade:rgba(230,226,218,.94);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -3239,6 +3239,25 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
 
 
 
+
+<style id="shell-unify-v2">
+:root{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }
+.page, .wrap, .sn-inner{
+  max-width:var(--max)!important;
+  margin-left:auto!important; margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+.page, .wrap{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+  width:100%!important;
+}
+nav.site-nav .sn-inner{
+  padding-left:var(--pad)!important;
+  padding-right:var(--pad)!important;
+}
+</style>
+
 </head>
 <body>
 <nav class="site-nav" id="topNav" style="--sn-accent:#ffe600" aria-label="Primary">
@@ -3258,7 +3277,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
           <a href="chek.html" role="menuitem">Chek</a>
           <a href="dollarcity.html" role="menuitem">DollarCity</a>
           <a href="customs.html" role="menuitem">Customs ES</a>
-          <a href="forecast.html" role="menuitem">Forecast</a>
+          
         </div>
       </div>
       <a href="../resume.html" class="sn-link">Resume</a>
@@ -3282,7 +3301,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
   <a class="sn-sub" href="chek.html">Chek</a>
   <a class="sn-sub" href="dollarcity.html">DollarCity</a>
   <a class="sn-sub" href="customs.html">Customs ES</a>
-  <a class="sn-sub" href="forecast.html">Forecast</a>
+  
   <a href="../resume.html">Resume</a>
   <a href="../contact.html">Contact</a>
   <a href="../design-system.html">Design System</a>
@@ -3395,7 +3414,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
     <iframe
       class="pi-iframe"
       id="piPlayerFrame"
-      src="ey-pi-player.html?embed=1&v=54"
+      src="ey-pi-player.html?embed=1&v=55-light"
       title="Product Intelligence player"
       loading="eager"
       allow="autoplay"
@@ -4450,6 +4469,22 @@ html body iframe.pi-iframe{
   height: calc(150px + min(888px, 100vw - 56px) * 410 / 560 + 48px) !important;
 }
 html body #pi .note{ margin-top: 12px !important; max-width: none !important; }
+
+/* Light-mode brand colors (text/borders only) — DESIGN-TOKENS-LIGHT-MODE */
+[data-theme="light"] .ga-y,
+[data-theme="light"] [data-brand="ga-yellow"]{ color:#9e8f00 !important; }
+[data-theme="light"] .ga-o,
+[data-theme="light"] [data-brand="ga-orange"]{ color:#bc8100 !important; }
+[data-theme="light"] .chip-purple,
+[data-theme="light"] [data-brand="purple"]{ color:#9477ff !important; }
+[data-theme="light"] .chip-mint,
+[data-theme="light"] [data-brand="mint"]{ color:#3c9d5f !important; }
+[data-theme="light"] .success-c,
+[data-theme="light"] [data-brand="success"]{ color:#1da04d !important; }
+/* Hardcoded bright yellows used as text in beats */
+[data-theme="light"] .unit [style*="#ffe600"],
+[data-theme="light"] .unit [style*="#F9AB00"]{ /* handled by class if present */ }
+
 </style>
 
 </body>

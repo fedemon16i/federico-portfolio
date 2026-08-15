@@ -703,6 +703,109 @@ html.embed button.tl{
   flex: 0 0 auto !important;
 }
 
+
+/* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
+   Tokens — use everywhere in the product system
+   --max            920px content
+   --pad            clamp(16px, 3vw, 28px) horizontal
+   --nav-h          64px
+   --section-y      clamp(2.25rem, 3vw, 3.25rem) vertical section rhythm
+   --stack-xs       6px
+   --stack-sm       10px
+   --stack-md       14px
+   --stack-lg       22px
+   --player-chip-gap 12px   chips → stage
+   --player-note-gap 10px   stage → caption/note
+   --modal-inset     16px–20px around skills modal card
+   ============================================================ */
+:root{
+  --max: 920px !important;
+  --pad: clamp(16px, 3vw, 28px) !important;
+  --nav-h: 64px !important;
+  --section-y: clamp(2.25rem, 3vw, 3.25rem) !important;
+  --stack-xs: 6px !important;
+  --stack-sm: 10px !important;
+  --stack-md: 14px !important;
+  --stack-lg: 22px !important;
+  --player-chip-gap: 12px !important;
+  --player-note-gap: 10px !important;
+  --player-rail-gap: 12px !important;
+  --modal-inset: 18px !important;
+}
+.wrap,
+.top-nav-inner{
+  max-width: var(--max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--pad) !important;
+  padding-right: var(--pad) !important;
+  box-sizing: border-box !important;
+}
+/* Section rhythm — kill 96px/huge asymmetric pads */
+.sec,
+section.sec,
+.section{
+  padding-top: var(--section-y) !important;
+  padding-bottom: var(--section-y) !important;
+  box-sizing: border-box !important;
+}
+/* First content after fixed nav: don't double-pad absurdly */
+.sec:first-of-type,
+section.sec:first-of-type,
+#hero.sec,
+section#hero{
+  padding-top: clamp(1.75rem, 2.5vw, 2.5rem) !important;
+}
+/* Closing / legal: tight, intentional */
+.closing,
+#closing{
+  margin-top: var(--stack-lg) !important;
+  margin-bottom: var(--stack-md) !important;
+  padding-top: var(--stack-md) !important;
+  padding-bottom: var(--stack-md) !important;
+}
+.legal-note,
+.proj-nav{
+  margin-top: var(--stack-md) !important;
+  padding-top: var(--stack-sm) !important;
+}
+/* Case players host */
+#demo .note,
+#pi .note,
+#pi p.note,
+.bc-player-iframe + .note,
+.pi-iframe + .note{
+  margin-top: var(--player-note-gap) !important;
+  margin-bottom: 0 !important;
+}
+#pi + .closing,
+#demo + .sec,
+#process{
+  margin-top: 0 !important;
+}
+/* Eyebrow → title → lede stack */
+.eyebrow,
+.sec-eyebrow,
+.proc-eyebrow,
+p.level{
+  margin-bottom: var(--stack-sm) !important;
+}
+h1, .h1, .proc-h, .sec-h{
+  margin-top: 0 !important;
+}
+.lede, .lead, .proc-sub, .sec-sub, .sub{
+  margin-top: var(--stack-sm) !important;
+  margin-bottom: var(--stack-md) !important;
+}
+/* Mobile: slightly tighter section, same pad token */
+@media (max-width: 720px){
+  :root{
+    --section-y: clamp(1.75rem, 5vw, 2.5rem) !important;
+    --modal-inset: 12px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -877,39 +980,39 @@ var BEATS=[
   {title:'Onboard',phase:'owner',kicker:'Welcome',text:'Welcome to your 3D map — content lives on places you own.',sub:'How it works, then we place a POI.',nav:'SPACE MAP',
     actions:[
       {onboard:0,caption:'Welcome to your 3D map — content lives on places you own.',delay:0},
-      {onboard:1,caption:'How you place content on a place you own.',delay:2400},
-      {onboard:2,caption:'How you add media to that place.',delay:2600}
+      {onboard:1,caption:'How you place content on a place you own.',delay: 3600},
+      {onboard:2,caption:'How you add media to that place.',delay: 3900}
     ]},
   {title:'Place',phase:'owner',kicker:'Place',text:'Enter the map, long-press the street, confirm, style the pin.',sub:'You press the street — the pin is created there.',nav:'Add place',
     actions:[
       {map:true,look:-1,tx:'50%',ty:'55%',hint:'Cruise the streets — content lives on real places.',hintK:'Map',caption:'Map on the table — enter the 3D space.',delay:0},
-      {map:true,look:0,tx:'48%',ty:'58%',hint:'Find an open stretch of street.',hintK:'Scout',caption:'You are on the map — pick a street.',delay:1800},
+      {map:true,look:0,tx:'48%',ty:'58%',hint:'Find an open stretch of street.',hintK:'Scout',caption:'You are on the map — pick a street.',delay: 2700},
       /* long-press the STREET (no pin yet) — finger gesture on empty road */
-      {map:true,look:1,hold:true,tx:'50%',ty:'62%',gesture:'hold',hint:'Long-press the street — not a pin.',hintK:'Hold',caption:'<span class="hl">Long press</span> the street to place a new POI.',delay:2200},
+      {map:true,look:1,hold:true,tx:'50%',ty:'62%',gesture:'hold',hint:'Long-press the street — not a pin.',hintK:'Hold',caption:'<span class="hl">Long press</span> the street to place a new POI.',delay: 3300},
       /* pin appears after the hold */
-      {map:true,look:1,pin:1,tx:'50%',ty:'55%',success:'Pin dropped',hint:'A pin appears on the street.',hintK:'Pin',caption:'Pin dropped on the street.',delay:1600},
-      {map:true,look:1,pin:1,confirm:true,tx:'50%',ty:'68%',address:'1847 Oak Ave · Corner of Market St',success:'Place confirmed',hint:'Confirm this address for your POI.',hintK:'Confirm',caption:'Is <span class="hl">1847 Oak Ave</span> the place for your POI?',delay:2000},
-      {sheet:true,title:'New POI',blurb:'1847 Oak Ave confirmed.',cta:'Add POI',pin:1,look:1,tx:'50%',ty:'78%',success:'POI created',hint:'Place locked — now style the pin.',hintK:'POI',caption:'Place confirmed — add the POI.',delay:1800},
-      {sheet:true,pinUi:true,title:'Pin shape',blurb:'Choose shape and color.',cta:'Next',icon:0,color:0,pin:1,look:1,tx:'28%',ty:'42%',caption:'Style the pin — shape first.',delay:1600},
-      {sheet:true,pinUi:true,title:'Pin color',blurb:'Color the marker.',cta:'Continue',icon:2,color:1,hex:'#e05c4a',pin:1,look:1,tx:'48%',ty:'52%',caption:'Pick a color for the pin.',delay:1500}
+      {map:true,look:1,pin:1,tx:'50%',ty:'55%',success:'Pin dropped',hint:'A pin appears on the street.',hintK:'Pin',caption:'Pin dropped on the street.',delay: 2400},
+      {map:true,look:1,pin:1,confirm:true,tx:'50%',ty:'68%',address:'1847 Oak Ave · Corner of Market St',success:'Place confirmed',hint:'Confirm this address for your POI.',hintK:'Confirm',caption:'Is <span class="hl">1847 Oak Ave</span> the place for your POI?',delay: 3000},
+      {sheet:true,title:'New POI',blurb:'1847 Oak Ave confirmed.',cta:'Add POI',pin:1,look:1,tx:'50%',ty:'78%',success:'POI created',hint:'Place locked — now style the pin.',hintK:'POI',caption:'Place confirmed — add the POI.',delay: 2700},
+      {sheet:true,pinUi:true,title:'Pin shape',blurb:'Choose shape and color.',cta:'Next',icon:0,color:0,pin:1,look:1,tx:'28%',ty:'42%',caption:'Style the pin — shape first.',delay: 2400},
+      {sheet:true,pinUi:true,title:'Pin color',blurb:'Color the marker.',cta:'Continue',icon:2,color:1,hex:'#e05c4a',pin:1,look:1,tx:'48%',ty:'52%',caption:'Pick a color for the pin.',delay: 2250}
     ]},
   {title:'Media',phase:'owner',kicker:'Content',text:'Empty feed → choose source → device gallery → publish.',sub:'From my device, not mixed into the map chrome.',nav:'MY POI · Media',
     actions:[
       {sheet:true,emptyFeed:true,title:'MY POI',blurb:'No posts yet.',cta:'Add content',pin:1,look:1,tx:'50%',ty:'78%',hint:'Empty feed on the place.',hintK:'Feed',caption:'Empty feed — time to add content.',delay:0},
-      {sheet:true,contentUi:true,title:'Add content',blurb:'Choose a source.',cta:'Continue',pin:1,look:1,tx:'50%',ty:'42%',hint:'Three ways to attach media.',hintK:'Source',caption:'Pick a source for media.',delay:1800},
-      {sheet:true,contentUi:true,source:'device',title:'Add content',blurb:'From my device.',cta:'Open library',pin:1,look:1,tx:'50%',ty:'34%',gesture:'tap',hint:'Open the system library.',hintK:'Device',caption:'From my device — open the library.',delay:1600},
-      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'System gallery.',cta:'Add',pick:[0],pin:1,look:1,tx:'30%',ty:'48%',hint:'Tap photos in the iOS gallery.',hintK:'Gallery',caption:'Browsing Recents…',delay:2000},
-      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'Selecting…',cta:'Add',pick:[0,1,2],pin:1,look:1,tx:'50%',ty:'52%',gesture:'tap',caption:'Select photos &amp; video to upload.',delay:2000},
-      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'Includes video.',cta:'Upload',pick:[0,1,2,4],pin:1,look:1,tx:'70%',ty:'58%',success:'Media uploaded',caption:'Upload to the POI.',delay:1800},
-      {map:true,pin:1,look:1,mine:true,glow:true,tx:'52%',ty:'48%',success:'POI live with media',pinTip:true,pinTipTitle:'MY POI',pinTipMeta:'3 media · Oak Ave',pinTipImg:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&h=120&fit=crop',hint:'Thumbnail follows the pin — visitor will find it.',hintK:'Live',caption:'MY POI is live on the map.',delay:2000}
+      {sheet:true,contentUi:true,title:'Add content',blurb:'Choose a source.',cta:'Continue',pin:1,look:1,tx:'50%',ty:'42%',hint:'Three ways to attach media.',hintK:'Source',caption:'Pick a source for media.',delay: 2700},
+      {sheet:true,contentUi:true,source:'device',title:'Add content',blurb:'From my device.',cta:'Open library',pin:1,look:1,tx:'50%',ty:'34%',gesture:'tap',hint:'Open the system library.',hintK:'Device',caption:'From my device — open the library.',delay: 2400},
+      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'System gallery.',cta:'Add',pick:[0],pin:1,look:1,tx:'30%',ty:'48%',hint:'Tap photos in the iOS gallery.',hintK:'Gallery',caption:'Browsing Recents…',delay: 3000},
+      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'Selecting…',cta:'Add',pick:[0,1,2],pin:1,look:1,tx:'50%',ty:'52%',gesture:'tap',caption:'Select photos &amp; video to upload.',delay: 3000},
+      {sheet:true,gallery:true,ios:true,title:'Recents',blurb:'Includes video.',cta:'Upload',pick:[0,1,2,4],pin:1,look:1,tx:'70%',ty:'58%',success:'Media uploaded',caption:'Upload to the POI.',delay: 2700},
+      {map:true,pin:1,look:1,mine:true,glow:true,tx:'52%',ty:'48%',success:'POI live with media',pinTip:true,pinTipTitle:'MY POI',pinTipMeta:'3 media · Oak Ave',pinTipImg:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&h=120&fit=crop',hint:'Thumbnail follows the pin — visitor will find it.',hintK:'Live',caption:'MY POI is live on the map.',delay: 3000}
     ]},
   {title:'Visitor',phase:'visitor',kicker:'Visitor',text:'Find MY POI and play the media.',sub:'Tap pin → playback.',nav:'Discover',
     actions:[
       {map:true,look:0,pin:0,tx:'40%',ty:'42%',hint:'Visitor mode — discover places.',hintK:'Cruise',caption:'Visitor cruising the map.',delay:0},
-      {map:true,look:1,pin:1,mine:true,glow:true,tx:'52%',ty:'48%',gesture:'tap',pinTip:true,pinTipTitle:'MY POI',pinTipMeta:'3 media · Oak Ave',pinTipImg:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&h=120&fit=crop',hint:'Open MY POI.',hintK:'Find',caption:'Open <span class="hl">MY POI</span> to see the media.',delay:2000},
-      {sheet:true,visitor:true,reels:true,title:'MY POI',blurb:'Media at this place.',cta:'Follow',pin:1,look:1,tx:'30%',ty:'50%',hint:'Scroll the reels.',hintK:'Feed',caption:'Browse reels at this place.',delay:2000},
-      {sheet:true,visitor:true,reels:true,reelOn:1,title:'MY POI',blurb:'Tap a reel to open.',cta:'Follow',pin:1,look:1,tx:'50%',ty:'50%',gesture:'tap',hint:'Open this reel.',hintK:'Tap',caption:'Tap a reel to expand.',delay:1800},
-      {sheet:true,visitor:true,play:true,expand:true,title:'MY POI',blurb:'Playing media from this place.',cta:'Follow',pin:1,look:1,tx:'50%',ty:'48%',success:'Playing',hint:'Full-screen reel experience.',hintK:'Play',caption:'Playing media — visitor reel ends the flow.',delay:2200}
+      {map:true,look:1,pin:1,mine:true,glow:true,tx:'52%',ty:'48%',gesture:'tap',pinTip:true,pinTipTitle:'MY POI',pinTipMeta:'3 media · Oak Ave',pinTipImg:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&h=120&fit=crop',hint:'Open MY POI.',hintK:'Find',caption:'Open <span class="hl">MY POI</span> to see the media.',delay: 3000},
+      {sheet:true,visitor:true,reels:true,title:'MY POI',blurb:'Media at this place.',cta:'Follow',pin:1,look:1,tx:'30%',ty:'50%',hint:'Scroll the reels.',hintK:'Feed',caption:'Browse reels at this place.',delay: 3000},
+      {sheet:true,visitor:true,reels:true,reelOn:1,title:'MY POI',blurb:'Tap a reel to open.',cta:'Follow',pin:1,look:1,tx:'50%',ty:'50%',gesture:'tap',hint:'Open this reel.',hintK:'Tap',caption:'Tap a reel to expand.',delay: 2700},
+      {sheet:true,visitor:true,play:true,expand:true,title:'MY POI',blurb:'Playing media from this place.',cta:'Follow',pin:1,look:1,tx:'50%',ty:'48%',success:'Playing',hint:'Full-screen reel experience.',hintK:'Play',caption:'Playing media — visitor reel ends the flow.',delay: 3300}
     ]}
 ];
 
@@ -944,7 +1047,7 @@ function showSuccess(msg){
   if(tx) tx.textContent=msg||'Success';
   el.classList.remove('on'); void el.offsetWidth;
   el.classList.add('on');
-  timers.push(setTimeout(function(){ el.classList.remove('on'); }, 2200));
+  timers.push(setTimeout(function(){ el.classList.remove('on'); }, 3300));
 }
 
 function showPinTip(on, title, meta, img){
@@ -1083,7 +1186,7 @@ function fireCursor(tx, ty, opts){
     cur.classList.add('hold');
   } else {
     cur.classList.add('press');
-    timers.push(setTimeout(function(){ cur.classList.remove('press'); }, 700));
+    timers.push(setTimeout(function(){ cur.classList.remove('press'); }, 2625));
   }
 }
 
@@ -1177,7 +1280,7 @@ function applyAction(act){
     document.getElementById('pMap').classList.add('on');
     document.getElementById('pMap').classList.toggle('bg', !!act.onboard);
     nav.classList.add('on');
-    if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 40);
+    if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 100);
   }
   if(!act.onboard){
     document.getElementById('pMap').classList.remove('bg');
@@ -1316,7 +1419,7 @@ function runBeat(i, manual){
   kicker.classList.remove('on');
   document.getElementById('sub').classList.remove('on');
   document.getElementById('sub').textContent='';
-  timers.push(setTimeout(function(){ kicker.classList.add('on'); }, 40));
+  timers.push(setTimeout(function(){ kicker.classList.add('on'); }, 100));
 
   typeText(st.text, function(){
     document.getElementById('sub').textContent=st.sub||'';
@@ -1325,7 +1428,7 @@ function runBeat(i, manual){
       textPhase.classList.add('hide');
       host.classList.remove('dim');
       setCaption(st.text);
-      if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 50);
+      if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 125);
       var t0=350;
       st.actions.forEach(function(act, idx){
         t0 += (act.delay||0);
@@ -1376,7 +1479,7 @@ window.addEventListener('resize', fitPhone);
 if(window.ResizeObserver){ try{ new ResizeObserver(fitPhone).observe(document.getElementById('phoneHost')); }catch(e){} }
 
 fitPhone();
-setTimeout(fitPhone,100);
+setTimeout(fitPhone, 375);
 setTimeout(function(){
   try{
     cityP=makeCity(document.getElementById('glPhone'), document.getElementById('pMap'), true);

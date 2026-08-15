@@ -1792,6 +1792,31 @@ html.embed .page{
   padding-bottom: 28px !important;
 }
 
+
+/* BEAT READABILITY — product/demo UI keeps intended contrast; light = chrome only */
+[data-theme="light"] .page,
+[data-theme="light"] .kicker,
+[data-theme="light"] .lead,
+[data-theme="light"] h1{ color: var(--text, #1a1917); }
+[data-theme="light"] .cap{
+  color: var(--text, #1a1917) !important;
+  background: linear-gradient(to top, rgba(247,245,242,.98), rgba(247,245,242,.85), transparent) !important;
+}
+[data-theme="light"] .stage-chrome{
+  background: linear-gradient(to bottom, rgba(247,245,242,.92), rgba(247,245,242,.3), transparent) !important;
+}
+[data-theme="light"] .stage-chrome .beat-lab,
+[data-theme="light"] .stage-chrome .beat-lab .n{ color: #1a1917 !important; }
+[data-theme="light"] .tl button{ color: var(--muted, #55524c) !important; }
+[data-theme="light"] .tl button.on{ color: var(--text, #1a1917) !important; }
+[data-theme="light"] .unit{
+  border-color: rgba(0,0,0,.12) !important;
+}
+/* Protect dark demo panels inside win */
+.win .app, .win [style*="background:#0"], .win [style*="background: #0"]{
+  color: rgba(255,255,255,.88);
+}
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
@@ -1958,7 +1983,7 @@ html.embed .page{
     p.style.left = x + 'px'; p.style.top = y + 'px';
     unit.appendChild(p);
     requestAnimationFrame(function(){ p.classList.add('fire'); });
-    after(480, function(){ if(p.parentNode) p.parentNode.removeChild(p); });
+    after(1020, function(){ if(p.parentNode) p.parentNode.removeChild(p); });
   }
   function clickCur(cursor, tool, cb){
     if (typeof tool === 'function'){ cb = tool; tool = null; }
@@ -1967,7 +1992,7 @@ html.embed .page{
       spawnPulse(x, y);
       cursor.classList.add('click');
       if(tool) tool.classList.add('show');
-      after(160, function(){ cursor.classList.remove('click'); if(cb) cb(); });
+      after(380, function(){ cursor.classList.remove('click'); if(cb) cb(); });
     });
   }
   function typeTitle(node, html, cb){
@@ -1997,7 +2022,7 @@ html.embed .page{
     var s=document.createElement('div'); s.className='slide text on';
     s.innerHTML='<div class="ts-big" id="ts"></div><div class="dock">'+chips+'</div>'; win.appendChild(s);
     typeTitle(document.getElementById('ts'), title, function(){
-      after(180, function(){ showCap(capMsg); after(T.pause, then); });
+      after(428, function(){ showCap(capMsg); after(T.pause, then); });
     });
   }
   function mount(html, capMsg){ win.innerHTML=''; hideCursors(); var s=document.createElement('div'); s.className='slide on'; s.innerHTML=html; win.appendChild(s); if(capMsg) showCap(capMsg); return s; }
@@ -2006,57 +2031,57 @@ html.embed .page{
     textPhase('Product structure <em>first</em>.<br>Pages · flows · features · events.', chip('Pendo','pendo')+chip('GA4','ga')+chip('Mixpanel','mix'), 'IA and events before any dashboard.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Product map</span></div><div class="app-nav" style="display:none"><span class="logo">Site map</span><span class="search">Filter</span></div><div class="app-body"><div class="sitemap"><div class="sm-title">Information architecture</div><div class="sm-tree"><div class="sm-node home" id="nHome">Home</div><div class="sm-line" id="ln0"></div><div class="sm-row"><div class="sm-branch"><div class="sm-node store" id="nStore">Store</div><div class="sm-line" id="lnS"></div><div class="sm-node leaf" id="nPr">Product</div></div><div class="sm-branch"><div class="sm-node account" id="nAcc">Account</div><div class="sm-line" id="lnA"></div><div class="sm-node leaf" id="nLog">Login</div></div><div class="sm-branch"><div class="sm-node blog" id="nBlog">Blog</div><div class="sm-line" id="lnB"></div><div class="sm-node leaf" id="nPost">Post</div></div><div class="sm-branch"><div class="sm-node other" id="nOth">Other</div><div class="sm-line" id="lnO"></div><div class="sm-node leaf" id="nAbout">About</div></div></div></div><div class="side-lists"><div class="box"><div class="mh">Features</div><div class="feat-row" id="ft0"><span class="ic click">◎</span> Nav · Store</div><div class="feat-row" id="ft1"><span class="ic click">◎</span> Add to bag</div><div class="feat-row" id="ft2"><span class="ic click">◎</span> Checkout</div></div><div class="box"><div class="mh">Events</div><div class="ev-row" id="ev0"><span class="ic bolt">⚡</span> page_view</div><div class="ev-row" id="ev1"><span class="ic bolt">⚡</span> add_to_cart</div><div class="ev-row" id="ev2"><span class="ic bolt">⚡</span> payment_start</div></div></div></div></div></div>','Sitemap, flows, features, and events — tagged.');
       ['nHome','ln0','nStore','nAcc','nBlog','nOth','lnS','lnA','lnB','lnO','nPr','nLog','nPost','nAbout'].forEach(function(id,i){ after(i*85, function(){ var n=el(id); if(n) n.classList.add('on'); }); });
-      after(1400, function(){ [0,1,2].forEach(function(i){ after(i*130, function(){ el('ft'+i).classList.add('on'); el('ev'+i).classList.add('on'); }); }); after(700, function(){ hideCursors(); after(400, done); }); });
+      after(2380, function(){ [0,1,2].forEach(function(i){ after(i*130, function(){ el('ft'+i).classList.add('on'); el('ev'+i).classList.add('on'); }); }); after(1487, function(){ hideCursors(); after(850, done); }); });
     });
   }
 
   function beatUsage(done){
     textPhase('Three users · one checkout path.<br>Payment is where the <em>drop-off</em> lands.', chip('Pendo','pendo')+chip('Replay','mix'), 'Home → category → PDP → bag → pay.', function(){
       mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Marketplace</span><span class="search">Search</span></div><div class="shop-top"><span class="brand">Herbal Co</span><span style="opacity:.45">Shop</span><span style="opacity:.45">About</span><span class="cart">Bag 0</span></div><div class="shop-hero"><div><h3>Welcome to our store</h3><p>Seasonal picks · free ship $40+</p><button class="cta" id="shopCta" type="button">Browse catalog</button></div><div class="img"></div></div><div style="padding:0 12px 10px"><div style="font-size:9px;color:rgba(255,255,255,.35);margin-bottom:4px;letter-spacing:.04em;text-transform:uppercase">Just in</div><div style="display:flex;gap:6px"><div style="flex:1;height:40px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)"></div><div style="flex:1;height:40px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)"></div><div style="flex:1;height:40px;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)"></div></div></div></div>','Storefront entry — three concurrent sessions.');
-      after(180, function(){
+      after(428, function(){
         fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,96);
-        after(400, function(){
-          place(c1,t1,el('shopCta'),8,6); after(180, function(){ place(c2,t2,el('shopCta'),32,14); }); after(340, function(){ place(c3,t3,el('shopCta'),18,22); });
+        after(850, function(){
+          place(c1,t1,el('shopCta'),8,6); after(428, function(){ place(c2,t2,el('shopCta'),32,14); }); after(722, function(){ place(c3,t3,el('shopCta'),18,22); });
         });
-        after(1300, function(){ clickCur(c1, t1, function(){
+        after(2210, function(){ clickCur(c1, t1, function(){
           mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Catalog</span><span class="search">Filter</span></div><div class="shop-top"><span class="brand">All products</span><span style="opacity:.4;font-size:9px">Sort · Price</span><span class="cart">Bag 0</span></div><div class="cat-grid">'+[0,1,2,3,4,5].map(function(i){ return '<div class="cat-card" id="cc'+i+'"><div class="thumb"></div><div class="t">'+(['Green blend','Herbal mix','Black leaf','Oolong set','Matcha tin','Gift box'][i])+'</div><div style="font-size:8.5px;color:rgba(255,255,255,.35);margin-top:2px">$'+([18,14,16,22,24,36][i])+'</div></div>'; }).join('')+'</div></div>','Category browse — paths start to diverge.');
           [0,1,2,3,4,5].forEach(function(i){ after(i*80, function(){ el('cc'+i).classList.add('on'); }); });
-          after(520, function(){
+          after(1105, function(){
             fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,96);
-            after(380, function(){
-              place(c1,t1,el('cc0'),6,8); after(180, function(){ place(c2,t2,el('cc0'),36,18); }); after(320, function(){ place(c3,t3,el('cc0'),14,28); });
+            after(807, function(){
+              place(c1,t1,el('cc0'),6,8); after(428, function(){ place(c2,t2,el('cc0'),36,18); }); after(680, function(){ place(c3,t3,el('cc0'),14,28); });
             });
-            after(1200, function(){ clickCur(c1, t1, function(){
+            after(2040, function(){ clickCur(c1, t1, function(){
               el('cc0').classList.add('sel');
-              after(320, function(){
+              after(680, function(){
                 mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Product</span></div><div class="shop-top"><span class="brand">Green blend</span><span class="cart">Bag 0</span></div><div class="pdp"><div class="pdp-img"><div class="ph"></div></div><div class="pdp-info"><h3>Green blend · 50g</h3><div style="font-size:9px;color:var(--warn)">★★★★☆ 4.6</div><div class="price">$18.00</div><div style="font-size:9px;color:rgba(255,255,255,.4)">In stock · ships 2 days</div><button class="btn" id="addBag" type="button">Add to bag</button></div></div></div>','Product detail — intent is still high.');
-                after(220, function(){
+                after(523, function(){
                   fromBottom(c1,t1,0); fromBottom(c2,t2,48); fromBottom(c3,t3,90);
-                  after(360, function(){
-                    place(c1,t1,el('addBag'),10,8); after(170, function(){ place(c2,t2,el('addBag'),28,16); }); after(300, function(){ place(c3,t3,el('addBag'),4,22); });
+                  after(765, function(){
+                    place(c1,t1,el('addBag'),10,8); after(404, function(){ place(c2,t2,el('addBag'),28,16); }); after(637, function(){ place(c3,t3,el('addBag'),4,22); });
                   });
-                  after(1200, function(){ clickCur(c1, t1, function(){
-                    after(260, function(){
+                  after(2040, function(){ clickCur(c1, t1, function(){
+                    after(552, function(){
                       mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Bag</span></div><div class="shop-top"><span class="brand">My bag</span><span class="cart">1 item</span></div><div class="bag"><div class="bag-row"><div class="th"></div><div><b>Green blend · 50g</b><div style="font-size:8.5px;color:rgba(255,255,255,.35)">Qty 1</div></div><span style="margin-left:auto;color:var(--accent);font-weight:650">$18</span></div><div style="font-size:10px;display:flex;justify-content:space-between;margin:6px 0;color:rgba(255,255,255,.45)"><span>Subtotal</span><b style="color:#fff">$18</b></div><div class="bag-cta" id="toPay">Proceed to checkout</div></div></div>','Bag to checkout — friction ahead.');
-                      after(280, function(){
+                      after(595, function(){
                         fromBottom(c1,t1,0); fromBottom(c2,t2,50); fromBottom(c3,t3,95);
-                        after(360, function(){
-                          place(c1,t1,el('toPay'),12,10); after(160, function(){ place(c2,t2,el('toPay'),40,8); }); after(300, function(){ place(c3,t3,el('toPay'),20,18); });
+                        after(765, function(){
+                          place(c1,t1,el('toPay'),12,10); after(380, function(){ place(c2,t2,el('toPay'),40,8); }); after(637, function(){ place(c3,t3,el('toPay'),20,18); });
                         });
-                        after(1200, function(){ clickCur(c1, t1, function(){
+                        after(2040, function(){ clickCur(c1, t1, function(){
                           mount('<div class="shop"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Secure checkout</span></div><div class="pay-screen"><div class="pay-l"><h3>Payment details</h3><div class="fld filled" data-v="Jane Doe"><label>Full name</label></div><div class="fld filled" data-v="jane@mail.com"><label>Email</label></div><div class="fld" id="cardFld" data-v=""><label>Card number</label></div><div class="fld" id="cvvFld" data-v=""><label>CVV / ZIP</label></div><div class="drop-flag" id="drop">Drop-off · card field</div></div><div class="pay-r"><h3>Order summary</h3><div class="sum-line"><span>Green blend</span><b>$18</b></div><div class="sum-line"><span>Shipping</span><b>$4</b></div><div class="sum-line"><span>Tax</span><b>$1.60</b></div><div class="sum-total"><span>Total</span><span>$23.60</span></div></div></div></div>','Two sessions abandon · one reaches card entry.');
-                          after(250, function(){
+                          after(531, function(){
                             fromBottom(c1,t1,0); fromBottom(c2,t2,50); fromBottom(c3,t3,95);
-                            after(400, function(){
-                              place(c1,t1,el('cardFld'),10,8); after(180, function(){ place(c2,t2,el('cardFld'),38,16); }); after(320, function(){ place(c3,t3,el('cardFld'),16,24); });
+                            after(850, function(){
+                              place(c1,t1,el('cardFld'),10,8); after(428, function(){ place(c2,t2,el('cardFld'),38,16); }); after(680, function(){ place(c3,t3,el('cardFld'),16,24); });
                             });
-                            after(1400, function(){
+                            after(2380, function(){
                               el('cardFld').classList.add('bad'); el('drop').classList.add('on'); place(c3,t3,el('cvvFld'),14,10);
                               showCap('Users 1 &amp; 2 <em>drop</em> · user 3 stays active.');
-                              after(1000, function(){
+                              after(1700, function(){
                                 mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Funnel</span></div><div class="app-nav" style="display:none"><span class="logo">Funnel</span></div><div class="app-body"><div class="funnel"><div class="funnel-note" id="funnelNote">Drop-off registered at <em>Payment</em> — this is the step to fix.</div><div class="fstep" id="fs0" data-w="100%">Home <span>100%</span></div><div class="fstep" id="fs1" data-w="84%">Category <span>84%</span></div><div class="fstep" id="fs2" data-w="62%">Bag <span>62%</span></div><div class="fstep" id="fs3" data-w="22%">Payment <span>22%</span></div></div></div></div>','Funnel makes the drop-off impossible to ignore.');
                                 hideCursors(); var si=0;
-                                (function grow(){ if(si>3){ after(800, done); return; } var n=el('fs'+si); n.classList.add('show'); n.style.width=n.getAttribute('data-w'); if(si===3) n.classList.add('dead'); si++; after(380, grow); })();
+                                (function grow(){ if(si>3){ after(1360, done); return; } var n=el('fs'+si); n.classList.add('show'); n.style.width=n.getAttribute('data-w'); if(si===3) n.classList.add('dead'); si++; after(807, grow); })();
                               });
                             });
                           });
@@ -2077,9 +2102,9 @@ html.embed .page{
     textPhase('Segment the <em>strugglers</em>.<br>Open one session <em>replay</em>.', chip('Pendo','pendo')+chip('Replay','mix'), 'Users with problems → pick one → recording.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Session explorer</span></div><div class="app-nav" style="display:none"><span class="logo">Strugglers</span></div><div class="app-body"><div class="seg"><div class="seg-users"><div class="mh">Highest friction</div><div class="user-row" id="u0"><div class="av"></div><div><div>user_8834</div><div class="meta">Rage ×4 · mobile</div></div><span class="badge">drop</span></div><div class="user-row" id="u1"><div class="av"></div><div><div>user_4412</div><div class="meta">Rage ×3 · mobile</div></div><span class="badge">drop</span></div><div class="user-row" id="u2"><div class="av"></div><div><div>user_2201</div><div class="meta">2m stuck · desktop</div></div><span class="badge">slow</span></div></div><div class="seg-replay"><div class="mh">Session replay</div><div class="replay-player" id="rp"><div class="rp-chrome"><span class="rec"></span> user_8834 · mobile · 1m 02s <span class="spd">1×</span></div><div class="rp-screen"><div class="fake-ui"><div class="blk" style="width:40%"></div><div class="blk" style="width:70%"></div><div class="fld-fake"></div><div class="blk" style="width:55%"></div></div><div class="rp-dot" id="rpDot"></div><div class="rp-rage" id="rpRage" style="left:10%;top:42%;width:58%;height:26px"></div></div><div class="rp-controls"><div class="btn"></div><div class="bar"><i id="rpBar"></i></div><span class="time">0:44 / 1:02</span></div><div class="rp-find"><span class="tag">RAGE</span> Cluster on card number · 4 clicks</div></div></div></div></div></div>','Worst sessions first — then replay.');
       [0,1,2].forEach(function(i){ after(i*200, function(){ el('u'+i).classList.add('on'); }); });
-      after(700, function(){ place(c1,null,el('u0'),10,10); after(550, function(){ clickCur(c1, t1, function(){
-        el('u0').classList.add('sel'); after(280, function(){ el('rp').classList.add('on'); showCap('Replay pinpoints <em>where</em> the session broke.'); after(220, function(){
-          el('rpBar').style.width='72%'; el('rpDot').style.left='50%'; el('rpDot').style.top='50%'; after(800, function(){ el('rpRage').classList.add('on'); hideCursors(); after(1000, done); });
+      after(1487, function(){ place(c1,null,el('u0'),10,10); after(1168, function(){ clickCur(c1, t1, function(){
+        el('u0').classList.add('sel'); after(595, function(){ el('rp').classList.add('on'); showCap('Replay pinpoints <em>where</em> the session broke.'); after(523, function(){
+          el('rpBar').style.width='72%'; el('rpDot').style.left='50%'; el('rpDot').style.top='50%'; after(1360, function(){ el('rpRage').classList.add('on'); hideCursors(); after(1700, done); });
         }); });
       }); }); });
     });
@@ -2090,12 +2115,12 @@ html.embed .page{
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Research lab</span></div><div class="app-nav" style="display:none"><span class="logo">Research lab</span></div><div class="app-body"><div class="res-grid"><div class="res-cell" id="rc0"><h4><span class="logo-mark logo-pendo">P</span> Interviews</h4><p class="quote" id="q0">“Card field felt unsafe — no trust marks.”<span class="who">— user_8834</span></p><p class="quote" id="q0b">“I didn’t know the total until the end.”<span class="who">— user_4412</span></p></div><div class="res-cell" id="rc1"><h4><span class="logo-mark logo-opt">O</span> CSAT · NPS · CES</h4><div class="bar-row"><span>NPS</span><div class="track"><i id="bn"></i></div><b>28</b></div><div class="bar-row"><span>CSAT</span><div class="track"><i class="g" id="bc"></i></div><b>62%</b></div><div class="bar-row"><span>CES</span><div class="track"><i class="r" id="be"></i></div><b>5.4</b></div><p class="quote" id="q1">“Too many steps before pay.”<span class="who">— survey</span></p></div><div class="res-cell" id="rc2"><h4><span class="logo-mark logo-maze">M</span> Tree test</h4><div style="font-size:17px;font-weight:700;color:var(--accent);margin:4px 0" id="tpct">0%</div><div style="font-size:8.5px;color:rgba(255,255,255,.4)">Find payment help</div><p class="quote" id="q2">Fail path = unclear labels</p></div><div class="res-cell" id="rc3"><h4><span class="logo-mark logo-pendo">P</span> Usability</h4><p class="quote" id="q3"><b style="color:#ffb4a8">Finding:</b> CVV + ZIP on one line → errors</p><p class="quote" id="q3b">2 retries average on card field</p></div></div></div></div>','Evidence stack.');
       [0,1,2,3].forEach(function(i){ after(i*240, function(){
         el('rc'+i).classList.add('on');
-        if(i===0){ after(160, function(){ el('q0').classList.add('on'); }); after(400, function(){ el('q0b').classList.add('on'); }); }
-        if(i===1){ after(120, function(){ el('bn').style.width='28%'; el('bc').style.width='62%'; el('be').style.width='70%'; }); after(320, function(){ el('q1').classList.add('on'); }); }
-        if(i===2){ var v=0, iv=track(setInterval(function(){ v+=4; if(v>=54){v=54;clearInterval(iv);} el('tpct').textContent=v+'%'; }, 28)); after(400, function(){ el('q2').classList.add('on'); }); }
-        if(i===3){ after(160, function(){ el('q3').classList.add('on'); }); after(380, function(){ el('q3b').classList.add('on'); }); }
+        if(i===0){ after(380, function(){ el('q0').classList.add('on'); }); after(850, function(){ el('q0b').classList.add('on'); }); }
+        if(i===1){ after(285, function(){ el('bn').style.width='28%'; el('bc').style.width='62%'; el('be').style.width='70%'; }); after(680, function(){ el('q1').classList.add('on'); }); }
+        if(i===2){ var v=0, iv=track(setInterval(function(){ v+=4; if(v>=54){v=54;clearInterval(iv);} el('tpct').textContent=v+'%'; }, 28)); after(850, function(){ el('q2').classList.add('on'); }); }
+        if(i===3){ after(380, function(){ el('q3').classList.add('on'); }); after(807, function(){ el('q3b').classList.add('on'); }); }
       }); });
-      after(2800, function(){ hideCursors(); after(300, done); });
+      after(4760, function(){ hideCursors(); after(637, done); });
     });
   }
 
@@ -2103,20 +2128,20 @@ html.embed .page{
     textPhase('Not opinions.<br><em>Evidence becomes tasks.</em>', chip('FigJam','figma')+chip('Pendo','pendo'), 'Problems · owners by discipline.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Insights</span></div><div class="app-nav" style="display:none"><span class="logo">Insights → tasks</span></div><div class="app-body"><div class="und"><div class="und-l"><div class="mh">Problems</div><div class="prob" id="pb0"><div class="icn">!</div><div><b>No trust marks</b>Card feels unsafe</div></div><div class="prob" id="pb1"><div class="icn">≡</div><div><b>Combined CVV+ZIP</b>Errors on one line</div></div><div class="prob" id="pb2"><div class="icn">?</div><div><b>No field help</b>Users abandon</div></div></div><div class="und-r"><div class="mh">Owners</div><div class="task" id="tk0"><span class="tag tag-d">Design</span> Split CVV/ZIP · trust row</div><div class="task" id="tk1"><span class="tag tag-p">Product</span> Inline help on card</div><div class="task" id="tk2"><span class="tag tag-e">Eng</span> Validate per field</div><div class="task" id="tk3"><span class="tag tag-a">Analytics</span> Watch recovery</div></div></div></div></div>','Findings owned by product, design, and eng.');
       [0,1,2].forEach(function(i){ after(i*200, function(){ el('pb'+i).classList.add('on'); }); });
-      after(750, function(){ [0,1,2,3].forEach(function(i){ after(i*160, function(){ el('tk'+i).classList.add('on'); }); }); after(900, function(){ hideCursors(); after(350, done); }); });
+      after(1275, function(){ [0,1,2,3].forEach(function(i){ after(i*160, function(){ el('tk'+i).classList.add('on'); }); }); after(1530, function(){ hideCursors(); after(743, done); }); });
     });
   }
 
   function beatDesign(done){
     textPhase('Payment flow, <em>redesigned</em>.<br>Hand craft + <em>AI</em> in parallel.', chip('Figma','figma')+chip('Pendo','pendo'), 'Multi-frame Figma · shop onboarding proposal.', function(){
       mount('<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Design · payment</span></div><div class="app-nav" style="display:none"><span class="logo">Payment customization</span></div><div class="app-body"><div class="des"><div class="des-col"><h4><span class="logo-mark logo-figma"></span> Figma</h4><div class="fig-c" id="fig"><div class="fig-tb"><span></span><span></span><span></span></div><div class="art a" id="art"><div class="ln"></div><div class="ln" style="width:55%"></div><div class="btn"></div></div><div class="art b"><div class="ln"></div><div class="ln" style="width:40%"></div><div class="btn"></div></div><div class="art c"><div class="ln"></div><div class="ln" style="width:70%"></div></div></div></div><div class="des-col"><h4>Prompt</h4><div class="mcp"><div class="ln" id="m0"><span class="kw">prompt</span>: <span class="str">"checkout onboarding"</span></div><div class="ln" id="m1"><span class="kw">add</span> trust + split fields</div><div class="ln" id="m2"><span class="kw">generate</span> payment_v2</div></div></div><div class="merge" id="merge">Merge → proposal</div><div class="onb-mock" id="onb"><div class="ico">✓</div><h3>Before you pay</h3><p>Quick checks so checkout feels safe and clear.</p><div class="ck"><label id="pl0"><i></i> Order total confirmed</label><label id="pl1"><i></i> Card details encrypted</label><label id="pl2"><i></i> CVV and ZIP on separate fields</label></div><div class="cta" id="onbCta">Continue to payment</div><div class="deploy-opt" id="depOpt">Optional · <code>$ gh workflow run deploy</code></div></div></div></div></div>','Checkout onboarding — checklist before pay.');
-      after(250, function(){ place(c1,null,el('art'),12,20); after(500, function(){ clickCur(c1, t1, function(){
+      after(531, function(){ place(c1,null,el('art'),12,20); after(1062, function(){ clickCur(c1, t1, function(){
         [0,1,2].forEach(function(i){ after(i*240, function(){ el('m'+i).classList.add('on'); }); });
-        after(850, function(){ el('merge').classList.add('on'); after(400, function(){
+        after(1445, function(){ el('merge').classList.add('on'); after(850, function(){
           el('onb').classList.add('on');
-          [0,1,2].forEach(function(i){ after(i*280, function(){ el('pl'+i).classList.add('on'); after(160, function(){ el('pl'+i).classList.add('done'); }); }); });
-          after(1000, function(){ el('onbCta').classList.add('on'); el('depOpt').classList.add('on'); });
-          showCap('Onboarding before pay · deploy stays optional.'); hideCursors(); after(1400, done);
+          [0,1,2].forEach(function(i){ after(i*280, function(){ el('pl'+i).classList.add('on'); after(380, function(){ el('pl'+i).classList.add('done'); }); }); });
+          after(1700, function(){ el('onbCta').classList.add('on'); el('depOpt').classList.add('on'); });
+          showCap('Onboarding before pay · deploy stays optional.'); hideCursors(); after(2380, done);
         }); });
       }); }); });
     });
@@ -2126,9 +2151,9 @@ html.embed .page{
     textPhase('One <em>Analytics Hub</em>.<br>The loop stays <em>closed</em>.', chip('Pendo','pendo')+chip('GA4','ga'), 'Overview → Signals · recovery.', function(){
       mount('<div class="hub"><div class="hub-side"><div class="hub-brand"><i></i>Hub</div><a class="on" href="#">Overview</a><a href="#" id="navSig">Signals</a><a href="#">Funnels</a><a href="#">Guides</a></div><div class="hub-main"><div class="metrics"><div class="metric" id="hm0"><div class="l">Recovery rate</div><div class="v">+22%</div></div><div class="metric" id="hm1"><div class="l">Pay completion</div><div class="v">+18%</div></div><div class="metric" id="hm2"><div class="l">CES payment</div><div class="v">3.1 ↓</div></div><div class="metric" id="hm3"><div class="l">Next bet</div><div class="v" style="font-size:11px">Trust row</div></div></div></div></div>','Hub health across the full product loop.');
       [0,1,2,3].forEach(function(i){ after(i*130, function(){ el('hm'+i).classList.add('on'); }); });
-      after(750, function(){ place(c1,null,el('navSig'),8,8); after(500, function(){ clickCur(c1, t1, function(){
+      after(1275, function(){ place(c1,null,el('navSig'),8,8); after(1062, function(){ clickCur(c1, t1, function(){
         mount('<div class="hub"><div class="hub-side"><div class="hub-brand"><i></i>Hub</div><a href="#">Overview</a><a class="on" href="#">Signals</a><a href="#">Funnels</a><a href="#">Guides</a></div><div class="hub-main"><div class="hub-search">Search <em>Signals</em></div><div class="sig hot" id="s0"><span class="dot"></span> Payment drop-off <span class="val">−41%</span></div><div class="sig hot" id="s1"><span class="dot"></span> CES on checkout <span class="val">↓</span></div><div class="sig" id="s2"><span class="dot"></span> Catalog → PDP <span class="val">86% ↑</span></div><div class="sig" id="s3"><span class="dot"></span> Guide · card help <span class="val">+2.1k</span></div></div></div>','Priority signals rise in red.');
-        [0,1,2,3].forEach(function(i){ after(i*150, function(){ el('s'+i).classList.add('on'); }); }); hideCursors(); after(1200, done);
+        [0,1,2,3].forEach(function(i){ after(i*150, function(){ el('s'+i).classList.add('on'); }); }); hideCursors(); after(2040, done);
       }); }); });
     });
   }
