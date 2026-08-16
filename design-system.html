@@ -479,6 +479,69 @@ nav.site-nav .sn-inner{
 .breadcrumb-live a{cursor:pointer}
 .breadcrumb-live a:hover{color:var(--accent)}
 
+/* ── Skill cards showcase (Task 7) ── */
+.ds-gcards{display:flex;gap:12px;flex-wrap:wrap}
+.ds-gcard{
+  position:relative;width:160px;min-height:220px;border-radius:18px;
+  background:linear-gradient(165deg,var(--bg-surface),var(--bg-raised));
+  border:1px solid var(--line);overflow:hidden;padding:0;
+  display:flex;flex-direction:column;text-align:left;cursor:pointer;
+  transition:transform 380ms cubic-bezier(.34,1.32,.64,1),border-color 300ms,box-shadow 350ms;
+}
+.ds-gc-cat{
+  position:absolute;top:12px;right:12px;z-index:4;
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.06em;
+  color:var(--text-secondary);border:1px solid rgba(255,255,255,.15);border-radius:100px;
+  padding:2px 8px;background:var(--bg);white-space:nowrap;
+}
+.ds-gc-visual{position:relative;flex:1;min-height:100px;display:flex;align-items:center;justify-content:center}
+.ds-gc-glow{position:absolute;left:50%;top:45%;width:100px;height:100px;transform:translate(-50%,-50%);
+  border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 68%);
+  pointer-events:none}
+.ds-gc-ring{position:absolute;width:72px;height:72px;border-radius:50%;border:1px solid var(--line);pointer-events:none}
+.ds-gc-icon{width:44px;height:44px;stroke:var(--text-secondary);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ds-gc-body{padding:0 12px 14px;position:relative;z-index:2}
+.ds-gc-t{font-family:var(--font-display);font-weight:700;font-size:13px;line-height:1.2;margin-bottom:6px}
+.ds-gc-cta{font-size:9px;color:var(--text-secondary);font-family:var(--font-mono);letter-spacing:.04em}
+/* Category tints */
+.ds-gc-uxr{border-color:rgba(192,132,252,.25);background:linear-gradient(165deg,rgba(192,132,252,.08),var(--bg-raised))}
+.ds-gc-uxr .ds-gc-icon{stroke:#c084fc}.ds-gc-uxr .ds-gc-cat{color:#c084fc;border-color:rgba(192,132,252,.4)}
+.ds-gc-uxr .ds-gc-glow{background:radial-gradient(circle,rgba(192,132,252,.2),transparent 68%)}
+.ds-gc-sys{border-color:rgba(34,211,238,.35);background:linear-gradient(165deg,rgba(34,211,238,.1),var(--bg-raised))}
+.ds-gc-sys .ds-gc-icon{stroke:#22d3ee}.ds-gc-sys .ds-gc-cat{color:#22d3ee;border-color:rgba(34,211,238,.45)}
+.ds-gc-sys .ds-gc-glow{background:radial-gradient(circle,rgba(34,211,238,.22),transparent 68%)}
+.ds-gc-hover{
+  border-color:rgba(192,132,252,.75)!important;
+  transform:perspective(800px) rotateX(3deg) translateY(-7px) scale(1.04);
+  box-shadow:0 0 0 1.5px #c084fc,0 0 22px -4px rgba(192,132,252,.5),0 22px 44px -16px rgba(0,0,0,.55);
+}
+/* Tech tag chips */
+.ds-tech-row{display:flex;flex-wrap:wrap;gap:6px}
+.ds-ttag{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 10px;border-radius:100px;
+  border:1px solid var(--line);background:var(--bg-surface);
+  font-family:var(--font-mono);font-size:10px;color:var(--text-secondary);
+}
+.ds-ttag.accent{border-color:rgba(217,119,87,.45);color:#d97757;background:rgba(217,119,87,.08)}
+.ds-ttag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7;flex-shrink:0}
+/* Player state strip */
+.ds-player-states{display:flex;flex-direction:column;gap:10px}
+.ds-ps{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg-surface)}
+.ds-ps .ps-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ds-ps .ps-label{font-family:var(--font-mono);font-size:11px;font-weight:600;min-width:80px}
+.ds-ps .ps-desc{font-size:12px;color:var(--text-secondary);line-height:1.4}
+.ps-idle .ps-dot{background:var(--line);border:1px solid rgba(255,255,255,.2)}
+.ps-typing .ps-dot{background:#22d3ee;box-shadow:0 0 6px rgba(34,211,238,.7)}
+.ps-hold .ps-dot{background:#d97757;box-shadow:0 0 6px rgba(217,119,87,.6)}
+.ps-done .ps-dot{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,.6)}
+/* Hero line tokens */
+.ds-hero-demo{padding:24px;border-radius:14px;background:var(--bg-raised);border:1px solid var(--line);text-align:center}
+.ds-hero-demo .big{font-family:var(--font-display);font-size:clamp(20px,3vw,28px);font-weight:800;line-height:1.2;margin-bottom:8px}
+.ds-hero-demo .big em{color:var(--accent);font-style:normal}
+.ds-hero-demo .cursor-blink::after{content:'|';color:var(--accent);animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
 </style>
 </head>
 <body>
@@ -716,12 +779,71 @@ No tool-dependent claims in lede — UX / research / product loop</div>
     </section>
     <section class="sec">
       <p class="lvl">Home · skills</p>
+      <h2>Skill cards (gcard) — states</h2>
+      <p class="sub">8 cards in a fan layout. Solid tint at rest — gradient + glow only on hover. 5 categories: uxr · product · analytics · aidev · system. Each category has its own color token.</p>
+      <div class="ds-gcards" style="margin-bottom:14px">
+        <!-- UXR card (rest) -->
+        <div class="ds-gcard ds-gc-uxr">
+          <span class="ds-gc-cat"><b>03</b> · UX / UXR</span>
+          <div class="ds-gc-visual">
+            <span class="ds-gc-glow"></span>
+            <span class="ds-gc-ring"></span>
+            <svg class="ds-gc-icon" viewBox="0 0 24 24"><path d="M22 3H2l8 9.5V19l4 2v-8.5z"/></svg>
+          </div>
+          <div class="ds-gc-body">
+            <div class="ds-gc-t">Segmentation</div>
+            <div class="ds-gc-cta">Expand process →</div>
+          </div>
+        </div>
+        <!-- Systems card (rest) -->
+        <div class="ds-gcard ds-gc-sys">
+          <span class="ds-gc-cat"><b>08</b> · SYSTEM</span>
+          <div class="ds-gc-visual">
+            <span class="ds-gc-glow"></span>
+            <span class="ds-gc-ring"></span>
+            <svg class="ds-gc-icon" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8.2 6h7.6M6 8.2v7.6M18 8.2v7.6M8.2 18h7.6"/></svg>
+          </div>
+          <div class="ds-gc-body">
+            <div class="ds-gc-t">Connected Systems</div>
+            <div class="ds-gc-cta">Expand process →</div>
+          </div>
+        </div>
+        <!-- UXR card (hover state) -->
+        <div class="ds-gcard ds-gc-uxr ds-gc-hover">
+          <span class="ds-gc-cat"><b>03</b> · UX / UXR</span>
+          <div class="ds-gc-visual">
+            <span class="ds-gc-glow"></span>
+            <span class="ds-gc-ring"></span>
+            <svg class="ds-gc-icon" viewBox="0 0 24 24"><path d="M22 3H2l8 9.5V19l4 2v-8.5z"/></svg>
+          </div>
+          <div class="ds-gc-body">
+            <div class="ds-gc-t">Segmentation</div>
+            <div class="ds-gc-cta" style="color:#c084fc">Expand process →</div>
+          </div>
+        </div>
+      </div>
+      <div class="code" style="margin-top:8px">cat-uxr: #c084fc · cat-analytics: #8fb4d4 · cat-product: #c9a877
+cat-aidev: #9d8cd9 · cat-system: #22d3ee
+At rest: solid tint (color-mix 12–14% into bg-raised)
+On hover: linear-gradient + glow + 1.5px ring box-shadow</div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Home · skills</p>
       <h2>Skills entry → modal player</h2>
       <p class="sub">Cards open the Skills player embed. Pills outside unit · unit 560×410 scaled to column width.</p>
       <div class="grid g3">
         <div class="card"><h3>Usage</h3><p>Fan / group cards → stagezone modal → skills-player?embed=1</p></div>
         <div class="card"><h3>Host rules</h3><p>postMessage height · no overflow clip on panel · X close</p></div>
         <div class="card"><h3>Pills</h3><p>Inactive number only · active number + name</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Home · hero</p>
+      <h2>Hero animation — typewriter + bounce</h2>
+      <p class="sub">Opening line types character by character at ~26ms/char. Em words use accent color. No blinking cursor after final stop — cursor blink only during typing.</p>
+      <div class="ds-hero-demo">
+        <div class="big">I don't wait for a process. I build the <em>whole loop</em>.<span class="cursor-blink"></span></div>
+        <p style="font-size:11px;color:var(--text-secondary);margin-top:6px;font-family:var(--font-mono)">typeText() · ~26ms/char · em → accent color inline</p>
       </div>
     </section>
     <section class="sec">
@@ -794,6 +916,24 @@ No tool-dependent claims in lede — UX / research / product loop</div>
         <div class="card"><h3>Non-prototype motion</h3><p>Rails, metric autoplay, hero loops — slower intervals (≥8s). No extra pagination dots.</p></div>
       </div>
     </section>
+    <section class="sec">
+      <p class="lvl">Shared case chrome</p>
+      <h2>Tech tag chips</h2>
+      <p class="sub">Tool names shown as compact pill tags. Default: muted mono border. Accent: colored border for key tools in a feature. Used in card footers, player beats, and section stacks.</p>
+      <div class="ds-tech-row" style="margin-bottom:10px">
+        <span class="ds-ttag"><span class="dot"></span>Figma</span>
+        <span class="ds-ttag"><span class="dot"></span>Pendo</span>
+        <span class="ds-ttag"><span class="dot"></span>Maze</span>
+        <span class="ds-ttag"><span class="dot"></span>GA4</span>
+        <span class="ds-ttag accent"><span class="dot"></span>Claude</span>
+        <span class="ds-ttag accent"><span class="dot"></span>Factory.ai</span>
+        <span class="ds-ttag"><span class="dot"></span>GitHub</span>
+        <span class="ds-ttag"><span class="dot"></span>Replit</span>
+      </div>
+      <div class="code">Default: border var(--line) · color var(--text-secondary) · bg var(--bg-surface)
+Accent: border rgba(217,119,87,.45) · color #d97757 · bg rgba(217,119,87,.08)
+Font: DM Mono 10px · padding 4px 10px · border-radius 100px</div>
+    </section>
   </div>
 
   <!-- PLAYERS -->
@@ -849,6 +989,33 @@ shell (chrome + stage + controls)
       <div class="grid g2">
         <div class="card"><h3>A · Balanced (shipped)</h3><p>Type ~26–28ms/char · beat holds ~0.5–0.9s median · interactions responsive. Best default for recruiters.</p></div>
         <div class="card"><h3>B · Snappy</h3><p>~15% faster narrative · shorter holds. Use if analytics show drop-off mid-player.</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Player states</p>
+      <h2>Beat lifecycle states</h2>
+      <p class="sub">Each beat cycles through idle → typing → hold → done before calling done(). runId guards stale callbacks across replays.</p>
+      <div class="ds-player-states">
+        <div class="ds-ps ps-idle">
+          <div class="ps-dot"></div>
+          <div class="ps-label">idle</div>
+          <div class="ps-desc">between beats · win cleared · cursor hidden · cap faded out</div>
+        </div>
+        <div class="ds-ps ps-typing">
+          <div class="ps-dot"></div>
+          <div class="ps-label">typing</div>
+          <div class="ps-desc">typeTitle() running · ~26ms/char · em words get accent color inline</div>
+        </div>
+        <div class="ds-ps ps-hold">
+          <div class="ps-dot"></div>
+          <div class="ps-label">hold</div>
+          <div class="ps-desc">text complete · cap visible · pause ~1.1s before next action</div>
+        </div>
+        <div class="ds-ps ps-done">
+          <div class="ps-dot"></div>
+          <div class="ps-label">done</div>
+          <div class="ps-desc">beat finished · loops to next beat (or beat 01 after 08) · prefers-reduced-motion stops autoplay</div>
+        </div>
       </div>
     </section>
 
