@@ -77,6 +77,21 @@
     transition:background 180ms,border-color 180ms;
   }
   .hm-resume:hover{background:var(--accent-dim);border-color:var(--accent);}
+  .hero-dl-wrap{margin-top:24px;animation:popIn 600ms var(--spring) 320ms both;}
+  .hero-dl-btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 24px;border-radius:12px;
+    background:var(--accent);color:#1a100c;
+    font-family:var(--font-display);font-weight:700;font-size:15px;
+    text-decoration:none;
+    transition:transform .3s var(--spring),box-shadow .3s ease;
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent);
+  }
+  .hero-dl-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 24px -8px color-mix(in srgb,var(--accent) 60%,transparent);
+  }
+  html[data-theme="light"] .hero-dl-btn{color:#fff}
 
   section{padding:44px 0 0;}
   .sec-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
@@ -1948,7 +1963,7 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
   <a class="nav-back" href="index.html">← Home</a>
   <span class="nav-name">Resume</span>
   <div class="nav-dl">
-    <a class="dl" href="assets/Federico_Monroy_Resume_ATS.html" download title="Download resume">Resume ↓</a>
+    <a class="dl" href="assets/Federico_Monroy_CV.pdf" download="Federico_Monroy_CV.pdf" title="Download resume PDF">Download ↓</a>
   </div>
 </div></nav>
 
@@ -1962,7 +1977,16 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
     <span class="hm-sep">·</span>
     <span class="hm"><a href="mailto:fedemon16i@gmail.com">fedemon16i@gmail.com</a></span>
     <span class="hm-sep">·</span>
-    <a class="hm-resume" href="assets/Federico_Monroy_Resume_ATS.html" download title="Download resume">Resume ↓</a>
+    <a class="hm-resume" href="assets/Federico_Monroy_CV.pdf" download="Federico_Monroy_CV.pdf" title="Download resume PDF">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Resume
+    </a>
+  </div>
+  <div class="hero-dl-wrap">
+    <a class="hero-dl-btn" href="assets/Federico_Monroy_CV.pdf" download="Federico_Monroy_CV.pdf">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Resume
+    </a>
   </div>
 </div></header>
 
