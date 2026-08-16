@@ -3874,6 +3874,8 @@ html body.page-home .gcard{
   display:inline-flex;align-items:center;text-decoration:none;color:inherit;
 }
 .ht-ba.primary{ background:var(--accent,#d97757); color:#2b1207; border-color:var(--accent,#d97757); }
+.ht-ba.ht-dl{ gap:5px; box-shadow:0 0 0 3px color-mix(in srgb,var(--accent,#d97757) 20%,transparent); }
+.ht-ba.ht-dl:hover{ box-shadow:0 4px 16px -4px color-mix(in srgb,var(--accent,#d97757) 55%,transparent); }
 .ht-ba.more{ border-style:dashed; color:var(--text-tertiary, rgba(242,240,236,.45)); }
 
 
@@ -5536,7 +5538,7 @@ nav.site-nav .sn-inner{
       <p class="ht-hint">Tap for more →</p>
     </div>
     <div class="ht-actions" onclick="event.stopPropagation()">
-      <a class="ht-ba primary" href="resume.html">CV</a>
+      <a class="ht-ba primary ht-dl" href="assets/Federico_Monroy_CV.pdf" download="Federico_Monroy_CV.pdf"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Resume</a>
       <a class="ht-ba" href="mailto:fedemon16i@gmail.com">Email</a>
       <a class="ht-ba" href="#projects">Projects</a>
       <a class="ht-ba" href="#loop-h">How I work</a>
