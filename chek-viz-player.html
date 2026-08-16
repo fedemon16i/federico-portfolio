@@ -314,9 +314,60 @@ html.embed,html.embed body{background:transparent}
 }
 .text-phase .sub.on{opacity:1;transform:none}
 
+/* ===== Light mode — chrome only (product-mockup screens stay fixed-light, matching the shipped product) ===== */
+html[data-theme="light"]{
+  --bg:#f7f5f2; --text:#1a1917; --muted:#5c5854; --dim:#847f79;
+  --border:rgba(0,0,0,.10);
+  --capbar-fade:rgba(247,245,242,.94);
+}
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] .stage{
+  background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.2);
+}
+html[data-theme="light"] .stage-top{background:linear-gradient(180deg,rgba(247,245,242,.85) 0%,transparent 100%)}
+html[data-theme="light"] .icon-btn{background:rgba(255,255,255,.8)}
+html[data-theme="light"] .icon-btn:hover{background:var(--accent-dim)}
+html[data-theme="light"] .stage-arrow{background:rgba(255,255,255,.85)}
+html[data-theme="light"] .stage-arrow:hover{background:var(--accent-dim)}
+html[data-theme="light"] .capbar .cap-txt{text-shadow:none}
 </style>
 </head>
 <body>
+<script>
+/* Theme sync: localStorage + parent page (same-origin iframe) */
+(function(){
+  function apply(t){
+    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+  }
+  function isEmbed(){
+    return document.documentElement.classList.contains('embed')
+      || /(?:^|[?&#])embed=1/.test(location.search + location.hash);
+  }
+  function read(){
+    var t = 'dark';
+    try {
+      var s = localStorage.getItem('theme-preference');
+      if (s === 'light' || s === 'dark') t = s;
+      if (!isEmbed() && s !== 'light' && s !== 'dark') t = 'dark';
+    } catch(e) {}
+    try {
+      if (window.parent && window.parent !== window) {
+        var p = window.parent.document.documentElement.getAttribute('data-theme');
+        if (p === 'light' || p === 'dark') t = p;
+      }
+    } catch(e) {}
+    if (!isEmbed()) {
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light') t = 'light';
+    }
+    apply(t);
+  }
+  read();
+  window.addEventListener('storage', function(e){ if (e.key === 'theme-preference') read(); });
+  setInterval(function(){ if (isEmbed()) read(); }, 1500);
+})();
+</script>
 <div class="motor" id="motor">
   <div class="motor-top">
     <div class="motor-lab"><span id="labN">01</span><b id="labT">Onboarding</b></div>
@@ -384,16 +435,16 @@ html.embed,html.embed body{background:transparent}
       if(i>=title.length){
         if(b) b.style.display='none';
         s.classList.add('on');
-        after(900, function(){
+        after(764, function(){
           tp.classList.add('hide');
-          after(400, function(){ if(done) done(); });
+          after(339, function(){ if(done) done(); });
         });
         return;
       }
       t.textContent=title.slice(0, ++i);
       typeTimer=setTimeout(tick, 22);
     }
-    after(200, tick);
+    after(180, tick);
   }
 
   function buildOnb(root){
@@ -439,9 +490,9 @@ html.embed,html.embed body{background:transparent}
     var sc=el('sc-onb'); if(!sc) return;
     sc.setAttribute('data-step','0');
     var bad=el('onbBad'); if(bad){bad.classList.remove('show','ok');bad.textContent='−34% at identity'}
-    after(700,function(){ sc.setAttribute('data-step','1'); if(bad) bad.classList.add('show'); });
-    after(1600,function(){ var b=sc.querySelector('.ph.b'); if(b) b.classList.add('drop'); });
-    after(2600,function(){
+    after(594,function(){ sc.setAttribute('data-step','1'); if(bad) bad.classList.add('show'); });
+    after(1152,function(){ var b=sc.querySelector('.ph.b'); if(b) b.classList.add('drop'); });
+    after(1872,function(){
       sc.setAttribute('data-step','2');
       var b=sc.querySelector('.ph.b'); if(b) b.classList.remove('drop');
       if(bad){bad.textContent='+15% completion';bad.classList.add('ok')}
@@ -472,9 +523,9 @@ html.embed,html.embed body{background:transparent}
     var sc=el('sc-sec'); if(!sc) return;
     sc.setAttribute('data-step','0');
     ['icoLock','icoShield','icoCheck','sl0','sl1','sl2'].forEach(function(id){var e=el(id);if(e)e.classList.remove('on')});
-    after(900,function(){sc.setAttribute('data-step','1');el('icoLock').classList.add('on');el('sl0').classList.add('on')});
-    after(1800,function(){sc.setAttribute('data-step','2');el('icoLock').classList.remove('on');el('icoShield').classList.add('on');el('sl1').classList.add('on')});
-    after(2700,function(){sc.setAttribute('data-step','3');el('icoShield').classList.remove('on');el('icoCheck').classList.add('on');el('sl2').classList.add('on')});
+    after(764,function(){sc.setAttribute('data-step','1');el('icoLock').classList.add('on');el('sl0').classList.add('on')});
+    after(1296,function(){sc.setAttribute('data-step','2');el('icoLock').classList.remove('on');el('icoShield').classList.add('on');el('sl1').classList.add('on')});
+    after(1944,function(){sc.setAttribute('data-step','3');el('icoShield').classList.remove('on');el('icoCheck').classList.add('on');el('sl2').classList.add('on')});
   }
 
   function buildLit(root){
@@ -485,9 +536,9 @@ html.embed,html.embed body{background:transparent}
       '<div class="card"><div class="brand">cheK</div><div class="num">••••  ••••  ••••  4821</div><div class="foot"><span>Federico M.</span><span>12/28</span></div></div></div>';
   }
   function playLit(){
-    after(300,function(){el('lq1').classList.add('on')});
-    after(900,function(){el('lq2').classList.add('on')});
-    after(1500,function(){el('lq3').classList.add('on')});
+    after(270,function(){el('lq1').classList.add('on')});
+    after(764,function(){el('lq2').classList.add('on')});
+    after(1080,function(){el('lq3').classList.add('on')});
   }
 
   function buildIntel(root){
@@ -497,9 +548,9 @@ html.embed,html.embed body{background:transparent}
       '<div class="cell cause" id="ic2"><h4>Root cause</h4><div class="big">NOT KNOWING</div><p class="quote" style="margin-top:6px">Cutoff · due · minimum never taught in-flow.</p></div></div>';
   }
   function playIntel(){
-    after(200,function(){el('ic0').classList.add('on')});
-    after(700,function(){el('ic1').classList.add('on')});
-    after(1300,function(){el('ic2').classList.add('on')});
+    after(180,function(){el('ic0').classList.add('on')});
+    after(594,function(){el('ic1').classList.add('on')});
+    after(936,function(){el('ic2').classList.add('on')});
   }
 
   function buildFunnel(root){
@@ -514,8 +565,8 @@ html.embed,html.embed body{background:transparent}
       '<div class="bar good" style="height:92%"><b>+15%</b><span>Done</span></div></div></div>';
   }
   function playFunnel(){
-    after(400,function(){el('fnDrop').classList.add('on');var p=el('fnPhones').querySelectorAll('.ph');if(p[1])p[1].classList.add('drop')});
-    after(1000,function(){[].forEach.call(el('fnChart').children,function(b,i){after(i*150,function(){b.classList.add('on')})})});
+    after(339,function(){el('fnDrop').classList.add('on');var p=el('fnPhones').querySelectorAll('.ph');if(p[1])p[1].classList.add('drop')});
+    after(849,function(){[].forEach.call(el('fnChart').children,function(b,i){after(i*150,function(){b.classList.add('on')})})});
   }
 
   function buildTag(root){
@@ -532,7 +583,7 @@ html.embed,html.embed body{background:transparent}
     tags.forEach(function(t){html+='<div class="tg" id="'+t.id+'" style="'+t.style+'">'+t.label+'</div>'});
     root.innerHTML=html+'</div>';
   }
-  function playTag(){for(var i=0;i<7;i++){(function(i){after(200+i*180,function(){var e=el('tg'+i);if(e)e.classList.add('on')})})(i)}}
+  function playTag(){for(var i=0;i<7;i++){(function(i){after(180+i*180,function(){var e=el('tg'+i);if(e)e.classList.add('on')})})(i)}}
 
   function buildPendo(root){
     root.innerHTML='<div class="rep">'+
@@ -547,8 +598,8 @@ html.embed,html.embed body{background:transparent}
       '<div class="mini-fun"><div class="mf" style="width:100%">Hub 100%</div><div class="mf" style="width:78%">Verify 66%</div><div class="mf" style="width:62%">Ready 80%</div><div class="mf" style="width:55%;border-color:rgba(61,214,140,.4);background:rgba(61,214,140,.15)">Done +15%</div></div></div></div>';
   }
   function playPendo(){
-    after(200,function(){el('pdTable').classList.add('on')});
-    after(600,function(){el('pdFun').classList.add('on')});
+    after(180,function(){el('pdTable').classList.add('on')});
+    after(509,function(){el('pdFun').classList.add('on')});
   }
 
   /* present = typewriter intro; narrate = blur only */

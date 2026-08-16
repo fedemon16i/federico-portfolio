@@ -76,6 +76,7 @@ h1{font-weight:800;font-size:clamp(1.85rem,4vw,2.5rem);letter-spacing:-.03em;mar
 .ey-wf-grid span{border-radius:3px;background:rgba(255,255,255,.06);border:1px solid rgba(255,225,0,.12)}
 .ey-wf-cursor{position:absolute;width:9px;height:9px;border-radius:50%;background:#ffe600;box-shadow:0 0 12px #ffe600;animation:eyC 3.4s ease-in-out infinite}
 @keyframes eyC{0%{left:36%;top:38%}45%{left:64%;top:50%}100%{left:36%;top:38%}}
+.ey-graphic-logo{position:absolute;left:14px;bottom:12px;z-index:2;opacity:.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));}
 
 .dc-g{background:#0c1410;position:relative}
 .dc-cam{position:absolute;inset:16px;border-radius:10px;background:#eef2ec;overflow:hidden}
@@ -1732,6 +1733,10 @@ html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
   color:#1a1917!important;background:rgba(0,0,0,.05)!important;
 }
 nav.site-nav .sn-drop{position:relative!important}
+nav.site-nav .sn-drop::after{
+  content:""!important;position:absolute!important;left:0!important;right:0!important;
+  top:100%!important;height:8px!important;
+}
 nav.site-nav .sn-drop-menu{
   position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
   transform:translateX(-50%) translateY(-4px)!important;
@@ -1864,22 +1869,22 @@ html body a.pcard .pcard-body{
 
 
 <style id="shell-unify-v2">
-:root{{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }}
-.page, .wrap, .top-nav-inner, .sn-inner{{
+:root{ --max:920px; --pad:clamp(16px,3vw,28px); --section-y:clamp(2.5rem,4vw,4rem); }
+.page, .wrap, .top-nav-inner, .sn-inner{
   max-width:var(--max)!important;
   margin-left:auto!important; margin-right:auto!important;
   box-sizing:border-box!important;
-}}
-.page, .wrap{{
+}
+.page, .wrap{
   padding-left:var(--pad)!important;
   padding-right:var(--pad)!important;
   width:100%!important;
-}}
+}
 /* sn-inner already padded by component — avoid double */
-nav.site-nav .sn-inner{{
+nav.site-nav .sn-inner{
   padding-left:var(--pad)!important;
   padding-right:var(--pad)!important;
-}}
+}
 </style>
 
 </head>
@@ -1940,6 +1945,27 @@ nav.site-nav .sn-inner{{
 <h1>Projects</h1>
 <p class="lede">Same cards as home — expanded here with role, stack, and outcome so recruiters can scan without opening every case.</p>
 <div class="stack">
+<a class="pcard" href="projects/ey-fabric.html" id="pc0" style="--pc-bg:#ffe600;--pc-txt:#2b2600;">
+      <div class="pcard-head">
+        <span class="pcard-logo"><svg width="30" height="22" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#2b2600"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#2b2600">EY</text></svg></span><span class="pcard-name-v">EY Fabric</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-top"><b>EY Fabric</b><small>Oct 2023 — Present</small></div>
+        <div class="pcard-graphic ey-graphic">
+          <div class="ey-wf">
+            <div class="ey-wf-side"><b></b><b></b><b></b><b></b></div>
+            <div class="ey-wf-main">
+              <div class="ey-wf-banner"></div>
+              <div class="ey-wf-grid"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <span class="ey-wf-cursor"></span>
+          <div class="ey-graphic-logo"><svg width="36" height="26" viewBox="0 0 30 22"><polygon points="1,4 27,0 27,4 1,8" fill="#f5d100"/><text x="1" y="20" font-family="Arial,sans-serif" font-weight="800" font-size="17" fill="#f5d100">EY</text></svg></div>
+        </div>
+        <p class="pcard-desc">90+ internal assets, instrumented and mapped across 4 workflow stages — sentiment turned into a live dashboard.</p>
+        <span class="pcard-cta">Open case study &#8594;</span>
+      </div>
+    </a>
 <a class="pcard" href="projects/blockchain.html" id="pc1" style="--pc-bg:#22d4c8;--pc-txt:#042e2a;">
       <div class="pcard-head">
         <span class="pcard-logo"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="#042e2a" stroke-width="1.6"/><polygon points="12,7 16.5,9.5 16.5,14.5 12,17 7.5,14.5 7.5,9.5" fill="#042e2a"/></svg></span><span class="pcard-name-v">Blockchain</span>

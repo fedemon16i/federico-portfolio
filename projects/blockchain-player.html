@@ -806,9 +806,62 @@ h1, .h1, .proc-h, .sec-h{
   }
 }
 
+/* ===== Light mode — chrome only (product-mockup screens inside .stage-window stay fixed-light, matching the shipped product) ===== */
+html[data-theme="light"]{
+  --bg:#f7f5f2; --stage-bg:#eef1ee;
+  --text:#1a1917; --muted:#5c5854; --dim:#847f79;
+  --border:rgba(0,0,0,.10);
+  --capbar-fade:rgba(247,245,242,.94);
+}
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] .stage{
+  background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.2);
+}
+html[data-theme="light"] .stage-top{background:linear-gradient(180deg,rgba(247,245,242,.85) 0%,transparent 100%)}
+html[data-theme="light"] .icon-btn{background:rgba(255,255,255,.8)}
+html[data-theme="light"] .icon-btn:hover{background:var(--accent-dim)}
+html[data-theme="light"] .stage-arrow{background:rgba(255,255,255,.85)}
+html[data-theme="light"] .stage-arrow:hover{background:var(--accent-dim)}
+html[data-theme="light"] .capbar .cap-txt{text-shadow:none}
+
 </style>
 </head>
 <body>
+<script>
+/* Theme sync: localStorage + parent page (same-origin iframe) */
+(function(){
+  function apply(t){
+    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+  }
+  function isEmbed(){
+    return document.documentElement.classList.contains('embed')
+      || /(?:^|[?&#])embed=1/.test(location.search + location.hash);
+  }
+  function read(){
+    var t = 'dark';
+    try {
+      var s = localStorage.getItem('theme-preference');
+      if (s === 'light' || s === 'dark') t = s;
+      if (!isEmbed() && s !== 'light' && s !== 'dark') t = 'dark';
+    } catch(e) {}
+    try {
+      if (window.parent && window.parent !== window) {
+        var p = window.parent.document.documentElement.getAttribute('data-theme');
+        if (p === 'light' || p === 'dark') t = p;
+      }
+    } catch(e) {}
+    if (!isEmbed()) {
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light') t = 'light';
+    }
+    apply(t);
+  }
+  read();
+  window.addEventListener('storage', function(e){ if (e.key === 'theme-preference') read(); });
+  setInterval(function(){ if (isEmbed()) read(); }, 1500);
+})();
+</script>
 <div class="wrap">
   <p class="eyebrow">03 · Demo</p>
   <h1>The flow — owner to visitor</h1>
@@ -1047,7 +1100,7 @@ function showSuccess(msg){
   if(tx) tx.textContent=msg||'Success';
   el.classList.remove('on'); void el.offsetWidth;
   el.classList.add('on');
-  timers.push(setTimeout(function(){ el.classList.remove('on'); }, 3300));
+  timers.push(setTimeout(function(){ el.classList.remove('on'); }, 2376));
 }
 
 function showPinTip(on, title, meta, img){
@@ -1186,7 +1239,7 @@ function fireCursor(tx, ty, opts){
     cur.classList.add('hold');
   } else {
     cur.classList.add('press');
-    timers.push(setTimeout(function(){ cur.classList.remove('press'); }, 2625));
+    timers.push(setTimeout(function(){ cur.classList.remove('press'); }, 1890));
   }
 }
 
@@ -1280,7 +1333,7 @@ function applyAction(act){
     document.getElementById('pMap').classList.add('on');
     document.getElementById('pMap').classList.toggle('bg', !!act.onboard);
     nav.classList.add('on');
-    if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 100);
+    if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 80);
   }
   if(!act.onboard){
     document.getElementById('pMap').classList.remove('bg');
@@ -1419,7 +1472,7 @@ function runBeat(i, manual){
   kicker.classList.remove('on');
   document.getElementById('sub').classList.remove('on');
   document.getElementById('sub').textContent='';
-  timers.push(setTimeout(function(){ kicker.classList.add('on'); }, 100));
+  timers.push(setTimeout(function(){ kicker.classList.add('on'); }, 80));
 
   typeText(st.text, function(){
     document.getElementById('sub').textContent=st.sub||'';
@@ -1428,7 +1481,7 @@ function runBeat(i, manual){
       textPhase.classList.add('hide');
       host.classList.remove('dim');
       setCaption(st.text);
-      if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 125);
+      if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 90);
       var t0=350;
       st.actions.forEach(function(act, idx){
         t0 += (act.delay||0);
@@ -1479,7 +1532,7 @@ window.addEventListener('resize', fitPhone);
 if(window.ResizeObserver){ try{ new ResizeObserver(fitPhone).observe(document.getElementById('phoneHost')); }catch(e){} }
 
 fitPhone();
-setTimeout(fitPhone, 375);
+setTimeout(fitPhone, 310);
 setTimeout(function(){
   try{
     cityP=makeCity(document.getElementById('glPhone'), document.getElementById('pMap'), true);

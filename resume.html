@@ -1762,6 +1762,10 @@ html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
   color:#1a1917!important;background:rgba(0,0,0,.05)!important;
 }
 nav.site-nav .sn-drop{position:relative!important}
+nav.site-nav .sn-drop::after{
+  content:""!important;position:absolute!important;left:0!important;right:0!important;
+  top:100%!important;height:8px!important;
+}
 nav.site-nav .sn-drop-menu{
   position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
   transform:translateX(-50%) translateY(-4px)!important;

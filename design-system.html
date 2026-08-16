@@ -65,6 +65,10 @@ html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
   color:#1a1917!important;background:rgba(0,0,0,.05)!important;
 }
 nav.site-nav .sn-drop{position:relative!important}
+nav.site-nav .sn-drop::after{
+  content:""!important;position:absolute!important;left:0!important;right:0!important;
+  top:100%!important;height:8px!important;
+}
 nav.site-nav .sn-drop-menu{
   position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
   transform:translateX(-50%) translateY(-4px)!important;
@@ -429,6 +433,52 @@ nav.site-nav .sn-inner{
 
 .note{ font-size:12px; color:var(--muted); margin-top:8px; }
 
+
+/* More interactive demos */
+.ds-toggle-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.ds-toggle{
+  padding:8px 14px;border-radius:10px;border:1px solid var(--line);
+  background:var(--bg-surface);cursor:pointer;font:600 12px/1 var(--font-body);color:var(--muted);
+}
+.ds-toggle.on{background:var(--accent-dim);border-color:var(--accent);color:var(--text)}
+.seg{
+  display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--bg-surface);
+}
+.seg button{
+  border:0;background:transparent;padding:8px 14px;font:600 12px/1 var(--font-body);
+  color:var(--muted);cursor:pointer;
+}
+.seg button.on{background:var(--accent);color:#fff}
+.progress{height:4px;background:var(--line);border-radius:999px;overflow:hidden;margin:12px 0}
+.progress>i{display:block;height:100%;width:0;background:var(--accent);transition:width .6s ease}
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--bg-raised);border:1px solid var(--line);color:var(--text);
+  padding:12px 18px;border-radius:12px;font-size:13px;z-index:100;
+  transition:transform .4s var(--ease-out-back),opacity .3s;opacity:0;pointer-events:none;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:600px){.icon-grid{grid-template-columns:repeat(2,1fr)}}
+.icon-cell{
+  aspect-ratio:1;border:1px solid var(--line);border-radius:14px;background:var(--bg-surface);
+  display:grid;place-items:center;cursor:pointer;transition:transform var(--motion),border-color .25s;
+  font-size:22px;
+}
+.icon-cell:hover{transform:scale(1.06);border-color:var(--accent)}
+.icon-cell.on{border-color:var(--accent);background:var(--accent-dim)}
+.input-demo{
+  width:100%;max-width:320px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
+  background:var(--bg-surface);color:var(--text);font:500 14px/1.3 var(--font-body);
+}
+.input-demo:focus{outline:2px solid var(--accent);outline-offset:2px}
+.switch{position:relative;width:44px;height:26px;border-radius:999px;background:var(--line);cursor:pointer;transition:background .25s}
+.switch.on{background:var(--accent)}
+.switch i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .25s var(--ease-out-back)}
+.switch.on i{left:21px}
+.breadcrumb-live a{cursor:pointer}
+.breadcrumb-live a:hover{color:var(--accent)}
+
 </style>
 </head>
 <body>
@@ -602,6 +652,52 @@ No tool-dependent claims in lede — UX / research / product loop</div>
         <span class="chip"><i></i>Unity</span>
       </div>
     </section>
+  
+    <section class="sec">
+      <p class="lvl">Controls</p>
+      <h2>Segmented · switch · progress</h2>
+      <p class="sub">Interactive — same motion language as the site.</p>
+      <div class="seg" id="segDemo">
+        <button type="button" class="on">Overview</button>
+        <button type="button">Metrics</button>
+        <button type="button">Replay</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:14px">
+        <div class="switch" id="swDemo" role="switch" aria-checked="false"><i></i></div>
+        <span class="note" id="swLab">Notifications off</span>
+      </div>
+      <div class="progress" aria-hidden="true"><i id="progBar" style="width:35%"></i></div>
+      <div class="btn-row">
+        <button type="button" class="btn" id="progGo">Animate progress</button>
+        <button type="button" class="btn ghost" id="toastGo">Show toast</button>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Icons</p>
+      <h2>Tap targets</h2>
+      <div class="icon-grid" id="iconGrid">
+        <div class="icon-cell" data-i="0">◈</div>
+        <div class="icon-cell" data-i="1">◎</div>
+        <div class="icon-cell" data-i="2">◇</div>
+        <div class="icon-cell" data-i="3">▣</div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Form</p>
+      <h2>Input focus</h2>
+      <input class="input-demo" type="text" placeholder="Search catalog…" aria-label="Demo search"/>
+    </section>
+    <section class="sec">
+      <p class="lvl">Filters</p>
+      <h2>Toggle chips</h2>
+      <div class="ds-toggle-row" id="filterRow">
+        <button type="button" class="ds-toggle on">All</button>
+        <button type="button" class="ds-toggle">Research</button>
+        <button type="button" class="ds-toggle">Product</button>
+        <button type="button" class="ds-toggle">Ops</button>
+      </div>
+    </section>
+
   </div>
 
 
@@ -745,6 +841,17 @@ shell (chrome + stage + controls)
         <div class="card"><h3>CSS + timers</h3><p>No heavy engine. after()/setTimeout sequences, CSS transitions, occasional canvas/WebGL only in Blockchains 3D.</p></div>
       </div>
     </section>
+  
+    <section class="sec">
+      <p class="lvl">Timing (visitors)</p>
+      <h2>Playback pace</h2>
+      <p class="sub">Narrative typewriter + beat holds tuned for people browsing a portfolio — not a product demo marathon.</p>
+      <div class="grid g2">
+        <div class="card"><h3>A · Balanced (shipped)</h3><p>Type ~26–28ms/char · beat holds ~0.5–0.9s median · interactions responsive. Best default for recruiters.</p></div>
+        <div class="card"><h3>B · Snappy</h3><p>~15% faster narrative · shorter holds. Use if analytics show drop-off mid-player.</p></div>
+      </div>
+    </section>
+
   </div>
 
   <!-- MOTION -->
@@ -820,6 +927,62 @@ Project cards + skills cards share this family — never instant expand.</div>
       p.classList.add('on');
     });
   }
+  
+  var seg = document.getElementById('segDemo');
+  if(seg){
+    seg.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return;
+      seg.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+    });
+  }
+  var sw = document.getElementById('swDemo');
+  var swLab = document.getElementById('swLab');
+  if(sw){
+    sw.addEventListener('click', function(){
+      sw.classList.toggle('on');
+      var on = sw.classList.contains('on');
+      sw.setAttribute('aria-checked', on ? 'true' : 'false');
+      if(swLab) swLab.textContent = on ? 'Notifications on' : 'Notifications off';
+    });
+  }
+  var progGo = document.getElementById('progGo');
+  var progBar = document.getElementById('progBar');
+  if(progGo && progBar){
+    progGo.addEventListener('click', function(){
+      progBar.style.width = '0%';
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ progBar.style.width = '100%'; });
+      });
+    });
+  }
+  var toastGo = document.getElementById('toastGo');
+  if(toastGo){
+    var toast = document.createElement('div');
+    toast.className = 'toast'; toast.textContent = 'Saved to design system';
+    document.body.appendChild(toast);
+    toastGo.addEventListener('click', function(){
+      toast.classList.add('show');
+      setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+    });
+  }
+  var iconGrid = document.getElementById('iconGrid');
+  if(iconGrid){
+    iconGrid.addEventListener('click', function(e){
+      var c = e.target.closest('.icon-cell'); if(!c) return;
+      iconGrid.querySelectorAll('.icon-cell').forEach(function(x){ x.classList.remove('on'); });
+      c.classList.add('on');
+    });
+  }
+  var filterRow = document.getElementById('filterRow');
+  if(filterRow){
+    filterRow.addEventListener('click', function(e){
+      var b = e.target.closest('.ds-toggle'); if(!b) return;
+      filterRow.querySelectorAll('.ds-toggle').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+    });
+  }
+
   var pulseBtn = document.getElementById('pulseBtn');
   var pulseCard = document.getElementById('pulseCard');
   if(pulseBtn && pulseCard){
