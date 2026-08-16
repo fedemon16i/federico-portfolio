@@ -547,21 +547,27 @@
   .cat-analytics .gc-cat{color:#8fb4d4;border-color:rgba(143,180,212,.5);}
   .cat-product .gc-cat{color:#c9a877;border-color:rgba(201,168,119,.5);}
   .cat-aidev .gc-cat{color:#9d8cd9;border-color:rgba(157,140,217,.5);}
+  .cat-system .gc-cat{color:#22d3ee;border-color:rgba(34,211,238,.5);}
   .cat-uxr{background:color-mix(in srgb,#c084fc 13%,var(--bg-raised));border-color:rgba(192,132,252,.25) !important;transition:background 350ms;}
   .cat-analytics{background:color-mix(in srgb,#8fb4d4 14%,var(--bg-raised));transition:background 350ms;}
   .cat-product{background:color-mix(in srgb,#c9a877 13%,var(--bg-raised));transition:background 350ms;}
   .cat-aidev{background:color-mix(in srgb,#9d8cd9 14%,var(--bg-raised));transition:background 350ms;}
+  .cat-system{background:color-mix(in srgb,#22d3ee 12%,var(--bg-raised));border-color:rgba(34,211,238,.25) !important;transition:background 350ms;}
   .cat-uxr.gc-hover{background:linear-gradient(165deg,rgba(192,132,252,.30),var(--bg-raised));}
   .cat-analytics.gc-hover{background:linear-gradient(165deg,rgba(143,180,212,.34),var(--bg-raised));}
   .cat-product.gc-hover{background:linear-gradient(165deg,rgba(201,168,119,.32),var(--bg-raised));}
   .cat-aidev.gc-hover{background:linear-gradient(165deg,rgba(157,140,217,.34),var(--bg-raised));}
+  .cat-system.gc-hover{background:linear-gradient(165deg,rgba(34,211,238,.14),var(--bg-raised));}
   .gc-primary{border-color:rgba(217,119,87,.4);}
   .beatcards:hover .gcard{flex-grow:0.4;}
   .gcard.gc-hover{flex:2.2 0 230px !important;max-width:340px;z-index:30;box-shadow:0 0 0 1px rgba(168,73,40,.4),0 0 26px -4px rgba(168,73,40,.45),0 20px 40px -16px rgba(0,0,0,.5);}
   .cat-analytics.gc-hover{box-shadow:0 0 0 1px rgba(143,180,212,.45),0 0 26px -4px rgba(143,180,212,.5),0 20px 40px -16px rgba(0,0,0,.5);}
   .cat-product.gc-hover{box-shadow:0 0 0 1px rgba(201,168,119,.45),0 0 26px -4px rgba(201,168,119,.5),0 20px 40px -16px rgba(0,0,0,.5);}
   .cat-aidev.gc-hover{box-shadow:0 0 0 1px rgba(157,140,217,.45),0 0 26px -4px rgba(157,140,217,.5),0 20px 40px -16px rgba(0,0,0,.5);}
+  .cat-system.gc-hover{box-shadow:0 0 0 1.5px #22d3ee,0 0 18px 2px rgba(34,211,238,.45),0 0 42px -6px rgba(34,211,238,.5),0 20px 40px -16px rgba(0,0,0,.5);}
   .cat-uxr.gc-hover{box-shadow:0 0 0 1.5px #c084fc,0 0 18px 2px rgba(192,132,252,.55),0 0 42px -6px rgba(192,132,252,.6),0 20px 40px -16px rgba(0,0,0,.5);}
+  .gc-sys::after{content:'system';position:absolute;bottom:14px;right:16px;z-index:4;font-family:var(--font-mono,monospace);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:#22d3ee;opacity:.85;}
+  .cat-system .gc-icon{stroke:#22d3ee;}
 
   /* the visual zone — icon at rest, description on hover. ONLY this area is covered; gc-body below always stays visible */
   .gc-visual{position:relative;flex:1;min-height:105px;}
@@ -3963,11 +3969,22 @@ html body.page-home .gcard{
 /* Fullscreen about modal */
 .ht-modal{
   position:fixed;inset:0;z-index:3000;
-  display:none;flex-direction:column;
-  background:var(--bg,#0a0a0c);
-  height:100%;height:100dvh;overflow:hidden;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  overflow:hidden;
 }
 .ht-modal.open{ display:flex; }
+.ht-modal-inner{
+  position:relative;display:flex;flex-direction:column;
+  width:min(980px,96vw);max-height:min(740px,96dvh);height:min(740px,96dvh);
+  background:var(--bg,#0a0a0c);border-radius:18px;overflow:hidden;
+  border:1px solid var(--border,rgba(255,255,255,.09));
+  box-shadow:0 32px 80px -20px rgba(0,0,0,.7);
+}
+@media(max-width:600px){
+  .ht-modal-inner{ width:100%;max-height:100dvh;height:100dvh;border-radius:0;border:none; }
+}
 .ht-modal-top{
   flex:0 0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
   padding:14px 16px 10px;border-bottom:1px solid var(--border,rgba(255,255,255,.09));
@@ -3993,8 +4010,8 @@ html body.page-home .gcard{
   flex:1 1 auto;min-height:0;border-radius:12px;overflow:hidden;
   border:1px solid var(--border,rgba(255,255,255,.09));background:#0a0a0c;position:relative;
 }
-.ht-slide{ position:absolute;inset:0;display:none;flex-direction:column; }
-.ht-slide.on{ display:flex; }
+.ht-slide{ position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 380ms ease,filter 380ms ease; }
+.ht-slide.on{ opacity:1;pointer-events:auto; }
 .ht-slide .stage{ flex:1;min-height:0;position:relative;background:#0a0a0c; }
 .ht-slide .stage .bg{
   position:absolute;inset:-8%;background-size:cover;background-position:center;
@@ -4492,6 +4509,14 @@ html[data-theme="light"] .gc-cat{
   box-shadow:
     0 0 0 1px rgba(157,140,217,.45),
     0 0 28px -4px rgba(157,140,217,.5),
+    0 22px 40px -16px rgba(0,0,0,.55) !important;
+}
+.cat-system.gc-hover,
+.cat-system:focus-visible{
+  border-color: #22d3ee !important;
+  box-shadow:
+    0 0 0 1.5px #22d3ee,
+    0 0 26px -4px rgba(34,211,238,.45),
     0 22px 40px -16px rgba(0,0,0,.55) !important;
 }
 /* Icon zone: large, centered (restore) */
@@ -5224,6 +5249,7 @@ html body iframe#skillsPlayerFrame{
 /* PCARD-MOTION — skills-like subtle stretch + soft bounce (not instant) */
 html body .pcard, html body a.pcard{
   transition:
+    flex 820ms cubic-bezier(.34,1.22,.64,1),
     transform .55s cubic-bezier(.34,1.22,.64,1),
     box-shadow .45s ease,
     border-color .35s ease,
@@ -5526,6 +5552,7 @@ nav.site-nav .sn-inner{
 </section>
 
 <div class="ht-modal" id="htModal" role="dialog" aria-modal="true" aria-labelledby="htModalTitle">
+  <div class="ht-modal-inner">
   <div class="ht-modal-top">
     <div>
       <h2 id="htModalTitle">About Federico</h2>
@@ -5551,6 +5578,7 @@ nav.site-nav .sn-inner{
     <div class="ht-nav">
       <div class="ht-dots" id="htDots"></div>
     </div>
+  </div>
   </div>
 </div>
 
@@ -5831,7 +5859,8 @@ nav.site-nav .sn-inner{
     ['intro','4 studies live','AI processing volume','actionables ranked','evidence ready'],
     ['intro','both paths running','designs converging','usable result','ready to ship'],
     ['intro','deploying','environments live','shipped'],
-    ['intro','overview','A vs B adoption','users table','alarm fired','loop restarts']
+    ['intro','overview','A vs B adoption','users table','alarm fired','loop restarts'],
+    ['intro','memory layer','skills layer','actors layer','tools layer','connected']
   ];
   var CTA_MAP={
     t1e:{h:'projects/ey-fabric.html',l:'See it shipped → EY Fabric'},
@@ -5840,7 +5869,8 @@ nav.site-nav .sn-inner{
     t4e:{h:'projects/dollarcity.html',l:'See it shipped → DollarCity'},
     t5e:{h:'projects/chek.html',l:'See it shipped → Chek'},
     t6e:{h:'projects/customs.html',l:'See it shipped → Customs ES'},
-    t7e:{h:'projects/ey-fabric.html',l:'See it shipped → EY Fabric'}
+    t7e:{h:'projects/ey-fabric.html',l:'See it shipped → EY Fabric'},
+    t8e:{h:'projects/ey-fabric.html',l:'See it shipped → EY Fabric'}
   };
   function slide(id,html,cls){
     var el=document.createElement('div');
@@ -6684,10 +6714,13 @@ nav.site-nav .sn-inner{
      tools:[['replit','Replit','deploy'],['github','GitHub','versioning'],['factory','Factory.ai','automation']],proj:'Customs · $500K'},
     {t:'Analytics Hub',cat:'aidev',d:'The dashboard itself, built with Claude Code.',long:'<strong>Adoption · users · alarms</strong> — the hub is a product.',
      ic:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>',
-     tools:[['pendo','Pendo','data'],['claude','Claude','build']],proj:'EY Fabric'}
+     tools:[['pendo','Pendo','data'],['claude','Claude','build']],proj:'EY Fabric'},
+    {t:'Connected Systems',cat:'system',d:'Memory, skills, agents, and tools — connected.',long:'Product <strong>memory</strong> → skills → agents → tools — <strong>I review</strong>.',
+     ic:'<circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8.2 6h7.6M6 8.2v7.6M18 8.2v7.6M8.2 18h7.6"/>',
+     tools:[['github','GitHub','memory'],['figma','Figma','connect'],['pendo','Pendo','data']],proj:'EY Fabric'}
   ];
   var CAT_META={
-    uxr:{label:'UX / UXR'}, product:{label:'PRODUCT'}, analytics:{label:'ANALYTICS'}, aidev:{label:'AI + DEV'}
+    uxr:{label:'UX / UXR'}, product:{label:'PRODUCT'}, analytics:{label:'ANALYTICS'}, aidev:{label:'AI + DEV'}, system:{label:'SYSTEM'}
   };
   var deck=document.getElementById('beatCards');
   function cardHTML(i,displayNum,isHub){
@@ -6696,7 +6729,7 @@ nav.site-nav .sn-inner{
     var catLabel=CAT_META[c.cat].label;
     var mid=3, off=displayNum-1-mid;
     var fanStyle='--fan-rot:'+(off*2.1).toFixed(1)+'deg;--fan-ty:'+(Math.abs(off)*5).toFixed(0)+'px;';
-    return '<button class="gcard cat-'+c.cat+(c.cat==='uxr'?' gc-primary':'')+(isHub?' gc-hub':'')+'" data-beat="'+i+'" role="listitem" style="'+fanStyle+'">'+
+    return '<button class="gcard cat-'+c.cat+(c.cat==='uxr'?' gc-primary':'')+(isHub?' gc-hub':'')+(c.cat==='system'?' gc-sys':'')+'" data-beat="'+i+'" role="listitem" style="'+fanStyle+'">'+
       '<span class="gc-cat"><b>0'+displayNum+'</b> · '+catLabel+'</span>'+
       ''+
       '<div class="gc-visual">'+
@@ -6714,7 +6747,7 @@ nav.site-nav .sn-inner{
       '</div>'+
     '</button>';
   }
-  var ALL_IDX=[0,1,2,3,4,5,6], HUB_IDX=6;
+  var ALL_IDX=[0,1,2,3,4,5,6,7], HUB_IDX=6;
   deck.innerHTML='<div class="skill-group skill-group-fan">'+ALL_IDX.map(function(idx,pos){
     return cardHTML(idx,pos+1,idx===HUB_IDX);
   }).join('')+'</div>';
@@ -7627,6 +7660,7 @@ document.addEventListener('DOMContentLoaded', function(){
   PHOTOS.forEach(function(p, i){
     var s = document.createElement('div');
     s.className = 'ht-slide' + (i === 0 ? ' on' : '');
+    s.setAttribute('data-mode', 'photo');
     s.innerHTML =
       '<div class="stage"><div class="bg" style="background-image:url(\''+p.src+'\')"></div>'+
       '<div class="fg"><img src="'+p.src+'" alt="'+p.t+'"/></div></div>'+

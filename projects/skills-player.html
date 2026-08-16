@@ -58,7 +58,7 @@ h1{font-size:19px;margin:5px 0;font-weight:700} h1 em{color:var(--accent);font-s
 .chip{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:100px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:10px;color:var(--muted)}
 .logo-mark{width:12px;height:12px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:6px;font-weight:800;color:#fff}
 .logo-pendo{background:#FF4A7D} .logo-ga{background:#F9AB00;color:#111} .logo-mix{background:#7856FF}
-.logo-maze{background:#2A1E5C} .logo-figma{background:linear-gradient(135deg,#F24E1E,#A259FF,#1ABCFE)} .logo-opt{background:#00C389}
+.logo-maze{background:#2A1E5C} .logo-figma{background:linear-gradient(135deg,#F24E1E,#A259FF,#1ABCFE)} .logo-opt{background:#00C389} .logo-github{background:#24292f}
 .app{height:100%;display:flex;flex-direction:column;background:var(--bg);border-radius:8px;overflow:hidden;border:1px solid var(--line)}
 .app-nav{flex:0 0 28px;display:flex;align-items:center;gap:7px;padding:0 9px;border-bottom:1px solid var(--line-soft);font-size:10px;color:rgba(255,255,255,.4)}
 .app-nav .logo{color:var(--accent);font-weight:700;font-size:10.5px}
@@ -1817,6 +1817,49 @@ html.embed .page{
   color: rgba(255,255,255,.88);
 }
 
+/* ── beat 08 Systems ── */
+.sys-parts{display:flex;gap:4px;margin-bottom:6px;flex-shrink:0}
+.sys-pip{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.08)}
+.sys-pip.on{background:#22d3ee}.sys-pip.done{background:rgba(34,211,238,.4)}
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;flex:1;min-height:0}
+.sys-cell{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:8px;padding:8px;opacity:0;transform:translateY(6px) scale(.96);transition:opacity .45s,transform .5s cubic-bezier(.34,1.32,.64,1),border-color .3s,box-shadow .3s;overflow:hidden;display:flex;flex-direction:column;min-height:0;min-width:0}
+.sys-cell.on{opacity:1;transform:none}
+.sys-cell.live{border-color:rgba(34,211,238,.45);box-shadow:0 0 16px -6px rgba(34,211,238,.3)}
+.sys-cell h4{font-family:var(--mono,monospace);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);margin:0 0 4px;display:flex;align-items:center;gap:4px;flex-shrink:0}
+.sys-cell h4 .n{color:#22d3ee;font-weight:700}
+.sys-cell .sc-body{flex:1;min-height:0;font-size:10.5px;color:rgba(255,255,255,.55);line-height:1.35;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+.sys-cell .sc-body b{color:rgba(255,255,255,.88);font-weight:600}
+.sys-cell .sc-mini{margin-top:auto;padding-top:4px;display:flex;flex-wrap:wrap;gap:2px;flex-shrink:0;max-height:34px;overflow:hidden}
+.sys-cell .sc-mini span{font-family:var(--mono,monospace);font-size:7.5px;padding:2px 4px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);white-space:nowrap}
+.sys-cell .sc-mini span.hi{border-color:rgba(34,211,238,.4);color:#22d3ee;background:rgba(34,211,238,.1)}
+.sys-cell.human{background:linear-gradient(160deg,rgba(34,211,238,.08),rgba(255,255,255,.02))}
+.sys-badge{display:inline-block;margin-top:4px;font-family:var(--mono,monospace);font-size:8px;font-weight:700;background:#22d3ee;color:#042f2e;padding:2px 6px;border-radius:4px;opacity:0;transform:scale(.85);transition:opacity .35s,transform .35s}
+.sys-badge.on{opacity:1;transform:none}
+.sys-quote{font-size:10px;color:rgba(255,255,255,.88);line-height:1.3;opacity:0;transition:opacity .4s;margin-top:4px;overflow:hidden;max-height:2.6em}
+.sys-quote.on{opacity:1}
+.connect-scene{flex:1;min-height:0;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px;overflow:hidden;gap:4px}
+.connect-story{font-family:var(--display,'Space Grotesk',sans-serif);font-size:clamp(11px,1.6vw,13px);font-weight:600;text-align:center;color:rgba(255,255,255,.55);line-height:1.3;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.connect-story em{color:#22d3ee;font-style:normal}
+.connect-row{display:flex;align-items:flex-start;justify-content:center;gap:4px;flex-wrap:nowrap;max-width:100%}
+.c-node{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0;transform:scale(.75) translateY(8px);transition:opacity .45s,transform .5s cubic-bezier(.34,1.32,.64,1),filter .3s;filter:grayscale(.3);max-width:72px;min-width:0}
+.c-node.on{opacity:1;transform:none;filter:none}
+.c-node.live .c-box{border-color:rgba(34,211,238,.55);background:rgba(34,211,238,.12);box-shadow:0 0 14px -4px rgba(34,211,238,.35)}
+.c-box{width:clamp(40px,8vw,52px);height:clamp(40px,8vw,52px);border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.c-box svg{width:55%;height:55%;stroke:rgba(255,255,255,.45);fill:none;stroke-width:1.5}
+.c-node.live .c-box svg{stroke:#22d3ee}
+.c-box .c-logo-icon{width:70%;height:70%;max-width:28px;max-height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--mono,monospace);font-size:9px;font-weight:800;color:#fff;font-style:normal}
+.lg-gh{background:#333}.lg-fig{background:linear-gradient(135deg,#F24E1E,#A259FF)}.lg-pen{background:#FF4A7D}.lg-mcp{background:#22d3ee;color:#042f2e}.lg-api{background:#8fb4d4;color:#0a1628}.lg-miro{background:#ffd02f;color:#111}.lg-maze{background:#2A1E5C}.lg-n8n{background:#ea4b71}
+.c-lbl{font-family:var(--mono,monospace);font-size:clamp(7px,1.3vw,8.5px);color:rgba(255,255,255,.45);text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.c-node.live .c-lbl{color:rgba(255,255,255,.88)}
+.c-arrow{font-size:clamp(12px,2vw,15px);color:rgba(34,211,238,.25);opacity:0;transition:opacity .4s,color .4s;align-self:center;flex-shrink:0;line-height:1}
+.c-arrow.on{opacity:1;color:#22d3ee}
+.connect-logos{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;max-width:100%;max-height:52px;overflow:hidden}
+.connect-logos .cl-chip{opacity:0;transform:scale(.85);transition:opacity .35s,transform .4s}
+.connect-logos .cl-chip.on{opacity:1;transform:none}
+.connect-logos .cl-chip span{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono,monospace);font-size:8px;padding:3px 6px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.55);white-space:nowrap}
+.connect-logos .cl-chip.live span{border-color:rgba(34,211,238,.45);color:#22d3ee;background:rgba(34,211,238,.1)}
+.connect-logos .cl-chip span i{width:11px;height:11px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:6px;font-weight:800;color:#fff;font-style:normal}
+
 </style>
 </head>
 <body style="margin:0;background:#0c0b0a">
@@ -2158,9 +2201,70 @@ html.embed .page{
     });
   }
 
+  function beatSystems(done){
+    var sysChip=function(n,cls){ return '<span class="chip"><span class="logo-mark logo-'+cls+'">'+(n.charAt(0))+'</span> '+n+'</span>'; };
+    textPhase('Context becomes <em>memory</em>.<br>Four layers connect the stack.',
+      sysChip('GitHub','github')+sysChip('Figma','figma')+sysChip('Pendo','pendo'),
+      'Memory · Skills · Actors · Tools — then connect.',
+      function(){
+        function setPip(n){ for(var i=0;i<5;i++){ var p=el('sp'+i); if(!p) continue; p.classList.remove('on','done'); if(i<n) p.classList.add('done'); if(i===n) p.classList.add('on'); } }
+        mount(
+          '<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Systems lab · 4 layers</span></div><div class="app-body"><div class="sys-parts"><i class="sys-pip" id="sp0"></i><i class="sys-pip" id="sp1"></i><i class="sys-pip" id="sp2"></i><i class="sys-pip" id="sp3"></i><i class="sys-pip" id="sp4"></i></div><div class="sys-grid"><div class="sys-cell" id="sc0"><h4><span class="n">01</span> Memory</h4><div class="sc-body"><b>Product context as a tree</b> agents navigate — not a chat dump.</div><div class="sc-mini"><span class="hi">product/</span><span>requirements/</span><span>research/</span><span>skills/</span></div></div><div class="sys-cell" id="sc1"><h4><span class="n">02</span> Skills</h4><div class="sc-body"><b>Files agents load</b> — rules, templates, schemas.</div><div class="sc-mini"><span class="hi">.md</span><span class="hi">pdf</span><span class="hi">json</span></div><p class="sys-quote" id="sq1">design-system-skill.md</p></div><div class="sys-cell human" id="sc2"><h4><span class="n">03</span> Actors</h4><div class="sc-body"><b>Agents</b> walk the tree. <b>I</b> review each critical step.</div><span class="sys-badge" id="sBadge">REVIEW</span><p class="sys-quote" id="sq2">Same context · judgment closes the loop</p></div><div class="sys-cell" id="sc3"><h4><span class="n">04</span> Tools · MCP</h4><div class="sc-body"><b>Connectors move context</b> — capability first.</div><div class="sc-mini"><span class="hi">MCP</span><span class="hi">API</span><span>Figma</span><span>Pendo</span><span>GitHub</span><span>n8n</span></div></div></div></div></div>',
+          'Four layers. One system.'
+        );
+        after(280, function(){ setPip(0); el('sc0').classList.add('on'); showCap('<em>01 Memory</em> — a library one agent can navigate.'); });
+        after(1100, function(){ setPip(1); el('sc1').classList.add('on'); place(c1,t1,el('sc1'),30,20); after(420, function(){ clickCur(c1,t1,function(){ el('sc1').classList.add('live'); el('sq1').classList.add('on'); showCap('<em>02 Skills</em> — .md · pdf · json agents can load.'); }); }); });
+        after(2400, function(){ setPip(2); el('sc2').classList.add('on'); place(c1,t1,el('sc2'),20,20); after(420, function(){ clickCur(c1,t1,function(){ el('sc2').classList.add('live'); el('sBadge').classList.add('on'); el('sq2').classList.add('on'); showCap('<em>03 Actors</em> — agents accelerate · I approve.'); }); }); });
+        after(3800, function(){ setPip(3); el('sc3').classList.add('on'); after(300, function(){ el('sc3').classList.add('live'); showCap('<em>04 Tools · MCP</em> — Figma · Pendo · GitHub · Miro · Maze · n8n'); }); });
+        after(5200, function(){
+          setPip(4); hideCursors();
+          function mkNode(id,boxInner,lbl){ return '<div class="c-node" id="'+id+'"><div class="c-box">'+boxInner+'</div><span class="c-lbl">'+lbl+'</span></div>'; }
+          function mkIcon(vb,paths){ return '<svg viewBox="'+vb+'">'+paths+'</svg>'; }
+          function mkLogo(cls,ch){ return '<span class="c-logo-icon '+cls+'">'+ch+'</span>'; }
+          var memIcon=mkIcon('0 0 24 24','<path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>');
+          var skillIcon=mkIcon('0 0 24 24','<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5"/>');
+          var agentIcon=mkIcon('0 0 24 24','<circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3.2 3.8-4.8 7-4.8s5.6 1.6 7 4.8"/>');
+          mount(
+            '<div class="app"><div class="wchrome"><div class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></div><span class="title">Systems · how it connects</span></div><div class="app-body" style="padding:4px 6px"><div class="sys-parts"><i class="sys-pip done"></i><i class="sys-pip done"></i><i class="sys-pip done"></i><i class="sys-pip done"></i><i class="sys-pip on"></i></div><div class="connect-scene"><div class="connect-story" id="cStory"></div><div class="connect-row">'+
+            mkNode('cnMem',memIcon,'Memory')+
+            '<span class="c-arrow" id="ca1">→</span>'+
+            mkNode('cnSkill',skillIcon,'Skills')+
+            '<span class="c-arrow" id="ca2">→</span>'+
+            mkNode('cnAgent',agentIcon,'Agents')+
+            '<span class="c-arrow" id="ca3">→</span>'+
+            mkNode('cnMe',agentIcon,'Review')+
+            '</div><span class="c-arrow" id="ca4" style="font-size:18px">↓</span><div class="connect-row">'+
+            mkNode('cnMcp','<span class="c-logo-icon lg-mcp">MCP</span>','MCP')+
+            mkNode('cnApi','<span class="c-logo-icon lg-api">API</span>','APIs')+
+            mkNode('cnFig','<span class="c-logo-icon lg-fig">F</span>','Figma')+
+            mkNode('cnPen','<span class="c-logo-icon lg-pen">P</span>','Pendo')+
+            mkNode('cnGh','<span class="c-logo-icon lg-gh">G</span>','GitHub')+
+            '</div><div class="connect-logos">'+
+            '<div class="cl-chip" id="cl0"><span><i class="lg-miro">M</i> Miro</span></div>'+
+            '<div class="cl-chip" id="cl1"><span><i class="lg-maze">Mz</i> Maze</span></div>'+
+            '<div class="cl-chip" id="cl2"><span><i class="lg-n8n">n8</i> n8n</span></div>'+
+            '<div class="cl-chip" id="cl3"><span><i class="lg-api">CLI</i> CLI</span></div>'+
+            '<div class="cl-chip" id="cl4"><span><i class="lg-mcp">WH</i> Webhooks</span></div>'+
+            '</div></div></div></div>',
+            'How the four layers become one system.'
+          );
+          var story=el('cStory'); function say(h){ if(story) story.innerHTML=h; }
+          after(200, function(){ say('Product context lives as a <em>folder tree</em> — not a prompt.'); el('cnMem').classList.add('on','live'); showCap('Memory is navigable — requirements, research, decisions.'); });
+          after(1400, function(){ say('From that tree, agents load <em>skill files</em> (.md, pdf, json).'); el('ca1').classList.add('on'); el('cnSkill').classList.add('on','live'); showCap('Skills = portable knowledge, not chat history.'); });
+          after(2800, function(){ say('Specialized <em>agents</em> walk the library and draft work.'); el('ca2').classList.add('on'); el('cnAgent').classList.add('on','live'); showCap('UX · research · design system · analytics agents.'); });
+          after(4200, function(){ say('I sit in the same loop — <em>review, approve, redirect</em>.'); el('ca3').classList.add('on'); el('cnMe').classList.add('on','live'); showCap('Human judgment closes every critical step.'); });
+          after(5600, function(){ say('MCP, APIs and tools <em>move</em> that context into the product stack.'); el('ca4').classList.add('on'); ['cnMcp','cnApi','cnFig','cnPen','cnGh'].forEach(function(id,i){ after(i*130, function(){ var n=el(id); if(n) n.classList.add('on','live'); }); }); showCap('Connectors are pipes — capability stays first.'); });
+          after(7200, function(){ [0,1,2,3,4].forEach(function(i){ after(i*110, function(){ var n=el('cl'+i); if(n) n.classList.add('on','live'); }); }); say('One system: <em>memory → skills → agents → me → tools</em>.'); showCap('Human judgment <em>closes</em> the loop. Agents accelerate it.'); });
+          after(9000, function(){ hideCursors(); after(350, done); });
+        });
+      }
+    );
+  }
+
   var BEATS=[
     {n:'01',name:'Mapping',fn:beatMap},{n:'02',name:'Usage',fn:beatUsage},{n:'03',name:'Segment',fn:beatSeg},
-    {n:'04',name:'Research',fn:beatResearch},{n:'05',name:'Understand',fn:beatUnderstand},{n:'06',name:'Design',fn:beatDesign},{n:'07',name:'Hub',fn:beatHub}
+    {n:'04',name:'Research',fn:beatResearch},{n:'05',name:'Understand',fn:beatUnderstand},{n:'06',name:'Design',fn:beatDesign},{n:'07',name:'Hub',fn:beatHub},
+    {n:'08',name:'Systems',fn:beatSystems}
   ];
   
   /* iOS-safe bind: click + touchend, single fire */
