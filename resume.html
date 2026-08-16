@@ -17,6 +17,13 @@
     --font-display:'Space Grotesk',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
     --ease:cubic-bezier(.65,0,.35,1); --spring:cubic-bezier(.34,1.56,.64,1);
   }
+  html[data-theme="light"]{
+    --bg:#f7f5f2; --bg-surface:#fff; --bg-raised:#eeece7;
+    --text-primary:#1a1917; --text-secondary:#55524c; --text-tertiary:#726e66;
+    --border:rgba(0,0,0,.1); --border-soft:rgba(0,0,0,.06);
+    --accent:#c05d38; --accent-dim:rgba(192,93,56,.12); --on-accent:#fff;
+    --ok:#2e9e5c;
+  }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   html,body{background:var(--bg);color:var(--text-primary);font-family:var(--font-body);font-size:16px;line-height:1.65;}
@@ -2353,12 +2360,12 @@ body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
   function applyTheme(t){
     t = (t === 'light') ? 'light' : 'dark';
     root.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch(e) {}
+    try { localStorage.setItem('theme', t); localStorage.setItem('theme-preference', t); } catch(e) {}
     var btn = document.getElementById('snTheme');
     if(btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
   }
   try {
-    var s = localStorage.getItem('theme');
+    var s = localStorage.getItem('theme-preference') || localStorage.getItem('theme');
     applyTheme(s === 'light' ? 'light' : (s === 'dark' ? 'dark' : (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')));
   } catch(e) { applyTheme('dark'); }
 

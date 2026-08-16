@@ -3675,12 +3675,12 @@ nav.site-nav .sn-inner{
   function applyTheme(t){
     t = (t === 'light') ? 'light' : 'dark';
     root.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch(e) {}
+    try { localStorage.setItem('theme', t); localStorage.setItem('theme-preference', t); } catch(e) {}
     var btn = document.getElementById('snTheme');
     if(btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
   }
   try {
-    var s = localStorage.getItem('theme');
+    var s = localStorage.getItem('theme-preference') || localStorage.getItem('theme');
     applyTheme(s === 'light' ? 'light' : (s === 'dark' ? 'dark' : (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')));
   } catch(e) { applyTheme('dark'); }
 

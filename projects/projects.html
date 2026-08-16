@@ -1004,10 +1004,25 @@ body{ position: relative; }
   filter: brightness(1.05);
   box-shadow: 0 20px 44px -14px rgba(0,0,0,.55) !important;
 }
-/* ensure case accents on home strip */
-.pcard[href*="ey-fabric"], .pcard.ey, #pc0{ --pc-bg:#ffe600 !important; --pc-txt:#2b2600 !important; }
-.pcard[href*="blockchain"], .pcard.bc{ --pc-bg:#22d4c8 !important; --pc-txt:#042e2a !important; }
-.pcard[href*="chek"], .pcard.chek{ --pc-bg:#7a3be0 !important; --pc-txt:#f5f0ff !important; }
+/* Project card identity — each card uses its brand accent as background */
+.pcard[href*="ey-fabric"]{ --pc-bg:#ffe600; --pc-txt:#2b2600; }
+.pcard[href*="blockchain"]{ --pc-bg:#22d4c8; --pc-txt:#042e2a; }
+.pcard[href*="chek"]{ --pc-bg:#7a3be0; --pc-txt:#fff; }
+.pcard[href*="dollarcity"]{ --pc-bg:#00a650; --pc-txt:#fff; }
+.pcard[href*="customs"]{ --pc-bg:#4a9eff; --pc-txt:#fff; }
+.pcard[href*="forecast"]{ --pc-bg:#5b9bd0; --pc-txt:#fff; }
+/* Force the brand background to win over any inherited surface var */
+.stack .pcard{
+  background: var(--pc-bg, var(--surface)) !important;
+  color: var(--pc-txt, var(--text)) !important;
+}
+.stack .pcard-tags span{
+  border-color: rgba(255,255,255,.22) !important;
+}
+.pcard[href*="ey-fabric"] .pcard-tags span,
+.pcard[href*="blockchain"] .pcard-tags span{
+  border-color: rgba(0,0,0,.18) !important;
+}
 
 /* === SCALE-FIT STAGES (canvas + complete window/device) === */
 html, body{ overflow-x: hidden !important; max-width: 100vw !important; }
@@ -1999,9 +2014,9 @@ h2, .h2, .sec h2 {
   function applyTheme(t){
     if(t!=='light'&&t!=='dark') t='dark';
     root.setAttribute('data-theme', t);
-    try{ localStorage.setItem('theme', t); }catch(e){}
+    try{ localStorage.setItem('theme', t); localStorage.setItem('theme-preference', t); }catch(e){}
   }
-  try{ applyTheme(localStorage.getItem('theme')==='light'?'light':'dark'); }catch(e){ applyTheme('dark'); }
+  try{ var _ts=localStorage.getItem('theme-preference')||localStorage.getItem('theme'); applyTheme(_ts==='light'?'light':'dark'); }catch(e){ applyTheme('dark'); }
   var themeBtn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
   if(themeBtn){
     themeBtn.addEventListener('click', function(e){

@@ -1,6 +1,7 @@
 (function () {
   const KEY = 'theme-preference';
-  const theme = localStorage.getItem(KEY) || 'dark';
+  const KEY2 = 'theme';
+  const theme = localStorage.getItem(KEY) || localStorage.getItem(KEY2) || 'dark';
   document.documentElement.setAttribute('data-theme', theme);
   function applyIcons(t) {
     document.querySelectorAll('.icon-sun').forEach(function(el) {
@@ -19,6 +20,7 @@
       var next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem(KEY, next);
+      localStorage.setItem(KEY2, next);
       applyIcons(next);
     });
   }
