@@ -3969,11 +3969,22 @@ html body.page-home .gcard{
 /* Fullscreen about modal */
 .ht-modal{
   position:fixed;inset:0;z-index:3000;
-  display:none;flex-direction:column;
-  background:var(--bg,#0a0a0c);
-  height:100%;height:100dvh;overflow:hidden;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  overflow:hidden;
 }
 .ht-modal.open{ display:flex; }
+.ht-modal-inner{
+  position:relative;display:flex;flex-direction:column;
+  width:min(980px,96vw);max-height:min(740px,96dvh);height:min(740px,96dvh);
+  background:var(--bg,#0a0a0c);border-radius:18px;overflow:hidden;
+  border:1px solid var(--border,rgba(255,255,255,.09));
+  box-shadow:0 32px 80px -20px rgba(0,0,0,.7);
+}
+@media(max-width:600px){
+  .ht-modal-inner{ width:100%;max-height:100dvh;height:100dvh;border-radius:0;border:none; }
+}
 .ht-modal-top{
   flex:0 0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
   padding:14px 16px 10px;border-bottom:1px solid var(--border,rgba(255,255,255,.09));
@@ -3999,8 +4010,8 @@ html body.page-home .gcard{
   flex:1 1 auto;min-height:0;border-radius:12px;overflow:hidden;
   border:1px solid var(--border,rgba(255,255,255,.09));background:#0a0a0c;position:relative;
 }
-.ht-slide{ position:absolute;inset:0;display:none;flex-direction:column; }
-.ht-slide.on{ display:flex; }
+.ht-slide{ position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 380ms ease,filter 380ms ease; }
+.ht-slide.on{ opacity:1;pointer-events:auto; }
 .ht-slide .stage{ flex:1;min-height:0;position:relative;background:#0a0a0c; }
 .ht-slide .stage .bg{
   position:absolute;inset:-8%;background-size:cover;background-position:center;
@@ -5541,6 +5552,7 @@ nav.site-nav .sn-inner{
 </section>
 
 <div class="ht-modal" id="htModal" role="dialog" aria-modal="true" aria-labelledby="htModalTitle">
+  <div class="ht-modal-inner">
   <div class="ht-modal-top">
     <div>
       <h2 id="htModalTitle">About Federico</h2>
@@ -5566,6 +5578,7 @@ nav.site-nav .sn-inner{
     <div class="ht-nav">
       <div class="ht-dots" id="htDots"></div>
     </div>
+  </div>
   </div>
 </div>
 
@@ -7647,6 +7660,7 @@ document.addEventListener('DOMContentLoaded', function(){
   PHOTOS.forEach(function(p, i){
     var s = document.createElement('div');
     s.className = 'ht-slide' + (i === 0 ? ' on' : '');
+    s.setAttribute('data-mode', 'photo');
     s.innerHTML =
       '<div class="stage"><div class="bg" style="background-image:url(\''+p.src+'\')"></div>'+
       '<div class="fg"><img src="'+p.src+'" alt="'+p.t+'"/></div></div>'+
