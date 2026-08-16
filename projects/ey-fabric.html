@@ -4468,9 +4468,17 @@ html body iframe.pi-iframe{
   border: 0 !important;
   background: transparent !important;
   margin: 0 !important;
-  min-height: 0 !important;
+  min-height: 540px !important;
   max-height: none !important;
-  height: calc(150px + min(888px, 100vw - 56px) * 410 / 560 + 48px) !important;
+  height: min(720px,88vh) !important;
+}
+@media (max-width: 640px){
+  html body #pi iframe.pi-iframe,
+  html body #pi #piPlayerFrame,
+  html body iframe.pi-iframe{
+    height: min(640px,85vh) !important;
+    min-height: 420px !important;
+  }
 }
 html body #pi .note{ margin-top: 12px !important; max-width: none !important; }
 
