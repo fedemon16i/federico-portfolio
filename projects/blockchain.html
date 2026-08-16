@@ -7045,6 +7045,10 @@ html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
   color:#1a1917!important;background:rgba(0,0,0,.05)!important;
 }
 nav.site-nav .sn-drop{position:relative!important}
+nav.site-nav .sn-drop::after{
+  content:""!important;position:absolute!important;left:0!important;right:0!important;
+  top:100%!important;height:8px!important;
+}
 nav.site-nav .sn-drop-menu{
   position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
   transform:translateX(-50%) translateY(-4px)!important;
@@ -8335,8 +8339,8 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
 (function(){
   var root=document.documentElement;
   var btn=document.getElementById('themeToggle');
-  function apply(t){ root.setAttribute('data-theme',t); try{localStorage.setItem('theme',t)}catch(e){} }
-  var s=null; try{s=localStorage.getItem('theme')}catch(e){}
+  function apply(t){ root.setAttribute('data-theme',t); try{localStorage.setItem('theme-preference',t)}catch(e){} }
+  var s=null; try{s=localStorage.getItem('theme-preference')}catch(e){}
   apply(s==='light'?'light':'dark');
   if(btn) btn.addEventListener('click',function(){ apply(root.getAttribute('data-theme')==='dark'?'light':'dark'); });
   var drop=document.getElementById('topNavDropToggle');
@@ -8398,9 +8402,9 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   function applyTheme(t){
     if(t!=='light'&&t!=='dark') t='dark';
     root.setAttribute('data-theme', t);
-    try{ localStorage.setItem('theme', t); }catch(e){}
+    try{ localStorage.setItem('theme-preference', t); }catch(e){}
   }
-  try{ applyTheme(localStorage.getItem('theme')==='light'?'light':'dark'); }catch(e){ applyTheme('dark'); }
+  try{ applyTheme(localStorage.getItem('theme-preference')==='light'?'light':'dark'); }catch(e){ applyTheme('dark'); }
   var themeBtn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
   if(themeBtn){
     themeBtn.addEventListener('click', function(e){
@@ -8591,12 +8595,12 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   function apply(t){
     t = (t === 'light') ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch(e) {}
+    try { localStorage.setItem('theme-preference', t); } catch(e) {}
     var btn = document.getElementById('themeToggle') || document.getElementById('themeBtn');
     if (btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
   }
   var saved = null;
-  try { saved = localStorage.getItem('theme'); } catch(e) {}
+  try { saved = localStorage.getItem('theme-preference'); } catch(e) {}
   var initial = saved || (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
   apply(initial);
   function bind(){
@@ -9012,12 +9016,12 @@ var __bp=document.getElementById('btnPrev'); if(__bp) __bp.onclick=function(){ i
   function applyTheme(t){
     t = (t === 'light') ? 'light' : 'dark';
     root.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch(e) {}
+    try { localStorage.setItem('theme-preference', t); } catch(e) {}
     var btn = document.getElementById('snTheme');
     if(btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
   }
   try {
-    var s = localStorage.getItem('theme');
+    var s = localStorage.getItem('theme-preference');
     applyTheme(s === 'light' ? 'light' : (s === 'dark' ? 'dark' : (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')));
   } catch(e) { applyTheme('dark'); }
 

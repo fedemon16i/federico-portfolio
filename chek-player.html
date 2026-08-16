@@ -192,9 +192,62 @@ html.embed .stage{flex:1;min-height:0;height:auto}
   border-radius:7px;padding:5px 10px;font-size:0.6rem;color:#fff;opacity:0;pointer-events:none;
   max-width:140px;line-height:1.35;transition:opacity 200ms;
 }
+
+/* ===== Light mode — chrome only (product-mockup screens stay fixed-light, matching the shipped product) ===== */
+html[data-theme="light"]{
+  --bg:#f7f5f2; --stage-bg:#eef1ee;
+  --text:#1a1917; --muted:#5c5854; --dim:#847f79;
+  --border:rgba(0,0,0,.10);
+  --capbar-fade:rgba(247,245,242,.94);
+}
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] .stage{
+  background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.2);
+}
+html[data-theme="light"] .stage-top{background:linear-gradient(180deg,rgba(247,245,242,.85) 0%,transparent 100%)}
+html[data-theme="light"] .icon-btn{background:rgba(255,255,255,.8)}
+html[data-theme="light"] .icon-btn:hover{background:var(--accent-dim)}
+html[data-theme="light"] .stage-arrow{background:rgba(255,255,255,.85)}
+html[data-theme="light"] .stage-arrow:hover{background:var(--accent-dim)}
+html[data-theme="light"] .capbar .cap-txt{text-shadow:none}
 </style>
 </head>
 <body>
+<script>
+/* Theme sync: localStorage + parent page (same-origin iframe) */
+(function(){
+  function apply(t){
+    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+  }
+  function isEmbed(){
+    return document.documentElement.classList.contains('embed')
+      || /(?:^|[?&#])embed=1/.test(location.search + location.hash);
+  }
+  function read(){
+    var t = 'dark';
+    try {
+      var s = localStorage.getItem('theme-preference');
+      if (s === 'light' || s === 'dark') t = s;
+      if (!isEmbed() && s !== 'light' && s !== 'dark') t = 'dark';
+    } catch(e) {}
+    try {
+      if (window.parent && window.parent !== window) {
+        var p = window.parent.document.documentElement.getAttribute('data-theme');
+        if (p === 'light' || p === 'dark') t = p;
+      }
+    } catch(e) {}
+    if (!isEmbed()) {
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light') t = 'light';
+    }
+    apply(t);
+  }
+  read();
+  window.addEventListener('storage', function(e){ if (e.key === 'theme-preference') read(); });
+  setInterval(function(){ if (isEmbed()) read(); }, 1500);
+})();
+</script>
 <div class="wrap">
   <div class="page-chrome" style="margin-bottom:16px">
     <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px">Chek · Features</div>
@@ -767,7 +820,7 @@ html.embed .stage{flex:1;min-height:0;height:auto}
       if(body){
         if(animate){
           var fl=document.getElementById('chek-proto-flash');
-          if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';},110);}
+          if(fl){fl.style.opacity='1';setTimeout(function(){fl.style.opacity='0';}, 80);}
           body.style.opacity='0';
           setTimeout(function(){
             body.innerHTML='';
@@ -1069,7 +1122,7 @@ html.embed .stage{flex:1;min-height:0;height:auto}
 
       showTextPhase(tag, title, desc, function(){
         // snap cursor after phone visible
-        setTimeout(snapCursor, 400);
+        setTimeout(snapCursor, 331);
       });
     }, 30);
   }
@@ -1152,7 +1205,7 @@ html.embed .stage{flex:1;min-height:0;height:auto}
   });
 
   setTimeout(function(){ playBeat('hub', 0, 0); fitPhone(); }, 80);
-  setTimeout(fitPhone, 300);
+  setTimeout(fitPhone, 248);
 })();
 </script>
 </body>

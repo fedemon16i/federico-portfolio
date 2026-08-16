@@ -7,6 +7,7 @@
 <meta name="description" content="Module design inside an established design system — pending assignments, timeframes and employee management, shipped under real constraints.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="../js/theme.js"></script>
 <style>
   :root{
     --bg:#0d1218; --bg-surface:#131a22; --bg-raised:#1a232d;
@@ -16,6 +17,20 @@
     --font-display:'Space Grotesk',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
     --ease:cubic-bezier(.65,0,.35,1); --spring:cubic-bezier(.34,1.56,.64,1);
   }
+  [data-theme="light"]{
+    --bg:#faf9f6; --bg-surface:#ffffff; --bg-raised:#f1f0eb;
+    --text-primary:#141a22; --text-secondary:#4a5568; --text-tertiary:#6b7688;
+    --border:rgba(91,155,208,0.22); --border-soft:rgba(20,26,34,0.08);
+    --accent:#3d76ae; --accent-dim:rgba(61,118,174,0.10); --on-accent:#ffffff;
+  }
+  [data-theme="light"] .st,[data-theme="light"] .cc,[data-theme="light"] .fm-item,[data-theme="light"] .fm-panel,
+  [data-theme="light"] .ds,[data-theme="light"] .gi,[data-theme="light"] .pr,[data-theme="light"] .scene{
+    box-shadow:0 1px 3px rgba(20,26,34,.06);
+  }
+  .theme-toggle{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);margin-left:10px;flex-shrink:0;transition:border-color 200ms,color 200ms;}
+  .theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
+  .theme-toggle svg{width:15px;height:15px;}
+  .theme-toggle .icon-moon{display:none;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   html,body{background:var(--bg);color:var(--text-primary);font-family:var(--font-body);font-size:16px;line-height:1.65;}
@@ -153,15 +168,216 @@
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;}
   }
+
+  /* Shared site nav (unified across the whole site) */
+  nav.site-nav{
+    position:fixed!important;top:0!important;left:0!important;right:0!important;
+    z-index:99999!important;height:64px!important;
+    background:#0e0d0c!important;border-bottom:1px solid rgba(255,255,255,.1)!important;
+    isolation:isolate!important;transform:translateZ(0)!important;
+    pointer-events:auto!important;margin:0!important;padding:0!important;
+    box-sizing:border-box!important;
+  }
+  html[data-theme="light"] nav.site-nav{
+    background:#f7f5f2!important;border-bottom-color:rgba(0,0,0,.1)!important;
+  }
+  nav.site-nav .sn-inner{
+    display:flex!important;align-items:center!important;justify-content:space-between!important;
+    height:64px!important;max-width:920px!important;width:100%!important;
+    margin:0 auto!important;padding:0 clamp(16px,3vw,28px)!important;
+    box-sizing:border-box!important;gap:12px!important;
+  }
+  nav.site-nav .sn-logo{
+    font-family:'Space Grotesk',system-ui,sans-serif!important;
+    font-weight:800!important;font-size:18px!important;line-height:1!important;
+    color:#f2f0ec!important;letter-spacing:-.02em!important;
+    text-decoration:none!important;white-space:nowrap!important;flex-shrink:0!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-logo{color:#1a1917!important}
+  nav.site-nav .sn-logo span{color:var(--sn-accent,#d97757)!important}
+  nav.site-nav .sn-links{
+    display:flex!important;align-items:center!important;gap:2px!important;
+    flex-wrap:nowrap!important;margin-left:auto!important;
+  }
+  nav.site-nav .sn-link,
+  nav.site-nav .sn-drop-btn{
+    font-family:'Space Grotesk',system-ui,sans-serif!important;
+    font-size:13px!important;font-weight:600!important;
+    letter-spacing:.06em!important;text-transform:uppercase!important;
+    color:#a6a29a!important;padding:8px 12px!important;border-radius:6px!important;
+    text-decoration:none!important;background:none!important;border:none!important;
+    cursor:pointer!important;line-height:1.2!important;
+    transition:color .15s,background .15s!important;
+    display:inline-flex!important;align-items:center!important;gap:4px!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-link,
+  html[data-theme="light"] nav.site-nav .sn-drop-btn{color:#6b6760!important}
+  nav.site-nav .sn-link:hover,
+  nav.site-nav .sn-link.is-active,
+  nav.site-nav .sn-drop-btn:hover,
+  nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+    color:#f2f0ec!important;background:rgba(255,255,255,.06)!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-link:hover,
+  html[data-theme="light"] nav.site-nav .sn-link.is-active,
+  html[data-theme="light"] nav.site-nav .sn-drop-btn:hover,
+  html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+    color:#1a1917!important;background:rgba(0,0,0,.05)!important;
+  }
+  nav.site-nav .sn-drop{position:relative!important}
+  nav.site-nav .sn-drop::after{
+    content:""!important;position:absolute!important;left:0!important;right:0!important;
+    top:100%!important;height:8px!important;
+  }
+  nav.site-nav .sn-drop-menu{
+    position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
+    transform:translateX(-50%) translateY(-4px)!important;
+    background:#171614!important;border:1px solid rgba(255,255,255,.12)!important;
+    border-radius:12px!important;padding:8px!important;min-width:180px!important;
+    display:flex!important;flex-direction:column!important;gap:2px!important;
+    opacity:0!important;pointer-events:none!important;visibility:hidden!important;
+    transition:opacity .18s,transform .18s,visibility .18s!important;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.55)!important;z-index:100003!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-drop-menu{
+    background:#fff!important;border-color:rgba(0,0,0,.1)!important;
+    box-shadow:0 16px 32px -8px rgba(0,0,0,.15)!important;
+  }
+  nav.site-nav .sn-drop:hover .sn-drop-menu,
+  nav.site-nav .sn-drop:focus-within .sn-drop-menu,
+  nav.site-nav .sn-drop-btn[aria-expanded="true"] + .sn-drop-menu{
+    opacity:1!important;pointer-events:auto!important;visibility:visible!important;
+    transform:translateX(-50%) translateY(0)!important;
+  }
+  nav.site-nav .sn-drop-menu a{
+    display:block!important;padding:10px 12px!important;border-radius:8px!important;
+    font-family:'Space Grotesk',system-ui,sans-serif!important;
+    font-size:13px!important;font-weight:600!important;
+    color:#a6a29a!important;text-decoration:none!important;
+    text-transform:none!important;letter-spacing:0!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-drop-menu a{color:#6b6760!important}
+  nav.site-nav .sn-drop-menu a:hover{
+    background:#1c1b19!important;color:#f2f0ec!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-drop-menu a:hover{
+    background:#f0eeea!important;color:#1a1917!important;
+  }
+  nav.site-nav .sn-drop-menu a.is-current{color:var(--sn-accent,#d97757)!important}
+  nav.site-nav .sn-theme{
+    width:34px!important;height:34px!important;border-radius:50%!important;
+    border:1px solid rgba(255,255,255,.12)!important;background:#171614!important;
+    color:#a6a29a!important;display:grid!important;place-items:center!important;
+    cursor:pointer!important;flex-shrink:0!important;margin-left:4px!important;
+    padding:0!important;pointer-events:auto!important;position:relative!important;z-index:100001!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-theme{
+    background:#fff!important;border-color:rgba(0,0,0,.12)!important;color:#6b6760!important;
+  }
+  nav.site-nav .sn-theme svg{width:15px!important;height:15px!important;display:block!important}
+  nav.site-nav .sn-theme .icon-moon{display:none;}
+  nav.site-nav .sn-ham{
+    display:none!important;flex-direction:column!important;gap:4px!important;
+    background:none!important;border:none!important;padding:8px!important;
+    cursor:pointer!important;margin-left:4px!important;
+    min-width:44px!important;min-height:44px!important;
+    align-items:center!important;justify-content:center!important;
+  }
+  nav.site-nav .sn-ham span{
+    display:block!important;width:20px!important;height:2px!important;
+    background:#f2f0ec!important;border-radius:1px!important;
+  }
+  html[data-theme="light"] nav.site-nav .sn-ham span{background:#1a1917!important}
+  .site-nav-mobile{
+    position:fixed!important;top:0!important;left:0!important;width:100%!important;
+    height:100%!important;height:100dvh!important;z-index:100000!important;
+    background:#0e0d0c!important;padding:72px 24px 24px!important;
+    overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
+    transform:translateX(100%)!important;visibility:hidden!important;pointer-events:none!important;
+    transition:transform 320ms cubic-bezier(.65,0,.35,1),visibility 0s 320ms!important;
+    box-sizing:border-box!important;
+  }
+  html[data-theme="light"] .site-nav-mobile{background:#f7f5f2!important}
+  .site-nav-mobile.on{
+    transform:translateX(0)!important;visibility:visible!important;pointer-events:auto!important;
+    transition:transform 320ms cubic-bezier(.65,0,.35,1)!important;
+  }
+  body.nav-open{overflow:hidden!important;touch-action:none!important}
+  .site-nav-mobile a{
+    display:block!important;padding:14px 0!important;
+    border-bottom:1px solid rgba(255,255,255,.1)!important;
+    font-family:'Space Grotesk',system-ui,sans-serif!important;
+    font-weight:700!important;font-size:1.05rem!important;
+    color:#f2f0ec!important;text-decoration:none!important;
+  }
+  html[data-theme="light"] .site-nav-mobile a{
+    color:#1a1917!important;border-bottom-color:rgba(0,0,0,.1)!important;
+  }
+  .site-nav-mobile .sn-sub{
+    font-size:.95rem!important;font-weight:600!important;
+    color:#a6a29a!important;padding-left:12px!important;
+  }
+  html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
+  .site-nav-mobile .sn-close{
+    position:absolute!important;top:20px!important;right:20px!important;
+    background:none!important;border:none!important;color:inherit!important;
+    cursor:pointer!important;font-size:1rem!important;
+    font-family:'Space Grotesk',system-ui,sans-serif!important;
+  }
+  @media(max-width:900px){
+    nav.site-nav .sn-links{display:none!important}
+    nav.site-nav .sn-ham{display:flex!important}
+  }
+  body{padding-top:64px!important;}
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
-<nav><div class="wrap nav-in">
-  <a class="nav-back" href="../index.html">← Home</a>
-  <span class="nav-name">Forecast</span>
-  <a class="nav-cv" href="../resume.html">Resume ↗</a>
-</div></nav>
+<nav class="site-nav" id="topNav" style="--sn-accent:#5b9bd0" aria-label="Primary">
+  <div class="sn-inner">
+    <a href="../index.html" class="sn-logo">FM<span>.</span></a>
+    <div class="sn-links">
+      <a href="../index.html" class="sn-link">Home</a>
+      <div class="sn-drop">
+        <button type="button" id="snDropBtn" class="sn-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="snDropMenu">
+          Projects
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="snDropMenu" class="sn-drop-menu" role="menu">
+          <a href="../projects.html" role="menuitem" style="color:var(--sn-accent);font-weight:700">All Projects</a>
+          <a href="ey-fabric.html" role="menuitem">EY Fabric</a>
+          <a href="blockchain.html" role="menuitem">Blockchain 3D</a>
+          <a href="chek.html" role="menuitem">Chek</a>
+          <a href="dollarcity.html" role="menuitem">DollarCity</a>
+          <a href="customs.html" role="menuitem">Customs ES</a>
+        </div>
+      </div>
+      <a href="../resume.html" class="sn-link">Resume</a>
+      <a href="../contact.html" class="sn-link">Contact</a>
+      <a href="../design-system.html" class="sn-link">Design System</a>
+    </div>
+    <button class="sn-theme" id="theme-toggle" type="button" aria-label="Toggle light/dark mode">
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="sn-ham" id="snHam" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div id="snMobile" class="site-nav-mobile" aria-hidden="true">
+  <button type="button" id="snClose" class="sn-close" aria-label="Close">Close</button>
+  <a href="../index.html">Home</a>
+  <a href="../projects.html">All Projects</a>
+  <a class="sn-sub" href="ey-fabric.html">EY Fabric</a>
+  <a class="sn-sub" href="blockchain.html">Blockchain 3D</a>
+  <a class="sn-sub" href="chek.html">Chek</a>
+  <a class="sn-sub" href="dollarcity.html">DollarCity</a>
+  <a class="sn-sub" href="customs.html">Customs ES</a>
+  <a href="../resume.html">Resume</a>
+  <a href="../contact.html">Contact</a>
+  <a href="../design-system.html">Design System</a>
+</div>
 
 <main id="main">
 <header class="hero"><div class="wrap">
@@ -239,6 +455,56 @@
     if(e.target.closest('#lightbox')){lb.classList.remove('on');document.body.style.overflow='';}
   });
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.classList.remove('on');document.body.style.overflow='';}});
+})();
+</script>
+
+<script id="site-nav-component-js">
+(function(){
+  if(window.__siteNavBound) return;
+  window.__siteNavBound = true;
+
+  function bind(){
+    var drop = document.getElementById('snDropBtn');
+    if(drop && !drop.__bound){
+      drop.__bound = true;
+      function closeDrop(){ drop.setAttribute('aria-expanded','false'); }
+      drop.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var open = drop.getAttribute('aria-expanded') === 'true';
+        drop.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      document.addEventListener('click', function(e){
+        if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
+      });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrop(); });
+      window.addEventListener('scroll', closeDrop, {passive:true});
+    }
+
+    var ham = document.getElementById('snHam');
+    var mob = document.getElementById('snMobile');
+    var closeBtn = document.getElementById('snClose');
+    if(ham && mob && !ham.__bound){
+      ham.__bound = true;
+      function openM(){
+        mob.classList.add('on');
+        mob.setAttribute('aria-hidden','false');
+        ham.setAttribute('aria-expanded','true');
+        document.body.classList.add('nav-open');
+      }
+      function closeM(){
+        mob.classList.remove('on');
+        mob.setAttribute('aria-hidden','true');
+        ham.setAttribute('aria-expanded','false');
+        document.body.classList.remove('nav-open');
+      }
+      ham.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
+      if(closeBtn) closeBtn.addEventListener('click', closeM);
+      mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeM(); });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
 })();
 </script>
 </body>

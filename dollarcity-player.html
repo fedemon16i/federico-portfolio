@@ -270,17 +270,25 @@ h1{font-family:var(--font-display);font-size:clamp(1.7rem, 1.4rem + 1.6vw, 2.3re
 .dp-tabs span{padding-bottom:7px}
 .dp-tabs span.on{color:#0f8a4d;font-weight:700;border-bottom:2px solid #0f8a4d}
 .dp-newbtn{background:#0f8a4d;color:#fff;border-radius:7px;padding:7px 13px;font-size:10px;font-weight:700}
-.dp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-y:auto}
-.dp-vcard{background:#fff;border:1px solid #ececec;border-radius:9px;padding:8px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.dp-grid{display:flex;flex-wrap:wrap;align-content:flex-start;gap:10px;overflow-y:auto}
+.dp-vcard{background:#fff;border:1px solid #ececec;border-radius:9px;padding:8px;cursor:pointer;
+  flex:1 1 21%;min-width:0;position:relative;
+  transition:flex-grow .32s cubic-bezier(.34,1.2,.64,1),transform .32s cubic-bezier(.34,1.2,.64,1),box-shadow .25s,border-color .2s;
+}
 .dp-vcard.sel{border-color:#0f8a4d;box-shadow:0 0 0 2px rgba(15,138,77,.15)}
+.dp-vcard:hover{flex-grow:2.5;transform:translateY(-4px);box-shadow:0 16px 34px rgba(0,0,0,.2);border-color:#0f8a4d;z-index:4}
 .dp-vcard .thumb{aspect-ratio:16/10;background:#dcdcdc;border-radius:6px;position:relative;overflow:hidden;margin-bottom:6px;display:flex;align-items:center;justify-content:center}
 .dp-vcard .thumb .del{position:absolute;top:5px;right:5px;width:16px;height:16px;border-radius:50%;background:#111;color:#fff;font-size:8px;display:flex;align-items:center;justify-content:center;z-index:2}
-.dp-vcard .thumb .st{position:absolute;bottom:5px;left:5px;font-size:7px;font-weight:700;padding:2px 6px;border-radius:100px;z-index:2;font-family:var(--font-mono)}
+.dp-vcard .thumb .st{position:absolute;bottom:5px;left:5px;font-size:7px;font-weight:700;padding:2px 6px;border-radius:100px;z-index:2;font-family:var(--font-mono);white-space:nowrap}
 .dp-vcard .thumb .st.dl{background:rgba(15,138,77,.85);color:#fff}
 .dp-vcard .thumb .st.dn{background:rgba(37,99,235,.85);color:#fff}
 .dp-vcard .thumb .st.pd{background:rgba(0,0,0,.55);color:#fff}
-.dp-vcard .nm{font-size:9.5px;font-weight:700}
-.dp-vcard .sub{font-size:8px;color:#888;display:flex;justify-content:space-between;margin-top:2px}
+.dp-vcard .nm{font-size:9.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:font-size .25s}
+.dp-vcard .sub{font-size:8px;color:#888;display:flex;justify-content:space-between;gap:6px;margin-top:2px;white-space:nowrap;overflow:hidden}
+.dp-vcard .sub span{overflow:hidden;text-overflow:ellipsis}
+.dp-vcard:hover .nm{font-size:11.5px}
+.dp-vcard:hover .sub{font-size:9.5px;color:#555}
+.dp-vcard:hover .thumb .st{font-size:8px;padding:3px 7px}
 
 /* modal */
 .dp-modal-bg{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
@@ -405,9 +413,64 @@ html.embed .dp-hotkey{display:none}
   background:#ef4444;color:#fff;padding:2px 5px;border-radius:3px;
 }
 
+/* ===== Light mode — chrome only (app/product-mockup screens inside .app / .cam-ph stay fixed-light, matching the shipped product) ===== */
+html[data-theme="light"]{
+  --bg:#f7f5f2; --stage-bg:#eef1ee;
+  --text:#1a1917; --muted:#5c5854; --dim:#847f79;
+  --border:rgba(0,0,0,.10);
+}
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] .stage{
+  background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.2);
+}
+html[data-theme="light"] .stage-top{background:linear-gradient(180deg,rgba(247,245,242,.85) 0%,transparent 100%)}
+html[data-theme="light"] .icon-btn{background:rgba(255,255,255,.8)}
+html[data-theme="light"] .icon-btn:hover{background:var(--accent-dim)}
+html[data-theme="light"] .stage-arrow{background:rgba(255,255,255,.85)}
+html[data-theme="light"] .stage-arrow:hover{background:var(--accent-dim)}
+html[data-theme="light"] .text-phase{background:rgba(247,245,242,.85)}
+html[data-theme="light"] .cap{background:linear-gradient(0deg,rgba(247,245,242,.94) 0%,rgba(247,245,242,.55) 100%)}
+html[data-theme="light"] .dp-why{background:#f0efe9;color:#1a1917}
+html[data-theme="light"] .dp-why li{color:rgba(20,20,18,.72)}
+
 </style>
 </head>
 <body>
+<script>
+/* Theme sync: localStorage + parent page (same-origin iframe) */
+(function(){
+  function apply(t){
+    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+  }
+  function isEmbed(){
+    return document.documentElement.classList.contains('embed')
+      || /(?:^|[?&#])embed=1/.test(location.search + location.hash);
+  }
+  function read(){
+    var t = 'dark';
+    try {
+      var s = localStorage.getItem('theme-preference');
+      if (s === 'light' || s === 'dark') t = s;
+      if (!isEmbed() && s !== 'light' && s !== 'dark') t = 'dark';
+    } catch(e) {}
+    try {
+      if (window.parent && window.parent !== window) {
+        var p = window.parent.document.documentElement.getAttribute('data-theme');
+        if (p === 'light' || p === 'dark') t = p;
+      }
+    } catch(e) {}
+    if (!isEmbed()) {
+      var q = new URLSearchParams(location.search).get('theme');
+      if (q === 'light') t = 'light';
+    }
+    apply(t);
+  }
+  read();
+  window.addEventListener('storage', function(e){ if (e.key === 'theme-preference') read(); });
+  setInterval(function(){ if (isEmbed()) read(); }, 1500);
+})();
+</script>
 <div class="wrap">
   <p class="eyebrow">DollarCity · POS Video Investigation</p>
   <h1>Prototype player — <em>flag to footage in one flow</em></h1>
@@ -728,7 +791,7 @@ html.embed .dp-hotkey{display:none}
     });
   }
   var idx=0, playing=true, timers=[], gen=0;
-  var TYPE_MS=20, PAUSE_AFTER_TYPE=260, VIEW_MS=3400;
+  var TYPE_MS = 27, PAUSE_AFTER_TYPE=260, VIEW_MS=3400;
   function clearAll(){ timers.forEach(function(t){ clearTimeout(t); }); timers=[]; }
   function track(t){ timers.push(t); return t; }
 
@@ -774,12 +837,12 @@ html.embed .dp-hotkey{display:none}
       cursor.classList.add('click');
       ring.style.left=target.x; ring.style.top=target.y;
       ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go');
-      track(setTimeout(function(){ cursor.classList.remove('click'); },160));
+      track(setTimeout(function(){ cursor.classList.remove('click'); }, 197));
     }, reduced?0:900));
   }
 
   function typeIntro(str, done){
-    if(reduced){ introType.textContent=str; introBlink.classList.add('hide'); if(done) track(setTimeout(done,200)); return; }
+    if(reduced){ introType.textContent=str; introBlink.classList.add('hide'); if(done) track(setTimeout(done, 248)); return; }
     introType.textContent=''; introBlink.classList.remove('hide');
     var i=0;
     (function tick(){
@@ -900,7 +963,7 @@ html.embed .dp-hotkey{display:none}
     if(!toastEl) return;
     toastEl.textContent = msg;
     toastEl.classList.add('show');
-    track(setTimeout(function(){ toastEl.classList.remove('show'); }, 1800));
+    track(setTimeout(function(){ toastEl.classList.remove('show'); }, 1944));
   }
 
   /* keyboard */
@@ -920,7 +983,7 @@ html.embed .dp-hotkey{display:none}
       save.classList.add('saved');
       toast('Classification saved');
       setPlaying(false);
-      track(setTimeout(function(){ save.textContent='Save'; save.classList.remove('saved'); }, 1600));
+      track(setTimeout(function(){ save.textContent='Save'; save.classList.remove('saved'); }, 1728));
       return;
     }
     /* Request video from modal */
@@ -966,7 +1029,7 @@ html.embed .dp-hotkey{display:none}
         card.style.opacity='0';
         card.style.transform='scale(.92)';
         card.style.transition='opacity .25s,transform .25s';
-        track(setTimeout(function(){ card.remove(); toast('Request removed'); }, 260));
+        track(setTimeout(function(){ card.remove(); toast('Request removed'); }, 322));
       }
       setPlaying(false);
       return;
@@ -989,7 +1052,7 @@ html.embed .dp-hotkey{display:none}
       var scrub = win.querySelector('.dp-rv-scrub i');
       if(scrub){
         scrub.style.width='0%';
-        track(setTimeout(function(){ scrub.classList.add('playing'); scrub.style.width='0%'; }, 400));
+        track(setTimeout(function(){ scrub.classList.add('playing'); scrub.style.width='0%'; }, 496));
       }
     }, 500));
   };
