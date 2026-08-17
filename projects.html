@@ -1647,17 +1647,21 @@ h2, .h2, .sec h2 {
 .dc-cursor.show{opacity:.85}
 
 
-/* Projects page: cards always expanded */
+/* Projects page: cards always expanded, brand accent as bg */
 .stack .pcard{
+  position: relative !important;
   flex:none !important;
   width:100% !important;
   max-width:100% !important;
   min-height:420px !important;
   height:auto !important;
-  background:var(--bg-surface) !important;
-  color:var(--text) !important;
-  border:1px solid var(--border) !important;
+  background: var(--pc-bg, var(--bg-surface)) !important;
+  color: var(--pc-txt, var(--text)) !important;
+  border: none !important;
 }
+.stack .pcard-tags span{ border-color: rgba(255,255,255,.22) !important; }
+.stack .pcard[href*="ey-fabric"] .pcard-tags span,
+.stack .pcard[href*="blockchain"] .pcard-tags span{ border-color: rgba(0,0,0,.2) !important; }
 .stack .pcard .pcard-body{
   position:relative !important;
   opacity:1 !important;
