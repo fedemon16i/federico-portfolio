@@ -845,6 +845,20 @@ html[data-theme="light"] .fab-card .fd{color:var(--text-tertiary)}
 html[data-theme="light"] .wb-card{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
 html[data-theme="light"] .wb-inp{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);color:var(--text-secondary)}
 html[data-theme="light"] .feat,.rep,.res-card,.ins-item,.gov-row,.art{background:var(--bg-raised)}
+html[data-theme="light"] .fab-banner .bs{color:rgba(255,255,255,.6)}
+html[data-theme="light"] .fab-search{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.45)}
+html[data-theme="light"] .fab-chips span{color:rgba(0,0,0,.45);border-color:rgba(0,0,0,.12)}
+html[data-theme="light"] .fab-card .fbtns b{color:rgba(0,0,0,.45);border-color:rgba(0,0,0,.12)}
+html[data-theme="light"] .fab-side-h{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .fab-side-i .cnt{color:rgba(0,0,0,.38)}
+html[data-theme="light"] .fab-card{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .wb-steps{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .wb-steps .s{border-color:rgba(0,0,0,.2)}
+html[data-theme="light"] .wb-steps .ln{background:rgba(0,0,0,.1)}
+html[data-theme="light"] .wb-lab{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .wb-inp{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.55)}
+html[data-theme="light"] .wb-sub{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);color:rgba(0,0,0,.4)}
+html[data-theme="light"] .wb-r{border-left-color:rgba(0,0,0,.06)}
 
 /* ═══ Mobile / tablet integration ═══ */
 @media(max-width:900px){
@@ -2372,6 +2386,18 @@ html body #stage .capbar{
   background: linear-gradient(to top, rgba(12,11,10,.98) 0%, rgba(12,11,10,.9) 42%, transparent 100%) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
+}
+html[data-theme="light"] body .capbar,
+html[data-theme="light"] body #stage .capbar{
+  background: linear-gradient(to top, rgba(230,226,218,.96) 0%, rgba(230,226,218,.80) 40%, rgba(230,226,218,0) 100%) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+html[data-theme="light"] body .stage-arrow,
+html[data-theme="light"] body .stage-nav-arrow{
+  background: rgba(255,255,255,.85) !important;
+  border-color: rgba(0,0,0,.12) !important;
+  color: var(--text-primary) !important;
 }
 
 /* DEMO text-phase: FULL stage width, content centered — never max-width on the layer */
