@@ -6867,9 +6867,7 @@ h1, .h1, .proc-h, .sec-h{
 /* mobile: shorter host only — full UI stays, scale does the work */
 @media (max-width: 640px){
   .proc-carousel{ --proc-h: min(380px, calc(100dvh - 160px)); }
-  .proc-arrow{ width:32px; height:32px; }
-  .proc-arrow.prev{ left: 4px; }
-  .proc-arrow.next{ right: 4px; }
+  .proc-arrow{ display: none !important; }
 }
 
 html[data-theme="light"] .tool-win{
