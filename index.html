@@ -3069,6 +3069,11 @@ html[data-theme="light"] body .stage-nav-arrow{
   border-color: rgba(0,0,0,.12) !important;
   color: var(--text-primary) !important;
 }
+/* Text slides — light background so dark text is readable against the forced-dark stage */
+html[data-theme="light"] html body #stage .slide.textslide,
+html[data-theme="light"] html body .stage .slide.textslide{
+  background: var(--stage-bg) !important;
+}
 
 /* 4. UI window — CONTAIN, never crop. Scale inside stage. Keep natural ratio. */
 

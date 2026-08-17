@@ -406,6 +406,10 @@ html[data-theme="light"] .prog i { background: var(--accent); }
 html[data-theme="light"] .stage-arrow{
   background:rgba(255,255,255,.85);border-color:rgba(0,0,0,.12);color:rgba(0,0,0,.55);
 }
+/* Narrative text — hardcoded white needs explicit dark override in light mode */
+html[data-theme="light"] .ts-big{color:var(--text) !important;}
+html[data-theme="light"] .ts-big em{text-shadow:none !important;}
+html[data-theme="light"] .slide.text{background:rgba(232,230,224,.6) !important;}
 
 
 /* === CONTAIN UI inside window (skills parity) === */
