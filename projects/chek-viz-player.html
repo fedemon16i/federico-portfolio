@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Chek viz motor</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<script>if(/(?:^|[?&#])embed=1\b/.test(location.search+location.hash))document.documentElement.classList.add("embed");(function(){try{var s=localStorage.getItem('theme-preference')||localStorage.getItem('theme');if(s==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}function sync(){try{if(window.parent&&window.parent!==window){var p=window.parent.document.documentElement.getAttribute('data-theme');if(p==='light'||p==='dark')document.documentElement.setAttribute('data-theme',p);}}catch(e){}}sync();setInterval(function(){if(document.documentElement.classList.contains('embed')||/embed=1/.test(location.search))sync();},1500);})();</script>
 <style>
 :root{
   --bg:#0e0d0c;--text:#f2f0ec;--muted:#8a8580;--dim:#5c5854;
@@ -313,6 +314,22 @@ html.embed,html.embed body{background:transparent}
   opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s;
 }
 .text-phase .sub.on{opacity:1;transform:none}
+
+html[data-theme="light"]{
+  --bg:#f4f2ee;--text:#1a1816;--muted:#5c574f;--dim:#8a847a;
+  --border:rgba(0,0,0,.08);
+  --accent:#6b2fc7;--accent-2:#8b5cf6;
+  --capbar-fade:rgba(244,242,238,.92);
+}
+html[data-theme="light"],
+html[data-theme="light"] body{background:var(--bg);color:var(--text)}
+html[data-theme="light"] .motor-nav button{background:rgba(255,255,255,.7);border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] .motor-nav button.on{background:rgba(107,47,199,.1)}
+html[data-theme="light"] .text-phase{background:rgba(244,242,238,.92)!important}
+html[data-theme="light"] .capbar{background:linear-gradient(180deg,transparent,var(--capbar-fade) 30%)}
+html[data-theme="light"] #sc-clarity .tok{background:rgba(255,255,255,.8);border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] #sc-clarity .comp{background:rgba(107,47,199,.08);border-color:rgba(107,47,199,.25)}
+html[data-theme="light"] .ph{background:linear-gradient(160deg,#dcdad6,#c8c6c2);box-shadow:0 16px 36px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.08)}
 
 </style>
 </head>
