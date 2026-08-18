@@ -1825,7 +1825,10 @@ html.embed .page{
 /* Theme sync: localStorage + parent page (same-origin iframe) */
 (function(){
   function apply(t){
-    document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+    var th = t === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', th);
+    var u = document.getElementById('unit');
+    if (u) u.setAttribute('data-player-theme', th);
   }
   function read(){
     var t = 'dark';
