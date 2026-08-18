@@ -2052,6 +2052,8 @@ html.embed .unit, html.embed #unit{
   function apply(t){
     t = (t === 'light') ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', t);
+    var u = document.getElementById('unit');
+    if (u) u.setAttribute('data-player-theme', t);
   }
   function isEmbed(){
     return document.documentElement.classList.contains('embed')
