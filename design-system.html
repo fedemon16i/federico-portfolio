@@ -542,9 +542,82 @@ nav.site-nav .sn-inner{
 .ds-hero-demo .cursor-blink::after{content:'|';color:var(--accent);animation:blink 1s step-end infinite}
 @keyframes blink{50%{opacity:0}}
 
+/* ── Token mapping table ── */
+.tok-table{width:100%;border-collapse:collapse;font-size:12px}
+.tok-table th{text-align:left;padding:7px 12px;border-bottom:2px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--font-mono)}
+.tok-table td{padding:7px 12px;border-bottom:1px solid var(--line-soft);vertical-align:middle;font-family:var(--font-mono);font-size:11px}
+.tok-table tr:last-child td{border-bottom:none}
+.tok-table .tok-name{color:var(--text);font-weight:500}
+.tok-table .tok-use{font-family:var(--font-body);font-size:12px;color:var(--muted)}
+.cswatch{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid rgba(128,128,128,.2);vertical-align:middle;margin-right:5px}
+/* ── Spacing scale ── */
+.sp-scale{display:flex;flex-direction:column;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg-surface)}
+.sp-row{display:flex;align-items:center;gap:14px;padding:8px 14px;border-bottom:1px solid var(--line-soft)}
+.sp-row:last-child{border-bottom:none}
+.sp-bar{background:var(--accent);height:8px;border-radius:2px;opacity:.7;flex-shrink:0}
+.sp-label{font-family:var(--font-mono);font-size:11px;color:var(--muted);min-width:80px;flex-shrink:0}
+.sp-px{font-size:11px;color:var(--text);min-width:38px;font-family:var(--font-mono)}
+.sp-use{font-size:11px;color:var(--faint)}
+/* ── Duration scale ── */
+.dur-scale{display:flex;flex-direction:column;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg-surface)}
+.dur-row{display:flex;align-items:center;gap:14px;padding:8px 14px;border-bottom:1px solid var(--line-soft)}
+.dur-row:last-child{border-bottom:none}
+.dur-name{font-family:var(--font-mono);font-size:11px;color:var(--accent);min-width:90px;flex-shrink:0}
+.dur-ms{font-family:var(--font-mono);font-size:11px;color:var(--text);min-width:60px}
+.dur-use{font-size:11px;color:var(--muted)}
+/* ── Focus demos ── */
+.focus-demos{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.focus-demo{padding:10px 16px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg-surface);font-size:13px;cursor:pointer;font-family:var(--font-body)}
+.focus-demo.fd-ring{outline:2.5px solid var(--accent);outline-offset:2px;border-color:transparent}
+/* ── Keyboard shortcut chip ── */
+.kbd{display:inline-block;padding:2px 7px;border:1px solid var(--line);border-radius:5px;font-family:var(--font-mono);font-size:11px;background:var(--bg-raised);color:var(--text)}
+/* ── ARIA / keyboard table ── */
+.aria-table{width:100%;border-collapse:collapse;font-size:12px}
+.aria-table th{text-align:left;padding:7px 12px;border-bottom:2px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.aria-table td{padding:7px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top;line-height:1.5}
+.aria-table tr:last-child td{border-bottom:none}
+.aria-table .ar-role{font-family:var(--font-mono);font-size:11px;color:var(--accent)}
+/* ── Form states ── */
+.form-states{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px}
+.form-state-box{padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--bg-surface)}
+.form-state-box .fs-label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;font-weight:600}
+.fs-inp{width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg-raised);color:var(--text);font:500 13px/1.3 var(--font-body);box-sizing:border-box}
+.fs-inp:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.fs-inp.fs-err{border-color:#ef4444;background:rgba(239,68,68,.06)}
+.fs-inp.fs-dis{opacity:.4;cursor:not-allowed}
+.fs-err-msg{font-size:11px;color:#ef4444;margin-top:4px}
+/* ── Accent palette ── */
+.accent-palette{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ap{border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.ap-dk{height:30px}
+.ap-lt{height:30px;border-top:1px solid rgba(0,0,0,.1)}
+.ap-m{padding:8px 10px;background:var(--bg-surface)}
+.ap-m b{display:block;font-size:12px;font-weight:700;margin-bottom:2px}
+.ap-m span{font-family:var(--font-mono);font-size:10px;color:var(--muted);display:block}
+/* ── Governance ── */
+.gov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.gov-card{padding:14px;border-radius:12px;border:1px solid var(--line);background:var(--bg-surface)}
+.gov-card h4{margin:0 0 6px;font-size:13px}
+.gov-card p{margin:0;font-size:12px;color:var(--muted);line-height:1.4}
+/* ── Changelog ── */
+.changelog{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-surface)}
+.chg-entry{display:flex;gap:14px;padding:12px 14px;border-bottom:1px solid var(--line-soft)}
+.chg-entry:last-child{border-bottom:none}
+.chg-date{font-family:var(--font-mono);font-size:10px;color:var(--muted);min-width:64px;flex-shrink:0;padding-top:2px}
+.chg-tag{display:inline-block;padding:1px 7px;border-radius:999px;font-size:9px;font-weight:650;margin-right:4px;text-transform:uppercase;letter-spacing:.06em}
+.chg-feat{background:rgba(34,197,94,.12);color:#22c55e}
+.chg-fix{background:rgba(239,68,68,.12);color:#ef4444}
+.chg-sys{background:var(--accent-dim);color:var(--accent)}
+.chg-body h4{margin:2px 0 3px;font-size:12px;font-weight:600}
+.chg-body p{margin:0;font-size:11px;color:var(--muted);line-height:1.4}
+/* ── Skip link ── */
+.skip-link{position:absolute;top:-100%;left:16px;z-index:999999;background:var(--accent);color:#fff;padding:8px 14px;border-radius:0 0 8px 8px;font-weight:700;font-size:13px;text-decoration:none}
+.skip-link:focus{top:0}
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to main content</a>
 <nav class="site-nav" id="topNav" style="--sn-accent:#d97757" aria-label="Primary">
   <div class="sn-inner">
     <a href="index.html" class="sn-logo">FM<span>.</span></a>
@@ -592,7 +665,7 @@ nav.site-nav .sn-inner{
   <a href="design-system.html">Design System</a>
 </div>
 
-<main class="page">
+<main class="page" id="main">
   <nav class="bc" aria-label="Breadcrumb">
     <a href="index.html">Home</a><span class="sep">/</span><span class="here">Design System</span>
   </nav>
@@ -603,6 +676,7 @@ nav.site-nav .sn-inner{
 
   <div class="tabs" role="tablist" aria-label="Design system sections">
     <button type="button" class="on" data-tab="found" role="tab" aria-selected="true">Foundation</button>
+    <button type="button" data-tab="tokens" role="tab">Tokens</button>
     <button type="button" data-tab="chrome" role="tab">Chrome</button>
     <button type="button" data-tab="comp" role="tab">Components</button>
     <button type="button" data-tab="home" role="tab">Home patterns</button>
@@ -640,6 +714,89 @@ nav.site-nav .sn-inner{
         <div><div class="lab">Eyebrow · 11px · tracking .12em</div><div class="hero-ey" style="margin:0">Skills · product services</div></div>
         <div><div class="lab">Lead / body</div><div style="color:var(--muted);line-height:1.55">Map behavior, surface friction, research the why, and close the loop.</div></div>
       </div>
+    </section>
+  </div>
+
+  <!-- TOKENS -->
+  <div class="panel" id="tab-tokens" role="tabpanel">
+    <section class="sec">
+      <p class="lvl">Color tokens</p>
+      <h2>Dark / Light mapping</h2>
+      <p class="sub">All CSS custom properties defined on <code>:root</code> (dark default) and <code>[data-theme="light"]</code>. Project pages override <code>--accent</code> and <code>--accent-dim</code> only — never touch shell tokens.</p>
+      <div style="overflow-x:auto">
+      <table class="tok-table">
+        <thead><tr><th>Token</th><th>Dark value</th><th>Light value</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td class="tok-name">--bg</td><td><span class="cswatch" style="background:#0e0d0c"></span>#0e0d0c</td><td><span class="cswatch" style="background:#f7f5f2;border-color:rgba(0,0,0,.15)"></span>#f7f5f2</td><td class="tok-use">Page background</td></tr>
+          <tr><td class="tok-name">--bg-surface</td><td><span class="cswatch" style="background:#171614"></span>#171614</td><td><span class="cswatch" style="background:#fff;border-color:rgba(0,0,0,.15)"></span>#ffffff</td><td class="tok-use">Card, input, dropdown bg</td></tr>
+          <tr><td class="tok-name">--bg-raised</td><td><span class="cswatch" style="background:#1e1c1a"></span>#1e1c1a</td><td><span class="cswatch" style="background:#eeece7;border-color:rgba(0,0,0,.1)"></span>#eeece7</td><td class="tok-use">Elevated surface, code block</td></tr>
+          <tr><td class="tok-name">--text</td><td><span class="cswatch" style="background:#f2f0ec;border-color:rgba(0,0,0,.1)"></span>#f2f0ec</td><td><span class="cswatch" style="background:#1a1917"></span>#1a1917</td><td class="tok-use">Primary text</td></tr>
+          <tr><td class="tok-name">--muted</td><td><span class="cswatch" style="background:#a6a29a"></span>#a6a29a</td><td><span class="cswatch" style="background:#55524c"></span>#55524c</td><td class="tok-use">Secondary text, labels</td></tr>
+          <tr><td class="tok-name">--faint</td><td><span class="cswatch" style="background:#7a756c"></span>#7a756c</td><td><span class="cswatch" style="background:#726e66"></span>#726e66</td><td class="tok-use">Tertiary text, hints</td></tr>
+          <tr><td class="tok-name">--line</td><td><span class="cswatch" style="background:rgba(255,255,255,.1)"></span>rgba(255,255,255,.1)</td><td><span class="cswatch" style="background:rgba(0,0,0,.1);border-color:rgba(0,0,0,.2)"></span>rgba(0,0,0,.1)</td><td class="tok-use">Borders, dividers</td></tr>
+          <tr><td class="tok-name">--line-soft</td><td><span class="cswatch" style="background:rgba(255,255,255,.06)"></span>rgba(255,255,255,.06)</td><td><span class="cswatch" style="background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.15)"></span>rgba(0,0,0,.06)</td><td class="tok-use">Subtle row separators</td></tr>
+          <tr><td class="tok-name">--accent</td><td><span class="cswatch" style="background:#d97757"></span>#d97757</td><td><span class="cswatch" style="background:#a84928"></span>#a84928</td><td class="tok-use">Brand, CTA, highlights (home)</td></tr>
+          <tr><td class="tok-name">--accent-dim</td><td><span class="cswatch" style="background:rgba(217,119,87,.14)"></span>rgba(217,119,87,.14)</td><td><span class="cswatch" style="background:rgba(168,73,40,.12);border-color:rgba(0,0,0,.1)"></span>rgba(168,73,40,.12)</td><td class="tok-use">Active chip/pill background tint</td></tr>
+          <tr><td class="tok-name">--on-accent</td><td><span class="cswatch" style="background:#fff;border-color:rgba(0,0,0,.15)"></span>#ffffff</td><td><span class="cswatch" style="background:#fff;border-color:rgba(0,0,0,.15)"></span>#ffffff</td><td class="tok-use">Text on filled accent buttons</td></tr>
+          <tr><td class="tok-name">--font-display</td><td colspan="2">"Space Grotesk", system-ui, sans-serif</td><td class="tok-use">H1, H2, nav, logo</td></tr>
+          <tr><td class="tok-name">--font-body</td><td colspan="2">"DM Sans", system-ui, sans-serif</td><td class="tok-use">Body copy, labels, UI text</td></tr>
+          <tr><td class="tok-name">--font-mono</td><td colspan="2">"DM Mono", ui-monospace, monospace</td><td class="tok-use">Code, token names, timestamps</td></tr>
+          <tr><td class="tok-name">--max</td><td colspan="2">920px</td><td class="tok-use">Column max-width (every page)</td></tr>
+          <tr><td class="tok-name">--pad</td><td colspan="2">clamp(16px, 3vw, 28px)</td><td class="tok-use">Horizontal page padding</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Project accents</p>
+      <h2>Per-case overrides</h2>
+      <p class="sub">Each project page sets <code>:root&#123;--accent:...&#125;</code>. Dark pair is direct brand color; light pair is darkened to ≥4.5:1 on <code>#f7f5f2</code>. Never hardcode hex in layout — only in brand-identity contexts (logos, accent itself).</p>
+      <div class="accent-palette">
+        <div class="ap"><div class="ap-dk" style="background:#d97757"></div><div class="ap-lt" style="background:#a84928"></div><div class="ap-m"><b>Home</b><span>#d97757 · dark</span><span>#a84928 · light</span></div></div>
+        <div class="ap"><div class="ap-dk" style="background:#ffe600"></div><div class="ap-lt" style="background:#8a7200"></div><div class="ap-m"><b>EY Fabric</b><span>#ffe600 · dark</span><span>#8a7200 · light</span></div></div>
+        <div class="ap"><div class="ap-dk" style="background:#22d4c8"></div><div class="ap-lt" style="background:#0e8f87"></div><div class="ap-m"><b>Blockchain</b><span>#22d4c8 · dark</span><span>#0e8f87 · light</span></div></div>
+        <div class="ap"><div class="ap-dk" style="background:#7a3be0"></div><div class="ap-lt" style="background:#6b2fc7"></div><div class="ap-m"><b>Chek</b><span>#7a3be0 · dark</span><span>#6b2fc7 · light</span></div></div>
+        <div class="ap"><div class="ap-dk" style="background:#00a650"></div><div class="ap-lt" style="background:#007a3a"></div><div class="ap-m"><b>DollarCity</b><span>#00a650 · dark</span><span>#007a3a · light</span></div></div>
+        <div class="ap"><div class="ap-dk" style="background:#e05c4a"></div><div class="ap-lt" style="background:#c0402e"></div><div class="ap-m"><b>Customs ES</b><span>#e05c4a · dark</span><span>#c0402e · light</span></div></div>
+        <div class="ap"><div class="ap-dk" style="background:#5b9bd0"></div><div class="ap-lt" style="background:#2e6fa0"></div><div class="ap-m"><b>Forecast</b><span>#5b9bd0 · dark</span><span>#2e6fa0 · light</span></div></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Spacing</p>
+      <h2>Scale</h2>
+      <p class="sub">8px base grid. Defined as <code>var(--space-*)</code> in shared.css. Never hardcode pixel values in layout rules — always reference the token.</p>
+      <div class="sp-scale">
+        <div class="sp-row"><span class="sp-label">--space-4</span><div class="sp-bar" style="width:4px"></div><span class="sp-px">4px</span><span class="sp-use">Icon gap, tight nudge</span></div>
+        <div class="sp-row"><span class="sp-label">--space-8</span><div class="sp-bar" style="width:8px"></div><span class="sp-px">8px</span><span class="sp-use">Nav link padding, chip gap</span></div>
+        <div class="sp-row"><span class="sp-label">--space-12</span><div class="sp-bar" style="width:12px"></div><span class="sp-px">12px</span><span class="sp-use">Card inner gap (flex column)</span></div>
+        <div class="sp-row"><span class="sp-label">--space-16</span><div class="sp-bar" style="width:16px"></div><span class="sp-px">16px</span><span class="sp-use">Mobile horizontal padding</span></div>
+        <div class="sp-row"><span class="sp-label">--space-20</span><div class="sp-bar" style="width:20px"></div><span class="sp-px">20px</span><span class="sp-use">Card padding</span></div>
+        <div class="sp-row"><span class="sp-label">--space-24</span><div class="sp-bar" style="width:24px"></div><span class="sp-px">24px</span><span class="sp-use">Grid gap, standard section element spacing</span></div>
+        <div class="sp-row"><span class="sp-label">--space-32</span><div class="sp-bar" style="width:32px"></div><span class="sp-px">32px</span><span class="sp-use">Large section gap</span></div>
+        <div class="sp-row"><span class="sp-label">--space-48</span><div class="sp-bar" style="width:48px"></div><span class="sp-px">48px</span><span class="sp-use">Major section divider</span></div>
+        <div class="sp-row"><span class="sp-label">--space-64</span><div class="sp-bar" style="width:64px"></div><span class="sp-px">64px</span><span class="sp-use">Nav height, hero top margin</span></div>
+        <div class="sp-row"><span class="sp-label">--space-96</span><div class="sp-bar" style="width:96px"></div><span class="sp-px">96px</span><span class="sp-use">Section vertical padding (.section)</span></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Easing</p>
+      <h2>Motion curve tokens</h2>
+      <div class="code"><b>--ease-out-back</b>  cubic-bezier(.34, 1.22, .64, 1)   — things that GROW (cards, panels) — overshoot
+<b>--spring</b>         cubic-bezier(.34, 1.56, .64, 1)   — stronger overshoot (used in shared.css card 3D)
+<b>--motion</b>         .55s var(--ease-out-back)           — shorthand for growing elements
+standard ease-out   cubic-bezier(.22, 1, .36, 1)      — NO overshoot — use for fades/color/opacity only
+<b>Rule</b>: never use ease/linear on transforms that change size — always bounce.</div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Type</p>
+      <h2>Scale tokens</h2>
+      <div class="code"><b>--h1</b>  clamp(1.85rem, 1.5rem + 1.8vw, 2.55rem)   — page heroes
+<b>--h2</b>  clamp(1.4rem, 1.2rem + 1.1vw, 1.95rem)    — section headings
+Eyebrow  11px · tracking .12em · uppercase · var(--muted)
+Lead     1.05rem · line-height 1.55 · var(--muted) · max-width 38rem
+Body     1rem (16px base) · line-height 1.6 · var(--font-body)
+Mono     DM Mono · code, timestamps, token names · color var(--muted)
+<b>Min weight</b>  400 body · 600 headers · 700–800 display — NEVER font-weight:300</div>
     </section>
   </div>
 
@@ -749,6 +906,45 @@ No tool-dependent claims in lede — UX / research / product loop</div>
       <p class="lvl">Form</p>
       <h2>Input focus</h2>
       <input class="input-demo" type="text" placeholder="Search catalog…" aria-label="Demo search"/>
+    </section>
+    <section class="sec">
+      <p class="lvl">Form states</p>
+      <h2>Input variants</h2>
+      <p class="sub">Every interactive input documents four states. Never rely on browser defaults alone — always define focus ring, error styling, and disabled appearance explicitly.</p>
+      <div class="form-states">
+        <div class="form-state-box">
+          <span class="fs-label">Default</span>
+          <input class="fs-inp" type="text" placeholder="Enter value…" aria-label="Default input demo"/>
+        </div>
+        <div class="form-state-box">
+          <span class="fs-label">Focused</span>
+          <input class="fs-inp" type="text" style="outline:2px solid var(--accent);outline-offset:1px;border-color:transparent" value="Focused" aria-label="Focused input demo" readonly/>
+        </div>
+        <div class="form-state-box">
+          <span class="fs-label">Error</span>
+          <input class="fs-inp fs-err" type="text" value="Invalid email" aria-label="Error input demo" aria-invalid="true" aria-describedby="ds-err-msg" readonly/>
+          <div class="fs-err-msg" id="ds-err-msg">Enter a valid email address</div>
+        </div>
+        <div class="form-state-box">
+          <span class="fs-label">Disabled</span>
+          <input class="fs-inp fs-dis" type="text" value="Read only" disabled aria-label="Disabled input demo"/>
+        </div>
+      </div>
+      <div class="code" style="margin-top:12px"><b>Focus</b>   outline: 2px solid var(--accent); outline-offset: 2px; border-color: transparent
+<b>Error</b>   border-color: #ef4444; background: rgba(239,68,68,.06); + aria-invalid="true" + aria-describedby
+<b>Disabled</b> opacity: 0.4; cursor: not-allowed; (still needs 3:1 at 40% opacity)
+<b>Required</b> aria-required="true" + visual * indicator near label (not inside the input)</div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Component states</p>
+      <h2>UI state spec</h2>
+      <p class="sub">Every data-connected component must handle all four states. Empty state is the most commonly omitted.</p>
+      <div class="grid g2">
+        <div class="card"><h3>Loading</h3><p>Skeleton pulse or spinner at <code>var(--accent)</code> opacity .6. Never show partial/stale data. Announce to screen readers via <code>aria-live="polite"</code>.</p></div>
+        <div class="card"><h3>Error</h3><p>Red border (<code>#ef4444</code>) + inline error message below the field. Never silent failure. Always provide a retry path.</p></div>
+        <div class="card"><h3>Empty</h3><p>Explicit empty state: muted icon + label + optional call to action. A blank container is never acceptable — it reads as broken.</p></div>
+        <div class="card"><h3>Disabled</h3><p><code>opacity: 0.4 · cursor: not-allowed</code>. No hover transforms. Must still meet 3:1 contrast at reduced opacity.</p></div>
+      </div>
     </section>
     <section class="sec">
       <p class="lvl">Filters</p>
@@ -1040,6 +1236,50 @@ Project cards + skills cards share this family — never instant expand.</div>
     </section>
   </div>
 
+    <section class="sec">
+      <p class="lvl">Duration</p>
+      <h2>Scale</h2>
+      <p class="sub">Match duration to the perceived weight of the change. Faster for micro-feedback; slower for layout and narrative beats.</p>
+      <div class="dur-scale">
+        <div class="dur-row"><span class="dur-name">quick</span><span class="dur-ms">120ms</span><span class="dur-use">Hover color / opacity — icon state changes</span></div>
+        <div class="dur-row"><span class="dur-name">fast</span><span class="dur-ms">200ms</span><span class="dur-use">Toggle on/off — switch, chip active state</span></div>
+        <div class="dur-row"><span class="dur-name">normal</span><span class="dur-ms">300ms</span><span class="dur-use">Most CSS transitions — borders, backgrounds</span></div>
+        <div class="dur-row"><span class="dur-name">deliberate</span><span class="dur-ms">400ms</span><span class="dur-use">Dropdown / modal open — tab panel fade</span></div>
+        <div class="dur-row"><span class="dur-name">bounce</span><span class="dur-ms">550ms</span><span class="dur-use">Cards that grow — always paired with --ease-out-back</span></div>
+        <div class="dur-row"><span class="dur-name">narrative</span><span class="dur-ms">800 – 1200ms</span><span class="dur-use">Player beat holds — intentional pause for reading</span></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Stagger</p>
+      <h2>List entrance</h2>
+      <p class="sub">Cards enter with a 60ms stagger between siblings. Base delay: 100ms. Cap at 6 items — beyond that the last card feels too slow.</p>
+      <div class="code">children.forEach((el, i) => {
+  el.style.animationDelay = (100 + i * 60) + 'ms';
+  el.classList.add('animate__fadeInUp');
+});
+<b>6 items max stagger</b>  → last card at 460ms total
+<b>Reduced motion</b>  → skip delay, keep opacity-only fade</div>
+      <div class="grid g3" style="margin-top:12px">
+        <div class="card" style="animation-delay:100ms"><h3>01</h3><p>100ms base</p></div>
+        <div class="card" style="animation-delay:160ms"><h3>02</h3><p>+60ms</p></div>
+        <div class="card" style="animation-delay:220ms"><h3>03</h3><p>+120ms</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Reduced motion</p>
+      <h2>Policy</h2>
+      <p class="sub">The universal selector in shared.css collapses all transitions to 0.01ms. No per-component <code>prefers-reduced-motion</code> blocks needed — it's already covered globally.</p>
+      <div class="code">@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+<b>Player autoplay</b> stops when prefers-reduced-motion is set — checked at init.</div>
+    </section>
+  </div>
+
   <!-- A11Y -->
   <div class="panel" id="tab-a11y" role="tabpanel">
     <section class="sec">
@@ -1053,6 +1293,74 @@ Project cards + skills cards share this family — never instant expand.</div>
         <div class="box ok-d">White on product UI — OK<div class="meta">Mocks stay dark in both themes</div></div>
       </div>
     </section>
+    <section class="sec">
+      <p class="lvl">All accent pairs</p>
+      <h2>Per-project contrast</h2>
+      <p class="sub">Each project accent verified on both backgrounds. Light-mode pairs are darkened until ≥4.5:1.</p>
+      <div class="grid g2">
+        <div class="card" style="border-left:3px solid #d97757"><h3 style="color:#d97757">Home #d97757</h3><p>On dark #0e0d0c: 4.2:1 (UI, passes 3:1) · Light pair #a84928 on #f7f5f2: 5.3:1 ✓</p></div>
+        <div class="card" style="border-left:3px solid #22d4c8"><h3 style="color:#22d4c8">Blockchain #22d4c8</h3><p>On dark: 8.1:1 ✓ · Light pair #0e8f87 on #f7f5f2: 4.5:1 ✓</p></div>
+        <div class="card" style="border-left:3px solid #7a3be0"><h3 style="color:#7a3be0">Chek #7a3be0</h3><p>On dark: 3.5:1 (large/UI text) · Light pair #6b2fc7 on #f7f5f2: 4.8:1 ✓</p></div>
+        <div class="card" style="border-left:3px solid #00a650"><h3 style="color:#00a650">DollarCity #00a650</h3><p>On dark: 5.9:1 ✓ · Light pair #007a3a on #f7f5f2: 5.1:1 ✓</p></div>
+        <div class="card" style="border-left:3px solid #e05c4a"><h3 style="color:#e05c4a">Customs ES #e05c4a</h3><p>On dark: 4.6:1 ✓ · Light pair #c0402e on #f7f5f2: 4.9:1 ✓</p></div>
+        <div class="card" style="border-left:3px solid #5b9bd0"><h3 style="color:#5b9bd0">Forecast #5b9bd0</h3><p>On dark: 4.4:1 ✓ · Light pair #2e6fa0 on #f7f5f2: 4.1:1 ✓</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Focus</p>
+      <h2>Focus rings</h2>
+      <p class="sub">All interactive elements use <code>outline: 2px solid var(--accent)</code> with <code>outline-offset: 2px</code>. Never suppress outlines — adapt color, never remove.</p>
+      <div class="focus-demos">
+        <button class="focus-demo fd-ring">Focused button</button>
+        <button class="focus-demo">Unfocused</button>
+        <input class="focus-demo fd-ring" style="border-radius:8px;font-family:var(--font-body)" value="Focused input" readonly aria-label="Focus ring demo input"/>
+      </div>
+      <div class="code"><b>Rule</b>    outline: 2px solid var(--accent); outline-offset: 2px
+<b>Never</b>   outline: none (without :focus-visible replacement)
+<b>Light</b>   accent is darker → same ring, better contrast on light background
+<b>Custom</b>  Components using box-shadow glow instead must still pass 3:1 non-text contrast</div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Keyboard</p>
+      <h2>Navigation patterns</h2>
+      <p class="sub">Every interactive component has keyboard support. No mouse-only interactions.</p>
+      <div style="overflow-x:auto">
+      <table class="aria-table">
+        <thead><tr><th>Pattern</th><th>Keys</th><th>Behavior</th></tr></thead>
+        <tbody>
+          <tr><td>Nav links</td><td><span class="kbd">Tab</span></td><td>Sequential focus through all links</td></tr>
+          <tr><td>Projects dropdown</td><td><span class="kbd">Enter</span> / <span class="kbd">Space</span></td><td>Opens; <span class="kbd">Esc</span> closes; scroll closes</td></tr>
+          <tr><td>Design system tabs</td><td><span class="kbd">Tab</span> to active, click to switch</td><td>aria-selected tracks active tab</td></tr>
+          <tr><td>Mobile menu</td><td><span class="kbd">Esc</span></td><td>Closes panel, body.nav-open removed</td></tr>
+          <tr><td>Toggle switch</td><td><span class="kbd">Space</span></td><td>Toggles on/off, updates aria-checked</td></tr>
+          <tr><td>Pills / filter chips</td><td><span class="kbd">Enter</span></td><td>Selects chip, previous deselects</td></tr>
+          <tr><td>Skip link</td><td><span class="kbd">Tab</span> (first in page)</td><td>Jumps to #main, visible only on focus</td></tr>
+          <tr><td>Player pause/replay</td><td><span class="kbd">Tab</span> + <span class="kbd">Enter</span></td><td>Standard button behavior</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">ARIA</p>
+      <h2>Attributes used in this system</h2>
+      <div style="overflow-x:auto">
+      <table class="aria-table">
+        <thead><tr><th>Attribute</th><th>Component</th><th>Value / notes</th></tr></thead>
+        <tbody>
+          <tr><td class="ar-role">aria-label</td><td>Theme toggle, hamburger, close btn, all img alt</td><td>Descriptive text; theme toggle updates on toggle</td></tr>
+          <tr><td class="ar-role">aria-expanded</td><td>Projects dropdown, hamburger button</td><td>"true" / "false" string</td></tr>
+          <tr><td class="ar-role">aria-haspopup</td><td>Projects dropdown button</td><td>"true"</td></tr>
+          <tr><td class="ar-role">role="menu"</td><td>Dropdown panel container</td><td>On the div/ul wrapping the links</td></tr>
+          <tr><td class="ar-role">role="menuitem"</td><td>Dropdown links</td><td>On each anchor inside the menu</td></tr>
+          <tr><td class="ar-role">role="tab" / tabpanel</td><td>Design system tab buttons</td><td>aria-selected on active tab</td></tr>
+          <tr><td class="ar-role">role="switch"</td><td>Toggle switch component</td><td>aria-checked reflects current state</td></tr>
+          <tr><td class="ar-role">aria-hidden="true"</td><td>Decorative graphics, closed mobile panel</td><td>Hides from screen readers entirely</td></tr>
+          <tr><td class="ar-role">aria-invalid</td><td>Error-state inputs</td><td>"true"; pair with aria-describedby → error message</td></tr>
+          <tr><td class="ar-role">aria-live</td><td>Dynamic content (toasts, player captions)</td><td>"polite" — announced when idle</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
   </div>
 
   <!-- RULES -->
@@ -1061,12 +1369,85 @@ Project cards + skills cards share this family — never instant expand.</div>
       <p class="lvl">Canon</p>
       <h2>Consistency rules</h2>
       <div class="grid g2">
-        <div class="card"><h3>1 · Shell</h3><p>--max 920 · --pad · site-nav · theme on every page</p></div>
-        <div class="card"><h3>2 · Players</h3><p>Same unit/phone contract · only plugin changes</p></div>
-        <div class="card"><h3>3 · Accents</h3><p>Local color only · always define light pair ≥3:1 UI</p></div>
-        <div class="card"><h3>4 · Type</h3><p>Shared H1/H2 clamps · no one-off heroes</p></div>
-        <div class="card"><h3>5 · Motion</h3><p>Skills card = reference for project cards</p></div>
-        <div class="card"><h3>6 · Width</h3><p>No 960 · no double pad · no nested narrower column</p></div>
+        <div class="card"><h3>1 · Shell</h3><p>--max 920 · --pad · site-nav · theme toggle on every page. No full-bleed content.</p></div>
+        <div class="card"><h3>2 · Players</h3><p>Same unit/phone contract — only the plugin (BEATS, applyAction, case UI) changes per project.</p></div>
+        <div class="card"><h3>3 · Accents</h3><p>Local color only. Always define a light pair at ≥4.5:1 on #f7f5f2. No dark-green-on-dark combos.</p></div>
+        <div class="card"><h3>4 · Type</h3><p>Shared --h1/--h2 clamps, shared font families. No one-off hero type sizes. Min weight: 400 body, 600 headers.</p></div>
+        <div class="card"><h3>5 · Motion</h3><p>Skill card hover = reference for project cards. Growing elements always use --ease-out-back (with bounce). Pointerleave debounce 70ms to prevent cascade.</p></div>
+        <div class="card"><h3>6 · Width</h3><p>No 960px column. No double padding. No nested narrower container. Never horizontal scroll on body.</p></div>
+        <div class="card"><h3>7 · Cards at rest</h3><p>Solid tint only. Gradient + glow appears ONLY on hover — never as resting state.</p></div>
+        <div class="card"><h3>8 · Accessibility</h3><p>Skip link first child of body. Every img has alt. Nav has full ARIA. No focus ring suppression.</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Governance</p>
+      <h2>Who owns what</h2>
+      <p class="sub">Before touching any shared file, understand what it affects across the whole site.</p>
+      <div class="gov-grid">
+        <div class="gov-card"><h4>assets/shared.css</h4><p>Color tokens, spacing scale, 3D card system, wireframe kit. All components reference variables — never hardcode hex in layout.</p></div>
+        <div class="gov-card"><h4>assets/demo-kit.js</h4><p>Animation primitives: tilt3D, cursor, funnel, segmentTable, dualPath. Consumed by all players. No breaking API changes without updating all consumers.</p></div>
+        <div class="gov-card"><h4>assets/main.js</h4><p>Nav dropdown, keyboard nav, mobile menu, scroll animations. Site-wide — every change must be tested on all pages.</p></div>
+        <div class="gov-card"><h4>Per-page inline CSS</h4><p>Only project-specific overrides: accent value, hero layout, custom sections. If a pattern repeats on 2+ pages, move it to shared.css.</p></div>
+        <div class="gov-card"><h4>Player files</h4><p>Each player owns its plugin CSS. Shell chrome (stage arrows, buttons, capbar) must follow the unified light/dark spec — Customs ES is the reference.</p></div>
+        <div class="gov-card"><h4>New components</h4><p>Grep class name before using it. Verify it doesn't land inside the pointer:fine block. Test at 320/375/768/1024/1440/1920px widths before shipping.</p></div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Changelog</p>
+      <h2>v1.0 — System history</h2>
+      <div class="changelog">
+        <div class="chg-entry">
+          <span class="chg-date">2025-08</span>
+          <div class="chg-body">
+            <span class="chg-tag chg-feat">feature</span><span class="chg-tag chg-sys">system</span>
+            <h4>Player light/dark unification</h4>
+            <p>All players (EY PI, Chek, Chek Viz, DollarCity, Blockchain) now share identical light-mode chrome. HEAD localStorage read prevents dark flash. Customs ES established as reference implementation.</p>
+          </div>
+        </div>
+        <div class="chg-entry">
+          <span class="chg-date">2025-08</span>
+          <div class="chg-body">
+            <span class="chg-tag chg-sys">system</span>
+            <h4>site-nav component locked</h4>
+            <p>Nav extracted to a locked component (nav.site-nav + script#site-nav-component-js). Identical markup on every route. Theme toggle writes both 'theme' and 'theme-preference' keys to localStorage.</p>
+          </div>
+        </div>
+        <div class="chg-entry">
+          <span class="chg-date">2025-07</span>
+          <div class="chg-body">
+            <span class="chg-tag chg-feat">feature</span>
+            <h4>Skill cards + home layout</h4>
+            <p>8 skill cards with fan layout, per-category color tokens, gradient+glow on hover pattern. Project cards unified to the stretch+bounce motion family. Pointerleave debounce 70ms to prevent cascade bug.</p>
+          </div>
+        </div>
+        <div class="chg-entry">
+          <span class="chg-date">2025-06</span>
+          <div class="chg-body">
+            <span class="chg-tag chg-feat">feature</span>
+            <h4>Customs ES player shipped</h4>
+            <p>Established the canonical player architecture: shell + plugin pattern, state machine beat lifecycle (idle → typing → hold → done), light/dark adaptive chrome via CSS custom properties.</p>
+          </div>
+        </div>
+        <div class="chg-entry">
+          <span class="chg-date">2025-05</span>
+          <div class="chg-body">
+            <span class="chg-tag chg-sys">system</span>
+            <h4>Design system initialized</h4>
+            <p>shared.css and demo-kit.js extracted from per-page inline code. Token system formalized: --bg/--text/--accent/--muted/--line family. Spacing scale on 8px grid.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec">
+      <p class="lvl">Pre-commit</p>
+      <h2>Mandatory scan before shipping</h2>
+      <div class="grid g2">
+        <div class="card"><h3>Text / border</h3><p>Text must not touch its container border. Minimum 8px padding on all sides.</p></div>
+        <div class="card"><h3>Heights</h3><p>Sibling cards must match height (use <code>align-items: stretch</code> on the grid parent).</p></div>
+        <div class="card"><h3>Animation</h3><p>New transitions: has bounce? respects prefers-reduced-motion? has pointerleave debounce if size-changing?</p></div>
+        <div class="card"><h3>Width scan</h3><p>Test at 320 / 375 / 768 / 1024 / 1440 / 1920px. No overflow-x on body at any width.</p></div>
+        <div class="card"><h3>Class collisions</h3><p>Grep new class names before using them. Duplicate class names with different rules = silent cascade conflict.</p></div>
+        <div class="card"><h3>Light mode</h3><p>Toggle to light: every section readable? No hardcoded dark colors leaking through? Players adapt?</p></div>
       </div>
     </section>
   </div>
