@@ -197,6 +197,28 @@ var(--space-16). Nunca horizontal scroll salvo que sea un patrón
 explícitamente pedido (ej. las project cards del home, que son
 intencionalmente una fila horizontal en desktop).
 
+## Skill triggers — obligatorios
+
+**Antes de cualquier UI o CSS nueva:**
+1. Leer `DESIGN.md` (raíz del repo) — tokens, componentes, guardrails, prompt templates
+2. Invocar `/frontend-design` si el trabajo es una nueva sección o componente desde cero
+   (el skill fuerza elecciones estéticas no-genéricas antes de escribir código)
+
+**Antes de cualquier feature nueva con pregunta de diseño no resuelta:**
+3. Invocar `/grill-me` para afilar el plan antes de codear
+   (entrevista implacable que resuelve todas las ramas del árbol de decisión)
+
+**Al cerrar un trabajo multi-turno:**
+4. Invocar `/handoff` para compactar la sesión en un handoff estructurado
+   (alinea con coordination/ en ai-capability-os)
+
+**QA visual:**
+5. `npm test` — Playwright al 6 viewports + a11y (a11y requiere servidor corriendo, ver npm run serve)
+   Primer run: crea baselines en tests/snapshots/. Runs siguientes: diff automático.
+   Actualizar baseline cuando el cambio es intencional: `npm run test:update`
+
+---
+
 Pre-commit scan — mandatory
 1. Text touching a border → fix
 2. Alturas desiguales entre hermanas → fix

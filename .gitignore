@@ -1,3 +1,14 @@
 node_modules/
 scripts/*.png
 scripts/*.jpg
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Skills (local tool installation — reinstall with npx skills add)
+.agents/
+skills-lock.json

@@ -4,7 +4,10 @@
   "description": "> UX / Product Experience Analyst — Behavioral Analytics",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "test:update": "playwright test --update-snapshots",
+    "test:ui": "playwright test --ui",
+    "serve": "serve . --listen 8080"
   },
   "repository": {
     "type": "git",
@@ -13,7 +16,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@playwright/test": "^1.58.2"
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0",
+    "serve": "^14.2.6"
   }
 }
