@@ -12,3 +12,7 @@ scripts/*.jpg
 # Skills (local tool installation — reinstall with npx skills add)
 .agents/
 skills-lock.json
+.claude/skills/frontend-design
+.claude/skills/grill-me
+.claude/skills/handoff
+.claude/skills/prototype
