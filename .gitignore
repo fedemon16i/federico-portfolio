@@ -8,6 +8,7 @@ scripts/*.jpg
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+/tests/snapshots/
 
 # Skills (local tool installation — reinstall with npx skills add)
 .agents/
