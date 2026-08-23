@@ -133,7 +133,7 @@
     }
     .about-side-eyebrow {
       font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-tertiary);
+      text-transform: uppercase; color: var(--text-secondary);
     }
     .about-side-title {
       font-size: 0.95rem; font-weight: 700; color: var(--text-primary);
@@ -208,6 +208,10 @@
         justify-content: center;
       }
     }
+
+    /* Raise --text-tertiary to meet WCAG 2AA 4.5:1 on dark backgrounds */
+    [data-theme="dark"] { --text-tertiary: #888; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --text-tertiary: #888; } }
 
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
@@ -876,7 +880,7 @@ body::before {
     background: transparent;
     border: none; box-shadow: none;
     font-size: 0.58rem;
-    color: var(--text-tertiary);
+    color: var(--text-secondary);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     transition: all 220ms;
@@ -943,7 +947,7 @@ body::before {
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Federico Monroy Home">FM<span>.</span></a>
-      <div class="nav-links" role="menubar">
+      <div class="nav-links">
         <a href="index.html" class="nav-link">Home</a>
         <div class="nav-dropdown">
           <button id="nav-dropdown-toggle" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="nav-dropdown-menu">
@@ -1133,7 +1137,7 @@ body::before {
       <!-- separator -->
       <div class="proc-step-sep" aria-hidden="true"></div>
       <!-- connect: desktop = tab extra, mobile = modal trigger -->
-      <button class="proc-step proc-step--connect" id="pst-4" role="tab" aria-selected="false" aria-controls="proc-p4"
+      <button class="proc-step proc-step--connect" id="pst-4" role="tab" aria-selected="false" aria-controls="proc-p4" aria-label="Connect"
         onclick="procJump(4)">
         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
         <div class="proc-step-label">Connect</div>
@@ -1203,7 +1207,7 @@ body::before {
         </div>
         <div class="proc-right">
             <div class="proc-vis-label">Software Acquisition & Setup</div>
-            <div id="sig-screen" style="background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:8px;overflow:hidden;position:relative;font-size:0">
+            <div id="sig-screen" aria-hidden="true" style="background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:8px;overflow:hidden;position:relative;font-size:0">
               <!-- bar -->
               <div style="height:22px;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;padding:0 8px;gap:4px">
                 <div style="width:5px;height:5px;border-radius:50%;background:#e05c4a"></div>
@@ -1386,14 +1390,14 @@ body::before {
               </div>
             </div>
             <div class="proc-replay-wrap">
-              <button class="proc-replay-btn" onclick="procReplay(0)">
+              <button class="proc-replay-btn" aria-label="Replay" onclick="procReplay(0)">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
                 <span class="replay-label">replay</span>
               </button>
             </div>
             <!-- event stream -->
             <div style="margin-top:8px">
-              <div style="font-size:6px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:5px">Event Stream</div>
+              <div style="font-size:6px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:5px">Event Stream</div>
               <div style="display:flex;flex-direction:column;gap:3px">
                 <div id="sig-ev0" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#4aa3d4;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">page_view</strong> /catalog</span></div>
                 <div id="sig-ev1" style="display:flex;align-items:flex-start;gap:4px;opacity:0;transition:all 250ms"><div style="width:4px;height:4px;border-radius:50%;background:#4aa3d4;flex-shrink:0;margin-top:2px"></div><span style="font-size:6px;color:rgba(255,255,255,0.35);font-family:monospace"><strong style="color:rgba(255,255,255,0.55)">item_selected</strong> analytics_pro</span></div>
@@ -1523,7 +1527,7 @@ body::before {
             <div class="proc-pendo-body">NPS modal triggered after <code>setup_abandoned</code> · deployed in minutes · feedback loop open</div>
           </div>
           <div class="proc-replay-wrap">
-            <button class="proc-replay-btn" onclick="procReplay(1)">
+            <button class="proc-replay-btn" aria-label="Replay" onclick="procReplay(1)">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
               <span class="replay-label">replay</span>
             </button>
@@ -1663,7 +1667,7 @@ body::before {
           </div>
 
           <div class="proc-replay-wrap">
-            <button class="proc-replay-btn" onclick="procReplay(2)">
+            <button class="proc-replay-btn" aria-label="Replay" onclick="procReplay(2)">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
               <span class="replay-label">replay</span>
             </button>
@@ -1837,7 +1841,7 @@ body::before {
           </div>
 
           <div class="proc-replay-wrap" id="act-replay-wrap">
-            <button class="proc-replay-btn" onclick="procReplay(3)">
+            <button class="proc-replay-btn" aria-label="Replay" onclick="procReplay(3)">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
               <span class="replay-label">replay</span>
             </button>
@@ -1982,7 +1986,7 @@ body::before {
           </div>
 
           <div class="proc-replay-wrap">
-            <button class="proc-replay-btn" onclick="procReplay(4)">
+            <button class="proc-replay-btn" aria-label="Replay" onclick="procReplay(4)">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.67"/></svg>
               <span class="replay-label">replay</span>
             </button>

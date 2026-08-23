@@ -612,6 +612,28 @@ html[data-theme="light"] .merge-ui{background:rgba(247,245,242,.82)}
 .proto-cards .pc i{display:block;width:16px;height:16px;border-radius:5px;background:var(--accent-dim);border:1px solid rgba(245,209,0,.35)}
 .proto-cards .pc b{display:block;height:5px;border-radius:3px;background:rgba(255,255,255,.12)}
 html[data-theme="light"] .proto-cards .pc b{background:rgba(0,0,0,.1)}
+html[data-theme="light"] .fui-row{background:rgba(0,0,0,.07)}
+html[data-theme="light"] .hbg-cta{background:var(--accent);color:#111;border-color:transparent}
+/* Hero frame children — parent .hbg-frame gets light bg (L303), children are hardcoded dark */
+html[data-theme="light"] .hbg-search{background:rgba(0,0,0,.07);border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] .hbg-side{background:rgba(0,0,0,.08)}
+html[data-theme="light"] .hbg-side b{background:rgba(0,0,0,.1)}
+html[data-theme="light"] .hbg-ban{background:linear-gradient(115deg,#c8b8e8,#b098d8 45%,#9880c4);color:#2a1a4a}
+html[data-theme="light"] .hbg-card{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] .hbg-steps i{border-color:rgba(0,0,0,.2)}
+html[data-theme="light"] .hbg-field{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+/* Replay widget — parent .rpl gets #fff (L109), timestamp stays white-on-white */
+html[data-theme="light"] .rpl-t{color:rgba(0,0,0,.4)}
+/* Content cards — parent .pub-item gets light bg (L115), icon square invisible */
+html[data-theme="light"] .pub-ic{background:rgba(0,0,0,.08)}
+/* Fabric home slide banner — parent .fab-home gets light lavender (L840) */
+html[data-theme="light"] .fab-banner{background:linear-gradient(115deg,#c8b0e8,#b090d8 42%,#8870b8)}
+/* Mini funnel bars (different from .funnel-big .funnel-bar which is already covered) */
+html[data-theme="light"] .funnel-bar{background:rgba(0,0,0,.1)}
+/* Stage window ring — index.html has this override, ey-fabric.html was missing it */
+html[data-theme="light"] .stage-window{box-shadow:0 20px 50px -18px rgba(0,0,0,.2),0 0 0 1px rgba(0,0,0,.08)}
+/* Govern slide panel divider */
+html[data-theme="light"] .meas-pane+.meas-pane{border-left-color:rgba(0,0,0,.08)}
 .fui-price{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10.5px;color:var(--text-secondary);border:1px solid var(--border);border-radius:8px;padding:7px 10px;margin-bottom:10px}
 .fui-btn{font-family:var(--font-mono);font-size:11px;text-align:center;background:var(--accent);color:var(--on-accent);font-weight:600;border-radius:8px;padding:8px;cursor:default}
 .proto-ds{margin-top:10px;font-family:var(--font-mono);font-size:9.5px;color:var(--ok);text-align:center;border-top:1px solid var(--border-soft);padding-top:9px}
