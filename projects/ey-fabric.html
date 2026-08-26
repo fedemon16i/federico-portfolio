@@ -3283,6 +3283,12 @@ html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
   nav.site-nav .sn-links{display:none!important}
   nav.site-nav .sn-ham{display:flex!important}
 }
+/* Player summary strip — below the iframe */
+.pi-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;margin-top:16px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.pi-sum-item{background:var(--bg-surface);padding:13px 16px;display:flex;flex-direction:column;gap:4px}
+.pi-sum-k{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.pi-sum-v{font-size:12.5px;color:var(--text-secondary);line-height:1.4}
+
 /* Kill legacy top-nav interference when site-nav present */
 body:has(nav.site-nav) .top-nav:not(.site-nav),
 body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
@@ -3614,6 +3620,14 @@ nav.site-nav .sn-inner{
       allow="autoplay"
     ></iframe>
     <p class="note">Anonymized Fabric catalog &amp; workbench patterns.</p>
+    <div class="pi-summary">
+      <div class="pi-sum-item"><span class="pi-sum-k">01 · Catalog</span><span class="pi-sum-v">Map how people enter and filter 317 items — where funnel drops before Workbench.</span></div>
+      <div class="pi-sum-item"><span class="pi-sum-k">02 · Analyze</span><span class="pi-sum-v">Pendo funnel + session replay: 66% exit at Contact Person. Not billing — earlier.</span></div>
+      <div class="pi-sum-item"><span class="pi-sum-k">03 · Research</span><span class="pi-sum-v">Interviews, survey (NPS 32, CES 18), tree test, and task recording fill the why.</span></div>
+      <div class="pi-sum-item"><span class="pi-sum-k">04 · Understand</span><span class="pi-sum-v">Evidence ranked into backlog: P0 checklist, P0 publisher onboarding, P1 a11y.</span></div>
+      <div class="pi-sum-item"><span class="pi-sum-k">05 · Design</span><span class="pi-sum-v">Two parallel specs — AI-assisted and manual — merge into a single Workbench v2 prototype.</span></div>
+      <div class="pi-sum-item"><span class="pi-sum-k">06 · Govern</span><span class="pi-sum-v">Analytics hub + adoption dashboard: the loop stays open after ship.</span></div>
+    </div>
   </div>
 </section>
 
