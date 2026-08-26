@@ -1168,9 +1168,21 @@ html[data-theme="light"] .ck-phone{background:linear-gradient(160deg,#dcdad6,#c8
     if(next) next.click();
   });
 
+  window._chekFlowIds = FLOW_META.map(function(f){ return f.id; });
   setTimeout(function(){ playBeat('hub', 0, 0); fitPhone(); }, 80);
   setTimeout(fitPhone, 300);
 })();
+window.addEventListener('message',function(e){
+  if(!e.data) return;
+  if(e.data.type==='playBeat'&&typeof window.chekProtoGoStep==='function'){
+    var ids=window._chekFlowIds||['hub','payment','credit','movements','security','onboarding'];
+    var id=ids[e.data.index]||ids[0];
+    window.chekProtoGoStep(id,0);
+  }
+  if(e.data.type==='playFlow'&&typeof window.chekProtoGoStep==='function'){
+    window.chekProtoGoStep(e.data.flowId||'hub',0);
+  }
+});
 </script>
 </body>
 </html>
