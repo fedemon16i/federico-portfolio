@@ -3060,7 +3060,7 @@ html[data-theme="light"] body .stage .capbar{
 }
 html[data-theme="light"] .stagezone.open{background:rgba(245,243,240,.90);}
 html[data-theme="light"] .mkt-img{background:rgba(0,0,0,.07)}
-html[data-theme="light"] .pd-desc,.pd-img{background:rgba(0,0,0,.09)}
+html[data-theme="light"] .pd-desc,html[data-theme="light"] .pd-img{background:rgba(0,0,0,.09)}
 html[data-theme="light"] .rpl-ui{background:rgba(0,0,0,.08)}
 html[data-theme="light"] .proto-cards .pc b{background:rgba(0,0,0,.1)}
 html[data-theme="light"] body .stage-arrow,
@@ -3107,6 +3107,34 @@ html[data-theme="light"] .dc-win{box-shadow:0 0 0 1px rgba(0,0,0,.14),0 12px 28p
 /* Homethreads slide viewer — intentionally dark (app mockup), framed */
 html[data-theme="light"] .ht-viewer{box-shadow:0 0 0 1px rgba(0,0,0,.12),0 8px 24px rgba(0,0,0,.18)}
 html[data-theme="light"] .ht-dots i{background:rgba(0,0,0,.22)}
+
+/* ── Beat-by-beat light mode: container + card contrast ── */
+/* Root: --bg=#f7f5f2 vs stage-bg=#e6e2da — almost no contrast. */
+/* Fix: white containers, rgba tint on sub-cards, light text on forced-dark panels */
+html[data-theme="light"] .stage-window{background:#ffffff}
+/* beat 1 — catalog views */
+html[data-theme="light"] .mkt-view{background:#ffffff}
+html[data-theme="light"] .mkt-card{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}
+/* beat 3/7 — analytics app */
+html[data-theme="light"] .replay-player{background:#ffffff}
+html[data-theme="light"] .rpl-screen{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.09)}
+html[data-theme="light"] .seg-row,
+html[data-theme="light"] .replay-item{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}
+/* beat 4 — research widgets */
+html[data-theme="light"] .rw{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}
+html[data-theme="light"] .ins-card,
+html[data-theme="light"] .act-row{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}
+/* beat 5 — two paths */
+html[data-theme="light"] .path{background:#ffffff}
+/* .code-panel always #111009 bg — force readable light text */
+html[data-theme="light"] .code-panel{color:rgba(255,255,255,.55)}
+html[data-theme="light"] .code-panel .cp-h{color:rgba(255,255,255,.32)}
+html[data-theme="light"] .code-panel .ok2{color:#8fd4a8}
+/* beat 7 — hub/pendo tiles */
+html[data-theme="light"] .hub-tile,
+html[data-theme="light"] .adopt{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.10)}
+/* capbar: dark text on warm-beige needs no extra shadow */
+html[data-theme="light"] .capbar .cap-txt{text-shadow:none}
 
 /* 4. UI window — CONTAIN, never crop. Scale inside stage. Keep natural ratio. */
 
