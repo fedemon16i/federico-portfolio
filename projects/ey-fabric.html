@@ -3440,7 +3440,7 @@ nav.site-nav .sn-inner{
       <div class="ff-step">
         <div class="ff-ic" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><rect x="4" y="15" width="16" height="6" rx="1"/></svg></div>
         <div class="ff-t">Publishers</div>
-        <div class="ff-d">Upload items to the shared catalog</div>
+        <div class="ff-d">Upload and configure items — no UI guardrails. Forms asked for serial codes and technical fields without context. Items entered thin.</div>
       </div>
       <div class="ff-arrow" aria-hidden="true">→</div>
       <div class="ff-step">
@@ -4541,9 +4541,11 @@ html body #pi .note{ margin-top: 12px !important; max-width: none !important; }
 [data-theme="light"] [data-brand="mint"]{ color:#3c9d5f !important; }
 [data-theme="light"] .success-c,
 [data-theme="light"] [data-brand="success"]{ color:#1da04d !important; }
-/* Hardcoded bright yellows used as text in beats */
-[data-theme="light"] .unit [style*="#ffe600"],
-[data-theme="light"] .unit [style*="#F9AB00"]{ /* handled by class if present */ }
+/* Hardcoded bright yellows used as text in beats — invisible on light bg without override */
+[data-theme="light"] .unit [style*="#ffe600"]{ color:#7a6a00 !important; }
+[data-theme="light"] .unit [style*="#F9AB00"]{ color:#8c6200 !important; }
+[data-theme="light"] .unit [style*="color:#ffe600"]{ color:#7a6a00 !important; }
+[data-theme="light"] .unit [style*="color:#F9AB00"]{ color:#8c6200 !important; }
 
 </style>
 
