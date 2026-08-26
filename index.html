@@ -5525,6 +5525,30 @@ html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
 /* Kill legacy top-nav interference when site-nav present */
 body:has(nav.site-nav) .top-nav:not(.site-nav),
 body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
+/* Beats showcase link — distinct from main nav links */
+nav.site-nav .sn-beats{
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  padding:4px 10px 4px 10px!important;
+  border:1px solid rgba(255,255,255,.1)!important;border-radius:100px!important;
+  font-size:11px!important;letter-spacing:.06em!important;
+  color:#8a8580!important;transition:border-color .2s,color .2s,background .2s!important;
+}
+nav.site-nav .sn-beats:hover{
+  color:#f2f0ec!important;border-color:rgba(255,255,255,.22)!important;
+  background:rgba(255,255,255,.04)!important;
+}
+nav.site-nav .sn-beats .sn-beats-dot{
+  display:inline-block!important;width:5px!important;height:5px!important;
+  border-radius:50%!important;background:#d97757!important;flex-shrink:0!important;
+  box-shadow:0 0 5px #d97757!important;
+}
+html[data-theme="light"] nav.site-nav .sn-beats{color:#6b6760!important;border-color:rgba(0,0,0,.12)!important}
+html[data-theme="light"] nav.site-nav .sn-beats:hover{color:#1a1917!important;background:rgba(0,0,0,.04)!important}
+.sn-beats-mob{
+  font-size:.9rem!important;font-weight:600!important;
+  color:#8a8580!important;letter-spacing:.04em!important;
+}
+html[data-theme="light"] .sn-beats-mob{color:#6b6760!important}
 </style>
 
 <style id="shell-unify-v2">
@@ -5572,6 +5596,7 @@ nav.site-nav .sn-inner{
       <a href="resume.html" class="sn-link">Resume</a>
       <a href="contact.html" class="sn-link">Contact</a>
       <a href="design-system.html" class="sn-link">Design System</a>
+      <a href="projects/beats-showcase.html" class="sn-link sn-beats" title="Internal beat animation showcase">Beats <span class="sn-beats-dot"></span></a>
     </div>
     <button class="sn-theme" id="snTheme" type="button" aria-label="Toggle theme">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -5593,6 +5618,7 @@ nav.site-nav .sn-inner{
   <a href="resume.html">Resume</a>
   <a href="contact.html">Contact</a>
   <a href="design-system.html">Design System</a>
+  <a href="projects/beats-showcase.html" class="sn-beats-mob">Beats ·</a>
 </div>
 
 <div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
@@ -5608,6 +5634,7 @@ nav.site-nav .sn-inner{
   <a href="resume.html">Resume</a>
   <a href="contact.html">Contact</a>
   <a href="design-system.html">Design System</a>
+  <a href="projects/beats-showcase.html" class="sn-beats-mob">Beats ·</a>
 </div>
 
 </div>
