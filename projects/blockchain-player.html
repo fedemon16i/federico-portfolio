@@ -831,28 +831,6 @@ html[data-theme="light"] .tl.on{color:var(--text);background:var(--accent-dim)}
 html[data-theme="light"] .stage-arrow{color:var(--text)}
 
 /* ── Persistent narrative panel + split layout ── */
-.player-outer{display:flex;gap:20px;align-items:stretch}
-.narr-panel{
-  width:clamp(160px,28%,230px);flex-shrink:0;
-  display:flex;flex-direction:column;justify-content:center;gap:10px;
-}
-.narr-kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);opacity:.8}
-.narr-title{font-family:var(--font-display);font-size:clamp(.9rem,1.3vw,1.15rem);font-weight:700;letter-spacing:-.02em;line-height:1.35;color:var(--text);min-height:2.6em}
-.narr-desc{font-size:12.5px;color:var(--muted);line-height:1.5;min-height:3.6em}
-.stage-col{flex:1;min-width:0}
-html.embed .player-outer{flex:1;min-height:0}
-html.embed .stage-col{flex:1;display:flex;flex-direction:column;min-height:0}
-html.embed .stage-col .stage{flex:1;min-height:0;height:auto}
-html.embed .narr-panel{justify-content:flex-start;padding-top:8px}
-html[data-theme="light"] .narr-title{color:#1a1816}
-html[data-theme="light"] .narr-desc{color:#5c574f}
-@media(max-width:580px){
-  .player-outer{flex-direction:column;gap:12px}
-  .narr-panel{width:100%;order:2;flex-direction:row;flex-wrap:wrap;gap:6px 16px;justify-content:flex-start}
-  .narr-title{min-height:auto;font-size:.95rem}
-  .narr-desc{min-height:auto;font-size:12px}
-  .stage-col{order:1}
-}
 
 </style>
 </head>
@@ -903,13 +881,6 @@ html[data-theme="light"] .narr-desc{color:#5c574f}
     <button type="button" class="tl v" data-b="3"><span class="n">04</span><span class="nm">Visitor</span></button>
   </div>
 
-  <div class="player-outer">
-  <aside class="narr-panel" aria-label="Beat description">
-    <p class="narr-kicker" id="narrKicker">EQUS · Owner journey</p>
-    <h2 class="narr-title" id="narrTitle">Select a beat to start.</h2>
-    <p class="narr-desc" id="narrDesc">Four phases: owner onboarding, place a POI, upload media, visitor discovery.</p>
-  </aside>
-  <div class="stage-col">
   <div class="stage" id="stage">
     <div class="stage-top">
       <div class="stage-title" id="stageTitle"><b>01</b> · Onboard</div>
@@ -925,12 +896,12 @@ html[data-theme="light"] .narr-desc{color:#5c574f}
     </div>
 
     <div class="stage-window">
-      <div class="text-phase hide" id="textPhase">
+      <div class="text-phase" id="textPhase">
         <div class="kicker" id="kicker">Owner journey</div>
         <div class="main"><span id="typeText"></span><span class="blink" id="blink"></span></div>
         <div class="sub" id="sub"></div>
       </div>
-      <div class="phone-host" id="phoneHost">
+      <div class="phone-host dim" id="phoneHost">
         <div class="phone-base" id="phone">
           <div class="dynamic-island" aria-hidden="true"></div>
           <div class="phone-screen">
@@ -1058,8 +1029,7 @@ html[data-theme="light"] .narr-desc{color:#5c574f}
       <span class="cap-txt" id="capTxt">Welcome to your 3D map — content lives on places you own.</span>
     </div>
   </div>
-  </div><!-- /.stage-col -->
-  </div><!-- /.player-outer -->
+  </div><!-- /.stage -->
 
   <p class="note">Shell = EY PI geometry. Beats + captions + phone states reused from blockchain-v25. Three.js city / full micro-actions can layer on next.</p>
 </div>
@@ -1498,35 +1468,44 @@ function runBeat(i, manual){
   document.getElementById('btnNext').disabled=i===3;
   setCaption('');
 
-  /* update persistent narr-panel — text + phone always visible simultaneously */
+  var textPhase=document.getElementById('textPhase');
   var host=document.getElementById('phoneHost');
-  host.classList.remove('dim');
+  textPhase.classList.remove('hide');
+  host.classList.add('dim');
+  var kicker=document.getElementById('kicker');
+  kicker.textContent=st.kicker;
+  kicker.className='kicker'+(st.phase==='visitor'?' v':'');
+  kicker.classList.remove('on');
+  document.getElementById('sub').classList.remove('on');
+  document.getElementById('sub').textContent='';
+  timers.push(setTimeout(function(){ kicker.classList.add('on'); }, 80));
+
   resetPhoneUI();
-
-  var nk=document.getElementById('narrKicker');
-  var nt=document.getElementById('narrTitle');
-  var nd=document.getElementById('narrDesc');
-  if(nk) nk.textContent='EQUS · '+(st.phase==='visitor'?'Visitor':'Owner');
-  if(nt) nt.textContent=st.kicker+' — '+st.title;
-  if(nd) nd.textContent=st.text+(st.sub?' '+st.sub:'');
-
-  setCaption(st.text);
-  if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 90);
-  var t0=350;
-  st.actions.forEach(function(act, idx){
-    t0 += (act.delay||0);
+  typeText(st.text, function(){
+    document.getElementById('sub').textContent=st.sub||'';
+    document.getElementById('sub').classList.add('on');
     timers.push(setTimeout(function(){
-      if(!playing && !manual) return;
-      actionIdx=idx;
-      applyAction(act);
-    }, t0));
+      textPhase.classList.add('hide');
+      host.classList.remove('dim');
+      setCaption(st.text);
+      if(cityP&&cityP.resize) setTimeout(function(){ cityP.resize(); }, 90);
+      var t0=350;
+      st.actions.forEach(function(act, idx){
+        t0 += (act.delay||0);
+        timers.push(setTimeout(function(){
+          if(!playing && !manual) return;
+          actionIdx=idx;
+          applyAction(act);
+        }, t0));
+      });
+      if(playing && !manual){
+        timers.push(setTimeout(function(){
+          if(playing && bi<3) runBeat(bi+1, false);
+          else if(playing && bi===3){ setPlayIcon(false); playing=false; }
+        }, t0+3000));
+      }
+    }, 700));
   });
-  if(playing && !manual){
-    timers.push(setTimeout(function(){
-      if(playing && bi<3) runBeat(bi+1, false);
-      else if(playing && bi===3){ setPlayIcon(false); playing=false; }
-    }, t0+3000));
-  }
 }
 
 function setPlayIcon(isPlaying){

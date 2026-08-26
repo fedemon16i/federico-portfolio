@@ -6393,6 +6393,14 @@ iframe.bc-player-iframe{
   margin: 0 !important;
 }
 #demo .note{ margin-top: 10px !important; margin-bottom: 0 !important; }
+/* Beat summary strip below player */
+.bc-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;margin-top:16px;background:var(--border-color,rgba(255,255,255,.08));border:1px solid var(--border-color,rgba(255,255,255,.08));border-radius:10px;overflow:hidden}
+.bc-sum-item{background:var(--card-bg,rgba(255,255,255,.03));padding:13px 16px;display:flex;flex-direction:column;gap:4px}
+.bc-sum-k{font-family:var(--font-mono,'DM Mono',monospace);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent,#22d4c8)}
+.bc-sum-v{font-size:12.5px;color:var(--muted,#a6a29a);line-height:1.4}
+html[data-theme="light"] .bc-summary{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.1)}
+html[data-theme="light"] .bc-sum-item{background:rgba(255,255,255,.9)}
+html[data-theme="light"] .bc-sum-v{color:#55524c}
 /* hide legacy stage if residual in DOM */
 #demo #demoStage,
 #demo .demo-split,
@@ -7365,6 +7373,12 @@ nav.site-nav .sn-inner{
       style="width:100%;height:min(720px,88vh);min-height:540px;border:0;border-radius:0;background:transparent;display:block;box-shadow:none"
     ></iframe>
     <p class="note" style="margin-top:10px;opacity:.5;font-size:12px">Owner → pin → media → visitor. Prototype player engine.</p>
+    <div class="bc-summary">
+      <div class="bc-sum-item"><span class="bc-sum-k">01 · Onboard</span><span class="bc-sum-v">First contact with the 3D map — swipe gestures, how content is tied to real locations.</span></div>
+      <div class="bc-sum-item"><span class="bc-sum-k">02 · Place</span><span class="bc-sum-v">Long-press the street to drop a pin. Address confirmed, pin styled, POI created.</span></div>
+      <div class="bc-sum-item"><span class="bc-sum-k">03 · Media</span><span class="bc-sum-v">Empty feed → source picker → iOS gallery → publish. Content attached to the physical place.</span></div>
+      <div class="bc-sum-item"><span class="bc-sum-k">04 · Visitor</span><span class="bc-sum-v">Cruise the map as a visitor: discover the pin, tap, watch the media in place.</span></div>
+    </div>
   </div>
 </section>
 
