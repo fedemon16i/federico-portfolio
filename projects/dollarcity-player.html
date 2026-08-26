@@ -160,6 +160,16 @@ h1{font-family:var(--font-display);font-size:clamp(1.7rem, 1.4rem + 1.6vw, 2.3re
 
 .note{margin-top:16px;font-size:12px;color:var(--dim)}
 
+/* ── Persistent narrative banner above stage ── */
+.narr-banner{
+  margin-bottom:12px;padding:10px 4px 6px;
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.narr-bk{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);flex-shrink:0}
+.narr-bt{font-family:var(--font-display);font-size:clamp(1rem,1.6vw,1.3rem);font-weight:700;letter-spacing:-.02em;line-height:1.3;color:var(--text);transition:opacity .25s}
+html.embed .narr-banner{padding:6px 4px 4px;margin-bottom:8px}
+html[data-theme="light"] .narr-bt{color:#1a1917}
+
 /* ===== APP UI (light) — used inside .win, matches the actual product screens ===== */
 .app{position:absolute;inset:0;display:flex;flex-direction:column;background:#f4f5f4;color:#1c1e22;font-family:var(--font-sans)}
 .app-hdr{background:#0f8a4d;color:#fff;height:44px;flex:0 0 44px;display:flex;align-items:center;padding:0 18px;font-size:12.5px;font-weight:600;gap:10px}
@@ -487,6 +497,11 @@ html[data-theme="light"] .dp-why li{color:rgba(20,20,18,.72)}
 
   <div class="timeline" id="tl"></div>
 
+  <div class="narr-banner" id="narrBanner">
+    <p class="narr-bk" id="narrBK"></p>
+    <h2 class="narr-bt" id="narrBT">Select a flow to start.</h2>
+  </div>
+
   <div class="stage" id="stage">
     <div class="stage-top">
       <div class="beat-lab" id="beatLab"></div>
@@ -532,6 +547,7 @@ html[data-theme="light"] .dp-why li{color:rgba(20,20,18,.72)}
   var groupSwitch=document.getElementById('groupSwitch');
   var textPhase=document.getElementById('textPhase'), unitHost=document.getElementById('unitHost');
   var introKicker=document.getElementById('introKicker'), introType=document.getElementById('introType'), introBlink=document.getElementById('introBlink');
+  var narrBK=document.getElementById('narrBK'), narrBT=document.getElementById('narrBT');
   var GROUP_LABELS={ pos:'POS Search', video:'Video Investigation' };
   var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -862,29 +878,18 @@ html[data-theme="light"] .dp-why li{color:rgba(20,20,18,.72)}
     beatLab.innerHTML='<b>'+nn+'</b> · '+b.name;
     stageCount.textContent=(idx+1)+' / '+active.length;
 
-    /* narrate first — big typewriter in the middle — then reveal the screen + short caption below */
+    /* update persistent narr-banner and reveal screen immediately — text + animation always visible */
     win.innerHTML=''; cursor.classList.remove('show'); capTxt.innerHTML='';
-    textPhase.classList.remove('hide');
-    unitHost.classList.add('dim');
-    introKicker.textContent=GROUP_LABELS[groupKey]||'';
-    introKicker.classList.remove('on');
-    track(setTimeout(function(){ if(my===gen) introKicker.classList.add('on'); }, 40));
-
-    var plain=stripTags(b.cap);
-    typeIntro(plain, function(){
-      if(my!==gen) return;
-      track(setTimeout(function(){
-        if(my!==gen) return;
-        textPhase.classList.add('hide');
-        unitHost.classList.remove('dim');
-        capTxt.innerHTML=b.cap; /* short, purely-narrative caption below — no typewriter */
-        win.innerHTML=b.build();
-        moveCursor(b.cursor);
-      }, PAUSE_AFTER_TYPE));
-    });
+    textPhase.classList.add('hide');
+    unitHost.classList.remove('dim');
+    if(narrBK) narrBK.textContent=GROUP_LABELS[groupKey]||'';
+    if(narrBT) narrBT.textContent=b.name||'';
+    capTxt.innerHTML=b.cap;
+    win.innerHTML=b.build();
+    moveCursor(b.cursor);
 
     if(playing){
-      var dur = Math.min(plain.length*TYPE_MS, 2200) + PAUSE_AFTER_TYPE*2 + VIEW_MS;
+      var dur = VIEW_MS;
       track(setTimeout(function(){ if(my===gen && playing) go(idx+1); }, dur));
     }
   }

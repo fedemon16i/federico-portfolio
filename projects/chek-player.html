@@ -132,6 +132,28 @@ html.embed .stage{flex:1;min-height:0;height:auto}
 @keyframes rec{0%,100%{opacity:1}50%{opacity:.35}}
 .cap-txt{max-width:36rem}
 
+/* ── Persistent narrative panel + split layout ── */
+.player-outer{display:flex;gap:20px;align-items:stretch}
+.narr-panel{
+  width:clamp(160px,30%,240px);flex-shrink:0;
+  display:flex;flex-direction:column;justify-content:center;gap:10px;
+}
+.narr-kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);opacity:.8}
+.narr-title{font-family:var(--font-display);font-size:clamp(.9rem,1.3vw,1.15rem);font-weight:700;letter-spacing:-.02em;line-height:1.35;color:var(--text);min-height:2.6em}
+.narr-desc{font-size:12.5px;color:var(--muted);line-height:1.5;min-height:3.6em}
+.stage-col{flex:1;min-width:0}
+html.embed .player-outer{flex:1;min-height:0}
+html.embed .stage-col{flex:1;display:flex;flex-direction:column;min-height:0}
+html.embed .stage-col .stage{flex:1;min-height:0;height:auto}
+html.embed .narr-panel{justify-content:flex-start;padding-top:8px}
+@media(max-width:580px){
+  .player-outer{flex-direction:column;gap:12px}
+  .narr-panel{width:100%;order:2;flex-direction:row;flex-wrap:wrap;gap:6px 16px;justify-content:flex-start}
+  .narr-title{min-height:auto;font-size:.95rem}
+  .narr-desc{min-height:auto;font-size:12px}
+  .stage-col{order:1}
+}
+
 .ck2-btn{width:100%;display:flex;align-items:center;gap:10px;padding:9px 12px;background:transparent;border:1px solid var(--border-subtle);border-radius:8px;cursor:pointer;font-family:var(--font-display);text-align:left;transition:all 200ms ease;color:var(--text-secondary);}
 .ck2-btn:hover{border-color:rgba(107,33,168,0.4);background:rgba(107,33,168,0.05);}
 .ck2-btn.active{background:rgba(107,33,168,0.08);border-color:rgba(107,33,168,0.3);color:var(--text-primary);}
@@ -212,6 +234,9 @@ html[data-theme="light"] .tl:hover{border-color:rgba(107,47,199,.3);color:var(--
 html[data-theme="light"] .tl.on{background:var(--accent-dim)}
 html[data-theme="light"] .capbar{background:var(--capbar-fade)}
 html[data-theme="light"] .ck-phone{background:linear-gradient(160deg,#dcdad6,#c8c6c2);box-shadow:0 20px 50px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.1)}
+html[data-theme="light"] .narr-title{color:#1a1816}
+html[data-theme="light"] .narr-desc{color:#5c574f}
+html[data-theme="light"] .narr-kicker{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -222,6 +247,14 @@ html[data-theme="light"] .ck-phone{background:linear-gradient(160deg,#dcdad6,#c8
   </div>
 
   <div class="timeline" id="timeline" role="tablist" aria-label="Select a flow"></div>
+
+  <div class="player-outer">
+    <aside class="narr-panel" aria-label="Flow description">
+      <p class="narr-kicker" id="narrKicker">Chek · Features</p>
+      <h2 class="narr-title" id="narrTitle">Select a flow to start.</h2>
+      <p class="narr-desc" id="narrDesc">Six production flows — credit card hub, payment, security, movements, and onboarding.</p>
+    </aside>
+    <div class="stage-col">
 
   <div class="stage" id="stage">
     <div class="stage-top">
@@ -235,14 +268,14 @@ html[data-theme="light"] .ck-phone{background:linear-gradient(160deg,#dcdad6,#c8
       <span class="stage-count" id="stageCount">1 / 1</span>
     </div>
     <div class="stage-window">
-      <!-- Centered narrative INSIDE player -->
-      <div class="text-phase" id="textPhase">
+      <!-- Centered narrative INSIDE player — hidden; narrative moved to narr-panel -->
+      <div class="text-phase hide" id="textPhase">
         <div class="kicker" id="kicker">Flow</div>
         <div class="main"><span id="typeText"></span><span class="blink" id="blink"></span></div>
         <div class="sub" id="sub"></div>
       </div>
 
-      <div class="phone-host dim" id="phoneHost">
+      <div class="phone-host" id="phoneHost">
         <div class="phone-scale" id="phoneScale">
           <div class="ck-phone" id="ckPhone">
             <div class="ck-phone-inner" id="ckPhoneInner">
@@ -264,6 +297,9 @@ html[data-theme="light"] .ck-phone{background:linear-gradient(160deg,#dcdad6,#c8
       <div class="capbar"><span class="cap-rec"></span><span class="cap-txt" id="capTxt">Select a flow to walk the production prototype.</span></div>
     </div>
   </div>
+
+    </div><!-- /.stage-col -->
+  </div><!-- /.player-outer -->
 
   <div style="display:none" aria-hidden="true">
     <div id="chek-proto-section"></div>
@@ -1045,30 +1081,16 @@ html[data-theme="light"] .ck-phone{background:linear-gradient(160deg,#dcdad6,#c8
 
   function showTextPhase(tag, title, desc, then){
     if(phaseTimer) clearTimeout(phaseTimer);
-    textPhase.classList.remove('hide');
-    phoneHost.classList.add('dim');
-    kicker.textContent = tag || '';
-    kicker.classList.remove('on');
-    sub.classList.remove('on');
-    sub.textContent = '';
-    typeText.textContent = '';
-    if(blink) blink.style.display = '';
-
-    // Kick in
-    requestAnimationFrame(function(){ kicker.classList.add('on'); });
-    typeInto(typeText, title || '', 18, function(){
-      if(blink) blink.style.display = 'none';
-      if(desc){
-        sub.textContent = desc;
-        sub.classList.add('on');
-      }
-      // Hold then reveal phone
-      phaseTimer = setTimeout(function(){
-        textPhase.classList.add('hide');
-        phoneHost.classList.remove('dim');
-        fitPhone();
-        if(then) then();
-      }, desc ? 1400 : 900);
+    // Update persistent narr-panel — text and animation always visible simultaneously
+    var nk=document.getElementById('narrKicker');
+    var nt=document.getElementById('narrTitle');
+    var nd=document.getElementById('narrDesc');
+    if(nk) nk.textContent = tag || '';
+    if(nd) nd.textContent = desc || '';
+    typeInto(nt, title || '', 18, function(){
+      phoneHost.classList.remove('dim');
+      fitPhone();
+      if(then) then();
     });
   }
 

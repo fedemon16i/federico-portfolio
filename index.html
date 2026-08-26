@@ -3077,6 +3077,11 @@ html[data-theme="light"] #stage .slide.textslide{
 }
 
 /* ── Skill / beat player elements — light mode ── */
+/* .term always has dark bg (#111009) — text must stay light regardless of theme */
+html[data-theme="light"] .term-body{color:rgba(255,255,255,.78)}
+html[data-theme="light"] .term-body .t-ok{color:#8fd4a8}
+html[data-theme="light"] .term-body .t-acc{color:#d97757}
+html[data-theme="light"] .term-bar .bb-dot{background:rgba(255,255,255,.35);border-color:rgba(255,255,255,.1)}
 /* Invisible white-rgba elements inside containers that turn light */
 html[data-theme="light"] .wf-line{background:rgba(0,0,0,.1)}
 html[data-theme="light"] .fui-row{background:rgba(0,0,0,.07)}
