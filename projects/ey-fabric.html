@@ -3286,6 +3286,52 @@ html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
 /* Kill legacy top-nav interference when site-nav present */
 body:has(nav.site-nav) .top-nav:not(.site-nav),
 body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
+
+/* ── Before / After form mockup ─────────────────────── */
+.ba-form{width:100%;max-width:274px;background:#0c0c12;border:1px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;font-size:10px}
+.ba-topbar{display:flex;align-items:center;gap:8px;padding:7px 10px;background:#0a0a0e;border-bottom:1px solid rgba(255,255,255,.05);font-size:9.5px;color:rgba(255,255,255,.4)}
+.ba-logo{color:#f5d100;font-weight:700;font-family:var(--font-display)}
+.ba-crumb{color:rgba(255,255,255,.3);font-size:8.5px}
+.ba-steps{display:flex;align-items:center;gap:5px;padding:8px 10px 4px}
+.ba-step{width:15px;height:15px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(255,255,255,.4);flex-shrink:0}
+.ba-step.done{background:var(--ok);border-color:var(--ok);color:#111}
+.ba-step.on{border-color:var(--accent);background:var(--accent-dim);color:var(--accent)}
+.ba-ln{flex:1;height:1px;background:rgba(255,255,255,.1)}
+.ba-body{padding:7px 10px 10px;display:flex;flex-direction:column;gap:5px}
+.ba-fgroup{display:flex;flex-direction:column;gap:2px}
+.ba-lab{font-size:9px;color:rgba(255,255,255,.38)}
+.ba-req{color:var(--bad)}
+.ba-inp{height:21px;border-radius:4px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);padding:0 7px;font-size:9.5px;color:rgba(255,255,255,.55);display:flex;align-items:center}
+.ba-inp.ba-filled{background:rgba(255,255,255,.05);color:rgba(255,255,255,.7)}
+.ba-inp.ba-picker{color:rgba(255,255,255,.28);font-style:italic}
+.ba-inp.ba-ok{border-color:rgba(143,212,168,.5);color:var(--ok)}
+.ba-friction .ba-inp{border-color:var(--bad);box-shadow:0 0 0 2px rgba(224,82,74,.15)}
+.ba-ann{font-size:8px;color:var(--bad);background:rgba(224,82,74,.1);border-radius:3px;padding:1px 5px;margin-left:3px;white-space:nowrap}
+.ba-instruction{padding:5px 7px;background:rgba(100,80,200,.12);border:1px solid rgba(100,80,200,.25);border-radius:5px}
+.ba-instr-lbl{display:block;font-size:8.5px;color:#b4a0ff;margin-bottom:2px;font-weight:600}
+.ba-instr-body{font-size:9px;color:rgba(255,255,255,.4)}
+.ba-radio-group{display:flex;gap:6px}
+.ba-radio{font-size:9.5px;padding:3px 10px;border-radius:100px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5)}
+.ba-help{font-size:8.5px;color:rgba(255,255,255,.35);margin-top:1px}
+.ba-progress-bar{height:3px;background:rgba(255,255,255,.06);border-radius:2px;margin:6px 10px 4px}
+.ba-progress-fill{height:100%;width:55%;background:var(--accent);border-radius:2px}
+.ba-checklist{padding:6px 8px;background:rgba(245,209,0,.06);border:1px solid rgba(245,209,0,.2);border-radius:6px}
+.ba-chk-h{font-size:8.5px;color:rgba(255,255,255,.4);margin-bottom:4px}
+.ba-chk-row{font-size:9px;padding:2px 0 2px 13px;position:relative;color:rgba(255,255,255,.5)}
+.ba-chk-row::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:2px;border:1px solid rgba(255,255,255,.2)}
+.ba-chk-done::before{background:var(--ok);border-color:var(--ok)}
+.ba-chk-pending::before{border-color:rgba(245,209,0,.45)}
+html[data-theme="light"] .ba-form{background:#e8e6f0;border-color:rgba(0,0,0,.08)}
+html[data-theme="light"] .ba-topbar{background:#dddbe4;border-bottom-color:rgba(0,0,0,.06);color:rgba(0,0,0,.5)}
+html[data-theme="light"] .ba-inp{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.12);color:rgba(0,0,0,.5)}
+html[data-theme="light"] .ba-inp.ba-filled{color:rgba(0,0,0,.7)}
+html[data-theme="light"] .ba-inp.ba-picker{color:rgba(0,0,0,.3)}
+html[data-theme="light"] .ba-lab{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .ba-radio{border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.5)}
+html[data-theme="light"] .ba-instr-body{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .ba-help{color:rgba(0,0,0,.4)}
+html[data-theme="light"] .ba-chk-h{color:rgba(0,0,0,.45)}
+html[data-theme="light"] .ba-chk-row{color:rgba(0,0,0,.55)}
 </style>
 
 
@@ -3458,6 +3504,102 @@ nav.site-nav .sn-inner{
     <p class="lead" style="margin-top:18px;max-width:38rem">
       <b>300+ items</b> without a closed loop on behavior means the cliff stays invisible — that is the problem this case owns.
     </p>
+  </section>
+
+  <!-- BEFORE / AFTER — workbench form audit -->
+  <section class="sec" id="beforeafter">
+    <div class="eyebrow">Before · After</div>
+    <h2 class="h2">The field that <em>nobody finished</em></h2>
+    <p class="lead">Session replay put a cursor on the exact moment people stopped. Not the billing step — <b>three fields earlier</b>. A people-picker with no context of what it wanted.</p>
+
+    <div class="story" id="baStory">
+      <div class="story-nav" role="tablist" aria-label="Before and after">
+        <button class="story-tab on" type="button" role="tab" data-s="0" aria-selected="true">Before — form as shipped</button>
+        <button class="story-tab" type="button" role="tab" data-s="1" aria-selected="false">After — Pendo findings applied</button>
+      </div>
+      <div class="story-stage">
+
+        <!-- BEFORE panel -->
+        <div class="story-panel on" id="ba0" role="tabpanel">
+          <div class="sp-ui">
+            <div class="ba-form">
+              <div class="ba-topbar">
+                <span class="ba-logo">EY Fabric</span>
+                <span class="ba-crumb">Workbench · Configure Your Instance</span>
+              </div>
+              <div class="ba-steps">
+                <span class="ba-step done">✓</span><span class="ba-ln"></span>
+                <span class="ba-step on">2</span><span class="ba-ln"></span>
+                <span class="ba-step">3</span>
+              </div>
+              <div class="ba-body">
+                <div class="ba-fgroup">
+                  <span class="ba-lab">Friendly Instance Name <span class="ba-req">*</span></span>
+                  <div class="ba-inp ba-filled">xdatest-01</div>
+                </div>
+                <div class="ba-fgroup">
+                  <span class="ba-lab">Location <span class="ba-req">*</span></span>
+                  <div class="ba-inp ba-filled">East US 2</div>
+                </div>
+                <div class="ba-fgroup ba-friction">
+                  <span class="ba-lab">Contact Person <span class="ba-req">*</span><span class="ba-ann">66% left here</span></span>
+                  <div class="ba-inp ba-picker">Search by name or email…</div>
+                </div>
+                <div class="ba-instruction">
+                  <span class="ba-instr-lbl">Important Instruction</span>
+                  <span class="ba-instr-body">Please ensure all details are reviewed before submission.</span>
+                </div>
+                <div class="ba-fgroup">
+                  <span class="ba-lab">Add admin users <span class="ba-req">*</span></span>
+                  <div class="ba-radio-group"><span class="ba-radio">Yes</span><span class="ba-radio">No</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sp-copy">
+            <p class="sp-k pink">Problem · As shipped</p>
+            <h3>No guardrails, no context</h3>
+            <p>The form surfaced a people-picker tied to internal directories, a service ID from a separate system, and a billing code requiring IT approval — all without inline help. The "Important Instruction" block was generic static text. Pendo funnel + replay confirmed: the cliff started before billing.</p>
+          </div>
+        </div>
+
+        <!-- AFTER panel -->
+        <div class="story-panel" id="ba1" role="tabpanel">
+          <div class="sp-ui">
+            <div class="ba-form">
+              <div class="ba-topbar">
+                <span class="ba-logo">EY Fabric</span>
+                <span class="ba-crumb">Workbench v2 · Configure</span>
+              </div>
+              <div class="ba-progress-bar"><div class="ba-progress-fill"></div></div>
+              <div class="ba-body">
+                <div class="ba-fgroup">
+                  <span class="ba-lab">Instance Name <span class="ba-req">*</span></span>
+                  <div class="ba-inp ba-ok">xdatest-01 ✓</div>
+                </div>
+                <div class="ba-fgroup">
+                  <span class="ba-lab">Contact Person <span class="ba-req">*</span></span>
+                  <div class="ba-inp ba-ok">Ana Torres ✓</div>
+                  <span class="ba-help">Must be an active EY Fabric account — search by email</span>
+                </div>
+                <div class="ba-checklist">
+                  <div class="ba-chk-h">Required before billing step:</div>
+                  <div class="ba-chk-row ba-chk-done">Storage service selected</div>
+                  <div class="ba-chk-row ba-chk-done">Admin access confirmed</div>
+                  <div class="ba-chk-row ba-chk-pending">Billing code — pending</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sp-copy">
+            <p class="sp-k green">Resolution · Spec delivered</p>
+            <h3>Fields the user can actually fill</h3>
+            <p>Pendo ranked Contact Person and the unmarked required service as the two top exit points. The spec: inline context on each field, a pre-configure checklist before the form opens, and the generic instruction replaced with a contextual tooltip per field. Publisher entry quality followed the same audit — structured prompts replaced free-form blanks.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </section>
 
       <!-- PRODUCT INTELLIGENCE — full-bleed into page flow, player owns narrative -->
@@ -3687,6 +3829,19 @@ nav.site-nav .sn-inner{
     setTimeout(cycle, 400);
   })();
 
+  /* before/after tab switcher */
+  (function(){
+    var root=document.getElementById('baStory');
+    if(!root) return;
+    var tabs=[].slice.call(root.querySelectorAll('.story-tab'));
+    var panels=[].slice.call(root.querySelectorAll('.story-panel'));
+    function go(i){
+      tabs.forEach(function(tb,ti){tb.classList.toggle('on',ti===i);tb.setAttribute('aria-selected',ti===i?'true':'false');});
+      panels.forEach(function(pn,pi){pn.classList.toggle('on',pi===i);});
+    }
+    tabs.forEach(function(tb){tb.addEventListener('click',function(){go(parseInt(tb.getAttribute('data-s'),10));});});
+  })();
+
   /* story evidence — transform between signals */
   (function(){
     var root=document.getElementById('story');
@@ -3865,8 +4020,8 @@ nav.site-nav .sn-inner{
     slide('t1','<div class="ts-big" id="ts1"></div><div class="ts-dock" id="dock1">'+dockHtml([['pendo','Pendo'],['pendo','Replay']])+'</div>','textslide');
     slide('a0','<div class="fab-nav"><span class="logo">EY Fabric</span><div class="links"><span>Overview</span><span>Marketplace</span></div><span class="search"></span></div><div class="fab-home"><div class="k">Unlock technology at speed and scale</div><div class="h">EY Fabric: Unlocking technology at speed and scale</div><div class="p">Build technology-enabled solutions for teams and clients.</div><button class="fab-cta" id="aCta" type="button">Explore Catalog</button></div>');
     slide('a1','<div class="fab-nav"><span class="logo">EY Fabric</span><div class="links"><span>Catalog</span></div><span class="search"></span></div><div class="fab-cat"><div class="fab-side"><div class="fab-side-h">Fabric Catalog</div><div class="fab-side-i"><span class="ic" style="background:#7c6af0"></span>All Items<span class="cnt">317</span></div><div class="fab-side-i on"><span class="ic" style="background:#e8843a"></span>Services<span class="cnt">157</span></div><div class="fab-side-i"><span class="ic" style="background:#c084fc"></span>Licenses<span class="cnt">21</span></div><div class="fab-side-i"><span class="ic" style="background:#4ade80"></span>Starter Kits<span class="cnt">17</span></div></div><div class="fab-main"><div class="fab-banner"><div class="bt">Services</div><div class="bs">Compute, networking and tools</div></div><div class="fab-search">Filter by Service Offerings…</div><div class="fab-chips"><span class="on">All Services 157</span><span>Offerings 105</span></div><div class="fab-grid"><div class="fab-card" id="aCard0"><span class="fic"></span><span class="ft">Kubernetes as a Service</span><span class="fd">Multi-tenant cluster shared by multiple users</span><div class="fbtns"><b>View More</b><b>Get Started</b></div></div><div class="fab-card"><span class="fic"></span><span class="ft">RPAaaS UIPath</span><span class="fd">Request UIPath licenses</span><div class="fbtns"><b>View More</b><b>Get Started</b></div></div><div class="fab-card"><span class="fic"></span><span class="ft">CTP PEGA SaaS</span><span class="fd">Production instance request</span><div class="fbtns"><b>View More</b><b>Get Started</b></div></div></div></div></div>');
-    /* workbench only — no funnel stacked */
-    slide('a2','<div class="fab-nav"><span class="logo">EY Fabric</span><div class="links"><span>Workbench</span></div><span class="search"></span></div><div class="wb" style="grid-template-columns:1fr"><div class="wb-l"><div class="wb-steps"><span class="s done">ok</span><span class="ln"></span><span class="s on">2</span><span class="ln"></span><span class="s">3</span></div><div class="wb-card"><h4> Configure Your Instance</h4><div class="wb-lab">Friendly Instance Name</div><div class="wb-inp filled">xdatest</div><div class="wb-lab">Location</div><div class="wb-inp filled">westus2</div></div><div class="wb-card"><h4>Billing · required service</h4><div class="wb-lab">Choose at least one service</div><div class="wb-inp stuck" id="aStuck"></div><div class="wb-warn">Required — choose at least one service for this instance</div></div></div></div>');
+    /* workbench — form with Contact Person friction point */
+    slide('a2','<div class="fab-nav"><span class="logo">EY Fabric</span><div class="links"><span>Workbench</span></div><span class="search"></span></div><div class="wb" style="grid-template-columns:1fr"><div class="wb-l"><div class="wb-steps"><span class="s done">✓</span><span class="ln"></span><span class="s on">2</span><span class="ln"></span><span class="s">3</span></div><div class="wb-card"><h4>Configure Your Instance</h4><div class="wb-lab">Friendly Instance Name</div><div class="wb-inp filled">xdatest-01</div><div class="wb-lab">Location</div><div class="wb-inp filled">East US 2</div><div class="wb-lab">Contact Person <span style="color:var(--bad)">*</span></div><div class="wb-inp stuck" id="aStuck" style="color:rgba(255,255,255,.28);font-style:italic;font-size:9.5px">Search by name or email…</div><div style="margin-top:4px;padding:5px 7px;background:rgba(100,80,200,.12);border:1px solid rgba(100,80,200,.22);border-radius:4px"><span style="display:block;font-size:8.5px;color:#b4a0ff;font-weight:600;margin-bottom:1px">Important Instruction</span><span style="font-size:9px;color:rgba(255,255,255,.38)">Please ensure all details are reviewed before submission.</span></div></div><div class="wb-card"><h4>Billing · required service</h4><div class="wb-lab">Choose at least one service</div><div class="wb-inp" style="background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.08)"></div></div></div></div>');
     /* funnel as its own full scene */
     slide('a3','<div class="fab-nav"><span class="logo">Pendo · Funnel</span><span class="search"></span></div><div class="funnel-scene"><div class="funnel-h">Acquisition funnel · where they dropped</div><div class="funnel-big" id="funnelBig"><div class="funnel-bar" data-h="100"><span>Home</span></div><div class="funnel-bar" data-h="86"><span>Catalog</span></div><div class="funnel-bar" data-h="70"><span>Item</span></div><div class="funnel-bar drop" data-h="34"><span>Configure</span></div><div class="funnel-bar" data-h="26"><span>Submit</span></div></div><div class="funnel-callout">↓ cliff at configure — same step in replays</div></div>');
     showSlide('t1');
@@ -3885,7 +4040,7 @@ nav.site-nav .sn-inner{
             (function(){var __n=document.getElementById('aCard0');if(__n)__n.classList.add('hot');})();
             after(600,function(){
               showSlide('a2');
-              typeInto(document.getElementById('capTxt'),[{t:'Configure is the cliff — '},{t:'required service empty',hl:true},{t:'.'}],16);
+              typeInto(document.getElementById('capTxt'),[{t:'Contact Person — '},{t:'no context, 66% leave here',hl:true},{t:'.'}],16);
               after(400,function(){cursorTo(document.getElementById('aStuck'),function(){
                 after(900,function(){
                   showSlide('a3');
