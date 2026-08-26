@@ -1052,8 +1052,14 @@ html[data-theme="light"] .dp-why li{color:rgba(20,20,18,.72)}
   };
 
 
+  window._dcGo = go;
   go(0);
 })();
+window.addEventListener('message',function(e){
+  if(e.data&&e.data.type==='playBeat'&&typeof window._dcGo==='function'){
+    window._dcGo(e.data.index||0);
+  }
+});
 </script>
 </body>
 </html>

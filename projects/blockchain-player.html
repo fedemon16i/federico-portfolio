@@ -1535,6 +1535,11 @@ document.querySelectorAll('.tl').forEach(function(btn){
   });
 });
 
+window.addEventListener('message',function(e){
+  if(e.data&&e.data.type==='playBeat'&&typeof runBeat==='function'){
+    playing=true; setPlayIcon(true); runBeat(e.data.index||0,true);
+  }
+});
 window.addEventListener('resize', fitPhone);
 if(window.ResizeObserver){ try{ new ResizeObserver(fitPhone).observe(document.getElementById('phoneHost')); }catch(e){} }
 
