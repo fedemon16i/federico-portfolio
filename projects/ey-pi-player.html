@@ -5,6 +5,8 @@
 
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <title>EY · Product Intelligence</title>
 <style>
 :root{
@@ -15,8 +17,8 @@
   --ok:#8fd4a8; --warn:#e5b567; --bad:#e0857f;
   --u1:#7ba7f0; --u2:#e5b567; --u3:#8fd4a8; --pendo:#FF4A7D;
   --ease:cubic-bezier(.65,0,.35,1); --spring:cubic-bezier(.34,1.32,.64,1);
-  --font:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --font:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --dw:560px; --dh:410px; --cap:54px; --pad-top:16px; --pad-x:18px;
 }
 *{box-sizing:border-box}
@@ -1751,6 +1753,82 @@ html, body, .page, .shell, .stage-col, .frame, .unit {
 /* case page owns narrative; reduce iframe chrome */
 }
 
+/* ---- Beat 07 · User flow: guided marketplace ---- */
+.pendo-tip{position:absolute;background:#FF4A7D;color:#fff;border-radius:8px;padding:8px 10px;font-size:9px;line-height:1.4;max-width:150px;box-shadow:0 4px 16px rgba(255,74,125,.35);z-index:20;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
+.pendo-tip.on{opacity:1;transform:translateY(0)}
+.pendo-tip::after{content:'';position:absolute;bottom:-5px;left:16px;width:10px;height:5px;background:#FF4A7D;clip-path:polygon(0 0,100% 0,50% 100%)}
+.pendo-tip .pt-head{font-weight:700;font-size:9.5px;margin-bottom:3px}
+.pendo-tip .pt-btns{margin-top:6px;display:flex;gap:4px}
+.pendo-tip .pt-btn{background:rgba(255,255,255,.2);border:none;color:#fff;font-size:8px;padding:2px 6px;border-radius:4px;cursor:pointer}
+.pendo-tip .pt-btn.pri{background:#fff;color:#FF4A7D;font-weight:600}
+.pre-check-wrap{position:absolute;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:18;opacity:0;transition:opacity .3s}
+.pre-check-wrap.on{opacity:1}
+.pre-check{background:#161418;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px 16px;width:220px}
+.pre-check h4{font-size:11px;font-weight:700;margin:0 0 3px;color:#fff}
+.pre-check .pc-sub{font-size:9px;color:rgba(255,255,255,.45);margin-bottom:10px}
+.check-item{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:9.5px;color:rgba(255,255,255,.75)}
+.check-item:last-child{border-bottom:none}
+.check-item .cb{width:12px;height:12px;border-radius:3px;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:7px;transition:background .2s,border-color .2s}
+.check-item.done .cb{background:#c9a227;border-color:#c9a227;color:#1a1508}
+.check-item.done .cb::after{content:'✓'}
+.pre-check .pc-foot{margin-top:10px;display:flex;justify-content:flex-end}
+.pre-check .pc-foot .ok{border:none;border-radius:5px;font-size:8.5px;padding:4px 10px;cursor:pointer;background:#c9a227;color:#1a1508;font-weight:700;opacity:.4;transition:opacity .3s}
+.pre-check .pc-foot .ok.ready{opacity:1}
+.cost-badge{background:#1a1917;border:1px solid rgba(201,162,39,.3);border-radius:6px;padding:6px 10px;font-size:9px;color:#c9a227;display:flex;align-items:center;gap:6px;transition:box-shadow .3s}
+.cost-badge .cb-val{font-size:13px;font-weight:700;font-family:var(--mono);transition:all .4s}
+.cost-badge .cb-lbl{font-size:8px;color:rgba(255,255,255,.4);line-height:1.2}
+.cost-badge.pulse{box-shadow:0 0 0 3px rgba(201,162,39,.25)}
+.field-help{position:absolute;background:#1e2a1e;border:1px solid rgba(143,212,168,.25);border-radius:6px;padding:5px 8px;font-size:8.5px;color:rgba(143,212,168,.85);max-width:140px;z-index:15;opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s}
+.field-help.on{opacity:1;transform:translateY(0)}
+/* ---- Beat 08 · Publisher dashboard ---- */
+.pub-dash{display:flex;flex-direction:column;height:100%;background:#08080c}
+.pub-nav{display:flex;align-items:center;gap:12px;padding:8px 12px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);font-size:9px;color:rgba(255,255,255,.4)}
+.pub-nav .brand{color:#c9a227;font-weight:700;font-size:10px;margin-right:6px}
+.pub-nav span.on{color:rgba(255,255,255,.85)}
+.pub-body{display:grid;grid-template-columns:110px 1fr;flex:1;overflow:hidden}
+.pub-side{padding:8px 10px;border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:2px;font-size:9px}
+.pub-side a{display:flex;align-items:center;gap:5px;padding:4px 6px;border-radius:5px;color:rgba(255,255,255,.4);text-decoration:none;transition:background .2s,color .2s}
+.pub-side a.on{background:rgba(201,162,39,.1);color:#c9a227}
+.pub-side a .ico{font-size:10px;width:14px;text-align:center}
+.pub-main{padding:10px 12px;overflow:hidden}
+.pub-section-title{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.7);margin:0 0 7px;display:flex;align-items:center;gap:6px}
+.pub-section-title .badge{background:rgba(201,162,39,.15);color:#c9a227;font-size:7.5px;padding:1px 5px;border-radius:3px;font-weight:600}
+.cl-builder{background:#101018;border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:10px}
+.cl-row{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:9px;color:rgba(255,255,255,.6);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
+.cl-row.on{opacity:1;transform:translateX(0)}
+.cl-row .cl-drag{color:rgba(255,255,255,.15);font-size:10px}
+.cl-row .cl-type{background:rgba(255,255,255,.06);border-radius:3px;padding:1px 5px;font-size:7.5px;color:rgba(255,255,255,.35)}
+.cl-row .cl-req{margin-left:auto;font-size:7.5px;color:#c9a227}
+.cl-add{margin-top:6px;display:flex;align-items:center;gap:5px;font-size:8.5px;color:rgba(201,162,39,.5);cursor:pointer;opacity:0;transition:opacity .3s}
+.cl-add.on{opacity:1}
+.guide-list{display:flex;flex-direction:column;gap:5px;margin-top:5px}
+.guide-card{background:#0e0e16;border:1px solid rgba(255,74,125,.15);border-radius:6px;padding:6px 8px;display:flex;align-items:center;gap:7px;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s}
+.guide-card.on{opacity:1;transform:translateY(0)}
+.guide-card .gc-ico{width:22px;height:22px;border-radius:5px;background:rgba(255,74,125,.15);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.guide-card .gc-body{flex:1;min-width:0}
+.guide-card .gc-name{font-size:9px;font-weight:600;color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.guide-card .gc-meta{font-size:7.5px;color:rgba(255,74,125,.7);margin-top:1px}
+.guide-card .gc-stat{font-family:var(--mono);font-size:8px;color:#c9a227;flex-shrink:0}
+.guide-add-btn{margin-top:5px;border:1px dashed rgba(255,74,125,.25);border-radius:6px;padding:5px 8px;font-size:8.5px;color:rgba(255,74,125,.5);text-align:center;cursor:pointer;opacity:0;transition:opacity .3s}
+.guide-add-btn.on{opacity:1}
+/* ---- Beat 09 · Improved: before/after ---- */
+.impr-wrap{padding:12px 14px;height:100%;display:flex;flex-direction:column;background:#08080c}
+.impr-head{font-size:11px;font-weight:700;color:rgba(255,255,255,.85);margin-bottom:2px}
+.impr-sub{font-size:8.5px;color:rgba(255,255,255,.35);margin-bottom:10px}
+.impr-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1}
+.impr-col{background:#101010;border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:8px 10px}
+.impr-col.after{border-color:rgba(201,162,39,.25)}
+.impr-col-head{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;display:flex;align-items:center;gap:4px}
+.impr-col-head .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.impr-row{font-size:8.5px;color:rgba(255,255,255,.5);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:flex-start;gap:4px;opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s;line-height:1.35}
+.impr-row.on{opacity:1;transform:translateX(0)}
+.impr-row::before{content:'–';color:rgba(255,255,255,.2);flex-shrink:0}
+.impr-col.after .impr-row::before{content:'✓';color:#c9a227}
+.impr-row:last-child{border-bottom:none}
+.impr-metric{margin-top:8px;background:rgba(201,162,39,.06);border:1px solid rgba(201,162,39,.15);border-radius:6px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;opacity:0;transition:opacity .4s}
+.impr-metric.on{opacity:1}
+.impr-metric .mk{font-size:8px;color:rgba(255,255,255,.4)}
+.impr-metric .mv{font-family:var(--mono);font-size:12px;font-weight:700;color:#c9a227}
 
 /* ========== SPACE CANON 2026-08-13 (QA whitespace) ==========
    Tokens — use everywhere in the product system
@@ -2794,13 +2872,246 @@ function beatMeasure(done){
 
 
 
+  function beatUserFlow(done){
+    textPhase(
+      'From intent to request —<br><em>guided, gated, clear</em>.',
+      chip('Pendo','pendo')+chip('Fabric','ga'),
+      'Onboarding tooltip → pre-checklist → step-by-step form with live cost.',
+      function(){
+        mount(
+          '<div class="app" style="background:#08080c;position:relative">'+
+            '<div class="fab-topnav"><span class="brand">◆ Platform</span><span>Overview</span><span>Marketplace</span><span class="ai">Search</span></div>'+
+            '<div class="fab-hero">'+
+              '<div class="eyebrow">Your technology marketplace</div>'+
+              '<h2>Find and request what your team needs</h2>'+
+              '<p>Services, licenses, starter kits — unified catalog.</p>'+
+              '<div class="btns"><button class="btn-pri" id="exploreCta2" type="button">Explore Catalog</button><button class="btn-sec" type="button">Learn more</button></div>'+
+            '</div>'+
+            '<div class="pendo-tip" id="pendoTip">'+
+              '<div class="pt-head">Welcome to Fabric Marketplace</div>'+
+              'New here? We\'ll walk you through your first request in 3 steps.'+
+              '<div class="pt-btns"><button class="pt-btn" type="button">Skip</button><button class="pt-btn pri" type="button">Start tour →</button></div>'+
+            '</div>'+
+          '</div>',
+          'Pendo onboarding tooltip on first visit.'
+        );
+        after(400, function(){
+          var tip=el('pendoTip');
+          if(tip){ tip.style.top='108px'; tip.style.left='16px'; tip.classList.add('on'); }
+          after(900, function(){
+            place(c1,t1,el('exploreCta2'),8,6);
+            after(800, function(){ clickCur(c1,t1,function(){
+
+              /* 2 — Pre-checklist gate */
+              mount(
+                '<div class="app" style="background:#0a0a0e;position:relative">'+
+                  '<div class="fab-topnav"><span class="brand">◆ Platform</span><span>Marketplace</span><span class="ai">Workbench</span></div>'+
+                  '<div style="padding:10px 12px;font-size:10px;font-weight:700;color:rgba(255,255,255,.6)">Workbench · New request</div>'+
+                  '<div class="pre-check-wrap" id="preCheckWrap">'+
+                    '<div class="pre-check">'+
+                      '<h4>Before you start</h4>'+
+                      '<div class="pc-sub">Confirm you have these ready — it saves time in the form.</div>'+
+                      '<div class="check-item" id="ci0"><div class="cb"></div>Budget code or cost center</div>'+
+                      '<div class="check-item" id="ci1"><div class="cb"></div>Manager approval (written)</div>'+
+                      '<div class="check-item" id="ci2"><div class="cb"></div>Technical requirements doc</div>'+
+                      '<div class="pc-foot"><button class="ok" id="pcOk" type="button">Continue →</button></div>'+
+                    '</div>'+
+                  '</div>'+
+                '</div>',
+                'Pre-checklist gate — requirements visible before the form opens.'
+              );
+              after(280, function(){ var w=el('preCheckWrap'); if(w) w.classList.add('on'); });
+              [0,1,2].forEach(function(i){
+                after(650+i*550, function(){
+                  var item=el('ci'+i); if(item) item.classList.add('done');
+                  if(i===2){ var btn=el('pcOk'); if(btn) btn.classList.add('ready'); }
+                });
+              });
+              after(2550, function(){
+                place(c1,t1,el('pcOk'),6,4);
+                after(550, function(){ clickCur(c1,t1,function(){
+
+                  /* 3 — Step-by-step form + live cost badge */
+                  mount(
+                    '<div class="app" style="background:#0a0a0e;position:relative">'+
+                      '<div class="fab-topnav"><span class="brand">◆ Platform</span><span>Marketplace</span><span class="ai">Workbench · Request</span></div>'+
+                      '<div class="wb-layout">'+
+                        '<div class="wb-left">'+
+                          '<div class="wb-crumb">Catalog › Services › Workbench</div>'+
+                          '<div class="wb-step-row"><span class="n">Step 1 of 3</span><span class="lab">Configure your instance</span></div>'+
+                          '<div class="wb-field">'+
+                            '<label>Instance name <span style="color:#c9a227">*</span></label>'+
+                            '<div class="box" id="fName2">Team workspace — Design</div>'+
+                          '</div>'+
+                          '<div class="wb-field" style="position:relative">'+
+                            '<label>Service type <span style="color:#c9a227">*</span></label>'+
+                            '<div class="box" id="svcType" style="border-color:rgba(201,162,39,.4)">Workbench · Standard</div>'+
+                            '<div class="field-help" id="fHelp" style="top:44px;left:0">This sets your base compute tier. Standard covers most teams.</div>'+
+                          '</div>'+
+                          '<div class="wb-field">'+
+                            '<label>Location</label>'+
+                            '<div class="box" id="fLoc2">Region West 2</div>'+
+                          '</div>'+
+                        '</div>'+
+                        '<div class="wb-right">'+
+                          '<div class="wb-prog"><span class="dot on"></span><span>Custom</span><span class="line"></span><span class="dot"></span><span>Billing</span><span class="line"></span><span class="dot"></span><span>Confirm</span></div>'+
+                          '<div class="cost-badge" id="costBadge" style="margin-top:8px">'+
+                            '<div><div class="cb-val" id="costVal">$0</div><div class="cb-lbl">per month</div></div>'+
+                            '<div style="font-size:7.5px;color:rgba(255,255,255,.3);margin-left:auto;text-align:right">Estimated<br>cost</div>'+
+                          '</div>'+
+                          '<div style="margin-top:8px;font-size:7.5px;color:rgba(255,255,255,.25)">Updates as you configure.</div>'+
+                          '<div class="wb-order" style="margin-top:8px"><h4>Selections</h4><div id="orderList"><div class="empty">Nothing selected yet.</div></div></div>'+
+                        '</div>'+
+                      '</div>'+
+                    '</div>',
+                    'Step-by-step form — inline help visible, cost updates on selection.'
+                  );
+                  after(350, function(){
+                    var fh=el('fHelp'); if(fh) fh.classList.add('on');
+                    place(c1,t1,el('svcType'),8,6);
+                  });
+                  after(1100, function(){ clickCur(c1,t1,function(){
+                    var cv=el('costVal'), cb=el('costBadge'), ol=el('orderList');
+                    if(cv) cv.textContent='$240';
+                    if(cb) cb.classList.add('pulse');
+                    if(ol) ol.innerHTML='<div class="feat-row on" style="font-size:9px;padding:4px 0;color:rgba(255,255,255,.7)"><span style="color:#c9a227">✓</span> Workbench Standard · $240/mo</div>';
+                    showCap('Selection made — cost badge updates in real time.');
+                    after(600, function(){ if(cb) cb.classList.remove('pulse'); });
+                    after(1600, function(){ hideCursors(); after(500, done); });
+                  }); });
+                }); });
+              });
+            }); });
+          });
+        });
+      }
+    );
+  }
+
+  function beatPublisher(done){
+    textPhase(
+      'Publisher view —<br><em>configure</em> from the inside.',
+      chip('Pendo','pendo')+chip('Fabric','ga'),
+      'Add onboarding guides, define checklists, review submissions.',
+      function(){
+        mount(
+          '<div class="pub-dash">'+
+            '<div class="pub-nav">'+
+              '<span class="brand">◆ Fabric</span>'+
+              '<span class="on">Publisher</span>'+
+              '<span>Catalog</span>'+
+              '<span style="margin-left:auto;color:rgba(255,74,125,.7);font-size:8px">● Publisher mode</span>'+
+            '</div>'+
+            '<div class="pub-body">'+
+              '<div class="pub-side">'+
+                '<a class="on" href="#"><span class="ico">▣</span>Listings</a>'+
+                '<a href="#" id="navGuides"><span class="ico">▶</span>Guides</a>'+
+                '<a href="#" id="navChecks"><span class="ico">☑</span>Checklists</a>'+
+                '<a href="#"><span class="ico">↓</span>Submissions</a>'+
+                '<a href="#"><span class="ico">◎</span>Analytics</a>'+
+              '</div>'+
+              '<div class="pub-main">'+
+                '<div class="pub-section-title">Required checklist <span class="badge">Workbench</span></div>'+
+                '<div class="cl-builder">'+
+                  '<div style="font-size:8px;color:rgba(255,255,255,.35);margin-bottom:6px">Users confirm these before requesting</div>'+
+                  '<div class="cl-row" id="cr0"><span class="cl-drag">⠿</span>Budget code or cost center<span class="cl-req">Required</span></div>'+
+                  '<div class="cl-row" id="cr1"><span class="cl-drag">⠿</span>Manager approval<span class="cl-req">Required</span></div>'+
+                  '<div class="cl-row" id="cr2"><span class="cl-drag">⠿</span>Technical requirements doc<span class="cl-type">Optional</span></div>'+
+                  '<div class="cl-add" id="clAdd">Add checklist item</div>'+
+                '</div>'+
+                '<div style="margin-top:10px">'+
+                  '<div class="pub-section-title">Pendo in-app guides <span class="badge">2 active</span></div>'+
+                  '<div class="guide-list">'+
+                    '<div class="guide-card" id="gc0"><div class="gc-ico">▶</div><div class="gc-body"><div class="gc-name">Welcome tour · Marketplace</div><div class="gc-meta">Pendo · Active · 3 steps</div></div><div class="gc-stat">78%</div></div>'+
+                    '<div class="guide-card" id="gc1"><div class="gc-ico">▶</div><div class="gc-body"><div class="gc-name">First request walkthrough</div><div class="gc-meta">Pendo · Active · 5 steps</div></div><div class="gc-stat">61%</div></div>'+
+                    '<div class="guide-add-btn" id="gcAdd">+ Add Pendo guide</div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>',
+          'Publisher dashboard — checklist builder + Pendo guide management.'
+        );
+        [0,1,2].forEach(function(i){
+          after(250+i*200, function(){ var r=el('cr'+i); if(r) r.classList.add('on'); });
+        });
+        after(950, function(){ var a=el('clAdd'); if(a) a.classList.add('on'); });
+        [0,1].forEach(function(i){
+          after(1250+i*300, function(){ var g=el('gc'+i); if(g) g.classList.add('on'); });
+        });
+        after(1900, function(){ var ga=el('gcAdd'); if(ga) ga.classList.add('on'); });
+        after(2200, function(){
+          place(c1,t1,el('navGuides'),4,4);
+          after(650, function(){ clickCur(c1,t1,function(){
+            var n=el('navGuides'); if(n) n.classList.add('on');
+            var prev=document.querySelector('.pub-side a.on:not(#navGuides)');
+            if(prev) prev.classList.remove('on');
+            showCap('Publisher controls what onboarding users see — from inside Fabric.');
+            after(1300, function(){ hideCursors(); after(500, done); });
+          }); });
+        });
+      }
+    );
+  }
+
+  function beatImproved(done){
+    textPhase(
+      '<em>What changed</em> — friction to guided flow.',
+      chip('Fabric','ga')+chip('Pendo','pendo'),
+      'Specific improvements grounded in drop-off data.',
+      function(){
+        mount(
+          '<div class="impr-wrap">'+
+            '<div class="impr-head">What we improved</div>'+
+            '<div class="impr-sub">Marketplace v1 → v2 · evidence-driven UX changes</div>'+
+            '<div class="impr-grid">'+
+              '<div class="impr-col">'+
+                '<div class="impr-col-head"><span class="dot" style="background:#e05c4a"></span>Before</div>'+
+                '<div class="impr-row" id="b0">No onboarding — flat catalog entry for first-time users</div>'+
+                '<div class="impr-row" id="b1">Form opened directly — no pre-flight check</div>'+
+                '<div class="impr-row" id="b2">Ambiguous "Required service" field — top drop-off</div>'+
+                '<div class="impr-row" id="b3">Cost only visible after full form completion</div>'+
+                '<div class="impr-row" id="b4">Publishers had no self-serve config — needed eng</div>'+
+              '</div>'+
+              '<div class="impr-col after">'+
+                '<div class="impr-col-head"><span class="dot" style="background:#c9a227"></span>After</div>'+
+                '<div class="impr-row" id="a0">Pendo onboarding tooltip on first visit + guided tour</div>'+
+                '<div class="impr-row" id="a1">Pre-checklist gate surfaces requirements before form</div>'+
+                '<div class="impr-row" id="a2">Inline field help with contextual explanation</div>'+
+                '<div class="impr-row" id="a3">Cost badge updates in real time on selection</div>'+
+                '<div class="impr-row" id="a4">Publisher dashboard: guides, checklists, submissions</div>'+
+              '</div>'+
+            '</div>'+
+            '<div class="impr-metric" id="imprMetric">'+
+              '<div><div class="mk">Form completion lift (hypothesis — to validate)</div></div>'+
+              '<div class="mv">↑ est. 30–40%</div>'+
+            '</div>'+
+          '</div>',
+          'Every change traces back to a specific friction point observed in the data.'
+        );
+        [0,1,2,3,4].forEach(function(i){
+          after(180+i*310, function(){
+            var b=el('b'+i), a=el('a'+i);
+            if(b) b.classList.add('on');
+            after(80, function(){ if(a) a.classList.add('on'); });
+          });
+        });
+        after(1900, function(){ var m=el('imprMetric'); if(m) m.classList.add('on'); });
+        after(3200, function(){ hideCursors(); after(500, done); });
+      }
+    );
+  }
+
   var BEATS=[
     {n:'01',name:'Measure',fn:beatMeasure},
     {n:'02',name:'Analyze',fn:beatAnalyze},
     {n:'03',name:'Research',fn:beatResearch},
     {n:'04',name:'Understand',fn:beatUnderstand},
     {n:'05',name:'Design',fn:beatDesign},
-    {n:'06',name:'Hub',fn:beatHub}
+    {n:'06',name:'Hub',fn:beatHub},
+    {n:'07',name:'User flow',fn:beatUserFlow},
+    {n:'08',name:'Publisher',fn:beatPublisher},
+    {n:'09',name:'Improved',fn:beatImproved}
   ];
   
   /* iOS-safe bind: click + touchend, single fire */
@@ -2858,7 +3169,7 @@ function beatMeasure(done){
     var m = (location.hash||'').match(/beat=(\d+)/);
     var n = m ? parseInt(m[1],10) : 0;
     if (isNaN(n) || n < 0) n = 0;
-    if (n > 5) n = 5;
+    if (n > 8) n = 8;
     setTimeout(function(){
       if (typeof window.playBeat === 'function') window.playBeat(n);
       else if (typeof go === 'function') go(n);
