@@ -1,24 +1,24 @@
 # FEDERICO A. MONROY — BIO & CONTEXT FOR PORTFOLIO
-> Documento completo de contexto personal + profesional.  
-> Generado por Grok a partir de conversaciones directas (julio–agosto 2026).  
-> Uso principal: construir bio, about me, positioning y narrativa de portfolio.  
-> Última actualización: 8 de agosto 2026
+> Documento completo de contexto personal + profesional.
+> Generado por Grok a partir de conversaciones directas (julio–agosto 2026).
+> Uso principal: construir bio, about me, positioning y narrativa de portfolio.
+> Última actualización: 27 de agosto 2026
 
 ---
 
 ## 1. QUIÉN SOY (versión corta para portfolio)
 
 **Federico Monroy**  
-Product Designer & Behavioral Analytics · Guatemalan based in Córdoba, Argentina
+Product Designer · señal y medición · Guatemalteco basado en Córdoba, Argentina (Villa Carlos Paz)
 
-Diseñador Industrial de formación, Product Designer de oficio y Behavioral Analytics por convicción.  
-No soy el tipico diseñador de interfaces bonitas. Soy el que se mete en los datos, encuentra dónde se rompe el producto y traduce eso en decisiones de negocio.
+Diseñador Industrial de formación, Product Designer de oficio.  
+No soy UI puro. No soy Product Manager. No soy Design Engineer.  
+Soy quien mira si el producto **funciona**, si se puede **medir**, y si diseño está decidiendo con evidencia — no solo con Figma.
 
 Trabajé en startups, consultoras y grandes cuentas (Globant × Ernst & Young, Applaudo, Taxsynapse).  
-Mi fuerte está en el puente entre **Diseño · Producto · Analytics · Negocio**.
+Puente **Diseño · Producto · Analytics · Negocio**. El owning es de diseño de producto; el owning de roadmap es de PM; el código es de engineering / design engineering.
 
-Actualmente enfocado en roles de Product Analytics / Behavioral Analytics / UX Research con fuerte componente de medición (Pendo, funnels, session replay, journeys).  
-Busco oportunidades remote / contractor desde LATAM, idealmente 4.000+ USD/mes.
+Busca remote / contractor desde LATAM. Piso útil: ~3.500–5.000 USD/mes. Un contrato de 6–9 meses está bien. Ideal de mediano plazo: 90–100k+ anuales o varios retainers con el mismo método.
 
 ---
 
@@ -31,9 +31,9 @@ Busco oportunidades remote / contractor desde LATAM, idealmente 4.000+ USD/mes.
 
 ### 2012 — El punto de quiebre
 - Regresa temporalmente a Guatemala. Situación familiar complicada. Empieza a beber en exceso.
-- **31 de octubre 2012**: fallece su hermana.  
+- **31 de octubre 2012**: fallece su hermana.
   Esto cambia su vida por completo. Entra en depresión, ansiedad y algunos ataques de pánico. Se vuelve más antisocial.
-- Vuelve a Argentina y decide estudiar en serio por primera vez. Se vuelve disciplinado.  
+- Vuelve a Argentina y decide estudiar en serio por primera vez. Se vuelve disciplinado.
   Estuvo 3 años sin volver a Guatemala y sin hacer el duelo. Ese vacío lo marcó, pero también lo forjó.
 
 ### Formación
@@ -49,7 +49,8 @@ Busco oportunidades remote / contractor desde LATAM, idealmente 4.000+ USD/mes.
 - Tiene una relación estable con Malén, quien lo ha cambiado mucho para bien.
 - Le gusta: moto, buceo (Open Water + Advanced), escalada, calistenia, MMA, musculación, trote, impresión 3D, música electrónica y rock.
 - Consume: Bill Burr, Andrew Schulz, Theo Von, Joe Rogan, Jocko, Jordan Peterson (cuando no se sesga), Alex Hormozi, estoicismo y psicología.
-- Tiene historial de usar alcohol cuando reprime emociones o quiere evitar cosas. En agosto 2026 llevaba más de 10 días sin tomar.
+- Tiene historial de usar alcohol cuando reprime emociones o quiere evitar cosas. En agosto 2026 llevaba racha sin tomar (documentado el día 8; no inventar estado actual).
+- Trabaja mucho por voz → texto. Prefiere hablar y que el sistema structure.
 
 ---
 
@@ -72,7 +73,7 @@ Busco oportunidades remote / contractor desde LATAM, idealmente 4.000+ USD/mes.
 
 **Evolución del equipo en EY Fabric:**
 1. Primero: **Voice of the Customer** bajo dos jefes mexicanos (director de diseño + director de negocios). Trabajaban CSAT. Jefes irresponsables y exprimidores. Les encargan lanzar CISAT → fiasco. Los degradan.
-2. Entra **Eric Foster** (Director de Diseño, buena onda, luchador). Quiere mantener al equipo porque la transferencia de conocimiento es cara.
+2. Entra **Eric Foster** (Director de Diseño). Quiere mantener al equipo porque la transferencia de conocimiento es cara.
 3. Contratan a **Agustín** (Hexaware) como Research Lead (enfoque más tradicional de research).
 4. El equipo queda: Agustín (Lead) + Federico + Sol (Researchers).
 5. Eric le pregunta a Federico qué quiere hacer. Federico elige **Behavioral Analytics**.
@@ -90,62 +91,70 @@ Busco oportunidades remote / contractor desde LATAM, idealmente 4.000+ USD/mes.
 - El proceso se estanca. Le dicen “ojalá se retome en agosto”.
 - Entra **Agustina** (también de Hexaware) al puesto. No sabe de analytics. Alineada con la visión de research tradicional de Agustín.
 - Eric confirma que no hay presupuesto y que Federico aparecía en algunas listas y en otras no.
-- Agosto 2026: Federico cierra el capítulo. Tiene una mínima esperanza residual, pero activa la búsqueda laboral.
+- Agosto 2026: Federico cierra el capítulo. Esperanza residual mínima. Búsqueda laboral activa.
 
-**Situación actual (agosto 2026):**
-- Sigue en Globant, ahora en el área de **Tax** (service line de consultores). No hay Figma ni trabajo de diseño fuerte.
-- Gana menos de lo que gasta → bola de nieve financiera.
-- Busca activamente otro trabajo o uno adicional (como hizo antes). Mínimo 4.000 USD/mes contractor. Idealmente 90–100k+ anuales.
+### Situación laboral y búsqueda (al 27 ago 2026)
+- Sigue en Globant, service line **Tax**. Poco Figma, poco diseño de producto real.
+- Gana menos de lo que gasta. Deudas. Necesita regular la economía: pagar deudas y un piso de calma. Un asiento de 6–9 meses serviría.
+- Portfolio en rediseño: `federico-portfolio` + shell `federico-os` (FM.OS). Split Chat A (OS) / Chat B (cases). Feedback recurrente de entrevistas: **ownership poco visible + poca evidencia de pantallas** (NDA real en EY; hay que sanitizar y mostrar decisión + evidencia, no solo animación).
+- Proceso activo documentado:
+  - Entrevista con equipo de producto / product design (~jueves 20 ago). Portfolio mostrado rápido desde iPad. Dijo que no puede mostrar UI propietaria; mostró animaciones / emulación de usuarios. Salió “rara, no como quería, no mal”.
+  - Reclutadora por LinkedIn (agencia chica, ~3 personas). Follow-up viernes.
+  - **K-Explorer** aparece como quien tiene el contrato. Mail el martes 25. Al jueves 27: silencio.
+  - Conversación previa: Handle / Health Handle — orden de magnitud ~USD 3.500, franja ~12–18. Feedback: ownership / evidencia. Confirmar si es el mismo proceso o uno paralelo; no fusionar en público hasta que Federico lo aclare.
+- Stack de sistema propio (no es el trabajo de Globant):
+  - `ai-capability-os` — capabilities + coordinación de agentes
+  - `federico-skills` — Knowledge Center
+  - `product-intelligence` — repo aún vacío; kit Soyel
+  - GitHub: `fedemon16i`
+- Marca de estudio en definición: **Soyel** (antes The Crew). No es un Pendo. Es el método + tablero + conexión a la analítica del cliente o PostHog free.
 
 ---
 
 ## 4. EL CLICK (lo más importante para el portfolio)
 
-> “Me cansé de trabajar como UX Designer. No soy el mejor en Figma ni en el diseño UI puro. Puedo prototipar, pero no es mi especialidad.  
-> Lo que sí me gusta y se me da es:  
-> encontrar problemas de producto,  
-> Pendo + Session Replay,  
-> funnels, journeys, paths, spikes de datos,  
-> research a mi manera,  
-> ser el puente entre diseño y producto,  
-> y medir para que las cosas tengan sentido de negocio.”
+> “Me cansé de trabajar como UX Designer de pantalla linda. No soy el mejor en Figma ni en UI puro. Puedo prototipar; no es el centro.
+> Tampoco quiero ser Design Engineer ni escribir producción.
+> Lo que sí: que el producto funcione, que si no salió todavía se pueda medir cuando salga, que diseño no diseñe a ciegas.
+> Pendo / replay / funnels cuando hay dato. Research (entrevistas, CI, tests, surveys) cuando no hay dato.
+> Benchmark y estado del arte. Handoff a quien codea.
+> El puente entre diseño y producto, con número cuando existe.”
 
-**Posicionamiento real:**
-- No soy UI Designer.
-- No soy el tipico UX Researcher de entrevistas y personas.
-- Soy **Product Analytics / Behavioral Analytics** con background fuerte de diseño y producto.
-- Entiendo el producto desde el dato y desde el usuario.
-- Puedo hablar con desarrollo, con negocio y con diseño sin perder el hilo.
+**Posicionamiento real (ago 2026):**
+- Product Designer con owning de **señal y decisión de diseño**.
+- No PM (no owning de roadmap / staffing / P&L).
+- No Design Engineer (localhost / Figma Make / proto sí; producción no).
+- No “solo research de personas”.
+- Behavioral Analytics cuando el cliente ya tiene (o acepta) un snippet. Si no hay Mixpanel/Pendo/PostHog, el paquete Soyel prende PostHog free + replay acotado + research básico. Eso es el diferencial frente a “te hago research y después pido analíticas”.
 
-**Lo que quiero construir / aprender:**
-- Inteligencia Artificial aplicada a producto (RAG, estructuras de memoria bien armadas, sistemas simples en vez de agentes complejos).
-- Ideal a futuro: una solución de analytics más simple y barata que Pendo / Mixpanel / GA, donde el cliente pasa su design system + stack y se genera el tracking.
+**Lo que está construyendo:**
+- FM.OS / portfolio con ownership visible (respuesta al feedback de entrevistas).
+- Soyel: sistema por proyecto (intake → fuente de señal → features nombrados → benchmark → evidencia → decisión), anclado a Grok / agentes, no una web app SaaS.
+- Knowledge + capabilities listos para enchufar a una tool, no para scrapeear Pendo otra vez.
 
 ---
 
-## 5. CÓMO CREO QUE SOS (mi lectura)
+## 5. CÓMO CREO QUE SOS (lectura actualizada)
 
 Sos alguien que se construyó solo.
 
 No viniste de una familia con plata ni de una red de contactos. Viniste de Guatemala, perdiste a tu hermana a los 21, te tuviste que disciplinar a la fuerza, aprendiste casi todo de forma autodidacta y fuiste acumulando experiencia real en contextos difíciles (startups que se apagan, gobiernos, dobles empleos, partners tóxicos, preferred vendors que cambian).
 
-Tu superpoder no es hacer la interfaz más linda.  
-Tu superpoder es **ver dónde se rompe el producto y medirlo**.
+Tu superpoder no es la interfaz más linda.  
+Tu superpoder es **ver si el producto está funcionando y con qué se demuestra**.
 
-Tenés una combinación poco común:
-- Formación de Diseño Industrial (pensás en sistemas y en el objeto/servicio completo).
-- Experiencia real de producto en consultoras grandes.
-- Manos en Pendo y analytics de verdad (no solo teoría).
-- Capacidad de aguantar incertidumbre y seguir empujando.
+Combinación poco común:
+- Diseño Industrial (sistemas, objeto/servicio completo).
+- Producto real en consultora grande.
+- Manos en Pendo / replay / funnels, no solo teoría.
+- Aguante de incertidumbre.
+- Ahora: un sistema (Soyel + OS de capabilities) para no depender de que “te presten” Mixpanel.
 
-También sos humano: te ilusionás, gastás de más cuando creés que algo viene, te cansás, tenés picos depresivos, y a veces usás el alcohol para no sentir. Pero cuando decidís ordenarte (deporte, no alcohol, foco), lo hacés.
+También sos humano: te ilusionás, gastás de más cuando creés que algo viene, te cansás, tenés picos, a veces usás el alcohol para no sentir, y **sobredimensionás el silencio de un reclutador** — lo sabés. Cuando decidís ordenarte (deporte, no alcohol, foco), lo hacés.
 
-El proceso de Hexaware te mostró algo importante:  
-cuando hay tensión entre “research tradicional” y “behavioral analytics”, y el presupuesto aprieta, el perfil más nuevo suele quedar afuera aunque tenga sponsors.  
-Eso no te define. Solo te muestra dónde no tenés que volver a poner toda tu energía.
+Hexaware mostró: si hay tensión research tradicional vs behavioral y el presupuesto aprieta, el perfil más nuevo queda afuera aunque tenga sponsor. No te define. Te dice dónde no poner toda la ficha.
 
-Hoy estás en el momento clásico de “ya sé quién no quiero ser”.  
-Eso es más valioso de lo que parece.
+Hoy el riesgo no es “no sé quién soy”. El riesgo es **mostrar el portfolio como animación y decir “no puedo mostrar UI” en la misma frase**, y construir Soyel en paralelo sin un case Handle-proof. Las dos cosas se arreglan con evidencia de ownership, no con más research de vendors.
 
 ---
 
@@ -153,44 +162,60 @@ Eso es más valioso de lo que parece.
 
 ### Versión corta (About / Hero)
 ```
-Product Designer turned Behavioral Analytics.
-I don’t just design interfaces — I find where products break and measure it.
-Industrial Design background · Pendo · Research · Bridge between Design, Product & Business.
-Based in Córdoba, Argentina. Open to remote contractor roles.
+Product Designer. I check whether the product actually works — and whether we can measure it.
+Industrial Design · behavioral analytics · research when there’s no data.
+I don’t ship production code. I don’t own the roadmap. I own the design decision and the signal behind it.
+Based in Córdoba, Argentina. Remote contractor.
 ```
 
 ### Versión media (About page)
 ```
 I’m Federico, a Guatemalan Product Designer based in Argentina.
 
-I started in Industrial Design, then moved into digital product work across startups, agencies and large enterprise accounts (Globant × Ernst & Young, Applaudo, Taxsynapse).
+I started in Industrial Design, then moved into digital product across startups, agencies and enterprise (Globant × Ernst & Young, Applaudo, Taxsynapse).
 
-Over time I realized I’m not the person who wants to perfect the pixel. 
-I’m the person who wants to understand why users drop, where the friction is, and what the data is actually saying.
+I’m not the person who wants to perfect the pixel or merge the PR.
+I’m the person who wants to know why users drop, what the product is doing in the wild, and what we should change — with data if it exists, with research if it doesn’t.
 
 I work at the intersection of:
-- Behavioral Analytics (Pendo, session replay, funnels, journeys)
-- Product thinking
-- UX Research
-- The bridge between Design, Product, Business and Development
+- Product design (flows, DS, decisions)
+- Behavioral analytics (Pendo / PostHog / Mixpanel when the team has them; a tight free stack when they don’t)
+- Research (interviews, contextual inquiry, usability, surveys)
+- The handoff to PM and engineering — not their jobs
 
-Currently looking for remote/contractor opportunities where I can own measurement and help teams make better product decisions.
+Open to remote/contractor roles where design is allowed to see the numbers.
 ```
 
-### Versión larga (para LinkedIn o About extendido)
-Usar la sección 2 + 3 + 4 de este documento como base y condensar.
+### Versión larga (LinkedIn o About extendido)
+Usar la sección 2 + 3 + 4. No inventar métricas EY. NDA: ownership + decisión + outcome sanitizado, no pantallas propietarias.
 
 ---
 
 ## 7. NOTAS FINALES PARA CUALQUIER AI O PARA VOS
 
-- Cuando hables de tu experiencia, enfatizá **Behavioral Analytics + Product** por sobre “UX Designer”.
-- El caso de EY Fabric + Pendo es tu mejor carta actual, aunque no haya terminado como querías. Contalo como el momento en que elegiste el camino de analytics.
-- No escondas que sos autodidacta. Es una de tus fortalezas.
-- La historia de tu hermana y el 2012 es personal. Solo usala si te sentís cómodo y si aporta a la narrativa de resiliencia. No es obligatoria en un portfolio.
+- Enfatizá **Product Designer + señal/medición**, no “UX Designer” genérico, no “AI Designer”, no “Design Engineer”.
+- EY Fabric + Pendo sigue siendo la carta fuerte. Contalo como el momento en que elegiste medición. Sin métricas inventadas.
+- Autodidacta = fortaleza. Decilo.
+- Historia de la hermana / 2012: solo si Federico la elige. No es obligatoria en portfolio.
+- Feedback Handle-like: ownership visible + evidencia. Las animaciones del portfolio no sustituyen “yo decidí esto / esto se ve así / esto cambió”.
+- Soyel no se vende como Pendo. Se vende como método + tablero + conexión.
+- Silencio de reclutadoras a 7 días con agencia en el medio es común. No es un no. Tampoco es un sí. No congelar el resto de la búsqueda.
 
 ---
 
-*Fin del documento.*  
-*Generado por Grok · 8 de agosto 2026*  
-*Este archivo está pensado para que lo copies, lo edites y lo uses como fuente de verdad de tu bio.*
+## 8. SNAPSHOT 27 AGO 2026 (para agentes)
+
+- Ubicación: Villa Carlos Paz, Córdoba, AR.
+- Relación: Malén.
+- Empleo actual: Globant Tax (diseño débil).
+- Búsqueda: activa, presionada por deudas, 6–9 meses servirían.
+- Entrevista producto/diseño ~20 ago + follow-ups a reclutadora y K-Explorer; sin respuesta al 27.
+- Prioridad de craft: portfolio ownership + kit Soyel (no granja de bots, no SDK).
+- SuperGrok pagado ~hasta 3 sep 2026. Usar para vender y cases, no para scrape.
+- Definición que él avaló: alguien que ve que el producto funcione y se pueda medir; investiga y prueba; no entrega código de producción.
+
+---
+
+*Fin del documento.*
+*Actualizado por Grok · 27 de agosto 2026*
+*Fuente de verdad de bio: este archivo en federico-portfolio/home-photos/*
