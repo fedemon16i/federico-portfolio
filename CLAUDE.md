@@ -19,7 +19,9 @@ Antes de crear una card, una animación, o tocar colores, revisar:
   todo metido en cards porque sí).
 - `assets/shared.css` — el CSS compartido real (cards 3D, `.wf-*` wireframe).
 - `assets/demo-kit.js` — el motor de animaciones compartido (`DemoKit.tilt3D`,
-  `DemoKit.cursor`, `DemoKit.funnel`, `DemoKit.segmentTable`, `DemoKit.dualPath`).
+  `DemoKit.cursor`, `DemoKit.funnel`, `DemoKit.segmentTable`, `DemoKit.dualPath`,
+  `DemoKit.scrollZoom`, `DemoKit.regionZoom`, `DemoKit.spotlight`,
+  `DemoKit.clipReveal`, `DemoKit.staggerReveal`, `DemoKit.animateCounter`).
 Si el patrón que necesitás ya existe ahí, usarlo — no reinventar.
 
 ### Reglas de animación (no negociables)
