@@ -160,6 +160,185 @@
     timers.after(2200, function(){ var e = document.getElementById('wfMerge'); if(e) e.classList.add('in'); });
   }
 
+  /* ---- 8. Scroll zoom — element scales in from `from` as it enters viewport ----
+     Uses IntersectionObserver (all browsers). On supported browsers, CSS
+     scroll-driven (@keyframes + animation-timeline:view()) is faster but
+     this JS version works everywhere and is the safe default.
+     Returns the IntersectionObserver so caller can unobserve early if needed. */
+  function scrollZoom(el, opts){
+    if(!el || reduced) return;
+    opts = opts || {};
+    var fromScale = opts.from != null ? opts.from : 0.65;
+    var dur = opts.dur || 700;
+    var easing = opts.easing || 'cubic-bezier(.22,1,.36,1)';
+    el.style.transform = 'scale(' + fromScale + ')';
+    el.style.opacity = '0';
+    el.style.transition = 'transform ' + dur + 'ms ' + easing + ', opacity ' + Math.round(dur * 0.7) + 'ms ease-out';
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        entry.target.style.transform = 'scale(1)';
+        entry.target.style.opacity = '1';
+        io.unobserve(entry.target);
+      });
+    }, { threshold: opts.threshold || 0.2 });
+    io.observe(el);
+    return io;
+  }
+
+  /* ---- 9. Region zoom — click targets zoom into a specific area, spring + annotation ----
+     el: the panel that will scale.
+     opts.scale: target scale factor (default 2.2).
+     opts.dur: transition duration ms (default 600).
+     Returns { activate(ox%, oy%, annEl), reset(), isZoomed() }
+     activate() is idempotent — second call resets.
+     annEl (optional): element whose opacity is toggled after spring settles. */
+  function regionZoom(el, opts){
+    if(!el) return;
+    opts = opts || {};
+    var scale = opts.scale || 2.2;
+    var dur = opts.dur || 600;
+    var spring = 'cubic-bezier(.34,1.56,.64,1)';
+    var zoomed = false;
+    var annTimers = [];
+    el.style.transition = 'transform ' + dur + 'ms ' + spring;
+    function activate(ox, oy, annEl){
+      if(!zoomed){
+        el.style.transformOrigin = ox + '% ' + oy + '%';
+        el.style.transform = 'scale(' + scale + ')';
+        zoomed = true;
+        if(annEl && !reduced){
+          annTimers.push(setTimeout(function(){
+            annEl.style.opacity = '1';
+            annTimers.push(setTimeout(function(){ annEl.style.opacity = '0'; }, 2000));
+          }, 550)); /* 550ms = after spring settles, not during overshoot */
+        }
+      } else {
+        annTimers.forEach(clearTimeout); annTimers = [];
+        if(annEl) annEl.style.opacity = '0';
+        el.style.transform = 'scale(1)';
+        zoomed = false;
+      }
+    }
+    return {
+      activate: activate,
+      reset: function(){
+        annTimers.forEach(clearTimeout); annTimers = [];
+        el.style.transform = 'scale(1)';
+        zoomed = false;
+      },
+      isZoomed: function(){ return zoomed; }
+    };
+  }
+
+  /* ---- 10. Spotlight — radial gradient veil follows cursor over a stage ----
+     stage: the container element (position:relative expected).
+     veil: an absolutely-positioned overlay element already in the DOM.
+     opts.radius: spotlight circle radius px (default 160).
+     opts.dark: overlay opacity 0-1 (default 0.80).
+     opts.color: dark overlay RGB string (default '6,6,14').
+     Returns a destroy() function to remove event listeners. */
+  function spotlight(stage, veil, opts){
+    if(!stage || !veil || reduced) return function(){};
+    opts = opts || {};
+    var r = opts.radius || 160;
+    var alpha = opts.dark != null ? opts.dark : 0.80;
+    var col = opts.color || '6,6,14';
+    veil.style.position = 'absolute';
+    veil.style.inset = '0';
+    veil.style.pointerEvents = 'none';
+    veil.style.background = 'radial-gradient(circle ' + r + 'px at var(--sx,50%) var(--sy,50%), transparent 0%, rgba(' + col + ',' + alpha + ') 100%)';
+    function onMove(e){
+      var rect = stage.getBoundingClientRect();
+      veil.style.setProperty('--sx', ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%');
+      veil.style.setProperty('--sy', ((e.clientY - rect.top) / rect.height * 100).toFixed(1) + '%');
+    }
+    function onLeave(){
+      veil.style.setProperty('--sx', '50%');
+      veil.style.setProperty('--sy', '50%');
+    }
+    stage.addEventListener('mousemove', onMove);
+    stage.addEventListener('mouseleave', onLeave);
+    return function destroy(){
+      stage.removeEventListener('mousemove', onMove);
+      stage.removeEventListener('mouseleave', onLeave);
+    };
+  }
+
+  /* ---- 11. Clip reveal — sweeps UI into view via clip-path ----
+     opts.dir: 'ltr'(default) | 'rtl' | 'ttb' | 'btt'
+     opts.dur: ms (default 700). opts.radius: border-radius kept during anim (default '10px').
+     Returns { reveal(), hide(), toggle(force?) } — force=true reveals, false hides. */
+  function clipReveal(el, opts){
+    if(!el) return;
+    opts = opts || {};
+    var dur = opts.dur || 700;
+    var easing = opts.easing || 'cubic-bezier(.22,1,.36,1)';
+    var rad = opts.radius || '10px';
+    var dir = opts.dir || 'ltr';
+    var hidden = {
+      ltr: 'inset(0 100% 0 0 round ' + rad + ')',
+      rtl: 'inset(0 0 0 100% round ' + rad + ')',
+      ttb: 'inset(0 0 100% 0 round ' + rad + ')',
+      btt: 'inset(100% 0 0 0 round ' + rad + ')'
+    };
+    var shown = 'inset(0 0% 0 0 round ' + rad + ')';
+    el.style.clipPath = hidden[dir] || hidden.ltr;
+    if(!reduced) el.style.transition = 'clip-path ' + dur + 'ms ' + easing;
+    function isVisible(){ return el.style.clipPath === shown; }
+    return {
+      reveal: function(){ el.style.clipPath = shown; },
+      hide:   function(){ el.style.clipPath = hidden[dir] || hidden.ltr; },
+      toggle: function(force){
+        var show = force != null ? force : !isVisible();
+        el.style.clipPath = show ? shown : (hidden[dir] || hidden.ltr);
+      }
+    };
+  }
+
+  /* ---- 12. Stagger reveal — reveals a list of elements in sequence ----
+     els: NodeList or array.
+     opts.delay: ms between items (default 80). opts.dur: each item transition ms (default 300).
+     opts.dy: translateY start distance px (default 8). opts.timers: shared timer queue (optional). */
+  function staggerReveal(els, opts){
+    if(!els || !els.length) return;
+    opts = opts || {};
+    var delay = opts.delay || 80;
+    var dur = opts.dur || 300;
+    var easing = opts.easing || 'ease-out';
+    var dy = opts.dy != null ? opts.dy : 8;
+    var timers = opts.timers;
+    Array.prototype.forEach.call(els, function(el, i){
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(' + dy + 'px)';
+      var fn = function(){
+        if(!reduced) el.style.transition = 'opacity ' + dur + 'ms ' + easing + ', transform ' + dur + 'ms ' + easing;
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      };
+      timers ? timers.after(i * delay, fn) : setTimeout(fn, reduced ? 1 : i * delay);
+    });
+  }
+
+  /* ---- 13. Animate counter — KPI number counts up with ease-out-cubic ----
+     opts.dur: total duration ms (default 1400).
+     opts.format: function(value) → string (default toLocaleString). */
+  function animateCounter(el, from, to, opts){
+    if(!el) return;
+    opts = opts || {};
+    var dur = opts.dur || 1400;
+    var fmt = opts.format || function(v){ return Math.round(v).toLocaleString(); };
+    if(reduced){ el.textContent = fmt(to); return; }
+    var start = performance.now();
+    function tick(now){
+      var t = Math.min((now - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - t, 3); /* ease-out-cubic */
+      el.textContent = fmt(from + (to - from) * ease);
+      if(t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
   global.DemoKit = {
     tilt3D: tilt3D,
     makeTimers: makeTimers,
@@ -168,6 +347,12 @@
     funnel: funnel,
     segmentTable: segmentTable,
     dualPath: dualPath,
+    scrollZoom: scrollZoom,
+    regionZoom: regionZoom,
+    spotlight: spotlight,
+    clipReveal: clipReveal,
+    staggerReveal: staggerReveal,
+    animateCounter: animateCounter,
     reducedMotion: reduced
   };
 })(window);

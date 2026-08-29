@@ -205,5 +205,140 @@ ningún concepto; lo que sí se puede unificar son sus cards de skills (agregarl
 `DemoKit.tilt3D`) y cualquier demo nuevo que se agregue de acá en más.
 
 ---
+
+## 10. ZOOM, SPOTLIGHT Y REVEAL — patrones de showcase de producto
+
+Los cuatro patrones que usan compañías como Cursor, Linear, Stripe y Apple para
+presentar UI en landing pages y portfolios. Todos respetan `prefers-reduced-motion`.
+
+### Scroll Zoom — UI entra escalada desde 0.65 al hacer scroll
+
+```js
+DemoKit.scrollZoom(el, { from: 0.65, dur: 700, threshold: 0.2 });
+// Retorna el IntersectionObserver (útil para unobserve() manual)
+```
+
+El elemento empieza en `scale(0.65) opacity:0` y anima a `scale(1) opacity:1`
+cuando entra al viewport. Sin JS extra — solo llamar una vez al cargar la página.
+
+Alternativa nativa (Chrome 115+ solo, NO requiere JS):
+```css
+.el { animation: zoom-in linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+@keyframes zoom-in { from { scale: .65; opacity: 0; } to { scale: 1; opacity: 1; } }
+```
+
+---
+
+### Region Zoom — click en un elemento lo hace zoom con spring
+
+```js
+var zoom = DemoKit.regionZoom(panelEl, { scale: 2.2, dur: 600 });
+
+// Conectar a los elementos clickeables:
+kpiEl.addEventListener('click', function(){
+  zoom.activate(18, 22, annotationEl);  // ox%, oy%, annEl (opcional)
+});
+// Segunda click → reset automático (activate() es idempotente)
+
+zoom.reset();     // fuerza reset desde afuera
+zoom.isZoomed();  // true/false
+```
+
+`ox` y `oy` son el porcentaje dentro del panel donde está el elemento objetivo
+(el `transform-origin` se ancla ahí, así ese punto queda fijo durante el zoom).
+
+**La annotation aparece a los 550ms** — después de que el spring se asienta,
+no durante el overshoot. Si se pone antes, el callout parpadea junto con el rebote.
+
+El `annotationEl` necesita solo `opacity:0; transition: opacity 200ms ease-out`
+en CSS — el JS solo togglea `opacity:1/0`.
+
+---
+
+### Spotlight — radial gradient sigue el cursor sobre el stage
+
+```js
+var destroySpotlight = DemoKit.spotlight(stageEl, veilEl, {
+  radius: 160,   // px del círculo visible
+  dark: 0.80,    // opacidad del fondo oscuro (0-1)
+  color: '6,6,14' // RGB del overlay (sin #, sin rgba())
+});
+
+// Para desconectar los listeners:
+destroySpotlight();
+```
+
+`veilEl` debe ser un elemento ya en el DOM, hijo de `stageEl`, con
+`position:absolute; inset:0; pointer-events:none`. El JS aplica el `background`
+con la gradiente automáticamente. No usar `transition` en el background —
+actualizar CSS custom props (`--sx`, `--sy`) es más rápido y no tiene lag visual.
+
+---
+
+### Clip Reveal — UI aparece barrida de izquierda a derecha
+
+```js
+var reveal = DemoKit.clipReveal(el, {
+  dir: 'ltr',   // 'ltr' | 'rtl' | 'ttb' | 'btt'
+  dur: 700,
+  radius: '10px'  // mantiene border-radius durante la animación
+});
+
+reveal.reveal();          // muestra
+reveal.hide();            // oculta
+reveal.toggle();          // alterna
+reveal.toggle(true);      // fuerza visible
+```
+
+Ventaja sobre fade: el elemento está totalmente renderizado en todo momento,
+sin ghosting ni reflow. El `round 10px` en el `inset()` mantiene las esquinas
+redondeadas mientras el clip se mueve — sin él, los bordes cuadran a mitad.
+
+---
+
+### Stagger Reveal — fila de elementos entra uno a uno
+
+```js
+var rows = el.querySelectorAll('.data-row');
+DemoKit.staggerReveal(rows, {
+  delay: 80,   // ms entre cada elemento
+  dur: 300,    // duración de cada transición
+  dy: 8,       // translateY inicial px
+  timers: timers  // opcional — para coordinar con otros timers del beat
+});
+```
+
+Si no se pasa `timers`, usa `setTimeout` propio. Si se pasa el mismo `timers`
+del beat, los clears del beat también cancelan el stagger.
+
+---
+
+### Animate Counter — KPI que cuenta hasta el valor final
+
+```js
+DemoKit.animateCounter(el, 0, 2400000, {
+  dur: 1400,
+  format: function(v){ return '$' + Math.round(v).toLocaleString(); }
+});
+// Con prefers-reduced-motion: muestra el valor final instantáneamente
+```
+
+`format` recibe el valor numérico (float durante la animación) y retorna el string.
+Usar siempre `Math.round(v)` dentro del format — sin eso, aparecen decimales.
+
+---
+
+### Reglas transversales
+
+- **Spring siempre en lo que CRECE**: `regionZoom` usa `var(--spring)` internamente —
+  no cambiar a ease-out plano, tiene que rebotar.
+- **Annotation a los 550ms**, no antes. El spring de 600ms termina alrededor de 550-600ms.
+- **Veil del spotlight**: nunca dentro del mismo elemento que el mock UI —
+  hermano en el DOM, hijo del stage.
+- **clipReveal + scrollZoom** no combinar en el mismo elemento — el clip-path
+  y la escala pueden pelear si se animan juntas.
+
+---
+
 *Cuando algo de acá cambie, actualizar este archivo en el mismo commit — si el
 código y la documentación se desincronizan, la doc deja de servir.*
