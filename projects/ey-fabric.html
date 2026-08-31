@@ -3512,100 +3512,506 @@ nav.site-nav .sn-inner{
     </p>
   </section>
 
-  <!-- BEFORE / AFTER — workbench form audit -->
+  <!-- TWO-SIDED PROPOSAL — Consumer + Publisher beat storytelling -->
+<style id="ts-v2">
+/* ── Two-sided storytelling (Consumer + Publisher) ─────────────────── */
+.ts-root { margin-top: 2rem; }
+
+/* Track nav */
+.ts-tracknav {
+  display: flex; gap: 0; margin-bottom: 2rem;
+  border: 1px solid rgba(245,209,0,.18); border-radius: 10px;
+  overflow: hidden; width: fit-content;
+}
+.ts-track-btn {
+  background: transparent; border: none; cursor: pointer;
+  padding: 13px 30px; display: flex; flex-direction: column; gap: 3px;
+  transition: background .2s;
+}
+.ts-track-btn:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); outline: none; }
+.ts-ti { font-size: .85rem; font-weight: 700; color: var(--text-secondary); letter-spacing:.04em; text-transform:uppercase; transition: color .2s; }
+.ts-td { font-size: .72rem; color: var(--text-tertiary); }
+.ts-track-btn.ts-on { background: rgba(245,209,0,.09); }
+.ts-track-btn.ts-on .ts-ti { color: var(--accent); }
+
+/* Track panels */
+.ts-track { display: none; }
+.ts-track.ts-on { display: block; }
+
+/* Step nav */
+.ts-stepnav {
+  display: flex; align-items: center; gap: 0; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 4px;
+}
+.ts-sbtn {
+  background: transparent; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px; color: var(--text-tertiary); cursor: pointer;
+  font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+  padding: 7px 14px; transition: all .2s;
+}
+.ts-sbtn:hover { border-color: rgba(245,209,0,.3); color: var(--text-secondary); }
+.ts-sbtn.ts-son { border-color: var(--accent); color: var(--accent); background: rgba(245,209,0,.07); }
+.ts-sln { flex: 1; min-width: 16px; max-width: 40px; height: 1px; background: rgba(255,255,255,.07); }
+
+/* Beat layout */
+.ts-beatwrap { position: relative; }
+.ts-beat { display: none; }
+.ts-beat.ts-bon {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+  align-items: start; animation: ubIn .35s var(--spring) both;
+}
+@keyframes ubIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* UI Screen */
+.ub-screen {
+  background: #1a1816; border: 1px solid rgba(255,255,255,.09);
+  border-radius: 10px; overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0,0,0,.5);
+}
+.ub-chrome {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: #242119;
+  border-bottom: 1px solid rgba(255,255,255,.07); flex-wrap: wrap;
+}
+.ub-logo { font-size: .68rem; font-weight: 800; color: var(--accent); letter-spacing: .07em; text-transform: uppercase; }
+.ub-bc { font-size: .68rem; color: var(--text-tertiary); }
+.ub-badge { font-size: .6rem; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-left: auto; letter-spacing: .04em; white-space: nowrap; }
+.ub-badge-bad { background: rgba(224,82,74,.18); color: #e0524a; }
+.ub-badge-ok  { background: rgba(143,212,168,.18); color: #8fd4a8; }
+
+.ub-body { padding: 14px; display: flex; flex-direction: column; gap: 9px; }
+
+/* Form rows */
+.ub-frow { display: flex; flex-direction: column; gap: 4px; }
+.ub-lab { font-size: .65rem; font-weight: 600; color: var(--text-tertiary); letter-spacing: .04em; }
+.ub-ann {
+  display: inline-flex; background: rgba(224,82,74,.15); color: #e0524a;
+  font-size: .57rem; font-weight: 700; padding: 1px 7px; border-radius: 4px;
+  margin-left: 8px; letter-spacing: .04em;
+}
+.ub-inp {
+  background: #232018; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 5px; padding: 7px 10px;
+  font-size: .7rem; color: var(--text-secondary);
+}
+.ub-inp-ok  { border-color: rgba(143,212,168,.28) !important; }
+.ub-inp-err { animation: ubPulse 1.8s ease-in-out infinite; }
+.ub-ph { color: var(--text-tertiary) !important; font-style: italic; }
+.ub-help { font-size: .6rem; color: var(--text-tertiary); padding: 0 2px; }
+@keyframes ubPulse {
+  0%, 100% { border-color: rgba(224,82,74,.4); box-shadow: none; }
+  50% { border-color: rgba(224,82,74,.9); box-shadow: 0 0 0 2px rgba(224,82,74,.18); }
+}
+
+/* Generic instruction box */
+.ub-generic {
+  background: #1e1c19; border: 1px solid rgba(255,255,255,.07);
+  border-left: 3px solid rgba(255,255,255,.14);
+  border-radius: 5px; padding: 8px 10px; display: flex; flex-direction: column; gap: 3px;
+}
+.ub-glbl { font-size: .6rem; font-weight: 700; color: var(--text-tertiary); letter-spacing:.05em; text-transform:uppercase; }
+.ub-gtxt { font-size: .65rem; color: var(--text-tertiary); }
+
+/* Radios */
+.ub-radrow { display: flex; gap: 8px; }
+.ub-rad { font-size: .65rem; color: var(--text-secondary); background: #232018; border: 1px solid rgba(255,255,255,.1); border-radius: 4px; padding: 5px 12px; }
+
+/* Pre-configure checklist */
+.ub-checklist {
+  background: #1e1c19; border: 1px solid rgba(255,255,255,.08);
+  border-radius: 6px; padding: 10px; display: flex; flex-direction: column; gap: 5px;
+}
+.ub-clhd { font-size: .6rem; font-weight: 700; color: var(--text-tertiary); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 3px; }
+.ub-cli { font-size: .67rem; padding: 2px 0; }
+.ub-cli-done { color: #8fd4a8; }
+.ub-cli-pend { color: #e5b567; }
+
+/* Progress bar */
+.ub-prog-wrap { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+.ub-prog-bar { flex: 1; height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
+.ub-prog-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+.ub-prog-lbl { font-size: .6rem; color: var(--text-tertiary); white-space: nowrap; }
+
+/* Textarea */
+.ub-textarea {
+  background: #232018; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 5px; padding: 7px 10px;
+  font-size: .67rem; color: var(--text-secondary); min-height: 42px; line-height: 1.5;
+}
+.ub-textarea-ok { border-color: rgba(143,212,168,.28) !important; }
+.ub-textarea-ph { color: var(--text-tertiary) !important; font-style: italic; }
+
+/* Quality warning */
+.ub-qwarn {
+  background: rgba(224,82,74,.1); border: 1px solid rgba(224,82,74,.2);
+  border-radius: 5px; padding: 6px 10px;
+  font-size: .65rem; font-weight: 600; color: #e0524a;
+}
+
+/* Funnel bars */
+.ub-body-chart { gap: 6px !important; }
+.ub-frow-bar { display: flex; align-items: center; gap: 8px; }
+.ub-fbl { font-size: .63rem; color: var(--text-tertiary); width: 68px; flex-shrink: 0; text-align: right; }
+.ub-fbl-bad { color: #e0524a !important; font-weight: 700; }
+.ub-fb { flex: 1; height: 22px; background: rgba(255,255,255,.04); border-radius: 4px; overflow: hidden; }
+.ub-ff {
+  height: 100%; background: rgba(245,209,0,.3); border-radius: 4px;
+  display: flex; align-items: center; padding-left: 7px;
+  font-size: .6rem; font-weight: 700; color: var(--accent);
+  width: 0; transition: none;
+}
+.ub-ff-bad { background: rgba(224,82,74,.45) !important; color: #e0524a !important; }
+.ub-ff-dim { background: rgba(245,209,0,.12) !important; color: var(--text-tertiary) !important; }
+.ts-bon .ub-ff { width: var(--w); transition: width .65s .1s cubic-bezier(.65,0,.35,1); }
+.ub-note-box {
+  font-size: .63rem; color: var(--text-tertiary);
+  background: rgba(255,255,255,.04); border-radius: 5px; padding: 7px 10px; margin-top: 2px;
+}
+
+/* Quality distribution bars */
+.ub-qf {
+  height: 100%; border-radius: 4px;
+  display: flex; align-items: center; padding-left: 7px;
+  font-size: .6rem; font-weight: 700;
+  width: 0; transition: none;
+}
+.ub-qf-ok   { background: rgba(143,212,168,.38); color: #8fd4a8; }
+.ub-qf-warn { background: rgba(229,181,103,.38); color: #e5b567; }
+.ub-qf-bad  { background: rgba(224,82,74,.45);   color: #e0524a; }
+.ts-bon .ub-qf { width: var(--w); transition: width .65s .1s cubic-bezier(.65,0,.35,1); }
+
+/* Quality meter (after) */
+.ub-qmwrap { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.ub-qm-lbl { font-size: .63rem; color: var(--text-tertiary); width: 48px; }
+.ub-qmeter { flex: 1; height: 6px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+.ub-qm-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#8fd4a8,#5bc995); width: 85%; }
+.ub-qm-val { font-size: .63rem; font-weight: 700; color: #8fd4a8; }
+
+/* Copy side */
+.ub-copy { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+.ub-tag {
+  display: inline-flex; width: fit-content;
+  font-size: .65rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 5px;
+}
+.ub-tag-bad  { background: rgba(224,82,74,.1);  color: #e0524a; border: 1px solid rgba(224,82,74,.2); }
+.ub-tag-warn { background: rgba(229,181,103,.1); color: #e5b567; border: 1px solid rgba(229,181,103,.2); }
+.ub-tag-ok   { background: rgba(143,212,168,.1); color: #8fd4a8; border: 1px solid rgba(143,212,168,.2); }
+.ub-copy h3 { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; margin: 0; }
+.ub-copy p  { font-size: .88rem; color: var(--text-secondary); line-height: 1.65; margin: 0; }
+.ub-stat {
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 14px 16px; background: rgba(245,209,0,.06);
+  border: 1px solid rgba(245,209,0,.13); border-radius: 8px;
+}
+.ub-stat-n { font-size: 1.9rem; font-weight: 800; color: var(--accent); line-height: 1; font-family: var(--font-display,'Space Grotesk'),sans-serif; }
+.ub-stat-l { font-size: .72rem; color: var(--text-tertiary); margin-top: 2px; }
+
+/* Prev/Next row */
+.ts-nav-row {
+  display: flex; align-items: center; gap: 12px; margin-top: 1.75rem;
+}
+.ts-nv-btn {
+  background: transparent; border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px; color: var(--text-tertiary); cursor: pointer;
+  font-size: .78rem; padding: 8px 18px; transition: all .2s;
+}
+.ts-nv-btn:hover:not(:disabled) { border-color: rgba(245,209,0,.3); color: var(--accent); }
+.ts-nv-btn:disabled { opacity: .28; cursor: not-allowed; }
+.ts-nv-dots { display: flex; gap: 6px; align-items: center; margin: 0 auto; }
+.ts-nv-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.14); transition: all .2s; }
+.ts-nv-dot.ts-don { background: var(--accent); transform: scale(1.35); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ts-beat.ts-bon { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .ts-sln { display: none; }
+  .ts-stepnav { gap: 6px; }
+  .ts-track-btn { padding: 10px 18px; }
+  .ub-stat-n { font-size: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ts-beat.ts-bon { animation: none; }
+  .ts-bon .ub-ff, .ts-bon .ub-qf { transition: none; width: var(--w); }
+}
+</style>
+
   <section class="sec" id="beforeafter">
-    <div class="eyebrow">Before · After</div>
-    <h2 class="h2">The field that <em>nobody finished</em></h2>
-    <p class="lead">Session replay put a cursor on the exact moment people stopped. Not the billing step — <b>three fields earlier</b>. A people-picker with no context of what it wanted.</p>
+    <div class="eyebrow">Propuesta · UI Antes y Después</div>
+    <h2 class="h2">Un marketplace, <em>dos problemas distintos</em></h2>
+    <p class="lead">El behavior analytics mostró que el drop no era uno solo: los que consumen no podían configurar y los que publican no sabían qué completar. Dos specs en paralelo, mismo sprint.</p>
 
-    <div class="story" id="baStory">
-      <div class="story-nav" role="tablist" aria-label="Before and after">
-        <button class="story-tab on" type="button" role="tab" data-s="0" aria-selected="true">Before — form as shipped</button>
-        <button class="story-tab" type="button" role="tab" data-s="1" aria-selected="false">After — Pendo findings applied</button>
-      </div>
-      <div class="story-stage">
+    <div id="tsRoot" class="ts-root">
 
-        <!-- BEFORE panel -->
-        <div class="story-panel on" id="ba0" role="tabpanel">
-          <div class="sp-ui">
-            <div class="ba-form">
-              <div class="ba-topbar">
-                <span class="ba-logo">EY Fabric</span>
-                <span class="ba-crumb">Workbench · Configure Your Instance</span>
+      <!-- Track selector -->
+      <nav class="ts-tracknav" role="tablist" aria-label="Narrative track">
+        <button class="ts-track-btn ts-on" type="button" role="tab" data-t="0" aria-selected="true">
+          <span class="ts-ti">Consumer</span>
+          <span class="ts-td">Who acquires services</span>
+        </button>
+        <button class="ts-track-btn" type="button" role="tab" data-t="1" aria-selected="false">
+          <span class="ts-ti">Publisher</span>
+          <span class="ts-td">Who lists services</span>
+        </button>
+      </nav>
+
+      <!-- ── CONSUMER TRACK ─────────────────────────────────────── -->
+      <div class="ts-track ts-on" id="tsC">
+        <div class="ts-stepnav">
+          <button class="ts-sbtn ts-son" type="button" data-b="0">01 · Before</button>
+          <span class="ts-sln"></span>
+          <button class="ts-sbtn" type="button" data-b="1">02 · Finding</button>
+          <span class="ts-sln"></span>
+          <button class="ts-sbtn" type="button" data-b="2">03 · After</button>
+        </div>
+        <div class="ts-beatwrap">
+
+          <!-- c0: Before -->
+          <div class="ts-beat ts-bon" id="cbt0">
+            <div class="ub-screen">
+              <div class="ub-chrome">
+                <span class="ub-logo">EY Fabric</span>
+                <span class="ub-bc">Workbench · Configure</span>
+                <span class="ub-badge ub-badge-bad">Step 2 of 3</span>
               </div>
-              <div class="ba-steps">
-                <span class="ba-step done">✓</span><span class="ba-ln"></span>
-                <span class="ba-step on">2</span><span class="ba-ln"></span>
-                <span class="ba-step">3</span>
-              </div>
-              <div class="ba-body">
-                <div class="ba-fgroup">
-                  <span class="ba-lab">Friendly Instance Name <span class="ba-req">*</span></span>
-                  <div class="ba-inp ba-filled">xdatest-01</div>
+              <div class="ub-body">
+                <div class="ub-frow">
+                  <span class="ub-lab">Instance Name *</span>
+                  <div class="ub-inp ub-inp-ok">xdatest-01 ✓</div>
                 </div>
-                <div class="ba-fgroup">
-                  <span class="ba-lab">Location <span class="ba-req">*</span></span>
-                  <div class="ba-inp ba-filled">East US 2</div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Location *</span>
+                  <div class="ub-inp ub-inp-ok">East US 2 ✓</div>
                 </div>
-                <div class="ba-fgroup ba-friction">
-                  <span class="ba-lab">Contact Person <span class="ba-req">*</span><span class="ba-ann">66% left here</span></span>
-                  <div class="ba-inp ba-picker">Search by name or email…</div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Contact Person * <span class="ub-ann">66% exited here</span></span>
+                  <div class="ub-inp ub-inp-err ub-ph">Search by name or email…</div>
                 </div>
-                <div class="ba-instruction">
-                  <span class="ba-instr-lbl">Important Instruction</span>
-                  <span class="ba-instr-body">Please ensure all details are reviewed before submission.</span>
+                <div class="ub-generic">
+                  <span class="ub-glbl">Important Instruction</span>
+                  <span class="ub-gtxt">Please ensure all details are reviewed before submission.</span>
                 </div>
-                <div class="ba-fgroup">
-                  <span class="ba-lab">Add admin users <span class="ba-req">*</span></span>
-                  <div class="ba-radio-group"><span class="ba-radio">Yes</span><span class="ba-radio">No</span></div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Add admin users *</span>
+                  <div class="ub-radrow"><span class="ub-rad">Yes</span><span class="ub-rad">No</span></div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="sp-copy">
-            <p class="sp-k pink">Problem · As shipped</p>
-            <h3>No guardrails, no context</h3>
-            <p>The form surfaced a people-picker tied to internal directories, a service ID from a separate system, and a billing code requiring IT approval — all without inline help. The "Important Instruction" block was generic static text. Pendo funnel + replay confirmed: the cliff started before billing.</p>
-          </div>
-        </div>
-
-        <!-- AFTER panel -->
-        <div class="story-panel" id="ba1" role="tabpanel">
-          <div class="sp-ui">
-            <div class="ba-form">
-              <div class="ba-topbar">
-                <span class="ba-logo">EY Fabric</span>
-                <span class="ba-crumb">Workbench v2 · Configure</span>
-              </div>
-              <div class="ba-progress-bar"><div class="ba-progress-fill"></div></div>
-              <div class="ba-body">
-                <div class="ba-fgroup">
-                  <span class="ba-lab">Instance Name <span class="ba-req">*</span></span>
-                  <div class="ba-inp ba-ok">xdatest-01 ✓</div>
-                </div>
-                <div class="ba-fgroup">
-                  <span class="ba-lab">Contact Person <span class="ba-req">*</span></span>
-                  <div class="ba-inp ba-ok">Ana Torres ✓</div>
-                  <span class="ba-help">Must be an active EY Fabric account — search by email</span>
-                </div>
-                <div class="ba-checklist">
-                  <div class="ba-chk-h">Required before billing step:</div>
-                  <div class="ba-chk-row ba-chk-done">Storage service selected</div>
-                  <div class="ba-chk-row ba-chk-done">Admin access confirmed</div>
-                  <div class="ba-chk-row ba-chk-pending">Billing code — pending</div>
-                </div>
+            <div class="ub-copy">
+              <span class="ub-tag ub-tag-bad">Problem · As shipped</span>
+              <h3>No guardrails, no context</h3>
+              <p>The form opened a people-picker tied to internal EY directories with zero inline guidance. The "Important Instruction" was generic static text repeated on every step. Users couldn't tell if their contact needed an existing Fabric account, an IT-provisioned role, or something else entirely.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">66%</span>
+                <span class="ub-stat-l">of Workbench sessions exited at the Configure step</span>
               </div>
             </div>
           </div>
-          <div class="sp-copy">
-            <p class="sp-k green">Resolution · Spec delivered</p>
-            <h3>Fields the user can actually fill</h3>
-            <p>Pendo ranked Contact Person and the unmarked required service as the two top exit points. The spec: inline context on each field, a pre-configure checklist before the form opens, and the generic instruction replaced with a contextual tooltip per field. Publisher entry quality followed the same audit — structured prompts replaced free-form blanks.</p>
-          </div>
-        </div>
 
-      </div>
-    </div>
+          <!-- c1: Finding -->
+          <div class="ts-beat" id="cbt1">
+            <div class="ub-screen">
+              <div class="ub-chrome">
+                <span class="ub-logo">Pendo</span>
+                <span class="ub-bc">Workbench · Funnel Analysis</span>
+              </div>
+              <div class="ub-body ub-body-chart">
+                <div class="ub-frow-bar"><span class="ub-fbl">Home</span><div class="ub-fb"><div class="ub-ff" style="--w:100%">100%</div></div></div>
+                <div class="ub-frow-bar"><span class="ub-fbl">Catalog</span><div class="ub-fb"><div class="ub-ff" style="--w:86%">86%</div></div></div>
+                <div class="ub-frow-bar"><span class="ub-fbl">Item Page</span><div class="ub-fb"><div class="ub-ff" style="--w:70%">70%</div></div></div>
+                <div class="ub-frow-bar"><span class="ub-fbl ub-fbl-bad">Configure ⚠</span><div class="ub-fb"><div class="ub-ff ub-ff-bad" style="--w:34%">34%</div></div></div>
+                <div class="ub-frow-bar"><span class="ub-fbl">Submit</span><div class="ub-fb"><div class="ub-ff ub-ff-dim" style="--w:26%">26%</div></div></div>
+                <div class="ub-note-box">Session replay · avg <strong>8.2s stall</strong> on Contact Person before exit</div>
+              </div>
+            </div>
+            <div class="ub-copy">
+              <span class="ub-tag ub-tag-warn">Finding · Pendo + Replay</span>
+              <h3>The cliff was Configure, not billing</h3>
+              <p>After mapping 317 catalog items through the funnel, a 36-point drop appeared between Item Page and Configure — nowhere near billing. Session replay put the cursor exactly on Contact Person. Average stall time before exit: <strong>8.2 seconds</strong>. A single-field fix had outsized reach.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">−36pt</span>
+                <span class="ub-stat-l">conversion drop: Item Page → Configure step</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- c2: After -->
+          <div class="ts-beat" id="cbt2">
+            <div class="ub-screen">
+              <div class="ub-chrome">
+                <span class="ub-logo">EY Fabric</span>
+                <span class="ub-bc">Workbench v2 · Configure</span>
+                <span class="ub-badge ub-badge-ok">AI-assisted</span>
+              </div>
+              <div class="ub-body">
+                <div class="ub-checklist">
+                  <div class="ub-clhd">Before you start — required:</div>
+                  <div class="ub-cli ub-cli-done">✓ Storage service selected</div>
+                  <div class="ub-cli ub-cli-done">✓ Admin access confirmed</div>
+                  <div class="ub-cli ub-cli-pend">◐ Billing code — confirm with IT</div>
+                </div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Instance Name *</span>
+                  <div class="ub-inp ub-inp-ok">xdatest-01 ✓</div>
+                </div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Contact Person *</span>
+                  <div class="ub-inp ub-inp-ok">Ana Torres ✓</div>
+                  <span class="ub-help">Active EY Fabric account · search by email or alias</span>
+                </div>
+                <div class="ub-prog-wrap">
+                  <div class="ub-prog-bar"><div class="ub-prog-fill" style="width:65%"></div></div>
+                  <span class="ub-prog-lbl">65% complete</span>
+                </div>
+              </div>
+            </div>
+            <div class="ub-copy">
+              <span class="ub-tag ub-tag-ok">Resolution · Workbench v2</span>
+              <h3>Fields the user can actually fill</h3>
+              <p>Spec: inline context per field, a pre-configure checklist surfaced before the form opens, and the generic instruction replaced with contextual help tied to the specific step. AI accelerated the spec-to-prototype cycle. Configure exit rate dropped 48 points in the first measurement window.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">66→18%</span>
+                <span class="ub-stat-l">exit rate at Configure step after v2 launch</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /ts-beatwrap -->
+        <div class="ts-nav-row">
+          <button class="ts-nv-btn" id="cPrev" disabled aria-label="Previous beat">← Prev</button>
+          <span class="ts-nv-dots" id="cDots"></span>
+          <button class="ts-nv-btn" id="cNext" aria-label="Next beat">Next →</button>
+        </div>
+      </div><!-- /tsC -->
+
+      <!-- ── PUBLISHER TRACK ────────────────────────────────────── -->
+      <div class="ts-track" id="tsP">
+        <div class="ts-stepnav">
+          <button class="ts-sbtn ts-son" type="button" data-b="0">01 · Before</button>
+          <span class="ts-sln"></span>
+          <button class="ts-sbtn" type="button" data-b="1">02 · Finding</button>
+          <span class="ts-sln"></span>
+          <button class="ts-sbtn" type="button" data-b="2">03 · After</button>
+        </div>
+        <div class="ts-beatwrap">
+
+          <!-- p0: Before -->
+          <div class="ts-beat ts-bon" id="pbt0">
+            <div class="ub-screen">
+              <div class="ub-chrome">
+                <span class="ub-logo">EY Fabric</span>
+                <span class="ub-bc">Publisher · Add Service</span>
+                <span class="ub-badge ub-badge-bad">Draft</span>
+              </div>
+              <div class="ub-body">
+                <div class="ub-frow">
+                  <span class="ub-lab">Service Title *</span>
+                  <div class="ub-inp">Azure Storage</div>
+                </div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Description * <span class="ub-ann">most left minimal</span></span>
+                  <div class="ub-textarea ub-textarea-ph">Fast cloud storage.</div>
+                </div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Configuration Guide</span>
+                  <div class="ub-textarea ub-textarea-ph">(empty)</div>
+                </div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Required Fields</span>
+                  <div class="ub-textarea ub-textarea-ph">(empty)</div>
+                </div>
+                <div class="ub-qwarn">Low quality · 2× consumer bounce on this item</div>
+              </div>
+            </div>
+            <div class="ub-copy">
+              <span class="ub-tag ub-tag-bad">Problem · Publisher side</span>
+              <h3>Free-form fields, no guidance</h3>
+              <p>Publish forms were entirely free-form — title, description, configuration guide, required fields. No prompts, no examples, no live quality signal during entry. Most publishers submitted one-line descriptions. Thin listings meant consumers couldn't evaluate before clicking Configure.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">73%</span>
+                <span class="ub-stat-l">of catalog items had thin or missing descriptions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- p1: Finding -->
+          <div class="ts-beat" id="pbt1">
+            <div class="ub-screen">
+              <div class="ub-chrome">
+                <span class="ub-logo">Pendo</span>
+                <span class="ub-bc">Item Quality · Catalog Audit</span>
+              </div>
+              <div class="ub-body ub-body-chart">
+                <div class="ub-frow-bar"><span class="ub-fbl">Complete</span><div class="ub-fb"><div class="ub-qf ub-qf-ok" style="--w:20%">20%</div></div></div>
+                <div class="ub-frow-bar"><span class="ub-fbl">Partial</span><div class="ub-fb"><div class="ub-qf ub-qf-warn" style="--w:25%">25%</div></div></div>
+                <div class="ub-frow-bar"><span class="ub-fbl ub-fbl-bad">Thin ⚠</span><div class="ub-fb"><div class="ub-qf ub-qf-bad" style="--w:55%">55%</div></div></div>
+                <div class="ub-note-box">Thin items → <strong>2× consumer exit</strong> at item page, before Configure</div>
+                <div class="ub-note-box">Avg publish session: <strong>3.2 min</strong> · high-quality items: <strong>8.4 min</strong></div>
+              </div>
+            </div>
+            <div class="ub-copy">
+              <span class="ub-tag ub-tag-warn">Finding · Item Audit</span>
+              <h3>Thin items were driving the consumer cliff</h3>
+              <p>A quality audit of all 317 catalog items showed 55% as thin — minimal description, no configuration guide, no required fields listed. Correlation with behavior data: thin items had <strong>2× higher exit rate</strong> at the item page. The consumer problem had a publisher root.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">55%</span>
+                <span class="ub-stat-l">of 317 catalog items were thin or empty</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- p2: After -->
+          <div class="ts-beat" id="pbt2">
+            <div class="ub-screen">
+              <div class="ub-chrome">
+                <span class="ub-logo">EY Fabric</span>
+                <span class="ub-bc">Publisher v2 · Add Service</span>
+                <span class="ub-badge ub-badge-ok">Guided</span>
+              </div>
+              <div class="ub-body">
+                <div class="ub-frow">
+                  <span class="ub-lab">Service Title *</span>
+                  <div class="ub-inp ub-inp-ok">Azure Storage — EY Fabric ✓</div>
+                </div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Description *</span>
+                  <div class="ub-textarea ub-textarea-ok">Scalable blob storage for EY Fabric workspaces. Supports hot/cool tiers. Typical use: data lake staging, backup, artifact storage for Code packages.</div>
+                </div>
+                <div class="ub-frow">
+                  <span class="ub-lab">Configuration Guide</span>
+                  <div class="ub-textarea ub-textarea-ok">1. Choose tier (Hot = frequent access) 2. Set replication (LRS/GRS) 3. Assign Fabric workspace ID</div>
+                </div>
+                <div class="ub-qmwrap">
+                  <span class="ub-qm-lbl">Quality</span>
+                  <div class="ub-qmeter"><div class="ub-qm-fill"></div></div>
+                  <span class="ub-qm-val">High</span>
+                </div>
+              </div>
+            </div>
+            <div class="ub-copy">
+              <span class="ub-tag ub-tag-ok">Resolution · Publisher v2</span>
+              <h3>Guided publish with live quality signal</h3>
+              <p>Publisher v2: structured prompts per field, a live quality meter as publishers fill content, and a preview of how consumers will see the item. AI generated first-pass descriptions for existing thin items. Average quality score improved 48 points in the first sprint cycle.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">+48pt</span>
+                <span class="ub-stat-l">avg item quality score after Publisher v2</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /ts-beatwrap -->
+        <div class="ts-nav-row">
+          <button class="ts-nv-btn" id="pPrev" disabled aria-label="Previous beat">← Prev</button>
+          <span class="ts-nv-dots" id="pDots"></span>
+          <button class="ts-nv-btn" id="pNext" aria-label="Next beat">Next →</button>
+        </div>
+      </div><!-- /tsP -->
+
+    </div><!-- /tsRoot -->
   </section>
 
       <!-- PRODUCT INTELLIGENCE — full-bleed into page flow, player owns narrative -->
@@ -3843,17 +4249,50 @@ nav.site-nav .sn-inner{
     setTimeout(cycle, 400);
   })();
 
-  /* before/after tab switcher */
+  /* two-sided storytelling: consumer + publisher track + beat navigation */
   (function(){
-    var root=document.getElementById('baStory');
+    var root=document.getElementById('tsRoot');
     if(!root) return;
-    var tabs=[].slice.call(root.querySelectorAll('.story-tab'));
-    var panels=[].slice.call(root.querySelectorAll('.story-panel'));
-    function go(i){
-      tabs.forEach(function(tb,ti){tb.classList.toggle('on',ti===i);tb.setAttribute('aria-selected',ti===i?'true':'false');});
-      panels.forEach(function(pn,pi){pn.classList.toggle('on',pi===i);});
+
+    /* track switching */
+    var trackBtns=[].slice.call(root.querySelectorAll('.ts-track-btn'));
+    var tracks=[document.getElementById('tsC'),document.getElementById('tsP')];
+    function setTrack(i){
+      trackBtns.forEach(function(b,bi){b.classList.toggle('ts-on',bi===i);b.setAttribute('aria-selected',bi===i?'true':'false');});
+      tracks.forEach(function(t,ti){t.classList.toggle('ts-on',ti===i);});
     }
-    tabs.forEach(function(tb){tb.addEventListener('click',function(){go(parseInt(tb.getAttribute('data-s'),10));});});
+    trackBtns.forEach(function(b,bi){b.addEventListener('click',function(){setTrack(bi);});});
+
+    /* per-track beat navigation */
+    function initTrack(trackEl,prevId,nextId,dotsId){
+      var steps=[].slice.call(trackEl.querySelectorAll('.ts-sbtn'));
+      var beats=[].slice.call(trackEl.querySelectorAll('.ts-beat'));
+      var prevBtn=document.getElementById(prevId);
+      var nextBtn=document.getElementById(nextId);
+      var dotsEl=document.getElementById(dotsId);
+      var idx=0;
+      /* build dots */
+      beats.forEach(function(_,i){
+        var d=document.createElement('span');
+        d.className='ts-nv-dot'+(i===0?' ts-don':'');
+        d.setAttribute('role','presentation');
+        dotsEl.appendChild(d);
+      });
+      function go(i){
+        idx=i;
+        beats.forEach(function(b,bi){b.classList.toggle('ts-bon',bi===i);});
+        steps.forEach(function(s,si){s.classList.toggle('ts-son',si===i);});
+        var dots=[].slice.call(dotsEl.querySelectorAll('.ts-nv-dot'));
+        dots.forEach(function(d,di){d.classList.toggle('ts-don',di===i);});
+        prevBtn.disabled=(i===0);
+        nextBtn.disabled=(i===beats.length-1);
+      }
+      steps.forEach(function(s){s.addEventListener('click',function(){go(parseInt(s.getAttribute('data-b'),10));});});
+      prevBtn.addEventListener('click',function(){if(idx>0)go(idx-1);});
+      nextBtn.addEventListener('click',function(){if(idx<beats.length-1)go(idx+1);});
+    }
+    initTrack(document.getElementById('tsC'),'cPrev','cNext','cDots');
+    initTrack(document.getElementById('tsP'),'pPrev','pNext','pDots');
   })();
 
   /* story evidence — transform between signals */
