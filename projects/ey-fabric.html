@@ -3724,6 +3724,127 @@ nav.site-nav .sn-inner{
 .ts-nv-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.14); transition: all .2s; }
 .ts-nv-dot.ts-don { background: var(--accent); transform: scale(1.35); }
 
+/* ── Beat entrance animations ────────────────────────────────── */
+
+/* Annotation badge on stuck field fades in */
+.ts-bon .ub-ann {
+  animation: ubAnnIn .4s .7s both ease-out;
+}
+@keyframes ubAnnIn {
+  from { opacity: 0; transform: translateX(-5px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Checklist items stagger in (After beats) */
+.ts-bon .ub-cli {
+  opacity: 0;
+  animation: ubSlideIn .32s ease-out both;
+}
+.ts-bon .ub-cli:nth-child(2) { animation-delay: .25s; }
+.ts-bon .ub-cli:nth-child(3) { animation-delay: .55s; }
+.ts-bon .ub-cli:nth-child(4) { animation-delay: .85s; }
+.ts-bon .ub-clhd {
+  opacity: 0;
+  animation: ubSlideIn .28s ease-out both;
+}
+@keyframes ubSlideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Progress bar fills on beat activation */
+.ts-bon .ub-prog-fill {
+  animation: ubProgFill .9s .6s var(--spring) both;
+}
+@keyframes ubProgFill {
+  from { width: 0; }
+  to   { width: 65%; }
+}
+
+/* Quality meter fills on beat activation */
+.ts-bon .ub-qm-fill {
+  animation: ubQmFill .9s .45s var(--spring) both;
+}
+@keyframes ubQmFill {
+  from { width: 0; }
+  to   { width: 85%; }
+}
+
+/* Note boxes fade up inside charts */
+.ts-bon .ub-note-box {
+  opacity: 0;
+  animation: ubFadeUp .38s ease-out both;
+}
+.ts-bon .ub-note-box:nth-of-type(2) { animation-delay: .25s; }
+@keyframes ubFadeUp {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Quality warning pulses twice on Publisher Before */
+.ts-bon .ub-qwarn {
+  animation: ubQwarnPulse 1.4s 1.2s ease-in-out 2;
+}
+@keyframes ubQwarnPulse {
+  0%, 100% { box-shadow: none; }
+  50% { box-shadow: 0 0 0 4px rgba(224,82,74,.18); }
+}
+
+/* OK field rows slide in staggered */
+.ts-bon .ub-frow {
+  opacity: 0;
+  animation: ubFadeUp .3s ease-out both;
+}
+.ts-bon .ub-frow:nth-child(1) { animation-delay: .05s; }
+.ts-bon .ub-frow:nth-child(2) { animation-delay: .15s; }
+.ts-bon .ub-frow:nth-child(3) { animation-delay: .28s; }
+.ts-bon .ub-frow:nth-child(4) { animation-delay: .42s; }
+.ts-bon .ub-frow:nth-child(5) { animation-delay: .56s; }
+
+/* Generic instruction box fades in */
+.ts-bon .ub-generic {
+  opacity: 0;
+  animation: ubFadeUp .3s .35s ease-out both;
+}
+
+/* Prog wrap fades in */
+.ts-bon .ub-prog-wrap {
+  opacity: 0;
+  animation: ubFadeUp .3s 1.1s ease-out both;
+}
+
+/* Quality meter wrap fades in */
+.ts-bon .ub-qmwrap {
+  opacity: 0;
+  animation: ubFadeUp .3s 1.1s ease-out both;
+}
+
+/* Checklist block itself slides in */
+.ts-bon .ub-checklist {
+  opacity: 0;
+  animation: ubFadeUp .3s .1s ease-out both;
+}
+
+/* Stat block entrance */
+.ts-bon .ub-stat {
+  opacity: 0;
+  animation: ubFadeUp .4s .35s ease-out both;
+}
+
+/* Copy elements entrance */
+.ts-bon .ub-tag {
+  opacity: 0;
+  animation: ubFadeUp .3s .05s ease-out both;
+}
+.ts-bon .ub-copy h3 {
+  opacity: 0;
+  animation: ubFadeUp .35s .18s ease-out both;
+}
+.ts-bon .ub-copy p {
+  opacity: 0;
+  animation: ubFadeUp .35s .28s ease-out both;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .ts-beat.ts-bon { grid-template-columns: 1fr; }
@@ -3735,15 +3856,25 @@ nav.site-nav .sn-inner{
   .ub-stat-n { font-size: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ts-beat.ts-bon { animation: none; }
+  .ts-beat.ts-bon,
+  .ts-bon .ub-ann, .ts-bon .ub-cli, .ts-bon .ub-clhd,
+  .ts-bon .ub-prog-fill, .ts-bon .ub-qm-fill,
+  .ts-bon .ub-note-box, .ts-bon .ub-qwarn,
+  .ts-bon .ub-frow, .ts-bon .ub-generic, .ts-bon .ub-prog-wrap,
+  .ts-bon .ub-qmwrap, .ts-bon .ub-checklist, .ts-bon .ub-stat,
+  .ts-bon .ub-tag, .ts-bon .ub-copy h3, .ts-bon .ub-copy p {
+    animation: none; opacity: 1;
+  }
   .ts-bon .ub-ff, .ts-bon .ub-qf { transition: none; width: var(--w); }
+  .ts-bon .ub-prog-fill { width: 65%; }
+  .ts-bon .ub-qm-fill { width: 85%; }
 }
 </style>
 
   <section class="sec" id="beforeafter">
     <div class="eyebrow">Propuesta · UI Antes y Después</div>
-    <h2 class="h2">Un marketplace, <em>dos problemas distintos</em></h2>
-    <p class="lead">El behavior analytics mostró que el drop no era uno solo: los que consumen no podían configurar y los que publican no sabían qué completar. Dos specs en paralelo, mismo sprint.</p>
+    <h2 class="h2">200+ productos — y el drop <em>no estaba donde esperábamos</em></h2>
+    <p class="lead">Pendo funnel + session replay lo pusieron en pantalla: <b>66% abandonaba en Configure</b>, no en billing. Y la causa venía del otro lado — los publishers. Seleccioná el track para ver qué cambió.</p>
 
     <div id="tsRoot" class="ts-root">
 
@@ -4280,7 +4411,14 @@ nav.site-nav .sn-inner{
       });
       function go(i){
         idx=i;
-        beats.forEach(function(b,bi){b.classList.toggle('ts-bon',bi===i);});
+        beats.forEach(function(b,bi){
+          b.classList.remove('ts-bon');
+          if(bi===i){
+            /* force reflow so CSS animations restart cleanly */
+            void b.offsetWidth;
+            b.classList.add('ts-bon');
+          }
+        });
         steps.forEach(function(s,si){s.classList.toggle('ts-son',si===i);});
         var dots=[].slice.call(dotsEl.querySelectorAll('.ts-nv-dot'));
         dots.forEach(function(d,di){d.classList.toggle('ts-don',di===i);});
