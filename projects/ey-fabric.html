@@ -3571,6 +3571,88 @@ nav.site-nav .sn-inner{
 .ba-toggle-btn:hover { transform: translateY(-1px) scale(1.02); box-shadow: 0 4px 16px rgba(245,209,0,.28); }
 .ba-toggle-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* Ghost cursor (Before animation) */
+.ba-cur {
+  position: absolute; width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,.85); box-shadow: 0 0 0 3px rgba(255,255,255,.2);
+  pointer-events: none; z-index: 20; opacity: 0;
+}
+.ba-screens-wrap.ba-anim .ba-cur { animation: baCurCon 4.4s .5s ease-out forwards; }
+.ba-screens-wrap.ba-anim-pub .ba-cur { animation: baCurPub 3.8s .5s ease-out forwards; }
+
+/* Consumer: cursor moves through Instance → Location → Contact Person (stall, red) → exit */
+@keyframes baCurCon {
+  0%   { left: 72%; top: 26%; opacity: 0; }
+  4%   { opacity: 1; }
+  18%  { left: 72%; top: 26%; }
+  32%  { left: 72%; top: 42%; }
+  50%  { left: 54%; top: 58%; }
+  62%  { left: 54%; top: 58%; background: rgba(224,82,74,.9); box-shadow: 0 0 0 5px rgba(224,82,74,.22); }
+  82%  { left: 54%; top: 58%; background: rgba(224,82,74,.9); opacity: 1; }
+  95%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+/* Publisher: moves to Description field (barely fills) → exit */
+@keyframes baCurPub {
+  0%   { left: 68%; top: 22%; opacity: 0; }
+  6%   { opacity: 1; }
+  24%  { left: 68%; top: 22%; }
+  42%  { left: 52%; top: 38%; background: rgba(224,82,74,.9); box-shadow: 0 0 0 5px rgba(224,82,74,.22); }
+  72%  { left: 52%; top: 38%; background: rgba(224,82,74,.9); opacity: 1; }
+  86%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Session-end badge (appears at cursor exit point) */
+.ba-exit-badge {
+  position: absolute; bottom: 54px; right: 14px; z-index: 15;
+  background: rgba(224,82,74,.92); color: #fff;
+  font-size: .58rem; font-weight: 700; letter-spacing: .05em;
+  padding: 3px 9px; border-radius: 4px;
+  opacity: 0; pointer-events: none;
+}
+.ba-screens-wrap.ba-anim .ba-exit-badge { animation: baExitPop 1.8s 3.8s ease-out forwards; }
+.ba-screens-wrap.ba-anim-pub .ba-exit-badge { animation: baExitPop 1.8s 3.4s ease-out forwards; }
+@keyframes baExitPop {
+  0%  { opacity: 0; transform: translateY(4px); }
+  15% { opacity: 1; transform: none; }
+  80% { opacity: 1; }
+  100%{ opacity: 0; }
+}
+
+/* Improvement badge (inline in After UI) */
+.ba-imp-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--accent); color: #0e0d0c;
+  font-size: .54rem; font-weight: 800;
+  vertical-align: middle; margin-left: 5px; flex-shrink: 0;
+  opacity: 0;
+}
+.ts-track.ba-on .ba-imp-badge { animation: ubAnnIn .28s ease-out both; }
+.ts-track.ba-on .ba-screen-after .ub-checklist .ba-imp-badge { animation-delay: .3s; }
+.ts-track.ba-on .ba-screen-after .ub-frow:nth-child(2) .ba-imp-badge { animation-delay: .55s; }
+.ts-track.ba-on .ba-screen-after .ub-frow:nth-child(3) .ba-imp-badge { animation-delay: .75s; }
+.ts-track.ba-on .ba-screen-after .ub-prog-wrap .ba-imp-badge { animation-delay: 1.15s; }
+.ts-track.ba-on .ba-screen-after .ub-qmwrap .ba-imp-badge { animation-delay: .95s; }
+
+/* Improvement list (in copy-after column) */
+.ba-imp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.ba-imp-item { display: flex; align-items: flex-start; gap: 10px; opacity: 0; }
+.ts-track.ba-on .ba-copy-after .ba-imp-item { animation: ubFadeUp .35s ease-out both; }
+.ts-track.ba-on .ba-copy-after .ba-imp-item:nth-child(1) { animation-delay: .28s; }
+.ts-track.ba-on .ba-copy-after .ba-imp-item:nth-child(2) { animation-delay: .46s; }
+.ts-track.ba-on .ba-copy-after .ba-imp-item:nth-child(3) { animation-delay: .64s; }
+.ts-track.ba-on .ba-copy-after .ba-imp-item:nth-child(4) { animation-delay: .82s; }
+.ba-imp-n {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--accent); color: #0e0d0c;
+  font-size: .6rem; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+}
+.ba-imp-text { font-size: .82rem; color: var(--text-secondary); line-height: 1.55; }
+.ba-imp-text strong { color: var(--text-primary); }
+
 /* UI Screen */
 .ub-screen {
   background: #1a1816; border: 1px solid rgba(255,255,255,.09);
@@ -3696,8 +3778,21 @@ nav.site-nav .sn-inner{
 .ub-qm-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg,#8fd4a8,#5bc995); width: 85%; }
 .ub-qm-val { font-size: .63rem; font-weight: 700; color: #8fd4a8; }
 
-/* Copy side */
-.ub-copy { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+/* Copy side — grid overlay for before/after crossfade */
+.ub-copy { display: grid; }
+.ba-copy-before, .ba-copy-after {
+  grid-area: 1 / 1;
+  display: flex; flex-direction: column; gap: 14px; padding-top: 4px;
+  transition: opacity .35s ease;
+}
+.ba-copy-after { opacity: 0; pointer-events: none; }
+.ts-track.ba-on .ba-copy-before { opacity: 0; pointer-events: none; }
+.ts-track.ba-on .ba-copy-after  { opacity: 1; pointer-events: auto; }
+
+/* Copy-after entrance animations */
+.ts-track.ba-on .ba-copy-after .ub-tag  { opacity:0; animation: ubFadeUp .3s .08s ease-out both; }
+.ts-track.ba-on .ba-copy-after h3       { opacity:0; animation: ubFadeUp .35s .18s ease-out both; }
+.ts-track.ba-on .ba-copy-after .ub-stat { opacity:0; animation: ubFadeUp .4s 1.05s ease-out both; }
 .ub-tag {
   display: inline-flex; width: fit-content;
   font-size: .65rem; font-weight: 700; letter-spacing: .06em;
@@ -3762,7 +3857,10 @@ nav.site-nav .sn-inner{
 @media (max-width: 900px) { .ba-stage { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .ts-track-btn { padding: 10px 18px; } .ub-stat-n { font-size: 1.5rem; } }
 @media (prefers-reduced-motion: reduce) {
-  .ba-screen-before, .ba-screen-after { transition: none; }
+  .ba-screen-before, .ba-screen-after,
+  .ba-copy-before, .ba-copy-after { transition: none; }
+  .ba-cur { display: none; }
+  .ba-exit-badge { display: none; }
   .ts-track.ba-on .ba-screen-after .ub-ann,
   .ts-track.ba-on .ba-screen-after .ub-clhd,
   .ts-track.ba-on .ba-screen-after .ub-cli,
@@ -3770,9 +3868,12 @@ nav.site-nav .sn-inner{
   .ts-track.ba-on .ba-screen-after .ub-checklist,
   .ts-track.ba-on .ba-screen-after .ub-prog-wrap,
   .ts-track.ba-on .ba-screen-after .ub-qmwrap,
-  .ts-track.ba-on .ba-screen-after .ub-generic { animation: none; opacity: 1; }
-  .ts-track.ba-on .ba-screen-after .ub-ff,
-  .ts-track.ba-on .ba-screen-after .ub-qf { transition: none; width: var(--w); }
+  .ts-track.ba-on .ba-screen-after .ub-generic,
+  .ts-track.ba-on .ba-imp-badge,
+  .ts-track.ba-on .ba-copy-after .ub-tag,
+  .ts-track.ba-on .ba-copy-after h3,
+  .ts-track.ba-on .ba-copy-after .ba-imp-item,
+  .ts-track.ba-on .ba-copy-after .ub-stat { animation: none; opacity: 1; }
   .ts-track.ba-on .ba-screen-after .ub-prog-fill { animation: none; width: 65%; }
   .ts-track.ba-on .ba-screen-after .ub-qm-fill { animation: none; width: 85%; }
 }
@@ -3781,7 +3882,7 @@ nav.site-nav .sn-inner{
   <section class="sec" id="beforeafter">
     <div class="eyebrow">Before → After</div>
     <h2 class="h2">The drop was at Configure — <em>not billing</em></h2>
-    <p class="lead">Pendo funnel + session replay found a <b>66% exit rate at Configure</b> — not checkout. Session replay put an 8.2-second stall on a single field. Behind it: <b>73% of catalog items had thin descriptions</b>, so consumers couldn't evaluate a service before clicking through to configure it.</p>
+    <p class="lead">Pendo funnel + session replay located a <b>66% exit rate at Configure</b> — not checkout. Session replay put an 8.2-second stall on a single field. Behind it: <b>73% of catalog items had thin descriptions</b>, so consumers couldn't evaluate before clicking through.</p>
 
     <div id="tsRoot" class="ts-root">
 
@@ -3802,9 +3903,11 @@ nav.site-nav .sn-inner{
         <div class="ba-stage">
 
           <!-- Left: animated screen -->
-          <div class="ba-screens-wrap">
+          <div class="ba-screens-wrap" id="cWrap">
+            <div class="ba-cur" aria-hidden="true"></div>
+            <span class="ba-exit-badge" aria-hidden="true">Session abandoned · 8.2s stall</span>
 
-            <!-- Before -->
+            <!-- BEFORE -->
             <div class="ba-screen-before">
               <div class="ub-screen">
                 <div class="ub-chrome">
@@ -3837,7 +3940,7 @@ nav.site-nav .sn-inner{
               </div>
             </div>
 
-            <!-- After -->
+            <!-- AFTER — annotated with improvement badges -->
             <div class="ba-screen-after">
               <div class="ub-screen">
                 <div class="ub-chrome">
@@ -3846,24 +3949,32 @@ nav.site-nav .sn-inner{
                   <span class="ub-badge ub-badge-ok">AI-assisted</span>
                 </div>
                 <div class="ub-body">
+                  <!-- ①  Pre-configure checklist: required items before form opens -->
                   <div class="ub-checklist">
-                    <div class="ub-clhd">Before you start — required:</div>
-                    <div class="ub-cli ub-cli-done">✓ Storage service selected</div>
-                    <div class="ub-cli ub-cli-done">✓ Admin access confirmed</div>
+                    <div class="ub-clhd">Before you start <span class="ba-imp-badge">①</span></div>
+                    <div class="ub-cli ub-cli-done">✓ Azure Storage — service selected</div>
+                    <div class="ub-cli ub-cli-done">✓ Workspace admin — confirmed</div>
                     <div class="ub-cli ub-cli-pend">◐ Billing code — confirm with IT</div>
                   </div>
                   <div class="ub-frow">
                     <span class="ub-lab">Instance Name *</span>
                     <div class="ub-inp ub-inp-ok">xdatest-01 ✓</div>
                   </div>
+                  <!-- ② Field-level contextual help replacing generic instruction -->
                   <div class="ub-frow">
-                    <span class="ub-lab">Contact Person *</span>
+                    <span class="ub-lab">Contact Person * <span class="ba-imp-badge">②</span></span>
                     <div class="ub-inp ub-inp-ok">Ana Torres ✓</div>
-                    <span class="ub-help">Active EY Fabric account · search by email or alias</span>
+                    <!-- ③ Inline hint — replaces "Important Instruction" noise -->
+                    <span class="ub-help">Active EY Fabric account · search by email or alias <span class="ba-imp-badge">③</span></span>
                   </div>
+                  <div class="ub-frow">
+                    <span class="ub-lab">Add admin users *</span>
+                    <div class="ub-radrow"><span class="ub-rad" style="border-color:rgba(143,212,168,.35);color:#8fd4a8">Yes ✓</span><span class="ub-rad">No</span></div>
+                  </div>
+                  <!-- ④ Step progress bar — replaces dead-end feeling -->
                   <div class="ub-prog-wrap">
                     <div class="ub-prog-bar"><div class="ub-prog-fill"></div></div>
-                    <span class="ub-prog-lbl">65% complete</span>
+                    <span class="ub-prog-lbl">Step 2 of 3 · 65% complete <span class="ba-imp-badge">④</span></span>
                   </div>
                 </div>
               </div>
@@ -3876,14 +3987,42 @@ nav.site-nav .sn-inner{
             </div>
           </div><!-- /ba-screens-wrap -->
 
-          <!-- Right: copy -->
+          <!-- Right: copy crossfades between before and after -->
           <div class="ub-copy">
-            <span class="ub-tag ub-tag-warn">Finding · Pendo + Session Replay</span>
-            <h3>Configure exit: 66% → 18%</h3>
-            <p>Session replay revealed an <strong>8.2-second average stall</strong> on the Contact Person field before exit. The field opened an internal people-picker with zero inline guidance — users couldn't tell if their contact needed an existing Fabric account or IT provisioning. The fix: a pre-configure checklist surfaced before the form opens, plus contextual help per field.</p>
-            <div class="ub-stat">
-              <span class="ub-stat-n">−48pt</span>
-              <span class="ub-stat-l">exit rate drop at Configure after Workbench v2</span>
+            <div class="ba-copy-before">
+              <span class="ub-tag ub-tag-bad">Before · Workbench as shipped</span>
+              <h3>No guardrails, no context</h3>
+              <p>The Contact Person field opened an internal people-picker with zero inline guidance. The "Important Instruction" block was generic boilerplate on every step. Users couldn't tell what their contact needed — 66% exited, average stall 8.2s on that one field.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">66%</span>
+                <span class="ub-stat-l">exit rate at the Configure step</span>
+              </div>
+            </div>
+            <div class="ba-copy-after">
+              <span class="ub-tag ub-tag-ok">After · Workbench v2</span>
+              <h3>Four targeted fixes</h3>
+              <ul class="ba-imp-list">
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">①</span>
+                  <div class="ba-imp-text"><strong>Pre-configure checklist</strong> — required items confirmed before the form opens, eliminating blank-field surprises mid-flow</div>
+                </li>
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">②</span>
+                  <div class="ba-imp-text"><strong>Field-level label</strong> — "Contact Person" label now clarifies what role is expected at field focus</div>
+                </li>
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">③</span>
+                  <div class="ba-imp-text"><strong>Inline contextual hint</strong> — replaces the generic instruction block; tells users exactly what kind of account to search for</div>
+                </li>
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">④</span>
+                  <div class="ba-imp-text"><strong>Step progress bar</strong> — always visible, removes the dead-end feeling and shows how far through the flow the user is</div>
+                </li>
+              </ul>
+              <div class="ub-stat">
+                <span class="ub-stat-n">66→18%</span>
+                <span class="ub-stat-l">Configure exit rate after Workbench v2 launch</span>
+              </div>
             </div>
           </div>
 
@@ -3895,9 +4034,11 @@ nav.site-nav .sn-inner{
         <div class="ba-stage">
 
           <!-- Left: animated screen -->
-          <div class="ba-screens-wrap">
+          <div class="ba-screens-wrap" id="pWrap">
+            <div class="ba-cur" aria-hidden="true"></div>
+            <span class="ba-exit-badge" aria-hidden="true">Low quality · 3.2 min avg</span>
 
-            <!-- Before -->
+            <!-- BEFORE -->
             <div class="ba-screen-before">
               <div class="ub-screen">
                 <div class="ub-chrome">
@@ -3911,7 +4052,7 @@ nav.site-nav .sn-inner{
                     <div class="ub-inp">Azure Storage</div>
                   </div>
                   <div class="ub-frow">
-                    <span class="ub-lab">Description * <span class="ub-ann">most left minimal</span></span>
+                    <span class="ub-lab">Description * <span class="ub-ann">73% left minimal</span></span>
                     <div class="ub-textarea ub-textarea-ph">Fast cloud storage.</div>
                   </div>
                   <div class="ub-frow">
@@ -3927,7 +4068,7 @@ nav.site-nav .sn-inner{
               </div>
             </div>
 
-            <!-- After -->
+            <!-- AFTER — guided, annotated -->
             <div class="ba-screen-after">
               <div class="ub-screen">
                 <div class="ub-chrome">
@@ -3936,20 +4077,26 @@ nav.site-nav .sn-inner{
                   <span class="ub-badge ub-badge-ok">Guided</span>
                 </div>
                 <div class="ub-body">
+                  <!-- ① Structured title format prompt -->
                   <div class="ub-frow">
-                    <span class="ub-lab">Service Title *</span>
+                    <span class="ub-lab">Service Title * <span class="ba-imp-badge">①</span></span>
                     <div class="ub-inp ub-inp-ok">Azure Storage — EY Fabric ✓</div>
+                    <span class="ub-help">Format: {Service} — {Context team or platform}</span>
                   </div>
+                  <!-- ② AI-generated description with edit prompt -->
                   <div class="ub-frow">
-                    <span class="ub-lab">Description *</span>
+                    <span class="ub-lab">Description * <span class="ba-imp-badge">②</span></span>
                     <div class="ub-textarea ub-textarea-ok">Scalable blob storage for EY Fabric workspaces. Supports hot/cool tiers. Typical use: data lake staging, backup, artifact storage for Code packages.</div>
+                    <span class="ub-help">AI draft — edit freely before publishing</span>
                   </div>
+                  <!-- ③ Configuration guide with step template -->
                   <div class="ub-frow">
-                    <span class="ub-lab">Configuration Guide</span>
+                    <span class="ub-lab">Configuration Guide <span class="ba-imp-badge">③</span></span>
                     <div class="ub-textarea ub-textarea-ok">1. Choose tier (Hot = frequent access) 2. Set replication (LRS/GRS) 3. Assign Fabric workspace ID</div>
                   </div>
+                  <!-- ④ Live quality meter -->
                   <div class="ub-qmwrap">
-                    <span class="ub-qm-lbl">Quality</span>
+                    <span class="ub-qm-lbl">Quality <span class="ba-imp-badge">④</span></span>
                     <div class="ub-qmeter"><div class="ub-qm-fill"></div></div>
                     <span class="ub-qm-val">High</span>
                   </div>
@@ -3964,14 +4111,42 @@ nav.site-nav .sn-inner{
             </div>
           </div><!-- /ba-screens-wrap -->
 
-          <!-- Right: copy -->
+          <!-- Right: copy crossfades -->
           <div class="ub-copy">
-            <span class="ub-tag ub-tag-warn">Finding · Catalog Audit</span>
-            <h3>Thin listings drove the consumer cliff</h3>
-            <p>A quality audit of all 317 catalog items found <strong>73% with thin or missing descriptions</strong> — no configuration guide, no required fields. Thin items had <strong>2× the exit rate</strong> at the item page, before consumers even reached Configure. Publisher v2 added structured prompts per field and a live quality meter. AI generated first-pass descriptions for existing thin items.</p>
-            <div class="ub-stat">
-              <span class="ub-stat-n">+48pt</span>
-              <span class="ub-stat-l">avg item quality score after Publisher v2</span>
+            <div class="ba-copy-before">
+              <span class="ub-tag ub-tag-bad">Before · Publisher as shipped</span>
+              <h3>Free-form, no floor</h3>
+              <p>No title format, no description prompts, no quality signal. Most publishers submitted in 3.2 minutes — a one-line description and empty guide fields. Thin listings meant consumers hit a wall at the item page, before ever reaching Configure.</p>
+              <div class="ub-stat">
+                <span class="ub-stat-n">73%</span>
+                <span class="ub-stat-l">of catalog items had thin or missing descriptions</span>
+              </div>
+            </div>
+            <div class="ba-copy-after">
+              <span class="ub-tag ub-tag-ok">After · Publisher v2</span>
+              <h3>Four guided layers</h3>
+              <ul class="ba-imp-list">
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">①</span>
+                  <div class="ba-imp-text"><strong>Structured title format</strong> — "{Service} — {Context}" prompt eliminates ambiguous single-word titles in the catalog</div>
+                </li>
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">②</span>
+                  <div class="ba-imp-text"><strong>AI-generated description</strong> — first-pass draft for every field; publishers edit, not write from scratch. Factory.ai powered.</div>
+                </li>
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">③</span>
+                  <div class="ba-imp-text"><strong>Configuration guide template</strong> — step-numbered structure built in, replacing the blank textarea that most left empty</div>
+                </li>
+                <li class="ba-imp-item">
+                  <span class="ba-imp-n">④</span>
+                  <div class="ba-imp-text"><strong>Live quality meter</strong> — updates as content fills; makes "done" visible without requiring form submission to learn the score</div>
+                </li>
+              </ul>
+              <div class="ub-stat">
+                <span class="ub-stat-n">+48pt</span>
+                <span class="ub-stat-l">avg item quality score after Publisher v2</span>
+              </div>
             </div>
           </div>
 
@@ -4256,6 +4431,26 @@ nav.site-nav .sn-inner{
     }
     initToggle('tsC','cToggle','cStateLbl');
     initToggle('tsP','pToggle','pStateLbl');
+
+    /* cursor auto-play on scroll-into-view */
+    var cWrap=document.getElementById('cWrap');
+    var pWrap=document.getElementById('pWrap');
+    var baSection=document.getElementById('beforeafter');
+    var cAnimated=false, pAnimated=false;
+    if(baSection&&cWrap){
+      var baObs=new IntersectionObserver(function(entries){
+        if(!entries[0].isIntersecting) return;
+        if(!cAnimated){ cAnimated=true; cWrap.classList.remove('ba-anim'); void cWrap.offsetWidth; cWrap.classList.add('ba-anim'); }
+        baObs.disconnect();
+      },{threshold:0.3});
+      baObs.observe(baSection);
+    }
+    /* trigger publisher cursor when switching to publisher tab */
+    var origSetTrack=setTrack;
+    setTrack=function(i){
+      origSetTrack(i);
+      if(i===1&&pWrap&&!pAnimated){ pAnimated=true; pWrap.classList.remove('ba-anim-pub'); void pWrap.offsetWidth; pWrap.classList.add('ba-anim-pub'); }
+    };
   })();
 
   /* story evidence — transform between signals */
