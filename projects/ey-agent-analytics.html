@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>EY Fabric — Agent Analytics — Federico Monroy</title>
+<meta name="description" content="Closing the loop on what agents do inside EY Fabric — a research concept toward Agent Analytics with Pendo, exploring completion grading and transparent, non-verbose agent status.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0d0c; --surface:#17160f; --raised:#1e1c17; --elevated:#26231b;
+  --ink:#f2f0ec; --ink-2:#a6a29a; --ink-3:#75706a;
+  --line:rgba(255,255,255,.09); --line-soft:rgba(255,255,255,.05);
+  --accent:#f5d100; --accent-dim:rgba(245,209,0,.14); --on-accent:#0e0d0c;
+  --ok:#7dcf9a; --ok-dim:rgba(125,207,154,.13);
+  --warn:#e0b25c; --warn-dim:rgba(224,178,92,.14);
+  --bad:#e0857f; --bad-dim:rgba(224,133,127,.14);
+  --info:#7aa8e0; --info-dim:rgba(122,168,224,.14);
+  --font-display:'Space Grotesk',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+  --spring:cubic-bezier(.34,1.32,.64,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.55;-webkit-font-smoothing:antialiased}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--on-accent);padding:10px 16px;font-weight:700;z-index:200;border-radius:0 0 8px 0}
+.skip-link:focus{left:0}
+a{color:inherit}
+img{max-width:100%}
+
+.top{position:sticky;top:0;z-index:50;background:rgba(14,13,12,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-inner{max-width:920px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.top-back{font-family:var(--font-mono);font-size:12px;color:var(--ink-2);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color .2s}
+.top-back:hover{color:var(--accent)}
+.top-tag{margin-left:auto;font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+
+main{max-width:920px;margin:0 auto;padding:56px 24px 96px}
+
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.15;letter-spacing:-.01em;margin:0 0 18px}
+h1 em{color:var(--accent);font-style:normal}
+.lead{font-size:16px;color:var(--ink-2);max-width:62ch;margin:0 0 8px}
+.honest-note{margin-top:22px;padding:14px 16px;border:1px dashed var(--line);border-radius:10px;font-size:13px;color:var(--ink-2);max-width:62ch}
+.honest-note b{color:var(--ink)}
+
+section.scene{margin-top:64px}
+.scene-head{margin-bottom:20px}
+.scene-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 8px}
+.scene-h2{font-family:var(--font-display);font-weight:700;font-size:1.4rem;margin:0 0 8px;letter-spacing:-.005em}
+.scene-sub{font-size:14px;color:var(--ink-2);max-width:58ch;margin:0}
+
+/* window chrome */
+.win{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--raised);border-bottom:1px solid var(--line)}
+.win-dots{display:flex;gap:6px}
+.win-dots i{width:9px;height:9px;border-radius:50%;display:block}
+.win-dots .r{background:#e0857f}.win-dots .y{background:#e0b25c}.win-dots .g{background:#7dcf9a}
+.win-addr{flex:1;height:22px;border-radius:6px;background:var(--elevated);display:flex;align-items:center;padding:0 10px;font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+.win-body{padding:22px;position:relative}
+
+/* Scene A — task registry / grading */
+.task-row{display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:center;padding:14px 4px;border-top:1px solid var(--line-soft);opacity:0;transform:translateY(6px);transition:opacity .45s var(--spring),transform .45s var(--spring)}
+.task-row:first-child{border-top:0}
+.task-row.in{opacity:1;transform:none}
+.task-name{font-weight:600;font-size:14px;color:var(--ink)}
+.task-goal{font-size:12.5px;color:var(--ink-3);margin-top:3px}
+.grade{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.02em;padding:5px 10px;border-radius:999px;white-space:nowrap;opacity:0;transform:scale(.85);transition:opacity .3s var(--spring),transform .3s var(--spring)}
+.grade.in{opacity:1;transform:scale(1)}
+.grade.ok{background:var(--ok-dim);color:var(--ok)}
+.grade.warn{background:var(--warn-dim);color:var(--warn)}
+.grade.info{background:var(--info-dim);color:var(--info)}
+.grade.bad{background:var(--bad-dim);color:var(--bad)}
+.grade svg{width:12px;height:12px;flex-shrink:0}
+
+.a-cur{position:absolute;width:16px;height:16px;pointer-events:none;z-index:9;opacity:0;transition:left .55s var(--spring),top .55s var(--spring),opacity .25s}
+.a-cur.show{opacity:1}
+.a-cur-ring{position:absolute;inset:-6px;border-radius:50%;border:1.5px solid var(--accent);animation:curPulse 1.4s ease-out infinite}
+.a-cur-dot{width:100%;height:100%;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(0,0,0,.4)}
+@keyframes curPulse{0%{transform:scale(.7);opacity:.9}100%{transform:scale(2.1);opacity:0}}
+
+.loop-summary{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.loop-stat{font-family:var(--font-mono)}
+.loop-stat b{display:block;font-size:20px;color:var(--ink);font-family:var(--font-display)}
+.loop-stat span{font-size:11px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+
+/* Scene B — verbose vs transparent */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.cmp-col{border-radius:12px;padding:18px;border:1px solid var(--line)}
+.cmp-col.bad-col{background:var(--surface);opacity:.72}
+.cmp-col.good-col{background:var(--surface);border-color:var(--accent-dim)}
+.cmp-label{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 12px;display:flex;align-items:center;gap:6px}
+.cmp-label.bad-l{color:var(--bad)}
+.cmp-label.good-l{color:var(--accent)}
+.wall{font-size:13px;line-height:1.7;color:var(--ink-2);font-family:var(--font-mono)}
+.status-pill{display:inline-flex;align-items:center;gap:8px;background:var(--elevated);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:600}
+.status-pill svg{width:16px;height:16px;color:var(--ok);flex-shrink:0}
+.status-conf{color:var(--ink-3);font-weight:400;font-size:12px;font-family:var(--font-mono)}
+.why-btn{margin-top:12px;background:none;border:1px solid var(--line);color:var(--ink-2);font-family:var(--font-mono);font-size:11px;padding:6px 12px;border-radius:999px;cursor:pointer;transition:border-color .2s,color .2s}
+.why-btn:hover,.why-btn:focus-visible{border-color:var(--accent);color:var(--accent)}
+.why-detail{max-height:0;overflow:hidden;transition:max-height .35s var(--spring),opacity .35s;opacity:0;font-size:12.5px;color:var(--ink-2);margin-top:0}
+.why-detail.open{max-height:60px;opacity:1;margin-top:10px}
+
+.close-note{margin-top:56px;padding:22px 24px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.close-note p{margin:0 0 10px;font-size:14px;color:var(--ink-2);max-width:64ch}
+.close-note p:last-child{margin-bottom:0}
+.close-note b{color:var(--ink)}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="top">
+  <div class="top-inner">
+    <a class="top-back" href="ey-fabric.html">← EY Fabric</a>
+    <a class="top-back" href="../index.html">Home</a>
+    <span class="top-tag">Research concept</span>
+  </div>
+</div>
+
+<main id="main">
+  <p class="eyebrow">EY Fabric · Agent Analytics · Concept exploration</p>
+  <h1>Closing the loop on what <em>agents</em> do</h1>
+  <p class="lead">
+    Inside EY Fabric I worked on the product's agentic layer, and started scoping Agent
+    Analytics with Pendo: grading whether an agent actually completed the outcome it was
+    given, and making that activity legible to people without burying it in text.
+  </p>
+  <div class="honest-note">
+    <b>What this page is.</b> The real EY implementation is confidential and the Pendo
+    research didn't ship — there wasn't time. What follows is a from-scratch
+    reconstruction of the concept, built to show the thinking, not a screenshot of
+    production work.
+  </div>
+
+  <!-- SCENE A -->
+  <section class="scene" aria-labelledby="scene-a-h">
+    <div class="scene-head">
+      <p class="scene-eyebrow">01 · Grading the loop</p>
+      <h2 class="scene-h2" id="scene-a-h">An agent finishing isn't the same as an agent succeeding</h2>
+      <p class="scene-sub">Every agent-assisted step in the catalog gets a goal, not just a status. "Completed" only means something if you know what it was supposed to complete.</p>
+    </div>
+    <div class="win">
+      <div class="win-bar">
+        <div class="win-dots"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+        <div class="win-addr">fabric.ey.com/ops/agent-tasks</div>
+      </div>
+      <div class="win-body" id="sceneABody">
+        <div class="task-row" id="row0">
+          <div><div class="task-name">Auto-categorize new catalog item</div><div class="task-goal">Goal: correct category assigned on first pass</div></div>
+          <span class="grade ok" id="grade0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-10"/></svg>Completed</span>
+        </div>
+        <div class="task-row" id="row1">
+          <div><div class="task-name">Pre-fill workbench request form</div><div class="task-goal">Goal: all required fields valid, no human edits needed</div></div>
+          <span class="grade warn" id="grade1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg>Partial — 1 field</span>
+        </div>
+        <div class="task-row" id="row2">
+          <div><div class="task-name">Flag policy-risk request before submit</div><div class="task-goal">Goal: escalate to reviewer if risk exceeds threshold</div></div>
+          <span class="grade info" id="grade2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Escalated</span>
+        </div>
+        <div class="task-row" id="row3">
+          <div><div class="task-name">Suggest similar published items</div><div class="task-goal">Goal: reduce duplicate submissions</div></div>
+          <span class="grade bad" id="grade3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg>Failed — ignored 3×</span>
+        </div>
+        <div class="a-cur" id="aCur"><span class="a-cur-ring"></span><span class="a-cur-dot"></span></div>
+        <div class="loop-summary">
+          <div class="loop-stat"><b>1 of 4</b><span>Fully completed</span></div>
+          <div class="loop-stat"><b>2 of 4</b><span>Needed a human</span></div>
+          <div class="loop-stat"><b>1 of 4</b><span>Failed silently, until graded</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE B -->
+  <section class="scene" aria-labelledby="scene-b-h">
+    <div class="scene-head">
+      <p class="scene-eyebrow">02 · Legible, not verbose</p>
+      <h2 class="scene-h2" id="scene-b-h">Transparency isn't more text</h2>
+      <p class="scene-sub">Explaining an agent's action in a paragraph doesn't build trust — it trains people to stop reading. A scannable state plus a real reason, on demand, does more with less.</p>
+    </div>
+    <div class="compare">
+      <div class="cmp-col bad-col">
+        <p class="cmp-label bad-l">✕ Wall of text</p>
+        <p class="wall">"The system has processed your request using automated categorization based on historical patterns and semantic analysis of your submission. Multiple heuristics were considered, including but not limited to keyword matching, taxonomic distance, and prior approval rates for similar items within your business unit. As a result of this multi-factor analysis…"</p>
+      </div>
+      <div class="cmp-col good-col">
+        <p class="cmp-label good-l">✓ Scannable + real reason on demand</p>
+        <div class="status-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-10"/></svg>
+          Categorized as Compute <span class="status-conf">94% confidence</span>
+        </div>
+        <button class="why-btn" id="whyBtn" type="button" aria-expanded="false" aria-controls="whyDetail">Why?</button>
+        <div class="why-detail" id="whyDetail">Matched 3 similar items your team already had approved this quarter.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="close-note">
+    <p><b>Why this matters for the role:</b> most of what breaks trust in an agentic
+    product isn't a bad model decision — it's that nobody can tell whether the loop
+    actually closed, and the explanation is either missing or overwhelming. That's the
+    same discipline as behavioral analytics, pointed at a different actor.</p>
+    <p>Built this week, from scratch — no framework, no build step, same as the rest of
+    this portfolio.</p>
+  </div>
+</main>
+
+<script>
+(function(){
+  function reducedMotion(){ return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  function runSceneA(){
+    var body = document.getElementById('sceneABody');
+    var rows = [0,1,2,3].map(function(i){ return document.getElementById('row'+i); });
+    var grades = [0,1,2,3].map(function(i){ return document.getElementById('grade'+i); });
+    var cur = document.getElementById('aCur');
+    var reduced = reducedMotion();
+
+    function place(el){
+      var r = el.getBoundingClientRect(), wr = body.getBoundingClientRect();
+      cur.style.left = (r.right - wr.left - 30) + 'px';
+      cur.style.top = (r.top - wr.top + r.height / 2 - 8) + 'px';
+    }
+
+    if (reduced) {
+      rows.forEach(function(r){ r.classList.add('in'); });
+      grades.forEach(function(g){ g.classList.add('in'); });
+      return;
+    }
+
+    var t = 300;
+    rows.forEach(function(row, i){
+      setTimeout(function(){ row.classList.add('in'); }, t);
+      t += 260;
+      setTimeout(function(){
+        cur.classList.add('show');
+        place(row);
+      }, t);
+      t += 420;
+      setTimeout(function(){ grades[i].classList.add('in'); }, t);
+      t += 380;
+    });
+    setTimeout(function(){ cur.classList.remove('show'); }, t);
+  }
+
+  var whyBtn = document.getElementById('whyBtn');
+  var whyDetail = document.getElementById('whyDetail');
+  if (whyBtn) {
+    whyBtn.addEventListener('click', function(){
+      var open = whyDetail.classList.toggle('open');
+      whyBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', runSceneA);
+  else runSceneA();
+})();
+</script>
+</body>
+</html>

@@ -17,3 +17,6 @@ skills-lock.json
 .claude/skills/grill-me
 .claude/skills/handoff
 .claude/skills/prototype
+.claude/skills/animate
+.claude/skills/review-animations
+.claude/skills/improve-animations
