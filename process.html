@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script>
+  (function(){
+    var saved = localStorage.getItem('theme-preference') || localStorage.getItem('theme');
+    var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    if(theme==='light') document.documentElement.setAttribute('data-theme','light');
+  })();
+</script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Process — Federico Monroy</title>
+<meta name="description" content="How Federico Monroy actually works: five starting points for a design engagement, the discovery checklist run before designing anything, the vague-requirements protocol, and where analytics/feedback/UXR each earn their place.">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style id="site-nav-component">
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&display=swap');
+/* ===== SITE NAV COMPONENT — locked, identical on every page ===== */
+nav.site-nav{
+  position:fixed!important;top:0!important;left:0!important;right:0!important;
+  z-index:99999!important;height:64px!important;
+  background:#0e0d0c!important;border-bottom:1px solid rgba(255,255,255,.1)!important;
+  isolation:isolate!important;transform:translateZ(0)!important;
+  pointer-events:auto!important;margin:0!important;padding:0!important;
+  box-sizing:border-box!important;
+}
+html[data-theme="light"] nav.site-nav{
+  background:#f7f5f2!important;border-bottom-color:rgba(0,0,0,.1)!important;
+}
+nav.site-nav .sn-inner{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  height:64px!important;max-width:920px!important;width:100%!important;
+  margin:0 auto!important;padding:0 clamp(16px,3vw,28px)!important;
+  box-sizing:border-box!important;gap:12px!important;
+}
+nav.site-nav .sn-logo{
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-weight:800!important;font-size:18px!important;line-height:1!important;
+  color:#f2f0ec!important;letter-spacing:-.02em!important;
+  text-decoration:none!important;white-space:nowrap!important;flex-shrink:0!important;
+}
+html[data-theme="light"] nav.site-nav .sn-logo{color:#1a1917!important}
+nav.site-nav .sn-logo span{color:var(--sn-accent,#d97757)!important}
+nav.site-nav .sn-links{
+  display:flex!important;align-items:center!important;gap:2px!important;
+  flex-wrap:nowrap!important;margin-left:auto!important;
+}
+nav.site-nav .sn-link,
+nav.site-nav .sn-drop-btn{
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-size:13px!important;font-weight:600!important;
+  letter-spacing:.06em!important;text-transform:uppercase!important;
+  color:#a6a29a!important;padding:8px 12px!important;border-radius:6px!important;
+  text-decoration:none!important;background:none!important;border:none!important;
+  cursor:pointer!important;line-height:1.2!important;
+  transition:color .15s,background .15s!important;
+  display:inline-flex!important;align-items:center!important;gap:4px!important;
+}
+html[data-theme="light"] nav.site-nav .sn-link,
+html[data-theme="light"] nav.site-nav .sn-drop-btn{color:#6b6760!important}
+nav.site-nav .sn-link:hover,
+nav.site-nav .sn-link.is-active,
+nav.site-nav .sn-drop-btn:hover,
+nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+  color:#f2f0ec!important;background:rgba(255,255,255,.06)!important;
+}
+html[data-theme="light"] nav.site-nav .sn-link:hover,
+html[data-theme="light"] nav.site-nav .sn-link.is-active,
+html[data-theme="light"] nav.site-nav .sn-drop-btn:hover,
+html[data-theme="light"] nav.site-nav .sn-drop-btn[aria-expanded="true"]{
+  color:#1a1917!important;background:rgba(0,0,0,.05)!important;
+}
+nav.site-nav .sn-drop{position:relative!important}
+nav.site-nav .sn-drop::after{
+  content:""!important;position:absolute!important;left:0!important;right:0!important;
+  top:100%!important;height:8px!important;
+}
+nav.site-nav .sn-drop-menu{
+  position:absolute!important;top:calc(100% + 8px)!important;left:50%!important;
+  transform:translateX(-50%) translateY(-4px)!important;
+  background:#171614!important;border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:12px!important;padding:8px!important;min-width:180px!important;
+  display:flex!important;flex-direction:column!important;gap:2px!important;
+  opacity:0!important;pointer-events:none!important;visibility:hidden!important;
+  transition:opacity .18s,transform .18s,visibility .18s!important;
+  box-shadow:0 20px 40px -12px rgba(0,0,0,.55)!important;z-index:100003!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu{
+  background:#fff!important;border-color:rgba(0,0,0,.1)!important;
+  box-shadow:0 16px 32px -8px rgba(0,0,0,.15)!important;
+}
+nav.site-nav .sn-drop:hover .sn-drop-menu,
+nav.site-nav .sn-drop:focus-within .sn-drop-menu,
+nav.site-nav .sn-drop-btn[aria-expanded="true"] + .sn-drop-menu{
+  opacity:1!important;pointer-events:auto!important;visibility:visible!important;
+  transform:translateX(-50%) translateY(0)!important;
+}
+nav.site-nav .sn-drop-menu a{
+  display:block!important;padding:10px 12px!important;border-radius:8px!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-size:13px!important;font-weight:600!important;
+  color:#a6a29a!important;text-decoration:none!important;
+  text-transform:none!important;letter-spacing:0!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu a{color:#6b6760!important}
+nav.site-nav .sn-drop-menu a:hover{
+  background:#1c1b19!important;color:#f2f0ec!important;
+}
+html[data-theme="light"] nav.site-nav .sn-drop-menu a:hover{
+  background:#f0eeea!important;color:#1a1917!important;
+}
+nav.site-nav .sn-drop-menu a.is-current{color:var(--sn-accent,#d97757)!important}
+nav.site-nav .sn-theme{
+  width:34px!important;height:34px!important;border-radius:50%!important;
+  border:1px solid rgba(255,255,255,.12)!important;background:#171614!important;
+  color:#a6a29a!important;display:grid!important;place-items:center!important;
+  cursor:pointer!important;flex-shrink:0!important;margin-left:4px!important;
+  padding:0!important;pointer-events:auto!important;position:relative!important;z-index:100001!important;
+}
+html[data-theme="light"] nav.site-nav .sn-theme{
+  background:#fff!important;border-color:rgba(0,0,0,.12)!important;color:#6b6760!important;
+}
+nav.site-nav .sn-theme svg{width:15px!important;height:15px!important;display:block!important}
+nav.site-nav .sn-ham{
+  display:none!important;flex-direction:column!important;gap:4px!important;
+  background:none!important;border:none!important;padding:8px!important;
+  cursor:pointer!important;margin-left:4px!important;
+  min-width:44px!important;min-height:44px!important;
+  align-items:center!important;justify-content:center!important;
+}
+nav.site-nav .sn-ham span{
+  display:block!important;width:20px!important;height:2px!important;
+  background:#f2f0ec!important;border-radius:1px!important;
+}
+html[data-theme="light"] nav.site-nav .sn-ham span{background:#1a1917!important}
+.site-nav-mobile{
+  position:fixed!important;top:0!important;left:0!important;width:100%!important;
+  height:100%!important;height:100dvh!important;z-index:100000!important;
+  background:#0e0d0c!important;padding:72px 24px 24px!important;
+  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
+  transform:translateX(100%)!important;visibility:hidden!important;pointer-events:none!important;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1),visibility 0s 320ms!important;
+  box-sizing:border-box!important;
+}
+html[data-theme="light"] .site-nav-mobile{background:#f7f5f2!important}
+.site-nav-mobile.on{
+  transform:translateX(0)!important;visibility:visible!important;pointer-events:auto!important;
+  transition:transform 320ms cubic-bezier(.65,0,.35,1)!important;
+}
+body.nav-open{overflow:hidden!important;touch-action:none!important}
+.site-nav-mobile a{
+  display:block!important;padding:14px 0!important;
+  border-bottom:1px solid rgba(255,255,255,.1)!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+  font-weight:700!important;font-size:1.05rem!important;
+  color:#f2f0ec!important;text-decoration:none!important;
+}
+html[data-theme="light"] .site-nav-mobile a{
+  color:#1a1917!important;border-bottom-color:rgba(0,0,0,.1)!important;
+}
+.site-nav-mobile .sn-sub{
+  font-size:.95rem!important;font-weight:600!important;
+  color:#a6a29a!important;padding-left:12px!important;
+}
+html[data-theme="light"] .site-nav-mobile .sn-sub{color:#6b6760!important}
+.site-nav-mobile .sn-close{
+  position:absolute!important;top:20px!important;right:20px!important;
+  background:none!important;border:none!important;color:inherit!important;
+  cursor:pointer!important;font-size:1rem!important;
+  font-family:'Space Grotesk',system-ui,sans-serif!important;
+}
+@media(max-width:900px){
+  nav.site-nav .sn-links{display:none!important}
+  nav.site-nav .sn-ham{display:flex!important}
+}
+body:has(nav.site-nav) .top-nav:not(.site-nav),
+body:has(nav.site-nav) #topNav:not(.site-nav){display:none!important}
+</style>
+<style>
+:root{
+  --max:920px;
+  --pad:clamp(16px,3vw,28px);
+  --bg:#0e0d0c; --bg-surface:#171614; --bg-raised:#1e1c1a;
+  --text:#f2f0ec; --muted:#a6a29a; --faint:#7a756c;
+  --line:rgba(255,255,255,.1); --line-soft:rgba(255,255,255,.06);
+  --accent:#d97757; --accent-dim:rgba(217,119,87,.14); --on-accent:#fff;
+  --ok:#8fd4a8; --bad:#e0857f;
+  --font-display:"Space Grotesk",system-ui,sans-serif;
+  --font-body:"DM Sans",system-ui,sans-serif;
+  --font-mono:"DM Mono",ui-monospace,monospace;
+  --spring:cubic-bezier(.34,1.32,.64,1); --ease:cubic-bezier(.65,0,.35,1);
+  --h1:clamp(1.85rem,1.5rem + 1.8vw,2.55rem);
+  --h2:clamp(1.4rem,1.2rem + 1.1vw,1.95rem);
+}
+[data-theme="light"]{
+  --bg:#f7f5f2; --bg-surface:#fff; --bg-raised:#eeece7;
+  --text:#1a1917; --muted:#55524c; --faint:#726e66;
+  --line:rgba(0,0,0,.1); --line-soft:rgba(0,0,0,.06);
+  --accent:#a84928; --accent-dim:rgba(168,73,40,.12);
+  --ok:#1f7a45; --bad:#b8352b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip-link{position:absolute;top:-100%;left:16px;z-index:999999;background:var(--accent);color:#fff;padding:8px 14px;border-radius:0 0 8px 8px;font-weight:700;font-size:13px;text-decoration:none}
+.skip-link:focus{top:0}
+
+.page{max-width:var(--max);width:100%;margin:0 auto;padding:88px var(--pad) 96px}
+nav.site-nav .sn-inner{max-width:var(--max)!important;padding-left:var(--pad)!important;padding-right:var(--pad)!important;margin:0 auto!important}
+
+.bc{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin:0 0 20px}
+.bc a{text-decoration:none;color:var(--muted)}
+.bc a:hover{color:var(--accent)}
+.bc .sep{opacity:.5}
+.bc .here{color:var(--text)}
+
+.hero-ey{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;display:flex;align-items:center;gap:10px}
+.hero-ey::before{content:"";width:22px;height:1px;background:var(--accent)}
+.hero-h{font-family:var(--font-display);font-size:var(--h1);font-weight:800;letter-spacing:-.03em;line-height:1.12;margin:0 0 14px}
+.hero-lede{color:var(--muted);font-size:1.05rem;line-height:1.55;max-width:42rem;margin:0 0 32px}
+
+h2{font-family:var(--font-display);font-size:var(--h2);font-weight:700;letter-spacing:-.01em;margin:0 0 8px}
+p{margin:0 0 16px;color:var(--muted)}
+code{font-family:var(--font-mono);font-size:.85em;background:var(--bg-raised);padding:.1em .4em;border-radius:4px;color:var(--text)}
+
+.pov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:28px 0}
+.pov-card{background:var(--bg-surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.pov-card .n{font-family:var(--font-mono);font-size:.7rem;color:var(--faint)}
+.pov-card strong{color:var(--text);font-size:1rem}
+.pov-card p{margin:0;font-size:.9rem}
+
+.callout{background:linear-gradient(180deg,var(--accent-dim),transparent),var(--bg-surface);border:1px solid var(--accent);border-radius:16px;padding:24px;margin:32px 0}
+.callout .tag{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:8px;display:block}
+.callout p{margin:0;color:var(--text)}
+.callout .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-top:16px}
+.callout .vs .side{background:var(--bg-raised);border-radius:8px;padding:12px;font-size:.88rem}
+.callout .vs .side.win{border:1px solid var(--ok);color:var(--text)}
+.callout .vs .side.lose{border:1px solid var(--line);color:var(--faint);text-decoration:line-through;text-decoration-color:var(--bad)}
+.callout .vs .arrow{font-family:var(--font-mono);color:var(--faint);font-size:.8rem}
+
+section.blk{margin:72px 0}
+.sec-lede{max-width:60ch}
+
+.diagram-scroll{overflow-x:auto;background:var(--bg-surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin:28px 0}
+.diagram-scroll svg{display:block;min-width:640px;height:auto}
+figcaption{font-size:.85rem;color:var(--faint);margin-top:10px;text-align:center}
+
+.path-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.path-card{background:var(--bg-surface);border:1px solid var(--line);border-radius:14px;padding:20px;transition:border-color .2s,transform .2s var(--spring)}
+.path-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.path-card .k{font-family:var(--font-mono);font-size:.68rem;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+.path-card strong{display:block;color:var(--text);font-size:1.02rem;margin:8px 0}
+.path-card p{font-size:.88rem;margin:0}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+.step-box{background:var(--bg-surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.step-box .step-label{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:block}
+.step-box p{margin:0;color:var(--text);font-size:.92rem}
+
+.stack-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.stack-tags span{font-family:var(--font-mono);font-size:.72rem;background:var(--bg-raised);border:1px solid var(--line);color:var(--muted);padding:5px 10px;border-radius:99px}
+
+.check-list{list-style:none;margin:24px 0 0;padding:0}
+.check-list li{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.check-list li:last-child{border-bottom:0}
+.check-list .num{width:26px;height:26px;border-radius:50%;border:1px solid var(--accent);color:var(--accent);font-family:var(--font-mono);font-size:.72rem;display:flex;align-items:center;justify-content:center;flex:none}
+.check-list strong{display:block;color:var(--text);font-size:.98rem;margin-bottom:2px}
+.check-list span{color:var(--muted);font-size:.87rem}
+
+.ready-steps{margin-top:20px;display:flex;flex-direction:column;gap:18px}
+.ready-steps .r{display:grid;grid-template-columns:36px 1fr;gap:16px;counter-increment:step}
+.ready-steps{counter-reset:step}
+.ready-steps .r::before{content:counter(step);width:36px;height:36px;border-radius:50%;background:var(--bg-raised);border:1px solid var(--line);color:var(--text);font-family:var(--font-mono);display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.ready-steps strong{display:block;color:var(--text);margin-bottom:4px}
+.ready-steps p{margin:0;font-size:.9rem}
+
+.form-example{background:var(--bg-raised);border:1px solid var(--line);border-radius:8px;padding:16px;font-family:var(--font-mono);font-size:.82rem;color:var(--muted);line-height:1.7;margin-top:16px;white-space:pre-wrap}
+
+.overflow-x{overflow-x:auto}
+.timeline-table{width:100%;border-collapse:collapse;margin-top:24px;font-size:.9rem}
+.timeline-table th,.timeline-table td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.timeline-table th{font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);font-weight:500}
+.timeline-table td.moment{color:var(--text);font-weight:600;white-space:nowrap}
+.timeline-table td{color:var(--muted)}
+
+.foot{border-top:1px solid var(--line);padding:32px var(--pad) 48px;max-width:var(--max);margin:0 auto;display:flex;gap:18px;font-family:var(--font-mono);font-size:.8rem}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--accent)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav class="site-nav" id="topNav" style="--sn-accent:#d97757" aria-label="Primary">
+  <div class="sn-inner">
+    <a href="index.html" class="sn-logo">FM<span>.</span></a>
+    <div class="sn-links">
+      <a href="index.html" class="sn-link">Home</a>
+      <div class="sn-drop">
+        <button type="button" id="snDropBtn" class="sn-drop-btn" aria-haspopup="true" aria-expanded="false" aria-controls="snDropMenu">
+          Projects
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="snDropMenu" class="sn-drop-menu" role="menu">
+          <a href="projects.html" role="menuitem" style="color:var(--sn-accent);font-weight:700">All Projects</a>
+          <a href="projects/ey-fabric.html" role="menuitem">EY Fabric</a>
+          <a href="projects/blockchain.html" role="menuitem">Blockchain 3D</a>
+          <a href="projects/chek.html" role="menuitem">Chek</a>
+          <a href="projects/dollarcity.html" role="menuitem">DollarCity</a>
+          <a href="projects/customs.html" role="menuitem">Customs ES</a>
+        </div>
+      </div>
+      <a href="process.html" class="sn-link is-active">Process</a>
+      <a href="resume.html" class="sn-link">Resume</a>
+      <a href="contact.html" class="sn-link">Contact</a>
+      <a href="design-system.html" class="sn-link">Design System</a>
+    </div>
+    <button class="sn-theme" id="snTheme" type="button" aria-label="Toggle theme">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="sn-ham" id="snHam" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div id="snMobile" class="site-nav-mobile" aria-hidden="true">
+  <button type="button" id="snClose" class="sn-close" aria-label="Close">Close</button>
+  <a href="index.html">Home</a>
+  <a href="projects.html">All Projects</a>
+  <a class="sn-sub" href="projects/ey-fabric.html">EY Fabric</a>
+  <a class="sn-sub" href="projects/blockchain.html">Blockchain 3D</a>
+  <a class="sn-sub" href="projects/chek.html">Chek</a>
+  <a class="sn-sub" href="projects/dollarcity.html">DollarCity</a>
+  <a class="sn-sub" href="projects/customs.html">Customs ES</a>
+  <a href="process.html">Process</a>
+  <a href="resume.html">Resume</a>
+  <a href="contact.html">Contact</a>
+  <a href="design-system.html">Design System</a>
+</div>
+
+<main class="page" id="main">
+  <nav class="bc" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">/</span><span class="here">Process</span>
+  </nav>
+
+  <span class="hero-ey">Design process — how I actually work</span>
+  <h1 class="hero-h">Before a pixel, the problem gets named.</h1>
+  <p class="hero-lede">Not a case study — a working reference. Five starting points, the checklist I run before designing anything, what happens when the brief is vague, and where analytics/feedback/research each earn their place.</p>
+
+  <div class="pov-grid">
+    <div class="pov-card"><span class="n">01</span><strong>Solve the problem</strong><p>Not ship the feature that was named — the friction underneath it.</p></div>
+    <div class="pov-card"><span class="n">02</span><strong>Find where flows break</strong><p>Before launch when possible, from real behavior after.</p></div>
+    <div class="pov-card"><span class="n">03</span><strong>Wants vs. needs</strong><p>What a user asks for and what actually removes their friction aren't always the same thing.</p></div>
+    <div class="pov-card"><span class="n">04</span><strong>Align with business — on the record</strong><p>Push back when the metric being optimized costs trust. Named, not implied.</p></div>
+  </div>
+
+  <div class="callout">
+    <span class="tag">A real negotiation, not a hypothetical</span>
+    <p>Business wanted clicks on a feature at any cost. I argued against the dark-pattern version: users notice when they were tricked into a click, and that erodes trust faster than the click was worth. We optimized for the metric that compounds instead of the one that spikes once.</p>
+    <div class="vs">
+      <div class="side lose">Conversion rate, forced<br><span style="color:var(--faint);font-size:.8em">short-term spike, trust cost hidden</span></div>
+      <span class="arrow">vs.</span>
+      <div class="side win">Loyalty, earned<br><span style="color:var(--faint);font-size:.8em">slower, compounds, survives scrutiny</span></div>
+    </div>
+  </div>
+
+  <section class="blk" id="paths">
+    <span class="hero-ey">Where an engagement actually starts</span>
+    <h2>Five starting points, five different jobs</h2>
+    <p class="sec-lede">Treating "adopt their system" and "build one from scratch" as the same task is the mistake — each has its own definition of done, and the wrong one wastes the client's time confirming something that was never in question.</p>
+
+    <figure>
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 900 300" role="img" aria-label="An incoming engagement is diagnosed first, then branches into one of five paths: adopt as-is, extend, redesign, build from scratch, or consolidate multiple systems into one — each with a different success criterion.">
+        <defs>
+          <marker id="parr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <g font-family="DM Mono, monospace" font-size="12" fill="currentColor">
+          <rect x="370" y="10" width="160" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="450" y="36" text-anchor="middle">new engagement</text>
+          <line x1="450" y1="52" x2="450" y2="78" stroke="currentColor" stroke-width="1.2"/>
+          <text x="460" y="70" font-size="10" fill="currentColor" opacity=".7">what do they already have?</text>
+          <line x1="450" y1="78" x2="80" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="450" y1="78" x2="270" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="450" y1="78" x2="450" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="450" y1="78" x2="630" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="450" y1="78" x2="820" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <rect x="10" y="120" width="140" height="52" rx="8" stroke="#d97757" fill="none" stroke-width="1.6"/>
+          <text x="80" y="142" text-anchor="middle" fill="#d97757">real tokens/</text>
+          <text x="80" y="158" text-anchor="middle" fill="#d97757">repo, use as-is</text>
+          <rect x="200" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
+          <text x="270" y="142" text-anchor="middle">has it, has</text>
+          <text x="270" y="158" text-anchor="middle">real gaps</text>
+          <rect x="380" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
+          <text x="450" y="142" text-anchor="middle">"modernize it"</text>
+          <text x="450" y="158" text-anchor="middle">explicitly asked</text>
+          <rect x="560" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
+          <text x="630" y="142" text-anchor="middle">nothing —</text>
+          <text x="630" y="158" text-anchor="middle">brief/brand only</text>
+          <rect x="750" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
+          <text x="820" y="142" text-anchor="middle">N teams,</text>
+          <text x="820" y="158" text-anchor="middle">N systems already</text>
+          <line x1="80" y1="172" x2="80" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="270" y1="172" x2="270" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="450" y1="172" x2="450" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="630" y1="172" x2="630" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <line x1="820" y1="172" x2="820" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
+          <g font-family="Space Grotesk, sans-serif" font-weight="600" font-size="13">
+            <rect x="10" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="#d97757" stroke-width="1.6"/>
+            <text x="80" y="228" text-anchor="middle" fill="#d97757">Adopt</text>
+            <text x="80" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">fidelity = success</text>
+            <rect x="200" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="270" y="228" text-anchor="middle">Extend</text>
+            <text x="270" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">invisible addition</text>
+            <rect x="380" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="450" y="228" text-anchor="middle">Revamp</text>
+            <text x="450" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">validated direction</text>
+            <rect x="560" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="630" y="228" text-anchor="middle">From scratch</text>
+            <text x="630" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">full pipeline</text>
+            <rect x="750" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
+            <text x="820" y="228" text-anchor="middle">Consolidate</text>
+            <text x="820" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">one owner, no breaks</text>
+          </g>
+        </g>
+      </svg>
+      </div>
+      <figcaption>The first question is never "what should this look like" — it's which of these five jobs I'm actually being asked to do.</figcaption>
+    </figure>
+
+    <div class="path-grid">
+      <div class="path-card"><span class="k">Path 1</span><strong>Adopt as-is</strong><p>They hand me real tokens, a repo, or Figma variables. Success = exact fidelity to what exists — zero new tokens, nothing of mine leaks in. If something's missing, I ask for it, I don't invent it.</p></div>
+      <div class="path-card"><span class="k">Path 2</span><strong>Extend</strong><p>Real gaps in their system — a missing state, a component they never built. I extend using their tokens and conventions so the addition doesn't read as bolted-on later.</p></div>
+      <div class="path-card"><span class="k">Path 3</span><strong>Revamp</strong><p>Only when explicitly asked to modernize. Full pipeline applies, but validated against what they approve as direction — never a surprise on delivery day.</p></div>
+      <div class="path-card"><span class="k">Path 4</span><strong>From scratch</strong><p>Nothing exists — a brief or brand kit only. Screenshot/Figma/live-site/brand-kit are the four real entry points; still constrained by WCAG and the brief, not a blank check.</p></div>
+      <div class="path-card"><span class="k">Path 5</span><strong>Consolidate</strong><p>Multiple teams already vibe-coded their own version of "the same" system. The job isn't creating a sixth one — it's picking a single real owner without breaking what already ships.</p></div>
+    </div>
+  </section>
+
+  <section class="blk" id="starter">
+    <span class="hero-ey">Day zero with their stack</span>
+    <h2>Starting from images alone, on their tools</h2>
+    <p class="sec-lede">If a company hands over screenshots instead of a file — Claude Design, Claude Code, Figma, maybe Framer, maybe a thin design system — none of that blocks day one.</p>
+    <div class="two-col">
+      <div class="step-box">
+        <span class="step-label">Extract first, build second</span>
+        <p>Open every image and write down colors, spacing, radius, type scale, and component inventory before touching a tool. This is the same visual-vocabulary pass regardless of which tool receives it next.</p>
+      </div>
+      <div class="step-box">
+        <span class="step-label">Then route to their tool</span>
+        <p>Figma → variables first, components second. Claude Design → import the extracted tokens before generating anything, one or two passes. Framer → same token set, their component model.</p>
+      </div>
+    </div>
+    <div class="stack-tags">
+      <span>Claude Design — canvas, import DS first</span>
+      <span>Claude Code — code-native, DS enforced in prompt</span>
+      <span>Figma — variables → components</span>
+      <span>Framer — same tokens, their model</span>
+      <span>Basic/partial DS — extend, don't replace</span>
+    </div>
+  </section>
+
+  <section class="blk" id="checklist">
+    <span class="hero-ey">Before designing anything</span>
+    <h2>The discovery checklist</h2>
+    <p class="sec-lede">Said out loud in two minutes, not filled out in silence. If two or three of these come back empty, that absence is the actual finding.</p>
+    <ol class="check-list">
+      <li><span class="num">1</span><div><strong>What's the problem, in one sentence?</strong><span>Not the feature — what happens if nothing is done.</span></div></li>
+      <li><span class="num">2</span><div><strong>Who has it, specifically?</strong><span>A real segment, not "the user." Rapid segmentation beats inventing a persona.</span></div></li>
+      <li><span class="num">3</span><div><strong>What's the real situation today?</strong><span>How it's handled now — by hand, another tool, or not at all.</span></div></li>
+      <li><span class="num">4</span><div><strong>Is there a JTBD?</strong><span>"When [situation], I want [motivation], so I can [outcome]." If missing, ask — never invent it.</span></div></li>
+      <li><span class="num">5</span><div><strong>Are there written requirements?</strong><span>If vague or absent, that triggers the MVP protocol below.</span></div></li>
+      <li><span class="num">6</span><div><strong>Feature priority — which one actually blocks the user?</strong><span>Not the one business mentions first.</span></div></li>
+      <li><span class="num">7</span><div><strong>Design system constraints</strong><span>Full / partial / none — decides which of the five starting points applies.</span></div></li>
+      <li><span class="num">8</span><div><strong>Technology constraints</strong><span>Real stack, who approves layout, who implements.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="blk" id="vague">
+    <span class="hero-ey">The question they keep asking in interviews</span>
+    <h2>"What if the requirements list is vague?"</h2>
+    <div class="ready-steps">
+      <div class="r"><div><strong>Try to complete it with whoever gave it</strong><p>Specific questions from the checklist above — never a generic "can you elaborate," which just produces the same vague answer again.</p></div></div>
+      <div class="r"><div><strong>If that's not possible, propose an MVP</strong><p>The smallest defensible interpretation of what the ticket was minimally trying to solve — delivered, explicitly marked "minimum interpretation, to confirm."</p></div></div>
+    </div>
+    <div class="step-box" style="margin-top:28px">
+      <span class="step-label">Golden rule — have a default ready, don't start blank under time pressure</span>
+      <p style="margin-bottom:0">Example: "we need a form for X" with nothing else specified.</p>
+      <div class="form-example">Minimum fields (adjust to the real domain):
+- Identity: name, email/phone — the minimum to follow up
+- The request itself: 1 open field + max 2 structured fields
+  (more than 3 required fields in v1 tanks completion)
+- Confirmation: what happens after submit (a message, not just a toast)
+
+States: empty / inline validation error / submitting / success / network error.
+Without all 5, the form isn't done even if the fields are.
+
+Ask before adjusting the default:
+1. Who sees the result, and what do they do with it?
+2. Is there already a similar form in production? Adapt that one.</div>
+    </div>
+  </section>
+
+  <section class="blk" id="timeline">
+    <span class="hero-ey">Not project-specific — the general rule</span>
+    <h2>Analytics, feedback, and UXR aren't the same tool</h2>
+    <p class="sec-lede">Analytics measures what happened, after the fact. Feedback is what people say unprompted. UXR is what you discover by asking or observing with intent. Instrumenting analytics before the JTBD is clear is the most common way to end up tracking clicks that answer no real question.</p>
+
+    <figure>
+      <div class="diagram-scroll">
+      <svg viewBox="0 0 880 150" role="img" aria-label="Across a project timeline: at the start, UXR and historical feedback lead; in the middle, UXR validation labs run before production; at launch, analytics instrumentation and live feedback channels turn on; after two-plus weeks connected, real reporting begins, with UXR follow-up when a number doesn't explain the why.">
+        <defs>
+          <marker id="parr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0L10 5L0 10z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <line x1="40" y1="35" x2="840" y2="35" stroke="currentColor" stroke-width="1.2" marker-end="url(#parr2)"/>
+        <g font-family="DM Mono, monospace" font-size="11" fill="currentColor">
+          <circle cx="90" cy="35" r="5" fill="#d97757"/>
+          <text x="90" y="61" text-anchor="middle">start</text>
+          <text x="90" y="85" text-anchor="middle" opacity=".7">UXR +</text>
+          <text x="90" y="99" text-anchor="middle" opacity=".7">JTBD</text>
+          <circle cx="320" cy="35" r="5" fill="currentColor"/>
+          <text x="320" y="61" text-anchor="middle">middle</text>
+          <text x="320" y="85" text-anchor="middle" opacity=".7">Lab 0 → 1 → 2</text>
+          <text x="320" y="99" text-anchor="middle" opacity=".7">before ship</text>
+          <circle cx="560" cy="35" r="5" fill="currentColor"/>
+          <text x="560" y="61" text-anchor="middle">launch</text>
+          <text x="560" y="85" text-anchor="middle" opacity=".7">analytics ON +</text>
+          <text x="560" y="99" text-anchor="middle" opacity=".7">feedback channel</text>
+          <circle cx="800" cy="35" r="5" fill="#d97757"/>
+          <text x="800" y="61" text-anchor="middle">2+ weeks</text>
+          <text x="800" y="85" text-anchor="middle" opacity=".7">real reports +</text>
+          <text x="800" y="99" text-anchor="middle" opacity=".7">UXR on "why"</text>
+        </g>
+      </svg>
+      </div>
+      <figcaption>UXR/JTBD always comes first — it decides which question matters. Analytics comes after, to measure that specific question.</figcaption>
+    </figure>
+
+    <div class="overflow-x">
+    <table class="timeline-table">
+      <tr><th>Moment</th><th>What runs</th><th>Why here, not elsewhere</th></tr>
+      <tr><td class="moment">Start</td><td>UXR — rapid segmentation + JTBD. Historical feedback if it exists.</td><td>Nothing exists yet to measure.</td></tr>
+      <tr><td class="moment">Middle</td><td>UXR — Lab 0 (paper) → Lab 1 (no audience) → Lab 2 (real people, if time/budget allow).</td><td>Validate before paying the cost of instrumenting something that may still change.</td></tr>
+      <tr><td class="moment">Launch</td><td>Analytics — real instrumentation. Feedback — live channel now that real users exist.</td><td>Instrumenting earlier means guessing which event will matter.</td></tr>
+      <tr><td class="moment">2+ weeks in</td><td>Real reporting (funnels, retention, errors) + accumulated feedback + follow-up UXR when a number doesn't explain the why.</td><td>A number says <em>what</em> happened; never <em>why</em>.</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <section class="blk" id="live">
+    <span class="hero-ey">If the call turns into a live challenge</span>
+    <h2>The first fifteen minutes, in order</h2>
+    <div class="ready-steps">
+      <div class="r"><div><strong>Identify which of the five paths this is</strong><p>High probability it's Adopt or Extend if they hand over real tokens — confirmed before writing a line of CSS.</p></div></div>
+      <div class="r"><div><strong>Map their tokens to a known shape</strong><p>Background, nav, card, text, accent, radius, density, shadow — never inventing a missing token, asking for it instead.</p></div></div>
+      <div class="r"><div><strong>Pick exactly one tool for the job</strong><p>Editing a live repo → their code editor of choice. Deciding a layout before code → a canvas tool. Never three tools in a timed exercise.</p></div></div>
+      <div class="r"><div><strong>Run the discovery checklist out loud</strong><p>Problem, user, JTBD — even under a clock, skipping this produces a prettier wrong answer faster.</p></div></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="design-system.html">Design system</a><a href="contact.html">Contact</a></footer>
+
+<script id="site-nav-component-js">
+(function(){
+  if(window.__siteNavBound) return;
+  window.__siteNavBound = true;
+  var root = document.documentElement;
+
+  function applyTheme(t){
+    t = (t === 'light') ? 'light' : 'dark';
+    root.setAttribute('data-theme', t);
+    try { localStorage.setItem('theme', t); } catch(e) {}
+    var btn = document.getElementById('snTheme');
+    if(btn) btn.setAttribute('aria-label', t === 'light' ? 'Switch to dark' : 'Switch to light');
+  }
+  try {
+    var s = localStorage.getItem('theme');
+    applyTheme(s === 'light' ? 'light' : (s === 'dark' ? 'dark' : (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')));
+  } catch(e) { applyTheme('dark'); }
+
+  function bind(){
+    var themeBtn = document.getElementById('snTheme');
+    if(themeBtn && !themeBtn.__bound){
+      themeBtn.__bound = true;
+      themeBtn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var cur = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        applyTheme(cur === 'light' ? 'dark' : 'light');
+      });
+    }
+    var drop = document.getElementById('snDropBtn');
+    if(drop && !drop.__bound){
+      drop.__bound = true;
+      function closeDrop(){ drop.setAttribute('aria-expanded','false'); }
+      drop.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var open = drop.getAttribute('aria-expanded') === 'true';
+        drop.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      document.addEventListener('click', function(e){
+        if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
+      });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrop(); });
+      window.addEventListener('scroll', closeDrop, {passive:true});
+    }
+    var ham = document.getElementById('snHam');
+    var mob = document.getElementById('snMobile');
+    var closeBtn = document.getElementById('snClose');
+    if(ham && mob && !ham.__bound){
+      ham.__bound = true;
+      function openM(){
+        mob.classList.add('on');
+        mob.setAttribute('aria-hidden','false');
+        ham.setAttribute('aria-expanded','true');
+        document.body.classList.add('nav-open');
+      }
+      function closeM(){
+        mob.classList.remove('on');
+        mob.setAttribute('aria-hidden','true');
+        ham.setAttribute('aria-expanded','false');
+        document.body.classList.remove('nav-open');
+      }
+      ham.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
+      if(closeBtn) closeBtn.addEventListener('click', closeM);
+      mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeM(); });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+})();
+</script>
+</body>
+</html>
