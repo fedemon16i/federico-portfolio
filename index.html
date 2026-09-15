@@ -5623,22 +5623,6 @@ nav.site-nav .sn-inner{
   <a href="projects/beats-showcase.html" class="sn-beats-mob">Beats ·</a>
 </div>
 
-<div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
-  <button type="button" id="topNavMobileClose" aria-label="Close" style="position:absolute;top:20px;right:20px;background:none;border:none;color:inherit;cursor:pointer;font-size:1rem">Close</button>
-  <a href="index.html">Home</a>
-  <a href="projects.html">All Projects</a>
-  <a class="mob-sub" href="projects/ey-fabric.html">EY Fabric</a>
-  <a class="mob-sub" href="projects/blockchain.html">Blockchain 3D</a>
-  <a class="mob-sub" href="projects/chek.html">Chek</a>
-  <a class="mob-sub" href="projects/dollarcity.html">DollarCity</a>
-  <a class="mob-sub" href="projects/customs.html">Customs ES</a>
-  
-  <a href="resume.html">Resume</a>
-  <a href="contact.html">Contact</a>
-  <a href="design-system.html">Design System</a>
-  <a href="projects/beats-showcase.html" class="sn-beats-mob">Beats ·</a>
-</div>
-
 </div>
 
 <div class="home">
@@ -7142,42 +7126,6 @@ nav.site-nav .sn-inner{
        further down (kept single so the elastic anime.js bounce isn't fired twice per hover). */
   })();
 
-    /* Top nav — hamburger + dropdown */
-  (function(){
-    var hamburger=document.getElementById('topNavHamburger'), mobile=document.getElementById('topNavMobile'), close=document.getElementById('topNavMobileClose');
-    function openMobile(){
-      if(!mobile) return;
-      mobile.classList.add('on');
-      mobile.setAttribute('aria-hidden','false');
-      if(hamburger) hamburger.setAttribute('aria-expanded','true');
-      document.body.classList.add('nav-open');
-    }
-    function closeMobile(){
-      if(!mobile) return;
-      mobile.classList.remove('on');
-      mobile.setAttribute('aria-hidden','true');
-      if(hamburger) hamburger.setAttribute('aria-expanded','false');
-      document.body.classList.remove('nav-open');
-    }
-    if(hamburger) hamburger.addEventListener('click',function(e){ e.stopPropagation(); openMobile(); });
-    if(close) close.addEventListener('click',closeMobile);
-    if(mobile){
-      mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMobile); });
-    }
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape' && mobile && mobile.classList.contains('on')) closeMobile(); });
-
-    var dropToggle=document.getElementById('topNavDropToggle');
-    if(dropToggle){
-      dropToggle.addEventListener('click',function(){
-        var open=dropToggle.getAttribute('aria-expanded')==='true';
-        dropToggle.setAttribute('aria-expanded', open?'false':'true');
-      });
-      document.addEventListener('click',function(e){
-        if(!dropToggle.parentElement.contains(e.target)) dropToggle.setAttribute('aria-expanded','false');
-      });
-    }
-  })();
-
   /* Blockchain card — cycle the 5-flow step indicator */
   (function(){
     var dots=document.querySelectorAll('.bc-flow-mini i');
@@ -7437,48 +7385,6 @@ nav.site-nav .sn-inner{
         drop.setAttribute('aria-expanded','false');
     });
   }
-})();
-</script>
-
-<script>
-/* CANONICAL_NAV */
-(function(){
-  var root=document.documentElement;
-  function applyTheme(t){
-    if(t!=='light'&&t!=='dark') t='dark';
-    root.setAttribute('data-theme', t);
-    try{ localStorage.setItem('theme-preference', t); localStorage.setItem('theme', t); }catch(e){}
-  }
-  try{ var _ts=localStorage.getItem('theme-preference')||localStorage.getItem('theme'); applyTheme(_ts==='light'?'light':'dark'); }catch(e){ applyTheme('dark'); }
-  var themeBtn=document.getElementById('themeToggle')||document.getElementById('themeBtn');
-  if(themeBtn){
-    themeBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');
-    });
-  }
-  var drop=document.getElementById('topNavDropToggle');
-  function closeDrop(){ if(drop) drop.setAttribute('aria-expanded','false'); }
-  if(drop){
-    drop.addEventListener('click', function(e){
-      e.preventDefault(); e.stopPropagation();
-      var open=drop.getAttribute('aria-expanded')==='true';
-      drop.setAttribute('aria-expanded', open?'false':'true');
-    });
-    document.addEventListener('click', function(e){
-      if(drop.parentElement && !drop.parentElement.contains(e.target)) closeDrop();
-    });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDrop(); });
-    window.addEventListener('scroll', closeDrop, {passive:true});
-  }
-  var hamburger=document.getElementById('topNavHamburger');
-  var mobile=document.getElementById('topNavMobile');
-  var closeBtn=document.getElementById('topNavMobileClose');
-  function openM(){ if(!mobile) return; mobile.classList.add('on'); mobile.setAttribute('aria-hidden','false'); }
-  function closeM(){ if(!mobile) return; mobile.classList.remove('on'); mobile.setAttribute('aria-hidden','true'); }
-  if(hamburger) hamburger.addEventListener('click', function(e){ e.stopPropagation(); openM(); });
-  if(closeBtn) closeBtn.addEventListener('click', closeM);
-  if(mobile) mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeM); });
 })();
 </script>
 

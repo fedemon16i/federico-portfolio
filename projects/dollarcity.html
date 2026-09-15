@@ -2360,20 +2360,6 @@ nav.site-nav .sn-inner{
   <a href="../design-system.html">Design System</a>
 </div>
 
-<div id="topNavMobile" class="top-nav-mobile" aria-hidden="true">
-  <button type="button" id="topNavMobileClose" class="top-nav-mobile-close" aria-label="Close">Close</button>
-  <a href="../index.html">Home</a>
-  <a href="../projects.html">All Projects</a>
-  <a class="mob-sub" href="ey-fabric.html">EY Fabric</a>
-  <a class="mob-sub" href="blockchain.html">Blockchain 3D</a>
-  <a class="mob-sub" href="chek.html">Chek</a>
-  <a class="mob-sub" href="dollarcity.html">DollarCity</a>
-  <a class="mob-sub" href="customs.html">Customs ES</a>
-  <a href="../resume.html">Resume</a>
-  <a href="../contact.html">Contact</a>
-  <a href="../design-system.html">Design System</a>
-</div>
-
 <main>
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -3679,30 +3665,6 @@ nav.site-nav .sn-inner{
   var dsT=document.getElementById('dsToggle'), dsB=document.getElementById('dsBody'), dsC=document.getElementById('dsChevron');
   function toggleDs(){ var open=dsB.classList.toggle('show'); dsT.setAttribute('aria-expanded',open?'true':'false'); if(dsC) dsC.textContent=open?'▴':'▾'; }
   if(dsT){ dsT.addEventListener('click',toggleDs); dsT.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleDs();} }); }
-})();
-</script>
-
-<script id="top-nav-js">
-(function(){
-  var root=document.documentElement;
-  try{ var saved=localStorage.getItem('theme'); if(saved==='light'||saved==='dark') root.setAttribute('data-theme',saved); }catch(e){}
-  var btn=document.getElementById('themeToggle');
-  if(btn){ btn.addEventListener('click',function(){ var next=root.getAttribute('data-theme')==='light'?'dark':'light'; root.setAttribute('data-theme',next); try{localStorage.setItem('theme',next);}catch(e){} }); }
-  var dropBtn=document.getElementById('topNavDropToggle');
-  var dropMenu=document.getElementById('topNavDropMenu');
-  if(dropBtn&&dropMenu){
-    dropBtn.addEventListener('click',function(e){ e.stopPropagation(); var open=dropMenu.classList.toggle('open'); dropBtn.setAttribute('aria-expanded',open?'true':'false'); });
-    document.addEventListener('click',function(){ dropMenu.classList.remove('open'); dropBtn.setAttribute('aria-expanded','false'); });
-  }
-  var ham=document.getElementById('topNavHam')||document.getElementById('topNavHamburger')||document.querySelector('.top-nav-ham')||document.querySelector('.top-nav-hamburger');
-  var mobile=document.getElementById('topNavMobile')||document.querySelector('.top-nav-mobile');
-  function closeMob(){ document.body.classList.remove('nav-open'); if(mobile){ mobile.classList.remove('open'); mobile.setAttribute('aria-hidden','true'); } if(ham) ham.setAttribute('aria-expanded','false'); }
-  function openMob(){ document.body.classList.add('nav-open'); if(mobile){ mobile.classList.add('open'); mobile.setAttribute('aria-hidden','false'); } if(ham) ham.setAttribute('aria-expanded','true'); }
-  if(ham){ ham.addEventListener('click',function(){ if(document.body.classList.contains('nav-open')) closeMob(); else openMob(); }); }
-  var closeBtn=document.getElementById('topNavMobileClose');
-  if(closeBtn) closeBtn.addEventListener('click',closeMob);
-  if(mobile){ mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMob); }); }
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMob(); });
 })();
 </script>
 
