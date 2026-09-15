@@ -375,59 +375,34 @@ figcaption{font-size:.85rem;color:var(--faint);margin-top:10px;text-align:center
 
     <figure>
       <div class="diagram-scroll">
-      <svg viewBox="0 0 900 300" role="img" aria-label="An incoming engagement is diagnosed first, then branches into one of five paths: adopt as-is, extend, redesign, build from scratch, or consolidate multiple systems into one — each with a different success criterion.">
-        <defs>
-          <marker id="parr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0 0L10 5L0 10z" fill="currentColor"/>
-          </marker>
-        </defs>
-        <g font-family="DM Mono, monospace" font-size="12" fill="currentColor">
-          <rect x="370" y="10" width="160" height="42" rx="8" fill="none" stroke="currentColor" stroke-width="1.4"/>
-          <text x="450" y="36" text-anchor="middle">new engagement</text>
-          <line x1="450" y1="52" x2="450" y2="78" stroke="currentColor" stroke-width="1.2"/>
-          <text x="460" y="70" font-size="10" fill="currentColor" opacity=".7">what do they already have?</text>
-          <line x1="450" y1="78" x2="80" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="450" y1="78" x2="270" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="450" y1="78" x2="450" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="450" y1="78" x2="630" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="450" y1="78" x2="820" y2="120" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <rect x="10" y="120" width="140" height="52" rx="8" stroke="#d97757" fill="none" stroke-width="1.6"/>
-          <text x="80" y="142" text-anchor="middle" fill="#d97757">real tokens/</text>
-          <text x="80" y="158" text-anchor="middle" fill="#d97757">repo, use as-is</text>
-          <rect x="200" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
-          <text x="270" y="142" text-anchor="middle">has it, has</text>
-          <text x="270" y="158" text-anchor="middle">real gaps</text>
-          <rect x="380" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
-          <text x="450" y="142" text-anchor="middle">"modernize it"</text>
-          <text x="450" y="158" text-anchor="middle">explicitly asked</text>
-          <rect x="560" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
-          <text x="630" y="142" text-anchor="middle">nothing —</text>
-          <text x="630" y="158" text-anchor="middle">brief/brand only</text>
-          <rect x="750" y="120" width="140" height="52" rx="8" stroke="currentColor" fill="none" stroke-width="1.2"/>
-          <text x="820" y="142" text-anchor="middle">N teams,</text>
-          <text x="820" y="158" text-anchor="middle">N systems already</text>
-          <line x1="80" y1="172" x2="80" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="270" y1="172" x2="270" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="450" y1="172" x2="450" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="630" y1="172" x2="630" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <line x1="820" y1="172" x2="820" y2="200" stroke="currentColor" stroke-width="1" marker-end="url(#parr)"/>
-          <g font-family="Space Grotesk, sans-serif" font-weight="600" font-size="13">
-            <rect x="10" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="#d97757" stroke-width="1.6"/>
-            <text x="80" y="228" text-anchor="middle" fill="#d97757">Adopt</text>
-            <text x="80" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">fidelity = success</text>
-            <rect x="200" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="270" y="228" text-anchor="middle">Extend</text>
-            <text x="270" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">invisible addition</text>
-            <rect x="380" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="450" y="228" text-anchor="middle">Revamp</text>
-            <text x="450" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">validated direction</text>
-            <rect x="560" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="630" y="228" text-anchor="middle">From scratch</text>
-            <text x="630" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">full pipeline</text>
-            <rect x="750" y="200" width="140" height="60" rx="8" fill="var(--bg-raised)" stroke="currentColor" stroke-width="1.2"/>
-            <text x="820" y="228" text-anchor="middle">Consolidate</text>
-            <text x="820" y="246" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10" fill="currentColor" opacity=".7">one owner, no breaks</text>
-          </g>
+      <svg viewBox="0 0 900 190" role="img" aria-label="An incoming engagement branches from one root into five paths: adopt as-is, extend, revamp, build from scratch, or consolidate multiple systems into one.">
+        <g fill="none" stroke="currentColor" stroke-width="1.3" opacity=".55">
+          <path d="M450 52 C270 52, 270 131, 90 131"/>
+          <path d="M450 52 C355 52, 355 131, 263 131"/>
+          <path d="M450 52 C450 52, 450 131, 450 131"/>
+          <path d="M450 52 C545 52, 545 131, 640 131"/>
+          <path d="M450 52 C630 52, 630 131, 813 131"/>
+        </g>
+        <g font-family="DM Mono, monospace" font-weight="600" fill="currentColor">
+          <circle cx="90" cy="131" r="3" fill="#d97757"/>
+          <circle cx="263" cy="131" r="3" fill="currentColor"/>
+          <circle cx="450" cy="131" r="3" fill="currentColor"/>
+          <circle cx="640" cy="131" r="3" fill="currentColor"/>
+          <circle cx="813" cy="131" r="3" fill="currentColor"/>
+        </g>
+        <g font-family="Space Grotesk, sans-serif" font-weight="700" font-size="12">
+          <rect x="388" y="18" width="124" height="34" rx="17" fill="var(--bg-surface)" stroke="currentColor" stroke-width="1.4"/>
+          <text x="450" y="39" text-anchor="middle" font-family="DM Mono, monospace" font-weight="400" font-size="10.5">new engagement</text>
+          <rect x="58" y="148" width="64" height="34" rx="17" fill="var(--bg-surface)" stroke="#d97757" stroke-width="1.6"/>
+          <text x="90" y="170" text-anchor="middle" fill="#d97757">Adopt</text>
+          <rect x="229" y="148" width="68" height="34" rx="17" fill="var(--bg-surface)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="263" y="170" text-anchor="middle">Extend</text>
+          <rect x="416" y="148" width="68" height="34" rx="17" fill="var(--bg-surface)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="450" y="170" text-anchor="middle">Revamp</text>
+          <rect x="605" y="148" width="70" height="34" rx="17" fill="var(--bg-surface)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="640" y="170" text-anchor="middle">Scratch</text>
+          <rect x="763" y="148" width="100" height="34" rx="17" fill="var(--bg-surface)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="813" y="170" text-anchor="middle">Consolidate</text>
         </g>
       </svg>
       </div>
@@ -515,12 +490,7 @@ Ask before adjusting the default:
     <figure>
       <div class="diagram-scroll">
       <svg viewBox="0 0 880 150" role="img" aria-label="Across a project timeline: at the start, UXR and historical feedback lead; in the middle, UXR validation labs run before production; at launch, analytics instrumentation and live feedback channels turn on; after two-plus weeks connected, real reporting begins, with UXR follow-up when a number doesn't explain the why.">
-        <defs>
-          <marker id="parr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-            <path d="M0 0L10 5L0 10z" fill="currentColor"/>
-          </marker>
-        </defs>
-        <line x1="40" y1="35" x2="840" y2="35" stroke="currentColor" stroke-width="1.2" marker-end="url(#parr2)"/>
+        <line x1="40" y1="35" x2="840" y2="35" stroke="currentColor" stroke-width="1.2" opacity=".4"/>
         <g font-family="DM Mono, monospace" font-size="11" fill="currentColor">
           <circle cx="90" cy="35" r="5" fill="#d97757"/>
           <text x="90" y="61" text-anchor="middle">start</text>
