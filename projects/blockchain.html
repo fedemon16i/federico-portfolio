@@ -7615,16 +7615,18 @@ function makeCity(canvas, parent, simple){
     stem.castShadow=true; ball.castShadow=true; g.add(stem); g.add(ball); scene.add(g); return {g:g,stem:stem,ball:ball,x:p.x,z:p.z};
   });
   var t0=performance.now(), look={x:0,z:0}, tLook={x:0,z:0}, ang=.4, tAng=.4, idleOrbit=true;
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced){ idleOrbit=false; for(var ri=0;ri<n;ri++) heights[ri]=targets[ri]; write(); }
   (function frame(now){
     requestAnimationFrame(frame);
     var t=(now-t0)/1000, dirty=false;
-    for(var i=0;i<n;i++) if(heights[i]<targets[i]){ heights[i]=Math.min(targets[i],heights[i]+.06); dirty=true; }
+    if(!reduced){ for(var i=0;i<n;i++) if(heights[i]<targets[i]){ heights[i]=Math.min(targets[i],heights[i]+.06); dirty=true; } }
     if(dirty) write();
     if(idleOrbit && Math.abs(tLook.x)<0.01 && Math.abs(tLook.z)<0.01) tAng+=0.0018;
     ang+=(tAng-ang)*0.03; look.x+=(tLook.x-look.x)*0.05; look.z+=(tLook.z-look.z)*0.05;
     camera.position.set(look.x+Math.sin(ang)*(simple?12:10.5), simple?11:10.2, look.z+Math.cos(ang)*(simple?12:10.5));
     camera.lookAt(look.x,0.3,look.z);
-    pins.forEach(function(p,i){ p.g.position.y=Math.sin(t*2+i)*.04; });
+    if(!reduced) pins.forEach(function(p,i){ p.g.position.y=Math.sin(t*2+i)*.04; });
     if(!simple || (Math.floor(t*30)%2===0)) renderer.render(scene,camera);
   })(performance.now());
   return {
