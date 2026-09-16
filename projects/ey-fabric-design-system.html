@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EY Fabric — Design System (ingeniería inversa)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0d0c;--bg-surface:#171614;--bg-raised:#1e1c1a;--bg-elevated:#26231f;
+  --text-primary:#f2f0ec;--text-secondary:#a6a29a;--text-tertiary:#918b81;
+  --accent:#f5d100;--accent-dim:rgba(245,209,0,.14);--on-accent:#0e0d0c;
+  --border:rgba(255,255,255,.08);--border-soft:rgba(255,255,255,.05);
+  --font-display:'Space Grotesk',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;
+  --radius-sm:6px;--radius:10px;--radius-lg:14px;--radius-xl:18px;
+  --spring:cubic-bezier(.34,1.32,.64,1);--ease:cubic-bezier(.22,1,.36,1);
+}
+html[data-theme="light"]{
+  --bg:#f7f5f2;--bg-surface:#fff;--bg-raised:#eeece7;--bg-elevated:#e4e0d8;
+  --text-primary:#1a1917;--text-secondary:#55524c;--text-tertiary:#726e66;
+  --accent:#a38b00;--accent-dim:rgba(163,139,0,.12);--on-accent:#fff;
+  --border:rgba(0,0,0,.1);--border-soft:rgba(0,0,0,.06);
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text-primary);font-family:var(--font-body);margin:0;transition:background .25s,color .25s}
+body{padding:0 0 80px}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 28px}
+.topbar{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 0;display:flex;align-items:center;justify-content:space-between}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{font-family:var(--font-display);font-weight:800;font-size:14px}
+.brand span{color:var(--accent)}
+.priv-tag{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);border:1px solid var(--border);border-radius:100px;padding:3px 9px;margin-left:10px}
+.theme-btn{border:1px solid var(--border);background:var(--bg-raised);color:var(--text-secondary);border-radius:100px;padding:6px 14px;font-family:var(--font-mono);font-size:11px;cursor:pointer}
+
+header.intro{padding:48px 0 8px}
+.eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.85rem,1.5rem + 1.8vw,2.55rem);letter-spacing:-.03em;line-height:1.12;margin:0 0 14px}
+h1 em{color:var(--accent);font-style:normal}
+.lead{font-size:1.02rem;color:var(--text-secondary);max-width:640px;line-height:1.55;margin:0 0 8px}
+.lead b{color:var(--text-primary);font-weight:600}
+
+.level{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);border-top:1px solid var(--border);margin-top:56px;padding-top:8px}
+h2{font-family:var(--font-display);font-weight:800;font-size:1.4rem;letter-spacing:-.02em;margin:4px 0 8px}
+.sec-note{color:var(--text-secondary);font-size:.9rem;max-width:640px;line-height:1.55;margin-bottom:22px}
+
+.grid{display:grid;gap:14px}
+.grid.tokens{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.swatch{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.swatch .fill{height:52px}
+.swatch .meta{padding:8px 10px;background:var(--bg-surface)}
+.swatch .k{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary)}
+.swatch .v{font-family:var(--font-mono);font-size:11px;color:var(--text-primary);margin-top:2px}
+
+.type-row{display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--border-soft)}
+.type-row .sample{flex:1}
+.type-row .tag{flex-shrink:0}
+.f-display{font-family:var(--font-display);font-weight:800}
+.f-body{font-family:var(--font-body);font-weight:500}
+.f-mono{font-family:var(--font-mono);font-weight:400}
+
+.radius-row{display:flex;gap:14px;flex-wrap:wrap}
+.r-box{width:72px;height:72px;background:var(--bg-surface);border:1px solid var(--border);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px}
+.r-box span{font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary)}
+
+/* atoms — copiados 1:1 de projects/ey-fabric.html */
+.tag{font-family:var(--font-mono);font-size:10.5px;border:1px solid var(--border);border-radius:100px;padding:4px 11px;color:var(--text-secondary)}
+.tool-chip{display:inline-flex;align-items:center;gap:5px;background:var(--bg-surface);border:1px solid var(--border-soft);border-radius:100px;padding:3px 9px;font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary)}
+.tool-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+/* molecules */
+.fabric-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:12px;margin-top:4px;max-width:40rem}
+.ff-step{flex:1 1 140px;min-width:120px;padding:14px 14px 16px;border-radius:14px;border:1px solid var(--border);background:var(--bg-surface)}
+.ff-ic{color:var(--accent);margin-bottom:10px}
+.ff-t{font-weight:700;font-size:14px;margin-bottom:4px}
+.ff-d{font-size:12.5px;color:var(--text-secondary);line-height:1.45}
+.ff-arrow{display:flex;align-items:center;color:var(--text-secondary);font-size:18px;padding:0 2px}
+
+.reel-wrap{overflow:hidden;margin:4px 0 8px}
+.reel{display:flex;gap:0;flex-wrap:wrap}
+.reel-item{flex:0 0 auto;min-width:180px;padding:6px 36px 6px 4px}
+.reel-top{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.reel-ic{width:1.1em;height:1.1em;color:var(--text-tertiary);display:inline-flex}
+.reel-ic svg{width:100%;height:100%}
+.reel-n{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4.5vw,2.5rem);letter-spacing:-.04em;color:var(--accent);line-height:1}
+.reel-l{font-size:13px;font-weight:500;color:var(--text-secondary);line-height:1.35;max-width:180px}
+
+.pi-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;margin-top:4px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.pi-sum-item{background:var(--bg-surface);padding:13px 16px;display:flex;flex-direction:column;gap:4px}
+.pi-sum-k{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.pi-sum-v{font-size:12.5px;color:var(--text-secondary);line-height:1.4}
+
+.gap-list{display:flex;flex-direction:column;gap:10px}
+.gap-item{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:12px 14px;background:var(--bg-surface)}
+.gap-item b{color:var(--text-primary)}
+.gap-item p{margin:4px 0 0;color:var(--text-secondary);font-size:.86rem;line-height:1.5}
+
+.src{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);margin-top:4px}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap">
+  <div><span class="brand">EY Fabric <span>·</span> Design System</span><span class="priv-tag">no listada — sin link desde el sitio</span></div>
+  <button class="theme-btn" id="themeBtn" type="button">☾ Dark</button>
+</div></div>
+
+<div class="wrap">
+<header class="intro">
+  <p class="eyebrow">Ingeniería inversa · 2026-09-16</p>
+  <h1>El sistema que <em>ya existe</em> — extraído, no inventado.</h1>
+  <p class="lead">
+    Esta página no diseña nada nuevo. Es lo que <b>ya está construido</b> en
+    <code>projects/ey-fabric.html</code>, leído componente por componente y
+    organizado en niveles atómicos (Brad Frost): tokens → átomos → moléculas
+    → organismos. Sirve para ver qué tan consistente es el sistema real antes
+    de construir la próxima pantalla o prototipo arriba de él — y para dejar
+    a la vista, sin adornar, dónde el sistema todavía no es un sistema.
+  </p>
+  <p class="lead">No está linkeada desde <code>index.html</code> ni <code>projects.html</code> — acceso solo por URL directa, a propósito.</p>
+</header>
+
+<section id="tokens">
+  <p class="level">Nivel 0 — Tokens</p>
+  <h2>Color</h2>
+  <p class="sec-note">Dos temas reales, no uno con overlay — cada valor tiene su propio par dark/light. Tocá el botón de arriba para ver el cambio real.</p>
+  <div class="grid tokens">
+    <div class="swatch"><div class="fill" style="background:var(--bg)"></div><div class="meta"><div class="k">--bg</div><div class="v" id="v-bg"></div></div></div>
+    <div class="swatch"><div class="fill" style="background:var(--bg-surface)"></div><div class="meta"><div class="k">--bg-surface</div><div class="v" id="v-bg-surface"></div></div></div>
+    <div class="swatch"><div class="fill" style="background:var(--bg-raised)"></div><div class="meta"><div class="k">--bg-raised</div><div class="v" id="v-bg-raised"></div></div></div>
+    <div class="swatch"><div class="fill" style="background:var(--accent)"></div><div class="meta"><div class="k">--accent</div><div class="v" id="v-accent"></div></div></div>
+    <div class="swatch"><div class="fill" style="background:var(--text-primary)"></div><div class="meta"><div class="k">--text-primary</div><div class="v" id="v-text-primary"></div></div></div>
+    <div class="swatch"><div class="fill" style="background:var(--text-secondary)"></div><div class="meta"><div class="k">--text-secondary</div><div class="v" id="v-text-secondary"></div></div></div>
+  </div>
+
+  <h2 style="margin-top:36px">Tipografía</h2>
+  <p class="sec-note">3 familias con rol fijo — nunca se mezclan fuera de su rol.</p>
+  <div class="type-row"><div class="sample f-display" style="font-size:1.8rem">Space Grotesk 800</div><span class="tag">display · h1/h2/reel-n</span></div>
+  <div class="type-row"><div class="sample f-body" style="font-size:1.05rem">DM Sans 500 — texto de lectura, .lead</div><span class="tag">body</span></div>
+  <div class="type-row"><div class="sample f-mono">DM Mono — .eyebrow .tag .tool-chip .pi-sum-k</div><span class="tag">mono</span></div>
+
+  <h2 style="margin-top:36px">Radio de bordes</h2>
+  <div class="radius-row">
+    <div class="r-box" style="border-radius:var(--radius-sm)"><span>sm · 6px</span></div>
+    <div class="r-box" style="border-radius:var(--radius)"><span>base · 10px</span></div>
+    <div class="r-box" style="border-radius:var(--radius-lg)"><span>lg · 14px</span></div>
+    <div class="r-box" style="border-radius:var(--radius-xl)"><span>xl · 18px</span></div>
+    <div class="r-box" style="border-radius:100px"><span>pill · 100px</span></div>
+  </div>
+</section>
+
+<section id="atoms">
+  <p class="level">Nivel 1 — Átomos</p>
+  <h2>Tag &amp; Tool-chip</h2>
+  <p class="sec-note">Los dos únicos átomos de "etiqueta" del sistema real — se repiten en toda la página, mismo radio pill, distinto peso visual.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <span class="tag">design, vibe-coding</span>
+    <span class="tag">ai-native-org</span>
+    <span class="tool-chip"><span class="dot"></span>Pendo</span>
+    <span class="tool-chip"><span class="dot"></span>Figma</span>
+    <span class="tool-chip"><span class="dot"></span>Claude</span>
+  </div>
+  <p class="src">Fuente real: projects/ey-fabric.html líneas 226 (.tag), 193/197 (.tool-chip)</p>
+</section>
+
+<section id="molecules">
+  <p class="level">Nivel 2 — Moléculas</p>
+  <h2>Fabric-flow step</h2>
+  <p class="sec-note">Ícono + título + descripción — la unidad que arma el organismo "Fabric-flow" de abajo.</p>
+  <div class="fabric-flow">
+    <div class="ff-step">
+      <div class="ff-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><rect x="4" y="15" width="16" height="6" rx="1"/></svg></div>
+      <div class="ff-t">Un paso</div>
+      <div class="ff-d">Molécula real, copiada del organismo Publishers.</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:30px">Reel item</h2>
+  <p class="sec-note">Ícono flotante + número grande + label — la unidad de la tira de métricas.</p>
+  <div class="reel-item" style="border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-surface)">
+    <div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg></span></div>
+    <span class="reel-n">1</span>
+    <div class="reel-l">Research signals → design and product decisions</div>
+  </div>
+
+  <h2 style="margin-top:30px">PI summary item</h2>
+  <div class="pi-sum-item" style="max-width:280px">
+    <span class="pi-sum-k">02 · Analyze</span>
+    <span class="pi-sum-v">Pendo funnel + session replay: 66% exit at Contact Person.</span>
+  </div>
+</section>
+
+<section id="organisms">
+  <p class="level">Nivel 3 — Organismos</p>
+  <h2>Fabric-flow completo</h2>
+  <p class="sec-note">3 moléculas + flecha — así vive de verdad en la sección "problem" del case study.</p>
+  <div class="fabric-flow">
+    <div class="ff-step">
+      <div class="ff-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><rect x="4" y="15" width="16" height="6" rx="1"/></svg></div>
+      <div class="ff-t">Publishers</div>
+      <div class="ff-d">Upload and configure items — no UI guardrails.</div>
+    </div>
+    <div class="ff-arrow">→</div>
+    <div class="ff-step">
+      <div class="ff-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <div class="ff-t">Approvers</div>
+      <div class="ff-d">Validate what enters the workspace path.</div>
+    </div>
+    <div class="ff-arrow">→</div>
+    <div class="ff-step">
+      <div class="ff-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6h12v12H6z"/><path d="M9 12h6"/></svg></div>
+      <div class="ff-t">Consumers</div>
+      <div class="ff-d">Find, configure, and acquire items.</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:36px">Metrics reel</h2>
+  <div class="reel-wrap"><div class="reel">
+    <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg></span><span class="reel-n">1</span></div><div class="reel-l">Research signals → design and product decisions</div></div>
+    <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 4-6"/></svg></span><span class="reel-n">~50%</span></div><div class="reel-l">Publisher item quality improved after findings</div></div>
+    <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 12h4M7 9h6M7 15h3"/></svg></span><span class="reel-n">E2E</span></div><div class="reel-l">Catalog journey instrumented after migration</div></div>
+    <div class="reel-item"><div class="reel-top"><span class="reel-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="12" r="2.5"/><circle cx="12" cy="12" r="2.5"/><circle cx="18" cy="12" r="2.5"/></svg></span><span class="reel-n">6</span></div><div class="reel-l">Stages owned from signal to design proposal</div></div>
+  </div></div>
+
+  <h2 style="margin-top:36px">PI summary grid</h2>
+  <div class="pi-summary">
+    <div class="pi-sum-item"><span class="pi-sum-k">01 · Catalog</span><span class="pi-sum-v">Map how people enter and filter 317 items.</span></div>
+    <div class="pi-sum-item"><span class="pi-sum-k">02 · Analyze</span><span class="pi-sum-v">Pendo funnel + session replay: 66% exit at Contact Person.</span></div>
+    <div class="pi-sum-item"><span class="pi-sum-k">03 · Research</span><span class="pi-sum-v">Interviews, survey (NPS 32, CES 18), tree test.</span></div>
+  </div>
+</section>
+
+<section id="gaps">
+  <p class="level">Honesto — lo que el sistema real todavía no tiene</p>
+  <h2>3 vacíos reales, no inventados</h2>
+  <p class="sec-note">Encontrados leyendo el CSS de verdad, no supuestos. Antes de construir el próximo prototipo sobre este sistema, estos 3 son los que más importan.</p>
+  <div class="gap-list">
+    <div class="gap-item"><b>No hay escala de spacing.</b><p>Todo el padding/margin del archivo real está en valores sueltos (14px, 16px, 22px, 36px...) sin ningún <code>--space-*</code> token. Cada componente nuevo elige su propio número — funciona porque el ojo lo corrige a mano, pero no escala si otra persona (o un agente) construye el próximo componente sin ver los anteriores al lado.</p></div>
+    <div class="gap-item"><b>No hay escala de sombras.</b><p>Encontré 7+ valores de <code>box-shadow</code> distintos, todos literales, ninguno reusado dos veces con el mismo valor exacto. No es un problema visible hoy, pero es la razón por la que "elevación" (qué tan arriba en la jerarquía se ve algo) no es una decisión consistente en el archivo — es intuición de cada momento en que se escribió.</p></div>
+    <div class="gap-item"><b>No existe un átomo <code>.btn</code>.</b><p>No hay una sola clase de botón reusable en todo el archivo — cada "botón" (<code>.ht-ba</code>, <code>.proj-link</code>, tool-chip clickeable) es su propio componente con su propio padding/radio/hover. Antes de armar cualquier prototipo nuevo que necesite un botón real, definir este átomo primero — es el que más se va a repetir.</p></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('themeBtn');
+  var html = document.documentElement;
+  function apply(){
+    var t = html.getAttribute('data-theme');
+    btn.textContent = t === 'dark' ? '☾ Dark' : '☀ Light';
+    var cs = getComputedStyle(html);
+    ['bg','bg-surface','bg-raised','accent','text-primary','text-secondary'].forEach(function(k){
+      var el = document.getElementById('v-'+k);
+      if (el) el.textContent = cs.getPropertyValue('--'+k).trim();
+    });
+  }
+  btn.addEventListener('click', function(){
+    html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    apply();
+  });
+  apply();
+})();
+</script>
+</body>
+</html>
