@@ -97,7 +97,7 @@ DemoKit.animateCounter(el, options)// contador numérico
 ### Design system tokens clave
 
 ```css
---spring: cubic-bezier(.34,1.56,.64,1)   /* OBLIGATORIO para cosas que crecen */
+--spring: cubic-bezier(.34,1.32,.64,1)   /* OBLIGATORIO para cosas que crecen — corregido 2026-09-16, decía 1.56 por error, no coincidía con lo que corría en producción */
 --ease-out: cubic-bezier(.16,1,.3,1)
 --bg-base: #0c0c0c                        /* dark pages */
 --accent: var(--accent-[project])         /* override por proyecto */

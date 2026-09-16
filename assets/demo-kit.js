@@ -12,8 +12,10 @@
     if(!el || reduced) return;
     opts = opts || {};
     var maxX = opts.maxX != null ? opts.maxX : 4, maxY = opts.maxY != null ? opts.maxY : 5;
+    var leaveTimer = null;
     el.classList.add('ds-card-3d');
     el.addEventListener('pointermove', function(e){
+      clearTimeout(leaveTimer);
       var r = el.getBoundingClientRect();
       var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
       el.style.transform = 'rotateX(' + ((py - .5) * -maxX).toFixed(2) + 'deg) rotateY(' + ((px - .5) * maxY).toFixed(2) + 'deg) translateY(-3px)';
@@ -22,8 +24,10 @@
       el.classList.add('ds-hover');
     });
     el.addEventListener('pointerleave', function(){
-      el.style.transform = '';
-      el.classList.remove('ds-hover');
+      leaveTimer = setTimeout(function(){
+        el.style.transform = '';
+        el.classList.remove('ds-hover');
+      }, 70);
     });
   }
 

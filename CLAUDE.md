@@ -26,7 +26,10 @@ Si el patrón que necesitás ya existe ahí, usarlo — no reinventar.
 
 ### Reglas de animación (no negociables)
 - Todo lo que CREZCA (cards, paneles) usa `var(--spring)` = 
-  `cubic-bezier(.34,1.56,.64,1)` — tiene que rebotar un poco, nunca una
+  `cubic-bezier(.34,1.32,.64,1)` (el valor real que corre en `shared.css` y
+  en casi todas las páginas — corregido 2026-09-16, antes decía 1.56 por
+  error y no coincidía con lo que había en producción) — tiene que rebotar
+  un poco, nunca una
   curva de ease plana sin overshoot. Ya pasó 2 veces que un componente
   nuevo se armó con `cubic-bezier(.22,1,.36,1)` (sin rebote) por error —
   revisar la curva de cualquier `transition` nueva contra esto.
