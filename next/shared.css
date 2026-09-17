@@ -10,6 +10,14 @@
   /* nav/metabar es chrome fijo oscuro en los dos temas — su tinta nunca cambia con el tema de la página */
   --ey-nav-text:#f4f4f4;--ey-nav-muted:#a8adba;--ey-nav-line:#2a2d38;--ey-nav-surface:#1c1e28;
   --ey-yellow:#FFE600;--ey-yellow-ink:#111;--ey-orange:#e08a2a;
+  /* --ey-yellow-text/--ey-orange-text: SOLO para texto/íconos en color plano
+     sobre el fondo de la página. --ey-yellow/--ey-orange en sí NUNCA se
+     tocan porque también son fills (botones, badges) — ahí el contraste es
+     contra su propio fondo (siempre bueno), no contra --ey-bg. Mismo
+     principio que ya está probado en projects/ey-fabric.html (--accent
+     cambia de #f5d100 oscuro a #a38b00 claro). Sin esto, amarillo/naranja
+     como texto es casi invisible en light mode (~2.5:1, falla WCAG). */
+  --ey-yellow-text:#FFE600;--ey-orange-text:#e08a2a;
   --ey-ok-bg:#0e2a1c;--ey-ok-ink:#3ddc84;--ey-ok-line:#1c4a30;
   --ey-warn-bg:#2e2408;--ey-warn-ink:#f0c674;--ey-warn-line:#4a3c10;
   --ey-bad-bg:#3a1518;--ey-bad-ink:#f2b4b0;--ey-bad-line:#5a2226;
@@ -26,6 +34,7 @@ html[data-theme="light"]{
   --ey-ok-bg:#e6f7ee;--ey-ok-ink:#1c8f61;--ey-ok-line:#bfe8d3;
   --ey-warn-bg:#fdf3dc;--ey-warn-ink:#8a6a0a;--ey-warn-line:#f0dba6;
   --ey-bad-bg:#fde8e8;--ey-bad-ink:#8b1e1e;--ey-bad-line:#f3c6c4;
+  --ey-yellow-text:#a38b00;--ey-orange-text:#8a4a12;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ey-bg);color:var(--ey-text);font-family:var(--font);font-size:14px;line-height:1.5}
@@ -61,14 +70,14 @@ button{font-family:inherit;cursor:pointer}
 h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
 .lede{color:var(--ey-muted);font-size:13px;max-width:60ch;margin:0 0 22px}
 
-.stagelbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ey-orange);border-top:1px solid var(--ey-line);margin-top:44px;padding-top:6px;display:flex;align-items:center;gap:8px}
+.stagelbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ey-orange-text);border-top:1px solid var(--ey-line);margin-top:44px;padding-top:6px;display:flex;align-items:center;gap:8px}
 .stagelbl .n{width:18px;height:18px;border-radius:50%;background:var(--ey-orange);color:#1a1200;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
 h2{font-family:var(--font);font-weight:700;font-size:17px;margin:6px 0 4px}
 .why{color:var(--ey-muted);font-size:12.5px;margin:0 0 18px;max-width:60ch}
 
 /* nota de diff — línea de changelog, nunca card con borde de acento (ver ANTI-SLOP.md) */
 .diff-note{font-family:var(--font-mono);font-size:11.5px;line-height:1.7;color:var(--ey-muted);margin:16px 0;padding:11px 0;border-top:1px solid var(--ey-line);border-bottom:1px solid var(--ey-line)}
-.diff-note .diff-tag{color:var(--ey-yellow);font-weight:600;margin-right:8px}
+.diff-note .diff-tag{color:var(--ey-yellow-text);font-weight:600;margin-right:8px}
 
 /* ===== .card — EL átomo de tile. Todo lo que antes era .type/.opt/.svc/
    .readcard/.builder/.published con su propio bg/border/radius/padding

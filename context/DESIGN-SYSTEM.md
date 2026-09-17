@@ -190,6 +190,29 @@ Todo lo de acá respeta `prefers-reduced-motion` automáticamente:
   una versión estática aparte.
 - `.ds-card-3d`, `.wf-cur`, `.wf-vcur` desactivan sus transiciones solas.
 
+### 8.1 Contraste de color de marca en light mode — regla permanente, todo proyecto
+Encontrado 2026-09-17 en `next/shared.css` (amarillo `#FFE600` como texto sobre
+fondo claro — casi invisible, ~1.3:1, muy por debajo del mínimo WCAG 4.5:1) y
+generalizado después a naranja (~2.5:1, también falla el mínimo 3:1 de íconos).
+**Ya existía la solución correcta en este mismo repo**, en
+`projects/ey-fabric.html`: `--accent` cambia de `#f5d100` (oscuro) a `#a38b00`
+(claro) entre temas — nunca un solo valor de amarillo/naranja/color de marca
+vívido fijo en los dos modos.
+
+**Regla — chequear en CUALQUIER trabajo, no solo EY Fabric, salvo pedido
+explícito de lo contrario:**
+- Un color de marca vívido (amarillo, naranja, cualquier acento saturado) SÍ
+  puede ser el fondo de un botón/badge/chip con texto oscuro encima — eso
+  siempre tiene buen contraste, no importa el tema.
+- Ese MISMO color usado como texto/ícono suelto directo sobre el fondo de la
+  página SÍ necesita una variante más oscura en light mode (o el patrón de
+  `--accent` que cambia de valor, o un token `-text` separado como en
+  `next/shared.css`: `--ey-yellow-text`/`--ey-orange-text`).
+- Antes de dar por terminada cualquier página con modo claro: barrer
+  `color:var(--acento...)` fuera de fondos/bordes y confirmar que cada uno
+  tiene una variante legible en light mode — no asumir que "se ve bien en
+  dark" alcanza.
+
 ---
 
 ## 9. QUÉ FALTA RETROFITEAR (próximos pasos)

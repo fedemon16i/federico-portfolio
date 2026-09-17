@@ -82,6 +82,13 @@ real (ej. hairlines arriba/abajo estilo changelog, texto inline en
 monospace, o directamente el patrón ya existente en el header/metabar de
 la página) — nunca reinventar el mismo bloque con borde de color.
 
+### Contraste de color de marca en light mode — no negociable
+Encontrado 2026-09-17: amarillo/naranja vívido usado como texto/ícono suelto
+(no como fondo de botón) es casi invisible en light mode — falla WCAG feo.
+Ver `DESIGN-SYSTEM.md` §8.1 para la regla completa y el fix ya aplicado en
+`next/shared.css`. Chequear esto en TODO trabajo con modo claro, no solo acá,
+a menos que Federico pida explícitamente lo contrario.
+
 ## 4. CUÁNDO PARAR Y PREGUNTAR
 
 Si al terminar algo la sensación es "esto se ve profesional pero no sé si es
