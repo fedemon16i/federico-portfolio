@@ -37,7 +37,7 @@
 .f-field{margin-bottom:14px}
 .f-field label{display:block;font-size:11.5px;color:var(--ey-muted);margin-bottom:5px}
 .f-field .fake-input{background:var(--ey-surface);border:1px solid var(--ey-line);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--ey-muted);transition:border-color .2s,box-shadow .2s}
-.f-field.hit .fake-input{border-color:var(--ey-yellow);box-shadow:0 0 0 3px rgba(255,230,0,.15)}
+.f-field.hit .fake-input{border-color:var(--ey-yellow-text);box-shadow:0 0 0 3px rgba(255,230,0,.15)}
 </style>
 </head>
 <body>
@@ -45,6 +45,7 @@
   <span><b>EY Fabric — Configure</b> · reconstruido de <code>federico-os</code>, con animación real y onboarding — prototipo, copy inventado</span>
   <span><button class="replay-btn" id="replayBtn" type="button">↻ Replay</button><button class="theme-btn" id="themeBtn" type="button">☾ Dark</button></span>
 </div>
+<div class="diffbar"><span class="diff-tag">Δ vs. federico-os</span>mismo flujo real (Marketplace → detalles → Configure con guía de onboarding de 3 pasos → Billing → Confirm → Ready) — reconstruido con animación propia en vez de depender del motor de cursor que faltaba en el repo original, y con la misma densidad Carbon que <code>ey-fabric-publisher.html</code>.</div>
 
 <div class="nav">
   <div class="logo"><span class="mark">EY</span> Fabric</div>
@@ -66,7 +67,6 @@
     <p class="crumb">Fabric &gt; Marketplace &gt; Services</p>
     <h1>Configure a service</h1>
     <p class="lede">The end-user side of the same platform — a team lead finding, configuring, and requesting an offering, with a short first-run guide layered on top of the real form.</p>
-    <p class="diff-note"><span class="diff-tag">Δ vs. federico-os</span>mismo flujo real (Marketplace → detalles → Configure con guía de onboarding de 3 pasos → Billing → Confirm → Ready) — reconstruido con animación propia en vez de depender del motor de cursor que faltaba en el repo original, y con la misma densidad Carbon que <code>ey-fabric-publisher.html</code>.</p>
 
     <!-- SCENE 1 — marketplace grid -->
     <div class="scene on" id="s1">

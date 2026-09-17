@@ -75,17 +75,25 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
 h2{font-family:var(--font);font-weight:700;font-size:17px;margin:6px 0 4px}
 .why{color:var(--ey-muted);font-size:12.5px;margin:0 0 18px;max-width:60ch}
 
-/* nota de diff — línea de changelog, nunca card con borde de acento (ver ANTI-SLOP.md) */
-.diff-note{font-family:var(--font-mono);font-size:11.5px;line-height:1.7;color:var(--ey-muted);margin:16px 0;padding:11px 0;border-top:1px solid var(--ey-line);border-bottom:1px solid var(--ey-line)}
-.diff-note .diff-tag{color:var(--ey-yellow-text);font-weight:600;margin-right:8px}
+/* ===== .diffbar — nota "qué cambió vs. federico-os", para Federico, no
+   para el producto simulado. Vive en el chrome (mismo trato que .metabar:
+   siempre oscuro, monospace) a propósito — así queda inequívoco que es
+   un comentario de proceso, no copy del prototipo. Antes vivía adentro de
+   .main como .diff-note con su propio look de card; movido acá 2026-09-17
+   porque mezclado con el contenido parecía parte de la interfaz real. ===== */
+.diffbar{background:var(--ey-nav-surface);color:var(--ey-nav-muted);font-family:var(--font-mono);font-size:11px;line-height:1.6;padding:10px 20px;border-bottom:1px solid var(--ey-nav-line)}
+.diffbar .diff-tag{color:var(--ey-yellow);font-weight:600;margin-right:8px}
 
 /* ===== .card — EL átomo de tile. Todo lo que antes era .type/.opt/.svc/
    .readcard/.builder/.published con su propio bg/border/radius/padding
    repetido ahora comparte esta base; cada uno solo agrega layout de
    contenido propio, nunca bg/border/radius/padding de nuevo. ===== */
 .card{background:var(--ey-card);border:1px solid var(--ey-line);border-radius:var(--radius-card);padding:16px}
-.card.sel{border-color:var(--ey-yellow);box-shadow:0 0 0 1px var(--ey-yellow) inset}
-.card.accent-line{border-color:var(--ey-yellow)}
+/* .sel/.accent-line marcan estado real (seleccionado, foco de atención) —
+   no decoración — así que usan el token -text, no el amarillo de fill puro,
+   para pasar contraste en light mode (ver DESIGN-SYSTEM.md §8.1). */
+.card.sel{border-color:var(--ey-yellow-text);box-shadow:0 0 0 1px var(--ey-yellow-text) inset}
+.card.accent-line{border-color:var(--ey-yellow-text)}
 
 /* ===== .btn — un solo botón, con modificadores ===== */
 .btn{background:var(--ey-yellow);color:var(--ey-yellow-ink);border:0;border-radius:6px;padding:9px 18px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;position:relative;cursor:pointer}
@@ -110,7 +118,7 @@ h2{font-family:var(--font);font-weight:700;font-size:17px;margin:6px 0 4px}
    con Stepper.render() en shared.js, siempre desde el mismo HTML. ===== */
 .stepper{display:flex;gap:6px;font-size:11px;color:var(--ey-muted);margin-bottom:18px}
 .stepper span{padding:4px 10px;border-radius:100px;border:1px solid var(--ey-line)}
-.stepper span.on{color:var(--ey-text);border-color:var(--ey-yellow);font-weight:600}
+.stepper span.on{color:var(--ey-text);border-color:var(--ey-yellow-text);font-weight:600}
 .stepper span.done{color:var(--ey-ok-ink);border-color:var(--ey-ok-line)}
 
 /* dot-progress chico (onboarding, o cualquier secuencia corta) */
@@ -131,7 +139,7 @@ h2{font-family:var(--font);font-weight:700;font-size:17px;margin:6px 0 4px}
 
 /* ===== .field-help — ayuda inline bajo un campo (antes .sheet en
    publisher — renombrado para no compartir nombre con .modal-card). ===== */
-.field-help{background:var(--ey-surface);border:1px solid var(--ey-yellow);border-radius:8px;padding:14px 16px;margin-top:-2px;margin-bottom:8px;font-size:12.5px;color:var(--ey-muted)}
+.field-help{background:var(--ey-surface);border:1px solid var(--ey-yellow-text);border-radius:8px;padding:14px 16px;margin-top:-2px;margin-bottom:8px;font-size:12.5px;color:var(--ey-muted)}
 .field-help h4{margin:0 0 6px;font-size:13px;color:var(--ey-text)}
 
 /* checkmark de éxito, spring scale-in */
