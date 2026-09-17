@@ -18,6 +18,13 @@ y `federico-os/docs/EY-DS.md`) — no inventar un sistema visual nuevo.
 - [x] `projects/ey-fabric-publisher.html` — flujo de Publisher (Queue → Type
       → Fields → Guidance → Onboard → AI Review → Live), formalizado y con
       la densidad de las 4 capturas reales de EY Fabric.
-- [ ] Flujo de Configure/Customize (chat + onboarding conviviendo).
+- [x] `projects/ey-fabric-configure.html` — flujo de Configure (Marketplace
+      → detalles → form con guía de onboarding de 3 pasos → Billing →
+      Confirmation), animado (cross-fade de escenas, stagger de cards,
+      overlay de onboarding, checkmark de éxito), con Replay, tema oscuro/
+      claro y `prefers-reduced-motion`. Comparte densidad y tokens con
+      `ey-fabric-publisher.html`.
 - [ ] Visión de Fabric Next (transparencia de agente, estilo OpenClaw/harness).
+- [ ] Design system paralelo wireframe, moderno y limpio, para el resto del
+      portfolio (skills beats incluido).
 - [ ] Resto del portfolio.

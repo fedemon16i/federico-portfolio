@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EY Fabric — Configure (rebuilt, animated)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== mismos tokens Carbon g100 que ey-fabric-publisher.html, para consistencia entre piezas de next/ ===== */
+:root{
+  --ey-hero:#07070a;--ey-nav:#0b0c10;--ey-bg:#12141c;--ey-side:#101218;--ey-surface:#161821;--ey-card:#1c1e28;
+  --ey-text:#f4f4f4;--ey-muted:#a8adba;--ey-line:#2a2d38;
+  --ey-nav-text:#f4f4f4;--ey-nav-muted:#a8adba;--ey-nav-line:#2a2d38;--ey-nav-surface:#1c1e28;
+  --ey-yellow:#FFE600;--ey-yellow-ink:#111;--ey-orange:#e08a2a;
+  --ey-ok-bg:#0e2a1c;--ey-ok-ink:#3ddc84;--ey-ok-line:#1c4a30;
+  --ey-warn-bg:#2e2408;--ey-warn-ink:#f0c674;--ey-warn-line:#4a3c10;
+  --font:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --radius:6px;--spring:cubic-bezier(.34,1.4,.64,1);
+}
+html[data-theme="light"]{
+  --ey-bg:#e8edf2;--ey-side:#eef1f5;--ey-surface:#fff;--ey-card:#fff;
+  --ey-text:#1f2430;--ey-muted:#5a6072;--ey-line:#d7dce3;
+  --ey-ok-bg:#e6f7ee;--ey-ok-ink:#1c8f61;--ey-ok-line:#bfe8d3;
+  --ey-warn-bg:#fdf3dc;--ey-warn-ink:#8a6a0a;--ey-warn-line:#f0dba6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ey-bg);color:var(--ey-text);font-family:var(--font);font-size:14px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important} }
+
+.metabar{background:var(--ey-nav);color:var(--ey-nav-muted);font-family:var(--font-mono);font-size:11px;padding:8px 20px;display:flex;justify-content:space-between;border-bottom:1px solid var(--ey-nav-line)}
+.metabar b{color:var(--ey-nav-text)}
+.theme-btn{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);color:var(--ey-nav-text);border-radius:100px;padding:3px 12px;font-family:var(--font-mono);font-size:10px}
+.replay-btn{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);color:var(--ey-nav-text);border-radius:100px;padding:3px 12px;font-family:var(--font-mono);font-size:10px;margin-right:8px}
+
+.nav{background:var(--ey-nav);border-bottom:1px solid var(--ey-nav-line);padding:0 24px;height:52px;display:flex;align-items:center;gap:28px}
+.nav .logo{font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--ey-nav-text)}
+.nav .logo .mark{width:22px;height:22px;background:var(--ey-yellow);color:var(--ey-yellow-ink);border-radius:4px;display:grid;place-items:center;font-weight:800;font-size:11px}
+.nav .links{display:flex;gap:22px;font-size:13px;color:var(--ey-nav-muted);flex:1}
+.nav .links a.on{color:var(--ey-nav-text);font-weight:600}
+.nav .right{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--ey-nav-muted)}
+.nav .search{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--ey-nav-muted);min-width:220px}
+.nav .avatar{width:26px;height:26px;border-radius:50%;background:var(--ey-yellow);color:var(--ey-yellow-ink);display:grid;place-items:center;font-weight:700;font-size:11px}
+
+.shell{display:grid;grid-template-columns:180px 1fr;min-height:calc(100vh - 92px)}
+.rail{background:var(--ey-side);border-right:1px solid var(--ey-line);padding:20px 12px}
+.rail .rh{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ey-muted);padding:0 10px;margin-bottom:8px}
+.rail a{display:flex;justify-content:space-between;padding:8px 10px;border-radius:var(--radius);font-size:13px;color:var(--ey-muted);margin-bottom:2px}
+.rail a.on{background:var(--ey-card);color:var(--ey-text);font-weight:600}
+.rail a b{font-weight:400;color:var(--ey-muted);font-size:11px}
+
+.main{padding:28px 32px 80px;position:relative;min-height:600px}
+.crumb{font-size:11px;color:var(--ey-muted);margin-bottom:6px;font-family:var(--font-mono)}
+h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
+.lede{color:var(--ey-muted);font-size:13px;max-width:60ch;margin:0 0 22px}
+.diff-note{background:var(--ey-surface);border-left:3px solid var(--ey-yellow);border-radius:0 8px 8px 0;padding:12px 16px;font-size:12.5px;color:var(--ey-muted);margin:0 0 26px}
+.diff-note b{color:var(--ey-text)}
+
+/* view switcher — cada "scene" es una vista completa, se cross-fade */
+.scene{position:absolute;inset:28px 32px 0;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .35s ease-out,transform .35s var(--spring)}
+.scene.on{position:relative;inset:auto;opacity:1;pointer-events:auto;transform:translateY(0)}
+
+/* filter chips row */
+.chips{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.chip{font-size:11.5px;color:var(--ey-muted);border:1px solid var(--ey-line);border-radius:100px;padding:5px 12px}
+.chip.on{background:var(--ey-yellow);color:var(--ey-yellow-ink);border-color:var(--ey-yellow);font-weight:600}
+
+/* service card grid — matches the real 2-col, 2-button-per-card density */
+.svcgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.svc{background:var(--ey-card);border:1px solid var(--ey-line);border-radius:10px;padding:16px;opacity:0;transform:scale(.94) translateY(8px);transition:opacity .3s ease-out,transform .3s var(--spring),border-color .2s}
+.svc.in{opacity:1;transform:scale(1) translateY(0)}
+.svc .ico{width:26px;height:26px;color:var(--ey-orange);margin-bottom:10px}
+.svc .t{font-weight:700;font-size:14px}
+.svc .meta{font-size:11px;color:var(--ey-muted);margin:2px 0 6px}
+.svc .desc{font-size:12.5px;color:var(--ey-muted);line-height:1.45;margin-bottom:10px}
+.svc .tags{display:flex;gap:6px;margin-bottom:12px}
+.svc .tags i{font-style:normal;font-size:10.5px;color:var(--ey-muted);border:1px solid var(--ey-line);border-radius:100px;padding:2px 9px}
+.svc .acts{display:flex;gap:8px}
+.btn{background:var(--ey-yellow);color:var(--ey-yellow-ink);border:0;border-radius:6px;padding:8px 16px;font-size:12.5px;font-weight:700;position:relative}
+.btn.ghost{background:transparent;color:var(--ey-text);border:1px solid var(--ey-line)}
+.btn.glow{box-shadow:0 0 0 3px var(--ey-yellow) inset,0 0 18px -2px var(--ey-yellow)}
+
+/* details overlay sheet */
+.overlay{position:absolute;inset:0;background:rgba(8,10,16,.72);display:flex;align-items:center;justify-content:center;z-index:5;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.on{opacity:1;pointer-events:auto}
+.sheet{width:min(420px,86%);background:var(--ey-card);border:1px solid var(--ey-line);border-radius:12px;padding:22px;transform:scale(.92);transition:transform .3s var(--spring)}
+.overlay.on .sheet{transform:scale(1)}
+.sheet h4{margin:0 0 8px;font-size:17px}
+.sheet p{margin:0 0 16px;color:var(--ey-muted);font-size:13px;line-height:1.5}
+.dots{display:flex;gap:6px;margin:0 0 16px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--ey-line);display:block;transition:background .25s,transform .25s}
+.dots i.on{background:var(--ey-yellow);transform:scale(1.3)}
+
+/* configure form, with onboarding overlay layered on top */
+.formwrap{position:relative;background:var(--ey-card);border:1px solid var(--ey-line);border-radius:10px;padding:22px;max-width:560px}
+.f-field{margin-bottom:14px}
+.f-field label{display:block;font-size:11.5px;color:var(--ey-muted);margin-bottom:5px}
+.f-field .fake-input{background:var(--ey-surface);border:1px solid var(--ey-line);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--ey-muted);transition:border-color .2s,box-shadow .2s}
+.f-field.hit .fake-input{border-color:var(--ey-yellow);box-shadow:0 0 0 3px rgba(255,230,0,.15)}
+.stepper{display:flex;gap:6px;font-size:11px;color:var(--ey-muted);margin-bottom:18px}
+.stepper span{padding:4px 10px;border-radius:100px;border:1px solid var(--ey-line)}
+.stepper span.on{color:var(--ey-text);border-color:var(--ey-yellow);font-weight:600}
+
+.checkwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px}
+.checkcirc{width:64px;height:64px;border-radius:50%;background:var(--ey-ok-bg);border:2px solid var(--ey-ok-line);display:grid;place-items:center;transform:scale(0);transition:transform .4s var(--spring)}
+.checkwrap.on .checkcirc{transform:scale(1)}
+.checkcirc svg{width:30px;height:30px;color:var(--ey-ok-ink)}
+.checkwrap .ct{font-weight:700;font-size:16px;opacity:0;transition:opacity .3s .2s}
+.checkwrap.on .ct{opacity:1}
+</style>
+</head>
+<body>
+<div class="metabar">
+  <span><b>EY Fabric — Configure</b> · reconstruido de <code>federico-os</code>, con animación real y onboarding — prototipo, copy inventado</span>
+  <span><button class="replay-btn" id="replayBtn" type="button">↻ Replay</button><button class="theme-btn" id="themeBtn" type="button">☾ Dark</button></span>
+</div>
+
+<div class="nav">
+  <div class="logo"><span class="mark">EY</span> Fabric</div>
+  <div class="links"><a class="on">Overview</a><a>Marketplace</a><a>Tools</a><a>Learn &amp; Connect</a></div>
+  <div class="right"><span class="search">Search for products, documentation…</span><span class="avatar">FM</span></div>
+</div>
+
+<div class="shell">
+  <div class="rail">
+    <div class="rh">Catalog</div>
+    <a class="on">All Items <b>317</b></a>
+    <a>Services <b>157</b></a>
+    <a>Licenses <b>21</b></a>
+    <a>Starter Kits <b>17</b></a>
+    <a>APIs <b>41</b></a>
+  </div>
+
+  <div class="main">
+    <p class="crumb">Fabric &gt; Marketplace &gt; Services</p>
+    <h1>Configure a service</h1>
+    <p class="lede">The end-user side of the same platform — a team lead finding, configuring, and requesting an offering, with a short first-run guide layered on top of the real form.</p>
+    <div class="diff-note"><b>Qué cambia acá vs. <code>federico-os</code>:</b> mismo flujo real (Marketplace → detalles → Configure con guía de onboarding de 3 pasos → Billing → Confirm → Ready) — reconstruido con animación propia en vez de depender del motor de cursor que faltaba en el repo original, y con la misma densidad Carbon que <code>ey-fabric-publisher.html</code>.</div>
+
+    <!-- SCENE 1 — marketplace grid -->
+    <div class="scene on" id="s1">
+      <div class="chips"><span class="chip on">All Services</span><span class="chip">Types</span><span class="chip">Offerings</span><span class="chip">Add-ons</span></div>
+      <div class="svcgrid" id="grid"></div>
+    </div>
+
+    <!-- SCENE 2 — details overlay lives on top of scene 1, handled via JS -->
+
+    <!-- SCENE 3 — configure form -->
+    <div class="scene" id="s3">
+      <div class="stepper"><span class="on">1 · Customization</span><span>2 · Billing</span><span>3 · Confirmation</span></div>
+      <div class="formwrap" id="formwrap">
+        <div class="f-field"><label>Friendly instance name (required)</label><div class="fake-input">shared-workbench-01</div></div>
+        <div class="f-field" id="fWorkspace"><label>Workspace</label><div class="fake-input">— not selected —</div></div>
+        <div class="f-field" id="fTeam"><label>Point of contact (required)</label><div class="fake-input">— search team —</div></div>
+        <div class="f-field" id="fBilling"><label>Billing account (required)</label><div class="fake-input">— required before submit —</div></div>
+        <button class="btn" id="continueBtn">Continue to billing</button>
+      </div>
+      <div class="overlay" id="ob"><div class="sheet" id="obsheet"></div></div>
+    </div>
+
+    <!-- SCENE 4 — billing -->
+    <div class="scene" id="s4">
+      <div class="stepper"><span>1 · Customization ✓</span><span class="on">2 · Billing</span><span>3 · Confirmation</span></div>
+      <div class="formwrap">
+        <div class="f-field"><label>Cost center</label><div class="fake-input">CC-4471 · Fabric Platform</div></div>
+        <div class="f-field"><label>Estimated monthly cost</label><div class="fake-input">$0 — usage-based after first workload</div></div>
+        <button class="btn" id="billGo">Continue to confirmation</button>
+      </div>
+    </div>
+
+    <!-- SCENE 5 — confirm + ready -->
+    <div class="scene" id="s5">
+      <div class="stepper"><span>1 · Customization ✓</span><span>2 · Billing ✓</span><span class="on">3 · Confirmation</span></div>
+      <div class="checkwrap" id="checkwrap">
+        <div class="checkcirc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div class="ct">Ready — shared-workbench-01 will provision in ~3 min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var LIST = [
+  { name:'Shared workbench', desc:'A workspace a team requests and runs together.', tags:['workspace','shared'], mark:'#5b6abf', ic:'grid' },
+  { name:'Team cluster', desc:'Compute reserved for one delivery team.', tags:['compute','shared'], mark:'#0b5cab', ic:'server' },
+  { name:'Automation seat', desc:'A named right to run jobs on a path.', tags:['seat','jobs'], mark:'#c44e06', ic:'bolt' },
+  { name:'Production workflow', desc:'The live path for a service after review.', tags:['prod','path'], mark:'#c44a1a', ic:'flow' }
+];
+var ICONS = {
+  grid:'<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>',
+  server:'<rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><circle cx="7" cy="7" r=".8" fill="currentColor"/><circle cx="7" cy="17" r=".8" fill="currentColor"/>',
+  bolt:'<path d="M13 2 4 14h6l-1 8 9-12h-6z"/>',
+  flow:'<circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.5 8.5 15.5 15.5M6 9v6a3 3 0 003 3h3"/>'
+};
+function buildGrid(){
+  var g = document.getElementById('grid');
+  g.innerHTML = LIST.map(function(s,i){
+    return '<div class="svc" data-i="'+i+'"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+ICONS[s.ic]+'</svg>'+
+      '<div class="t">'+s.name+'</div><div class="meta">Services · Offerings</div>'+
+      '<div class="desc">'+s.desc+'</div>'+
+      '<div class="tags">'+s.tags.map(function(t){return '<i>'+t+'</i>';}).join('')+'</div>'+
+      '<div class="acts"><button class="btn ghost" id="details'+i+'">See details</button><button class="btn" id="start'+i+'">Get started</button></div></div>';
+  }).join('');
+}
+buildGrid();
+
+var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var ONBOARD = [
+  ['Workspace','Do you already have a workspace for this team? If not, we create one from this request.'],
+  ['Team','Who owns the request once it is live — this is who gets notified on changes.'],
+  ['Billing','A cost center is required before you can submit. Pick one now to skip this step later.']
+];
+
+function showScene(id){
+  document.querySelectorAll('.scene').forEach(function(s){ s.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+}
+function obStep(n){
+  var sheet = document.getElementById('obsheet');
+  sheet.innerHTML = '<h4>'+ONBOARD[n][0]+'</h4><p>'+ONBOARD[n][1]+'</p><div class="dots">'+
+    [0,1,2].map(function(i){ return '<i class="'+(i===n?'on':'')+'"></i>'; }).join('')+
+    '</div><button class="btn" id="obGo">'+(n<2?'Next':'Start the form')+'</button>';
+  ['fWorkspace','fTeam','fBilling'].forEach(function(f,i){ document.getElementById(f).classList.toggle('hit', i===n); });
+  document.getElementById('obGo').onclick = function(){
+    if (n<2) obStep(n+1); else dismissOnboard();
+  };
+}
+function dismissOnboard(){
+  document.getElementById('ob').classList.remove('on');
+  ['fWorkspace','fTeam','fBilling'].forEach(function(f){ document.getElementById(f).classList.remove('hit'); });
+}
+
+function reset(){
+  showScene('s1');
+  document.querySelectorAll('.svc').forEach(function(c){ c.classList.remove('in'); });
+  document.getElementById('ob').classList.remove('on');
+  document.getElementById('checkwrap').classList.remove('on');
+}
+
+function play(){
+  reset();
+  var cards = [...document.querySelectorAll('.svc')];
+  if (reduced){
+    cards.forEach(function(c){ c.classList.add('in'); });
+    return;
+  }
+  cards.forEach(function(c,i){ setTimeout(function(){ c.classList.add('in'); }, 120*i); });
+
+  setTimeout(function(){ document.getElementById('start0').classList.add('glow'); }, 900);
+  setTimeout(function(){
+    showScene('s3');
+    document.getElementById('ob').classList.add('on');
+    obStep(0);
+  }, 2200);
+  // auto-advance del onboarding, pero sigue siendo clickeable (obGo) si alguien interactúa antes
+  setTimeout(function(){ var b=document.getElementById('obGo'); if(b && document.getElementById('ob').classList.contains('on')) b.click(); }, 4200);
+  setTimeout(function(){ var b=document.getElementById('obGo'); if(b && document.getElementById('ob').classList.contains('on')) b.click(); }, 6200);
+  setTimeout(function(){ var b=document.getElementById('obGo'); if(b && document.getElementById('ob').classList.contains('on')) b.click(); }, 8200);
+  setTimeout(function(){ document.getElementById('continueBtn').classList.add('glow'); }, 9000);
+  setTimeout(function(){ showScene('s4'); }, 10200);
+  setTimeout(function(){ document.getElementById('billGo').classList.add('glow'); }, 11000);
+  setTimeout(function(){ showScene('s5'); }, 12200);
+  setTimeout(function(){ document.getElementById('checkwrap').classList.add('on'); }, 12600);
+}
+
+// interacción real además del auto-play: los botones responden si se clickean
+document.addEventListener('click', function(e){
+  if (e.target.id && e.target.id.indexOf('start') === 0){ showScene('s3'); document.getElementById('ob').classList.add('on'); obStep(0); }
+  if (e.target.id && e.target.id.indexOf('details') === 0){ showScene('s3'); document.getElementById('ob').classList.add('on'); obStep(0); }
+  if (e.target.id === 'continueBtn'){ showScene('s4'); }
+  if (e.target.id === 'billGo'){ showScene('s5'); document.getElementById('checkwrap').classList.add('on'); }
+});
+document.getElementById('replayBtn').addEventListener('click', play);
+document.getElementById('themeBtn').addEventListener('click', function(){
+  var html = document.documentElement;
+  var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  this.textContent = next === 'dark' ? '☾ Dark' : '☀ Light';
+});
+play();
+</script>
+</body>
+</html>
