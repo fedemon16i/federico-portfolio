@@ -139,8 +139,8 @@ h2{font-family:var(--font);font-weight:700;font-size:17px;margin:6px 0 4px}
 .published .t{font-weight:700;font-size:14px}
 .published .d{font-size:12px;color:var(--ey-muted);margin-top:2px}
 
-.diff-note{background:var(--ey-surface);border-left:3px solid var(--ey-yellow);border-radius:0 8px 8px 0;padding:12px 16px;font-size:12.5px;color:var(--ey-muted);margin:16px 0}
-.diff-note b{color:var(--ey-text)}
+.diff-note{font-family:var(--font-mono);font-size:11.5px;line-height:1.7;color:var(--ey-muted);margin:16px 0;padding:11px 0;border-top:1px solid var(--ey-line);border-bottom:1px solid var(--ey-line)}
+.diff-note .diff-tag{color:var(--ey-yellow);font-weight:600;margin-right:8px}
 </style>
 </head>
 <body>
@@ -177,7 +177,7 @@ h2{font-family:var(--font);font-weight:700;font-size:17px;margin:6px 0 4px}
     <h1>Publisher workspace</h1>
     <p class="lede">Publish once, live everywhere in the catalog. Queue, guidance, onboarding, and AI review happen in one flow — not four separate tools.</p>
 
-    <div class="diff-note"><b>Qué cambia acá vs. <code>federico-os</code>:</b> el flujo y el copy son los mismos 7 pasos ya pensados (Queue → Type → Fields → Guidance → Onboard → Review → Live) — lo nuevo es la densidad real (KPIs con más peso, grid de 9 tipos en vez de una lista chica, y el panel de AI review ahora hace una revisión de 3 audiencias — técnico/business/rookie — en vez de una sola frase genérica).</div>
+    <p class="diff-note"><span class="diff-tag">Δ vs. federico-os</span>el flujo y el copy son los mismos 7 pasos ya pensados (Queue → Type → Fields → Guidance → Onboard → Review → Live) — lo nuevo es la densidad real (KPIs con más peso, grid de 9 tipos en vez de una lista chica, y el panel de AI review ahora hace una revisión de 3 audiencias — técnico/business/rookie — en vez de una sola frase genérica).</p>
 
     <!-- STAGE 1 — QUEUE -->
     <p class="stagelbl"><span class="n">1</span>Queue</p>

@@ -56,8 +56,8 @@ button{font-family:inherit;cursor:pointer}
 .crumb{font-size:11px;color:var(--ey-muted);margin-bottom:6px;font-family:var(--font-mono)}
 h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
 .lede{color:var(--ey-muted);font-size:13px;max-width:60ch;margin:0 0 22px}
-.diff-note{background:var(--ey-surface);border-left:3px solid var(--ey-yellow);border-radius:0 8px 8px 0;padding:12px 16px;font-size:12.5px;color:var(--ey-muted);margin:0 0 26px}
-.diff-note b{color:var(--ey-text)}
+.diff-note{font-family:var(--font-mono);font-size:11.5px;line-height:1.7;color:var(--ey-muted);margin:0 0 26px;padding:11px 0;border-top:1px solid var(--ey-line);border-bottom:1px solid var(--ey-line)}
+.diff-note .diff-tag{color:var(--ey-yellow);font-weight:600;margin-right:8px}
 
 /* view switcher — cada "scene" es una vista completa, se cross-fade */
 .scene{position:absolute;inset:28px 32px 0;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .35s ease-out,transform .35s var(--spring)}
@@ -138,7 +138,7 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
     <p class="crumb">Fabric &gt; Marketplace &gt; Services</p>
     <h1>Configure a service</h1>
     <p class="lede">The end-user side of the same platform — a team lead finding, configuring, and requesting an offering, with a short first-run guide layered on top of the real form.</p>
-    <div class="diff-note"><b>Qué cambia acá vs. <code>federico-os</code>:</b> mismo flujo real (Marketplace → detalles → Configure con guía de onboarding de 3 pasos → Billing → Confirm → Ready) — reconstruido con animación propia en vez de depender del motor de cursor que faltaba en el repo original, y con la misma densidad Carbon que <code>ey-fabric-publisher.html</code>.</div>
+    <p class="diff-note"><span class="diff-tag">Δ vs. federico-os</span>mismo flujo real (Marketplace → detalles → Configure con guía de onboarding de 3 pasos → Billing → Confirm → Ready) — reconstruido con animación propia en vez de depender del motor de cursor que faltaba en el repo original, y con la misma densidad Carbon que <code>ey-fabric-publisher.html</code>.</p>
 
     <!-- SCENE 1 — marketplace grid -->
     <div class="scene on" id="s1">

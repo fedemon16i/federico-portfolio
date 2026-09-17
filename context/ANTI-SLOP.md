@@ -68,6 +68,20 @@ su propio portfolio de UX.
   preguntarse: ¿el contenido de adentro es real y distinto para este
   proyecto, o es el mismo texto con el nombre cambiado?
 
+### Patrón prohibido — la "card con línea de acento a la izquierda"
+Federico señaló esto dos veces (2026-09-17): un `border-left: 3px solid
+<accent>` + fondo `--surface` + `border-radius` redondeado del lado
+derecho, usado como "callout" o "nota" (ej. `.gap-item` en
+`ey-fabric-design-system.html`, `.diff-note` en `ey-fabric-publisher.html`
+y `ey-fabric-configure.html`). Es el componente reflejo que aparece en
+CASI TODO vibe-coding cuando hay que destacar una nota/advertencia/vacío —
+tan genérico como el gradiente morado-cian. **Evitar a toda costa, sin
+excepción, a menos que Federico lo pida explícitamente.** Si hace falta
+destacar una nota/aside/diff, usar una convención distinta y con propósito
+real (ej. hairlines arriba/abajo estilo changelog, texto inline en
+monospace, o directamente el patrón ya existente en el header/metabar de
+la página) — nunca reinventar el mismo bloque con borde de color.
+
 ## 4. CUÁNDO PARAR Y PREGUNTAR
 
 Si al terminar algo la sensación es "esto se ve profesional pero no sé si es

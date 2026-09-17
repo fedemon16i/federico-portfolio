@@ -92,9 +92,11 @@ h2{font-family:var(--font-display);font-weight:800;font-size:1.4rem;letter-spaci
 .pi-sum-k{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
 .pi-sum-v{font-size:12.5px;color:var(--text-secondary);line-height:1.4}
 
-.gap-list{display:flex;flex-direction:column;gap:10px}
-.gap-item{border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:12px 14px;background:var(--bg-surface)}
-.gap-item b{color:var(--text-primary)}
+.gap-list{display:flex;flex-direction:column}
+.gap-item{padding:16px 0;border-top:1px solid var(--border)}
+.gap-item:last-child{border-bottom:1px solid var(--border)}
+.gap-item .gi-n{font-family:var(--font-mono);font-size:11px;color:var(--accent);display:block;margin-bottom:6px}
+.gap-item b{color:var(--text-primary);display:block;margin-bottom:2px}
 .gap-item p{margin:4px 0 0;color:var(--text-secondary);font-size:.86rem;line-height:1.5}
 
 .src{font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);margin-top:4px}
@@ -236,9 +238,9 @@ h2{font-family:var(--font-display);font-weight:800;font-size:1.4rem;letter-spaci
   <h2>3 vacíos reales, no inventados</h2>
   <p class="sec-note">Encontrados leyendo el CSS de verdad, no supuestos. Antes de construir el próximo prototipo sobre este sistema, estos 3 son los que más importan.</p>
   <div class="gap-list">
-    <div class="gap-item"><b>No hay escala de spacing.</b><p>Todo el padding/margin del archivo real está en valores sueltos (14px, 16px, 22px, 36px...) sin ningún <code>--space-*</code> token. Cada componente nuevo elige su propio número — funciona porque el ojo lo corrige a mano, pero no escala si otra persona (o un agente) construye el próximo componente sin ver los anteriores al lado.</p></div>
-    <div class="gap-item"><b>No hay escala de sombras.</b><p>Encontré 7+ valores de <code>box-shadow</code> distintos, todos literales, ninguno reusado dos veces con el mismo valor exacto. No es un problema visible hoy, pero es la razón por la que "elevación" (qué tan arriba en la jerarquía se ve algo) no es una decisión consistente en el archivo — es intuición de cada momento en que se escribió.</p></div>
-    <div class="gap-item"><b>No existe un átomo <code>.btn</code>.</b><p>No hay una sola clase de botón reusable en todo el archivo — cada "botón" (<code>.ht-ba</code>, <code>.proj-link</code>, tool-chip clickeable) es su propio componente con su propio padding/radio/hover. Antes de armar cualquier prototipo nuevo que necesite un botón real, definir este átomo primero — es el que más se va a repetir.</p></div>
+    <div class="gap-item"><span class="gi-n">01</span><b>No hay escala de spacing.</b><p>Todo el padding/margin del archivo real está en valores sueltos (14px, 16px, 22px, 36px...) sin ningún <code>--space-*</code> token. Cada componente nuevo elige su propio número — funciona porque el ojo lo corrige a mano, pero no escala si otra persona (o un agente) construye el próximo componente sin ver los anteriores al lado.</p></div>
+    <div class="gap-item"><span class="gi-n">02</span><b>No hay escala de sombras.</b><p>Encontré 7+ valores de <code>box-shadow</code> distintos, todos literales, ninguno reusado dos veces con el mismo valor exacto. No es un problema visible hoy, pero es la razón por la que "elevación" (qué tan arriba en la jerarquía se ve algo) no es una decisión consistente en el archivo — es intuición de cada momento en que se escribió.</p></div>
+    <div class="gap-item"><span class="gi-n">03</span><b>No existe un átomo <code>.btn</code>.</b><p>No hay una sola clase de botón reusable en todo el archivo — cada "botón" (<code>.ht-ba</code>, <code>.proj-link</code>, tool-chip clickeable) es su propio componente con su propio padding/radio/hover. Antes de armar cualquier prototipo nuevo que necesite un botón real, definir este átomo primero — es el que más se va a repetir.</p></div>
   </div>
 </section>
 
