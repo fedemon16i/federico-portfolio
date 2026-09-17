@@ -7,57 +7,9 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared.css">
 <style>
-/* ===== mismos tokens Carbon g100 que ey-fabric-publisher.html, para consistencia entre piezas de next/ ===== */
-:root{
-  --ey-hero:#07070a;--ey-nav:#0b0c10;--ey-bg:#12141c;--ey-side:#101218;--ey-surface:#161821;--ey-card:#1c1e28;
-  --ey-text:#f4f4f4;--ey-muted:#a8adba;--ey-line:#2a2d38;
-  --ey-nav-text:#f4f4f4;--ey-nav-muted:#a8adba;--ey-nav-line:#2a2d38;--ey-nav-surface:#1c1e28;
-  --ey-yellow:#FFE600;--ey-yellow-ink:#111;--ey-orange:#e08a2a;
-  --ey-ok-bg:#0e2a1c;--ey-ok-ink:#3ddc84;--ey-ok-line:#1c4a30;
-  --ey-warn-bg:#2e2408;--ey-warn-ink:#f0c674;--ey-warn-line:#4a3c10;
-  --font:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace;
-  --radius:6px;--spring:cubic-bezier(.34,1.4,.64,1);
-}
-html[data-theme="light"]{
-  --ey-bg:#e8edf2;--ey-side:#eef1f5;--ey-surface:#fff;--ey-card:#fff;
-  --ey-text:#1f2430;--ey-muted:#5a6072;--ey-line:#d7dce3;
-  --ey-ok-bg:#e6f7ee;--ey-ok-ink:#1c8f61;--ey-ok-line:#bfe8d3;
-  --ey-warn-bg:#fdf3dc;--ey-warn-ink:#8a6a0a;--ey-warn-line:#f0dba6;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--ey-bg);color:var(--ey-text);font-family:var(--font);font-size:14px;line-height:1.5}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer}
-@media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important} }
-
-.metabar{background:var(--ey-nav);color:var(--ey-nav-muted);font-family:var(--font-mono);font-size:11px;padding:8px 20px;display:flex;justify-content:space-between;border-bottom:1px solid var(--ey-nav-line)}
-.metabar b{color:var(--ey-nav-text)}
-.theme-btn{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);color:var(--ey-nav-text);border-radius:100px;padding:3px 12px;font-family:var(--font-mono);font-size:10px}
-.replay-btn{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);color:var(--ey-nav-text);border-radius:100px;padding:3px 12px;font-family:var(--font-mono);font-size:10px;margin-right:8px}
-
-.nav{background:var(--ey-nav);border-bottom:1px solid var(--ey-nav-line);padding:0 24px;height:52px;display:flex;align-items:center;gap:28px}
-.nav .logo{font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--ey-nav-text)}
-.nav .logo .mark{width:22px;height:22px;background:var(--ey-yellow);color:var(--ey-yellow-ink);border-radius:4px;display:grid;place-items:center;font-weight:800;font-size:11px}
-.nav .links{display:flex;gap:22px;font-size:13px;color:var(--ey-nav-muted);flex:1}
-.nav .links a.on{color:var(--ey-nav-text);font-weight:600}
-.nav .right{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--ey-nav-muted)}
-.nav .search{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--ey-nav-muted);min-width:220px}
-.nav .avatar{width:26px;height:26px;border-radius:50%;background:var(--ey-yellow);color:var(--ey-yellow-ink);display:grid;place-items:center;font-weight:700;font-size:11px}
-
-.shell{display:grid;grid-template-columns:180px 1fr;min-height:calc(100vh - 92px)}
-.rail{background:var(--ey-side);border-right:1px solid var(--ey-line);padding:20px 12px}
-.rail .rh{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ey-muted);padding:0 10px;margin-bottom:8px}
-.rail a{display:flex;justify-content:space-between;padding:8px 10px;border-radius:var(--radius);font-size:13px;color:var(--ey-muted);margin-bottom:2px}
-.rail a.on{background:var(--ey-card);color:var(--ey-text);font-weight:600}
-.rail a b{font-weight:400;color:var(--ey-muted);font-size:11px}
-
-.main{padding:28px 32px 80px;position:relative;min-height:600px}
-.crumb{font-size:11px;color:var(--ey-muted);margin-bottom:6px;font-family:var(--font-mono)}
-h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
-.lede{color:var(--ey-muted);font-size:13px;max-width:60ch;margin:0 0 22px}
-.diff-note{font-family:var(--font-mono);font-size:11.5px;line-height:1.7;color:var(--ey-muted);margin:0 0 26px;padding:11px 0;border-top:1px solid var(--ey-line);border-bottom:1px solid var(--ey-line)}
-.diff-note .diff-tag{color:var(--ey-yellow);font-weight:600;margin-right:8px}
+/* ===== solo lo que esta página necesita y shared.css todavía no cubre ===== */
 
 /* view switcher — cada "scene" es una vista completa, se cross-fade */
 .scene{position:absolute;inset:28px 32px 0;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .35s ease-out,transform .35s var(--spring)}
@@ -65,12 +17,12 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
 
 /* filter chips row */
 .chips{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.chip{font-size:11.5px;color:var(--ey-muted);border:1px solid var(--ey-line);border-radius:100px;padding:5px 12px}
-.chip.on{background:var(--ey-yellow);color:var(--ey-yellow-ink);border-color:var(--ey-yellow);font-weight:600}
 
-/* service card grid — matches the real 2-col, 2-button-per-card density */
+/* service card grid — matches the real 2-col, 2-button-per-card density.
+   .svc usa el átomo .card (bg/border/radius/padding) y solo agrega el
+   contenido propio + la animación de entrada en stagger. */
 .svcgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.svc{background:var(--ey-card);border:1px solid var(--ey-line);border-radius:10px;padding:16px;opacity:0;transform:scale(.94) translateY(8px);transition:opacity .3s ease-out,transform .3s var(--spring),border-color .2s}
+.svc{opacity:0;transform:scale(.94) translateY(8px);transition:opacity .3s ease-out,transform .3s var(--spring),border-color .2s}
 .svc.in{opacity:1;transform:scale(1) translateY(0)}
 .svc .ico{width:26px;height:26px;color:var(--ey-orange);margin-bottom:10px}
 .svc .t{font-weight:700;font-size:14px}
@@ -79,37 +31,13 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
 .svc .tags{display:flex;gap:6px;margin-bottom:12px}
 .svc .tags i{font-style:normal;font-size:10.5px;color:var(--ey-muted);border:1px solid var(--ey-line);border-radius:100px;padding:2px 9px}
 .svc .acts{display:flex;gap:8px}
-.btn{background:var(--ey-yellow);color:var(--ey-yellow-ink);border:0;border-radius:6px;padding:8px 16px;font-size:12.5px;font-weight:700;position:relative}
-.btn.ghost{background:transparent;color:var(--ey-text);border:1px solid var(--ey-line)}
-.btn.glow{box-shadow:0 0 0 3px var(--ey-yellow) inset,0 0 18px -2px var(--ey-yellow)}
 
-/* details overlay sheet */
-.overlay{position:absolute;inset:0;background:rgba(8,10,16,.72);display:flex;align-items:center;justify-content:center;z-index:5;opacity:0;pointer-events:none;transition:opacity .3s}
-.overlay.on{opacity:1;pointer-events:auto}
-.sheet{width:min(420px,86%);background:var(--ey-card);border:1px solid var(--ey-line);border-radius:12px;padding:22px;transform:scale(.92);transition:transform .3s var(--spring)}
-.overlay.on .sheet{transform:scale(1)}
-.sheet h4{margin:0 0 8px;font-size:17px}
-.sheet p{margin:0 0 16px;color:var(--ey-muted);font-size:13px;line-height:1.5}
-.dots{display:flex;gap:6px;margin:0 0 16px}
-.dots i{width:7px;height:7px;border-radius:50%;background:var(--ey-line);display:block;transition:background .25s,transform .25s}
-.dots i.on{background:var(--ey-yellow);transform:scale(1.3)}
-
-/* configure form, with onboarding overlay layered on top */
+/* configure form, con overlay de onboarding encima */
 .formwrap{position:relative;background:var(--ey-card);border:1px solid var(--ey-line);border-radius:10px;padding:22px;max-width:560px}
 .f-field{margin-bottom:14px}
 .f-field label{display:block;font-size:11.5px;color:var(--ey-muted);margin-bottom:5px}
 .f-field .fake-input{background:var(--ey-surface);border:1px solid var(--ey-line);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--ey-muted);transition:border-color .2s,box-shadow .2s}
 .f-field.hit .fake-input{border-color:var(--ey-yellow);box-shadow:0 0 0 3px rgba(255,230,0,.15)}
-.stepper{display:flex;gap:6px;font-size:11px;color:var(--ey-muted);margin-bottom:18px}
-.stepper span{padding:4px 10px;border-radius:100px;border:1px solid var(--ey-line)}
-.stepper span.on{color:var(--ey-text);border-color:var(--ey-yellow);font-weight:600}
-
-.checkwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px}
-.checkcirc{width:64px;height:64px;border-radius:50%;background:var(--ey-ok-bg);border:2px solid var(--ey-ok-line);display:grid;place-items:center;transform:scale(0);transition:transform .4s var(--spring)}
-.checkwrap.on .checkcirc{transform:scale(1)}
-.checkcirc svg{width:30px;height:30px;color:var(--ey-ok-ink)}
-.checkwrap .ct{font-weight:700;font-size:16px;opacity:0;transition:opacity .3s .2s}
-.checkwrap.on .ct{opacity:1}
 </style>
 </head>
 <body>
@@ -150,7 +78,7 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
 
     <!-- SCENE 3 — configure form -->
     <div class="scene" id="s3">
-      <div class="stepper"><span class="on">1 · Customization</span><span>2 · Billing</span><span>3 · Confirmation</span></div>
+      <div class="stepper" id="stepper3"></div>
       <div class="formwrap" id="formwrap">
         <div class="f-field"><label>Friendly instance name (required)</label><div class="fake-input">shared-workbench-01</div></div>
         <div class="f-field" id="fWorkspace"><label>Workspace</label><div class="fake-input">— not selected —</div></div>
@@ -158,12 +86,12 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
         <div class="f-field" id="fBilling"><label>Billing account (required)</label><div class="fake-input">— required before submit —</div></div>
         <button class="btn" id="continueBtn">Continue to billing</button>
       </div>
-      <div class="overlay" id="ob"><div class="sheet" id="obsheet"></div></div>
+      <div class="modal" id="ob"><div class="modal-card" id="obsheet"></div></div>
     </div>
 
     <!-- SCENE 4 — billing -->
     <div class="scene" id="s4">
-      <div class="stepper"><span>1 · Customization ✓</span><span class="on">2 · Billing</span><span>3 · Confirmation</span></div>
+      <div class="stepper" id="stepper4"></div>
       <div class="formwrap">
         <div class="f-field"><label>Cost center</label><div class="fake-input">CC-4471 · Fabric Platform</div></div>
         <div class="f-field"><label>Estimated monthly cost</label><div class="fake-input">$0 — usage-based after first workload</div></div>
@@ -173,7 +101,7 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
 
     <!-- SCENE 5 — confirm + ready -->
     <div class="scene" id="s5">
-      <div class="stepper"><span>1 · Customization ✓</span><span>2 · Billing ✓</span><span class="on">3 · Confirmation</span></div>
+      <div class="stepper" id="stepper5"></div>
       <div class="checkwrap" id="checkwrap">
         <div class="checkcirc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
         <div class="ct">Ready — shared-workbench-01 will provision in ~3 min</div>
@@ -182,6 +110,7 @@ h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
   </div>
 </div>
 
+<script src="../shared.js"></script>
 <script>
 var LIST = [
   { name:'Shared workbench', desc:'A workspace a team requests and runs together.', tags:['workspace','shared'], mark:'#5b6abf', ic:'grid' },
@@ -198,7 +127,7 @@ var ICONS = {
 function buildGrid(){
   var g = document.getElementById('grid');
   g.innerHTML = LIST.map(function(s,i){
-    return '<div class="svc" data-i="'+i+'"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+ICONS[s.ic]+'</svg>'+
+    return '<div class="card svc" data-i="'+i+'"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+ICONS[s.ic]+'</svg>'+
       '<div class="t">'+s.name+'</div><div class="meta">Services · Offerings</div>'+
       '<div class="desc">'+s.desc+'</div>'+
       '<div class="tags">'+s.tags.map(function(t){return '<i>'+t+'</i>';}).join('')+'</div>'+
@@ -206,6 +135,13 @@ function buildGrid(){
   }).join('');
 }
 buildGrid();
+
+/* cada escena es un paso fijo del wizard — stepper3 siempre muestra el
+   paso 1 activo, stepper4 el 2, stepper5 el 3 (con los anteriores en done) */
+var STEPS = ['Customization', 'Billing', 'Confirmation'];
+Stepper.render(document.getElementById('stepper3'), STEPS, 0);
+Stepper.render(document.getElementById('stepper4'), STEPS, 1);
+Stepper.render(document.getElementById('stepper5'), STEPS, 2);
 
 var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var ONBOARD = [

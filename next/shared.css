@@ -1,0 +1,134 @@
+/* ===== next/shared.css — un componente, una vez.
+   Carbon g100 (EY-DS.md) + los átomos reales que ey-fabric-publisher.html
+   y ey-fabric-configure.html terminaron necesitando los dos. Antes de
+   inventar un componente nuevo acá adentro: greppear si ya existe algo
+   parecido en este archivo — esa fue la regla que lo generó. */
+
+:root{
+  --ey-hero:#07070a;--ey-nav:#0b0c10;--ey-bg:#12141c;--ey-side:#101218;--ey-surface:#161821;--ey-card:#1c1e28;
+  --ey-text:#f4f4f4;--ey-muted:#a8adba;--ey-line:#2a2d38;
+  /* nav/metabar es chrome fijo oscuro en los dos temas — su tinta nunca cambia con el tema de la página */
+  --ey-nav-text:#f4f4f4;--ey-nav-muted:#a8adba;--ey-nav-line:#2a2d38;--ey-nav-surface:#1c1e28;
+  --ey-yellow:#FFE600;--ey-yellow-ink:#111;--ey-orange:#e08a2a;
+  --ey-ok-bg:#0e2a1c;--ey-ok-ink:#3ddc84;--ey-ok-line:#1c4a30;
+  --ey-warn-bg:#2e2408;--ey-warn-ink:#f0c674;--ey-warn-line:#4a3c10;
+  --ey-bad-bg:#3a1518;--ey-bad-ink:#f2b4b0;--ey-bad-line:#5a2226;
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-6:24px;
+  --font:'IBM Plex Sans',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --radius:6px;--radius-card:10px;
+  /* mismo valor real que assets/shared.css (corregido 2026-09-16) — no reinventar la curva */
+  --spring:cubic-bezier(.34,1.32,.64,1);
+}
+html[data-theme="light"]{
+  --ey-hero:#07070a;--ey-nav:#0b0c10; /* las placas oscuras se quedan oscuras en los dos modos, por la ley de contraste */
+  --ey-bg:#e8edf2;--ey-side:#eef1f5;--ey-surface:#fff;--ey-card:#fff;
+  --ey-text:#1f2430;--ey-muted:#5a6072;--ey-line:#d7dce3;
+  --ey-ok-bg:#e6f7ee;--ey-ok-ink:#1c8f61;--ey-ok-line:#bfe8d3;
+  --ey-warn-bg:#fdf3dc;--ey-warn-ink:#8a6a0a;--ey-warn-line:#f0dba6;
+  --ey-bad-bg:#fde8e8;--ey-bad-ink:#8b1e1e;--ey-bad-line:#f3c6c4;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ey-bg);color:var(--ey-text);font-family:var(--font);font-size:14px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important} }
+
+/* ===== chrome — metabar, nav, rail, shell (idéntico en toda página next/) ===== */
+.metabar{background:var(--ey-nav);color:var(--ey-nav-muted);font-family:var(--font-mono);font-size:11px;padding:8px 20px;display:flex;justify-content:space-between;border-bottom:1px solid var(--ey-nav-line)}
+.metabar b{color:var(--ey-nav-text)}
+.metabar .right-tools{display:flex;gap:8px}
+.theme-btn,.replay-btn{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);color:var(--ey-nav-text);border-radius:100px;padding:3px 12px;font-family:var(--font-mono);font-size:10px}
+
+.nav{background:var(--ey-nav);border-bottom:1px solid var(--ey-nav-line);padding:0 24px;height:52px;display:flex;align-items:center;gap:28px}
+.nav .logo{font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--ey-nav-text)}
+.nav .logo .mark{width:22px;height:22px;background:var(--ey-yellow);color:var(--ey-yellow-ink);border-radius:4px;display:grid;place-items:center;font-weight:800;font-size:11px}
+.nav .links{display:flex;gap:22px;font-size:13px;color:var(--ey-nav-muted);flex:1}
+.nav .links a.on{color:var(--ey-nav-text);font-weight:600}
+.nav .right{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--ey-nav-muted)}
+.nav .search{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--ey-nav-muted);min-width:220px}
+.nav .ai-pill{background:var(--ey-nav-surface);border:1px solid var(--ey-nav-line);color:var(--ey-nav-text);border-radius:100px;padding:4px 10px;font-size:11px;display:flex;align-items:center;gap:4px}
+.nav .avatar{width:26px;height:26px;border-radius:50%;background:var(--ey-yellow);color:var(--ey-yellow-ink);display:grid;place-items:center;font-weight:700;font-size:11px}
+
+.shell{display:grid;grid-template-columns:180px 1fr;min-height:calc(100vh - 92px)}
+.rail{background:var(--ey-side);border-right:1px solid var(--ey-line);padding:20px 12px}
+.rail .rh{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ey-muted);padding:0 10px;margin-bottom:8px}
+.rail a{display:flex;justify-content:space-between;padding:8px 10px;border-radius:var(--radius);font-size:13px;color:var(--ey-muted);margin-bottom:2px}
+.rail a.on{background:var(--ey-card);color:var(--ey-text);font-weight:600}
+.rail a b{font-weight:400;color:var(--ey-muted);font-size:11px}
+
+.main{padding:28px 32px 80px;position:relative;min-height:600px}
+.crumb{font-size:11px;color:var(--ey-muted);margin-bottom:6px;font-family:var(--font-mono)}
+h1{font-family:var(--font);font-weight:700;font-size:22px;margin:0 0 4px}
+.lede{color:var(--ey-muted);font-size:13px;max-width:60ch;margin:0 0 22px}
+
+.stagelbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ey-orange);border-top:1px solid var(--ey-line);margin-top:44px;padding-top:6px;display:flex;align-items:center;gap:8px}
+.stagelbl .n{width:18px;height:18px;border-radius:50%;background:var(--ey-orange);color:#1a1200;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+h2{font-family:var(--font);font-weight:700;font-size:17px;margin:6px 0 4px}
+.why{color:var(--ey-muted);font-size:12.5px;margin:0 0 18px;max-width:60ch}
+
+/* nota de diff — línea de changelog, nunca card con borde de acento (ver ANTI-SLOP.md) */
+.diff-note{font-family:var(--font-mono);font-size:11.5px;line-height:1.7;color:var(--ey-muted);margin:16px 0;padding:11px 0;border-top:1px solid var(--ey-line);border-bottom:1px solid var(--ey-line)}
+.diff-note .diff-tag{color:var(--ey-yellow);font-weight:600;margin-right:8px}
+
+/* ===== .card — EL átomo de tile. Todo lo que antes era .type/.opt/.svc/
+   .readcard/.builder/.published con su propio bg/border/radius/padding
+   repetido ahora comparte esta base; cada uno solo agrega layout de
+   contenido propio, nunca bg/border/radius/padding de nuevo. ===== */
+.card{background:var(--ey-card);border:1px solid var(--ey-line);border-radius:var(--radius-card);padding:16px}
+.card.sel{border-color:var(--ey-yellow);box-shadow:0 0 0 1px var(--ey-yellow) inset}
+.card.accent-line{border-color:var(--ey-yellow)}
+
+/* ===== .btn — un solo botón, con modificadores ===== */
+.btn{background:var(--ey-yellow);color:var(--ey-yellow-ink);border:0;border-radius:6px;padding:9px 18px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;position:relative;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ey-text);border:1px solid var(--ey-line)}
+.btn.sm{padding:6px 12px;font-size:12px}
+.btn.glow{box-shadow:0 0 0 3px var(--ey-yellow) inset,0 0 18px -2px var(--ey-yellow)}
+
+/* ===== pills — .tag (estado, solo lectura) y .chip (filtro, togglea) son
+   dos cosas conceptualmente distintas, así que no se fuerzan a ser el
+   mismo componente — pero comparten la misma receta base de pill. ===== */
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;border:1px solid}
+.tag.warn{background:var(--ey-warn-bg);color:var(--ey-warn-ink);border-color:var(--ey-warn-line)}
+.tag.ok{background:var(--ey-ok-bg);color:var(--ey-ok-ink);border-color:var(--ey-ok-line)}
+.tag.bad{background:var(--ey-bad-bg);color:var(--ey-bad-ink);border-color:var(--ey-bad-line)}
+
+.chip{font-size:11.5px;color:var(--ey-muted);border:1px solid var(--ey-line);border-radius:100px;padding:5px 12px}
+.chip.on{background:var(--ey-yellow);color:var(--ey-yellow-ink);border-color:var(--ey-yellow);font-weight:600}
+
+/* ===== .stepper — EL único stepper. Antes cada escena de
+   ey-fabric-configure.html tenía su propio <div class="stepper"> tipeado
+   a mano con los checks puestos manualmente 3 veces; ahora se renderiza
+   con Stepper.render() en shared.js, siempre desde el mismo HTML. ===== */
+.stepper{display:flex;gap:6px;font-size:11px;color:var(--ey-muted);margin-bottom:18px}
+.stepper span{padding:4px 10px;border-radius:100px;border:1px solid var(--ey-line)}
+.stepper span.on{color:var(--ey-text);border-color:var(--ey-yellow);font-weight:600}
+.stepper span.done{color:var(--ey-ok-ink);border-color:var(--ey-ok-line)}
+
+/* dot-progress chico (onboarding, o cualquier secuencia corta) */
+.dots{display:flex;gap:6px;margin:0 0 16px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--ey-line);display:block;transition:background .25s,transform .25s;font-style:normal}
+.dots i.on{background:var(--ey-yellow);transform:scale(1.3)}
+
+/* ===== .modal — overlay centrado con sheet que escala con --spring.
+   Antes en ey-fabric-configure.html se llamaba .overlay/.sheet, lo que
+   colisionaba de nombre con el .sheet inline de ey-fabric-publisher.html
+   (dos componentes distintos, mismo nombre) — renombrado acá. ===== */
+.modal{position:absolute;inset:0;background:rgba(8,10,16,.72);display:flex;align-items:center;justify-content:center;z-index:5;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal.on{opacity:1;pointer-events:auto}
+.modal-card{width:min(420px,86%);background:var(--ey-card);border:1px solid var(--ey-line);border-radius:12px;padding:22px;transform:scale(.92);transition:transform .3s var(--spring)}
+.modal.on .modal-card{transform:scale(1)}
+.modal-card h4{margin:0 0 8px;font-size:17px}
+.modal-card p{margin:0 0 16px;color:var(--ey-muted);font-size:13px;line-height:1.5}
+
+/* ===== .field-help — ayuda inline bajo un campo (antes .sheet en
+   publisher — renombrado para no compartir nombre con .modal-card). ===== */
+.field-help{background:var(--ey-surface);border:1px solid var(--ey-yellow);border-radius:8px;padding:14px 16px;margin-top:-2px;margin-bottom:8px;font-size:12.5px;color:var(--ey-muted)}
+.field-help h4{margin:0 0 6px;font-size:13px;color:var(--ey-text)}
+
+/* checkmark de éxito, spring scale-in */
+.checkwrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 0;gap:14px}
+.checkcirc{width:64px;height:64px;border-radius:50%;background:var(--ey-ok-bg);border:2px solid var(--ey-ok-line);display:grid;place-items:center;transform:scale(0);transition:transform .4s var(--spring)}
+.checkwrap.on .checkcirc{transform:scale(1)}
+.checkcirc svg{width:30px;height:30px;color:var(--ey-ok-ink)}
+.checkwrap .ct{font-weight:700;font-size:16px;opacity:0;transition:opacity .3s .2s}
+.checkwrap.on .ct{opacity:1}
